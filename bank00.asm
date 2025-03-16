@@ -277,7 +277,7 @@ _0083C2:
     stz $0037
 .83DE:
     !A8
-    lda !stage
+    lda.w stage
     cmp #$04
     beq .83EB
 
@@ -1773,13 +1773,13 @@ _00AFFD:
 
 ..b:
     db $03 : dw $0000
-    dl $1A880D : dw $0A00
+    dl gfx_geyser_platform : dw $0A00
     dl $1BD8E5 : dw $03E0
     dl $1DEAA4 : dw $0E00
 
 ..c:
     db $02 : dw $0000
-    dl $1A8F95 : dw $4180
+    dl gfx_hydra : dw $4180
     dl $1C87B5 : dw $0720
 
 .stage5:

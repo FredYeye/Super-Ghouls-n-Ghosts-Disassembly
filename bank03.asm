@@ -1112,11 +1112,11 @@ _039C09:
     lda #$14 : jsl _018049_8053
     lda $02D5 : and #$FB : sta $02D5
     !AX16
-    lda !stage : pha
-    lda #$0011 : sta !stage
+    lda.w stage : pha
+    lda #$0011 : sta.w stage
     jsl _019136_9150
     !A16
-    pla : sta !stage
+    pla : sta.w stage
     !A8
     brk #$00
 
@@ -1227,7 +1227,7 @@ _039C09:
 ;----- 9D6E
 
     ldx #$00
-    lda !loop
+    lda.w loop
     beq .9D77
 
     ldx #$01
@@ -1270,15 +1270,15 @@ _039C09:
 
 .9DB3:
     ldx #$00
-    lda !loop
+    lda.w loop
     beq .9DBC
 
     ldx #$07
 .9DBC:
     lda #$07 : sta $0278
     stx $1F9D
-    stz !checkpoint
-    inc !loop
+    stz.w checkpoint
+    inc.w loop
     lda !armor_state
     bne .9DD2
 
@@ -2344,7 +2344,7 @@ _03A5D7:
 
 .create:
     lda $07 : sta $33
-    ldx !stage
+    ldx.w stage
     cpx #$07
     bne .A5EE
 
@@ -2361,12 +2361,12 @@ _03A5D7:
 .A5FA:
     sta $29
     !A8
-    lda !obj_type_count+!id_arremer
+    lda.w obj_type_count+!id_arremer
     dec
     bne _03A5D7 ;remove new arremer if one already exists
 
 .A604:
-    ldx !stage
+    ldx.w stage
     lda.w arremer_data_CF0E,X : sta $32
     jsl set_hp
     stz $39
@@ -3158,7 +3158,7 @@ _03AB47:
 
 ;----- AC02
 
-    lda !stage
+    lda.w stage
     cmp #$02
     bne .AC0D
 
@@ -4840,9 +4840,9 @@ _03B74A:
 .B886:
     lda $25 : clc : adc #$0A : sta $3C
     jsl _02F9D2
-    lda $2E : sta !bowgun_magic_active
+    lda $2E : sta.w bowgun_magic_active
     jsl _02FE1E
-    stz !bowgun_magic_active
+    stz.w bowgun_magic_active
     rtl
 
 ;-----
@@ -4866,8 +4866,8 @@ _03B74A:
 _03B8B2: ;a8 x8
     ldy !options_stage_checkpoint : sty $31
     ldx.w _00D1C1,Y
-    lda.w _00D1C1+$10,X : sta !stage
-    lda.w _00D1C1+$11,X : sta !checkpoint
+    lda.w _00D1C1+$10,X : sta.w stage
+    lda.w _00D1C1+$11,X : sta.w checkpoint
     lda #$04
 .B8C8:
     sta $2D
@@ -4884,7 +4884,7 @@ _03B8B2: ;a8 x8
 
 ;----- B8E6
 
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!start
     bne .B900
 
@@ -4920,11 +4920,11 @@ _03B8B2: ;a8 x8
 
 ;----- B923
 
-    lda !p1_button_press
-    ora !p1_button_press+1
+    lda.w p1_button_press
+    ora.w p1_button_press+1
     beq .B921
 
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!select|!up|!down
     beq .B950
 
@@ -4966,7 +4966,7 @@ _03B8B2: ;a8 x8
 ;-----
 
 .B96C: ;game level
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!left|!right
     beq .B994
 
@@ -4998,7 +4998,7 @@ _03B8B2: ;a8 x8
 ;-----
 
 .B995: ;control pad, player
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!left|!right
     beq .B9B2
 
@@ -5031,7 +5031,7 @@ _03B8B2: ;a8 x8
 ;-----
 
 .B9C1: ;toggle sound mode to stereo or mono
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!left|!right
     beq .B9E2
 
@@ -5058,17 +5058,17 @@ _03B8B2: ;a8 x8
 ;-----
 
 .B9E3: ;exit
-    lda !p1_button_press
+    lda.w p1_button_press
     and #!x|!a
-    ora !p1_button_press+1
+    ora.w p1_button_press+1
     bit #!y|!b|!start
     beq .BA03
 
-    lda !p2_button_hold
+    lda.w p2_button_hold
     bit #!l
     beq .BA00
 
-    lda !p2_button_hold+1
+    lda.w p2_button_hold+1
     bit #!start
     beq .BA00
 
@@ -5141,11 +5141,11 @@ _03B8B2: ;a8 x8
 
 ;----- BA71
 
-    lda !p1_button_press
-    ora !p1_button_press+1
+    lda.w p1_button_press
+    ora.w p1_button_press+1
     beq .BA6F
 
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!select|!up|!down
     beq .BAA2
 
@@ -5230,7 +5230,7 @@ _03B8B2: ;a8 x8
 
 .BAFB:
     ldx $0F
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!left|!right
     beq .BB17
 
@@ -5255,11 +5255,11 @@ _03B8B2: ;a8 x8
 ;-----
 
 .BB18:
-    lda !p1_button_press
+    lda.w p1_button_press
     bit #!r
     bne .BB26
 
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!start
     beq .BB34
 
@@ -5282,9 +5282,9 @@ _03B8B2: ;a8 x8
 ;-----
 
 .BB3A: ;exit
-    lda !p1_button_press
+    lda.w p1_button_press
     and #!a|!x
-    ora !p1_button_press+1
+    ora.w p1_button_press+1
     bit #!a|!x|!b|!y|!start
     beq .BB49
 
@@ -5431,11 +5431,11 @@ _03BC15:
     adc #$0208
     sta !obj_pos_y+1
     !A8
-    lda !obj_type_count+!id_tiny_goblin
+    lda.w obj_type_count+!id_tiny_goblin
     cmp #$02
     bcs .BC19
 
-    inc !obj_type_count+!id_tiny_goblin
+    inc.w obj_type_count+!id_tiny_goblin
     lda #!id_tiny_goblin : jsl prepare_object
     jsl get_rng_16
     lda.w tiny_goblin_data_D1F1,X
@@ -5655,7 +5655,7 @@ _03BE26:
     and #$1F
     lsr
     sta !obj_direction
-    ldx !stage
+    ldx.w stage
     cpx #$07
     bcc .BE4B
 
@@ -5700,7 +5700,7 @@ _03BE26:
     lda !obj_direction : sta $2D
     ldx $07
     lda.w arremer_projectile_data_D222,X : sta $2E
-    ldx !stage
+    ldx.w stage
     cpx #$07
     bcc .BEA7
 
@@ -5812,7 +5812,7 @@ _03BE26:
 ;-----
 
 .BF5C:
-    ldx !stage
+    ldx.w stage
     lda.w arremer_projectile_data_D219-2,X : sta $2F
     rts
 }
@@ -5866,7 +5866,7 @@ _03BF65: ;a8 x8
 .BFB8:
     !A16
     lda #$0120 ;blue killer
-    ldx !stage
+    ldx.w stage
     cpx #$02
     bne +
 
@@ -6017,7 +6017,7 @@ _03BF65: ;a8 x8
 ;-----
 
 .C0E6: ;thing
-    lda !stage
+    lda.w stage
     cmp #$08
     bne .C0FA
 
@@ -6717,7 +6717,7 @@ _03C6A0:
     jmp (+,X) : +: dw .C6B3, .C840, .C6B3, .C840, .C9AA
 
 .C6B3:
-    lda !stage
+    lda.w stage
     cmp #$07
     beq .C6C2
 
@@ -6764,7 +6764,7 @@ _03C6A0:
 
 .C725:
     !AX16
-    lda !stage
+    lda.w stage
     cmp #$0008
     beq .C73D
 
@@ -6898,7 +6898,7 @@ _03C6A0:
     lda #$FF : sta $26
     jsl update_animation_normal
     sec
-    lda !stage
+    lda.w stage
     sbc #$07
     tay
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
@@ -7098,7 +7098,7 @@ _03C6A0:
     lda $09 : ora #$C0 : sta $09
     !A16
     lda.w _00ED00+$68 : sta $27
-    lda !stage
+    lda.w stage
     cmp #$0008
     beq .C9D8
 
@@ -7122,7 +7122,7 @@ _03C6A0:
     stz $33
     jsl update_animation_normal
     sec
-    lda !stage
+    lda.w stage
     sbc #$07
     tay
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
@@ -7262,7 +7262,7 @@ _03C6A0:
     lda $09 : ora #$40 : sta $09
     jsl update_animation_normal
     sec
-    lda !stage
+    lda.w stage
     sbc #$07
     tay
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
@@ -7993,7 +7993,7 @@ _03D0D7:
 
 .create:
     stz $1EBF
-    lda !stage
+    lda.w stage
     cmp #$07
     bne .D0EB
 
@@ -8008,7 +8008,7 @@ _03D0D7:
     ldy #$34 : jsl _0192AD
     bcs .D0EB
 
-    lda !stage
+    lda.w stage
     cmp #$08
     bne .D104
 
@@ -8036,7 +8036,7 @@ _03D0D7:
     lda #$1A : clc : adc $07 : sta $3B
     jsl set_hp
     lda #$FF : sta $26
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     !A16
     lda.w astaroth_nebiroth_data_D441-$0E,X : sta $2E
     lda.w _00ED00+$62 : sta $27
@@ -9224,7 +9224,7 @@ _03DAA0:
 .create:
     lda #$02 : sta $08
     lda #$48 : jsl _018049_8053
-    lda !stage
+    lda.w stage
     sec
     sbc #$06
     asl #2
@@ -9254,7 +9254,7 @@ _03DAA0:
     stz $3B
     stz $3C
     lda.w gate2_data_D563+7,X : sta $09
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     ldy.w gate2_data_D55D-$0C,X : lda.w gate2_data_D55D-$0B,X : tax : jsl set_sprite
 .DB1B:
     brk #$00
@@ -9540,7 +9540,7 @@ _03DB5F:
 
 { ;DD3C -
 _03DD3C:
-    ldx !stage
+    ldx.w stage
     lda.w grilian_data_D5C7-2,X : sta $3B
     lda $07
     beq .DD5A
@@ -12199,13 +12199,13 @@ _03F526:
 ;-----
 
 .F606:
-    lda !stage
+    lda.w stage
     pha
     jsl _048DF9
-    lda #$10 : sta !stage
+    lda #$10 : sta.w stage
     jsl _019136
     pla
-    sta !stage
+    sta.w stage
     rts
 
 ;-----
@@ -12215,13 +12215,13 @@ _03F526:
     rtl
 
 .F620:
-    lda !stage : pha
-    stx !stage
+    lda.w stage : pha
+    stx.w stage
     jsl _018CE2
     jsl _048A6B
-    lda #$0C : sta !stage
+    lda #$0C : sta.w stage
     jsl _058000
-    pla : sta !stage
+    pla : sta.w stage
     rts
 
 .F63D:
@@ -12317,7 +12317,7 @@ _03F526:
 .F749:
     sta $0059
 .F74C:
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!start
     bne .F767
 
@@ -12526,7 +12526,7 @@ _03F8A3:
     lda $02DD : and #$FC :            sta $02DD
     lda $02DE : and #$FC : ora #$02 : sta $02DE
     lda #$13 : jsl _0190B9_palette_to_ram
-    lda #$12 : sta !stage
+    lda #$12 : sta.w stage
     jsl _019136
     !AX16
     ldx #$0026 : lda #$0080 : ldy #$0100 : jsl _019136_9187

@@ -533,7 +533,7 @@ _048A6B: ;a8 x8
     sta $1E9C
     !AX8
     tax
-    lda !stage
+    lda.w stage
     cmp #$10
     beq .8AD0
 
@@ -578,7 +578,7 @@ _048AD3:
     dw $0101, $FFFF
 
 .8ADB: ;a8 x8
-    lda !stage
+    lda.w stage
     cmp #$04
     beq .ret2
 
@@ -673,7 +673,7 @@ _048B2B:
     tya
     sta $002C,X
     plx
-    inc !obj_type_count,X
+    inc.w obj_type_count,X
 .8BA5:
     !A16
     clc
@@ -698,7 +698,7 @@ _048BB8: ;a8 x-
 
     !A16
     lda #$FFFF : sta $02
-    ldx !stage
+    ldx.w stage
     lda .8C2B,X : sta $1FD2
     txa
     asl
@@ -773,10 +773,10 @@ _048C43: ;a8 x8
     jsl _018074
     inc $0379
     jsl _018366
-    lda #$0C : sta !stage
+    lda #$0C : sta.w stage
     jsl _019136
     jsl _058000
-    stz !stage
+    stz.w stage
     jsl _01AF04
     ldy #$F5 : jsl _01A21D_decompress_graphics
     ldx #$C4 : jsl _0180C7_ram_to_vram
@@ -786,12 +786,12 @@ _048C43: ;a8 x8
     ldy #$FC : jsl _01A21D_decompress_graphics
     ldx #$27 : jsl _0180C7
     lda #$13 : jsr _048E68_local
-    lda #$0D : sta !stage
+    lda #$0D : sta.w stage
     jsl _019136
     lda #$0E : jsl _0190B9_palette_to_ram
     jsl _019539
     jsl enable_nmi
-    stz !stage
+    stz.w stage
     jsl _018CE2
     ldy #$00 : jsl _048E3F
     stz $1FB3
@@ -811,7 +811,7 @@ _048C43: ;a8 x8
     jsl _018360
     jsl enable_nmi
     stz $02F2
-    stz !stage
+    stz.w stage
     jsl _018CE2
     ldy #$08 : jsl _048E3F
     ldy #$0A : jsl _048E3F
@@ -829,7 +829,7 @@ _048C43: ;a8 x8
     jsl disable_nmi
     jsl _018074
     jsl _018366
-    stz !stage
+    stz.w stage
     jsl _01AF04
     ldy #$F5 : jsl _01A21D_decompress_graphics
     ldx #$C4 : jsl _0180C7_ram_to_vram
@@ -841,14 +841,14 @@ _048C43: ;a8 x8
     ldy #$FC : jsl _01A21D_decompress_graphics
     ldx #$27 : jsl _0180C7
     lda #$17 : jsr _048E68_local
-    lda #$0D : sta !stage
+    lda #$0D : sta.w stage
     jsl _019136
     lda #$10 : jsl _0190B9_palette_to_ram
     jsl _019539
     jsl enable_nmi
     jsr _049219_9228
     lda #$3E : jsl _01A717_A728
-    stz !stage
+    stz.w stage
     jsl _018CE2
     ldy #$0C : jsl _048E3F
     stz $1FB3
@@ -885,7 +885,7 @@ _048DF9: ;a8 x8
     ldy #$FC : jsl _01A21D_decompress_graphics
     ldx #$27 : jsl _0180C7
     lda #$11 : jsr _048E68_local
-    lda #$0D : sta !stage
+    lda #$0D : sta.w stage
     jsl _019136
     lda #$0F : jsl _0190B9_palette_to_ram
     jml _019539
@@ -901,7 +901,7 @@ _048E3F: ;a8 x8
 
 { ;8E47 - 8E67
 _048E47: ;a8 x8
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!start
     bne .8E4F
 
@@ -955,9 +955,9 @@ _048EAD: ;a8 x8
     jsr set_stage_result_unused
     jsl _0180B9
     jsl _0180A6
-    stz !stage
+    stz.w stage
     stz $028E
-    stz !checkpoint
+    stz.w checkpoint
     jsl _01951E
     jsl _018049_804D
     jsl _01834C
@@ -974,9 +974,9 @@ _048EAD: ;a8 x8
     lda #$02 : jsl _0183D4_83DB
     lda #$0B : jsl _0190B9_palette_to_ram
     jsl _018CE2
-    lda #$0C : sta !stage
+    lda #$0C : sta.w stage
     jsl _048A6B
-    stz !stage
+    stz.w stage
     jsl enable_nmi
     lda $1FEF
     beq .8F30
@@ -1064,8 +1064,8 @@ _048FDD:
     stz.w hud_visible
     jsl _018CE2
     jsr _049234
-    lda !stage : pha
-    lda #$0A : sta !stage
+    lda.w stage : pha
+    lda #$0A : sta.w stage
     jsl disable_nmi
     jsl _01834C
     jsl _019136
@@ -1076,7 +1076,7 @@ _048FDD:
     jsl _018360
     jsl enable_nmi
     jsl _048A6B
-    pla : sta !stage
+    pla : sta.w stage
     jsr _049219
     lda #$F0
 .9052:
@@ -1126,13 +1126,13 @@ _049085: ;a8 x8
     stz $032E
     jsl _018CE2
     jsr _049234
-    lda !stage
+    lda.w stage
     pha
     jsl disable_nmi
     jsl _01834C
-    stz !stage
+    stz.w stage
     jsl _01AF04
-    lda #$0A : sta !stage
+    lda #$0A : sta.w stage
     jsl _019136
     jsl _058000
     ldy #$4D : jsl _01A21D_decompress_graphics
@@ -1141,7 +1141,7 @@ _049085: ;a8 x8
     jsl enable_nmi
     jsl _048A6B
     pla
-    sta !stage
+    sta.w stage
     jsr _049219
     lda #$3E : jsl _01A717_A728
     lda #$11 : jsl _018049_8053 ;game over music?
@@ -1186,10 +1186,10 @@ _049121: ;a? x?
     jsl _018021
     jsr _049219_9228
     lda #$3E : jsl _01A717_A728
-    lda !stage : pha
-    lda #$0A : sta !stage
+    lda.w stage : pha
+    lda #$0A : sta.w stage
     jsl _048A6B
-    pla : sta !stage
+    pla : sta.w stage
 .91B5:
     jsl _018021
     jsl _01B5AB
@@ -1286,18 +1286,18 @@ set_stage_result_unused: ;a8 x8
     lda !options_stage_checkpoint
     tax
     and #$01
-    sta !checkpoint
-    lda.w _00DDF6,X : sta !stage
+    sta.w checkpoint
+    lda.w _00DDF6,X : sta.w stage
     rts
 }
 
 { ;9252 - 9261
 _049252: ;a8 x8
-    lda !stage : asl
+    lda.w stage : asl
     clc
-    adc !checkpoint
+    adc.w checkpoint
     tax
-    lda.w _00DDF6,X : sta !stage
+    lda.w _00DDF6,X : sta.w stage
     rtl
 }
 
@@ -1354,11 +1354,11 @@ _049310: ;a8 x8
 
     inc $0331
     lda #$12 : jsl _018049_8053 ;map music
-    lda !stage : pha
-    lda #$0B : sta !stage
+    lda.w stage : pha
+    lda #$0B : sta.w stage
     jsl _048A6B
     jsl _058000
-    pla : sta !stage
+    pla : sta.w stage
     jsl _018360
     inc $0379
 
@@ -1381,11 +1381,11 @@ _049310: ;a8 x8
     stz $00E5
 .93B8:
     jsl _018021
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!b|!y|!start
     bne .93D5
 
-    lda !p1_button_press
+    lda.w p1_button_press
     bit #!x|!a
     bne .93D5
 
@@ -2052,7 +2052,7 @@ _04F003: ;a x
 
 { ;F009 - F020
 _04F009: ;a8 x8
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     lda.l _04F0E0+0,X : sta $4C
     lda.l _04F0E0+1,X : sta $4D
     stz $0346

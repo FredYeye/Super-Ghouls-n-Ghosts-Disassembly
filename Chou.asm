@@ -218,18 +218,16 @@
     ;54: offset to _01FF00 function jump table
     ;related functions: _01A6AB, nmi_837D
 
-    ;todo: change defines to labels
-
     ;$0278 game state?
     money_bag_count   = $027A
     difficulty        = $027C
     shot_buttons      = $027D
     jump_buttons      = $027F
     rng_state         = $0289
-    !stage            = $028D
-    !checkpoint       = $028F
+    stage             = $028D
+    checkpoint        = $028F
     continues         = $0290
-    !loop             = $0291
+    loop              = $0291
     score             = $0293 ;0293-029A (8 bytes)
     extend_threshhold = $029B ;029B-029E (4 bytes)
     extend_counter    = $02A3
@@ -242,14 +240,14 @@
 
     existing_weapon_type = $02B3
 
-    !p1_button_hold  = $02B7 ;2 bytes
-    !p2_button_hold  = $02B9 ;2 bytes
-    !p1_button_press = $02BB ;2 bytes
-    !p2_button_press = $02BD ;2 bytes
-    !shot_hold       = $02BF ;1 byte
-    !jump_hold       = $02C0 ;1 byte
-    !shot_press      = $02C1 ;1 byte
-    !jump_press      = $02C2 ;1 byte
+    p1_button_hold  = $02B7 ;2 bytes
+    p2_button_hold  = $02B9 ;2 bytes
+    p1_button_press = $02BB ;2 bytes
+    p2_button_press = $02BD ;2 bytes
+    shot_hold       = $02BF ;1 byte
+    jump_hold       = $02C0 ;1 byte
+    shot_press      = $02C1 ;1 byte
+    jump_press      = $02C2 ;1 byte
     ;02C3 inc every... "work frame" done? ie, no inc on lag frames
     ;02C4 inc on every video frame? regardless of lag frames
 
@@ -260,13 +258,15 @@
     ;02F8 - 317: sound queue of sorts
 
     ; $032A ;debugging? dpad moves the camera
-    hud_visible               = $032E
-    stage1_earthquake_active  = $032F
+    hud_visible              = $032E
+    stage1_earthquake_active = $032F
     ; = $0331 some kind of update palette bool (uses 0332)
     ; = $0332 index (normal colors, all white, grayscale BG + white sprites)
     ; = $0333 timer used in demo cutscene, menu
-    !chest_counter            = $0337
-    !hud_flicker_timer        = $0373
+    chest_counter            = $0337
+    hud_flicker_timer        = $0373
+
+    ;todo: change defines to labels
 
     !slot_start    = $043C
     !slot_arthur   = $043C
@@ -286,13 +286,13 @@
     ;14A8: some kind of enemy count array?
 
     !is_shooting                 = $14B1
-    !can_charge_magic            = $14B2
+    can_charge_magic             = $14B2
     !armor_state                 = $14BA ;armor/transform state
-    !jump_state                  = $14BC ;name? 1:double jump 2:double jump + shot
+    jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
     ; = $14BE
     ; = $14C3
     current_cage                 = $14C4 ;0:outside 1:first cage 2:second cage
-    !double_jump_state           = $14C6
+    double_jump_state            = $14C6
     skip_double_jump_boost       = $14C7
     knife_rapid_timer            = $14C8
     knife_rapid_count            = $14C9
@@ -316,20 +316,20 @@
 
     screen_boundary_left = $1A7D
 
-    !obj_type_count = $1A9A ;array counting active objects, per type. figure out length
+    obj_type_count = $1A9A ;array counting active objects, per type. figure out length
 
     bat_count = $1EBE
     zombie_previous_x_spawn = $1ED8
 
-    !bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
+    bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
 
-    !pot_spawn_counter   = $1FA5
-    !pot_count           = $1FA6
-    !pot_weapon_req      = $1FA7
-    !pot_extend_req      = $1FA9
-    pot_armor_state_req  = $1FAA
-    !weapon_item_count   = $1FAB
-    !point_statue_count  = $1FAC
+    pot_spawn_counter   = $1FA5
+    pot_count           = $1FA6
+    pot_weapon_req      = $1FA7
+    pot_extend_req      = $1FA9
+    pot_armor_state_req = $1FAA
+    weapon_item_count   = $1FAB
+    point_statue_count  = $1FAC
 
     !options                  = $1FD9
     !options_difficulty       = $1FD9

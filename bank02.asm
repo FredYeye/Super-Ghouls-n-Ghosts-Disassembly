@@ -173,7 +173,7 @@ _0280CB:
 { ;80E9 - 810C
 _0280E9: ;a8 x8
     ldx !obj_type
-    dec !obj_type_count,X ;decrease type count
+    dec.w obj_type_count,X ;decrease type count
 .80EE: ;a8 x-
     stz !obj_active
     stz $2C
@@ -282,7 +282,7 @@ _028166: ;a- x-
 { ;8176 -
 _028176: ;a- x-
     !A16
-    lda !stage
+    lda.w stage
     cmp #$0008
     bne .8196
 
@@ -306,7 +306,7 @@ _028176: ;a- x-
 
 .819F:
     !A8
-    dec !weapon_item_count
+    dec.w weapon_item_count
     pla : pla
     bra _0281A8_81B5
 
@@ -2052,35 +2052,35 @@ pot_creation: ;a8 x8
 
 .local: ;8C6E
     stz $3A
-    inc !pot_spawn_counter ;spawned enemies that can carry pot
-    lda !pot_spawn_counter
+    inc.w pot_spawn_counter ;spawned enemies that can carry pot
+    lda.w pot_spawn_counter
     cmp #$04
     bne .ret  ;return if this isn't the 4th pot enemy
 
-    stz !pot_spawn_counter ;reset enemy counter
+    stz.w pot_spawn_counter ;reset enemy counter
     clc
-    lda !weapon_item_count
-    adc !point_statue_count
+    lda.w weapon_item_count
+    adc.w point_statue_count
     cmp #$03
     bcs .ret  ;return if already at max drop limit
 
-    lda !weapon_item_count
+    lda.w weapon_item_count
     cmp #$01
     beq .weapon_exists
 
-    lda !point_statue_count
+    lda.w point_statue_count
     cmp #$02
     beq .point_statues_exist
 
-    inc !pot_count
-    lda !pot_count
-    cmp !pot_weapon_req ;required pot count to drop weapon
+    inc.w pot_count
+    lda.w pot_count
+    cmp.w pot_weapon_req ;required pot count to drop weapon
     bne .drop_statue
 
 .point_statues_exist:
     clc
     adc #$03
-    sta !pot_weapon_req
+    sta.w pot_weapon_req
     lda #$FF  ;weapon
     bra .create_pot
 
@@ -2096,12 +2096,12 @@ pot_creation: ;a8 x8
     bra .create_pot
 
 .statue_or_1up:
-    cmp !pot_extend_req ;required pot count to drop 1up
+    cmp.w pot_extend_req ;required pot count to drop 1up
     bne .statue
 
     clc
     adc #$30
-    sta !pot_extend_req
+    sta.w pot_extend_req
     lda #$03  ;1up
     bra .create_pot
 
@@ -3532,7 +3532,7 @@ _029713: ;eagler spawner
     lda #$06 : jsl _0195E4
     bcc _029713
 
-    lda !obj_type_count+!id_eagler : clc : adc #$04 : sta !obj_type_count+!id_eagler
+    lda.w obj_type_count+!id_eagler : clc : adc #$04 : sta.w obj_type_count+!id_eagler
     !X16
     jsr _028B1E_8B24
     lda #!id_eagler : jsr .97FC
@@ -3562,7 +3562,7 @@ _029713: ;eagler spawner
     bit $09
     bvc .97AF
 
-    lda !obj_type_count+!id_eagler
+    lda.w obj_type_count+!id_eagler
     cmp #$08
     bcs .97AA
 
@@ -3570,7 +3570,7 @@ _029713: ;eagler spawner
     lda #$06 : jsl _0195E4
     bcc .97F4
 
-    lda !obj_type_count+!id_eagler : clc : adc #$04 : sta !obj_type_count+!id_eagler
+    lda.w obj_type_count+!id_eagler : clc : adc #$04 : sta.w obj_type_count+!id_eagler
     !X16
     jsr _028B1E_8B24
     lda #!id_eagler : jsr .97FC
@@ -3657,7 +3657,7 @@ eagler:
 .9886:
     ldx #$01
     ldy #$16
-    lda !stage
+    lda.w stage
     cmp #$03
     beq .9895
 
@@ -4168,7 +4168,7 @@ icicle:
     bcc .9C8C
 
     ;remove icicle
-    dec $1AEF ;todo: !obj_type_count + id_icicle + 4 (?)
+    dec $1AEF ;todo: obj_type_count + id_icicle + 4 (?)
     lda $2F : sta $0000 ;2F = parts count?
     phd
 .9C9C:
@@ -4215,7 +4215,7 @@ icicle:
     ldy #$0F : jsl update_score
     lda #!sfx_shatter : jsl _018049_8053
 .9CF0:
-    dec $1AEF ;!obj_type_count + id_icicle + 4 (?)
+    dec $1AEF ;obj_type_count + id_icicle + 4 (?)
     lda $2F : jsr _028B52_local
 .9CF8:
     lda $0F
@@ -7384,8 +7384,8 @@ chest2:
 
 .B691:
     inc $31
-    lda !chest_counter : sta $37
-    inc !chest_counter
+    lda.w chest_counter : sta $37
+    inc.w chest_counter
     lda $07
     !AX16
     and #$00FF
@@ -7420,8 +7420,8 @@ chest: ;a8 x8
 
 .B6DE:
     inc $31
-    lda !chest_counter : sta $37
-    inc !chest_counter
+    lda.w chest_counter : sta $37
+    inc.w chest_counter
     lda $07
     !AX16
     and #$00FF
@@ -7933,7 +7933,7 @@ armor:
     cmp #!gold
     bne .BB90
 
-    inc !can_charge_magic
+    inc.w can_charge_magic
     bra .BB90
 
 .BB76: ;picking up armor while transformed? unreachable?
@@ -7968,7 +7968,7 @@ weapon:
     cmp #$FE
     beq .BBCE
 
-    lda !loop
+    lda.w loop
     beq .BBD2
 
     lda.w weapon_current
@@ -7987,7 +7987,7 @@ weapon:
 .BBCE:
     lda #$FF : sta $07
 .BBD2:
-    ldx !stage
+    ldx.w stage
     lda.l weapon_BB9C,X
     tax
     jsl _018D5B
@@ -8007,7 +8007,7 @@ weapon:
 
 ;----- BBFA
 
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     jmp (+,X) : +: dw .stage1, .stage2, .stage3, .stage4, .stage4, .stage4, .stage5, .stage6, .stage7, .stage8
 
 ;-----
@@ -8182,7 +8182,7 @@ weapon:
 
 .BD11:
     jsl set_sprite
-    inc !weapon_item_count
+    inc.w weapon_item_count
     !A16
     lda.w _00ED00+$1A : sta $27
     !A8
@@ -8262,7 +8262,7 @@ weapon:
     and #$01
     tax
 .BDA6:
-    dec !weapon_item_count
+    dec.w weapon_item_count
     bne .BDB3
 
     lda.w weapon_current : and #$0E : sta.w existing_weapon_type
@@ -8440,7 +8440,7 @@ trap:
 bracelet_item:
 
 .create:
-    ldx !stage
+    ldx.w stage
     lda.l weapon_BB9C,X
     tax
     jsl _018D5B
@@ -8609,7 +8609,7 @@ bracelet_item_sparkle:
 rosebud_chunk:
 
 .create:
-    lda !stage
+    lda.w stage
     bne .C09F
 
     inc $08
@@ -8710,7 +8710,7 @@ rosebud_chunk:
 rosebud:
 
 .create:
-    ldx !stage
+    ldx.w stage
     bne .C150
 
     lda #$01 : sta $08
@@ -8955,7 +8955,7 @@ rosebud:
 
 .C30B:
     dec $1AF8
-    lda !stage
+    lda.w stage
     beq .C316
 
     jmp _0281A8_81B5
@@ -9089,7 +9089,7 @@ rosebud:
 .C3FB:
     !A16
     lda #$0120
-    ldx !stage
+    ldx.w stage
     beq .C408
 
     lda #$0190
@@ -9128,7 +9128,7 @@ gate:
     ldx #$00
     !X16
     ldy.w _00ED00+$48 ;stage 1 gate
-    lda !stage
+    lda.w stage
     beq .C45F
 
     ldx #$0006
@@ -9147,7 +9147,7 @@ gate:
     lda #$02 : sta $02E8
     jsr .C4EC
     ldy #$1A : ldx #$22
-    lda !stage
+    lda.w stage
     beq .C49A
 
     ldy #$BE : ldx #$21
@@ -9155,7 +9155,7 @@ gate:
     jsl set_sprite
     ldy #$12 : jsl set_speed_y
     ldx #$00
-    lda !stage
+    lda.w stage
     beq .C4AD
 
     ldx #$04
@@ -9545,7 +9545,7 @@ raft:
     jmp .C7FB
 
 .C757:
-    lda !checkpoint
+    lda.w checkpoint
     beq .C777
 
     inc $006D
@@ -9567,7 +9567,7 @@ raft:
     lda $2D
     beq .C777
 
-    lda #$01 : sta !checkpoint
+    lda #$01 : sta.w checkpoint
     inc $1AD4
     ldy #$1C : jsl set_speed_xyg
     inc $006D
@@ -10358,7 +10358,7 @@ arthur_map: ;a8 x8
 
 ;----- CD1D
 
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!start
     bne .CD37
 
@@ -10425,9 +10425,9 @@ arthur_map: ;a8 x8
 
 .CD8C:
     lda #$01 : sta !OBSEL
-    lda !stage
+    lda.w stage
     asl
-    adc !checkpoint
+    adc.w checkpoint
     asl #2
     tax
     !A16
@@ -13085,10 +13085,10 @@ cockatrice_wings:
 boss_explosion_spawner:
 
 .create:
-    ldx !stage
+    ldx.w stage
     lda.w boss_explosion_spawner_data_CB4E,X : sta $2D
     !AX16
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     lda.w boss_explosion_spawner_data_CB56,X : sta $2F
     lda.w boss_explosion_spawner_data_CB66,X : sta $31
 .E212:
@@ -13722,7 +13722,7 @@ _02E650: ;a8 x?
 
 .E6C7:
     !A16
-    ldx !stage
+    ldx.w stage
     dex
     bne .E6D9
 
@@ -13783,7 +13783,7 @@ ghost:
 
     stz $08
     ldy #$C6 : ldx #$21 : jsl set_sprite
-    lda !stage
+    lda.w stage
     dec
     bne .E745 ;skip pot creation if not stage 2
 
@@ -14037,7 +14037,7 @@ ghost:
     bit $09
     bvc .E903
 
-    lda !stage
+    lda.w stage
     dec
     beq .E8F5
 
@@ -14065,7 +14065,7 @@ ghost:
 
 { ;E919 - E93B
 _02E919: ;functions shared between ghost and ghost_unformed
-    lda !stage
+    lda.w stage
     dec
     beq ghost_E918
 
@@ -14080,7 +14080,7 @@ _02E919: ;functions shared between ghost and ghost_unformed
 .E929:
     !A16
     lda #$0170
-    ldx !stage
+    ldx.w stage
     dex
     beq .E937
 
@@ -14104,7 +14104,7 @@ ghost_unformed:
     sta $07 ;$07 *= 6
     ldy.w ghost_data_CDB1,X
     lda.w ghost_data_CDB5,X : sta $08
-    lda !stage
+    lda.w stage
     dec
     bne .E957
 
@@ -14259,7 +14259,7 @@ _02E9FA:
 bat_spawner:
 
 .create:
-    inc !obj_type_count+!id_bat_spawner
+    inc.w obj_type_count+!id_bat_spawner
     stz.w bat_count
 .EA89:
     brk #$00
@@ -14433,7 +14433,7 @@ key:
     stz !obj_facing
     lda $08 : ora #$03 : sta $08
     stz $0000
-    lda !stage
+    lda.w stage
     cmp #$08
     bne .EBF7
 
@@ -14445,7 +14445,7 @@ key:
 
     inc $0000
 .EBF7:
-    lda !stage
+    lda.w stage
     clc
     adc $0000
     asl #2
@@ -14602,7 +14602,7 @@ key:
 
     inc $1F9E
     jsl _01DDAE
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     jsr (.ED8B,X)
     lda #$8C : sta !obj_active
     lda $09 : and #$7F : sta $09
@@ -14625,7 +14625,7 @@ key:
 ;-----
 
 .EDA7:
-    lda !loop
+    lda.w loop
     beq .EDBB
 
     lda.w weapon_current
@@ -14641,11 +14641,11 @@ key:
 ;-----
 
 .destroy:
-    lda !stage
+    lda.w stage
     cmp #$08
     bne .EDE4
 
-    lda !loop
+    lda.w loop
     beq .EDD1
 
     lda $14D3
@@ -14664,7 +14664,7 @@ key:
     !AX16
     ldy $2D : jsr remove_child_object
     !AX8
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     and #!up
     beq .EE0D
 
@@ -14686,7 +14686,7 @@ key:
     !X8
     ldy #$57 : jsl update_score
     lda #$72 : sta $1D
-    lda !stage
+    lda.w stage
     beq .EE3C
 
     cmp #$05
@@ -14788,7 +14788,7 @@ flower_projectile:
 
 .create:
     ldy #$90 : ldx #$22
-    lda !stage
+    lda.w stage
     cmp #$03
     bne .EF12
 
@@ -14810,7 +14810,7 @@ flower_projectile:
     beq .EF18
 
     ldy #$96 : ldx #$22
-    lda !stage
+    lda.w stage
     cmp #$03
     bne .EF36
 
@@ -14851,7 +14851,7 @@ flower_bud:
 
 ;----- EF74
 
-    lda !stage
+    lda.w stage
     beq .EF81
 
     ldy #$02 : jsl arthur_range_check_y
@@ -14903,7 +14903,7 @@ flower_head:
 .create:
     jsr _02F13E_F15F
     jsl set_hp
-    ldx !stage
+    ldx.w stage
     cpx #$06
     bne .EFE7
 
@@ -15048,7 +15048,7 @@ flower_head:
 
     jsl get_arthur_relative_side : sta !obj_facing
     !A16
-    lda !stage
+    lda.w stage
     beq .F11A
 
     clc
@@ -15388,14 +15388,14 @@ pot: ;a8 x8
     lda $3A ;pot_dropped
     beq .F304
 
-    lda !stage
+    lda.w stage
     cmp #$04 ;stage 4, raft section
     beq .F339
 
     cmp #$01 ;stage 2
     bne .F31A
 
-    lda !checkpoint ;raft section
+    lda.w checkpoint ;raft section
     bne .F339
 
 .F31A:
@@ -15450,7 +15450,7 @@ pot: ;a8 x8
 point_statue: ;a8 x8
 
 .create:
-    inc !point_statue_count
+    inc.w point_statue_count
     ldx $07
     lda.w pot_data_graphics_offset-1,X : ldy #$00 : ldx #$20 : jsl set_sprite_8480
     lda $08 : ora #$20 : sta $08
@@ -15470,7 +15470,7 @@ point_statue: ;a8 x8
     !A8
     bcs .F3A8
 
-    dec !point_statue_count
+    dec.w point_statue_count
     jmp _0281A8_81B5
 
 .F3A8:
@@ -15494,7 +15494,7 @@ point_statue: ;a8 x8
 
 ;----- F3DD
 
-    dec !point_statue_count
+    dec.w point_statue_count
     jmp _0281A8_81B5
 
 ;-----
@@ -15506,7 +15506,7 @@ point_statue: ;a8 x8
 
 ;----- F3F5
 
-    dec !point_statue_count
+    dec.w point_statue_count
     jmp _0281A8_81B5
 
 ;-----
@@ -15518,7 +15518,7 @@ point_statue: ;a8 x8
 
 ;----- F40B
 
-    dec !point_statue_count
+    dec.w point_statue_count
     jmp _0281A8_81B5
 }
 
@@ -15528,7 +15528,7 @@ mimic:
 .create:
     ldx #$03 : jsl _018D5B
     jsl set_hp
-    lda !stage
+    lda.w stage
     cmp #$08
     bne .F427
 
@@ -15553,7 +15553,7 @@ mimic:
     bcs .F44C
 
 .F456:
-    lda !stage
+    lda.w stage
     dec
     beq .F477
 
@@ -15681,7 +15681,7 @@ mimic:
 ;-----
 
 .F53A: ;also used by mimic_ghost
-    ldx !stage
+    ldx.w stage
     lda.w mimic_data_CEC7,X : sta $3C
     rts
 }
@@ -16169,7 +16169,7 @@ enemy_spawner: ;a8 x8
     lda !arthur_pos_x+2
     adc.w zombie_spawner_data_zone_difficulty_offset,X
     tax
-    lda !obj_type_count+!id_zombie
+    lda.w obj_type_count+!id_zombie
     cmp.w zombie_spawner_data_zone_max,X
     bcs .F8D0
 
@@ -16229,7 +16229,7 @@ enemy_spawner: ;a8 x8
 
     lda #$0C : sta.w !obj_active,X
     lda #!id_zombie : sta.w !obj_type,X ;zombie
-    inc !obj_type_count+!id_zombie
+    inc.w obj_type_count+!id_zombie
     lda $2F : sta $0007,X
     !A16
     ldy $33
@@ -16263,7 +16263,7 @@ enemy_spawner: ;a8 x8
 
 ;----- F98B
 
-    lda !obj_type_count+!id_zombie
+    lda.w obj_type_count+!id_zombie
     cmp #$03
     bcs .F987
 
@@ -17079,7 +17079,7 @@ _02FE1E: ;a? x?
     cmp !arthur_pos_y+1
     bcs .FE78
 
-    ldy !bowgun_magic_active
+    ldy.w bowgun_magic_active
     bne .FE78 ;branch if under solid object and on raft
 
     adc $1F21

@@ -335,7 +335,7 @@ _0181DD: ;a8 x-
 _01826E: ;a8 x8
     php
     ldx #$00
-    lda !stage
+    lda.w stage
     cmp #$03
     beq .827A
 
@@ -1678,7 +1678,7 @@ _018D5B: ;a8 x8
 
 { ;8D7F - 8DB7
 _018D7F: ;from 8CE2
-    ldx !stage
+    ldx.w stage
     ldy.w _00A6A4_A6AE,X
     stz $0001
 .8D88:
@@ -1729,7 +1729,7 @@ _018DC0: ;a8 x8
     dex : bne -
 
     xba
-    lda !stage
+    lda.w stage
     cmp #$02
     bcs +
 
@@ -1739,7 +1739,7 @@ _018DC0: ;a8 x8
     dex : bpl -
 
 +:
-    lda !stage : asl : tax
+    lda.w stage : asl : tax
     lda.l _0493F2+20,X : sta $0324
     lda.l _0493F2+21,X : sta $0325
     lda.l _0493F2+00,X : sta $0328
@@ -2038,7 +2038,7 @@ _019024: ;a8 x-
     ;copy lots of data into ram. what is this for?
 
     !X16
-    lda !stage
+    lda.w stage
     bne .9049
 
     ldx #$7FFF
@@ -2065,7 +2065,7 @@ _019024: ;a8 x-
     dex : bpl .905A
 
 .9065:
-    lda !stage
+    lda.w stage
     bne .907A
 
     ldx #$5FFF
@@ -2122,7 +2122,7 @@ _01909B: ;a- x8
 
 { ;90B9 - 90F0
 _0190B9: ;a8 x-
-    lda !stage
+    lda.w stage
     xba
     lda #$00
     !AX16
@@ -2133,7 +2133,7 @@ _0190B9: ;a8 x-
     bra .90D7
 
 .90CB: ;a8 x8
-    lda !stage
+    lda.w stage
 
 .palette_to_ram: ;90CE | a8 x8
     xba
@@ -2204,7 +2204,7 @@ _019136: ;a- x-
     ldx #$001C : lda #$0010 : ldy #$0000 : jsr .9164
     ldx #$001E : lda #$0040 : ldy #$0100 : jsr .9164
 .9150:
-    lda !stage
+    lda.w stage
 .9153:
     asl : tax  : lda #$0040 : ldy #$0180 : jsr .9164
     !AX8
@@ -2762,7 +2762,7 @@ _019539: ;a8 x8
     lda #$01 : sta $02D9
     lda #$03 : sta $02DC
     lda #$11 : sta $02DD
-    ldx !stage
+    ldx.w stage
     cpx #$02
     bne +
 
@@ -3267,7 +3267,7 @@ _0198A4: ;a- x8
     stz $74
     lda #$0C : sta $02DE
     lda #$04 : sta $031E
-    lda #$4F : sta !hud_flicker_timer
+    lda #$4F : sta.w hud_flicker_timer
     !A16
     lda #$F200 : sta $6D
     lda #$FFFF : sta $6F
@@ -3624,7 +3624,7 @@ _019C0C: ;a8 x-
 
     !X8
     lda #$00 : sta $0066
-    lda !checkpoint
+    lda.w checkpoint
     bne .9C82
 
     ldy #$18 : lda.b #_01FF00_38 : jsl _01A6FE
@@ -4131,7 +4131,7 @@ _01A00A:
 _01A0B2:
     ;stage 5 handler
     !X16
-    lda !checkpoint
+    lda.w checkpoint
     beq .A0C6
 
     ldx #$0580 : stx $19E8
@@ -4410,7 +4410,7 @@ decompress_graphics_function: ;a8 x16
 _01A33C: ;a8 x8
     php
     phd
-    ldx !stage
+    ldx.w stage
     ldy.w _00AFFD,X
     !AX16
     lda #$0000
@@ -5040,24 +5040,24 @@ _01A717: ;a8 x8
 _01A74A:
     phx
     phy
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     pha
     jsr .A7BF
-    stz !p1_button_hold
-    stz !p1_button_press
-    stz !p2_button_hold
-    stz !p2_button_press
-    stz !p2_button_hold+1
-    stz !p2_button_press+1
+    stz.w p1_button_hold
+    stz.w p1_button_press
+    stz.w p2_button_hold
+    stz.w p2_button_press
+    stz.w p2_button_hold+1
+    stz.w p2_button_press+1
     pla
     eor #$FF
-    sta !p1_button_press+1
-    lda !p1_button_hold+1
+    sta.w p1_button_press+1
+    lda.w p1_button_hold+1
     and #$10
     ora $1FC5
-    sta !p1_button_hold+1
-    and !p1_button_press+1
-    sta !p1_button_press+1
+    sta.w p1_button_hold+1
+    and.w p1_button_press+1
+    sta.w p1_button_press+1
     dec $1FC6
     bne +
 
@@ -5101,10 +5101,10 @@ _01A74A:
 
     ldx #$03
 -:
-    lda !p1_button_hold,X                 ;load held buttons (p1 + p2)
-    eor #$FF                              ;invert them
-    and !JOY1L,X : sta !p1_button_press,X ;AND with new input and store as buttons pressed this frame
-    lda !JOY1L,X : sta !p1_button_hold,X  ;then store new input as buttons held
+    lda.w p1_button_hold,X                 ;load held buttons (p1 + p2)
+    eor #$FF                               ;invert them
+    and !JOY1L,X : sta.w p1_button_press,X ;AND with new input and store as buttons pressed this frame
+    lda !JOY1L,X : sta.w p1_button_hold,X  ;then store new input as buttons held
     dex : bpl -
 
     rts
@@ -5115,7 +5115,7 @@ _01A74A:
     !A16
     ldx #$00
     txy
-    lda !p1_button_hold
+    lda.w p1_button_hold
     bit.w shot_buttons
     beq +
 
@@ -5126,11 +5126,11 @@ _01A74A:
 
     iny
 +:
-    stx !shot_hold
-    sty !jump_hold
+    stx.w shot_hold
+    sty.w jump_hold
     ldx #$00
     txy
-    lda !p1_button_press
+    lda.w p1_button_press
     bit.w shot_buttons
     beq +
 
@@ -5141,8 +5141,8 @@ _01A74A:
 
     iny
 +:
-    stx !shot_press
-    sty !jump_press
+    stx.w shot_press
+    sty.w jump_press
     !A8
     rts
 
@@ -5163,13 +5163,13 @@ _01A74A:
 
     stz $1FBD
     stz $1FBE
-    stz !p1_button_hold+0
-    stz !p1_button_hold+1
+    stz.w p1_button_hold
+    stz.w p1_button_hold+1
     inc $1FBC
 
 .A836: ;must be unused code. sram related
     ldx $1FBD
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     cmp $700000,X
     bne .A854
 
@@ -5195,7 +5195,7 @@ _01A74A:
     stx $1FC1
 -:
     jsr .A7BF
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!down
     beq -
 
@@ -5233,7 +5233,7 @@ _01A87C: ;a8 x8
     lda #$3F : sta $0055
 .A8F2:
     lda #$01 : jsl _01A717_A728
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!start
     bne .A904
 
@@ -5269,7 +5269,7 @@ _01A87C: ;a8 x8
 .A955:
     lda #$80 : sta $0276
     lda #$01 : sta $027B : sta.w difficulty
-    stz !loop
+    stz.w loop
     lda #$00 : sta $1FC7
 .A96A:
     ldx #$01
@@ -5291,8 +5291,8 @@ _01A87C: ;a8 x8
     pla
     asl #2
     tax
-    lda.w _01B4FE+0,X : sta !stage
-    lda.w _01B4FE+1,X : sta !checkpoint
+    lda.w _01B4FE+0,X : sta.w stage
+    lda.w _01B4FE+1,X : sta.w checkpoint
     !A16
     lda.w _01B4FE+2,X : sta $1FD4
     stz $1FD6
@@ -5407,11 +5407,11 @@ _01A87C: ;a8 x8
 ;-----
 
 .AADE:
-    stz !stage
-    stz !checkpoint
+    stz.w stage
+    stz.w checkpoint
     stz $1FB9
     stz $0276
-    stz !loop
+    stz.w loop
     stz $0292
     stz.w money_bag_count
     jsl _048EAD
@@ -5431,8 +5431,8 @@ _01A87C: ;a8 x8
     lda $1FC7
     stz $1FC3
     sta $1FC4
-    lda $1FC7 : sta !stage
-    lda #$00  : sta !checkpoint
+    lda $1FC7 : sta.w stage
+    lda #$00  : sta.w checkpoint
     jsr .ABB3
     lda $1FC7 : eor #$01 : sta $1FC7
     lda #$03  : sta $0278
@@ -5560,17 +5560,17 @@ _01A87C: ;a8 x8
     bne .AC22
 
     stz !MOSAIC
-    lda $1F9D : sta !stage
+    lda $1F9D : sta.w stage
     jsl _01DCCF
     jsr .AC99
     inc $0277
     lda #$01
-    ldx !stage
+    ldx.w stage
     bne .AC50
 
     lda #$00 ;runs during 2-1 fade in
 .AC50:
-    sta !checkpoint
+    sta.w checkpoint
     jsl _01DE0B
     lda $02D5 : and #$0F : sta $02D5 : sta $02D5 ;double stores here for some reason
     lda $02D7 : and #$0F : sta $02D7 : sta $02D7 ;^
@@ -5604,7 +5604,7 @@ _01A87C: ;a8 x8
     lda #$0200 : sta $031A
     !A8
     lda $027B : asl : tax
-    lda !loop
+    lda.w loop
     beq .ACBC
 
     inx
@@ -5637,7 +5637,7 @@ _01A87C: ;a8 x8
     cmp #$04
     bne +
 
-    lda #$01 : sta !can_charge_magic
+    lda #$01 : sta.w can_charge_magic
     stz $14B3
 +:
     lda $02B0 ;storing shield status across maps?
@@ -5660,22 +5660,22 @@ _01A87C: ;a8 x8
     !AX8
     jsl _0190B9_90CB
     jsl _019539
-    lda !stage
+    lda.w stage
     cmp #$02
     bne +
 
     lda #$19 : sta $02DE
 +:
     jsl _018DC0
-    lda !stage
+    lda.w stage
     bne +
 
-    lda !checkpoint
+    lda.w checkpoint
     beq +
 
     ldx #$16 : jsl _018DC0_8E0E
 +:
-    ldx !stage
+    ldx.w stage
     lda.w _00B56C,X : sta $02D9
     and #$07 : dec  : sta $02DA
     stz $1F8F
@@ -5702,11 +5702,11 @@ _01A87C: ;a8 x8
     jsr _01AF04_AF08
     jsr .AE55
     jsr _01F66A
-    stz !pot_spawn_counter
-    stz !pot_count
-    lda #$03 : sta !pot_weapon_req
+    stz.w pot_spawn_counter
+    stz.w pot_count
+    lda #$03 : sta.w pot_weapon_req
     lda #$0A : sta.w pot_armor_state_req
-    lda #$20 : sta !pot_extend_req
+    lda #$20 : sta.w pot_extend_req
     lda #$00 : jsl _0183D4_83DB
     lda #$43 : sta $02EC
     lda #$05 : sta.w timer_minutes
@@ -5722,7 +5722,7 @@ _01A87C: ;a8 x8
     jsr _01B4C5
     jsl _04F000
     jsr _01F6D7
-    lda !stage
+    lda.w stage
     bne .AE2C
 
     ldx #$00 : jsl water_crash_to_ram
@@ -5802,7 +5802,7 @@ _01AF04: ;a8 x8
 .AF08:
     ldy #$46 : jsl _01A21D_decompress_graphics
     ldx #$2A : jsl _0180C7_ram_to_vram
-    lda !stage
+    lda.w stage
     asl #2
     tax
     ldy.w _00B576+2,X
@@ -5832,7 +5832,7 @@ _01AF04: ;a8 x8
 +:
     ply
     jsl _01A21D_decompress_graphics
-    lda !stage
+    lda.w stage
     pha
     asl
     tax
@@ -6008,7 +6008,7 @@ _01B14B: ;a8 x8
     lda $02AC
     beq .ret
 
-    lda !p1_button_press+1 ;pause check
+    lda.w p1_button_press+1 ;pause check
     bit #!start
     beq .ret
 
@@ -6028,7 +6028,7 @@ _01B14B: ;a8 x8
 
 .B17A:
     lda #$01 : jsl _01A717_A728
-    lda !p1_button_press+1 ;unpause check
+    lda.w p1_button_press+1 ;unpause check
     bit #!start
     beq .B17A
 
@@ -6118,7 +6118,7 @@ _01B19D: ;a8 x8
     rts
 
 .B256:
-    lda !p1_button_press+1
+    lda.w p1_button_press+1
     bit #!start
     beq .B26C
 
@@ -6148,10 +6148,10 @@ _01B26D: ;a8 x-
 
 { ;B2B1 - B2D5
 _01B2B1: ;a8 x8
-    lda !hud_flicker_timer
+    lda.w hud_flicker_timer
     beq .ret
 
-    dec !hud_flicker_timer
+    dec.w hud_flicker_timer
     and #$01
     sta.w hud_visible
     tax
@@ -6208,7 +6208,7 @@ _01B315: ;a- x8
     !A16
     lda #$0096 : tcd
     stz $0B ;$00A1, event counter? not sure what to call it
-    ldx !checkpoint
+    ldx.w checkpoint
     ldy.w stage1_earthquake_start_offset,X : sty $0B
 .B325:
     !A8
@@ -6369,7 +6369,7 @@ _01B315: ;a- x8
 
 { ;B46D - B4C4
 _01B46D: ;a8 x8
-    lda !stage
+    lda.w stage
     dec
     bne .B4C3
 
@@ -6422,7 +6422,7 @@ _01B4C5: ;a x
     lda $1FB9
     bne .ret
 
-    ldx !stage
+    ldx.w stage
     lda.w stage_music,X : jsl _018049_8053 ;play stage music
 .ret:
     rts
@@ -6449,14 +6449,14 @@ _01B4EF: ;a8 x-
     !X8
     bcc .B525
 
-    lda #$01 : sta !checkpoint
+    lda #$01 : sta.w checkpoint
     lda #$05 : sta.w timer_minutes
     stz.w timer_tens
     stz.w timer_seconds
     stz.w timer_ticks
 .B50E: ;a8 x8
-    ldx !stage
-    lda !checkpoint
+    ldx.w stage
+    lda.w checkpoint
     asl
     adc.w checkpoint_location_idx,X
     tay
@@ -6474,10 +6474,10 @@ _01B526: ;a8 x8
     stz $15A2,X
     dex : bpl -
 
-    lda !stage
+    lda.w stage
     asl #2
     clc
-    adc !checkpoint
+    adc.w checkpoint
     tay
     ldx.w _00B659,Y
     !A16
@@ -6733,12 +6733,12 @@ _01B6CB: ;a8 x8
     stz $08
     stz $09
     lda #$24
-    ldx !stage
+    ldx.w stage
     dex
     beq .B721
 
     lda #$08
-    ldx !stage
+    ldx.w stage
     cpx #$06
     bne .B721
 
@@ -7010,7 +7010,7 @@ _01B90E: ;a8 x8
     rtl
 
 .B912: ;a8 x8
-    lda !stage
+    lda.w stage
     cmp #$04 : beq +
 
     lda $02D9
@@ -7072,7 +7072,7 @@ _01B96E: ;a8 x-
 
 { ;B9A8 - BD1C
 _01B9A8: ;a8 x?
-    lda !stage
+    lda.w stage
     cmp #$03
     bne .BA08
 
@@ -7162,11 +7162,11 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BA5E:
-    lda !stage : pha
+    lda.w stage : pha
     ldx $1F93
-    lda.w _00B769,X : sta !stage ;set a temporary stage value to load new data after each rotation
+    lda.w _00B769,X : sta.w stage ;set a temporary stage value to load new data after each rotation
     jsl _048A6B
-    pla : sta !stage
+    pla : sta.w stage
     rts
 
 ;-----
@@ -7532,7 +7532,7 @@ _01BE1C: ;a8 x-
     sta $7EF6C0,X
     dex #2 : bpl -
 
-    lda !stage
+    lda.w stage
     asl
     tax
     lda.l _038000,X
@@ -7611,7 +7611,7 @@ _01BEBC: ;a8 x8
     lda #$15A2
     tcd
     ldx #$03 : stx $1A77
-    lda !stage
+    lda.w stage
     asl #2
     tay
     ldx.w _00B8D6+3,Y : stx $1A7A
@@ -7668,7 +7668,7 @@ _01BEBC: ;a8 x8
 
 { ;BF31 - BF77
 _01BF31: ;a8 x8
-    lda !stage
+    lda.w stage
     tax
     lda.w _00B8FE,X : sta $1A7F
     txa
@@ -7703,7 +7703,7 @@ _01BF31: ;a8 x8
 _01BF78: ;a- x8
     phd
     !A16
-    ldx !stage
+    ldx.w stage
     phx
     ldy.w _00B805,X
     lda #$15A2
@@ -8507,7 +8507,7 @@ _01C4AB: ;a8 x8
     tdc
     adc #$00D3
     tcd
-    lda !stage
+    lda.w stage
     bne .C58F
 
     jsr (.C5A5,X)
@@ -8683,7 +8683,7 @@ _01C679:
     ldx $1A7F
     bne .C6BC
 
-    lda !stage
+    lda.w stage
     asl
     tax
     sec
@@ -8801,7 +8801,7 @@ _01C679:
 
     sta $1A7B
 +:
-    lda !stage
+    lda.w stage
     cmp #$0006
     beq +
 
@@ -8831,7 +8831,7 @@ _01C679:
 
 .C7AC:
     ;debugging? free camera movement
-    lda !p1_button_hold+1 : and #!right|!left|!down|!up : tax
+    lda.w p1_button_hold+1 : and #!right|!left|!down|!up : tax
     ldy.w _01B7A5_B7A5,X
     bmi .C7F5
 
@@ -8942,7 +8942,7 @@ _01C87B:
 
 { ;C8A7 - CC1A
 _01C8A7: ;a x
-    lda !can_charge_magic
+    lda.w can_charge_magic
     beq .C8D1
 
     lda !arthur_hp
@@ -9023,7 +9023,7 @@ _01C8A7: ;a x
     cmp #$08
     bne .C93E
 
-    lda !shot_hold
+    lda.w shot_hold
     bne .C958
 
     jmp .CA46
@@ -9248,7 +9248,7 @@ _01C8A7: ;a x
     cmp #!gold
     beq .CBB5
 
-    stz !can_charge_magic
+    stz.w can_charge_magic
     stz $14B3
 .CB63:
     !A16
@@ -9431,7 +9431,7 @@ _01CCBD: ;a8 x8
 .CCCC:
     sta !obj_hp
     lda #$FF : sta $0F
-    stz !chest_counter
+    stz.w chest_counter
     stz.w knife_rapid_timer
     stz.w knife_rapid_count
     stz $14CB
@@ -9457,7 +9457,7 @@ _01CCBD: ;a8 x8
     lda #$0020 : sta $0313+$29
     lda #$0050 : sta $0342
     !A8
-    lda !stage
+    lda.w stage
     cmp #$04
     bne .CD36
 
@@ -9522,8 +9522,8 @@ _01CCBD: ;a8 x8
     stx $3F
     stz $1D
     stz $0F
-    stz !double_jump_state
-    stz !jump_state
+    stz.w double_jump_state
+    stz.w jump_state
     stz.w jump_counter
     stz $14F6
     lda !obj_facing  : sta !obj_direction
@@ -9536,7 +9536,7 @@ _01CCBD: ;a8 x8
     jsr _01D565
     jsr _01DE62_DE63
     lda #!down
-    bit !p1_button_hold+1
+    bit.w p1_button_hold+1
     beq .CE08
 
     brk #$00
@@ -9547,7 +9547,7 @@ _01CCBD: ;a8 x8
 
 .CE08:
     lda #$00 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     beq .CE18
 
@@ -9566,7 +9566,7 @@ _01CCBD: ;a8 x8
 
 .CE1C:
     ldy #$00
-    lda !bowgun_magic_active
+    lda.w bowgun_magic_active
     beq +
 
     ldy #$45
@@ -9587,7 +9587,7 @@ _01CCBD: ;a8 x8
     jsr _01DE62_DE63
     lda #$00 : jsr .CE9C
     lda #!down
-    bit !p1_button_hold+1
+    bit.w p1_button_hold+1
     beq .CE54
 
     brk #$00
@@ -9599,7 +9599,7 @@ _01CCBD: ;a8 x8
 .CE54:
     lda #$00 : jsr _01D090_D1C5
     jsr _01D565
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .CE79
 
@@ -9612,7 +9612,7 @@ _01CCBD: ;a8 x8
 .CE68:
     lda #$00 : jsr .CE9C
     lda #!down
-    bit !p1_button_hold+1
+    bit.w p1_button_hold+1
     beq .CE79
 
     brk #$00
@@ -9636,7 +9636,7 @@ _01CCBD: ;a8 x8
 ;-----
 
 .CE85:
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     and #!right|!left
     tax
     lda.w _00BA22,X
@@ -9717,7 +9717,7 @@ _01CCBD: ;a8 x8
     jsr _01D090_D2D4
     lda.w _00BA26,X : sta $14B0
     ldy.w _00BA2A,X
-    lda !jump_state
+    lda.w jump_state
     beq .CF22
 
     clc
@@ -9725,7 +9725,7 @@ _01CCBD: ;a8 x8
     ldy.w _00BA2E,X
 .CF22:
     jsl set_speed_xyg
-    lda !bowgun_magic_active
+    lda.w bowgun_magic_active
     beq .CF3A
 
     tya
@@ -9738,11 +9738,11 @@ _01CCBD: ;a8 x8
 .CF3A:
     lda !obj_facing : sta !obj_direction
     lda $14B0 : sta $3C
-    lda !jump_state
+    lda.w jump_state
     beq .CF53
 
 .CF48:
-    lda !jump_hold
+    lda.w jump_hold 
     beq .CF53
 
     brk #$00
@@ -9753,7 +9753,7 @@ _01CCBD: ;a8 x8
     bne .CF48
 
 .CF53:
-    lda !double_jump_state
+    lda.w double_jump_state
     bne +
 
     jsr _01D090_D2D4
@@ -9772,13 +9772,13 @@ _01CCBD: ;a8 x8
     jmp .CDBE
 
 .CF71:
-    lda !jump_state
+    lda.w jump_state
     bne .CF87
 
-    lda !jump_press
+    lda.w jump_press
     beq .CF87
 
-    inc !jump_state
+    inc.w jump_state
     lda #$05 : sta $2F
     brk #$00
 
@@ -9804,7 +9804,7 @@ _01CCBD: ;a8 x8
     lda #$00
     jsr .CE9C
     lda #!down
-    bit !p1_button_hold+1
+    bit.w p1_button_hold+1
     bne .CFB4
 
     brk #$00
@@ -9886,7 +9886,7 @@ _01CFF3:
 
 ;----- D015
 
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!up
     bne _01CFF3
 
@@ -9909,7 +9909,7 @@ _01CFF3:
 
 ;----- D032
 
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!up
     bne .D005
 
@@ -9923,7 +9923,7 @@ _01CFF3:
 
 ;----- D043
 
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!up
     beq .D066
 
@@ -10103,10 +10103,10 @@ _01D090: ;a8 x8
 ;-----
 
 .D184:
-    lda !stage
+    lda.w stage
     bne .D1AE
 
-    lda !checkpoint
+    lda.w checkpoint
     beq .D1AE
 
     ;gets here if at stage 1b
@@ -10152,7 +10152,7 @@ _01D090: ;a8 x8
 
 .D1C5: ;a8 x-
     sta.w jump_type
-    lda !jump_press
+    lda.w jump_press
     beq .D1C4
 
     pla : pla
@@ -10218,7 +10218,7 @@ _01D090: ;a8 x8
 .D250:
     lda #$1B : sta !slot_upgrade+!obj_type
     lda #$0C : sta !slot_upgrade
-    lda #$01 : sta !can_charge_magic
+    lda #$01 : sta.w can_charge_magic
     stz $14B3
     rts
 
@@ -10232,7 +10232,7 @@ _01D090: ;a8 x8
     ora.w current_cage
     bne .D2AA
 
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!up
     bne .D298
 
@@ -10292,7 +10292,7 @@ _01D090: ;a8 x8
 ;-----
 
 .D2D4:
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     and #!right|!left
     tax
     lda.w _00BA44,X
@@ -10318,7 +10318,7 @@ _01D090: ;a8 x8
 
     jsl _02FDB3
     lda !obj_direction : eor #$01 : sta !obj_direction
-    ldx !stage
+    ldx.w stage
     sec
     lda !obj_hp : sbc.w _00BA5E,X : sta !obj_hp
     bpl .D30E
@@ -10350,7 +10350,7 @@ _01D090: ;a8 x8
     lda.b #_01DD5C    : sta !obj_state+1
     lda.b #_01DD5C>>8 : sta !obj_state+2
     stz !slot_upgrade2
-    stz !can_charge_magic
+    stz.w can_charge_magic
     stz $02AC
     jsr _01DDE6
     rts
@@ -10371,7 +10371,7 @@ _01D090: ;a8 x8
     lda #$FF : sta !obj_hp
     stz $0F
     stz $1170
-    stz !can_charge_magic
+    stz.w can_charge_magic
     stz $02AC
     jsr _01DDE6
     inc $14D2
@@ -10395,7 +10395,7 @@ _01D090: ;a8 x8
 
     inc.w skip_double_jump_boost
 +:
-    inc !double_jump_state
+    inc.w double_jump_state
     rts
 
 ;-----
@@ -10412,11 +10412,11 @@ _01D090: ;a8 x8
     lda.w skip_double_jump_boost
     beq .D3AA
 
-    lda #$05 : sta !double_jump_state
+    lda #$05 : sta.w double_jump_state
     rts
 
 .D3AA:
-    inc !double_jump_state
+    inc.w double_jump_state
     lda #$09 : sta $31 ;flip timer: cuts flip anim short
     lda #$0F : jsl set_sprite_84AF
 .D3B7: ;will never jump here directly (double_jump_state is always > 0)
@@ -10430,7 +10430,7 @@ _01D090: ;a8 x8
 
 .D3BC:
     lda #$FF : sta $3D ;invalidate sprite
-    stz !double_jump_state
+    stz.w double_jump_state
 .D3C3:
     rts
 
@@ -10441,7 +10441,7 @@ _01D090: ;a8 x8
     ora $14B7
     bne .D3C3
 
-    lda !double_jump_state
+    lda.w double_jump_state
     bne .D371
 
 .D3D1:
@@ -10453,7 +10453,7 @@ _01D090: ;a8 x8
     lda !is_shooting
     beq .D3F4
 
-    lda !shot_press
+    lda.w shot_press
     bne .D3FC
 
     lda $14B9 : jsl _018DB8
@@ -10465,20 +10465,20 @@ _01D090: ;a8 x8
     rts
 
 .D3F4:
-    lda !shot_press
+    lda.w shot_press
     beq .D3F3
 
     inc !is_shooting
 .D3FC:
-    lda !jump_state
+    lda.w jump_state
     beq .D417
 
     ;pressing shot while double jumping
     cmp #$02
     beq .D417
 
-    inc !jump_state
-    inc !double_jump_state
+    inc.w jump_state
+    inc.w double_jump_state
     lda !obj_speed_y+2
     bpl .D414
 
@@ -10501,7 +10501,7 @@ _01D090: ;a8 x8
     lda.w _00BA7A+2,X : sta $14B9 ;store sprite offset to 2nd shot/crouch shot
     lda.w _00BA7A,X : jsl set_sprite_84AF ;load offset to shot/crouch shot
     ldx.w weapon_current
-    lda !obj_type_count+1,X
+    lda.w obj_type_count+1,X
     cpx #$09 ;check if weapon is upgraded torch
     bne .D447
 
@@ -10552,7 +10552,7 @@ _01D090: ;a8 x8
     lda $07 : sta $0007,X
     phx
     ldx.w weapon_current
-    inc !obj_type_count+1,X
+    inc.w obj_type_count+1,X
     plx
 .D4D7:
     rts
@@ -10602,7 +10602,7 @@ _01D090: ;a8 x8
 ;-----
 
 .D527: ;bowgun
-    lda !obj_type_count+!id_bowgun
+    lda.w obj_type_count+!id_bowgun
     cmp #$04
     bcs .D542
 
@@ -10621,7 +10621,7 @@ _01D090: ;a8 x8
 ;-----
 
 .D543:
-    lda !obj_type_count+!id_bowgun2
+    lda.w obj_type_count+!id_bowgun2
     beq .D52E
     rts
 
@@ -10730,8 +10730,8 @@ _01D565: ;a8 x?
 ;-----
 
 .seek:
-    lda !bowgun_magic_active : sta $14F8
-    lda #$01 : sta !bowgun_magic_active
+    lda.w bowgun_magic_active : sta $14F8
+    lda #$01 : sta.w bowgun_magic_active
     jsr get_magic_slot
     bmi .D62C
 
@@ -10753,7 +10753,7 @@ _01D565: ;a8 x?
     bne .D622
 
 .D62C:
-    lda $14F8 : sta !bowgun_magic_active
+    lda $14F8 : sta.w bowgun_magic_active
     jmp .D584
 
 ;-----
@@ -11094,7 +11094,7 @@ _01D8BF: ;a8 x-?
 .D8D5:
     pla : pla
     stz !slot_upgrade2+!obj_active
-    stz !can_charge_magic
+    stz.w can_charge_magic
     stz $02AC
     jsr _01DDE6
     jmp _01DD5C
@@ -11181,7 +11181,7 @@ _01D957: ;a8 x-
     bne .D97C
 
     stz $14E9
-    ldx !stage
+    ldx.w stage
     ldy.w _00BA18,X
     phy
     jsl _01A4E2_A50E
@@ -11219,7 +11219,7 @@ _01D97E: ;a8 x?
     bne .D9BE
 
     stz $14E9
-    ldx !stage
+    ldx.w stage
     ldy.w _00BA18,X
     phy
     jsl _01A4E2_A50E
@@ -11384,7 +11384,7 @@ _01DAB8:
     lda #$16 : jsl _018049_8053
     stz $02AC
     stz !slot_upgrade2
-    stz !can_charge_magic
+    stz.w can_charge_magic
     stz !is_shooting
     lda #$FF : sta $0F : sta $19EC
     lda #$01 : sta !obj_direction : sta !obj_facing
@@ -11468,18 +11468,18 @@ _01DB67: ;a8 x?
     lda #$04 : jsr _01DDCE
     stz $02AC
     stz !slot_upgrade2
-    stz !can_charge_magic
+    stz.w can_charge_magic
     stz !is_shooting
     lda #$FF : sta $19EC
     lda #$FF : sta $0F
     stz !arthur_facing
     stz $0332
     inc $0331
-    lda !stage
+    lda.w stage
     cmp #$08
     bne .DBA7
 
-    lda !loop
+    lda.w loop
     beq .DB9F
 
     lda.w weapon_current
@@ -11517,7 +11517,7 @@ _01DB67: ;a8 x?
     beq .DBCA
 
     lda !slot_upgrade+$08 : ora #$08 : sta !slot_upgrade+$08
-    lda !stage
+    lda.w stage
     dec
     beq .DBE1
 
@@ -11533,7 +11533,7 @@ _01DB67: ;a8 x?
 
 ;----- DBF0
 
-    lda !stage
+    lda.w stage
     tay ;unused?
     asl
     tax
@@ -11552,7 +11552,7 @@ _01DB67: ;a8 x?
 
     lda #$02 : sta $0278
     stz $028F
-    lda !stage : inc : sta !stage
+    lda.w stage : inc : sta.w stage
 .DC15:
     brk #$00
 
@@ -11827,11 +11827,11 @@ _01DDFC:
 
 { ;DE0B - DE61
 _01DE0B: ;a8 x8
-    ldx !stage
+    ldx.w stage
     cpx #$06
     bne .DE17
 
-    lda !checkpoint
+    lda.w checkpoint
     bne .DE4D
 
 .DE17:
@@ -11898,7 +11898,7 @@ _01DE62:
 
 ;-----  DEAD
 
-    lda !shot_press
+    lda.w shot_press
     beq .DEAB
 
     lda #$04 : sta $2F
@@ -11976,14 +11976,14 @@ arthur_baby: ;a8 x8
     ldy #$EA : ldx #$20 : jsl set_sprite
 .DF31:
     lda #$00 : sta $3C
-    stz !jump_state
+    stz.w jump_state
     stz.w jump_counter
     stz $0F
     lda !obj_facing : sta !obj_direction
 .DF41:
     lda #$02 : jsr _01CCBD_CE9C
     lda #$02 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .DF56
 
@@ -12005,7 +12005,7 @@ arthur_baby: ;a8 x8
     jsr _01CCBD_CE85
     lda #$02 : jsr _01CCBD_CE9C
     lda #$02 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .DF7F
 
@@ -12082,7 +12082,7 @@ arthur_maiden:
     ldy #$FC : ldx #$20 : jsl set_sprite
 .DFE8:
     lda #$00 : sta $3C
-    stz !jump_state
+    stz.w jump_state
     stz.w jump_counter
     stz $0F
     lda !obj_facing : sta !obj_direction
@@ -12093,7 +12093,7 @@ arthur_maiden:
 
     lda #$08 : jsr _01CCBD_CE9C
     lda #$08 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .E01E
 
@@ -12106,7 +12106,7 @@ arthur_maiden:
 
 ;----- E015
 
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!down
     bne .E013
 
@@ -12120,7 +12120,7 @@ arthur_maiden:
     jsr _01CCBD_CE85
     lda #$08 : jsr _01CCBD_CE9C
     lda #$08 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .E045
 
@@ -12192,7 +12192,7 @@ arthur_seal: ;a? x8
     ldy #$08 : ldx #$21 : jsl set_sprite
 .E0AA:
     lda #$00 : sta $3C
-    stz !jump_state
+    stz.w jump_state
     stz.w jump_counter
     stz $0F
     lda !obj_facing : sta !obj_direction
@@ -12203,7 +12203,7 @@ arthur_seal: ;a? x8
 
     lda #$04 : jsr _01CCBD_CE9C
     lda #$04 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     beq .E0BA
 
@@ -12214,7 +12214,7 @@ arthur_seal: ;a? x8
     jsr $CE85
     lda #$04 : jsr _01CCBD_CE9C
     lda #$04 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .E0F4
 
@@ -12249,7 +12249,7 @@ arthur_seal: ;a? x8
 
     jsr .E155
     lda #!b
-    bit !p1_button_press+1
+    bit.w p1_button_press+1
     beq .E11C
 
     lda #$2B : jsl _018049_8053
@@ -12323,7 +12323,7 @@ arthur_bee:
     ldy #$60 : ldx #$20 : jsl set_sprite
 .E195:
     lda #$00 : sta $3C
-    stz !jump_state
+    stz.w jump_state
     stz.w jump_counter
     stz $0F
     lda !obj_facing : sta !obj_direction
@@ -12334,7 +12334,7 @@ arthur_bee:
 
     lda #$06 : jsr _01CCBD_CE9C
     lda #$06 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     beq .E1A5
 
@@ -12343,7 +12343,7 @@ arthur_bee:
 .E1C2:
     jsr _01CCBD_CE85
     lda #$06 : jsr _01D090_D1C5
-    lda !p1_button_hold+1
+    lda.w p1_button_hold+1
     bit #!right|!left
     bne .E1D6
 
@@ -15094,7 +15094,7 @@ _01F6C9: ;a8 x-
 
 { ;F6D7 - F6E8
 _01F6D7: ;a8 x8
-    lda !stage
+    lda.w stage
     asl
     tax
     lda.w _008B05+0,X : sta $032B
@@ -15425,7 +15425,7 @@ _01F8D0:
 
 { ;F8DE - F8EF
     ;unused copy of _01F6D7
-    lda !stage
+    lda.w stage
     asl
     tax
     lda.w _008B05+0,X : sta $032B

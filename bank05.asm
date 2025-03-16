@@ -6,7 +6,7 @@ _058000:
 	php
 	lda #$05 : pha : plb
 	!X16
-	lda #$00 : xba : lda !stage
+	lda #$00 : xba : lda.w stage
 	asl
 	tay
 	stz $0A
