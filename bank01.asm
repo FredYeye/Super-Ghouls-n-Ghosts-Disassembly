@@ -5950,10 +5950,10 @@ _01AF04: ;a8 x8
     !A16
     clc
     lda.w camera_x+1 : sta $19BD : sta $1F89
-    adc #$0080    : sta $02D1
+    adc #$0080       : sta $02D1
     clc
     lda.w camera_y+1 : sta $19C1 : sta $1F8B
-    adc #$0080    : sta $02D3
+    adc #$0080       : sta $02D3
     lda #$0100
     sta $02C9
     stz $02CB
@@ -12456,7 +12456,7 @@ _01E224:
     rts
 }
 
-{ ;E285 -
+{ ;E285 - E2AA
 _01E285:
     lda $1F91
     bne .E2A2

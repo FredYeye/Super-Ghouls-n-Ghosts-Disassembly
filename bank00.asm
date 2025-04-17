@@ -26,14 +26,14 @@ entry: ;emulated mode (code entry)
     !X8
     lda #$8F : sta !INIDISP
     ldx #$0D
--:
+.8120:
     cpx #$01
-    beq +
+    beq .812A
 
     stz $4200,X
-    dex : bpl -
+    dex : bpl .8120
 
-+:
+.812A:
     lda #$FF : sta !WRIO
     ldx #$01 : ldy #$0B : jsr clear_snes_regs
     ldx #$15 : ldy #$05 : jsr clear_snes_regs
@@ -769,7 +769,10 @@ _008807: ;a8 x8
     dw $0C00 : dl $7EE000 : dw $0800
     dw $0800 : dl $7ED800 : dw $0800
     dw $0C00 : dl $7ED000 : dw $0800
-    dw $1800 : dl $0088AD : dw $1000 : db $03, $4E, $02 ;not sure what these extra bytes are for
+    dw $1800 : dl .88AD   : dw $1000
+
+.88AD: db $03, $4E, $02 ;leftover bytes?
+
     dw $0000 : dl $7EB000 : dw $0800 ;send collision array to vram (stage 1)
     dw $0400 : dl $7EB800 : dw $0800 ;send collision array to vram (stage 1)
     dw $0000 : dl $7EC000 : dw $0800
@@ -784,7 +787,7 @@ _008807: ;a8 x8
     dw $1040 : dl $7F0040 : dw $04C0
     dw $1040 : dl $7F2A00 : dw $04C0
     dw $1000 : dl $7FB880 : dw $0400
-    dw $1000 : dl $0088AE : dw $1000
+    dw $1000 : dl .88AD+1 : dw $1000
     dw $5C00 : dl $7FD000 : dw $0800
     dw $7000 : dl $7F1000 : dw $1C00
     dw $0C00 : dl $7ED800 : dw $0800
@@ -813,7 +816,7 @@ _00893C: ;a8 x8
 .ret:
     rts
 
-    .8984: db $01, $00, $20, $00, $00, $7F, $00, $10
+    .8984: db $01 : dw $2000 : dl $7F0000 : dw $1000
 }
 
 { ;898C - 89AF

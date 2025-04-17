@@ -2,6 +2,13 @@
 
     lorom
 
+{ ;rom version to assemble
+    ;0 = JP
+    ;1 = US (WIP)
+    ;2 = EU (nothing done yet)
+    !version = 1
+}
+
 { ;asar functions
     ;general use: calculate distance from label A to B
     function offset(a, b) = b-a

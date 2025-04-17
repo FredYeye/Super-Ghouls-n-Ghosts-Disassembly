@@ -6105,6 +6105,7 @@ hydra:
     sec
     sbc !obj_pos_x+1
     bcs .ACBE
+
     lda !obj_pos_x+1
     sta !arthur_pos_x+1
     bra .ACBE

@@ -1130,7 +1130,13 @@ _039C09:
     stz $1889
     stz $188D
     !X16
-    lda #$21BF
+
+    if !version == 0
+        lda #$21BF
+    elseif !version == 1
+        lda #$21C5
+    endif
+
     !AX8
     jsl _018061_8064
     inc $0323
@@ -1138,8 +1144,15 @@ _039C09:
 
 ;----- 9C65
 
-    ldy #$27 : jsl _01A21D
-    lda #$15 : sta $031E
+    if !version == 0
+        ldy #$27 : jsl _01A21D
+        lda #$15 : sta $031E
+    elseif !version == 1
+        ldy #$AF : jsl _01A21D_decompress_graphics
+        ldy #$2C : jsl _01A21D
+        lda #$1A : sta $031E
+    endif
+
     lda #$05 : sta $02E1
     lda $02D9 : ora #$08 : sta $02D9
     lda #$04 : cop #$00
@@ -3237,10 +3250,8 @@ _03AB47:
     bne .AC79
 
     !A16
-    lda !obj_pos_x+1
-    sta !obj_speed_x+1
-    lda !obj_pos_y+1
-    sta !obj_speed_y+1
+    lda !obj_pos_x+1 : sta !obj_speed_x+1
+    lda !obj_pos_y+1 : sta !obj_speed_y+1
     !A8
     lda #$30 : sta $3B
 .AC93:
@@ -5196,10 +5207,7 @@ _03B8B2: ;a8 x8
     jsr .BAFB
     lda $2E : and #$01 : sta $2E
 .BAD2:
-    lda $2D
-    asl
-    ora $2E
-    sta !options_stage_checkpoint
+    lda $2D : asl : ora $2E : sta !options_stage_checkpoint
     rts
 
 ;-----
@@ -6375,7 +6383,7 @@ _03C392:
 
 ;----- C396
 
-    !A16 ;does nothing
+    !A16
 .C398:
     brk #$00
 
@@ -6392,9 +6400,17 @@ _03C392:
     !A16
     stz $31
     stz $33
-    lda #$E580 : sta $7EF7C2
+
+    if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
+        lda #$E580 : sta $7EF7C2
+    endif
+
     !A8
-    lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
+
+    if !version == 0
+        lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
+    endif
+
 .C3CB:
     !AX8
     lda #$39 : jsl _018049_8053
@@ -6430,6 +6446,21 @@ _03C392:
     lda #$E580 : sta $7EF7C2
     !A8
     lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
+
+    if !version == 1
+    .C411:
+        brk #$00
+
+    ;----- C413
+
+        lda #$17 : sta $031E
+        !A16
+        lda !arthur_pos_y+1
+        cmp #$02E0
+        !A8
+        bcs .C411
+    endif
+
     jml _0281A8_81B5
 
 ;-----
