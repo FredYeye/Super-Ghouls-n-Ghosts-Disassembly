@@ -5262,8 +5262,7 @@ hydra:
     dec $31
     bne .A59B
 
-    lda #$46
-    jsl prepare_object
+    lda #!id_small_explosion : jsl prepare_object
     lda #$3B : jsl _018049_8053
     jmp _0281A8_81B5
 

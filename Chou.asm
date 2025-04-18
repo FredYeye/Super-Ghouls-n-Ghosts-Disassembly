@@ -6,7 +6,7 @@
     ;0 = JP
     ;1 = US (WIP)
     ;2 = EU (nothing done yet)
-    !version = 1
+    !version = 0
 }
 
 { ;asar functions

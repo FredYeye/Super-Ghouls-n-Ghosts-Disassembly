@@ -1131,11 +1131,11 @@ _039C09:
     stz $188D
     !X16
 
-    if !version == 0
-        lda #$21BF
-    elseif !version == 1
-        lda #$21C5
-    endif
+if !version == 0
+    lda #$21BF
+elseif !version == 1
+    lda #$21C5
+endif
 
     !AX8
     jsl _018061_8064
@@ -1144,14 +1144,14 @@ _039C09:
 
 ;----- 9C65
 
-    if !version == 0
-        ldy #$27 : jsl _01A21D
-        lda #$15 : sta $031E
-    elseif !version == 1
-        ldy #$AF : jsl _01A21D_decompress_graphics
-        ldy #$2C : jsl _01A21D
-        lda #$1A : sta $031E
-    endif
+if !version == 0
+    ldy #$27 : jsl _01A21D
+    lda #$15 : sta $031E
+elseif !version == 1
+    ldy #$AF : jsl _01A21D_decompress_graphics
+    ldy #$2C : jsl _01A21D
+    lda #$1A : sta $031E
+endif
 
     lda #$05 : sta $02E1
     lda $02D9 : ora #$08 : sta $02D9
@@ -6401,15 +6401,15 @@ _03C392:
     stz $31
     stz $33
 
-    if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
-        lda #$E580 : sta $7EF7C2
-    endif
+if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
+    lda #$E580 : sta $7EF7C2
+endif
 
     !A8
 
-    if !version == 0
-        lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
-    endif
+if !version == 0
+    lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
+endif
 
 .C3CB:
     !AX8
@@ -6447,19 +6447,19 @@ _03C392:
     !A8
     lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
 
-    if !version == 1
-    .C411:
-        brk #$00
+if !version == 1
+.C411:
+    brk #$00
 
-    ;----- C413
+;----- C413
 
-        lda #$17 : sta $031E
-        !A16
-        lda !arthur_pos_y+1
-        cmp #$02E0
-        !A8
-        bcs .C411
-    endif
+    lda #$17 : sta $031E
+    !A16
+    lda !arthur_pos_y+1
+    cmp #$02E0
+    !A8
+    bcs .C411
+endif
 
     jml _0281A8_81B5
 
@@ -7923,14 +7923,25 @@ _03CCCA: ;a8 x8
     sec : lda !obj_pos_x+1 : sbc #$0003 : sta !obj_pos_x+1
     !A8
     ldy #$E8 : ldx #$21 : jsl set_sprite
+
+if !version == 0
     lda #$7F : cop #$00
 
 ;----- D012
+endif
 
     !A8
     stz $032E
     stz $02F0
+
+if !version == 0
     ldy #$27 : jsl _01A21D
+elseif !version == 1
+    ldy #$AF : jsl _01A21D_decompress_graphics
+    ldy #$2C : jsl _01A21D
+    lda #$1A : sta $031E
+endif
+
     !A16
     stz $1889
     stz $188D
@@ -7938,7 +7949,13 @@ _03CCCA: ;a8 x8
     lda #$0800 : sta $031A
     !X16
     ldx #$001C : lda #$0010 : ldy #$0000 : jsl _019136_9187
+
+if !version == 0
     lda #$21BF
+elseif !version == 1
+    lda #$21C5
+endif
+
     !AX8
     jsl _018061_8064
     inc $0323
@@ -7946,7 +7963,10 @@ _03CCCA: ;a8 x8
 
 ;----- D051
 
+if !version == 0
     lda #$15 : sta $031E
+endif
+
     lda #$05 : sta $02E1
     lda #$16 : sta $02D5 : sta $02D7
     lda $02D9 : ora #$08 : sta $02D9
@@ -11740,6 +11760,12 @@ _03EDE2: ;a8 x8
 { ;EE1D - EF85
 _03EE1D: ;a8 ;x8
     ;printing text on screen
+
+if !version == 1
+    phb
+    lda #$04 : pha : plb
+endif
+
     stz $1EC3
     stz $1EC4
     lda $0055,Y : asl : tay
@@ -11845,7 +11871,13 @@ _03EE1D: ;a8 ;x8
     !A16
     ldx #$0000
     lda #$0400 : sta $1EBF
+
+if !version == 0
     lda #$21BF
+elseif !version == 1
+    lda #$21C5
+endif
+
     ora $1EC3
 .EEC3:
     sta $7F9000,X
@@ -11861,6 +11893,7 @@ _03EE1D: ;a8 ;x8
 
 ;-----
 
+if !version == 0
 .handakuten:
     pha
     phx
@@ -11899,6 +11932,7 @@ _03EE1D: ;a8 ;x8
     plx
     ply
     bra .EF18
+endif
 
 ;-----
 
