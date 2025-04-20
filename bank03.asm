@@ -9312,10 +9312,18 @@ _03DAA0:
 
 ;----- DB1D
 
+if !version == 0
     jsr .DB35
+endif
+
     dec !obj_pos_y+1
     inc $36
     dec $33
+
+if !version == 1
+    jsr .DB35
+endif
+
     lda $33
     dec
     bne .DB1B
@@ -11770,18 +11778,22 @@ endif
     stz $1EC4
     lda $0055,Y : asl : tay
     !AX16
-    lda.w _00D6E6,Y
+    lda.w !text_offset,Y
     tay
 .EE2E:
-    ldx.w _00D6E6_D6EC,Y
+    ldx.w !text_offset2,Y
     iny #2
 .EE33:
     !A8
     lda #$08 : jsl _01A717_A728
 .EE3B:
-    lda.w _00D6E6_D6EC,Y
+    lda.w !text_offset2,Y
     cmp #$FF
     bne .EE46
+
+if !version == 1
+    plb
+endif
 
     jml _01A717 ;FF: exit
 
@@ -11804,7 +11816,12 @@ endif
     cmp #$F8
     beq .EE71
 
+if !version == 0
     jsr .EF10
+elseif !version == 1
+    jsr .EF18
+endif
+
     bra .EE33
 
 ;-----
@@ -11817,7 +11834,7 @@ endif
 
 .pause:
     iny
-    lda.w _00D6E6_D6EC,Y ;frame count
+    lda.w !text_offset2,Y ;frame count
     jsl _01A717_A728
     iny
     bra .EE3B
@@ -11827,7 +11844,7 @@ endif
 .EE71:
     ;choose text palette? unused?
     iny
-    lda.w _00D6E6_D6EC,Y
+    lda.w !text_offset2,Y
     !A16
     asl #10
     and #$1C00
@@ -11840,7 +11857,7 @@ endif
 
 .move_cursor:
     iny
-    lda.w _00D6E6_D6EC,Y ;tile count
+    lda.w !text_offset2,Y ;tile count
     asl
     !A16
     stx $1EBD
@@ -11932,7 +11949,6 @@ if !version == 0
     plx
     ply
     bra .EF18
-endif
 
 ;-----
 
@@ -11942,6 +11958,7 @@ endif
 
     cmp #$80
     bcs .dakuten
+endif
 
 .EF18:
     !A16
@@ -11958,6 +11975,7 @@ endif
 
 ;-----
 
+if !version == 0
 .EF31:
     db $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10, $11, $12, $13, $19
     db $1A, $1B, $1C, $1D, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F
@@ -11966,6 +11984,7 @@ endif
 
     db $19, $1A, $1B, $1C, $1D, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F
     db $59, $5A, $5B, $5C, $5D
+endif
 }
 
 { ;EF86 - F1A5
@@ -12583,7 +12602,7 @@ _03F8A3:
     ldy #$A8 : jsl _01A21D_decompress_graphics
     ldx #$2F : jsl _0180C7
     ldy #$2A : jsl _01A21D
-    ldx #$2D : jsl _0180C7 ;<-
+    ldx #$2D : jsl _0180C7
     !AX8
     jsl _01951E
     jsl _019539

@@ -48,14 +48,14 @@ entry: ;emulated mode (code entry)
     lda $02F5
 
     ldx #$E000
--:
+.8157:
     stz $1FFF,X
-    dex : bne -
+    dex : bne .8157
 
     ldx #$1FD7
--:
+.8160:
     stz $0000,X
-    dex : bpl -
+    dex : bpl .8160
 
     sta $02F5
     sty $02F3
@@ -66,14 +66,14 @@ entry: ;emulated mode (code entry)
 
     ldy #$90
     ldx #$0C
--:
+.817F:
     lda _00A309+0,X : sta $0052,Y
     lda _00A309+1,X : sta $0053,Y
     sec
     tya
     sbc #$18
     tay
-    dex #2 : bpl -
+    dex #2 : bpl .817F
 
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
@@ -762,37 +762,50 @@ _008807: ;a8 x8
     rts
 
 .8871:
-    db $19, $20, $27, $2E, $35, $3F, $46, $4D, $54, $5B, $62, $69
-    db $70, $77, $7E, $85, $8C, $93, $9A, $A1, $A8, $AF, $B6, $BD, $C4
+    db offset(.8871, .888A), offset(.8871, .8891), offset(.8871, .8898), offset(.8871, .889F)
+    db offset(.8871, .88A6), offset(.8871, .88B0), offset(.8871, .88B7), offset(.8871, .88BE)
+    db offset(.8871, .88C5), offset(.8871, .88CC), offset(.8871, .88D3), offset(.8871, .88DA)
+    db offset(.8871, .88E1), offset(.8871, .88E8), offset(.8871, .88EF), offset(.8871, .88F6)
+    db offset(.8871, .88FD), offset(.8871, .8904), offset(.8871, .890B), offset(.8871, .8912)
+    db offset(.8871, .8919), offset(.8871, .8920), offset(.8871, .8927), offset(.8871, .892E)
+    db offset(.8871, .8935)
 
-    dw $0000 : dl $7EB000 : dw $1000
-    dw $0C00 : dl $7EE000 : dw $0800
-    dw $0800 : dl $7ED800 : dw $0800
-    dw $0C00 : dl $7ED000 : dw $0800
-    dw $1800 : dl .88AD   : dw $1000
+if !version == 1
+    db offset(.8871, .893D)
+endif
+
+.888A: dw $0000 : dl $7EB000 : dw $1000
+.8891: dw $0C00 : dl $7EE000 : dw $0800
+.8898: dw $0800 : dl $7ED800 : dw $0800
+.889F: dw $0C00 : dl $7ED000 : dw $0800
+.88A6: dw $1800 : dl .88AD   : dw $1000
 
 .88AD: db $03, $4E, $02 ;leftover bytes?
 
-    dw $0000 : dl $7EB000 : dw $0800 ;send collision array to vram (stage 1)
-    dw $0400 : dl $7EB800 : dw $0800 ;send collision array to vram (stage 1)
-    dw $0000 : dl $7EC000 : dw $0800
-    dw $0400 : dl $7EC800 : dw $0800
-    dw $0000 : dl $7FA000 : dw $1000
-    dw $0000 : dl $7FB000 : dw $1000
-    dw $0000 : dl $7FC000 : dw $1000
-    dw $0000 : dl $7FDC00 : dw $1800
-    dw $1000 : dl $7F0000 : dw $1000
-    dw $2000 : dl $7F1000 : dw $1000
-    dw $3000 : dl $7F2000 : dw $1000
-    dw $1040 : dl $7F0040 : dw $04C0
-    dw $1040 : dl $7F2A00 : dw $04C0
-    dw $1000 : dl $7FB880 : dw $0400
-    dw $1000 : dl .88AD+1 : dw $1000
-    dw $5C00 : dl $7FD000 : dw $0800
-    dw $7000 : dl $7F1000 : dw $1C00
-    dw $0C00 : dl $7ED800 : dw $0800
-    dw $0000 : dl $7F9800 : dw $0500
-    dw $7000 : dl $7F2720 : dw $1000
+.88B0: dw $0000 : dl $7EB000 : dw $0800 ;send collision array to vram (stage 1)
+.88B7: dw $0400 : dl $7EB800 : dw $0800 ;send collision array to vram (stage 1)
+.88BE: dw $0000 : dl $7EC000 : dw $0800
+.88C5: dw $0400 : dl $7EC800 : dw $0800
+.88CC: dw $0000 : dl $7FA000 : dw $1000
+.88D3: dw $0000 : dl $7FB000 : dw $1000
+.88DA: dw $0000 : dl $7FC000 : dw $1000
+.88E1: dw $0000 : dl $7FDC00 : dw $1800
+.88E8: dw $1000 : dl $7F0000 : dw $1000
+.88EF: dw $2000 : dl $7F1000 : dw $1000
+.88F6: dw $3000 : dl $7F2000 : dw $1000
+.88FD: dw $1040 : dl $7F0040 : dw $04C0
+.8904: dw $1040 : dl $7F2A00 : dw $04C0
+.890B: dw $1000 : dl $7FB880 : dw $0400
+.8912: dw $1000 : dl .88AD+1 : dw $1000
+.8919: dw $5C00 : dl $7FD000 : dw $0800
+.8920: dw $7000 : dl $7F1000 : dw $1C00
+.8927: dw $0C00 : dl $7ED800 : dw $0800
+.892E: dw $0000 : dl $7F9800 : dw $0500
+.8935: dw $7000 : dl $7F2720 : dw $1000
+
+if !version == 1
+.893D: dw $5C00 : dl $7F9800 : dw $06A0
+endif
 }
 
 { ;893C - 898B
@@ -1090,7 +1103,11 @@ _008B05:
 }
 
 { ;8C90 - A2FF
+if !version == 0
     fillbyte $FF : fill 5744
+elseif !version == 1
+    fillbyte $FF : fill 5736
+endif
 }
 
 { ;A300 - A308
@@ -1869,6 +1886,10 @@ gfx_decomp_offsets:
     dw $2000 : dl $09D000 : dw $1800 ;11F
     dw $0000 : dl $1D9F80 : dw $3800 ;126
     dw $9980 : dl $1CD8FF : dw $0500 ;12D
+
+if !version == 1
+    dw $9D00 : dl $1DF641 : dw $01A0
+endif
 }
 
 { ;B23A - B43F
@@ -4327,6 +4348,7 @@ samael_platform_data:
     db $08, $FF
 }
 
+if !version == 0
 { ;D6E6 - DA6D
 ;text
 
@@ -4432,7 +4454,8 @@ _00D6E6:
     db $FD
 
     db $FE, $03
-    db $40, $32, $4A, $32, $36, $36, $36, $FC, $4F
+    db $40, $32, $4A, $32, $36, $36, $36
+    db $FC, $4F
 
     db $FF
 
@@ -4501,7 +4524,8 @@ _00D6E6:
     db $FD
 
     db $FE, $03
-    db $0E, $09, $2C, $00, $13, $15, $0B, $0F, $39, $FC, $4F
+    db $0E, $09, $2C, $00, $13, $15, $0B, $0F, $39
+    db $FC, $4F
 
     db $FF
 
@@ -4578,6 +4602,7 @@ _00D6E6:
 
     db $FF
 }
+endif
 
 { ;DA6E - DAA1
 zombie_spawner_data:
@@ -4594,7 +4619,6 @@ zombie_spawner_data:
 
 ..difficulty_offset:
     db .zone_b-.zone_max, .zone_n-.zone_max, .zone_e-.zone_max, .zone_p-.zone_max
-    ; db zombie_zone_b-zombie_zone_max, zombie_zone_n-zombie_zone_max, zombie_zone_e-zombie_zone_max, zombie_zone_p-zombie_zone_max
 
 ..max: ;max zombies allowed per zone
 
@@ -5726,7 +5750,11 @@ _00EC3F:
 }
 
 { ;EC4B - ECFF
+if !version == 0
     fillbyte $FF : fill 181
+elseif !version == 1
+    fillbyte $FF : fill 1078
+endif
 }
 
 { ;ED00 -
@@ -7055,7 +7083,12 @@ _00ED00: ;sprite related. sprite sets to load?
 }
 
 { ;snes header
+if !version == 0
     db "CHOHMAKAIMURA        " ;title
+elseif !version == 1
+    db "SUPER GHOULS'N GHOSTS"
+endif
+
     db $20                     ;rom mode (LoROM)
     db $00                     ;cart type / extra functionality
     db $0A                     ;rom size
