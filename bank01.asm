@@ -15188,6 +15188,8 @@ _01F722: ;a8 x8
 
 ;----- duplicate code start
 
+;todo: consider turning dupe code into byte groups
+
 { ;F783 - F7A5
 _01F783:
     ;unused partial copy of _01F4F7
@@ -15522,7 +15524,11 @@ _01F929:
 ;----- duplicate code end
 
 { ;F98A - FEFF
+if !version == 0
     fillbyte $FF : fill 1398
+elseif !version == 1
+    incbin "us_fill_bytes/bank01a.bin"
+endif
 }
 
 { ;FF00 - FF73
@@ -15564,5 +15570,9 @@ _01FF74:
 }
 
 { ;FF77 - FFFF
+if !version == 0
     fillbyte $FF : fill 137
+elseif !version == 1
+    incbin "us_fill_bytes/bank01b.bin"
+endif
 }

@@ -12930,6 +12930,11 @@ _03FC40:
     rtl ;unreachable
 }
 
+if !version == 0
+;dupe code section start
+
+;todo: consider turning into bytes
+
 { ;FC88 - FC9E
 _03FC88:
     ;partial copy of _03FBFA
@@ -12994,3 +12999,6 @@ _03FC9F:
 { ;FCE7 - FFFF
     fillbyte $FF : fill 793
 }
+elseif !version == 1
+    incbin "us_fill_bytes/bank03a.bin"
+endif

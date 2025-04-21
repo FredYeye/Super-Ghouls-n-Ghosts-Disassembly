@@ -17263,5 +17263,9 @@ _02FF57: ;a x
 }
 
 { ;FFA5 - FFFF
+if !version == 0
     fillbyte $FF : fill 91
+elseif !version == 1
+    incbin "us_fill_bytes/bank02a.bin"
+endif
 }

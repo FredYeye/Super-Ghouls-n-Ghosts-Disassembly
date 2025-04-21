@@ -1,7 +1,11 @@
 org $008000
 
 { ;8000 - 80FF
+if !version == 0
     fillbyte $FF : fill 256
+elseif !version == 1
+    incbin "us_fill_bytes/bank00a.bin"
+endif
 }
 
 { ;8100 - 8107
@@ -1106,7 +1110,7 @@ _008B05:
 if !version == 0
     fillbyte $FF : fill 5744
 elseif !version == 1
-    fillbyte $FF : fill 5736
+    incbin "us_fill_bytes/bank00b.bin"
 endif
 }
 
@@ -5753,7 +5757,7 @@ _00EC3F:
 if !version == 0
     fillbyte $FF : fill 181
 elseif !version == 1
-    fillbyte $FF : fill 1078
+    incbin "us_fill_bytes/bank00c.bin"
 endif
 }
 
@@ -7079,7 +7083,11 @@ _00ED00: ;sprite related. sprite sets to load?
 }
 
 { ;FF44 - FFBF
+if !version == 0
     fillbyte $FF : fill 124
+elseif !version == 1
+    incbin "us_fill_bytes/bank00d.bin"
+endif
 }
 
 { ;snes header
@@ -7093,7 +7101,7 @@ endif
     db $00                     ;cart type / extra functionality
     db $0A                     ;rom size
     db $00                     ;sram size
-    db $00                     ;country
+    db !version                ;country
     db $08                     ;developer ID
     db $00                     ;version number
     dw $FFFF, $0000            ;checksum complement & checksum
@@ -7101,7 +7109,14 @@ endif
 
 { ;interrupt vectors
     dw $285C, $01A7 ;unused? not sure what this is
+
+if !version == 0
     dw cop, brk, $FFFF, nmi, $FFFF, irq ;native mode vectors
     dw $FFFF, $FFFF ;unused?
     dw $FFFF, $FFFF, $FFFF, $FFFF, entry, $FFFF ;emulation mode vectors
+elseif !version == 1
+    dw cop, brk, $0000, nmi, $0000, irq ;native mode vectors
+    dw $0000, $0000 ;unused?
+    dw $0000, $0000, $0000, $0000, entry, $0000 ;emulation mode vectors
+endif
 }
