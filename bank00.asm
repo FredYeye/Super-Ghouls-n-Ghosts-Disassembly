@@ -2134,9 +2134,14 @@ _00B659: ;offsets into next section. 4 bytes per entry but only 2 reachable?
 }
 
 { ;B755 - B768
-    ;unused
-    db $00, $00, $0A, $0A, $C0, $FF, $FF, $FF, $40, $00, $00, $00, $EC, $FF, $FF, $FF
-    db $14, $00, $00, $00
+_00B755: ;unused? referenced in code but that code is unreachable as far as i can tell
+    db $00, $00, $0A, $0A
+
+.B759:
+    dw $FFC0, $FFFF
+    dw $0040, $0000
+    dw $FFEC, $FFFF
+    dw $0014, $0000
 }
 
 { ;B769 - B76C
@@ -2261,12 +2266,16 @@ _00B8D6:
 }
 
 { ;B908 - B937
-_00B908: ;magic bar
+_00B908: ;magic meter
     dw $21B0, $21B1, $21B2, $21B3, $21B4, $21B5
+
+.B914: ;mirrored magic meter
     dw $21B5, $21B4, $21B3, $21B2, $21B1, $21B0
 
-.B920:
+.B920: ;first charged meter
     dw $21B6, $21B7, $21B8, $21B9, $21BA, $21BB
+
+.B92C: ;second charged meter
     dw $21BC, $21BD, $21BE, $21BF, $21C0, $21AF
 }
 
@@ -2524,7 +2533,8 @@ _00BB22: ;bowgun
 }
 
 { ;BBF6 - BBF7
-    db $10, $00 ;unused?
+_00BBF6: ;scythe2 second $13, first value is taken from previous data
+    dw $0010
 }
 
 { ;BBF8 - BBFB
@@ -3136,7 +3146,9 @@ _00C2A4: db $01, $03, $04, $04, $04, $FF, $FF, $FF, $FF
 
 { ;C2BB - C2CE
     ;unused?
+_00C2BB:
     dw $0E30, $0F10, $1050, $10D0, $1168
+.C2C5:
     dw $0040, $0078, $0040, $0060, $006C
 }
 
@@ -3426,7 +3438,9 @@ skulls_data:
 }
 
 { ;C919 - C920
-    _00C919: dw $2045,$244E, $244E,$2045
+_00C919:
+    dw $2045, $244E
+    dw $244E, $2045
 }
 
 { ;C921 - C970
@@ -3806,8 +3820,13 @@ tower_edge_data:
     dw $0000, $0001
 }
 
-{ ;CEF8 - CF03
-    db $88, $8A, $8C, $8E, $90, $92, $94, $96, $36, $37, $38, $39 ;unused?
+{ ;CEF8 - CEFF
+    ;unused?
+    db $88, $8A, $8C, $8E, $90, $92, $94, $96
+}
+
+{ ;CF00 - CF03
+_00CF00: db $36, $37, $38, $39 ;unused
 }
 
 { ;CF04 - D000
@@ -3976,13 +3995,28 @@ death_crawler_projectile_data:
     db $00, $00, $00, $00, $01, $01, $01, $01 ;right, 3 last values unused?
 }
 
-{ ;D167 - D1AB
-    ;unused?
-    db $00, $08, $10, $01, $03, $02, $01, $03, $03, $03, $01, $01, $01, $01, $02, $01
-    db $80, $02, $80, $03, $40, $02, $70, $03, $00, $02, $40, $03, $D0, $01, $70, $03
-    db $80, $01, $60, $03, $00, $01, $40, $03, $F0, $00, $60, $02, $40, $01, $40, $02
-    db $70, $01, $30, $02, $80, $01, $00, $02, $C0, $01, $F0, $01, $60, $02, $40, $02
-    db $E0, $02, $30, $02
+{ ;D167 - D169
+    db $00, $08, $10 ;unused?
+}
+
+{ ;D16A - D1AB
+_00D16A:
+    db $01, $03, $02, $01, $03, $03, $03, $01, $01, $01, $01, $02, $01
+
+.D177:
+    dw $0280, $0380
+    dw $0240, $0370
+    dw $0200, $0340
+    dw $01D0, $0370
+    dw $0180, $0360
+    dw $0100, $0340
+    dw $00F0, $0260
+    dw $0140, $0240
+    dw $0170, $0230
+    dw $0180, $0200
+    dw $01C0, $01F0
+    dw $0260, $0240
+    dw $02E0, $0230
 }
 
 { ;D1AB - D1BA
@@ -3998,7 +4032,7 @@ lava_pillar_data:
 }
 
 { ;D1BB - D1BC
-    db $05, $11 ;unused?
+_00D1BB: db $05, $11
 }
 
 { ;D1BD - D1C0
@@ -4991,8 +5025,7 @@ _00DC1E:
 }
 
 { ;DD94 - DD95
-    ;todo: i think this is unused? could be a hitbox, could be data used by _02FDE5 (unused code)
-    db $10, $20
+_00DD94: db $10, $20 ;todo: unused? most likely connected to DD96?
 }
 
 { ;DD96 - DDAD

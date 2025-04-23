@@ -12,6 +12,10 @@ org $078000
 	arch 65816
 }
 
-{ ; - FFFF
+{ ;FA39 - FFFF
+if !version == 0
 	fillbyte $FF : fill 1479
+elseif !version == 1
+	incbin "us_fill_bytes/bank07a.bin"
+endif
 }

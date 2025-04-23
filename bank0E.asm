@@ -151,4 +151,8 @@ incbin "graphics/item_armor_steel.bin"
 incbin "graphics/item_armor_gold.bin"
 incbin "graphics/item_armor_bronze.bin"
 
-fillbyte $FF : fill 320
+if !version == 0
+	fillbyte $FF : fill 320
+elseif !version == 1
+	incbin "us_fill_bytes/bank0Ea.bin"
+endif

@@ -1573,14 +1573,14 @@ _018CB3:
     and #$0001
     bne .8CCD
 
-    clc : lda.w !obj_pos_x+1,X : adc $EA5F,Y : sta !obj_pos_x+1 ;todo
+    clc : lda.w !obj_pos_x+1,X : adc.w spawn_offset_x,Y : sta !obj_pos_x+1 ;todo
     bra .8CD6
 
 .8CCD:
-    sec : lda.w !obj_pos_x+1,X : sbc $EA5F,Y : sta !obj_pos_x+1 ;todo
+    sec : lda.w !obj_pos_x+1,X : sbc.w spawn_offset_x,Y : sta !obj_pos_x+1 ;todo
 .8CD6: ;a16 x16
     clc
-    lda.w !obj_pos_y+1,X : adc $EB3F,Y : sta !obj_pos_y+1 ;todo
+    lda.w !obj_pos_y+1,X : adc.w spawn_offset_y,Y : sta !obj_pos_y+1 ;todo
     !A8
     rtl
 }
@@ -6929,7 +6929,7 @@ _01B86E: ;a8 x8
 
 .B883:
     ldx $1A96,Y
-    lda $B755,X
+    lda.w _00B755,X
     tax
     lda $1A84,X
     cmp #$03
@@ -6949,13 +6949,13 @@ _01B86E: ;a8 x8
     cpx #$08
     bcs .B8B9
 
-    lda $B759,X : adc $19A8 : sta $19A8 ;todo
-    lda $B75B,X : adc $19AA : sta $19AA ;todo
+    lda.w _00B755_B759+0,X : adc $19A8 : sta $19A8
+    lda.w _00B755_B759+2,X : adc $19AA : sta $19AA
     bra .B8D1
 
 .B8B9:
-    lda $B759,X : adc $19B0 : sta $19B0 : sta $19D0 ;todo
-    lda $B75B,X : adc $19B2 : sta $19B2 : sta $19D2 ;todo
+    lda.w _00B755_B759+0,X : adc $19B0 : sta $19B0 : sta $19D0
+    lda.w _00B755_B759+2,X : adc $19B2 : sta $19B2 : sta $19D2
 .B8D1:
     lda $1A96,Y : asl : tax
     jsr (.B8DC,X)
@@ -6981,6 +6981,7 @@ _01B86E: ;a8 x8
 .B8F3:
     lda $19A9
     beq .B8EC
+
     rts
 
 ;-----
@@ -9112,7 +9113,7 @@ _01C8A7: ;a x
 
 .CA1A:
     !A16
-    lda $B92C,X
+    lda.w _00B908_B92C,X
 .CA1F:
     pha
     sta $7F9092,X
@@ -9217,10 +9218,10 @@ _01C8A7: ;a x
 .CB08:
     !A16
     lda.w _00B908,X : sta $7F9092,X
-    ora #$8000  : sta $7F90D2,X
+    ora #$8000      : sta $7F90D2,X
     ldx $0000
-    lda $B914,X : ora #$4000 : sta $7F90A2,X
-                  ora #$8000 : sta $7F90E2,X
+    lda.w _00B908_B914,X : ora #$4000 : sta $7F90A2,X
+                           ora #$8000 : sta $7F90E2,X
     !A8
 .CB2E:
     inc $0323
@@ -12903,7 +12904,7 @@ _01E590:
     jsl update_animation_normal
     jsr $E285
     lda !obj_direction : lsr : tax
-    lda $BB40,X : sta !obj_facing ;todo
+    lda.w _00BB22_BB40,X : sta !obj_facing
     rtl
 }
 
@@ -12924,7 +12925,7 @@ _01E657:
     lda $09 : ora #$C1 : sta $09
     ldy #$0B : jsl set_speed_xyg
     !A16
-    lda #$BBF4 : sta $13 ;todo
+    lda.w #_00BBF6-2 : sta $13
     !A8
     lda !slot_arthur+$09
     lsr
@@ -13182,7 +13183,7 @@ _01E836:
 .create:
     stz $3C
     !A16
-    lda #$BBF8 : sta $13 ;todo
+    lda.w #coord_offsets_torch : sta $13
     !A8
     lda $08 : and #$DF : ora #$80 : sta $08
     jsl _01A593
@@ -14555,7 +14556,7 @@ _01F2EE:
     stz $32
     lda !obj_direction : asl : tax
     !A16
-    lda $BC65,X : sta $2F ;todo
+    lda.w _01BC65_BC65,X : sta $2F
     !A8
     ldy #$6C : jsl set_speed_x
     lda $2F : asl #2 : sta $31
@@ -14587,7 +14588,7 @@ _01F2EE:
     sta $32
     tax
     !A16
-    lda $BC69,X : sta $0C ;todo
+    lda.w _01BC65_BC69,X : sta $0C
     !A8
     bra .F31B
 
@@ -15186,6 +15187,7 @@ _01F722: ;a8 x8
     rts
 }
 
+if !version == 0
 ;----- duplicate code start
 
 ;todo: consider turning dupe code into byte groups
@@ -15524,12 +15526,11 @@ _01F929:
 ;----- duplicate code end
 
 { ;F98A - FEFF
-if !version == 0
     fillbyte $FF : fill 1398
+}
 elseif !version == 1
     incbin "us_fill_bytes/bank01a.bin"
 endif
-}
 
 { ;FF00 - FF73
 _01FF00: ;a- x-

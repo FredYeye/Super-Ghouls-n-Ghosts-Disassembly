@@ -1965,7 +1965,7 @@ _03A2FC: ;unused?
     stz !obj_facing
 .A315:
     lda $07 : and #$03 : tax
-    lda $CF00,X : tay : jsl set_speed_xyg ;todo
+    lda.w _00CF00,X : tay : jsl set_speed_xyg ;todo
     lda #$7F : sta $2D
 .A326:
     brk #$00
@@ -3592,7 +3592,7 @@ _03AD8A:
     stz !obj_facing
     ldy #$BE : ldx #$21 : jsl set_sprite
     jsl _02F9ED
-    jsl $03B114
+    jsl _03B114
 .AF1D:
     brk #$00
 
@@ -4668,13 +4668,13 @@ _03B711:
     lda #$04 : sta $1D
 .B717:
     ldx $2D
-    lda $D16A,X : sta $07 ;todo: labels and data
+    lda.w _00D16A,X : sta $07 ;todo: labels and data
     txa
     asl #2
     tax
     !A16
-    lda $D177,X : sta !obj_pos_x+1
-    lda $D179,X : sta !obj_pos_y+1
+    lda.w _00D16A_D177+0,X : sta !obj_pos_x+1
+    lda.w _00D16A_D177+2,X : sta !obj_pos_y+1
     !A8
     inc $2D
     lda $2D
@@ -4884,10 +4884,13 @@ _03B8B2: ;a8 x8
     sta $2D
     tay
     !AX16
-    lda.w _00C919,Y
-    ldx #$0412 : jsr .BB85
-    lda.w _00C919+2,Y
-    ldx #$0492 : jsr .BB85
+if !version == 0
+    lda.w _00C919+0,Y : ldx #$0412 : jsr .BB85
+    lda.w _00C919+2,Y : ldx #$0492 : jsr .BB85
+elseif !version == 1
+    lda.w _00C919+0,Y : ldx #$0450 : jsr .BB85
+    lda.w _00C919+2,Y : ldx #$04D0 : jsr .BB85
+endif
     !AX8
     inc $0323
 .B8E4:
@@ -5020,7 +5023,7 @@ _03B8B2: ;a8 x8
     clc
     lda !options,X
     adc #$02
-    cmp $D1BA,X ;todo: label
+    cmp.w _00D1BB-1,X
     bcc .B9AF
 
     lda #$00
@@ -5035,7 +5038,7 @@ _03B8B2: ;a8 x8
     sbc #$02
     bcs .B9AF
 
-    lda $D1BA,X ;todo: label
+    lda.w _00D1BB-1,X
     dec
     bra .B9AF
 
@@ -7887,12 +7890,22 @@ _03CCCA: ;a8 x8
     bcs .CFAA
 
     sta !obj_pos_y+1
+
+if !version == 0
     lda #$BF : cop #$00
+elseif !version == 1
+    lda #$3F : cop #$00
+endif
 
 ;----- CFC1
 
     ldy #$E0 : ldx #$21 : jsl set_sprite
+
+if !version == 0
     lda #$7F : cop #$00
+elseif !version == 1
+    lda #$28 : cop #$00
+endif
 
 ;----- CFCD
 
@@ -12708,10 +12721,19 @@ _03F8A3:
     jsr .FB60
     inc $1EC1
     lda $1EC1
+
+if !version == 0
     cmp #$2B
     beq .FAA7
 
     cmp #$2C
+elseif !version == 1
+    cmp #$26
+    beq .FAA7
+
+    cmp #$27
+endif
+
     beq .FAB4
 
     jmp .FA2B
@@ -12911,7 +12933,13 @@ _03FC40:
 
     jsl update_animation_normal
     lda $1EC5
+
+if !version == 0
     cmp #$03
+elseif !version == 1
+    cmp #$02
+endif
+
     bne .FC62
 
 .FC6F:

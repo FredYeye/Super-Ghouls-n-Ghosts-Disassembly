@@ -51,5 +51,9 @@ incbin "graphics/magic_lightning.bin"
 incbin "graphics/magic_nuclear.bin"
 
 { ;FDC0 - FFFF
+if !version == 0
     fillbyte $FF : fill 576
+elseif !version == 1
+    incbin "us_fill_bytes/bank0Fa.bin"
+endif
 }

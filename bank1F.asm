@@ -1241,6 +1241,7 @@ org $1F8000
 }
 
 { ;D5E0 - DFFF
+if !version == 0
 	;unused data?
 	db $22, $0B, $A2, $AA, $82, $20, $A0, $B0, $F7, $7F, $FF, $F7, $BF, $BF, $FF, $BF
 	db $7B, $AF, $17, $1D, $31, $1B, $C6, $FE, $FD, $FF, $7D, $D5, $57, $57, $ED, $F7
@@ -1404,6 +1405,11 @@ org $1F8000
 	db $00, $00, $00, $48, $00, $00, $00, $00, $31, $50, $11, $44, $05, $14, $55, $54
 	db $00, $00, $00, $00, $00, $02, $00, $02, $7E, $6C, $5D, $F6, $B8, $48, $31, $5C
 	db $56, $00, $20, $05, $84, $48, $00, $00, $40, $44, $05, $04, $44, $01, $15, $45
+elseif !version == 1
+	;this could be data that meant something at some point. seems unused now though.
+	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
+	incbin "us_fill_bytes/bank1Fa.bin"
+endif
 }
 
 { ;E000 - F4BD
@@ -1759,6 +1765,7 @@ speed_xy:
 }
 
 { ;F4BE - FFFF
+if !version == 0
 	;unused data?
 	db $55, $FF, $A9, $2A, $03, $A0, $CA, $A0, $80, $22, $FB, $FE, $DF, $FF, $FF, $FE
 	db $FF, $7F, $F9, $EE, $AF, $EB, $F9, $7C, $65, $F1, $FD, $7F, $FF, $DB, $DF, $73
@@ -1941,4 +1948,9 @@ speed_xy:
 	db $10, $05, $20, $08, $00, $00, $20, $00, $00, $20, $02, $04, $00, $29, $04, $04
 	db $01, $40, $00, $40, $0A, $00, $00, $04, $00, $84, $00, $40, $04, $01, $00, $00
 	db $00, $81
+elseif !version == 1
+	;this could be data that meant something at some point. seems unused now though.
+	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
+	incbin "us_fill_bytes/bank1Fb.bin"
+endif
 }

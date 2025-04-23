@@ -6639,8 +6639,8 @@ update_pos_xy_2_child_obj:
     !X16
     lda $07 : asl : tay
     !A8
-    lda $C2BB,Y : sta.w !obj_pos_x+1,X
-    lda $C2C5,Y : sta.w !obj_pos_y+1,X
+    lda.w _00C2BB,Y      : sta.w !obj_pos_x+1,X
+    lda.w _00C2BB_C2C5,Y : sta.w !obj_pos_y+1,X
     !A8
     lda #$0C : sta.w !obj_active,X
     lda #!id_belial : sta.w !obj_type,X
@@ -8388,7 +8388,7 @@ pickup_shield:
     jmp _0281A8_81B5
 
 .BEC1: ;not sure this is reachable? picking up shield while transformed...?
-    lda $C2B2,X : sta.w transform_stored_armor_state ;todo
+    lda.w _00C2A4_C2B2,X : sta.w transform_stored_armor_state ;todo
     jmp _0281A8_81B5
 
 ;-----
@@ -10349,8 +10349,8 @@ arthur_map: ;a8 x8
     sta $2D
     tay
     !AX16
-    lda $C919,Y : ldx #$0394 : jsr .CD4A ;todo
-    lda $C91B,Y : ldx #$0414 : jsr .CD4A
+    lda.w _00C919+0,Y : ldx #$0394 : jsr .CD4A
+    lda.w _00C919+2,Y : ldx #$0414 : jsr .CD4A
     !AX8
     inc $0323
 .CD1B:
@@ -17008,10 +17008,10 @@ arthur_overlap_check_FED8_8bit:
 { ;FDE5 - FE1D
 _02FDE5:
     ;unused
-    lda.w $DD94+0,Y : sta $1F1D ;todo
-    asl             : sta $1F1F
-    lda.w $DD94+2,Y : sta $1F21
-    asl             : sta $1F23
+    lda.w _00DD94+0,Y : sta $1F1D ;todo
+    asl               : sta $1F1F
+    lda.w _00DD94+2,Y : sta $1F21
+    asl               : sta $1F23
     !A16
     sec
     lda !obj_pos_x+1
