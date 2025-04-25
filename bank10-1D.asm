@@ -1,12 +1,170 @@
-org $1D8000
+org $108000
 
-incbin "graphics/astaroth.bin":$22B1..$0
-incbin "graphics/nebiroth.bin"
-incbin "graphics/unknown13.bin" ;intro stuff, but also 2bpp graphics! sort out later
-incbin "graphics/veil_allocen.bin"
-incbin "graphics/unknown14.bin"
+;banks 10-1D all contain graphics / tilemaps
 
-{ ;F642 - FFFF
+check bankcross off
+
+if !version == 0
+    gfx_unk01: incbin "graphics/unknown01.bin"
+    gfx_unk02: incbin "graphics/unknown02.bin"
+elseif !version == 1
+    gfx_unk01: incbin "graphics/unknown01_us.bin"
+    gfx_unk02: incbin "graphics/unknown02_us.bin"
+endif
+
+    gfx_unk15: incbin "graphics/unknown15.bin"
+    gfx_unk17: incbin "graphics/unknown17.bin"
+    gfx_unk18: incbin "graphics/unknown18.bin"
+
+if !version == 0
+    gfx_logo: incbin "graphics/logo.bin" ;also has other stuff in it
+elseif !version == 1
+    gfx_logo: incbin "graphics/logo_us.bin"
+endif
+
+    gfx_map: incbin "graphics/map.bin"
+    gfx_unk19: incbin "graphics/unknown19.bin"
+    gfx_unk29: incbin "graphics/unknown29.bin"
+    gfx_unk23: incbin "graphics/unknown23.bin"
+    gfx_unk03: incbin "graphics/unknown03.bin"
+    incbin "graphics/unknown38.bin"
+    gfx_unk27: incbin "graphics/unknown27.bin"
+    gfx_continue: incbin "graphics/continue.bin"
+    gfx_continue2: incbin "graphics/continue2.bin"
+    gfx_unk32: incbin "graphics/unknown32.bin"
+    gfx_unk33: incbin "graphics/unknown33.bin"
+    gfx_options: incbin "graphics/options.bin"
+    gfx_unk04: incbin "graphics/unknown04.bin"
+    incbin "graphics/unknown39.bin" ;temp / debug gfx
+    gfx_unk35: incbin "graphics/unknown35.bin"
+    gfx_unk34: incbin "graphics/unknown34.bin"
+    gfx_unk31: incbin "graphics/unknown31.bin"
+    gfx_death_crawler: incbin "graphics/death_crawler.bin"
+    gfx_unk21: incbin "graphics/unknown21.bin" ;related to death crawler, tile map or really graphics?
+    gfx_unk24: incbin "graphics/unknown24.bin"
+    gfx_unk05: incbin "graphics/unknown05.bin" ;graphics + tilemaps?
+    gfx_intro_castle: incbin "graphics/game_start_cutscene_castle.bin"
+    gfx_unk06: incbin "graphics/unknown06.bin"
+
+org $18BBE6
+
+if !version == 0
+{ ;BBE6 - BC47
+    ;leftover copies of above data?
+    db $14, $15, $14, $AA, $0C, $15, $14, $15, $14, $AA, $0C, $15, $14, $15, $14, $AA
+    db $0C, $15, $14, $15, $14, $AA, $0C, $15, $14, $15, $14, $AA, $0C, $15, $14, $15
+    db $14, $AA, $0C, $15, $14, $15, $14, $15, $14, $15, $14, $AA, $0C, $15, $14, $15
+    db $14, $15, $AA, $0C, $15, $14, $15, $14, $AA, $0C, $15, $14, $15, $14, $AA, $0C
+    db $15, $14, $15, $14, $AA, $0C, $15, $14, $15, $14, $AA, $0C, $15, $14, $15, $14
+    db $AA, $0C, $15, $14, $15, $14, $AA, $0C, $15, $14, $15, $14, $AA, $0C, $15, $14
+    db $15, $14
+}
+
+{ ;BC48 - BFFF
+    ;looks like compressed data, but had problems compressing/decompressing it
+    db $00, $00, $20, $00, $00, $20, $00, $00, $8F, $3C, $85, $A0, $C0, $C0, $04, $13
+    db $00, $00, $00, $04, $00, $00, $00, $00, $20, $80, $00, $00, $00, $22, $00, $0A
+    db $00, $00, $00, $00, $00, $00, $00, $01, $A0, $A6, $38, $08, $08, $30, $40, $0A
+    db $00, $00, $00, $00, $00, $00, $00, $00, $A8, $A8, $80, $00, $0A, $00, $00, $AA
+    db $00, $00, $20, $00, $00, $00, $00, $00, $A1, $03, $48, $40, $82, $36, $C4, $80
+    db $00, $00, $00, $00, $00, $00, $00, $00, $00, $A8, $02, $22, $02, $08, $80, $A0
+    db $00, $00, $00, $00, $00, $00, $00, $00, $A5, $F2, $20, $49, $3C, $08, $03, $03
+    db $00, $00, $00, $00, $00, $00, $00, $00, $80, $20, $82, $00, $28, $8A, $00, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $B1, $B0, $3D, $43, $63, $08, $08, $09
+    db $00, $00, $00, $00, $00, $00, $00, $40, $02, $0A, $00, $80, $00, $00, $00, $00
+    db $00, $00, $00, $00, $00, $00, $00, $08, $29, $D0, $18, $C0, $48, $04, $04, $01
+    db $00, $00, $00, $00, $00, $00, $00, $00, $A8, $2A, $AA, $A0, $88, $0A, $00, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $DC, $DA, $12, $10, $30, $09, $16, $B7
+    db $00, $00, $00, $00, $00, $00, $00, $00, $A2, $08, $00, $02, $00, $00, $02, $00
+    db $00, $02, $00, $00, $00, $00, $00, $00, $B8, $E0, $04, $08, $07, $92, $20, $A0
+    db $00, $00, $00, $00, $00, $00, $01, $00, $08, $02, $20, $0A, $00, $02, $00, $88
+    db $00, $00, $00, $00, $40, $00, $00, $00, $7E, $3B, $C5, $A6, $0B, $40, $A0, $C8
+    db $00, $00, $00, $00, $00, $00, $00, $00, $00, $20, $80, $00, $08, $00, $08, $00
+    db $00, $00, $80, $00, $01, $00, $00, $40, $84, $21, $82, $0A, $09, $A3, $20, $1A
+    db $00, $00, $00, $00, $00, $00, $00, $00, $AA, $A0, $A2, $0A, $A8, $08, $88, $00
+    db $00, $00, $00, $01, $00, $00, $00, $00, $95, $99, $89, $60, $8C, $60, $81, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $82, $00, $82, $20, $A0, $00, $00, $02
+    db $00, $00, $00, $00, $00, $82, $00, $10, $08, $18, $0C, $08, $48, $00, $C0, $60
+    db $00, $00, $00, $00, $00, $00, $00, $00, $20, $A2, $20, $20, $00, $08, $00, $20
+    db $00, $00, $00, $00, $00, $00, $00, $00, $85, $44, $1D, $02, $95, $20, $D1, $80
+    db $00, $00, $00, $00, $10, $00, $01, $00, $08, $08, $88, $00, $20, $00, $88, $00
+    db $00, $08, $00, $00, $00, $00, $00, $00, $44, $20, $26, $50, $40, $20, $00, $02
+    db $00, $00, $00, $00, $00, $00, $00, $00, $A2, $A2, $22, $28, $22, $02, $0A, $80
+    db $00, $00, $00, $00, $00, $00, $20, $00, $9E, $2F, $3D, $9D, $41, $0B, $84, $28
+    db $00, $10, $00, $00, $00, $00, $00, $00, $00, $82, $00, $02, $20, $00, $02, $00
+    db $00, $00, $00, $01, $10, $00, $00, $00, $11, $2A, $88, $40, $09, $02, $80, $02
+    db $00, $00, $00, $00, $04, $00, $00, $00, $20, $22, $AA, $20, $82, $00, $00, $20
+    db $00, $00, $00, $00, $00, $00, $00, $00, $22, $84, $74, $00, $CC, $71, $E3, $40
+    db $00, $00, $00, $00, $00, $00, $40, $00, $20, $80, $00, $00, $00, $00, $08, $00
+    db $00, $20, $00, $08, $80, $00, $10, $00, $42, $0A, $94, $22, $0E, $29, $40, $80
+    db $00, $00, $00, $00, $00, $00, $00, $00, $2A, $A2, $22, $A0, $02, $00, $00, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $0C, $FB, $C0, $00, $00, $04, $65, $01
+    db $00, $00, $00, $00, $00, $00, $00, $00, $08, $82, $80, $00, $00, $82, $80, $80
+    db $00, $00, $00, $00, $00, $00, $40, $00, $04, $50, $A0, $03, $1A, $05, $04, $C0
+    db $00, $00, $00, $00, $00, $00, $00, $04, $80, $8A, $08, $A0, $08, $22, $08, $80
+    db $00, $00, $00, $00, $00, $00, $00, $00, $C0, $3A, $05, $A4, $02, $08, $A8, $82
+    db $00, $00, $00, $00, $00, $00, $00, $00, $0A, $02, $80, $88, $00, $08, $02, $80
+    db $00, $00, $00, $00, $00, $00, $00, $00, $18, $4A, $38, $01, $80, $14, $55, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $A2, $88, $28, $A8, $00, $20, $A0, $2A
+    db $00, $00, $00, $00, $00, $00, $00, $28, $DB, $70, $37, $05, $72, $96, $28, $C2
+    db $00, $00, $00, $00, $00, $00, $11, $00, $88, $80, $02, $00, $00, $00, $80, $88
+    db $00, $00, $00, $00, $00, $00, $10, $00, $CC, $18, $04, $41, $04, $00, $20, $20
+    db $00, $00, $00, $00, $10, $00, $00, $00, $8A, $02, $00, $0A, $22, $80, $0A, $20
+    db $00, $00, $00, $00, $00, $00, $80, $00, $AA, $4C, $0C, $38, $A0, $04, $40, $40
+    db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $02, $00, $08, $00, $00, $00
+    db $01, $00, $04, $00, $08, $00, $00, $00, $D4, $60, $80, $88, $68, $91, $C0, $0C
+    db $00, $00, $40, $04, $00, $01, $00, $00, $02, $08, $00, $08, $00, $00, $08, $00
+    db $00, $00, $00, $00, $00, $00, $00, $00, $11, $72, $9D, $A5, $02, $96, $02, $22
+    db $00, $00, $00, $00, $00, $00, $00, $00, $0A, $08, $08, $0A, $80, $00, $08, $00
+    db $00, $00, $01, $00, $00, $00, $04, $00, $46, $58, $08, $20, $60, $44, $1C, $08
+    db $00, $00, $00, $00, $00, $00, $00, $40, $00, $88, $2A, $02, $80, $20, $00, $00
+    db $00, $00, $00, $00, $00, $00, $40, $00, $28, $0A, $C8, $14, $24, $14, $38, $18
+    db $00, $00, $00, $00, $00, $00, $10, $00, $A2, $82, $08, $00, $00, $02, $02, $00
+    db $80, $00, $00, $00, $80, $00, $00, $04, $00, $42, $08, $01, $30, $02, $22, $83
+    db $00, $00, $00, $00, $00, $00, $00, $00
+}
+elseif !version == 1
+    incbin "us_fill_bytes/bank18a.bin"
+endif
+
+if !version == 0
+    gfx_unk07: incbin "graphics/unknown07.bin"
+elseif !version == 1
+    gfx_unk07: incbin "graphics/unknown07_us.bin"
+endif
+
+    gfx_unk16: incbin "graphics/unknown16.bin"
+    gfx_unk20: incbin "graphics/unknown20.bin"
+    gfx_unk25: incbin "graphics/unknown25.bin"
+    gfx_geyser_platform: incbin "graphics/geyser_platform.bin"
+    gfx_hydra:           incbin "graphics/hydra.bin"
+    gfx_unk22: incbin "graphics/unknown22.bin"
+    gfx_unk30: incbin "graphics/unknown30.bin"
+    gfx_unk28: incbin "graphics/unknown28.bin"
+    gfx_samael: incbin "graphics/samael.bin"
+    gfx_unk08: incbin "graphics/unknown08.bin"
+    gfx_unk09: incbin "graphics/unknown09.bin"
+    gfx_unk10: incbin "graphics/unknown10.bin"
+    gfx_grilian: incbin "graphics/grilian.bin"
+    gfx_arremer: incbin "graphics/arremer.bin"
+    gfx_killer: incbin "graphics/killer.bin"
+    gfx_unk26: incbin "graphics/unknown26.bin"
+    gfx_ghost: incbin "graphics/ghost.bin"
+    gfx_mimic: incbin "graphics/mimic.bin"
+    gfx_unk11: incbin "graphics/unknown11.bin"
+    gfx_cockatrice: incbin "graphics/cockatrice.bin"
+    gfx_unk12: incbin "graphics/unknown12.bin"
+    gfx_game_over: incbin "graphics/game_over.bin"
+    gfx_capcom: incbin "graphics/capcom_presents.bin"
+    gfx_font_hud: incbin "graphics/font_hud.bin" ;font etc?
+    gfx_astaroth: incbin "graphics/astaroth.bin"
+    gfx_nebiroth: incbin "graphics/nebiroth.bin"
+    gfx_unk13: incbin "graphics/unknown13.bin" ;intro stuff, but also 2bpp graphics! sort out later
+    gfx_veil_allocen: incbin "graphics/veil_allocen.bin"
+    gfx_unk14: incbin "graphics/unknown14.bin"
+
+if !version == 0
+{ : org $1DF642 ;F642 - FFFF
     ;unused data
     ;not sure if this is compressed data, i wasn't able to decompress/recompress it properly
     db $2C, $AF, $AE, $CB, $EB, $EA, $FF, $FF, $FD, $FF, $FF, $FF, $FF, $FF, $EF, $EF
@@ -166,3 +324,8 @@ incbin "graphics/unknown14.bin"
     db $02, $00, $00, $00, $20, $00, $04, $00, $60, $00, $00, $20, $00, $CA, $04, $00
     db $08, $00, $10, $01, $00, $5F, $00, $10, $00, $00, $00, $00, $40, $00
 }
+elseif !version == 1
+    gfx_us_font_extra: incbin "graphics/us_font_extra.bin" ; question mark, apostrophe, opening and closing quotation marks
+    incbin "us_fill_bytes/bank1Da.bin"
+endif
+check bankcross full

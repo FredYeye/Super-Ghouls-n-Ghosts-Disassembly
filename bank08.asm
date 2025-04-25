@@ -1409,7 +1409,7 @@ screen_layouts:
 }
 
 { ;C600 - E052
-	incbin "graphics/the_end.bin"
+	gfx_the_end: incbin "graphics/the_end.bin"
 }
 
 { ;E053 - E3FF

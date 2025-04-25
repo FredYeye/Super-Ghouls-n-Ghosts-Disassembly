@@ -4,9 +4,9 @@
 
 { ;rom version to assemble
     ;0 = JP
-    ;1 = US (WIP)
+    ;1 = US
     ;2 = EU (nothing done yet)
-    !version = 1
+    !version = 0
 }
 
 { ;asar functions
@@ -745,20 +745,7 @@ endif
     incsrc bank0D.asm
     incsrc bank0E.asm
     incsrc bank0F.asm
-    incsrc bank10.asm
-    incsrc bank11.asm
-    incsrc bank12.asm
-    incsrc bank13.asm
-    incsrc bank14.asm
-    incsrc bank15.asm
-    incsrc bank16.asm
-    incsrc bank17.asm
-    incsrc bank18.asm
-    incsrc bank19.asm
-    incsrc bank1A.asm
-    incsrc bank1B.asm
-    incsrc bank1C.asm
-    incsrc bank1D.asm
+    incsrc bank10-1D.asm
     incsrc bank1E.asm
     incsrc bank1F.asm
 }
