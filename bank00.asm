@@ -5,6 +5,8 @@ if !version == 0
     fillbyte $FF : fill 256
 elseif !version == 1
     incbin "us_fill_bytes/bank00a.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank00a.bin"
 endif
 }
 
@@ -774,7 +776,7 @@ _008807: ;a8 x8
     db offset(.8871, .8919), offset(.8871, .8920), offset(.8871, .8927), offset(.8871, .892E)
     db offset(.8871, .8935)
 
-if !version == 1
+if !version == 1 || !version == 2
     db offset(.8871, .893D)
 endif
 
@@ -807,7 +809,7 @@ endif
 .892E: dw $0000 : dl $7F9800 : dw $0500
 .8935: dw $7000 : dl $7F2720 : dw $1000
 
-if !version == 1
+if !version == 1 || !version == 2
 .893D: dw $5C00 : dl $7F9800 : dw $06A0
 endif
 }
@@ -1111,6 +1113,8 @@ if !version == 0
     fillbyte $FF : fill 5744
 elseif !version == 1
     incbin "us_fill_bytes/bank00b.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank00b.bin"
 endif
 }
 
@@ -1165,7 +1169,13 @@ ram_to_vram_offsets:
     dl $7F0000 : dw $7200, $0400
     dl $7F0000 : dw $7590, $01F0
     dl $7F0000 : dw $7400, $0500
+
+if !version == 0 || !version == 1
     dl $7F0000 : dw $0280, $00D0
+elseif !version == 2
+    dl $04E800 : dw $2000, $0250 ;todo: label
+endif
+
     dl $7F0000 : dw $2000, $0800
     dl $7F9800 : dw $0000, $0280
     dl $7F0200 : dw $7200, $0900
@@ -1191,6 +1201,10 @@ ram_to_vram_offsets:
     dl $7F2000 : dw $7800, $0800 ;13B
     dl $7FD000 : dw $5C00, $0400 ;142
     dl $7F0000 : dw $5280, $00D0 ;149
+
+if !version == 2
+    dl $04E000 : dw $0000, $0400 ;todo: label
+endif
 }
 
 { ;A49D - A4BC
@@ -1878,7 +1892,7 @@ gfx_decomp_offsets:
     dw $0000 : dl gfx_unk13 : dw $3800 ;126
     dw $9980 : dl gfx_font_hud : dw $0500 ;12D
 
-if !version == 1
+if !version == 1 || !version == 2
     dw $9D00 : dl gfx_us_font_extra : dw $01A0
 endif
 }
@@ -4627,6 +4641,14 @@ _00D6E6:
 
     db $FF
 }
+elseif !version == 2
+{ ;D6F4 - D70F
+    ;todo: what is this? zombie spawner related?
+    db $04, $0C, $14, $1C, $BE, $D2, $FF, $D2
+    db $BE, $FF, $B4, $DC, $82, $A0, $BE, $96
+    db $82, $DC, $78, $A0, $1E, $3C, $5A, $32
+    db $1E, $78, $14, $3C
+}
 endif
 
 { ;DA6E - DAA1
@@ -5365,7 +5387,11 @@ random_values: ;DFED
 ..e:
     db $10,  $40, $40, $40, $40, $40, $40, $50, $50, $50, $50, $50, $60, $60, $60, $60, $60
 ..p:
+if !version == 0 || !version == 1
     db $10,  $20, $20, $20, $40, $40, $40, $40, $40, $50, $50, $50, $50, $50, $50, $50, $50
+elseif !version == 2
+    db $10,  $40, $40, $40, $40, $40, $40, $40, $40, $50, $50, $50, $50, $50, $50, $50, $50
+endif
 
 .04F4: ;3A: hydra
 ..b: ..n: ..e: ..p:
@@ -5453,9 +5479,20 @@ random_values: ;DFED
 ..e: ..p:
     db $10,  $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $03, $03, $03, $03, $06, $06
 
+if !version == 2
+    ;todo, maybe coffin flight timers?!
+    db $10,  $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+    db $10,  $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+    db $10,  $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $20, $20, $20
+endif
+
 .06A3: ;58: zombie coffin rising flight timer (0 = no flight)
 ..b: ..n: ..e: ..p:
+if !version == 0 || !version == 1
     db $13,  $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $20, $20, $20, $40
+elseif !version == 2
+    db $10,  $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $20, $20, $20, $40
+endif
 
 .06B7: ;5A: zombie coffin circling flight timer
 ..b: ..n: ..e: ..p:
@@ -5778,6 +5815,8 @@ if !version == 0
     fillbyte $FF : fill 181
 elseif !version == 1
     incbin "us_fill_bytes/bank00c.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank00c.bin"
 endif
 }
 
@@ -6157,19 +6196,29 @@ _00ED00: ;sprite related. sprite sets to load?
 
 ;-----
 
+if !version == 2
+    dw .F1C1
+
+.F1C1:
+    dl $0EE500 : dw $0060 : db $FF
+endif
+
+;-----
+
 .wolf:
-    dw .F1D5, $F1E9 ;idle
-    dw .F1FD, $F211 ;turn head
-    dw .F225, $F239 ;jump
+    dw .F1D5, .F1E9 ;idle
+    dw .F1FD, .F211 ;turn head
+    dw .F225, .F239 ;jump
     dw .F24D ;land
     dw .F261 ;hit
-    dw .F275, $F289, $F29D ;maybe running?
+    dw .F275, .F289, .F29D ;maybe running?
 
 .F1D5:
     dl $7F0000 : dw $0080 : dw $0100
     dl $7F0080 : dw $0080 : dw $0100
     dl $7F0100 : dw $00A0 : db $FF
 
+.F1E9:
     dl $7F01A0 : dw $0080 : dw $0100
     dl $7F0220 : dw $0080 : dw $0100
     dl $7F02A0 : dw $00A0 : db $FF
@@ -6179,6 +6228,7 @@ _00ED00: ;sprite related. sprite sets to load?
     dl $7F03C0 : dw $0080 : dw $0100
     dl $7F0440 : dw $0040 : db $FF
 
+.F211:
     dl $7F0480 : dw $0040 : dw $0100
     dl $7F04C0 : dw $0040 : dw $0100
     dl $7F0500 : dw $00A0 : db $FF
@@ -6188,6 +6238,7 @@ _00ED00: ;sprite related. sprite sets to load?
     dl $7F0620 : dw $0080 : dw $0100
     dl $7F06A0 : dw $00C0 : db $FF
 
+.F239:
     dl $7F0760 : dw $0080 : dw $0100
     dl $7F07E0 : dw $0080 : dw $0100
     dl $7F0860 : dw $0100 : db $FF
@@ -6207,10 +6258,12 @@ _00ED00: ;sprite related. sprite sets to load?
     dl $7F0D60 : dw $00C0 : dw $0100
     dl $7F0E20 : dw $00A0 : db $FF
 
+.F289:
     dl $7F0EC0 : dw $00C0 : dw $0100
     dl $7F0F80 : dw $00C0 : dw $0100
     dl $7F1040 : dw $0060 : db $FF
 
+.F29D:
     dl $7F10A0 : dw $00C0 : dw $0100
     dl $7F1160 : dw $00C0 : dw $0100
     dl $7F1220 : dw $0040 : db $FF
@@ -7107,13 +7160,15 @@ if !version == 0
     fillbyte $FF : fill 124
 elseif !version == 1
     incbin "us_fill_bytes/bank00d.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank00d.bin"
 endif
 }
 
 { ;snes header
 if !version == 0
     db "CHOHMAKAIMURA        " ;title
-elseif !version == 1
+elseif !version == 1 || !version == 2
     db "SUPER GHOULS'N GHOSTS"
 endif
 
@@ -7122,13 +7177,23 @@ endif
     db $0A                     ;rom size
     db $00                     ;sram size
     db !version                ;country
+
+if !version == 0 || !version == 1
     db $08                     ;developer ID
+elseif !version == 2
+    db $01
+endif
+
     db $00                     ;version number
     dw $FFFF, $0000            ;checksum complement & checksum
 }
 
 { ;interrupt vectors
+if !version == 0 || !version == 1
     dw $285C, $01A7 ;unused? not sure what this is
+elseif !version == 2
+    dw $795C, $01A7
+endif
 
 if !version == 0
     dw cop, brk, $FFFF, nmi, $FFFF, irq ;native mode vectors

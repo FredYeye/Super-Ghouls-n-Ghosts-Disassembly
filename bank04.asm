@@ -1,6 +1,6 @@
 org $048000
 
-if !version == 1
+if !version == 1 || !version == 2
 { ;8000 - 84B2
 _048000_us:
     dw offset(.8006, .8006), offset(.8006, .83B8), offset(.8006, .81D1)
@@ -51,6 +51,10 @@ _048000_us:
     db $FE, $03
     db $0B, $1B, $0A, $0C, $0E, $15, $0E, $1D, $53, $27
     db $FC, $4F
+
+if !version == 2
+    db $FC, $4F
+endif
 
     db $FB
     db $FC, $3F
@@ -105,6 +109,10 @@ _048000_us:
     db $1D, $11, $0E, $45, $20, $0A, $22, $45, $11, $0E, $1B, $0E, $27
     db $FC, $4F
 
+if !version == 2
+    db $FC, $4F
+endif
+
     db $FB
     db $FC, $3F
     db $FA : dw $0100
@@ -137,6 +145,10 @@ _048000_us:
     db $FE, $03
     db $18, $17, $15, $22, $45, $11, $18, $19, $0E, $27, $27, $27
     db $FC, $4F
+
+if !version == 2
+    db $FC, $4F
+endif
 
     db $FF
 
@@ -311,6 +323,146 @@ _048000_us:
     db $FC, $4F
 
     db $FF
+}
+endif
+
+if !version == 2
+{ ;84B9 - 8592
+_0484B9:
+    phb
+    lda #$04 : pha : plb
+    stz $1EC3
+    stz $1EC4
+    lda $0055,Y : asl : tay
+    !AX16
+    lda.w !text_offset,Y
+    tay
+.84CF:
+    ldx.w !text_offset2,Y
+    iny #2
+.84D4:
+    !A8
+    lda #$04 : jsl _01A717_A728
+.84DC:
+    lda.w !text_offset2,Y
+    cmp #$FF
+    bne .84E8
+
+    plb
+    jml _01A717
+
+.84E8:
+    cmp #$FD
+    beq .new_line
+
+    cmp #$FE
+    beq .move_cursor
+
+    cmp #$FB
+    beq .clear_text
+
+    cmp #$FA
+    beq .new_page
+
+    cmp #$FC
+    beq .pause
+
+    cmp #$F8
+    beq .8513
+
+    jsr .857A
+    bra .84D4
+
+;-----
+
+.new_page:
+    iny
+    bra .84CF
+
+;-----
+
+.pause:
+    iny
+    lda.w !text_offset2,Y : jsl _01A717_A728
+    iny
+    bra .84DC
+
+;-----
+
+.8513:
+    iny
+    lda.w !text_offset2,Y
+    !A16
+    asl #10
+    and #$1C00
+    sta $1EC3
+    !A8
+    iny
+    bra .84DC
+
+;-----
+
+.move_cursor:
+    iny
+    lda.w !text_offset2,Y
+    asl
+    !A16
+    stx $1EBD
+    clc
+    adc $1EBD
+    tax
+    !A8
+    iny
+    bra .84DC
+
+;-----
+
+.new_line:
+    !A16
+    txa
+    clc
+    adc #$0080
+    and #$FF80
+    tax
+    iny
+    !A8
+    jmp .84D4
+
+;-----
+
+.clear_text:
+    phx
+    !A16
+    ldx #$0000
+    lda #$0400 : sta $1EBF
+    lda #$21C5
+    ora $1EC3
+.8565:
+    sta $7F9000,X
+    inx #2
+    dec $1EBF
+    bne .8565
+
+    !A8
+    inc $0323
+    plx
+    iny
+    jmp .84DC
+
+;-----
+
+.857A:
+    !A16
+    and #$00FF
+    clc
+    adc #$2180
+    ora $1EC3
+    sta $7F9000,X
+    !A8
+    inc $0323
+    iny
+    inx #2
+    rts
 }
 endif
 

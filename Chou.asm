@@ -5,7 +5,7 @@
 { ;rom version to assemble
     ;0 = JP
     ;1 = US
-    ;2 = EU (nothing done yet)
+    ;2 = EU (WIP)
     !version = 0
 }
 
@@ -224,7 +224,7 @@
 if !version == 0
     !text_offset = _00D6E6
     !text_offset2 = _00D6E6_D6EC
-elseif !version == 1
+elseif !version == 1 || !version == 2
     !text_offset = _048000_us
     !text_offset2 = _048000_us_8006
 endif

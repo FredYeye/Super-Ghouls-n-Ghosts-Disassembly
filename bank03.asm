@@ -1133,7 +1133,7 @@ _039C09:
 
 if !version == 0
     lda #$21BF
-elseif !version == 1
+elseif !version == 1 || !version == 2
     lda #$21C5
 endif
 
@@ -1147,7 +1147,7 @@ endif
 if !version == 0
     ldy #$27 : jsl _01A21D
     lda #$15 : sta $031E
-elseif !version == 1
+elseif !version == 1 || !version == 2
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldy #$2C : jsl _01A21D
     lda #$1A : sta $031E
@@ -4884,13 +4884,15 @@ _03B8B2: ;a8 x8
     sta $2D
     tay
     !AX16
+
 if !version == 0
     lda.w _00C919+0,Y : ldx #$0412 : jsr .BB85
     lda.w _00C919+2,Y : ldx #$0492 : jsr .BB85
-elseif !version == 1
+elseif !version == 1 || !version == 2
     lda.w _00C919+0,Y : ldx #$0450 : jsr .BB85
     lda.w _00C919+2,Y : ldx #$04D0 : jsr .BB85
 endif
+
     !AX8
     inc $0323
 .B8E4:
@@ -6450,7 +6452,7 @@ endif
     !A8
     lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
 
-if !version == 1
+if !version == 1 || !version == 2
 .C411:
     brk #$00
 
@@ -7893,7 +7895,7 @@ _03CCCA: ;a8 x8
 
 if !version == 0
     lda #$BF : cop #$00
-elseif !version == 1
+elseif !version == 1 || !version == 2
     lda #$3F : cop #$00
 endif
 
@@ -7903,7 +7905,7 @@ endif
 
 if !version == 0
     lda #$7F : cop #$00
-elseif !version == 1
+elseif !version == 1 || !version == 2
     lda #$28 : cop #$00
 endif
 
@@ -7949,7 +7951,7 @@ endif
 
 if !version == 0
     ldy #$27 : jsl _01A21D
-elseif !version == 1
+elseif !version == 1 || !version == 2
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldy #$2C : jsl _01A21D
     lda #$1A : sta $031E
@@ -7965,7 +7967,7 @@ endif
 
 if !version == 0
     lda #$21BF
-elseif !version == 1
+elseif !version == 1 || !version == 2
     lda #$21C5
 endif
 
@@ -9333,7 +9335,7 @@ endif
     inc $36
     dec $33
 
-if !version == 1
+if !version == 1 || !version == 2
     jsr .DB35
 endif
 
@@ -11778,6 +11780,7 @@ _03EDE2: ;a8 x8
     bra .EE11
 }
 
+if !version == 0 || !version == 1
 { ;EE1D - EF85
 _03EE1D: ;a8 ;x8
     ;printing text on screen
@@ -11847,8 +11850,7 @@ endif
 
 .pause:
     iny
-    lda.w !text_offset2,Y ;frame count
-    jsl _01A717_A728
+    lda.w !text_offset2,Y : jsl _01A717_A728 ;frame count
     iny
     bra .EE3B
 
@@ -11999,6 +12001,7 @@ if !version == 0
     db $59, $5A, $5B, $5C, $5D
 endif
 }
+endif
 
 { ;EF86 - F1A5
 _03EF86: ;stage 3 tower tiles to put in layer 2
@@ -12086,7 +12089,13 @@ _03F1A6: ;hp list. starts at id $20
     db 10, 10, 10, 10 ;rosebud
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;eagler
+elseif !version == 2
+    db 6, 6, 10, 10
+endif
+
     db 0, 0, 0, 0
     db 13, 13, 13, 13 ;chest
     db 0, 0, 0, 0 ;magician
@@ -12106,7 +12115,13 @@ _03F1A6: ;hp list. starts at id $20
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;icicle
+elseif !version == 2
+    db 4, 8, 10, 10
+endif
+
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12218,7 +12233,13 @@ _03F1A6: ;hp list. starts at id $20
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+
+if !version == 0 || !version == 1
     db 180, 200, 224, 255 ;samael
+elseif !version == 2
+    db 150, 170, 190, 210
+endif
+
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12702,7 +12723,10 @@ _03F8A3:
     and #$0001
     bne .FA7D
 
+if !version == 0 || !version == 1
     lda $1EB9 ;unused lda
+endif
+
     lda $1F5B : sec : sbc #$0001 : sta $1F5B
     lda $1F58 : clc : adc #$0001 : sta $1F58
     lda $19C5 : sec : sbc #$0001 : sta $19C5
@@ -12715,8 +12739,16 @@ _03F8A3:
     !AX8
     inc $1EB9
     lda $1EB9
+
+if !version == 0 || !version == 1
     and #$7F
     bne .FA2B
+elseif !version == 2
+    cmp #$60
+    bne .FA2B
+
+    stz $1EB9
+endif
 
     jsr .FB60
     inc $1EC1
@@ -12732,6 +12764,11 @@ elseif !version == 1
     beq .FAA7
 
     cmp #$27
+elseif !version == 2
+    cmp #$1D
+    beq .FAA7
+
+    cmp #$1E
 endif
 
     beq .FAB4
@@ -12775,6 +12812,11 @@ endif
     lda #$3F : jsl _01A717_A728
     dec $1EB7
     bne .FB31
+
+if !version == 2
+    lda #$F6 : jsl _018049_8053
+    lda #$60 : jsl _018049_8053
+endif
 
     ldx #$00 : lda #$3D : jsl _01F6C9
     lda #$48 : sta $1EB7
@@ -12936,7 +12978,7 @@ _03FC40:
 
 if !version == 0
     cmp #$03
-elseif !version == 1
+elseif !version == 1 || !version == 2
     cmp #$02
 endif
 
@@ -13029,4 +13071,6 @@ _03FC9F:
 }
 elseif !version == 1
     incbin "us_fill_bytes/bank03a.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank03a.bin"
 endif

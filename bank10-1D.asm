@@ -7,7 +7,7 @@ check bankcross off
 if !version == 0
     gfx_unk01: incbin "graphics/unknown01.bin"
     gfx_unk02: incbin "graphics/unknown02.bin"
-elseif !version == 1
+elseif !version == 1 || !version == 2
     gfx_unk01: incbin "graphics/unknown01_us.bin"
     gfx_unk02: incbin "graphics/unknown02_us.bin"
 endif
@@ -18,7 +18,7 @@ endif
 
 if !version == 0
     gfx_logo: incbin "graphics/logo.bin" ;also has other stuff in it
-elseif !version == 1
+elseif !version == 1 || !version == 2
     gfx_logo: incbin "graphics/logo_us.bin"
 endif
 
@@ -129,7 +129,7 @@ endif
 
 if !version == 0
     gfx_unk07: incbin "graphics/unknown07.bin"
-elseif !version == 1
+elseif !version == 1 || !version == 2
     gfx_unk07: incbin "graphics/unknown07_us.bin"
 endif
 
@@ -324,7 +324,7 @@ if !version == 0
     db $02, $00, $00, $00, $20, $00, $04, $00, $60, $00, $00, $20, $00, $CA, $04, $00
     db $08, $00, $10, $01, $00, $5F, $00, $10, $00, $00, $00, $00, $40, $00
 }
-elseif !version == 1
+elseif !version == 1 || !version == 2
     gfx_us_font_extra: incbin "graphics/us_font_extra.bin" ; question mark, apostrophe, opening and closing quotation marks
     incbin "us_fill_bytes/bank1Da.bin"
 endif

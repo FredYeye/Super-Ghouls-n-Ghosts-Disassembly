@@ -16269,8 +16269,17 @@ enemy_spawner: ;a8 x8
 
     lda $32
     and #$07
+
+if !version == 0 || !version == 1
     tax
     inc $32
+elseif !version == 2
+    ldx.w difficulty
+    clc
+    adc.w zombie_spawner_data_delay,X
+    tax
+endif
+
     lda.w zombie_spawner_data_delay,X : cop #$00
 
 ;----- F99E

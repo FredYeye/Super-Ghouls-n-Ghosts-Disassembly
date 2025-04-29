@@ -1563,7 +1563,7 @@ set_spawn_offset: ;a8 x16
 
 { ;8CB3 - 8CE1
 _018CB3:
-    ;unused
+    ;unused entry
     lda #$00
     xba
     lda $1D
@@ -1573,14 +1573,14 @@ _018CB3:
     and #$0001
     bne .8CCD
 
-    clc : lda.w !obj_pos_x+1,X : adc.w spawn_offset_x,Y : sta !obj_pos_x+1 ;todo
+    clc : lda.w !obj_pos_x+1,X : adc.w spawn_offset_x,Y : sta !obj_pos_x+1
     bra .8CD6
 
 .8CCD:
-    sec : lda.w !obj_pos_x+1,X : sbc.w spawn_offset_x,Y : sta !obj_pos_x+1 ;todo
+    sec : lda.w !obj_pos_x+1,X : sbc.w spawn_offset_x,Y : sta !obj_pos_x+1
 .8CD6: ;a16 x16
     clc
-    lda.w !obj_pos_y+1,X : adc.w spawn_offset_y,Y : sta !obj_pos_y+1 ;todo
+    lda.w !obj_pos_y+1,X : adc.w spawn_offset_y,Y : sta !obj_pos_y+1
     !A8
     rtl
 }
@@ -3060,22 +3060,42 @@ _0196EF: ;a8 x8
     rtl
 }
 
+if !version == 2
+{ ;9735 - 975F
+_019735_eu:
+    lda #$01 : pha : plb
+    ldy #$06
+.973B:
+    lda.w .9752,Y
+    phy
+    jsl _00A8CD
+    ply
+    lda.w .9759,Y : jsl _01A717_A728
+    dey : bpl .973B
+
+    jml _01A717
+
+.9752: db $00,$01,$02,$03,$02,$01,$00
+.9759: db $01,$05,$02,$04,$02,$05,$01
+}
+endif
+
 { ;9735 - 9756
 _019735: ;a8 x8
     stz $02F2
     lda $0055,Y
     lsr
-    bne +
+    bne .973F
 
     inc
-+:
+.973F:
     sta $0055,Y
--:
+.9742:
     lda $0055,Y : jsl _01A717_A728
     inc $02F2
     lda $02F2
     cmp #$0F
-    bne -
+    bne .9742
 
     jml _01A717
 }
@@ -3085,15 +3105,15 @@ _019757: ;a8 x8
     lda #$0F : sta $02F2
     lda $0055,Y
     lsr
-    bne +
+    bne .9763
 
     inc
-+:
+.9763:
     sta $0055,Y
--:
+.9766:
     lda $0055,Y : jsl _01A717_A728
     dec $02F2
-    bne -
+    bne .9766
 
     jml _01A717
 }
@@ -3201,6 +3221,11 @@ _0197D1: ;a8 x8
     clc
     adc #$06
     sta $031E
+
+if !version == 2
+    lda #$01 : jsl _01A717_A728
+endif
+
     pla
     inc
     and #$03
@@ -3267,6 +3292,11 @@ _0198A4: ;a- x8
     stz $74
     lda #$0C : sta $02DE
     lda #$04 : sta $031E
+
+if !version == 2
+    lda #$01 : jsl _01A717_A728
+endif
+
     lda #$4F : sta.w hud_flicker_timer
     !A16
     lda #$F200 : sta $6D
@@ -3287,6 +3317,14 @@ _0198A4: ;a- x8
     cmp #$FE
     bne .9934
 
+if !version == 2
+    lda #$11 : sta $02D7
+.9981:
+    lda #$01 : jsr _019A88
+    lda $007E
+    bne .9981
+endif
+
     !A16
     stz $19DE
     stz $19E2
@@ -3294,13 +3332,23 @@ _0198A4: ;a- x8
     stz $19E4
     !A8
     jsl _01B90E
+
+if !version == 0 || !version == 1
     lda #$17 : sta $02D5 : sta $02D7
+endif
+
     lda #$01 : sta $02D9
     lda #$11 : sta $02DD
     lda #$19 : sta $02DE
     ldx #$00 : lda #$04 : jsl _01F6C9
     stz $1554
     !AX8
+
+if !version == 2
+    lda #$03 : jsr _019A88
+    lda #$17 : sta $02D5 : sta $02D7
+endif
+
     lda #$01 : jsr _019A88
     pld
     jml _01A717
@@ -3353,6 +3401,11 @@ _0198A4: ;a- x8
 
     inc $75
     lda #$03 : sta $031E
+
+if !version == 2
+    lda #$01 : jsl _01A717_A728
+endif
+
     lda #$17 : sta $02D5 : sta $02D7
     ldx #$54 : lda #$01 : jsl _01F6C9
     lda #$10 : jsr _019A88
@@ -5203,6 +5256,27 @@ _01A74A:
     rts
 }
 
+if !version == 2
+{ ;A8CD - A8EB
+_00A8CD:
+    asl #5
+    tax
+    phb
+    lda #$7E : pha : plb
+    ldy #$00
+.A8DA:
+    lda $04ED00,X : sta $F400,Y ;todo
+    inx
+    iny
+    cpy #$20
+    bne .A8DA
+
+    inc $0331
+    plb
+    rtl
+}
+endif
+
 { ;A87C - AF03
 _01A87C: ;a8 x8
     jsl disable_nmi
@@ -5210,27 +5284,58 @@ _01A87C: ;a8 x8
     jsl _018366
     lda #$0F : sta $02F2
     jsl _018074
+
+if !version == 0 || !version == 1
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldx #$A8 : jsl _0180C7_ram_to_vram
     ldy #$A8 : jsl _01A21D_decompress_graphics
     ldx #$9A : jsl _0180C7_ram_to_vram
     lda #$04 : jsl _048E68
+elseif !version == 2
+    ldx #$30 : jsl _0180C7
+    ldx #$9A : jsl _0180C7_ram_to_vram
+    lda #$01 : jsl $0 ;CODE_049343 todo
+endif
+
     stz $02E1
     !A16
     lda #$1800 : sta $0318
     lda #$0800 : sta $031A
     !A8
+
+if !version == 0 || !version == 1
     lda #$08 : jsl _0183D4_83DB
     lda #$0B : jsl _0190B9_palette_to_ram
     ldx #$04 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
     jsl enable_nmi
+elseif !version == 2
+    lda #$00 : jsl _0183D4_83DB
+    lda #$8F : sta $02F2
+    jsl $0 ;CODE_01833A todo
+    lda #$62 : jsl _018049_8053
+    lda #$19 : jsl _01A717_A728
+    ldx #$02 : ldy #$18 : lda #$1C : jsl _01A6FE
+endif
+
 .A8DC:
     lda #$01 : jsl _01A717_A728
     lda $0066
     bne .A8DC
 
+if !version == 0 || !version == 1
     lda #$62 : jsl _018049_8053
     lda #$3F : sta $0055
+elseif !version == 2
+    lda #$12 : jsl _01A717_A728
+    ldy #$30 : lda #$74 : jsl $0 ;CODE_01A74F todo
+.A964:
+    lda #$01 : jsl _01A717_A728
+    lda $007E
+    bne .A964
+
+    lda #$2E : sta $0055
+endif
+
 .A8F2:
     lda #$01 : jsl _01A717_A728
     lda.w p1_button_hold+1
@@ -5246,7 +5351,12 @@ _01A87C: ;a8 x8
     lda $0066
     bne .A90E
 
+if !version == 0 || !version == 1
     lda #$00 : sta $0278
+elseif !version == 2
+    stz $0278
+endif
+
 .A91E:
     lda $0278 : asl : tax
     jsr (.A928,X)
@@ -5298,6 +5408,11 @@ _01A87C: ;a8 x8
     stz $1FD6
     !A8
     jsr .ABB3
+
+if !version == 2
+    ldx #$02 : jsr .AC7D_eu
+endif
+
     lda $1FC7
     cmp #$0B
     bne +
@@ -5434,6 +5549,11 @@ _01A87C: ;a8 x8
     lda $1FC7 : sta.w stage
     lda #$00  : sta.w checkpoint
     jsr .ABB3
+
+if !version == 2
+    ldx #$02 : jsr .AC7D_eu
+endif
+
     lda $1FC7 : eor #$01 : sta $1FC7
     lda #$03  : sta $0278
     stz $0279
@@ -5522,10 +5642,16 @@ _01A87C: ;a8 x8
     lda #$0200 : sta $031A
     !A8
     ldx !options_controls
+
+if !version == 0 || !version == 1
     lda.w _00B55C_shot_buttons+0,X : sta.w shot_buttons
     lda.w _00B55C_shot_buttons+1,X : sta.w shot_buttons+1
     lda.w _00B55C_jump_buttons+0,X : sta.w jump_buttons
     lda.w _00B55C_jump_buttons+1,X : sta.w jump_buttons+1
+elseif !version == 2
+    jsr .AC7D_eu
+endif
+
     lda !options_extra_lives : lsr : sta.w extra_lives
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
@@ -5533,6 +5659,17 @@ _01A87C: ;a8 x8
     stz $02C3
     inc $0278
     rts
+
+;-----
+
+if !version == 2
+.AC7D_eu:
+    lda.w _00B55C_shot_buttons+0,X : sta.w shot_buttons
+    lda.w _00B55C_shot_buttons+1,X : sta.w shot_buttons+1
+    lda.w _00B55C_jump_buttons+0,X : sta.w jump_buttons
+    lda.w _00B55C_jump_buttons+1,X : sta.w jump_buttons+1
+    rts
+endif
 
 ;-----
 
@@ -5611,8 +5748,13 @@ _01A87C: ;a8 x8
 .ACBC:
     lda.w _00B552,X
     ldy $1FB9
-    beq .ACC4 : .ACC4:
+    beq .ACC4
 
+if !version == 2
+    lda #$01
+endif
+
+.ACC4:
     sta.w difficulty
     asl
     tax
@@ -6154,9 +6296,13 @@ _01B2B1: ;a8 x8
     dec.w hud_flicker_timer
     and #$01
     sta.w hud_visible
+
+if !version == 0 || !version == 1
     tax
     lda $02F0 : and #$FD : ora.w _00B5BC+0,X : sta $02F0
     lda $02F1 : and #$CF : ora.w _00B5BC+2,X : sta $02F1
+endif
+
 .ret:
     rts
 }
@@ -9743,7 +9889,7 @@ _01CCBD: ;a8 x8
     beq .CF53
 
 .CF48:
-    lda.w jump_hold 
+    lda.w jump_hold
     beq .CF53
 
     brk #$00
@@ -15530,6 +15676,8 @@ _01F929:
 }
 elseif !version == 1
     incbin "us_fill_bytes/bank01a.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank01a.bin"
 endif
 
 { ;FF00 - FF73
@@ -15540,7 +15688,13 @@ _01FF00: ;a- x-
     .0C: jml _019757
     .10: jml _01B315
     .14: jml _048EAD ;never called from here?
+
+if !version == 0 || !version == 1
     .18: jml _03EE1D ;talking time
+elseif !version == 2
+    .18: jml $0 ;0484B9 todo
+endif
+
     .1C: jml _019776
     .20: jml _019776_9797
     .24: jml _04A0F5 ;unused?
@@ -15563,6 +15717,10 @@ _01FF00: ;a- x-
     .68: jml _039DDA ;ending slides related
     .6C: jml _019776_9792 ;ending slides related
     .70: jml _01A1F5
+
+if !version == 2
+    .74: jml _019735_eu
+endif
 }
 
 { ;FF74 - FF76
@@ -15575,5 +15733,7 @@ if !version == 0
     fillbyte $FF : fill 137
 elseif !version == 1
     incbin "us_fill_bytes/bank01b.bin"
+elseif !version == 2
+    incbin "eu_fill_bytes/bank01b.bin"
 endif
 }
