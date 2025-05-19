@@ -221,6 +221,8 @@ if !version == 0
 	fillbyte $FF : fill 111
 elseif !version == 1
 	incbin "us_fill_bytes/bank05a.bin"
+elseif !version == 2
+	incbin "eu_fill_bytes/bank05a.bin"
 endif
 }
 
@@ -2323,10 +2325,12 @@ _05A812:
 	db $00, $00, $00, $00
 }
 
-{ ; FAFE- FFFF
+{ ;FAFE - FFFF
 if !version == 0
 	fillbyte $FF : fill 1282
 elseif !version == 1
 	incbin "us_fill_bytes/bank05b.bin"
+elseif !version == 2
+	incbin "eu_fill_bytes/bank05b.bin"
 endif
 }

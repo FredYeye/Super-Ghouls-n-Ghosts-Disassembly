@@ -1,0 +1,152 @@
+    db $00
+    dw be(..ch8), be(..ch7), be(..ch6), be(..ch5), be(..ch4), be(..ch3), be(..ch2), be(..ch1)
+
+..ch8:
+    %pan($64)
+    %tempo($022E)
+    %volume($3E)
+..37E5:
+    %toggle_triplet_portamento_2_octave_up($00)
+..37E7:
+    %toggle_triplet_portamento_2_octave_up($00)
+    %duration($3C)
+    %release($12)
+    %instrument($0B)
+    %octave($04)
+    %toggle_triplet_portamento_2_octave_up($00)
+..37F3:
+    %toggle_triplet_portamento_2_octave_up($00)
+    %note($12, 4)
+    %note($18, 4)
+    %note($1D, 4)
+    %note($1E, 4)
+    %toggle_2_octaves_up()
+    %note($09, 4)
+    %note($0C, 4)
+    %loop(0, 3, ..37F3)
+..3800:
+    %toggle_triplet_portamento_2_octave_up($00)
+    %note($11, 4)
+    %note($17, 4)
+    %note($1B, 4)
+    %note($1D, 4)
+    %toggle_2_octaves_up()
+    %note($09, 4)
+    %note($0C, 4)
+    %loop(0, 3, ..3800)
+..380D:
+    %toggle_triplet_portamento_2_octave_up($00)
+    %note($0F, 4)
+    %note($16, 4)
+    %note($1A, 4)
+    %note($1B, 4)
+    %note($1E, 4)
+    %toggle_2_octaves_up()
+    %note($0A, 4)
+    %loop(0, 3, ..380D)
+..381A:
+    %toggle_triplet_portamento_2_octave_up($00)
+    %note($0E, 4)
+    %note($15, 4)
+    %note($18, 4)
+    %note($1E, 4)
+    %toggle_2_octaves_up()
+    %note($09, 4)
+    %note($0C, 4)
+    %loop(0, 2, ..381A)
+    %toggle_2_octaves_up()
+    %note($0F, 4)
+    %note($15, 4)
+    %note($18, 4)
+    %note($1E, 4)
+    %note($11, 4)
+    %note($1D, 4)
+    %goto(..37E7)
+    %end_track()
+
+..ch7:
+    %tuning($32)
+    %duration($F0)
+    %release($14)
+
+if !version == 0 || !version == 1
+    %volume($34)
+    %instrument($0E)
+    %octave($03)
+elseif !version == 2
+    %volume($2A)
+    %instrument($0E)
+    %octave($04)
+endif
+
+..383E:
+    %toggle_triplet_portamento_2_octave_up($48)
+    %note($11, 7)
+    %note($11, 7)
+    %toggle_portamento()
+    %note($0F, 6)
+    %toggle_portamento()
+    %note($11, 5)
+    %note($12, 5)
+    %note($11, 7)
+    %toggle_portamento()
+    %note($11, 5)
+    %toggle_portamento()
+    %note($0C, 5)
+    %toggle_portamento()
+    %note($0B, 6)
+    %note($00, 5)
+    %toggle_portamento()
+    %note($0B, 5)
+    %note($0C, 5)
+    %note($0E, 7)
+    %note($0E, 6)
+    %toggle_portamento()
+    %note($0C, 7)
+    %toggle_portamento()
+    %note($0C, 5)
+    %note($0E, 5)
+    %toggle_triplet()
+    %note($0F, 5)
+    %note($0F, 3)
+    %note($0E, 3)
+    %note($0F, 3)
+    %note($0E, 6)
+    %set_dotted_note()
+    %toggle_triplet()
+    %note($0E, 5)
+    %set_dotted_note()
+    %note($0E, 6)
+    %set_dotted_note()
+    %note($0C, 6)
+    %set_dotted_note()
+    %toggle_portamento()
+    %note($0C, 5)
+    %note($00, 4)
+    %toggle_portamento()
+    %note($05, 5)
+    %goto(..383E)
+    %end_track()
+
+..ch6:
+    %set_dotted_note()
+    %note($00, 3)
+    %pan($9C)
+    %volume($0E)
+    %goto(..37E5)
+    %end_track()
+
+..ch5:
+    %end_track()
+
+..ch4:
+    %end_track()
+
+..ch3:
+    %end_track()
+
+..ch2:
+    %end_track()
+
+..ch1:
+    %end_track()

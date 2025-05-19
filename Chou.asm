@@ -683,12 +683,24 @@ endif
         db $00
     endmacro
 
-    macro toggle_2_octave_up()
+    macro toggle_portamento()
+        db $01
+    endmacro
+
+    macro set_dotted_note()
+        db $02
+    endmacro
+
+    macro toggle_2_octaves_up()
         db $03
     endmacro
 
+    macro toggle_triplet_portamento_2_octave_up(value)
+        db $04, <value>
+    endmacro
+
     macro tempo(value) ;bpm = value * 60098813 / (8000 * 48 * 512), supposedly
-        db $05, (<value>)>>8, <value>
+        db $05 : dw be(<value>)
     endmacro
 
     macro duration(value)
@@ -707,6 +719,34 @@ endif
         db $09, <value>
     endmacro
 
+    macro global_transpose(value)
+        db $0A, <value>
+    endmacro
+
+    macro per_voice_transpose(value)
+        db $0B, <value>
+    endmacro
+
+    macro tuning(value)
+        db $0C, <value>
+    endmacro
+
+    macro portamento_time(value)
+        db $0D, <value>
+    endmacro
+
+    macro loop(n, count, offset)
+        db $0E+<n>, <count> : dw be(<offset>)
+    endmacro
+
+    macro loop_break(n, count, offset)
+        db $12+<n>, <count> : dw be(<offset>)
+    endmacro
+
+    macro goto(value)
+        db $16 : dw be(<value>)
+    endmacro
+
     macro end_track()
         db $17
     endmacro
@@ -715,12 +755,20 @@ endif
         db $18, <value>
     endmacro
 
+    macro master_volume(value)
+        db $19, <value>
+    endmacro
+
     macro lfo(type, value)
         db $1A, <type>, <value>
     endmacro
 
     macro release(value)
         db $1D, <value>
+    endmacro
+
+    macro unk1E()
+        db $1E
     endmacro
 
     macro note(note, duration)
@@ -735,8 +783,7 @@ endif
     incsrc bank03.asm
     incsrc bank04.asm
     incsrc bank05.asm
-    incsrc bank06.asm
-    incsrc bank07.asm
+    incsrc bank06-07.asm
     incsrc bank08.asm
     incsrc bank09.asm
     incsrc bank0A.asm
