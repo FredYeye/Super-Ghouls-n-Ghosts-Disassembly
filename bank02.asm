@@ -524,7 +524,7 @@ _02821B: ;a8 x8
     dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, $EEEA, stone_pillar_create, $FFFF, flower_part_create, torch_flame_create, torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
     dw shell_pearl_create, $9139, $9174, $9191, $91DD, belial_create, belial_flame_create, princess_create, hydra_fireball_create, $B3AA, rosebud_create, black_cover_create, bars_create, eagler_create, rotating_platform_create, chest_create
     dw magician_create, armor_create, weapon_create, pickup_shield_create, $BED3, magician_orb_create, small_explosion_create, stone_pillar2_create, point_statue_create, stage4_exit_create, raft_pulley_create, zombie_create, $9224, water_crash_splash_create, flower_bud_create, flower_projectile_create
-    dw raft_hanging_create, icicle_create, gate_create, cockatrice_spawner_create, ready_go_create, $E42A, flying_killer_create, hydra_create, hydra_genie_create, key_create, key_message_create, raft_create, guillotine_create, $C40D, ghost_create, ghost_unformed_create
+    dw raft_hanging_create, icicle_create, gate_create, cockatrice_spawner_create, ready_go_create, siren_create, flying_killer_create, hydra_create, hydra_genie_create, key_create, key_message_create, raft_create, guillotine_create, $C40D, ghost_create, ghost_unformed_create
     dw flower_head_create, cockatrice_legs_create, cockatrice_neck_create, cockatrice_head_create, siren_projectile_create, arthur_map_create, miniwing_create, cockatrice_wings_create, cockatrice_body_create, skulls_create, money_bag_create, mimic_create, mimic_ghost_create, hannibal_create, storm_cesaris_projectile_create, coffin_dirt_create
     dw boss_explosion_spawner_create, boss_explosion_create, wolf_create, pier_create, rosebud_chunk_create, cockatrice_neck_base_create, storm_cesaris_create, storm_cesaris_parts_create, flying_knight_create, bat_spawner_create, bat_create, chest2_create, pier_splinter_create, bracelet_item_create, bracelet_item_sparkle_create, crumbling_wall_create
     dw grilian_create, _029ED3_create, magic_charge_create, tower_edge_create, silk_gate_create, gargoyle_statue_create, grilian_projectile_create, skull_flower_multi_inactive_create, skull_flower_multi_create, arremer_projectile_create, arremer_create, moving_platform_create, death_crawler_handler_create, death_crawler_part_create, death_crawler_create, $89C6
@@ -6777,7 +6777,7 @@ belial:
 .B1FD:
     !A8
     lda #$01 : sta $33
-    lda #!sfx_belial_roll : jsl _018049_8053
+    lda #!sfx_impact : jsl _018049_8053
 .B209:
     brk #$00
 

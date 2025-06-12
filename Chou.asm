@@ -654,7 +654,7 @@ endif
     !sfx_wave_crash         = $33
     !sfx_arthur_death       = $31
     !sfx_hit                = $38
-    !sfx_belial_roll        = $39
+    !sfx_impact             = $39
     !sfx_death              = $3B
     !sfx_vortex             = $3E
     !sfx_ghost_spawn        = $3F

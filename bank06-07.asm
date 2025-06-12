@@ -1452,14 +1452,19 @@ base $0E00 : spc_0E00:
     dw be(.arthur_land), be(.arthur_steel_armor), be(.arthur_upgraded_armor), be(.arthur_break_armor)
     dw be(.item_pickup), be(.arthur_death), be(.water_crash_begin), be(.water_crash_end)
     dw be(.earthquake), be(.projectile), be(.pause), be(.menu_movement)
-    db $48, $FF, $49, $38, $49, $6A, $49, $E1, $4A, $2D, $4A, $48, $4A, $9C, $4A, $E2
-    db $4B, $2B, $4B, $6A, $4B, $C5, $4B, $FB, $4C, $69, $4C, $A1, $4C, $DF, $4D, $21
-    db $4D, $7D, $4D, $C0, $4E, $03, $4E, $66, $4E, $AF, $4E, $F0, $4F, $25, $4F, $64
-    db $4F, $AD, $4F, $DD, $50, $3A, $50, $74, $50, $C2, $51, $11, $51, $7A, $51, $DF
-    db $52, $42, $52, $9B, $52, $D1, $53, $00, $53, $69, $53, $DC, $54, $37, $54, $60
-    db $54, $AB, $54, $EE
-    dw be(.capcom_jingle) ;0x??
-    db $55, $90, $55, $DD, $56, $65, $56, $B9, $57, $01, $57, $4A, $57, $82
+    dw be(.hit), be(.impact), be(.bracelet), be(.enemy_death)
+    dw be(.empty3C), be(.raft_pulley), be(.vortex), be(.ghost_spawn)
+    dw be(.guillotine), be(.unk41), be(.unk42), be(.ice)
+    dw be(.bars), be(.grow), be(.flying_knight), be(.shatter)
+    dw be(.gate_open), be(.rosebud_grow), be(.ship_creak), be(.fireworks)
+    dw be(.cockatrice_spew), be(.skulls), be(.rosebud_explode), be(.ghost_destroy)
+    dw be(.mimic_shake), be(.mimic_jump), be(.magic_charge), be(.magic_release)
+    dw be(.magic_seek), be(.magic_tornado), be(.magic_shield), be(.magic_lightning)
+    dw be(.astaroth_laser), be(.astaroth_flame), be(.transform), be(.rotating_platform)
+    dw be(.rotating_platform_end), be(.lightning), be(.unk5E), be(.axe2_triblade2)
+    dw be(.projectile2), be(.1up), be(.capcom_jingle)
+    dw be(.menu_select), be(.death_crawler_spin), be(.hydra_transform), be(.hydra_transform2)
+    dw be(.axe_triblade_claw), be(.avalanche), be(.collision)
 
 ;-----
 
@@ -1488,113 +1493,80 @@ base $0E00 : spc_0E00:
 
 ;todo: maybe match names with "music / sfx IDs" section in chou.asm
 
-.lance:  incsrc "sfx/lance.asm"
-.bowgun: incsrc "sfx/bowgun.asm"
-.knife: incsrc "sfx/knife.asm"
-.scythe: incsrc "sfx/scythe.asm"
-.torch: incsrc "sfx/torch.asm"
-.unk25: incsrc "sfx/unk25.asm"
-.hydra_fireball: incsrc "sfx/hydra_fireball.asm" ;torch2 sfx in prototype
-.lance2:  incsrc "sfx/lance2.asm"
-.bowgun2: incsrc "sfx/bowgun2.asm"
-.knife2: incsrc "sfx/knife2.asm"
-.unk2A: incsrc "sfx/unk2A.asm" ;another proto sound?
-.arthur_jump: incsrc "sfx/arthur_jump.asm"
-.arthur_land: incsrc "sfx/arthur_land.asm"
-.arthur_steel_armor: incsrc "sfx/arthur_steel_armor.asm"
+.lance:                 incsrc "sfx/lance.asm"
+.bowgun:                incsrc "sfx/bowgun.asm"
+.knife:                 incsrc "sfx/knife.asm"
+.scythe:                incsrc "sfx/scythe.asm"
+.torch:                 incsrc "sfx/torch.asm"
+.unk25:                 incsrc "sfx/unk25.asm"
+.hydra_fireball:        incsrc "sfx/hydra_fireball.asm" ;torch2 sfx in prototype
+.lance2:                incsrc "sfx/lance2.asm"
+.bowgun2:               incsrc "sfx/bowgun2.asm"
+.knife2:                incsrc "sfx/knife2.asm"
+.unk2A:                 incsrc "sfx/unk2A.asm" ;another proto sound?
+.arthur_jump:           incsrc "sfx/arthur_jump.asm"
+.arthur_land:           incsrc "sfx/arthur_land.asm"
+.arthur_steel_armor:    incsrc "sfx/arthur_steel_armor.asm"
 .arthur_upgraded_armor: incsrc "sfx/arthur_upgraded_armor.asm"
-.arthur_break_armor: incsrc "sfx/arthur_break_armor.asm"
-.item_pickup: incsrc "sfx/item_pickup.asm"
-.arthur_death: incsrc "sfx/arthur_death.asm"
-.water_crash_begin: incsrc "sfx/water_crash_begin.asm"
-.water_crash_end: incsrc "sfx/water_crash_end.asm"
-.earthquake: incsrc "sfx/earthquake.asm"
-.projectile: incsrc "sfx/projectile.asm" ;siren, storm cesaris, death crawler
-.pause: incsrc "sfx/pause.asm"
-.menu_movement: incsrc "sfx/menu_movement.asm"
-
-;-----
-
-    incbin "audio/06893B.bin":$3AFF..$472E
-
-;-----
-
-.capcom_jingle: ;0x?? (0x552E)
-    db $00
-    dw be(..553F), be(..556D), be(..558A), be(..558B), be(..558C), be(..558D), be(..558E), be(..558F)
-
-..553F:
-    %tempo($00FA)
-    %volume($44)
-    %duration($BE)
-    %release($10)
-    %instrument($12)
-    %octave($02)
-    %toggle_triplet()
-    %note(00, 3)
-    %pan($BA)
-    %note(27, 3)
-    %toggle_triplet()
-    %note(30, 2)
-    %pan($E7)
-    %toggle_2_octaves_up()
-    %note(10, 2)
-    %note(13, 2)
-    %pan($19)
-    %toggle_triplet()
-    %note(17, 3)
-    %note(08, 3)
-    %pan($46)
-    %note(10, 3)
-    %note(13, 3)
-    %lfo($01, $2D)
-    %lfo($02, $19)
-    %pan($6E)
-    %toggle_triplet()
-    %note(20, 6)
-    %note(00, 6)
-    %end_track()
-
-..556D:
-    %pan($92)
-    %duration($BE)
-    %release($10)
-    %lfo($03, $01)
-    %lfo($01, $46)
-    %lfo($02, $19)
-    %volume($42)
-    %instrument($12)
-    %octave($02)
-    db $02
-    db $01
-    %note(20, 6)
-    db $02
-    db $01
-    %note(20, 3)
-    %note(00, 6)
-    %end_track()
-
-..558A:
-    %end_track()
-
-..558B:
-    %end_track()
-
-..558C:
-    %end_track()
-
-..558D:
-    %end_track()
-
-..558E:
-    %end_track()
-
-..558F:
-    %end_track()
-
-;-----
-
-    incbin "audio/06893B.bin":$4790..$0
+.arthur_break_armor:    incsrc "sfx/arthur_break_armor.asm"
+.item_pickup:           incsrc "sfx/item_pickup.asm"
+.arthur_death:          incsrc "sfx/arthur_death.asm"
+.water_crash_begin:     incsrc "sfx/water_crash_begin.asm"
+.water_crash_end:       incsrc "sfx/water_crash_end.asm"
+.earthquake:            incsrc "sfx/earthquake.asm"
+.projectile:            incsrc "sfx/projectile.asm" ;siren, storm cesaris, death crawler
+.pause:                 incsrc "sfx/pause.asm"
+.menu_movement:         incsrc "sfx/menu_movement.asm"
+.hit:                   incsrc "sfx/hit.asm"
+.impact:                incsrc "sfx/impact.asm" ;stomp / shake
+.bracelet:              incsrc "sfx/bracelet.asm"
+.enemy_death:           incsrc "sfx/enemy_death.asm"
+.empty3C:               incsrc "sfx/empty3C.asm"
+.raft_pulley:           incsrc "sfx/raft_pulley.asm"
+.vortex:                incsrc "sfx/vortex.asm"
+.ghost_spawn:           incsrc "sfx/ghost_spawn.asm"
+.guillotine:            incsrc "sfx/guillotine.asm"
+.unk41:                 incsrc "sfx/unk41.asm"
+.unk42:                 incsrc "sfx/unk42.asm"
+.ice:                   incsrc "sfx/ice.asm"
+.bars:                  incsrc "sfx/bars.asm"
+.grow:                  incsrc "sfx/grow.asm"
+.flying_knight:         incsrc "sfx/flying_knight.asm"
+.shatter:               incsrc "sfx/shatter.asm"
+.gate_open:             incsrc "sfx/gate_open.asm"
+.rosebud_grow:          incsrc "sfx/rosebud_grow.asm"
+.ship_creak:            incsrc "sfx/ship_creak.asm"
+.fireworks:             incsrc "sfx/fireworks.asm"
+.cockatrice_spew:       incsrc "sfx/cockatrice_spew.asm"
+.skulls:                incsrc "sfx/skulls.asm"
+.rosebud_explode:       incsrc "sfx/rosebud_explode.asm"
+.ghost_destroy:         incsrc "sfx/ghost_destroy.asm"
+.mimic_shake:           incsrc "sfx/mimic_shake.asm"
+.mimic_jump:            incsrc "sfx/mimic_jump.asm"
+.magic_charge:          incsrc "sfx/magic_charge.asm"
+.magic_release:         incsrc "sfx/magic_release.asm"
+.magic_seek:            incsrc "sfx/magic_seek.asm"
+.magic_tornado:         incsrc "sfx/magic_tornado.asm"
+.magic_shield:          incsrc "sfx/magic_shield.asm"
+.magic_lightning:       incsrc "sfx/magic_lightning.asm"
+.astaroth_laser:        incsrc "sfx/astaroth_laser.asm" ;also used by nebiroth
+.astaroth_flame:        incsrc "sfx/astaroth_flame.asm" ;also used by nebiroth
+.transform:             incsrc "sfx/transform.asm"
+.rotating_platform:     incsrc "sfx/rotating_platform.asm"
+.rotating_platform_end: incsrc "sfx/rotating_platform_end.asm"
+.lightning:             incsrc "sfx/lightning.asm"
+.unk5E:                 incsrc "sfx/unk5E.asm"
+.axe2_triblade2:        incsrc "sfx/axe2_triblade2.asm"
+.projectile2:           incsrc "sfx/projectile2.asm" ;arremer, veil allocen projectile, samael platform, some weird menu thing
+.1up:                   incsrc "sfx/1up.asm"
+.capcom_jingle:         incsrc "sfx/capcom_jingle.asm"
+.menu_select:           incsrc "sfx/menu_select.asm"
+.death_crawler_spin:    incsrc "sfx/death_crawler_spin.asm"
+.hydra_transform:       incsrc "sfx/hydra_transform.asm"
+.hydra_transform2:      incsrc "sfx/hydra_transform2.asm"
+.axe_triblade_claw:     incsrc "sfx/axe_triblade_claw.asm"
+.avalanche:             incsrc "sfx/avalanche.asm"
+.collision:             incsrc "sfx/collision.asm"
 
 ;-----
 

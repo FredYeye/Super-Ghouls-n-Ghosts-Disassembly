@@ -1633,7 +1633,7 @@ endif
     !A8
 .8F4A:
     jsl _018021
-    lda $1FB4
+    lda $1FB4 ;if set, go to... proto menu? not sure
     bne .8F7E
 
     !A16
@@ -1647,7 +1647,7 @@ endif
 .8F60:
     jsl _049252
     jsr _049219_921D
-    lda #$43 : jsl _018049_8053 ;menu press sfx?
+    lda #$43 : jsl _018049_8053 ;ice sfx
     lda #$3E : jsl _01A717_A728
     lda #$30 : sta $02EB
     lda #$05 : sta $0279
