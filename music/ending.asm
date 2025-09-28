@@ -578,7 +578,17 @@ endif
     %note($1F, 3)
     %note($00, 5)
     %note($1F, 4)
+
+if !version == 2
+    %duration($96)
+endif
+
     %note($1F, 5)
+
+if !version == 2
+    %duration($5A)
+endif
+
     %note($1F, 3)
     %note($1F, 3)
 ..3E0F:

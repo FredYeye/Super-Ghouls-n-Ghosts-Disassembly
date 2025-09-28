@@ -264,7 +264,12 @@ endif
     %note($18, 3)
     %note($16, 3)
     %note($06, 3)
+
+if !version == 0 || !version == 1
     %loop(0, 9, ..3AE9)
+elseif !version == 2
+    %loop(0, 11, ..3AE9)
+endif
 
 if !version == 2
     %octave($04)
@@ -356,7 +361,13 @@ endif
     %note($18, 3)
     %note($16, 3)
     %note($06, 3)
+
+if !version == 0 || !version == 1
     %loop(0, 9, ..3B42)
+elseif !version == 2
+    %loop(0, 11, ..3B42)
+endif
+
     %end_track()
 
 ..ch2:
