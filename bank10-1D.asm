@@ -128,9 +128,9 @@ elseif !version == 1
 endif
 
 if !version == 0
-    gfx_unk07: incbin "graphics/unknown07.bin"
+    gfx_stage1_objects: incbin "graphics/stage1_objects.bin"
 elseif !version == 1 || !version == 2
-    gfx_unk07: incbin "graphics/unknown07_us.bin"
+    gfx_stage1_objects: incbin "graphics/stage1_objects_us.bin"
 endif
 
     gfx_unk16: incbin "graphics/unknown16.bin"
@@ -140,10 +140,10 @@ endif
     gfx_hydra:           incbin "graphics/hydra.bin"
     gfx_unk22: incbin "graphics/unknown22.bin"
     gfx_unk30: incbin "graphics/unknown30.bin"
-    gfx_unk28: incbin "graphics/unknown28.bin"
+    gfx_princess_dialogue: incbin "graphics/princess_dialogue.bin" ;contains unused projectile as well?
     gfx_samael: incbin "graphics/samael.bin"
     gfx_unk08: incbin "graphics/unknown08.bin"
-    gfx_unk09: incbin "graphics/unknown09.bin"
+    gfx_skull_flower: incbin "graphics/skull_flower.bin"
     gfx_unk10: incbin "graphics/unknown10.bin"
     gfx_grilian: incbin "graphics/grilian.bin"
     gfx_arremer: incbin "graphics/arremer.bin"
@@ -153,7 +153,7 @@ endif
     gfx_mimic: incbin "graphics/mimic.bin"
     gfx_unk11: incbin "graphics/unknown11.bin"
     gfx_cockatrice: incbin "graphics/cockatrice.bin"
-    gfx_unk12: incbin "graphics/unknown12.bin"
+    gfx_items_enemy_hits: incbin "graphics/items_enemy_hits.bin"
     gfx_game_over: incbin "graphics/game_over.bin"
     gfx_capcom: incbin "graphics/capcom_presents.bin"
     gfx_font_hud: incbin "graphics/font_hud.bin" ;font etc?

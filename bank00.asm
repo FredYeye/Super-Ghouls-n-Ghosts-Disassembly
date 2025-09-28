@@ -1749,13 +1749,13 @@ _water_crash: ;stage 1 water crash tiles
 
 { ;AFCC - AFFC
 _00AFCC:
-    dw $0000 : dl gfx_cockatrice    : dw $4700
-    dw $5000 : dl gfx_unk08         : dw $1100
-    dw $0000 : dl gfx_death_crawler : dw $3000
-    dw $0000 : dl gfx_unk21         : dw $1000
-    dw $0400 : dl gfx_veil_allocen  : dw $26C0
-    dw $0000 : dl gfx_nebiroth      : dw $2300
-    dw $0000 : dl gfx_unk28         : dw $0900
+    dw $0000 : dl gfx_cockatrice        : dw $4700
+    dw $5000 : dl gfx_unk08             : dw $1100
+    dw $0000 : dl gfx_death_crawler     : dw $3000
+    dw $0000 : dl gfx_unk21             : dw $1000
+    dw $0400 : dl gfx_veil_allocen      : dw $26C0
+    dw $0000 : dl gfx_nebiroth          : dw $2300
+    dw $0000 : dl gfx_princess_dialogue : dw $0900
 }
 
 { ;AFFD - B105
@@ -1769,12 +1769,12 @@ _00AFFD:
 
 .stage1:
     db $06 : dw $0000
-    dl gfx_unk07 : dw $3860
-    dl gfx_unk08 : dw $1100
-    dl gfx_unk09 : dw $0720
-    dl gfx_unk10 : dw $1260
-    dl gfx_unk11 : dw $0720
-    dl gfx_unk14 : dw $0E00
+    dl gfx_stage1_objects : dw $3860
+    dl gfx_unk08        : dw $1100
+    dl gfx_skull_flower : dw $0720
+    dl gfx_unk10        : dw $1260
+    dl gfx_unk11        : dw $0720
+    dl gfx_unk14        : dw $0E00
 
 .stage2:
     db $03 : dw $0000
@@ -1792,9 +1792,9 @@ _00AFFD:
 
 .stage4:
     db $03 : dw $0000
-    dl gfx_unk25 : dw $0BA0
-    dl gfx_unk09 : dw $0720
-    dl gfx_unk26 : dw $1A00
+    dl gfx_unk25        : dw $0BA0
+    dl gfx_skull_flower : dw $0720
+    dl gfx_unk26        : dw $1A00
 
 ..b:
     db $03 : dw $0000
@@ -1827,14 +1827,14 @@ _00AFFD:
 
 .stage7:
     db $08 : dw $0000
-    dl gfx_unk28    : dw $0900
-    dl gfx_unk08    : dw $1100
-    dl gfx_arremer  : dw $2260
-    dl gfx_killer   : dw $03E0
-    dl gfx_mimic    : dw $0C20
-    dl gfx_unk11    : dw $0720
-    dl gfx_astaroth : dw $2E60
-    dl gfx_ghost    : dw $0E00
+    dl gfx_princess_dialogue : dw $0900
+    dl gfx_unk08             : dw $1100
+    dl gfx_arremer           : dw $2260
+    dl gfx_killer            : dw $03E0
+    dl gfx_mimic             : dw $0C20
+    dl gfx_unk11             : dw $0720
+    dl gfx_astaroth          : dw $2E60
+    dl gfx_ghost             : dw $0E00
 
 .stage8:
     db $03 : dw $0000
@@ -1847,50 +1847,50 @@ _00AFFD:
 gfx_decomp_offsets:
     ;graphics decompression offsets
     ;layout: destination in extended RAM | source | count / uncompressed size
-    dw $0000 : dl gfx_logo : dw $3000 ;00
-    dw $0000 : dl gfx_map : dw $2200 ;07
-    dw $0000 : dl gfx_unk01 : dw $7800 ;0E
-    dw $A000 : dl gfx_unk02 : dw $5940 ;15
-    dw $0000 : dl gfx_unk15 : dw $7800 ;1C
-    dw $A000 : dl gfx_unk17 : dw $5000 ;23
-    dw $0000 : dl gfx_unk18 : dw $7800 ;2A
-    dw $0000 : dl gfx_unk07 : dw $3860 ;31
-    dw $0000 : dl gfx_unk16 : dw $6DC0 ;38
-    dw $0000 : dl gfx_unk20 : dw $3EA0 ;3F
-    dw $0000 : dl gfx_unk12 : dw $0E20 ;46
-    dw $0000 : dl gfx_game_over : dw $0C00 ;4D
-    dw $A000 : dl gfx_unk19 : dw $2600 ;54
-    dw $0000 : dl gfx_unk22 : dw $1D00 ;5B
-    dw $0000 : dl gfx_unk29 : dw $1B00 ;62
-    dw $0000 : dl gfx_unk30 : dw $0100 ;69
-    dw $0000 : dl gfx_unk23 : dw $3800 ;70
-    dw $A000 : dl gfx_unk31 : dw $0180 ;77
-    dw $0000 : dl gfx_unk27 : dw $2000 ;7E
-    dw $0000 : dl gfx_unk03 : dw $1000 ;85
-    dw $0000 : dl gfx_unk22 : dw $1D00 ;8C
-    dw $0000 : dl gfx_continue : dw $0800 ;93
-    dw $0000 : dl gfx_continue2 : dw $0800 ;9A
-    dw $0000 : dl gfx_unk28 : dw $0900 ;A1
-    dw $0000 : dl gfx_capcom : dw $01A0 ;A8
-    dw $9800 : dl gfx_font_hud : dw $0500 ;AF
-    dw $0000 : dl gfx_options : dw $1000 ;B6
-    dw $0000 : dl gfx_unk04 : dw $0800 ;BD
-    dw $0000 : dl gfx_unk32 : dw $7800 ;C4
-    dw $0000 : dl gfx_unk09 : dw $0720 ;CB
-    dw $A000 : dl gfx_unk33 : dw $3280 ;D2
-    dw $0000 : dl gfx_unk35 : dw $7000 ;D9
-    dw $9000 : dl gfx_unk34 : dw $0200 ;E0
-    dw $0000 : dl gfx_unk10 : dw $1260 ;E7
-    dw $6000 : dl gfx_unk24 : dw $2000 ;EE
-    dw $0000 : dl gfx_unk05 : dw $7F00 ;F5
-    dw $A000 : dl gfx_unk13 : dw $3800 ;FC
-    dw $0000 : dl gfx_intro_castle : dw $1700 ;103
-    dw $0000 : dl gfx_unk06 : dw $0800 ;10A
-    dw $A000 : dl gfx_unk13 : dw $3800 ;111
-    dw $0000 : dl gfx_the_end : dw $2000 ;118
-    dw $2000 : dl gfx_unk36 : dw $1800 ;11F
-    dw $0000 : dl gfx_unk13 : dw $3800 ;126
-    dw $9980 : dl gfx_font_hud : dw $0500 ;12D
+    dw $0000 : dl gfx_logo              : dw $3000 ;00
+    dw $0000 : dl gfx_map               : dw $2200 ;07
+    dw $0000 : dl gfx_unk01             : dw $7800 ;0E
+    dw $A000 : dl gfx_unk02             : dw $5940 ;15
+    dw $0000 : dl gfx_unk15             : dw $7800 ;1C
+    dw $A000 : dl gfx_unk17             : dw $5000 ;23
+    dw $0000 : dl gfx_unk18             : dw $7800 ;2A
+    dw $0000 : dl gfx_stage1_objects    : dw $3860 ;31
+    dw $0000 : dl gfx_unk16             : dw $6DC0 ;38
+    dw $0000 : dl gfx_unk20             : dw $3EA0 ;3F
+    dw $0000 : dl gfx_items_enemy_hits  : dw $0E20 ;46
+    dw $0000 : dl gfx_game_over         : dw $0C00 ;4D
+    dw $A000 : dl gfx_unk19             : dw $2600 ;54
+    dw $0000 : dl gfx_unk22             : dw $1D00 ;5B
+    dw $0000 : dl gfx_unk29             : dw $1B00 ;62
+    dw $0000 : dl gfx_unk30             : dw $0100 ;69
+    dw $0000 : dl gfx_unk23             : dw $3800 ;70
+    dw $A000 : dl gfx_unk31             : dw $0180 ;77
+    dw $0000 : dl gfx_unk27             : dw $2000 ;7E
+    dw $0000 : dl gfx_unk03             : dw $1000 ;85
+    dw $0000 : dl gfx_unk22             : dw $1D00 ;8C
+    dw $0000 : dl gfx_continue          : dw $0800 ;93
+    dw $0000 : dl gfx_continue2         : dw $0800 ;9A
+    dw $0000 : dl gfx_princess_dialogue : dw $0900 ;A1
+    dw $0000 : dl gfx_capcom            : dw $01A0 ;A8
+    dw $9800 : dl gfx_font_hud          : dw $0500 ;AF
+    dw $0000 : dl gfx_options           : dw $1000 ;B6
+    dw $0000 : dl gfx_unk04             : dw $0800 ;BD
+    dw $0000 : dl gfx_unk32             : dw $7800 ;C4
+    dw $0000 : dl gfx_skull_flower      : dw $0720 ;CB
+    dw $A000 : dl gfx_unk33             : dw $3280 ;D2
+    dw $0000 : dl gfx_unk35             : dw $7000 ;D9
+    dw $9000 : dl gfx_unk34             : dw $0200 ;E0
+    dw $0000 : dl gfx_unk10             : dw $1260 ;E7
+    dw $6000 : dl gfx_unk24             : dw $2000 ;EE
+    dw $0000 : dl gfx_unk05             : dw $7F00 ;F5
+    dw $A000 : dl gfx_unk13             : dw $3800 ;FC
+    dw $0000 : dl gfx_intro_castle      : dw $1700 ;103
+    dw $0000 : dl gfx_unk06             : dw $0800 ;10A
+    dw $A000 : dl gfx_unk13             : dw $3800 ;111
+    dw $0000 : dl gfx_the_end           : dw $2000 ;118
+    dw $2000 : dl gfx_unk36             : dw $1800 ;11F
+    dw $0000 : dl gfx_unk13             : dw $3800 ;126
+    dw $9980 : dl gfx_font_hud          : dw $0500 ;12D
 
 if !version == 1 || !version == 2
     dw $9D00 : dl gfx_us_font_extra : dw $01A0
