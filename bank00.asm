@@ -1143,7 +1143,7 @@ _00A317:
 
 { ;A34D - A49C
 ram_to_vram_offsets:
-    ;used by Ram_to_vram (81/80DD)
+    ;used by ram_to_vram
     ;unknown length
     ;source | vram dest | count
 

@@ -73,13 +73,13 @@ spc_0B65:
 	mov  x, #$18
 	div  ya, x
 	mov  x, a
-	mov  a, $0C1A+y
+	mov  a, spc_0C19+1+y
 	mov  $C3, a
-	mov  a, $0C19+y
+	mov  a, spc_0C19+0+y
 	mov  $C2, a
-	mov  a, $0C1C+y
+	mov  a, spc_0C19+3+y
 	push a
-	mov  a, $0C1B+y
+	mov  a, spc_0C19+2+y
 	pop  y
 	subw ya, $C2
 	mov  y, $C0
@@ -91,7 +91,13 @@ spc_0B65:
 	asl  a
 	rol  $C1
 -:
+
+if !version == 0 || !version == 1
 	cmp  x, #$06
+elseif !version == 2
+	cmp  x, #$08
+endif
+
 	beq  spc_0B9A
 
 	lsr  $C1
@@ -173,10 +179,18 @@ spc_0BF2: ;0BF2 - 0BF8
 
 spc_0BF9: ;0BF9 - 0C32
 	db $4D, $0D, $2C, $3C, $6C, $7D, $6D, $5D, $0C, $1C, $2D, $3D
+
 spc_0C05:
+
+if !version == 0 || !version == 1
 	db $00, $00, $00, $00, $20, $00, $0D, $58, $7F, $7F, $00, $00
+elseif !version == 2
+	db $00, $00, $00, $00, $20, $00, $0D, $63, $7F, $7F, $00, $00
+endif
+
 spc_0C11:
 	db $7F, $00, $00, $00, $00, $00, $00, $00
+
 spc_0C19:
 	dw $085F, $08DE, $0965, $09F4, $0A8C, $0B2C, $0BD6
 	dw $0C8B, $0D4A, $0E14, $0EEA, $0FCD, $10BE

@@ -1294,7 +1294,7 @@ _098000: ;meta tiles. one meta tile = 4 words sequentially = 2x2 SW tiles. tiles
 }
 
 { ;D000 - E197
-    gfx_unk36: incbin "graphics/unknown36.bin"
+    gfx_unk36: incbin "graphics/unknown36.bin" ;two tilemaps? second one being "the end"
 }
 
 { ;E198 - E7FF

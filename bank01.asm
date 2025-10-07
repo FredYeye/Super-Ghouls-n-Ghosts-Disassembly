@@ -149,7 +149,7 @@ _0180C7: ;a8 x8
     tax       ;
     bra .80E5
 
-.ram_to_vram: ;a8 x8 80DD
+.ram_to_vram: ;a8 x8
     php
     lda #$80 : sta !VMAIN
     !AX16

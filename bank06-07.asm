@@ -711,10 +711,19 @@ spc_06EE:
     dec  y
 +:
     addw ya, $C0
+
+if !version == 0 || !version == 1
     cmp  y, #$55
     bcc  +
 
     mov  y, #$54
+elseif !version == 2
+    cmp  y, #$61
+    bcc  +
+
+    mov  y, #$60
+endif
+
 +:
     movw $C2, ya
     mov  a, $0200+x
@@ -929,8 +938,8 @@ spc_086E: ;086E - 08B5
     mul  ya
     movw $C0, ya
     clrc
-    adc  $C0, #$80
-    adc  $C1, #$58
+    adc  $C0, #spc_5880
+    adc  $C1, #spc_5880>>8
     mov  y, #$01
     mov  a, ($C0)+y
     mov  $02C0+x, a
@@ -1424,8 +1433,7 @@ if !version == 0 || !version == 1
     incsrc "music/spc_code.asm"
 endif
 
-
-    base off
+base off
 
 ;-----
 
@@ -1568,41 +1576,81 @@ base $0E00 : spc_0E00:
 .avalanche:             incsrc "sfx/avalanche.asm"
 .collision:             incsrc "sfx/collision.asm"
 
-;-----
-
-    base off
+base off
 
 ;-----
 
+if !version == 0 || !version == 1
     dw $0060, $5800
 
-    db $40, $59, $76, $59, $88, $59, $A3, $59, $E8, $5C, $E8, $5C, $84, $63, $CC, $63
-    db $F0, $63, $38, $64, $5C, $64, $5C, $64, $C2, $73, $C2, $73, $AC, $7D, $0F, $7E
-    db $21, $7E, $DA, $88, $FD, $8F, $53, $91, $40, $A1, $81, $A5, $A5, $A5, $91, $AA
-    db $B5, $AA, $39, $AE, $8A, $AE, $99, $B1, $BD, $B1, $4A, $B5, $AF, $C2, $98, $CA
-    db $98, $D3, $94, $DD, $E5, $DD, $97, $E3, $A6, $EF, $C1, $EF, $12, $F0, $D8, $F0
-    db $FC, $F0, $FC, $F0, $D5, $FC, $27, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    ;looks like offsets, not sure when these are being used?
+    dw $5940, $5976, $5988, $59A3, $5CE8, $5CE8, $6384, $63CC
+    dw $63F0, $6438, $645C, $645C, $73C2, $73C2, $7DAC, $7E0F
+    dw $7E21, $88DA, $8FFD, $9153, $A140, $A581, $A5A5, $AA91
+    dw $AAB5, $AE39, $AE8A, $B199, $B1BD, $B54A, $C2AF, $CA98
+    dw $D398, $DD94, $DDE5, $E397, $EFA6, $EFC1, $F012, $F0D8
+    dw $F0FC, $F0FC, $FCD5, $FF27, $FFFF, $FFFF, $FFFF, $FFFF
+elseif !version == 2
+    dw $9CD0, $6300 : base $6300
+
+    dw $63DC, $6412, $6424, $643F, $6784, $6784, $6E20, $6E68
+    dw $6E8C, $6ED4, $6EF8, $6EF8, $7E5E, $7E5E, $8848, $88AB
+    dw $88BD, $9376, $9A99, $9BEF, $ABDC, $B01D, $B041, $B52D
+    dw $B551, $B8D5, $B926, $BC35, $BC59, $C0FD, $C643, $CE2C
+    dw $D72C, $E128, $E179, $E72B, $F33A, $F355, $F379, $F43F
+    dw $F463, $F463, $FF64, $FF7F
+endif
 
 ;-----
 
-    dw $0090, $5880
+if !version == 0 || !version == 1
+    dw $0090, $5880 : base $5880
+endif
 
+spc_5880:
     db $00, $FF, $E0, $B8, $02, $00, $01, $FF, $EC, $B8, $1F, $00, $02, $FF, $F3, $B8
     db $07, $A8, $03, $FF, $E0, $B8, $04, $00, $04, $FF, $E0, $B8, $04, $00, $05, $FF
     db $E0, $B8, $07, $A8, $06, $FF, $E0, $B8, $07, $A8, $07, $FF, $F3, $B8, $02, $00
     db $08, $FF, $E0, $B8, $14, $40, $09, $FF, $E0, $B8, $09, $00, $0A, $FF, $F1, $B8
     db $04, $00, $0B, $FF, $E0, $B8, $04, $00, $0C, $FF, $E0, $B8, $09, $00, $0D, $FF
-    db $E0, $B8, $04, $00, $0E, $FF, $E0, $B8, $03, $C0, $0F, $FF, $E0, $B8, $02, $80
-    db $10, $FF, $E0, $B8, $09, $00, $11, $FF, $E0, $B8, $03, $C0, $12, $FF, $EF, $B8
-    db $09, $00, $13, $FF, $EE, $B8, $04, $00, $14, $FF, $E0, $B8, $05, $59, $15, $FF
-    db $EC, $B8, $07, $00, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+    db $E0, $B8, $04, $00, $0E, $FF
 
+if !version == 0 || !version == 1
+    db $E0, $B8, $03, $C0, $0F, $FF, $E0, $B8, $02, $80, $10, $FF, $E0, $B8, $09, $00
+    db $11, $FF, $E0, $B8, $03, $C0, $12, $FF, $EF, $B8, $09, $00, $13, $FF, $EE, $B8
+    db $04, $00, $14, $FF, $E0, $B8, $05, $59, $15, $FF, $EC, $B8, $07, $00
+
+    db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+elseif !version == 2
+    db $E0, $B8, $01, $80, $0F, $FF, $E0, $B8, $02, $80, $10, $FF, $E0, $B8, $09, $00
+    db $11, $FF, $E0, $B8, $03, $C0, $12, $FF, $F0, $B8, $04, $00, $13, $FF, $EE, $B8
+    db $04, $00, $14, $FF, $E0, $B8, $04, $F7, $15, $FF, $F1, $B8, $09, $00
+endif
+
+base off
 
 ;-----
 
 check bankcross off
 
-    dw $A630, $5940 : incbin "audio/06D405.bin" ;passes over into next bank. possibly samples
+if !version == 0 || !version == 1
+    dw $A630, $5940
+
+    incbin "audio/06D405.bin" ;passes over into next bank. possibly samples
+elseif !version == 2
+    incbin "audio/06D405.bin":$0000..$5886
+    incbin "audio/spc_eu1.bin"
+    incbin "audio/06D405.bin":$696F..$9671
+
+    db $45, $54, $33, $32, $00, $11, $00, $8A, $42, $11, $33, $0E, $E2, $42, $01, $21
+    db $7A, $EE, $1F, $EB, $D2, $63, $DB, $AB, $BC, $8A, $E0, $FC, $CF, $1F, $ED, $F0
+    db $01, $34, $8A, $20, $F1, $11, $11, $FF, $F2, $43, $11, $8B, $32, $21, $33, $0E
+    db $E2, $42, $01, $21, $02
+
+    incbin "audio/06D405.bin":$96D3..$97C5
+    incbin "audio/spc_eu2.bin"
+    incbin "audio/06D405.bin":$9CA5..0
+endif
 
 ;-----
 
@@ -1614,7 +1662,7 @@ check bankcross off
 { ;FA39 - FFFF
 if !version == 0
     fillbyte $FF : fill 1479
-elseif !version == 1
+elseif !version == 1 || !version == 2
     incbin "us_fill_bytes/bank07a.bin"
 endif
 }
