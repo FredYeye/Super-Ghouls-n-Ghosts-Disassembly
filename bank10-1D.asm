@@ -123,7 +123,7 @@ if !version == 0
     db $80, $00, $00, $00, $80, $00, $00, $04, $00, $42, $08, $01, $30, $02, $22, $83
     db $00, $00, $00, $00, $00, $00, $00, $00
 }
-elseif !version == 1
+elseif !version == 1 || !version == 2
     incbin "us_fill_bytes/bank18a.bin"
 endif
 

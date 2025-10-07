@@ -1582,7 +1582,7 @@ if !version == 0
 	db $00, $01, $00, $04, $80, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $20
 	db $20, $00, $00, $00, $02, $04, $00, $08, $00, $00, $00, $00, $00, $00, $80, $A2
 	db $10, $04, $10, $42, $08, $00, $00, $00, $00, $00, $00, $00, $00
-elseif !version == 1
+elseif !version == 1 || !version == 2
 	;this could be data that meant something at some point. seems unused now though.
 	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
 	incbin "us_fill_bytes/bank1Ea.bin"
@@ -2406,7 +2406,7 @@ if !version == 0
 	db $00, $80, $0D, $30, $25, $02, $40, $44, $00, $00, $01, $00, $00, $00, $00, $00
 	db $00, $00, $20, $08, $00, $00, $00, $26, $00, $00, $00, $00, $00, $80, $00, $84
 	db $00, $00, $00, $00, $00, $00, $00, $FA, $00, $00, $00, $00, $00, $00, $00, $91
-elseif !version == 1
+elseif !version == 1 || !version == 2
 	;this could be data that meant something at some point. seems unused now though.
 	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
 	incbin "us_fill_bytes/bank1Eb.bin"

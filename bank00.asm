@@ -2315,13 +2315,30 @@ arthur_hitbox:
 
 { ;B984 - B9C3
 _00B984:
-    ;weapon widths?
-    db $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $06, $04, $06
-    db $08, $06, $0A, $06, $06, $06, $06, $06, $06, $06, $06, $06, $08, $08, $08, $08
+    ;weapon heights?
+    db $06, $06, $06, $06
+    db $06, $06, $06, $06
+    db $06, $06, $06, $06
+    db $06, $06, $04, $06
+    db $08, $06, $0A, $06
+    db $06, $06, $06, $06
+    db $06, $06, $06, $06
 
-    ;heights?
-    db $14, $14, $14, $14, $08, $08, $08, $08, $08, $08, $08, $08, $20, $20, $20, $20
-    db $08, $08, $08, $08, $08, $08, $08, $08, $7E, $7E, $7E, $7E, $08, $08, $08, $08
+if !version == 0 || !version == 1
+    db $08, $08, $08, $08
+elseif !version == 2
+    db $0C, $08, $0C, $08 ;bracelet projectile is 4px taller
+endif
+
+    ;widths?
+    db $14, $14, $14, $14
+    db $08, $08, $08, $08
+    db $08, $08, $08, $08
+    db $20, $20, $20, $20
+    db $08, $08, $08, $08
+    db $08, $08, $08, $08
+    db $7E, $7E, $7E, $7E
+    db $08, $08, $08, $08
 }
 
 { ;B9C4 -
@@ -2391,7 +2408,7 @@ _00BA44: db -1, 0, 1, -1
 { ;BA48 - BA5D
     ;unused?
     db $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D
-    dw $DF29, $E0A2, $E18D, $DFE0 ;pointers to transformed states
+    dw arthur_baby, arthur_seal, arthur_bee, arthur_maiden ;pointers to transformed states
 }
 
 { ;BA5E - BA65
@@ -2564,7 +2581,15 @@ _01BC08:
 bracelet_data:
 
 .speed: db $7B, $7E, $81, $81, $84
-.decay_rate: db $06, $07, $07, $07, $08
+
+.decay_rate:
+
+if !version == 0 || !version == 1
+    db $06, $07, $07, $07, $08
+elseif !version == 2
+    db $08, $09, $09, $09, $0A
+endif
+
 }
 
 { ;BC1A - BC64
