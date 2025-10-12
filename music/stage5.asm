@@ -116,7 +116,6 @@
     %toggle_triplet_portamento_2_octave_up($40)
     %pan($32)
     %duration($FF)
-
 if !version == 0 || !version == 1
     %volume($58)
     %instrument($0E)
@@ -128,20 +127,17 @@ elseif !version == 2
     %octave($04)
     %tuning($0F)
 endif
-
     %note($1A, 3)
     %toggle_2_octaves_up()
     %note($09, 3)
     %note($02, 3)
     %note($07, 3)
     %note($0C, 3)
-
 if !version == 0 || !version == 1
     %volume($16)
 elseif !version == 2
     %volume($14)
 endif
-
     %note($09, 3)
     %note($02, 3)
     %note($07, 3)
@@ -151,13 +147,11 @@ endif
     %note($00, 4)
     %note($00, 7)
     %note($00, 4)
-
 if !version == 0 || !version == 1
     %volume($58)
 elseif !version == 2
     %volume($3C)
 endif
-
     %note($09, 4)
     %note($05, 4)
     %set_dotted_note()
@@ -168,13 +162,11 @@ endif
     %note($07, 3)
     %note($09, 3)
     %note($0E, 3)
-
 if !version == 0 || !version == 1
     %volume($16)
 elseif !version == 2
     %volume($14)
 endif
-
     %note($0E, 3)
     %note($07, 3)
     %note($09, 3)
@@ -195,13 +187,11 @@ endif
     %note($1E, 4)
     %toggle_2_octaves_up()
     %note($08, 4)
-
 if !version == 0 || !version == 1
     %volume($69)
 elseif !version == 2
     %volume($4B)
 endif
-
     %loop(0, 9, ..18A9)
     %note($00, 4)
 ..18B5:
@@ -245,22 +235,17 @@ endif
     %note($12, 4)
     %note($10, 4)
     %note($13, 5)
-
 if !version == 2
     %octave($04)
 endif
-
     %tuning($00)
     %instrument($0D)
-
 if !version == 0 || !version == 1
     %volume($2C)
     %octave($04)
 elseif !version == 2
     %volume($2E)
 endif
-
-    
     %toggle_2_octaves_up()
     %note($12, 4)
     %note($13, 4)
@@ -308,7 +293,6 @@ endif
     %volume($41)
     %loop(1, 1, ..18B5)
 ..1926:
-
 if !version == 0 || !version == 1
     %tuning($14)
     %instrument($0E)
@@ -319,7 +303,6 @@ elseif !version == 2
     %instrument($0E)
     %volume($4B)
 endif
-
 ..192C:
     %toggle_triplet_portamento_2_octave_up($08)
     %note($0E, 4)

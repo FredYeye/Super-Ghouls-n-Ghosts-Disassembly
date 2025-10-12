@@ -30,14 +30,12 @@
     %toggle_portamento()
     %note($1D, 3)
     %instrument($15)
-
 if !version == 0 || !version == 1
     %octave($05)
 elseif !version == 2
     %per_voice_transpose($05)
     %octave($00)
 endif
-
     %toggle_2_octaves_up()
     %note($0A, 3)
     %note($08, 2)

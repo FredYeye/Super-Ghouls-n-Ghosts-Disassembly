@@ -378,7 +378,6 @@
     %note($00, 5)
     %pan($CE)
     %duration($FA)
-
 if !version == 0 || !version == 1
     %volume($5C)
     %instrument($0E)
@@ -388,7 +387,6 @@ elseif !version == 2
     %instrument($0E)
     %octave($04)
 endif
-
     %toggle_2_octaves_up()
     %note($08, 3)
     %note($0A, 3)

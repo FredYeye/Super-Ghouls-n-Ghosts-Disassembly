@@ -3221,11 +3221,9 @@ _0197D1: ;a8 x8
     clc
     adc #$06
     sta $031E
-
 if !version == 2
     lda #$01 : jsl _01A717_A728
 endif
-
     pla
     inc
     and #$03
@@ -3292,11 +3290,9 @@ _0198A4: ;a- x8
     stz $74
     lda #$0C : sta $02DE
     lda #$04 : sta $031E
-
 if !version == 2
     lda #$01 : jsl _01A717_A728
 endif
-
     lda #$4F : sta.w hud_flicker_timer
     !A16
     lda #$F200 : sta $6D
@@ -3324,7 +3320,6 @@ if !version == 2
     lda $007E
     bne .9981
 endif
-
     !A16
     stz $19DE
     stz $19E2
@@ -3332,23 +3327,19 @@ endif
     stz $19E4
     !A8
     jsl _01B90E
-
 if !version == 0 || !version == 1
     lda #$17 : sta $02D5 : sta $02D7
 endif
-
     lda #$01 : sta $02D9
     lda #$11 : sta $02DD
     lda #$19 : sta $02DE
     ldx #$00 : lda #$04 : jsl _01F6C9
     stz $1554
     !AX8
-
 if !version == 2
     lda #$03 : jsr _019A88
     lda #$17 : sta $02D5 : sta $02D7
 endif
-
     lda #$01 : jsr _019A88
     pld
     jml _01A717
@@ -3401,11 +3392,9 @@ endif
 
     inc $75
     lda #$03 : sta $031E
-
 if !version == 2
     lda #$01 : jsl _01A717_A728
 endif
-
     lda #$17 : sta $02D5 : sta $02D7
     ldx #$54 : lda #$01 : jsl _01F6C9
     lda #$10 : jsr _019A88
@@ -5248,7 +5237,11 @@ _01A74A:
     stx $1FC1
 -:
     jsr .A7BF
+if !version == 0 || !version == 1
     lda.w p1_button_hold+1
+elseif !version == 2
+    lda.w p2_button_hold+1
+endif
     bit #!down
     beq -
 
@@ -5284,7 +5277,6 @@ _01A87C: ;a8 x8
     jsl _018366
     lda #$0F : sta $02F2
     jsl _018074
-
 if !version == 0 || !version == 1
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldx #$A8 : jsl _0180C7_ram_to_vram
@@ -5296,13 +5288,11 @@ elseif !version == 2
     ldx #$9A : jsl _0180C7_ram_to_vram
     lda #$01 : jsl $0 ;CODE_049343 todo
 endif
-
     stz $02E1
     !A16
     lda #$1800 : sta $0318
     lda #$0800 : sta $031A
     !A8
-
 if !version == 0 || !version == 1
     lda #$08 : jsl _0183D4_83DB
     lda #$0B : jsl _0190B9_palette_to_ram
@@ -5316,7 +5306,6 @@ elseif !version == 2
     lda #$19 : jsl _01A717_A728
     ldx #$02 : ldy #$18 : lda #$1C : jsl _01A6FE
 endif
-
 .A8DC:
     lda #$01 : jsl _01A717_A728
     lda $0066
@@ -5335,7 +5324,6 @@ elseif !version == 2
 
     lda #$2E : sta $0055
 endif
-
 .A8F2:
     lda #$01 : jsl _01A717_A728
     lda.w p1_button_hold+1
@@ -5356,7 +5344,6 @@ if !version == 0 || !version == 1
 elseif !version == 2
     stz $0278
 endif
-
 .A91E:
     lda $0278 : asl : tax
     jsr (.A928,X)
@@ -5408,11 +5395,9 @@ endif
     stz $1FD6
     !A8
     jsr .ABB3
-
 if !version == 2
     ldx #$02 : jsr .AC7D_eu
 endif
-
     lda $1FC7
     cmp #$0B
     bne +
@@ -5549,11 +5534,9 @@ endif
     lda $1FC7 : sta.w stage
     lda #$00  : sta.w checkpoint
     jsr .ABB3
-
 if !version == 2
     ldx #$02 : jsr .AC7D_eu
 endif
-
     lda $1FC7 : eor #$01 : sta $1FC7
     lda #$03  : sta $0278
     stz $0279
@@ -5642,7 +5625,6 @@ endif
     lda #$0200 : sta $031A
     !A8
     ldx !options_controls
-
 if !version == 0 || !version == 1
     lda.w _00B55C_shot_buttons+0,X : sta.w shot_buttons
     lda.w _00B55C_shot_buttons+1,X : sta.w shot_buttons+1
@@ -5651,7 +5633,6 @@ if !version == 0 || !version == 1
 elseif !version == 2
     jsr .AC7D_eu
 endif
-
     lda !options_extra_lives : lsr : sta.w extra_lives
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
@@ -5753,7 +5734,6 @@ endif
 if !version == 2
     lda #$01
 endif
-
 .ACC4:
     sta.w difficulty
     asl
@@ -6296,13 +6276,11 @@ _01B2B1: ;a8 x8
     dec.w hud_flicker_timer
     and #$01
     sta.w hud_visible
-
 if !version == 0 || !version == 1
     tax
     lda $02F0 : and #$FD : ora.w _00B5BC+0,X : sta $02F0
     lda $02F1 : and #$CF : ora.w _00B5BC+2,X : sta $02F1
 endif
-
 .ret:
     rts
 }
@@ -15688,13 +15666,11 @@ _01FF00: ;a- x-
     .0C: jml _019757
     .10: jml _01B315
     .14: jml _048EAD ;never called from here?
-
 if !version == 0 || !version == 1
     .18: jml _03EE1D ;talking time
 elseif !version == 2
     .18: jml $0 ;0484B9 todo
 endif
-
     .1C: jml _019776
     .20: jml _019776_9797
     .24: jml _04A0F5 ;unused?
@@ -15717,7 +15693,6 @@ endif
     .68: jml _039DDA ;ending slides related
     .6C: jml _019776_9792 ;ending slides related
     .70: jml _01A1F5
-
 if !version == 2
     .74: jml _019735_eu
 endif

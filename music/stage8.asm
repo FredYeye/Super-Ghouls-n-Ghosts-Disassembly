@@ -114,13 +114,11 @@
 ..26D2:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($AA)
-
 if !version == 0 || !version == 1
     %release($16)
 elseif !version == 2
     %release($15)
 endif
-
     %volume($2A)
     %octave($03)
 ..26DC:
@@ -220,13 +218,11 @@ endif
 ..274C:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($AA)
-
 if !version == 0 || !version == 1
     %release($16)
 elseif !version == 2
     %release($15)
 endif
-
     %volume($24)
     %instrument($10)
     %octave($03)
@@ -331,13 +327,11 @@ endif
 ..27D3:
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($AA)
-
 if !version == 0 || !version == 1
     %release($16)
 elseif !version == 2
     %release($15)
 endif
-
     %volume($24)
     %instrument($10)
     %octave($03)
@@ -411,13 +405,11 @@ endif
 ..282D:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($FA)
-
 if !version == 0 || !version == 1
     %release($16)
 elseif !version == 2
     %release($15)
 endif
-
     %volume($2D)
     %instrument($09)
     %octave($02)
@@ -540,11 +532,9 @@ endif
     %note($1E, 5)
     %note($1E, 5)
     %note($1E, 3)
-
 if !version == 2
     %loop_break(0, 0, $28DC)
 endif
-
     %note($18, 3)
     %toggle_triplet()
     %note($18, 3)
@@ -553,7 +543,6 @@ endif
     %per_voice_transpose($07)
     %loop(0, 1, ..28B6)
     %per_voice_transpose($00)
-
 if !version == 2
     %note($1C, 3)
     %toggle_triplet()
@@ -561,7 +550,6 @@ if !version == 2
     %note($1E, 3)
     %note($1F, 3)
 endif
-
     %duration($FA)
 ..28D4: %toggle_triplet_portamento_2_octave_up($00)
     %note($1E, 4)

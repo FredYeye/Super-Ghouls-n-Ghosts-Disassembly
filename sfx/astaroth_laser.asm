@@ -20,7 +20,6 @@
     %end_track()
 
 ..ch2:
-
 if !version == 2
     %end_track()
 

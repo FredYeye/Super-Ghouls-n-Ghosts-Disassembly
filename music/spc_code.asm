@@ -91,13 +91,11 @@ spc_0B65:
 	asl  a
 	rol  $C1
 -:
-
 if !version == 0 || !version == 1
 	cmp  x, #$06
 elseif !version == 2
 	cmp  x, #$08
 endif
-
 	beq  spc_0B9A
 
 	lsr  $C1
@@ -181,7 +179,6 @@ spc_0BF9: ;0BF9 - 0C32
 	db $4D, $0D, $2C, $3C, $6C, $7D, $6D, $5D, $0C, $1C, $2D, $3D
 
 spc_0C05:
-
 if !version == 0 || !version == 1
 	db $00, $00, $00, $00, $20, $00, $0D, $58, $7F, $7F, $00, $00
 elseif !version == 2

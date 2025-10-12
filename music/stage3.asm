@@ -129,14 +129,11 @@
     %instrument($0E)
 ..1F5D:
     %toggle_triplet_portamento_2_octave_up($08)
-
 if !version == 0 || !version == 1
     %tuning($14)
 endif
-
     %duration($FA)
     %release($16)
-
 if !version == 0 || !version == 1
     %volume($61)
     %octave($03)
@@ -144,7 +141,6 @@ elseif !version == 2
     %volume($4E)
     %octave($04)
 endif
-
     %note($0E, 3)
     %note($11, 3)
     %set_dotted_note()
@@ -169,13 +165,11 @@ endif
     %note($1E, 3)
     %set_dotted_note()
     %note($1B, 5)
-
 if !version == 0 || !version == 1
     %volume($4E)
 elseif !version == 2
     %volume($39)
 endif
-
     %toggle_portamento()
     %note($1A, 7)
     %toggle_portamento()
@@ -189,13 +183,11 @@ endif
     %set_dotted_note()
     %toggle_2_octaves_up()
     %note($0D, 6)
-
 if !version == 0 || !version == 1
     %volume($66)
 elseif !version == 2
     %volume($53)
 endif
-
     %note($0D, 5)
     %note($08, 5)
     %note($0B, 4)

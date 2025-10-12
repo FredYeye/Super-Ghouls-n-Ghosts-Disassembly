@@ -1130,13 +1130,11 @@ _039C09:
     stz $1889
     stz $188D
     !X16
-
 if !version == 0
     lda #$21BF
 elseif !version == 1 || !version == 2
     lda #$21C5
 endif
-
     !AX8
     jsl _018061_8064
     inc $0323
@@ -1152,7 +1150,6 @@ elseif !version == 1 || !version == 2
     ldy #$2C : jsl _01A21D
     lda #$1A : sta $031E
 endif
-
     lda #$05 : sta $02E1
     lda $02D9 : ora #$08 : sta $02D9
     lda #$04 : cop #$00
@@ -4884,7 +4881,6 @@ _03B8B2: ;a8 x8
     sta $2D
     tay
     !AX16
-
 if !version == 0
     lda.w _00C919+0,Y : ldx #$0412 : jsr .BB85
     lda.w _00C919+2,Y : ldx #$0492 : jsr .BB85
@@ -4892,7 +4888,6 @@ elseif !version == 1 || !version == 2
     lda.w _00C919+0,Y : ldx #$0450 : jsr .BB85
     lda.w _00C919+2,Y : ldx #$04D0 : jsr .BB85
 endif
-
     !AX8
     inc $0323
 .B8E4:
@@ -6405,17 +6400,13 @@ _03C392:
     !A16
     stz $31
     stz $33
-
 if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
     lda #$E580 : sta $7EF7C2
 endif
-
     !A8
-
 if !version == 0
     lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
 endif
-
 .C3CB:
     !AX8
     lda #$39 : jsl _018049_8053
@@ -6451,7 +6442,6 @@ endif
     lda #$E580 : sta $7EF7C2
     !A8
     lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
-
 if !version == 1 || !version == 2
 .C411:
     brk #$00
@@ -7892,7 +7882,6 @@ _03CCCA: ;a8 x8
     bcs .CFAA
 
     sta !obj_pos_y+1
-
 if !version == 0
     lda #$BF : cop #$00
 elseif !version == 1 || !version == 2
@@ -7902,7 +7891,6 @@ endif
 ;----- CFC1
 
     ldy #$E0 : ldx #$21 : jsl set_sprite
-
 if !version == 0
     lda #$7F : cop #$00
 elseif !version == 1 || !version == 2
@@ -7938,7 +7926,6 @@ endif
     sec : lda !obj_pos_x+1 : sbc #$0003 : sta !obj_pos_x+1
     !A8
     ldy #$E8 : ldx #$21 : jsl set_sprite
-
 if !version == 0
     lda #$7F : cop #$00
 
@@ -7948,7 +7935,6 @@ endif
     !A8
     stz $032E
     stz $02F0
-
 if !version == 0
     ldy #$27 : jsl _01A21D
 elseif !version == 1 || !version == 2
@@ -7956,7 +7942,6 @@ elseif !version == 1 || !version == 2
     ldy #$2C : jsl _01A21D
     lda #$1A : sta $031E
 endif
-
     !A16
     stz $1889
     stz $188D
@@ -7964,13 +7949,11 @@ endif
     lda #$0800 : sta $031A
     !X16
     ldx #$001C : lda #$0010 : ldy #$0000 : jsl _019136_9187
-
 if !version == 0
     lda #$21BF
 elseif !version == 1 || !version == 2
     lda #$21C5
 endif
-
     !AX8
     jsl _018061_8064
     inc $0323
@@ -7981,7 +7964,6 @@ endif
 if !version == 0
     lda #$15 : sta $031E
 endif
-
     lda #$05 : sta $02E1
     lda #$16 : sta $02D5 : sta $02D7
     lda $02D9 : ora #$08 : sta $02D9
@@ -9330,15 +9312,12 @@ _03DAA0:
 if !version == 0
     jsr .DB35
 endif
-
     dec !obj_pos_y+1
     inc $36
     dec $33
-
 if !version == 1 || !version == 2
     jsr .DB35
 endif
-
     lda $33
     dec
     bne .DB1B
@@ -11784,12 +11763,10 @@ if !version == 0 || !version == 1
 { ;EE1D - EF85
 _03EE1D: ;a8 ;x8
     ;printing text on screen
-
 if !version == 1
     phb
     lda #$04 : pha : plb
 endif
-
     stz $1EC3
     stz $1EC4
     lda $0055,Y : asl : tay
@@ -11810,7 +11787,6 @@ endif
 if !version == 1
     plb
 endif
-
     jml _01A717 ;FF: exit
 
 .EE46:
@@ -11837,7 +11813,6 @@ if !version == 0
 elseif !version == 1
     jsr .EF18
 endif
-
     bra .EE33
 
 ;-----
@@ -11903,13 +11878,11 @@ endif
     !A16
     ldx #$0000
     lda #$0400 : sta $1EBF
-
 if !version == 0
     lda #$21BF
 elseif !version == 1
     lda #$21C5
 endif
-
     ora $1EC3
 .EEC3:
     sta $7F9000,X
@@ -12089,13 +12062,11 @@ _03F1A6: ;hp list. starts at id $20
     db 10, 10, 10, 10 ;rosebud
     db 0, 0, 0, 0
     db 0, 0, 0, 0
-
 if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;eagler
 elseif !version == 2
     db 6, 6, 10, 10
 endif
-
     db 0, 0, 0, 0
     db 13, 13, 13, 13 ;chest
     db 0, 0, 0, 0 ;magician
@@ -12115,13 +12086,11 @@ endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
-
 if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;icicle
 elseif !version == 2
     db 4, 8, 10, 10
 endif
-
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12233,13 +12202,11 @@ endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
-
 if !version == 0 || !version == 1
     db 180, 200, 224, 255 ;samael
 elseif !version == 2
     db 150, 170, 190, 210
 endif
-
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12726,7 +12693,6 @@ _03F8A3:
 if !version == 0 || !version == 1
     lda $1EB9 ;unused lda
 endif
-
     lda $1F5B : sec : sbc #$0001 : sta $1F5B
     lda $1F58 : clc : adc #$0001 : sta $1F58
     lda $19C5 : sec : sbc #$0001 : sta $19C5
@@ -12739,7 +12705,6 @@ endif
     !AX8
     inc $1EB9
     lda $1EB9
-
 if !version == 0 || !version == 1
     and #$7F
     bne .FA2B
@@ -12749,11 +12714,9 @@ elseif !version == 2
 
     stz $1EB9
 endif
-
     jsr .FB60
     inc $1EC1
     lda $1EC1
-
 if !version == 0
     cmp #$2B
     beq .FAA7
@@ -12770,7 +12733,6 @@ elseif !version == 2
 
     cmp #$1E
 endif
-
     beq .FAB4
 
     jmp .FA2B
@@ -12817,7 +12779,6 @@ if !version == 2
     lda #$F6 : jsl _018049_8053
     lda #$60 : jsl _018049_8053
 endif
-
     ldx #$00 : lda #$3D : jsl _01F6C9
     lda #$48 : sta $1EB7
 .FB49:
@@ -12975,13 +12936,11 @@ _03FC40:
 
     jsl update_animation_normal
     lda $1EC5
-
 if !version == 0
     cmp #$03
 elseif !version == 1 || !version == 2
     cmp #$02
 endif
-
     bne .FC62
 
 .FC6F:

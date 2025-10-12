@@ -20,17 +20,14 @@
     %end_track()
 
 ..ch2:
-
 if !version == 0 || !version == 1
     %tempo($0333)
 elseif !version == 2
     %tempo($036D)
     %per_voice_transpose($08)
 endif
-
     %duration($FF)
     %volume($75)
-
 if !version == 0 || !version == 1
     %instrument($01)
     %octave($01)
@@ -45,17 +42,14 @@ elseif !version == 2
     %lfo($00, $64)
     %lfo($02, $40)
 endif
-
     %set_dotted_note()
     %toggle_portamento()
     %note($0B, 4)
-
 if !version == 0 || !version == 1
     %portamento_time($32)
 elseif !version == 2
     %portamento_time($5A)
 endif
-
     %set_dotted_note()
     %toggle_portamento()
     %toggle_2_octaves_up()

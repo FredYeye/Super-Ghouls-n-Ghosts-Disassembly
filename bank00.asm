@@ -775,7 +775,6 @@ _008807: ;a8 x8
     db offset(.8871, .88FD), offset(.8871, .8904), offset(.8871, .890B), offset(.8871, .8912)
     db offset(.8871, .8919), offset(.8871, .8920), offset(.8871, .8927), offset(.8871, .892E)
     db offset(.8871, .8935)
-
 if !version == 1 || !version == 2
     db offset(.8871, .893D)
 endif
@@ -808,7 +807,6 @@ endif
 .8927: dw $0C00 : dl $7ED800 : dw $0800
 .892E: dw $0000 : dl $7F9800 : dw $0500
 .8935: dw $7000 : dl $7F2720 : dw $1000
-
 if !version == 1 || !version == 2
 .893D: dw $5C00 : dl $7F9800 : dw $06A0
 endif
@@ -1169,13 +1167,11 @@ ram_to_vram_offsets:
     dl $7F0000 : dw $7200, $0400
     dl $7F0000 : dw $7590, $01F0
     dl $7F0000 : dw $7400, $0500
-
 if !version == 0 || !version == 1
     dl $7F0000 : dw $0280, $00D0
 elseif !version == 2
     dl $04E800 : dw $2000, $0250 ;todo: label
 endif
-
     dl $7F0000 : dw $2000, $0800
     dl $7F9800 : dw $0000, $0280
     dl $7F0200 : dw $7200, $0900
@@ -1201,7 +1197,6 @@ endif
     dl $7F2000 : dw $7800, $0800 ;13B
     dl $7FD000 : dw $5C00, $0400 ;142
     dl $7F0000 : dw $5280, $00D0 ;149
-
 if !version == 2
     dl $04E000 : dw $0000, $0400 ;todo: label
 endif
@@ -1891,7 +1886,6 @@ gfx_decomp_offsets:
     dw $2000 : dl gfx_unk36             : dw $1800 ;11F
     dw $0000 : dl gfx_unk13             : dw $3800 ;126
     dw $9980 : dl gfx_font_hud          : dw $0500 ;12D
-
 if !version == 1 || !version == 2
     dw $9D00 : dl gfx_us_font_extra : dw $01A0
 endif
@@ -2323,7 +2317,6 @@ _00B984:
     db $08, $06, $0A, $06
     db $06, $06, $06, $06
     db $06, $06, $06, $06
-
 if !version == 0 || !version == 1
     db $08, $08, $08, $08
 elseif !version == 2
@@ -2583,13 +2576,11 @@ bracelet_data:
 .speed: db $7B, $7E, $81, $81, $84
 
 .decay_rate:
-
 if !version == 0 || !version == 1
     db $06, $07, $07, $07, $08
 elseif !version == 2
     db $08, $09, $09, $09, $0A
 endif
-
 }
 
 { ;BC1A - BC64
@@ -3015,7 +3006,13 @@ storm_cesaris_data:
 .BFE9: db $40, $40, $40, $40, $80, $80, $80, $80, $80, $80, $80, $80, $C0, $C0, $C0, $C0
 .BFF9: db $00, $00, $00, $00, $00, $C0, $C0, $C0, $C0, $C0, $C0, $40, $40, $40, $40, $40
 .C009: db $10, $10, $10, $10, $20, $20, $20, $20, $20, $40, $40, $40, $40, $40, $40 ;mistake: should be 16 values? can read from following data
-.C018: db $14, $0A, $FC, $FB
+
+.C018:
+if !version == 0 || !version == 1
+    db $14, $0A, $FC, $FB
+elseif !version == 2
+    db $28, $14, $0A, $00
+endif
 }
 
 { ;C01C - C07D
@@ -3044,7 +3041,12 @@ storm_cesaris_parts_data:
 { ;C07E - C085
 storm_cesaris_projectile_data:
 
-.C07E: dw $FF40, $FF60, $FF80, $0000
+.C07E:
+if !version == 0 || !version == 1
+    dw $FF40, $FF60, $FF80, $0000
+elseif !version == 2
+    dw $FF20, $FF40, $FF80, $0000
+endif
 }
 
 { ;C086 - C174
@@ -3456,7 +3458,12 @@ skulls_data:
 .cooldown1_difficulty: db 10, 0, -4, -4
 
 .cooldown2: db 16, 16, 32, 32, 32, 32, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48
-.cooldown2_difficulty: db 30, 15, 0, -8
+.cooldown2_difficulty:
+if !version == 0 || !version == 1
+    db 30, 15, 0, -8
+elseif !version == 2
+    db 40, 30, 10, 0
+endif
 
 .C910: db $05, $08, $07
 
@@ -3703,7 +3710,13 @@ ghost_data: ;data for both ghost and ghost_unformed
 .spawn_offset_x: dw $FFE8, $0118
 .spawn_offset_y: db $20, $20, $20, $20, $40, $40, $40, $40, $60, $60, $60, $60, $80, $80, $80, $80
 
-.CD5C: db 2, 3, 3, 3
+.CD5C:
+if !version == 0 || !version == 1
+    db 2, 3, 3, 3
+elseif !version == 2
+    db 1, 1, 2, 3
+endif
+
 .CD60: db $00, $20 ;ghost
 
 .CD62:
@@ -3712,9 +3725,26 @@ ghost_data: ;data for both ghost and ghost_unformed
     db $00, $00, $FF, $00, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $01, $00, $00, $01, $00, $01, $00, $00, $00, $00, $00, $00, $00, $00
 
-.CDA2: db $7E, $6A, $60, $4C ;todo name: forming timer
-.CDA6: db $20, $10, $10, $10
-.CDAA: db $5E, $4A, $40, $36
+.CDA2:
+if !version == 0 || !version == 1
+    db $7E, $6A, $60, $4C ;todo name: forming timer
+elseif !version == 2
+    db $88, $7E, $60, $4C
+endif
+
+.CDA6:
+if !version == 0 || !version == 1
+    db $20, $10, $10, $10
+elseif !version == 2
+    db $20, $20, $10, $10
+endif
+
+.CDAA:
+if !version == 0 || !version == 1
+    db $5E, $4A, $40, $36
+elseif !version == 2
+    db $68, $5E, $40, $36
+endif
 
 db $40, $80, $C0 ;unused?
 
@@ -3832,7 +3862,7 @@ rotating_platform_data:
 
 .CED8:
     dw _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4 ;armors
-    dw arthur_baby_DF31, $E0AA, $E195, $DFE8 ;transformations
+    dw arthur_baby_DF31, arthur_seal_E0AA, arthur_bee_E195, arthur_maiden_DFE8 ;transformations
 }
 
 { ;CEEA - CEF7
@@ -4666,20 +4696,20 @@ _00D6E6:
 
     db $FF
 }
-elseif !version == 2
-{ ;D6F4 - D70F
-    ;todo: what is this? zombie spawner related?
-    db $04, $0C, $14, $1C, $BE, $D2, $FF, $D2
-    db $BE, $FF, $B4, $DC, $82, $A0, $BE, $96
-    db $82, $DC, $78, $A0, $1E, $3C, $5A, $32
-    db $1E, $78, $14, $3C
-}
 endif
 
 { ;DA6E - DAA1
 zombie_spawner_data:
 
 .delay:
+if !version == 2
+    db $04, $0C, $14, $1C ;difficulty offsets
+
+    ;oversight: only the first value here gets used (increment removed)
+    db $BE, $D2, $FF, $D2, $BE, $FF, $B4, $DC
+    db $82, $A0, $BE, $96, $82, $DC, $78, $A0
+    db $1E, $3C, $5A, $32, $1E, $78, $14, $3C
+endif
     db $1E, $3C, $5A, $32, $1E, $78, $14, $3C
 
 .offset_x:
@@ -5854,7 +5884,13 @@ _00ED00: ;sprite related. sprite sets to load?
     dw .arthur_maiden, .arthur_seal, .magic, .armor_upgrade_vfx, .rotating_platform, .zombie, .miniwing, .cockatrice_wings
     dw .cockatrice_head, .cockatrice_legs, .cockatrice_body, .F917, .gate, .mimic, .mimic_ghost, .hydra
     dw .FCAC, .gate2, .FCED, .FCF5, .FD7C, .FD98, .tiny_goblin, .princess_dialogue
-    dw .arremer, .astaroth, .nebiroth, .nebiroth_flame_laser, .cockatrice_neck_base, $FFFF, .veil_allocen_claws, .veil_allocen_projectile
+    dw .arremer, .astaroth, .nebiroth, .nebiroth_flame_laser, .cockatrice_neck_base
+if !version == 0 || !version == 1
+    dw $FFFF
+elseif !version == 2
+    dw .F1BF ;bracelet sparkle related
+endif
+    dw .veil_allocen_claws, .veil_allocen_projectile
 
 ;-----
 
@@ -6222,6 +6258,7 @@ _00ED00: ;sprite related. sprite sets to load?
 ;-----
 
 if !version == 2
+.F1BF:
     dw .F1C1
 
 .F1C1:
@@ -6298,10 +6335,10 @@ endif
 .zombie:
     dw ..F2D3, ..F2D3+20 ;coffin
     dw ..F2FB ;falling
-    dw ..F30F, $F323 ;init walk
-    dw ..F337, $F34B, $F35F, $F373, $F387 ;walk
-    dw ..F39B, $F3AF, $F3C3, $F3D7, $F3EB ;coffin crumble
-    dw ..F3F8, $F40C ;burrow
+    dw ..F30F, ..F30F+20 ;init walk
+    dw ..F337, ..F34B, ..F35F, ..F373, ..F387 ;walk
+    dw ..F39B, ..F3AF, ..F3C3, ..F3D7, ..F3EB ;coffin crumble
+    dw ..F3F8, ..F3F8+20 ;burrow
 
 ..F2D3:
     dl $7F19A0 : dw $00C0 : dw $0100
@@ -6330,19 +6367,19 @@ endif
     dl $7F2340 : dw $0080 : dw $0100
     dl $7F23C0 : dw $0080 : dw $0100
     dl $7F2440 : dw $00E0 : db $FF
-
+..F34B:
     dl $7F2520 : dw $0080 : dw $0100
     dl $7F25A0 : dw $0080 : dw $0100
     dl $7F2620 : dw $00E0 : db $FF
-
+..F35F:
     dl $7F2700 : dw $0080 : dw $0100
     dl $7F2780 : dw $0080 : dw $0100
     dl $7F2800 : dw $00E0 : db $FF
-
+..F373:
     dl $7F28E0 : dw $0080 : dw $0100
     dl $7F2960 : dw $0080 : dw $0100
     dl $7F29E0 : dw $00C0 : db $FF
-
+..F387:
     dl $7F2AA0 : dw $0080 : dw $0100
     dl $7F2B20 : dw $0080 : dw $0100
     dl $7F2BA0 : dw $00E0 : db $FF
@@ -6351,19 +6388,19 @@ endif
     dl $7F2C80 : dw $0100 : dw $0100
     dl $7F2D80 : dw $0100 : dw $0100
     dl $7F2E80 : dw $00E0 : db $FF
-
+..F3AF:
     dl $7F2F60 : dw $00C0 : dw $0100
     dl $7F3020 : dw $0100 : dw $0100
     dl $7F3120 : dw $00C0 : db $FF
-
+..F3C3:
     dl $7F31E0 : dw $00C0 : dw $0100
     dl $7F32A0 : dw $00C0 : dw $0100
     dl $7F3360 : dw $00A0 : db $FF
-
+..F3D7:
     dl $7F3400 : dw $0080 : dw $0100
     dl $7F3480 : dw $0080 : dw $0100
     dl $7F3500 : dw $0080 : db $FF
-
+..F3EB:
     dl $7F3580 : dw $0040 : dw $0100
     dl $7F35C0 : dw $0080 : db $FF
 
@@ -6378,7 +6415,7 @@ endif
 ;-----
 
 .raft_hanging:
-    dw $F421, $F42E, $F43B, $F448 ;todo: grouping
+    dw ..F421, ..F42E, ..F43B, ..F448 ;todo: grouping
 
 ..F421:
     dl $7F0A00 : dw $0040 : dw $0100
@@ -6467,10 +6504,12 @@ endif
 ;-----
 
 .trap:
-    dw ..F4F1, $F4F7
+    dw ..F4F1, ..F4F7
 
 ..F4F1:
     dl $0FBE20 : dw $0060 : db $FF
+
+..F4F7:
     dl $0FBE80 : dw $0080 : db $FF
 
 ;-----
@@ -6527,16 +6566,19 @@ endif
 ;-----
 
 .arthur_baby:
-    dw ..walk, $F58D, $F593
-    dw ..jump, $F59F
+    dw ..walk, ..F58D, ..F593
+    dw ..jump, ..F59F
 
 ..walk:
     dl $0EF020 : dw $00E0 : db $FF
+..F58D:
     dl $0EF100 : dw $00E0 : db $FF
+..F593:
     dl $0EF1E0 : dw $00E0 : db $FF
 
 ..jump:
     dl $0EF2C0 : dw $0140 : db $FF
+..F59F:
     dl $0EF400 : dw $0180 : db $FF
 
 ;-----
@@ -6550,20 +6592,42 @@ endif
 ;-----
 
 .siren: ;todo: fix grouping
-    dw ..F5C5, $F5CB, $F5D1, $F5D7, $F5DD, $F5E3, $F5E9, $F5EF, $F5F5, $F5FB, $F601, $F607
+    dw ..F5C5, ..F5CB, ..F5D1, ..F5D7, ..F5DD, ..F5E3, ..F5E9, ..F5EF, ..F5F5, ..F5FB, ..F601, ..F607
 
 ..F5C5:
 	dl $7F1500 : dw $0400 : db $FF
+
+..F5CB:
 	dl $7F1900 : dw $0400 : db $FF
+
+..F5D1:
 	dl $7F1D00 : dw $0400 : db $FF
+
+..F5D7:
 	dl $7F2100 : dw $0400 : db $FF
+
+..F5DD:
 	dl $7F2500 : dw $0400 : db $FF
+
+..F5E3:
 	dl $7F2900 : dw $0400 : db $FF
+
+..F5E9:
 	dl $7F2D00 : dw $0400 : db $FF
+
+..F5EF:
 	dl $7F3100 : dw $0400 : db $FF
+
+..F5F5:
 	dl $7F3500 : dw $0400 : db $FF
+
+..F5FB:
 	dl $7F3900 : dw $0400 : db $FF
+
+..F601:
 	dl $7F3D00 : dw $0400 : db $FF
+
+..F607:
 	dl $7F4100 : dw $00C0 : db $FF
 
 ;-----
@@ -6577,53 +6641,91 @@ endif
 ;-----
 
 .tower_edge: ;todo: fix grouping
-    dw ..F627, $F634, $F641, $F64E, $F65B, $F668, $F675, $F682, $F68F
+    dw ..F627, ..F634, ..F641, ..F64E, ..F65B, ..F668, ..F675, ..F682, ..F68F
 
 ..F627:
     dl $7F22A0 : dw $0100 : dw $0100
     dl $7F23A0 : dw $0080 : db $FF
+
+..F634:
     dl $7F2420 : dw $0100 : dw $0100
     dl $7F2520 : dw $0080 : db $FF
+
+..F641:
     dl $7F25A0 : dw $0100 : dw $0100
     dl $7F26A0 : dw $0080 : db $FF
+
+..F64E:
     dl $7F2720 : dw $0100 : dw $0100
     dl $7F2820 : dw $0100 : db $FF
+
+..F65B:
     dl $7F2920 : dw $0100 : dw $0100
     dl $7F2A20 : dw $0100 : db $FF
+
+..F668:
     dl $7F2B20 : dw $0100 : dw $0100
     dl $7F2C20 : dw $0100 : db $FF
+
+..F675:
     dl $7F2D20 : dw $0100 : dw $0100
     dl $7F2E20 : dw $0080 : db $FF
+
+..F682:
     dl $7F2EA0 : dw $0100 : dw $0100
     dl $7F2FA0 : dw $0080 : db $FF
+
+..F68F:
     dl $7F3020 : dw $0100 : dw $0100
     dl $7F3120 : dw $0080 : db $FF
 
 ;-----
 
 .arthur_maiden:
-    dw ..F6AA, $F6B0, $F6B6, $F6BC, $F6C2, $F6C8, $F6CE
+    dw ..F6AA, ..F6B0, ..F6B6, ..F6BC, ..F6C2, ..F6C8, ..F6CE
 
 ..F6AA:
     dl $0FAE80 : dw $0140 : db $FF
+
+..F6B0:
     dl $0FAFC0 : dw $0180 : db $FF
+
+..F6B6:
     dl $0FB140 : dw $0120 : db $FF
+
+..F6BC:
     dl $0FB260 : dw $0140 : db $FF
+
+..F6C2:
     dl $0FB3A0 : dw $0100 : db $FF
+
+..F6C8:
     dl $0FB4A0 : dw $0160 : db $FF
+
+..F6CE:
     dl $0FB600 : dw $0160 : db $FF
 
 ;-----
 
 .arthur_seal:
-    dw ..F6E0, $F6E6, $F6EC, $F6F2, $F6F8, $F6FE
+    dw ..F6E0, ..F6E6, ..F6EC, ..F6F2, ..F6F8, ..F6FE
 
 ..F6E0:
     dl $0FA760 : dw $0120 : db $FF
+
+..F6E6:
     dl $0FA880 : dw $0140 : db $FF
+
+..F6EC:
     dl $0FA9C0 : dw $0140 : db $FF
+
+..F6F2:
     dl $0FAB00 : dw $0140 : db $FF
+
+..F6F8:
     dl $0FAC40 : dw $0140 : db $FF
+
+..F6FE:
     dl $0FAD80 : dw $0100 : db $FF
 
 ;-----
@@ -6675,29 +6777,50 @@ endif
 ;-----
 
 .miniwing: ;todo: fix grouping
-    dw ..F7A1, $F7AE, $F7BB, $F7C8, $F7D5, $F7E2, $F7EF, $F7FC, $F809, $F816, $F823
+    dw ..F7A1, ..F7AE, ..F7BB, ..F7C8, ..F7D5, ..F7E2, ..F7EF, ..F7FC
+    dw ..F809, ..F816, ..F823
 
 ..F7A1:
     dl $7F3100 : dw $0100 : dw $0100
     dl $7F3200 : dw $0100 : db $FF
+
+..F7AE:
     dl $7F3300 : dw $0100 : dw $0100
     dl $7F3400 : dw $0100 : db $FF
+
+..F7BB:
     dl $7F3500 : dw $0100 : dw $0100
     dl $7F3600 : dw $0100 : db $FF
+
+..F7C8:
     dl $7F3700 : dw $0100 : dw $0100
     dl $7F3800 : dw $0100 : db $FF
+
+..F7D5:
     dl $7F3900 : dw $0100 : dw $0100
     dl $7F3A00 : dw $0100 : db $FF
+
+..F7E2:
     dl $7F3B00 : dw $0100 : dw $0100
     dl $7F3C00 : dw $0100 : db $FF
+
+..F7EF:
     dl $7F3D00 : dw $0100 : dw $0100
     dl $7F3E00 : dw $0100 : db $FF
+
+..F7FC:
     dl $7F3F00 : dw $0100 : dw $0100
     dl $7F4000 : dw $0100 : db $FF
+
+..F809:
     dl $7F4100 : dw $0100 : dw $0100
     dl $7F4200 : dw $0100 : db $FF
+
+..F816:
     dl $7F4300 : dw $0100 : dw $0100
     dl $7F4400 : dw $0100 : db $FF
+
+..F823:
     dl $7F4500 : dw $0100 : dw $0100
     dl $7F4600 : dw $0100 : db $FF
 
@@ -6805,38 +6928,60 @@ endif
 ;-----
 
 .mimic:
-    dw $F93E, $F944, $F94A, $F950, $F956, $F95C, $F962, $F968 ;todo: fix grouping
+    dw ..F93E, ..F944, ..F94A, ..F950, ..F956, ..F95C, ..F962, ..F968 ;todo: fix grouping
 
+..F93E:
     dl $7F0000 : dw $0120 : db $FF
+
+..F944:
     dl $7F0120 : dw $0140 : db $FF
+
+..F94A:
     dl $7F0260 : dw $0160 : db $FF
+
+..F950:
     dl $7F03C0 : dw $0140 : db $FF
+
+..F956:
     dl $7F0500 : dw $0160 : db $FF
+
+..F95C:
     dl $7F0660 : dw $0160 : db $FF
+
+..F962:
     dl $7F07C0 : dw $0140 : db $FF
+
+..F968:
     dl $7F0900 : dw $0140 : db $FF
 
 ;-----
 
 .mimic_ghost:
-    dw $F974, $F97A, $F980 ;todo: fix grouping
+    dw ..F974, ..F97A, ..F980 ;todo: fix grouping
 
+..F974:
     dl $7F0A40 : dw $00A0 : db $FF
+
+..F97A:
     dl $7F0AE0 : dw $00A0 : db $FF
+
+..F980:
     dl $7F0B80 : dw $00A0 : db $FF
 
 ;-----
 
 .grilian:
-    dw ..F992, $F99F, $F9AC
+    dw ..F992, ..F99F, ..F9AC
     dw ..F9B9
-    dw ..F9C6, $F9E8
+    dw ..F9C6, ..F9E8
 
 ..F992:
     dl $7F0000 : dw $0400, $0200
     dl $7F0400 : dw $0400 : db $FF
+..F99F:
     dl $7F0000 : dw $0400, $0200
     dl $7F0800 : dw $0400 : db $FF
+..F9AC:
     dl $7F0000 : dw $0400, $0200
     dl $7F0C00 : dw $0400 : db $FF
 
@@ -6850,6 +6995,7 @@ endif
     dl $7F0900 : dw $0100, $0080
     dl $7F1E00 : dw $0100, $0080
     dl $7F0B00 : dw $0100 : db $FF
+..F9E8:
     dl $7F1D00 : dw $0100, $0080
     dl $7F2000 : dw $0100, $0080
     dl $7F1F00 : dw $0100, $0080
@@ -6862,84 +7008,130 @@ endif
 ;-----
 
 .arremer:
-    dw ..FA33, $FA47, $FA54, $FA61, $FA6E, $FA82, $FA8F, $FA9C
-    dw $FAA9, $FAB6
+    dw ..FA33, ..FA47, ..FA54, ..FA61, ..FA6E, ..FA82, ..FA8F, ..FA9C
+    dw ..FAA9, ..FAB6
 
 ..FA33:
     dl $7F0000 : dw $01A0, $0100
     dl $7F01A0 : dw $0100, $0100
     dl $7F02A0 : dw $0200 : db $FF
+
+..FA47:
     dl $7F04A0 : dw $01E0, $0100
     dl $7F0680 : dw $0100 : db $FF
+
+..FA54:
     dl $7F0780 : dw $01C0, $0100
     dl $7F0940 : dw $0100 : db $FF
+
+..FA61:
     dl $7F0A40 : dw $01E0, $0100
     dl $7F0C20 : dw $0140 : db $FF
+
+..FA6E:
     dl $7F0D60 : dw $0200, $0100
     dl $7F0F60 : dw $0200, $0100
     dl $7F1160 : dw $00C0 : db $FF
+
+..FA82:
     dl $7F1220 : dw $0200, $0100
     dl $7F1420 : dw $01E0 : db $FF
+
+..FA8F:
     dl $7F1600 : dw $01E0, $0100
     dl $7F17E0 : dw $0140 : db $FF
+
+..FA9C:
     dl $7F1920 : dw $0200, $0100
     dl $7F1B20 : dw $0120 : db $FF
+
+..FAA9:
     dl $7F1C40 : dw $0200, $0100
     dl $7F1E40 : dw $0140 : db $FF
+
+..FAB6:
     dl $7F1F80 : dw $01E0, $0100
     dl $7F2160 : dw $0100 : db $FF
 
 ;-----
 
 .FAC3: ;?
-    dw ..FACF, $FADC, $FAE9, $FAF6, $FB03, $FB10
+    dw ..FACF, ..FADC, ..FAE9, ..FAF6, ..FB03, ..FB10
 
 ..FACF:
     dl $7F03E0 : dw $0200 : dw $0100
     dl $7F05E0 : dw $0200 : db $FF
+
+..FADC:
     dl $7F07E0 : dw $0040 : dw $0100
     dl $7F0A40 : dw $0040 : db $FF
+
+..FAE9:
     dl $7F0860 : dw $0100 : dw $0100
     dl $7F0960 : dw $0100 : db $FF
+
+..FAF6:
     dl $7F0A60 : dw $0100 : dw $0100
     dl $7F0B60 : dw $0100 : db $FF
+
+..FB03:
     dl $7F0C60 : dw $0100 : dw $0100
     dl $7F0D60 : dw $0100 : db $FF
+
+..FB10:
     dl $7F0E60 : dw $0100 : dw $0100
     dl $7F0F60 : dw $0100 : db $FF
 
 ;-----
 
 .eagler:
-    dw ..FB31, $FB45, $FB59, $FB6D, $FB81, $FB95, $FBA9, $FBB6
-    dw $FBCA, $FBD7
+    dw ..FB31, ..FB45, ..FB59, ..FB6D, ..FB81, ..FB95, ..FBA9, ..FBB6
+    dw ..FBCA, ..FBD7
 
 ..FB31:
     dl $7F0000 : dw $0100 : dw $0100
     dl $7F0100 : dw $0100 : dw $0100
     dl $7F0200 : dw $0100 : db $FF
+
+..FB45:
     dl $7F0300 : dw $0100 : dw $0100
     dl $7F0400 : dw $0100 : dw $0100
     dl $7F0500 : dw $0100 : db $FF
+
+..FB59:
     dl $7F0600 : dw $0100 : dw $0100
     dl $7F0700 : dw $0100 : dw $0100
     dl $7F0800 : dw $0100 : db $FF
+
+..FB6D:
     dl $7F0900 : dw $0100 : dw $0100
     dl $7F0A00 : dw $0100 : dw $0100
     dl $7F0B00 : dw $0100 : db $FF
+
+..FB81:
     dl $7F0C00 : dw $0100 : dw $0100
     dl $7F0D00 : dw $0100 : dw $0100
     dl $7F0E00 : dw $0100 : db $FF
+
+..FB95:
     dl $7F0F00 : dw $0100 : dw $0100
     dl $7F1000 : dw $0100 : dw $0100
     dl $7F1100 : dw $0100 : db $FF
+
+..FBA9:
     dl $7F1200 : dw $0040 : dw $0100
     dl $7F1240 : dw $0040 : db $FF
+
+..FBB6:
     dl $7F1280 : dw $0040 : dw $0100
     dl $7F12C0 : dw $0040 : dw $0100
     dl $7F1300 : dw $0080 : db $FF
+
+..FBCA:
     dl $7F1400 : dw $0100 : dw $0100
     dl $7F1500 : dw $0100 : db $FF
+
+..FBD7:
     dl $7F1600 : dw $0100 : dw $0100
     dl $7F1700 : dw $0100 : dw $0100
     dl $7F1800 : dw $00A0 : db $FF
@@ -6969,21 +7161,33 @@ endif
 ;-----
 
 .hydra:
-    dw ..FC51, $FC5E, $FC6B, $FC78, $FC85, $FC92, $FC9F
+    dw ..FC51, ..FC5E, ..FC6B, ..FC78, ..FC85, ..FC92, ..FC9F
 
 ..FC51:
     dl $7F0000 : dw $0180 : dw $0100
     dl $7F0180 : dw $0180 : db $FF
+
+..FC5E:
     dl $7F0300 : dw $01C0 : dw $0100
     dl $7F04C0 : dw $01C0 : db $FF
+
+..FC6B:
     dl $7F0680 : dw $01C0 : dw $0100
     dl $7F0840 : dw $01C0 : db $FF
+
+..FC78:
     dl $7F0A00 : dw $0180 : dw $0100
     dl $7F0B80 : dw $0180 : db $FF
+
+..FC85:
     dl $7F0D00 : dw $01C0 : dw $0100
     dl $7F0EC0 : dw $01C0 : db $FF
+
+..FC92:
     dl $7F1080 : dw $01C0 : dw $0100
     dl $7F1240 : dw $01C0 : db $FF
+
+..FC9F:
     dl $7F1400 : dw $01C0 : dw $0100
     dl $7F15C0 : dw $01C0 : db $FF
 
@@ -7021,36 +7225,54 @@ endif
 ;-----
 
 .FCF5: ;?
-    dw ..FD07, $FD14, $FD21, $FD2E, $FD3B, $FD48, $FD55, $FD62, $FD6F
+    dw ..FD07, ..FD14, ..FD21, ..FD2E, ..FD3B, ..FD48, ..FD55, ..FD62, ..FD6F
 
 ..FD07:
     dl $7F2D00 : dw $0180 : dw $0100
     dl $7F2E80 : dw $0180 : db $FF
+
+..FD14:
     dl $7F3000 : dw $0100 : dw $0100
     dl $7F3100 : dw $0100 : db $FF
+
+..FD21:
     dl $7F3200 : dw $0180 : dw $0100
     dl $7F3380 : dw $0180 : db $FF
+
+..FD2E:
     dl $7F3500 : dw $0180 : dw $0100
     dl $7F3680 : dw $0180 : db $FF
+
+..FD3B:
     dl $7F3800 : dw $0100 : dw $0100
     dl $7F3900 : dw $0100 : db $FF
+
+..FD48:
     dl $7F3A00 : dw $0100 : dw $0100
     dl $7F3B00 : dw $0100 : db $FF
+
+..FD55:
     dl $7F3C00 : dw $0100 : dw $0100
     dl $7F3D00 : dw $0100 : db $FF
+
+..FD62:
     dl $7F3E00 : dw $0100 : dw $0100
     dl $7F3F00 : dw $0100 : db $FF
+
+..FD6F:
     dl $7F4000 : dw $00C0 : dw $0100
     dl $7F40C0 : dw $00C0 : db $FF
 
 ;-----
 
 .FD7C: ;?
-    dw ..FD80, $FD8D
+    dw ..FD80, ..FD8D
 
 ..FD80: ;broken data
     dl $158000 : dw $1400 : dw $0100
     dl $159400 : dw $00E0 : db $FF
+
+..FD8D:
     dl $1594E0 : dw $0120
     dl $159600 : dw $0120 : db $FF
 
@@ -7089,7 +7311,7 @@ endif
 
 .astaroth:
 
-    dw ..FDD8, $FDFA, $FE1C, $FE3E
+    dw ..FDD8, ..FDFA, ..FE1C, ..FE3E
 
 ..FDD8:
     dl $7F0000 : dw $0180 : dw $00C0
@@ -7097,16 +7319,22 @@ endif
     dl $7F0180 : dw $0180 : dw $00C0
     dl $7F1700 : dw $0240 : dw $0140
     dl $7F1940 : dw $01C0 : db $FF
+
+..FDFA:
     dl $7F0300 : dw $0180 : dw $00C0
     dl $7F1200 : dw $0080 : dw $0040
     dl $7F0480 : dw $0180 : dw $00C0
     dl $7F1280 : dw $0240 : dw $0140
     dl $7F14C0 : dw $01C0 : db $FF
+
+..FE1C:
     dl $7F0300 : dw $0180 : dw $00C0
     dl $7F0D80 : dw $0080 : dw $0040
     dl $7F0480 : dw $0180 : dw $00C0
     dl $7F0E00 : dw $0240 : dw $0140
     dl $7F1040 : dw $01C0 : db $FF
+
+..FE3E:
     dl $7F0600 : dw $0180 : dw $00C0
     dl $7F0D80 : dw $0080 : dw $0040
     dl $7F0780 : dw $0180 : dw $00C0
@@ -7116,7 +7344,7 @@ endif
 ;-----
 
 .nebiroth:
-    dw ..FE68, $FE8A, $FEAC, $FECE
+    dw ..FE68, ..FE8A, ..FEAC, ..FECE
 
 ..FE68:
     dl $7F0000 : dw $0180 : dw $00C0
@@ -7124,16 +7352,22 @@ endif
     dl $7F0180 : dw $0180 : dw $00C0
     dl $7F1700 : dw $0240 : dw $0140
     dl $7F1940 : dw $01C0 : db $FF
+
+..FE8A:
     dl $7F0300 : dw $0180 : dw $00C0
     dl $7F1200 : dw $0080 : dw $0040
     dl $7F0480 : dw $0180 : dw $00C0
     dl $7F1280 : dw $0240 : dw $0140
     dl $7F14C0 : dw $01C0 : db $FF
+
+..FEAC:
     dl $7F0300 : dw $0180 : dw $00C0
     dl $7F0D80 : dw $0080 : dw $0040
     dl $7F0480 : dw $0180 : dw $00C0
     dl $7F0E00 : dw $0240 : dw $0140
     dl $7F1040 : dw $01C0 : db $FF
+
+..FECE:
     dl $7F0600 : dw $0180 : dw $00C0
     dl $7F0D80 : dw $0080 : dw $0040
     dl $7F0780 : dw $0180 : dw $00C0
@@ -7151,15 +7385,21 @@ endif
 ;-----
 
 .veil_allocen_claws:
-    dw ..FF00, $FF0D, $FF1A, $FF27
+    dw ..FF00, ..FF0D, ..FF1A, ..FF27
 
 ..FF00:
     dl $7F1F40 : dw $0180 : dw $0100
     dl $7F20C0 : dw $0180 : db $FF
+
+..FF0D:
     dl $7F2240 : dw $0180 : dw $0100
     dl $7F23C0 : dw $0180 : db $FF
+
+..FF1A:
     dl $7F2540 : dw $0180 : dw $0100
     dl $7F26C0 : dw $0180 : db $FF
+
+..FF27:
     dl $7F2840 : dw $0140 : dw $0100
     dl $7F2980 : dw $0140 : db $FF
 
@@ -7196,19 +7436,16 @@ if !version == 0
 elseif !version == 1 || !version == 2
     db "SUPER GHOULS'N GHOSTS"
 endif
-
     db $20                     ;rom mode (LoROM)
     db $00                     ;cart type / extra functionality
     db $0A                     ;rom size
     db $00                     ;sram size
     db !version                ;country
-
 if !version == 0 || !version == 1
     db $08                     ;developer ID
 elseif !version == 2
     db $01
 endif
-
     db $00                     ;version number
     dw $FFFF, $0000            ;checksum complement & checksum
 }
@@ -7219,7 +7456,6 @@ if !version == 0 || !version == 1
 elseif !version == 2
     dw $795C, $01A7
 endif
-
 if !version == 0
     dw cop, brk, $FFFF, nmi, $FFFF, irq ;native mode vectors
     dw $FFFF, $FFFF ;unused?

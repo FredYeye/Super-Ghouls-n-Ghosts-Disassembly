@@ -9,7 +9,6 @@ org $068000
     ;format: byte amount to copy | apuram destination address | data to send
 
 { ;0300 - 03CA
-
 if !version == 0 || !version == 1
     dw $0933, $0300
 elseif !version == 2
@@ -190,13 +189,11 @@ spc_03CB:
     mov  a, #$99
     movw $D4, ya
     mov  $D2, #$00
-
 if !version == 0 || !version == 1
     mov  $D7, #$E8
 elseif !version == 2
     mov  $D7, #$00
 endif
-
     mov  a, $0E01
     asl  a
     mov  $D6, a
@@ -575,11 +572,9 @@ spc_0609:
     ret
 }
 
-
 if !version == 2
     incsrc "music/spc_code.asm"
 endif
-
 
 spc_0656: ;0656 - 07D1
     mov  a, $30+x
@@ -684,7 +679,6 @@ spc_06D8:
     pop  a
     clrc
     adc  a, spc_07C2+y
-
 if !version == 0 || !version == 1
     bbc7 $C9, spc_06EB
 
@@ -696,7 +690,6 @@ spc_06EB:
 elseif !version == 2
     bbs7 $C9, spc_06EE
 endif
-
     clrc
     adc  a, $D7
 spc_06EE:
@@ -711,7 +704,6 @@ spc_06EE:
     dec  y
 +:
     addw ya, $C0
-
 if !version == 0 || !version == 1
     cmp  y, #$55
     bcc  +
@@ -723,7 +715,6 @@ elseif !version == 2
 
     mov  y, #$60
 endif
-
 +:
     movw $C2, ya
     mov  a, $0200+x
@@ -986,7 +977,6 @@ if !version == 0 || !version == 1
     clrc
     adc  a, #$E8
 endif
-
     mov  $D7, a
 .ret:
     ret
@@ -1428,7 +1418,6 @@ spc_0ADA:
 spc_0B0E:
     jmp  spc_0B4B
 
-
 if !version == 0 || !version == 1
     incsrc "music/spc_code.asm"
 endif
@@ -1614,7 +1603,6 @@ spc_5880:
     db $08, $FF, $E0, $B8, $14, $40, $09, $FF, $E0, $B8, $09, $00, $0A, $FF, $F1, $B8
     db $04, $00, $0B, $FF, $E0, $B8, $04, $00, $0C, $FF, $E0, $B8, $09, $00, $0D, $FF
     db $E0, $B8, $04, $00, $0E, $FF
-
 if !version == 0 || !version == 1
     db $E0, $B8, $03, $C0, $0F, $FF, $E0, $B8, $02, $80, $10, $FF, $E0, $B8, $09, $00
     db $11, $FF, $E0, $B8, $03, $C0, $12, $FF, $EF, $B8, $09, $00, $13, $FF, $EE, $B8

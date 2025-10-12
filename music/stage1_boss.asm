@@ -342,13 +342,11 @@
     %lfo($03, $01)
     %instrument($11)
     %duration($E6)
-
 if !version == 0 || !version == 1
     %volume($36)
 elseif !version == 2
     %volume($34)
 endif
-
     %octave($03)
     %tuning($18)
     %toggle_2_octaves_up()

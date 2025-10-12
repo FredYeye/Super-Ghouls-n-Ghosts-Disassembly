@@ -2,7 +2,6 @@
     dw be(..ch8), be(..ch7), be(..ch6), be(..ch5), be(..ch4), be(..ch3), be(..ch2), be(..ch1)
 
 ..ch8:
-
 if !version == 0 || !version == 1
     %tempo($00FA)
     %volume($44)
@@ -91,11 +90,9 @@ elseif !version == 2
     %toggle_portamento()
     %note($0A, 5)
 endif
-
     %end_track()
 
 ..ch7:
-
 if !version == 0 || !version == 1
     %pan($92)
     %duration($BE)
@@ -166,11 +163,9 @@ elseif !version == 2
     %toggle_portamento()
     %note($07, 5)
 endif
-
     %end_track()
 
 ..ch6:
-
 if !version == 2
     %duration($96)
     %pan($50)
@@ -223,11 +218,9 @@ if !version == 2
     %toggle_portamento()
     %note($03, 5)
 endif
-
     %end_track()
 
 ..ch5:
-
 if !version == 2
     %duration($64)
     %volume($78)
@@ -243,11 +236,9 @@ if !version == 2
     %toggle_portamento()
     %note($14, 5)
 endif
-
     %end_track()
 
 ..ch4:
-
 if !version == 2
     %duration($64)
     %volume($78)
@@ -264,11 +255,9 @@ if !version == 2
     %toggle_portamento()
     %note($13, 5)
 endif
-
     %end_track()
 
 ..ch3:
-
 if !version == 2
     %duration($96)
     %instrument($12)
@@ -323,7 +312,6 @@ if !version == 2
     %toggle_portamento()
     %note($0A, 5)
 endif
-
     %end_track()
 
 ..ch2:

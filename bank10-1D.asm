@@ -11,17 +11,14 @@ elseif !version == 1 || !version == 2
     gfx_unk01: incbin "graphics/unknown01_us.bin"
     gfx_unk02: incbin "graphics/unknown02_us.bin"
 endif
-
     gfx_unk15: incbin "graphics/unknown15.bin"
     gfx_unk17: incbin "graphics/unknown17.bin"
     gfx_unk18: incbin "graphics/unknown18.bin"
-
 if !version == 0
     gfx_logo: incbin "graphics/logo.bin" ;also has other stuff in it
 elseif !version == 1 || !version == 2
     gfx_logo: incbin "graphics/logo_us.bin"
 endif
-
     gfx_map: incbin "graphics/map.bin"
     gfx_unk19: incbin "graphics/unknown19.bin"
     gfx_unk29: incbin "graphics/unknown29.bin"
@@ -328,4 +325,5 @@ elseif !version == 1 || !version == 2
     gfx_us_font_extra: incbin "graphics/us_font_extra.bin" ; question mark, apostrophe, opening and closing quotation marks
     incbin "us_fill_bytes/bank1Da.bin"
 endif
+
 check bankcross full

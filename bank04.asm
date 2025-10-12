@@ -51,7 +51,6 @@ _048000_us:
     db $FE, $03
     db $0B, $1B, $0A, $0C, $0E, $15, $0E, $1D, $53, $27
     db $FC, $4F
-
 if !version == 2
     db $FC, $4F
 endif
@@ -108,7 +107,6 @@ endif
     db $FE, $03
     db $1D, $11, $0E, $45, $20, $0A, $22, $45, $11, $0E, $1B, $0E, $27
     db $FC, $4F
-
 if !version == 2
     db $FC, $4F
 endif
@@ -145,7 +143,6 @@ endif
     db $FE, $03
     db $18, $17, $15, $22, $45, $11, $18, $19, $0E, $27, $27, $27
     db $FC, $4F
-
 if !version == 2
     db $FC, $4F
 endif
@@ -479,7 +476,6 @@ _048000:
     ;list of objects to place: type, 07, Xpos, Ypos
 
 .stage1:
-
 if !version == 0 || !version == 1
     db $53
 elseif !version == 2
@@ -506,27 +502,21 @@ endif
     db !id_chest,              $83 : dw $03D0, $0055
     db !id_wolf,               $80 : dw $0410, $0078
     db !id_stone_pillar,       $81 : dw $0410, $00B6
-
 if !version == 0 || !version == 1
     db !id_flower_bud,         $83 : dw $0460, $00BC
 endif
-
     db !id_wolf,               $81 : dw $0538, $0058
     db !id_bars,               $90 : dw $0540, $00AA
     db !id_bars,               $91 : dw $0540, $00AA
     db !id_black_cover,        $82 : dw $0540, $00B8
     db !id_money_bag,          $88 : dw $0544, $0030
-
 if !version == 0 || !version == 1
     db !id_flower_bud,         $83 : dw $0582, $00B0
 endif
-
     db !id_chest,              $90 : dw $05A0, $00A0
-
 if !version == 0 || !version == 1
     db !id_wolf,               $80 : dw $05E0, $005C
 endif
-
     db !id_flower_bud,         $83 : dw $05EA, $00B8
     db !id_bars,               $92 : dw $05F0, $00AA
     db !id_bars,               $93 : dw $05F0, $00AA
@@ -576,18 +566,15 @@ endif
     db !id_belial,             $80 : dw $10D0, $0060
     db !id_rosebud,            $01 : dw $10F0, $0040
     db !id_rosebud,            $03 : dw $1120, $0078
-
 if !version == 0 || !version == 1
     db !id_belial,             $80 : dw $1168, $006C
 endif
-
     db !id_chest,              $8D : dw $1170, $00A6
     db !id_money_bag,          $82 : dw $1188, $0020
     db !id_money_bag,          $82 : dw $1188, $00A4
     db !id_cockatrice_spawner, $80 : dw $132A, $0078
 
 .stage2:
-
 if !version == 0 || !version == 1
     db $61
 elseif !version == 2
@@ -601,11 +588,9 @@ endif
     db !id_chest,         $89 : dw $02C0, $024E
     db !id_chest,         $82 : dw $0300, $017C
     db !id_money_bag,     $82 : dw $0358, $0140
-
 if !version == 0 || !version == 1
     db !id_guillotine,    $80 : dw $03D0, $0150
 endif
-
     db !id_guillotine,    $81 : dw $043C, $01A2
     db !id_money_bag,     $80 : dw $0460, $0260
     db !id_raft_pulley,   $80 : dw $0464, $014E
@@ -623,11 +608,9 @@ endif
     db !id_guillotine,    $81 : dw $06D0, $0128
     db !id_chest,         $8C : dw $0740, $0160
     db !id_money_bag,     $80 : dw $0784, $00C8
-
 if !version == 0 || !version == 1
     db !id_guillotine,    $80 : dw $0790, $00CC
 endif
-
     db !id_mimic,         $80 : dw $07D0, $0114
     db !id_mimic,         $80 : dw $0840, $0150
     db !id_money_bag,     $82 : dw $08C8, $00C8
@@ -649,20 +632,16 @@ endif
     db !id_hannibal,      $80 : dw $0CA0, $0290
     db !id_money_bag,     $80 : dw $0CB8, $0280
     db !id_flying_killer, $80 : dw $0D00, $02D0
-
 if !version == 0 || !version == 1
     db !id_flying_killer, $80 : dw $0D20, $02B8
 endif
-
     db !id_flying_killer, $80 : dw $0D50, $02C0
     db !id_hannibal,      $80 : dw $0D70, $0250
     db !id_money_bag,     $80 : dw $0D68, $0280
     db !id_flying_killer, $80 : dw $0DC0, $02D0
-
 if !version == 0 || !version == 1
     db !id_flying_killer, $80 : dw $0DE0, $02C0
 endif
-
     db !id_flying_killer, $80 : dw $0E00, $02C8
     db !id_flying_killer, $80 : dw $0E40, $02C0
     db !id_hannibal,      $80 : dw $0E70, $0230
@@ -673,11 +652,9 @@ endif
     db !id_money_bag,     $88 : dw $0E88, $0210
     db !id_flying_killer, $80 : dw $0EC0, $02D0
     db !id_hannibal,      $80 : dw $0F20, $0280
-
 if !version == 0 || !version == 1
     db !id_flying_killer, $80 : dw $0F20, $02C0
 endif
-
     db !id_money_bag,     $80 : dw $0F38, $0280
     db !id_flying_killer, $80 : dw $0F40, $02C0
     db !id_hannibal,      $80 : dw $0F80, $0260
@@ -688,11 +665,9 @@ endif
     db !id_coral,         $80 : dw $0F88, $0278
     db !id_coral,         $80 : dw $0F88, $0288
     db !id_money_bag,     $88 : dw $0F98, $0280
-
 if !version == 0 || !version == 1
     db !id_flying_killer, $80 : dw $0FA0, $02C0
 endif
-
     db !id_flying_killer, $80 : dw $0FC0, $02C0
     db !id_siren,         $80 : dw $1000, $0280
     db !id_hannibal,      $80 : dw $1080, $0230
@@ -717,7 +692,6 @@ endif
     db !id_storm_cesaris, $8D : dw $15B0, $0340
 
 .stage3:
-
 if !version == 0 || !version == 1
     db $5D
 elseif !version == 2
@@ -727,40 +701,32 @@ endif
     db !id_chest,                 $9D : dw $0020, $0220
     db !id_killer,                $81 : dw $0028, $01F8
     db !id_lava_dropper,          $80 : dw $0028, $0208
-
 if !version == 0 || !version == 1
     db !id_killer,                $81 : dw $0028, $0268
 endif
-
     db !id_killer,                $81 : dw $0088, $02D8
     db !id_lava_dropper,          $80 : dw $0098, $0278
     db !id_killer,                $81 : dw $0098, $0268
     db !id_money_bag,             $86 : dw $00A0, $0254
     db !id_lava_dropper,          $80 : dw $00A8, $0208
     db !id_grilian,               $81 : dw $00C0, $0310
-
 if !version == 0 || !version == 1
     db !id_killer,                $81 : dw $00C8, $0188
 endif
-
     db !id_killer,                $81 : dw $00C8, $01F8
     db !id_lava_dropper,          $80 : dw $00C8, $0138
     db !id_grilian,               $81 : dw $00C8, $0240
-
 if !version == 0 || !version == 1
     db !id_killer,                $81 : dw $00D8, $0128
 endif
-
     db !id_killer,                $81 : dw $00F8, $0188
     db !id_grilian,               $81 : dw $0130, $0100
     db !id_money_bag,             $80 : dw $0138, $01D4
     db !id_killer,                $81 : dw $0148, $0278
     db !id_lava_pillar,           $80 : dw $0158, $0358
-
 if !version == 0 || !version == 1
     db !id_killer,                $81 : dw $0158, $01F8
 endif
-
     db !id_chest,                 $9A : dw $0160, $0120
     db !id_chest,                 $9C : dw $0160, $01C0
     db !id_money_bag,             $80 : dw $0170, $0114
@@ -835,7 +801,6 @@ endif
     db !id_silk_gate,             $81 : dw $1AD8, $0280
 
 .stage4:
-
 if !version == 0 || !version == 1
     db $0A
 elseif !version == 2
@@ -850,18 +815,15 @@ endif
     db !id_money_bag,                   $88 : dw $01A0, $0358
     db !id_rotating_platform,           $81 : dw $01E0, $0270
     db !id_rotating_platform,           $80 : dw $0220, $0370
-
 if !version == 0 || !version == 1
     db !id_skull_flower_multi_inactive, $83 : dw $0280, $0320
 endif
-
     db !id_rotating_platform,           $83 : dw $0370, $0140
 
 ..r1: ;first rotation
     db $00
 
 ..r2: ;second rotation
-
 if !version == 0 || !version == 1
     db $13
 elseif !version == 2
@@ -874,22 +836,18 @@ endif
     db !id_money_bag,                   $88 : dw $00E0, $0178
     db !id_skull_flower_multi_inactive, $82 : dw $0120, $0180
     db !id_money_bag,                   $80 : dw $0160, $0108
-
 if !version == 0 || !version == 1
     db !id_skull_flower_multi_inactive, $80 : dw $0170, $0100
     db !id_skull_flower_multi_inactive, $80 : dw $01C0, $0100
 endif
-
     db !id_money_bag,                   $80 : dw $01D0, $0178
     db !id_money_bag,                   $80 : dw $01E0, $0108
     db !id_skull_flower_multi_inactive, $82 : dw $0220, $0180
     db !id_chest,                       $96 : dw $02A0, $0260
-
 if !version == 0 || !version == 1
     db !id_skull_flower_multi_inactive, $80 : dw $02E0, $0100
     db !id_skull_flower_multi_inactive, $82 : dw $02E0, $0260
 endif
-
     db !id_chest2,                      $8B : dw $02F0, $01D0
     db !id_money_bag,                   $80 : dw $0318, $0258
     db !id_skull_flower_multi_inactive, $83 : dw $0340, $0200
@@ -898,16 +856,17 @@ endif
 
 ..r3: ;third rotation
     db $01
+
     db !id_chest, $92 : dw $0298, $02C0
 
 ..r4: ;fourth rotation
     db $03
+
     db !id_stage4_exit, $80 : dw $0040, $0130
     db !id_chest2,      $94 : dw $0070, $00FA
     db !id_money_bag,   $88 : dw $0368, $00E8
 
 ..b:
-
 if !version == 0 || !version == 1
     db $16
 elseif !version == 2
@@ -920,29 +879,23 @@ endif
     db !id_moving_platform, $88 : dw $00C0, $0290
     db !id_killer,          $80 : dw $0100, $0080
     db !id_enemy_spawner,   $8F : dw $0100, $0080 ;annihilation cell spawner
-
 if !version == 0 || !version == 1
     db !id_geyser,          $01 : dw $0130, $0330
     db !id_geyser,          $00 : dw $0140, $02A0
 endif
-
     db !id_geyser,          $01 : dw $0140, $0200
     db !id_geyser,          $00 : dw $0180, $00F8
     db !id_geyser,          $00 : dw $01C0, $03B0
-
 if !version == 0 || !version == 1
     db !id_geyser,          $00 : dw $0200, $00F8
     db !id_geyser,          $00 : dw $0200, $0270
 endif
-
     db !id_geyser,          $01 : dw $0240, $0338
     db !id_geyser,          $00 : dw $0280, $00F8
     db !id_geyser,          $01 : dw $0268, $0220
-
 if !version == 0 || !version == 1
     db !id_geyser,          $00 : dw $02C0, $03C0
 endif
-
     db !id_moving_platform, $84 : dw $0300, $017C
     db !id_moving_platform, $8A : dw $0320, $00E8
     db !id_moving_platform, $82 : dw $0330, $0134
@@ -951,10 +904,10 @@ endif
 
 ..c:
     db $01
+
     db !id_hydra, $8F : dw $0100, $0088
 
 .stage5:
-
 if !version == 0 || !version == 1
     db $31
 elseif !version == 2
@@ -985,11 +938,9 @@ endif
     db !id_ice_bridge_spawner,   $80 : dw $0708, $05C3
     db !id_chest2,               $85 : dw $07A0, $0540
     db !id_mad_dog,              $80 : dw $0810, $0540
-
 if !version == 0 || !version == 1
     db !id_mad_dog,              $81 : dw $0830, $0594
 endif
-
     db !id_money_bag,            $80 : dw $0860, $0534
     db !id_mad_dog,              $81 : dw $08A0, $0580
     db !id_chest2,               $86 : dw $08A0, $0580
@@ -1007,11 +958,9 @@ endif
     db !id_avalanche,            $80 : dw $0B00, $0440
     db !id_mad_dog,              $81 : dw $0C10, $03AC
     db !id_avalanche,            $81 : dw $0C40, $0440
-
 if !version == 0 || !version == 1
     db !id_mad_dog,              $81 : dw $0CC0, $037C
 endif
-
     db !id_chest,                $93 : dw $0CD9, $0311
     db !id_grilian,              $80 : dw $0D00, $0360
     db !id_avalanche,            $82 : dw $0D80, $0440
@@ -1020,7 +969,6 @@ endif
     db !id_avalanche,            $83 : dw $0E80, $0440
 
 .stage6:
-
 if !version == 0 || !version == 1
     db $10
 elseif !version == 2
@@ -1028,11 +976,9 @@ elseif !version == 2
 endif
 
     db !id_chest,                    $8E : dw $0080, $0380
-
 if !version == 0 || !version == 1
     db !id_arremer,                  $84 : dw $0140, $0240
 endif
-
     db !id_chest2,                   $8C : dw $0160, $0248
     db !id_money_bag,                $80 : dw $0160, $02B0
     db !id_arremer,                  $84 : dw $01A0, $0370
@@ -1049,7 +995,6 @@ endif
     db !id_astaroth,                 $80 : dw $04D0, $0138
 
 .stage7:
-
 if !version == 0 || !version == 1
     db $19
 elseif !version == 2
@@ -1068,30 +1013,24 @@ endif
     db !id_money_bag,                $88 : dw $0188, $0478
     db !id_chest2,                   $90 : dw $0240, $0480
     db !id_chest2,                   $97 : dw $0180, $04A0
-
 if !version == 0 || !version == 1
     db !id_arremer,                  $86 : dw $0200, $04D0
 endif
-
     db !id_chest2,                   $8F : dw $0100, $0540
     db !id_cockatrice_head2_spawner, $80 : dw $00E0, $0548
     db !id_money_bag,                $80 : dw $0118, $05F8
     db !id_cockatrice_head2_spawner, $80 : dw $0120, $0620
-
 if !version == 0 || !version == 1
     db !id_killer,                   $81 : dw $0050, $0680
 endif
-
     db !id_killer,                   $81 : dw $0118, $0680
     db !id_cockatrice_head2_spawner, $81 : dw $0070, $06E0
     db !id_money_bag,                $80 : dw $0078, $0714
     db !id_killer,                   $81 : dw $0118, $0720
     db !id_killer,                   $81 : dw $005A, $0740
-
 if !version == 0 || !version == 1
     db !id_killer,                   $81 : dw $0118, $0760
 endif
-
     db !id_chest2,                   $93 : dw $0040, $0780
 
 .stage8:
@@ -1432,7 +1371,6 @@ _048C43: ;a8 x8
     lda #$3E : jsl _01A717_A728
     jsl _048DF9
     jsr _049219_9228
-
 if !version == 0 || !version == 1
     jsl _018360
     jsl enable_nmi
@@ -1441,7 +1379,6 @@ elseif !version == 2
     stz $02F2
     jsl _018360
 endif
-
     stz.w stage
     jsl _018CE2
     ldy #$08 : jsl _048E3F
@@ -1602,13 +1539,11 @@ _048EAD: ;a8 x8
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldx #$62 : jsl _0180C7_ram_to_vram
     lda #$05 : jsr _048E68_local
-
 if !version == 0
     lda #$02 : jsl _0183D4_83DB
 elseif !version == 1 || !version == 2
     lda #$06 : jsl _0183D4_83DB
 endif
-
     lda #$0B : jsl _0190B9_palette_to_ram
     jsl _018CE2
     lda #$0C : sta.w stage
@@ -2246,7 +2181,6 @@ _04984F:
     dw $431E, $429A, $29D4, $0150, $190C, $499E, $6292, $7316, $7BDE, $7B0E, $6A4C, $61C8, $5140, $40C0, $0842
     dw $004E, $00D4, $0158, $01DA, $739C, $56B5, $3DEF, $2108, $021E, $1A9C, $7ACC, $6A4A, $61C6, $4142, $0421
     dw $000B, $0012, $0018, $0159, $01FB, $2ADC, $3B5D, $7BDE, $0000, $0000, $0000, $0000, $0000, $0000, $0000
-
 if !version == 0 || !version == 1
     dw $000E, $0054, $017D, $00CE, $0171, $1697, $377E, $7FFF, $6739, $4210, $2D6B, $40E3, $55A9, $7690, $0421
 elseif !version == 2
@@ -2458,7 +2392,6 @@ endif
     db $0C : dw $0B14
     dw $2811, $2822, $2819, $280E, $281B, $2845, $280B, $280E, $2817, $2810, $2812, $280E
     db $15 : dw $0D4A
-
 if !version == 0
     dw $2424, $240B, $240A, $240C, $2414, $2410, $241B, $240A, $241E, $2417, $240D, $2445, $240D, $240E, $241C, $2412, $2410, $2417, $240E, $241B, $2424
 elseif !version == 1 || !version == 2
@@ -2729,6 +2662,7 @@ elseif !version == 1
 elseif !version == 2
     db $00, $00, $00, $00
     incbin "eu_fill_bytes/bank04a.bin" ;almost looks like a table or compressed data in there...
+    ;see "lda $04ED00,X : sta $F400,Y ;todo" in bank01
 endif
 
 { ;F000 - F002

@@ -2415,7 +2415,6 @@ recorded_inputs:
 ;-----
 
     ;F200: demo 2
-
 if !version == 0 || !version == 1
     db $00, $5A
     db $01, $48

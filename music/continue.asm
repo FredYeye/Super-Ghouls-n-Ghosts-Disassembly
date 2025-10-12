@@ -68,7 +68,6 @@
     %tuning($32)
     %duration($F0)
     %release($14)
-
 if !version == 0 || !version == 1
     %volume($34)
     %instrument($0E)

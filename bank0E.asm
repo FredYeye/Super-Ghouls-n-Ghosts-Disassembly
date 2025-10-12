@@ -150,7 +150,6 @@ incbin "graphics/placeholder.bin"
 incbin "graphics/item_armor_steel.bin"
 incbin "graphics/item_armor_gold.bin"
 incbin "graphics/item_armor_bronze.bin"
-
 if !version == 0
 	fillbyte $FF : fill 320
 elseif !version == 1

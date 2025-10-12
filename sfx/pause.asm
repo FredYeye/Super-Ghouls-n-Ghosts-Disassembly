@@ -17,7 +17,6 @@
     %end_track()
 
 ..ch3:
-
 if !version == 0 || !version == 1
     %tempo($01EB)
 ..48AA:
@@ -36,11 +35,9 @@ if !version == 0 || !version == 1
     %note($15, 3)
     %note($16, 3)
 endif
-
     %end_track()
 
 ..ch2:
-
 if !version == 0 || !version == 1
     %note($00, 6)
     %note($00, 3)
@@ -62,7 +59,6 @@ elseif !version == 2
     %note($15, 3)
     %note($16, 3)
 endif
-
     %end_track()
 
 ..ch1:

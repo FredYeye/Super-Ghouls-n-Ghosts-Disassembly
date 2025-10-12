@@ -551,7 +551,7 @@ _02821B: ;a8 x8
 .thing_object_offsets: ;85F4 ;todo: figure out a better name. code that needs to run every frame regardless of state?
     dw arthur_thing, $8780, $8780, $8780, $8780, $8780, bowgun2_thing, scythe_thing, $87D0, $8780, $8780, axe_thing, axe2_thing, triblade_thing, triblade2_thing, bracelet_thing
     dw bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing, lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
-    dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780, $FD7C, flower_part_thing, torch_flame_thing, torch2_flame_thing, $FD7C, $8780, $8780, shell_thing
+    dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780, _02FD62_FD7C, flower_part_thing, torch_flame_thing, torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
     dw shell_pearl_thing, $8780, $8780, $8780, $8780, belial_thing, $8780, $8780, $AF04, $8780, rosebud_thing, $8780, obj_void, eagler_thing, rotating_platform_thing, chest_thing
     dw magician_thing, armor_thing, weapon_thing, pickup_shield_thing, $8780, magician_orb_thing, $8780, $81B5, $81B5, $81B5, raft_pulley_thing, zombie_thing, $8780, $8780, $8780, flower_projectile_thing
     dw $8780, icicle_thing, $8780, $8780, $8780, siren_thing, flying_killer_thing, hydra_thing, hydra_genie_thing, key_thing, key_message_thing, raft_thing, guillotine_thing, $8780, ghost_thing, ghost_unformed_thing
@@ -3830,7 +3830,7 @@ eagler:
     beq .99CB
 
     ldy #$D8 : ldx #$21 : jsl set_sprite
-    jsl $02F9E0
+    jsl _02F9DA_F9E0
 .99B6:
     brk #$00
 
@@ -7533,13 +7533,17 @@ chest: ;a8 x8
     jml _02821B_827A
 
 .chest_order: ;indexes into B827
-    db $03, $01, $03, $00, $03, $00, $04, $03, $00, $04, $03, $00, $04, $00, $03, $00 ;underwear
-    db $01, $00, $01, $04, $03, $00, $04, $01, $03, $00, $01, $04, $03, $00, $04, $01 ;steel armor
-    db $03, $01, $00, $01, $00, $03, $01, $00, $01, $01, $00, $01, $00, $03, $01, $01 ;?
-    db $03, $01, $00, $01, $00, $03, $01, $00, $01, $01, $00, $01, $00, $03, $01, $01 ;bronze armor
-    db $03, $02, $01, $02, $01, $02, $01, $02, $01, $02, $01, $02, $01, $02, $01, $02 ;gold armor
-    db $03, $01, $03, $02, $01, $03, $01, $02, $03, $01, $03, $02, $01, $03, $01, $02 ;red shield
-    db $03, $01, $03, $01, $01, $04, $03, $01, $03, $01, $03, $01, $03, $01, $03, $01 ;blue shield
+if !version == 0 || !version == 1
+    db 3, 1, 3, 0, 3, 0, 4, 3, 0, 4, 3, 0, 4, 0, 3, 0 ;underwear
+elseif !version == 2
+    db 0, 0, 3, 0, 1, 0, 0, 3, 0, 4, 3, 0, 4, 0, 3, 0 ;underwear
+endif
+    db 1, 0, 1, 4, 3, 0, 4, 1, 3, 0, 1, 4, 3, 0, 4, 1 ;steel armor
+    db 3, 1, 0, 1, 0, 3, 1, 0, 1, 1, 0, 1, 0, 3, 1, 1 ;?
+    db 3, 1, 0, 1, 0, 3, 1, 0, 1, 1, 0, 1, 0, 3, 1, 1 ;bronze armor
+    db 3, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 ;gold armor
+    db 3, 1, 3, 2, 1, 3, 1, 2, 3, 1, 3, 2, 1, 3, 1, 2 ;red shield
+    db 3, 1, 3, 1, 1, 4, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1 ;blue shield
 
 .B827:
     db !id_armor, !id_weapon, !id_pickup_shield, !id_magician, $44, $7D
@@ -8582,8 +8586,13 @@ bracelet_item_sparkle:
     ldy #$38 : ldx #$20 : jsl set_sprite
     lda $09 : ora #$80 : sta $09
     !A16
+if !version == 0 || !version == 1
     lda.w _00ED00+$0C : sta $27
     lda #$0100 : sta $29
+elseif !version == 2
+    lda.w _00ED00+$6A : sta $27
+    lda #$011D : sta $29
+endif
     !A8
     lda #$FF : sta $26
     lda #$10 : sta $35
@@ -14281,7 +14290,11 @@ bat_spawner:
     bcs .EA89
 
     lda #!id_bat : jsl prepare_object
+if !version == 0 || !version == 1
     lda #$7F : cop #$00
+elseif !version == 2
+    lda #$C0 : cop #$00
+endif
 
 ;----- EAB7
 
@@ -14908,7 +14921,11 @@ flower_head:
     bne .EFE7
 
     clc
+if !version == 0 || !version == 1
     lda #$0C : adc !obj_hp : sta !obj_hp
+elseif !version == 2
+    lda #$04 : adc !obj_hp : sta !obj_hp
+endif
 .EFE7:
     stz $31
     stz $32
@@ -16269,17 +16286,16 @@ enemy_spawner: ;a8 x8
 
     lda $32
     and #$07
-
 if !version == 0 || !version == 1
     tax
     inc $32
 elseif !version == 2
+    ;oversight? the $32 increment is removed in the EU version! so there is only one zombie delay timer per difficulty
     ldx.w difficulty
     clc
     adc.w zombie_spawner_data_delay,X
     tax
 endif
-
     lda.w zombie_spawner_data_delay,X : cop #$00
 
 ;----- F99E

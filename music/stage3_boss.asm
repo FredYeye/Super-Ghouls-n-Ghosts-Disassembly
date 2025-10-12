@@ -66,13 +66,11 @@
     %note($00, 6)
     %duration($F8)
     %release($14)
-
 if !version == 0 || !version == 1
     %volume($5F)
 elseif !version == 2
     %volume($55)
 endif
-
     %instrument($0E)
 ..2D7B:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -117,24 +115,20 @@ endif
     %duration($F4)
     %note($1A, 5)
     %octave($05)
-
 if !version == 0 || !version == 1
     %volume($3A)
 elseif !version == 2
     %volume($32)
 endif
-
     %loop(0, 1, ..2DA1)
 ..2DB5:
     %toggle_triplet_portamento_2_octave_up($00)
     %note($00, 5)
-
 if !version == 0 || !version == 1
     %volume($61)
 elseif !version == 2
     %volume($64)
 endif
-
     %instrument($0F)
     %octave($04)
     %tuning($10)

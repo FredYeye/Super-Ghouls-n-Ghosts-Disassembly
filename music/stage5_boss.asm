@@ -305,7 +305,6 @@
 ..ch4:
     %pan($55)
     %duration($F5)
-
 if !version == 0 || !version == 1
     %volume($60)
     %instrument($0E)
@@ -315,7 +314,6 @@ elseif !version == 2
     %instrument($0E)
     %octave($03)
 endif
-
     %set_dotted_note()
     %note($00, 4)
     %toggle_2_octaves_up()

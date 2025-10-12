@@ -1538,7 +1538,6 @@ stage1_earthquake_tiles:
 ;-----
 
 	;CD73 - CFFF
-
 if !version == 0
 	;unused data?
 	db $00, $00, $01, $10, $60, $40, $00, $00, $00, $00, $00, $00, $00, $20, $A0, $00
