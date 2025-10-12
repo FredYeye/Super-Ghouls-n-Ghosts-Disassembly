@@ -3068,7 +3068,7 @@ _019735_eu:
 .973B:
     lda.w .9752,Y
     phy
-    jsl _00A8CD
+    jsl _01A8CD
     ply
     lda.w .9759,Y : jsl _01A717_A728
     dey : bpl .973B
@@ -5251,7 +5251,7 @@ endif
 
 if !version == 2
 { ;A8CD - A8EB
-_00A8CD:
+_01A8CD:
     asl #5
     tax
     phb
@@ -5286,7 +5286,7 @@ if !version == 0 || !version == 1
 elseif !version == 2
     ldx #$30 : jsl _0180C7
     ldx #$9A : jsl _0180C7_ram_to_vram
-    lda #$01 : jsl $0 ;CODE_049343 todo
+    lda #$01 : jsl _048E68
 endif
     stz $02E1
     !A16
@@ -5299,9 +5299,9 @@ if !version == 0 || !version == 1
     ldx #$04 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
     jsl enable_nmi
 elseif !version == 2
-    lda #$00 : jsl _0183D4_83DB
+    lda #$00 : jsl _01A8CD
     lda #$8F : sta $02F2
-    jsl $0 ;CODE_01833A todo
+    jsl enable_nmi
     lda #$62 : jsl _018049_8053
     lda #$19 : jsl _01A717_A728
     ldx #$02 : ldy #$18 : lda #$1C : jsl _01A6FE
@@ -5316,7 +5316,7 @@ if !version == 0 || !version == 1
     lda #$3F : sta $0055
 elseif !version == 2
     lda #$12 : jsl _01A717_A728
-    ldy #$30 : lda #$74 : jsl $0 ;CODE_01A74F todo
+    ldy #$30 : lda #$74 : jsl _01A6FE
 .A964:
     lda #$01 : jsl _01A717_A728
     lda $007E
@@ -9030,7 +9030,7 @@ _01C679:
     rts
 }
 
-{ ;C87B - C8A0
+{ ;C87B - C8A6
 _01C87B:
     ;unused
     lda $1EB3
@@ -9055,14 +9055,12 @@ _01C87B:
 ;-----
 
 .C895:
-    lda $C8A1,X ;todo
-    ldy $C8A3,X ;todo
+    lda.w .C8A1+0,X
+    ldy.w .C8A1+2,X
     ldx #$001E
     jmp _01C045
-}
 
-{ ;C8A1 - C8A6
-    db $18, $00, $00, $0C, $80, $00 ;unused, doesn't seem to be code?
+.C8A1: db $18, $00, $00, $0C, $80, $00
 }
 
 { ;C8A7 - CC1A
@@ -11588,7 +11586,7 @@ _01DAB8:
     bra .DB63
 }
 
-{ ;DB67 -
+{ ;DB67 - DC18
 _01DB67: ;a8 x?
     lda #$04 : jsr _01DDCE
     stz $02AC
@@ -11700,7 +11698,7 @@ _01DC19: ;hit by avalanche
     lda $14EF
     beq .DC34
 
-    jsr $D957
+    jsr _01D957
     bne .DC28
 
 .DC34:
@@ -11708,7 +11706,7 @@ _01DC19: ;hit by avalanche
     stz $0F
     stz $14F5
     lda !armor_state : asl : tax
-    jmp (+,X) : +: dw _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, arthur_baby_DF31, $E0AA, $E195, $DFE8
+    jmp (+,X) : +: dw _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, arthur_baby_DF31, arthur_seal_E0AA, arthur_bee_E195, arthur_maiden_DFE8
 }
 
 { ;DC56 - DCCE
@@ -11817,7 +11815,7 @@ _01DD01: ;a8 x8
 
 +:
     dw _01CCBD_CDBE, _01CCBD_CDBE, _01CCBD_CDBE, _01CCBD_CDBE, _01CCBD_CDBE ;armors
-    dw arthur_baby_DF31, $E0AA, $E195, $DFE8 ;transformations
+    dw arthur_baby_DF31, arthur_seal_E0AA, arthur_bee_E195, arthur_maiden_DFE8 ;transformations
 }
 
 { ;DD45 - DD5B
@@ -12336,7 +12334,7 @@ arthur_seal: ;a? x8
     ldy #$5A : jsl set_speed_x
     lda !obj_facing : sta !obj_direction
 .E0DB:
-    jsr $CE85
+    jsr _01CCBD_CE85
     lda #$04 : jsr _01CCBD_CE9C
     lda #$04 : jsr _01D090_D1C5
     lda.w p1_button_hold+1
@@ -13026,7 +13024,7 @@ _01E590:
     ldx #$24 : jsl update_pos_xy_2
     jsl set_sprite_84A7
     jsl update_animation_normal
-    jsr $E285
+    jsr _01E285
     lda !obj_direction : lsr : tax
     lda.w _00BB22_BB40,X : sta !obj_facing
     rtl
@@ -13510,7 +13508,7 @@ _01E9C5:
     stz !obj_facing
     jsr .EA36
     lda #$01 : sta !obj_facing
-    jsr $EA36
+    jsr .EA36
     stz !obj_facing
     ldy #$7E : ldx #$21 : jsl set_sprite
     lda #$10 : cop #$00
@@ -14143,7 +14141,7 @@ _01EF44:
 
 ;----- EF58
 
-    jsr $D957
+    jsr _01D957
     lda !open_magic_slots
     cmp #$08
     bne .EF56
@@ -15669,7 +15667,7 @@ _01FF00: ;a- x-
 if !version == 0 || !version == 1
     .18: jml _03EE1D ;talking time
 elseif !version == 2
-    .18: jml $0 ;0484B9 todo
+    .18: jml _0484B9
 endif
     .1C: jml _019776
     .20: jml _019776_9797

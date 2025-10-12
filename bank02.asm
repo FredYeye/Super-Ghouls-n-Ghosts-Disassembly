@@ -16290,7 +16290,7 @@ if !version == 0 || !version == 1
     tax
     inc $32
 elseif !version == 2
-    ;oversight? the $32 increment is removed in the EU version! so there is only one zombie delay timer per difficulty
+    ;oversight? "inc $32" is removed! so there is only one zombie delay timer per difficulty
     ldx.w difficulty
     clc
     adc.w zombie_spawner_data_delay,X
@@ -17292,5 +17292,7 @@ if !version == 0
     fillbyte $FF : fill 91
 elseif !version == 1
     incbin "us_fill_bytes/bank02a.bin"
+elseif !version == 2
+    incbin "us_fill_bytes/bank02a.bin":5..0
 endif
 }

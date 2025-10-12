@@ -1377,7 +1377,7 @@ if !version == 0 || !version == 1
     stz $02F2
 elseif !version == 2
     stz $02F2
-    jsl _018360
+    jsl enable_nmi
 endif
     stz.w stage
     jsl _018CE2

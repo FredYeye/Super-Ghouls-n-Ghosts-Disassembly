@@ -1948,7 +1948,7 @@ if !version == 0
 	db $10, $05, $20, $08, $00, $00, $20, $00, $00, $20, $02, $04, $00, $29, $04, $04
 	db $01, $40, $00, $40, $0A, $00, $00, $04, $00, $84, $00, $40, $04, $01, $00, $00
 	db $00, $81
-elseif !version == 1
+elseif !version == 1 || !version == 2
 	;this could be data that meant something at some point. seems unused now though.
 	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
 	incbin "us_fill_bytes/bank1Fb.bin"

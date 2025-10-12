@@ -9,7 +9,7 @@ The quality and style of various code and data sections can vary quite a bit as 
 - [ ] JP prototype
 - [x] JP
 - [x] US
-- [ ] EU
+- [x] EU
 
 ## Instructions
 Assemble `chou.asm` with asar. Produces an identical copy of the original rom.

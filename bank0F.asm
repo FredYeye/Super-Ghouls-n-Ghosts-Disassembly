@@ -53,7 +53,7 @@ incbin "graphics/magic_nuclear.bin"
 { ;FDC0 - FFFF
 if !version == 0
     fillbyte $FF : fill 576
-elseif !version == 1
+elseif !version == 1 || !version == 2
     incbin "us_fill_bytes/bank0Fa.bin"
 endif
 }

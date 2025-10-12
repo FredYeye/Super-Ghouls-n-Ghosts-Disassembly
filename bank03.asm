@@ -118,7 +118,13 @@ _038000: ;stage screen layouts
 
 .815A:
     db $1A, $08
-    db screen(screen_layouts2_s3_A200), screen(screen_layouts2_s3_A280), screen(screen_layouts2_s3_AD00), screen(screen_layouts2_s3_A000)
+    db screen(screen_layouts2_s3_A200), screen(screen_layouts2_s3_A280)
+if !version == 0 || !version == 1
+    db screen(screen_layouts2_s3_AD00)
+elseif !version == 2
+    db screen(screen_layouts2_s3_A000)
+endif
+    db screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
@@ -126,7 +132,13 @@ _038000: ;stage screen layouts
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
 
-    db screen(screen_layouts2_s3_A300), screen(screen_layouts2_s3_A380), screen(screen_layouts2_s3_AD00), screen(screen_layouts2_s3_A000)
+    db screen(screen_layouts2_s3_A300), screen(screen_layouts2_s3_A380)
+if !version == 0 || !version == 1
+    db screen(screen_layouts2_s3_AD00)
+elseif !version == 2
+    db screen(screen_layouts2_s3_A000)
+endif
+    db screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
@@ -3958,7 +3970,7 @@ _03B12B:
     jml _0281BB
 }
 
-{ ;B19E - 859B
+{ ;B19E - B59B
 _03B19E:
 
 .create: ;B19E
@@ -3986,7 +3998,11 @@ _03B19E:
 ;----- B1C6
 
     lda !arthur_pos_x+1
+if !version == 0 || !version == 1
     cmp #$1A30
+elseif !version == 2
+    cmp #$1AA0 ;death crawler triggers farther to the right
+endif
     bcc .B1C4
 
     lda #$1900 : sta.w screen_boundary_left
@@ -12094,9 +12110,17 @@ endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;siren
+elseif !version == 2
+    db 4, 6, 12, 10 ;has more hp in expert than professional!
+endif
     db 1, 1, 1, 1 ;flying killer
+if !version == 0 || !version == 1
     db 60, 70, 75, 80 ;hydra
+elseif !version == 2
+    db 60, 70, 95, 105
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12105,10 +12129,18 @@ endif
     db 5, 5, 5, 5 ;$5D, unused obj
     db 2, 2, 2, 2 ;ghost
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;flower head
+elseif !version == 2
+    db 4, 6, 10, 10
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 160, 170, 179, 184 ;cockatrice head
+elseif !version == 2
+    db 120, 150, 179, 184
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12118,16 +12150,28 @@ endif
     db 0, 0, 0, 0
     db 10, 10, 10, 10 ;mimic
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 17, 17, 17, 17 ;hannibal
+elseif !version == 2
+    db 4, 6, 12, 17
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;wolf
+elseif !version == 2
+    db 4, 6, 10, 10
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 139, 149, 155, 160 ;storm cesaris
+elseif !version == 2
+    db 110, 135, 155, 160
+endif
     db 0, 0, 0, 0
     db 5, 5, 5, 5
     db 5, 5, 5, 5
@@ -12137,27 +12181,52 @@ endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 29, 35, 35, 35 ;grilian
+elseif !version == 2
+    db 6, 12, 18, 35
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;gargoyle statue
+elseif !version == 2
+    db 4, 6, 10, 10
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 17, 17, 17, 17 ;skull flower multi
+elseif !version == 2
+    db 4, 6, 12, 17
+endif
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 18, 29, 29, 29 ;arremer
     db 17, 17, 17, 17
+elseif !version == 2
+    db 12, 18, 29, 29
+    db 4, 6, 12, 17
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 150, 170, 179, 185 ;death crawler
+elseif !version == 2
+    db 110, 150, 179, 185
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 2, 2, 2, 2
+if !version == 0 || !version == 1
     db 5, 5, 5, 5 ;tiny goblin
+elseif !version == 2
+    db 4, 4, 4, 4
+endif
     db 0, 0, 0, 0
     db 23, 23, 23, 23
     db 0, 0, 0, 0
@@ -12170,13 +12239,26 @@ endif
     db 10, 10, 10, 10
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 119, 129, 139, 149 ;astaroth
     db 180, 190, 209, 219 ;nebiroth
+elseif !version == 2
+    db 80, 90, 100, 110
+    db 90, 100, 110, 120
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 60, 60, 60, 60 ;cockatrice head 2
+elseif !version == 2
+    db 30, 30, 30, 30
+endif
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 10, 10, 10, 10 ;mad dog
+elseif !version == 2
+    db 4, 6, 10, 10
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12186,7 +12268,11 @@ endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
+if !version == 0 || !version == 1
     db 160, 170, 175, 180 ;veil allocen
+elseif !version == 2
+    db 100, 130, 150, 180
+endif
     db 0, 0, 0, 0
     db 0, 0, 0, 0
     db 0, 0, 0, 0
@@ -12667,7 +12753,11 @@ _03F8A3:
     stz $1EC3
     stz $1EC5
     !A8
+if !version == 0 || !version == 1
     lda #$03 : sta $1EBB
+elseif !version == 2
+    lda #$02 : sta $1EBB
+endif
     lda #$04 : sta $1EBD
     inc $0323
     lda #$17 : sta $02D5 : sta $02D6
@@ -12680,7 +12770,11 @@ _03F8A3:
     jsl _018021
     !A16
     lda $1EC3
+if !version == 0 || !version == 1
     and #$01FF
+elseif !version == 2
+    and #$00FF
+endif
     bne .FA42
 
     jsr .FBA7
@@ -12688,14 +12782,17 @@ _03F8A3:
     inc $1EC3
     lda $1EB9
     and #$0001
+if !version == 0 || !version == 1
     bne .FA7D
 
-if !version == 0 || !version == 1
     lda $1EB9 ;unused lda
+elseif !version == 2
+    bne .FA6E
 endif
     lda $1F5B : sec : sbc #$0001 : sta $1F5B
     lda $1F58 : clc : adc #$0001 : sta $1F58
     lda $19C5 : sec : sbc #$0001 : sta $19C5
+.FA6E:
     lda $1EC5
     bne .FA7D
 
