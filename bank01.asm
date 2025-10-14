@@ -5258,7 +5258,7 @@ _01A8CD:
     lda #$7E : pha : plb
     ldy #$00
 .A8DA:
-    lda $04ED00,X : sta $F400,Y ;todo
+    lda.l _04ED00,X : sta $F400,Y
     inx
     iny
     cpy #$20

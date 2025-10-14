@@ -1170,7 +1170,7 @@ ram_to_vram_offsets:
 if !version == 0 || !version == 1
     dl $7F0000 : dw $0280, $00D0
 elseif !version == 2
-    dl $04E800 : dw $2000, $0250 ;todo: label
+    dl _04E800 : dw $2000, $0250
 endif
     dl $7F0000 : dw $2000, $0800
     dl $7F9800 : dw $0000, $0280
@@ -1198,7 +1198,7 @@ endif
     dl $7FD000 : dw $5C00, $0400 ;142
     dl $7F0000 : dw $5280, $00D0 ;149
 if !version == 2
-    dl $04E000 : dw $0000, $0400 ;todo: label
+    dl _04E000 : dw $0000, $0400
 endif
 }
 
@@ -5204,11 +5204,10 @@ _00DF65:
 }
 
 { ;DFE5 - EA5E
-_00DFE5: dw random_values_beginner, random_values_normal, random_values_expert, random_values_professional
+_00DFE5:
+    dw random_values_beginner, random_values_normal, random_values_expert, random_values_professional
 
-random_values: ;DFED
-
-;todo: the offsets that aren't using labels are incorrect
+random_values:
 
 .beginner:
     dw offset(random_values, .02E0_b), offset(random_values, .02F1_b), offset(random_values, .0315_b), offset(random_values, .0326_b)
