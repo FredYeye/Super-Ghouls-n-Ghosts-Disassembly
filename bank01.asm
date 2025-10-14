@@ -5304,7 +5304,7 @@ elseif !version == 2
     jsl enable_nmi
     lda #$62 : jsl _018049_8053
     lda #$19 : jsl _01A717_A728
-    ldx #$02 : ldy #$18 : lda #$1C : jsl _01A6FE
+    ldx #$02 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
 endif
 .A8DC:
     lda #$01 : jsl _01A717_A728
@@ -5316,7 +5316,7 @@ if !version == 0 || !version == 1
     lda #$3F : sta $0055
 elseif !version == 2
     lda #$12 : jsl _01A717_A728
-    ldy #$30 : lda #$74 : jsl _01A6FE
+    ldy #$30 : lda.b #_01FF00_74 : jsl _01A6FE
 .A964:
     lda #$01 : jsl _01A717_A728
     lda $007E
@@ -6048,15 +6048,9 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage4_b:
-    ldx #$00
-    lda #$30
-    jsr _01F6C9_local
-    ldy #$30
-    lda.b #_01FF00_50
-    jsl _01A6FE
-    ldy #$48
-    lda.b #_01FF00_70
-    jsl _01A6FE
+    ldx #$00 : lda #$30 : jsr _01F6C9_local
+    ldy #$30 : lda.b #_01FF00_50 : jsl _01A6FE
+    ldy #$48 : lda.b #_01FF00_70 : jsl _01A6FE
     ldx #$02
     bra .B0B4
 

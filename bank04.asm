@@ -1740,7 +1740,7 @@ _049121: ;a? x?
     ldx #$54 : jsl _0180C7_ram_to_vram
     ldy #$9A : jsl _01A21D_decompress_graphics
     ldx #$70 : jsl _0180C7_ram_to_vram
-    lda #$0B : jsl $0190CE
+    lda #$0B : jsl _0190B9_palette_to_ram
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldx #$62 : jsl _0180C7_ram_to_vram
     lda #$15 : jsr _048E68_local

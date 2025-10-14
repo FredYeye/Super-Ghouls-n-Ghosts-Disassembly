@@ -3863,7 +3863,7 @@ eagler:
     bit $09
     bvc .9A02
 
-    jsl $0296E9
+    jsl _0296E9
     rts
 
 .9A02:

@@ -9528,7 +9528,7 @@ _03DB5F:
 
 ;----- DCB2
 
-    jsl $02807D
+    jsl _028074_807D
     jsl update_pos_x
     lda $07
     cmp #$02
