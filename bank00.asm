@@ -478,6 +478,7 @@ _00853D: ;a8 x8
 
 { ;8577 - 85A5
 _008577: ;a8 x-
+    ;unused function
     stz !OAMADDL
     stz !OAMADDH
     lda #$00 : sta !DMAP0
@@ -603,7 +604,7 @@ _008669: ;a8 x8
 }
 
 { ;86B4 - 86FB
-    ;todo: no idea what this is
+    ;unused
     dw $6600, $EE00, $6001, $0000, $0000, $0066, $01F0, $00C0, $0000
     dw $6600, $F200, $C001, $0000, $0000, $0066, $01F4, $00C0, $0000
     dw $6600, $F600, $8001, $0000, $0000, $0066, $01F8, $00C0, $0000
@@ -1448,7 +1449,7 @@ direction16:
     db $08, $07, $06,  $00 ;      left,  upper
     db $04, $05, $06,  $00 ;             lower
     db $00, $0F, $0E,  $00 ;up,   right, lower
-    db $0D, $0D, $0E,  $00 ;             upper | first $0D should be $0C?!
+    db $0D, $0D, $0E,  $00 ;             upper | oversight: first $0D should be $0C?!
     db $08, $09, $0A,  $00 ;      left,  lower
     db $0C, $0B, $0A,  $00 ;             upper
 
