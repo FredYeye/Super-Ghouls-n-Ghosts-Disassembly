@@ -109,9 +109,7 @@ entry: ;emulated mode (code entry)
     jsl enable_nmi
     cli
     lda.b #_01FF00>>8 : sta $40
-    ldy #$00
-    lda #$00
-    jsl _01A6FE
+    ldy #$00 : lda.b #_01FF00_00 : jsl _01A6FE
     jsl _03E7FE
     jml _01A6AB
 }
