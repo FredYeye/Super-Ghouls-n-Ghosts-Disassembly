@@ -1367,7 +1367,7 @@ _048C43: ;a8 x8
     lda $1FB3
     beq .8CE7
 
-    jsr _04922E
+    jsr _049219_922E
     lda #$3E : jsl _01A717_A728
     jsl _048DF9
     jsr _049219_9228
@@ -1391,7 +1391,7 @@ endif
     jsr _048E47
     dec $0333 : bne .8D30
 
-    jsr _04922E
+    jsr _049219_922E
     lda #$3E : jsl _01A717_A728
     jsl _01834C
     jsl disable_nmi
@@ -1426,7 +1426,7 @@ endif
     lda $1FB3
     beq -
 
-    jsr _04922E
+    jsr _049219_922E
     lda #$3E : jsl _01A717_A728
     stz $1FB3
     lda #$0F : sta $02F2
@@ -1485,7 +1485,7 @@ _048E47: ;a8 x8
 
     inc $1FEF
 +:
-    jsr _04922E
+    jsr _049219_922E
     lda #$3E
     jml _01A717_A728
 }
@@ -1773,7 +1773,7 @@ _049121: ;a? x?
 
     jsr .91D3
 .91CA:
-    jsr _04922E
+    jsr _049219_922E
     lda #$3E : jml _01A717_A728
 .91D3:
     sed
@@ -1829,14 +1829,14 @@ _049219:
     rts
 
 .9228: ;a8 x8
-    lda #$08
+    lda.b #_01FF00_08
     ldx #$04
     bra .9221
 
-_04922E: ;a8 x8
-    lda #$0C
+.922E: ;a8 x8
+    lda.b #_01FF00_0C
     ldx #$04
-    bra _049219_9221
+    bra .9221
 }
 
 { ;9234 - 9241
