@@ -5902,13 +5902,13 @@ endif
     dw ..shot_crouch, ..shot_crouch+6
     dw ..climb, ..climb+6
     dw ..climb_top, ..climb_top+6
-    dw $EF14
+    dw .arthur_steel_victory
     dw ..double_jump_neutral
     dw ..double_jump_forward
     dw ..double_jump_crouch
     dw ..double_jump_flip, ..double_jump_flip+6, ..double_jump_flip+12
-    dw $F060, $F066
-    dw ..knockback, $EE48, $EE4E, $EE54, $EE5A, $EE60
+    dw .arthur_upgraded_armor_get_armor, .arthur_upgraded_armor_get_armor+6
+    dw ..knockback, ..knockback+6, ..knockback+12, ..knockback+18, ..knockback+24, ..knockback+30
 
     ;address to uncompressed sprite data, size, [vram offset], terminator
 ..idle:
@@ -5985,9 +5985,9 @@ endif
     dw ..double_jump_neutral
     dw ..double_jump_forward
     dw ..double_jump_crouch
-    dw ..double_jump_flip, $EF32, $EF38
+    dw ..double_jump_flip, ..double_jump_flip+6, ..double_jump_flip+12
     dw .arthur_upgraded_armor_get_armor, .arthur_upgraded_armor_get_armor+6
-    dw ..knockback, $EE48, $EE4E, $EE54, $EE5A, $EE60
+    dw ..knockback, .arthur_underwear_knockback+6, .arthur_underwear_knockback+12, .arthur_underwear_knockback+18, .arthur_underwear_knockback+24, .arthur_underwear_knockback+30
 
 ..idle:
     dl arthur_sprites_steel_idle : dw $01C0 : db $FF
@@ -6064,7 +6064,7 @@ endif
     dw ..double_jump_crouch
     dw .arthur_steel_double_jump_flip, .arthur_steel_double_jump_flip+6, .arthur_steel_double_jump_flip+12
     dw ..get_armor, ..get_armor+6
-    dw ..knockback_bronze, $EE48, $EE4E, $EE54, $EE5A, $EE60
+    dw ..knockback_bronze, .arthur_underwear_knockback+6, .arthur_underwear_knockback+12, .arthur_underwear_knockback+18, .arthur_underwear_knockback+24, .arthur_underwear_knockback+30
 
 ..knockback_bronze:
     dl $0EC4E0 : dw $01C0, $0130
@@ -6086,7 +6086,7 @@ endif
     dw ..double_jump_crouch
     dw .arthur_steel_double_jump_flip, .arthur_steel_double_jump_flip+6, .arthur_steel_double_jump_flip+12
     dw ..get_armor, ..get_armor+6
-    dw ..knockback_gold, $EE48, $EE4E, $EE54, $EE5A, $EE60
+    dw ..knockback_gold, .arthur_underwear_knockback+6, .arthur_underwear_knockback+12, .arthur_underwear_knockback+18, .arthur_underwear_knockback+24, .arthur_underwear_knockback+30
 
 ..idle:
     dl $0F8000 : dw $01C0 : db $FF
