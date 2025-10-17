@@ -6240,16 +6240,19 @@ endif
 ;-----
 
 .magician: ;also used for the bracelet sparkle
-    dw ..F199, $F1A6, $F1AC, $F1B2
+    dw ..F199, ..F1A6, ..F1AC, ..F1B2
 
 ..F199:
     dl $0EDE40 : dw $0140 : dw $0150
     dl $0EE400 : dw $0160 : db $FF
 
+..F1A6:
     dl $0EDF80 : dw $0120 : db $FF
 
+..F1AC:
     dl $0EE0A0 : dw $0360 : db $FF
 
+..F1B2:
     dl $0EE0A0 : dw $0260 : dw $0150
     dl $0EE400 : dw $00C0 : db $FF
 
