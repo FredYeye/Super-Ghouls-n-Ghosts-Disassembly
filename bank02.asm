@@ -9814,18 +9814,18 @@ raft:
     and #$02
     beq .C96B
 
-    lda #$40 : clc : adc $15DC           : sta !arthur_pos_x+0
-    lda #$00 :       adc !arthur_pos_x+1 : sta !arthur_pos_x+1
-    lda #$00 :       adc !arthur_pos_x+2 : sta !arthur_pos_x+2
+    lda #$40 : clc : adc.w camera_x        : sta !arthur_pos_x+0
+    lda #$00 :       adc   !arthur_pos_x+1 : sta !arthur_pos_x+1
+    lda #$00 :       adc   !arthur_pos_x+2 : sta !arthur_pos_x+2
     !A16
     lda !arthur_pos_x+1
     cmp #$15B0
     !A8
     bcs .C96B
 
-    lda #$40 : clc : adc $15DC        : sta !obj_pos_x+0
-    lda #$00       : adc !obj_pos_x+1 : sta !obj_pos_x+1
-    lda #$00       : adc !obj_pos_x+2 : sta !obj_pos_x+2
+    lda #$40 : clc : adc.w camera_x     : sta !obj_pos_x+0
+    lda #$00       : adc   !obj_pos_x+1 : sta !obj_pos_x+1
+    lda #$00       : adc   !obj_pos_x+2 : sta !obj_pos_x+2
 .C96B:
     rts
 
@@ -10451,7 +10451,7 @@ arthur_map: ;a8 x8
 
     jsl update_animation_normal
     clc
-    lda $15DC : adc #$00 : sta $15DC ;also camera? could be a long define
+    lda.w camera_x+0 : adc #$00 : sta.w camera_x+0
     lda.w camera_x+1 : adc #$01 : sta.w camera_x+1
     lda.w camera_x+2 : adc #$00 : sta.w camera_x+2
     jsl _01B90E

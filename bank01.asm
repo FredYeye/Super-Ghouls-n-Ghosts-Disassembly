@@ -468,10 +468,10 @@ _018366: ;a- x8
     !A16
 
     ;clear camera values
-    stz $15DC
-    stz $15DE
-    stz $15E0
-    stz $15E2
+    stz.w camera_x+0
+    stz.w camera_x+2
+    stz.w camera_y+0
+    stz.w camera_y+2
 
     stz $1732
     stz $1734
@@ -8966,7 +8966,7 @@ _01C679:
 .C7F6: ;raft sets 19EC to 2
     !A16
     clc
-    lda $15DC : adc #$0040 : sta $15DC : sta $1732
+    lda.w camera_x+0 : adc #$0040 : sta.w camera_x+0 : sta $1732
     lda.w camera_x+2 : adc #$0000 : sta.w camera_x+2 : sta $1734
     lda.w camera_x+1 : lsr : sta $1889
     clc
