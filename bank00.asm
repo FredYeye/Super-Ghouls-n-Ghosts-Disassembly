@@ -4,9 +4,9 @@ org $008000
 if !version == 0
     fillbyte $FF : fill 256
 elseif !version == 1
-    incbin "us_fill_bytes/bank00a.bin"
+    incbin "fill_bytes/us/bank00a.bin"
 elseif !version == 2
-    incbin "eu_fill_bytes/bank00a.bin"
+    incbin "fill_bytes/eu/bank00a.bin"
 endif
 }
 
@@ -1109,9 +1109,9 @@ _008B05:
 if !version == 0
     fillbyte $FF : fill 5744
 elseif !version == 1
-    incbin "us_fill_bytes/bank00b.bin"
+    incbin "fill_bytes/us/bank00b.bin"
 elseif !version == 2
-    incbin "eu_fill_bytes/bank00b.bin"
+    incbin "fill_bytes/eu/bank00b.bin"
 endif
 }
 
@@ -1291,10 +1291,10 @@ speeds:
     dl $000100
     dl $000400
     dl $000A00
-    dl $000400
-    dl $000400
-    dl $000480
-    dl $000500
+    dl $000400 ;bracelet, underwear
+    dl $000400 ;bracelet, steel
+    dl $000480 ;bracelet, bronze
+    dl $000500 ;bracelet, gold
     dl $000090 ;zombie (expert)
     dl $000120 ;zombie (expert)
     dl $0000C0 ;zombie (professional)
@@ -1640,10 +1640,13 @@ boat: ;todo: rename? stage 2 data or something
     dw $0000, $0156
     db $00, $08
 
-;2-2: most of this appears to go unused?
-.AB70: db 0, 4, 0, 0, 4, 0, 0, 4, 0, 4, 0, 0, 4, 0, 0, 4
-.AB80: dl $FFFE67 : db $08
-.AB84: dl $FFFE67 : db $08
+;2-2:
+.AB70: ;indices into next values, only first value used
+    db 0, 4, 0, 0, 4, 0, 0, 4
+    db 0, 4, 0, 0, 4, 0, 0, 4
+
+.AB80: dl $FFFE67 : db $08 ;default wave speed
+.AB84: dl $FFFE67 : db $08 ;secondary wave speed (identical), unused
 }
 
 { ;AB88 - ABA7
@@ -2625,7 +2628,7 @@ tornado_data:
 }
 
 { ;BC65 - BC78
-_01BC65:
+_00BC65:
 
 .BC65:
     db $04, $02
@@ -3724,25 +3727,26 @@ endif
     db $00, $00, $FF, $00, $00, $FF, $00, $FF, $00, $00, $00, $00, $00, $00, $00, $00
     db $00, $00, $01, $00, $00, $01, $00, $01, $00, $00, $00, $00, $00, $00, $00, $00
 
-.CDA2:
+.wait_timer:
+..forming:
 if !version == 0 || !version == 1
-    db $7E, $6A, $60, $4C ;todo name: forming timer
+    db 126, 106, 96, 76
 elseif !version == 2
-    db $88, $7E, $60, $4C
+    db 136, 126, 96, 76
 endif
 
-.CDA6:
+..begin: ;wait timer right after ghost has formed
 if !version == 0 || !version == 1
-    db $20, $10, $10, $10
+    db 32, 16, 16, 16
 elseif !version == 2
-    db $20, $20, $10, $10
+    db 32, 32, 16, 16
 endif
 
-.CDAA:
+..next: ;wait timer between each action
 if !version == 0 || !version == 1
-    db $5E, $4A, $40, $36
+    db 94, 74, 64, 54
 elseif !version == 2
-    db $68, $5E, $40, $36
+    db 104, 94, 64, 54
 endif
 
 db $40, $80, $C0 ;unused?
@@ -5867,9 +5871,9 @@ _00EC3F:
 if !version == 0
     fillbyte $FF : fill 181
 elseif !version == 1
-    incbin "us_fill_bytes/bank00c.bin"
+    incbin "fill_bytes/us/bank00c.bin"
 elseif !version == 2
-    incbin "eu_fill_bytes/bank00c.bin"
+    incbin "fill_bytes/eu/bank00c.bin"
 endif
 }
 
@@ -7425,9 +7429,9 @@ endif
 if !version == 0
     fillbyte $FF : fill 124
 elseif !version == 1
-    incbin "us_fill_bytes/bank00d.bin"
+    incbin "fill_bytes/us/bank00d.bin"
 elseif !version == 2
-    incbin "eu_fill_bytes/bank00d.bin"
+    incbin "fill_bytes/eu/bank00d.bin"
 endif
 }
 

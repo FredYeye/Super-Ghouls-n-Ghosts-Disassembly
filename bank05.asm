@@ -220,9 +220,9 @@ meta_sprite_part_to_ram:
 if !version == 0
 	fillbyte $FF : fill 111
 elseif !version == 1
-	incbin "us_fill_bytes/bank05a.bin"
+	incbin "fill_bytes/us/bank05a.bin"
 elseif !version == 2
-	incbin "eu_fill_bytes/bank05a.bin"
+	incbin "fill_bytes/eu/bank05a.bin"
 endif
 }
 
@@ -1068,7 +1068,7 @@ _05A812:
 .shell:
 
 ..idle:
-	db $02 : dw meta(0, offset(_058276, _058276_878E)), $1D90, $1D92, $00FF
+	db $02 : dw meta(offset(_058276, _058276_878E), 0), $1D90, $1D92, $00FF
 	dw $0000
 
 ..looking: ;unused
@@ -2329,8 +2329,8 @@ _05A812:
 if !version == 0
 	fillbyte $FF : fill 1282
 elseif !version == 1
-	incbin "us_fill_bytes/bank05b.bin"
+	incbin "fill_bytes/us/bank05b.bin"
 elseif !version == 2
-	incbin "eu_fill_bytes/bank05b.bin"
+	incbin "fill_bytes/eu/bank05b.bin"
 endif
 }

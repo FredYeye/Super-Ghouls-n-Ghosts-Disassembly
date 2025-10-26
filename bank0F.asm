@@ -54,6 +54,6 @@ incbin "graphics/magic_nuclear.bin"
 if !version == 0
     fillbyte $FF : fill 576
 elseif !version == 1 || !version == 2
-    incbin "us_fill_bytes/bank0Fa.bin"
+    incbin "fill_bytes/us/bank0Fa.bin"
 endif
 }

@@ -1408,7 +1408,7 @@ if !version == 0
 elseif !version == 1 || !version == 2
 	;this could be data that meant something at some point. seems unused now though.
 	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
-	incbin "us_fill_bytes/bank1Fa.bin"
+	incbin "fill_bytes/us/bank1Fa.bin"
 endif
 }
 
@@ -1951,6 +1951,6 @@ if !version == 0
 elseif !version == 1 || !version == 2
 	;this could be data that meant something at some point. seems unused now though.
 	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
-	incbin "us_fill_bytes/bank1Fb.bin"
+	incbin "fill_bytes/us/bank1Fb.bin"
 endif
 }

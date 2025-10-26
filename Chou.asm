@@ -20,8 +20,8 @@
     ;specific use: bank 6, big endian labels
     function be(label) = (label>>8)|(label<<8)
 
-    ;specific use: bank 8, mode(0-2, 3 is an error?) / offset to metasprite x/y positions
-    function meta(mode, offset) = (mode<<14)|(offset&$3FFF)
+    ;specific use: bank 5 & 8, offset to metasprite x/y positions | mode(0-2, 3 is an error?)
+    function meta(offset, mode) = (mode<<14)|(offset&$3FFF)
 }
 
 { ;toggle register widths

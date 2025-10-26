@@ -2544,126 +2544,17 @@ endif
 }
 
 if !version == 0
-{ ;A7DC - AA36
-    ;partially duplicated tilemap data
-    ;there probably used to be code at 04A122, pushing tilemap data forward
-    ;then when the code was deleted this was left over as the tilemaps moved back
-
-    ;todo: consider turning into byte defs
-
-    dw $2812, $2814, $280E, $2824, $280B, $2818, $2816, $280B
-    db $0E : dw $0F92
-    dw $241C, $2419, $240E, $240C, $2412, $240A, $2415, $2445, $241D, $2411, $240A, $2417, $2414, $241C
-    db $00
-
-;credits 5
-    db $08 : dw $0098
-    dw $280C, $2811, $2818, $2824, $281C, $281E, $2814, $280E
-    db $08 : dw $0158
-    dw $281D, $280A, $2814, $280E, $2824, $2819, $2818, $2817
-    db $14 : dw $020A
-    dw $280A, $2817, $280D, $2845, $280C, $280A, $2819, $280C, $2818, $2816, $2845, $280A, $2815, $2815, $2845, $281C, $281D, $280A, $280F, $280F
-    db $0A : dw $0596
-    dw $2424, $2419, $241B, $2418, $240D, $241E, $240C, $240E, $241B, $2424
-    db $0C : dw $0694
-    dw $2819, $281B, $2818, $280F, $280E, $281C, $281C, $2818, $281B, $2845, $2845, $280F
-    db $00
-
-;credits 6
-    db $16 : dw $0B4A
-    dw $241D, $2411, $240A, $2417, $2414, $2445, $2422, $2418, $241E, $2445, $240F, $2418, $241B, $2445, $2419, $2415, $240A, $2422, $2412, $2417, $2410, $2428
-    db $00
-
-;credits 7
-    db $0C : dw $0314
-    dw $2019, $201B, $200E, $201C, $200E, $2017, $201D, $200E, $200D, $2045, $200B, $2022
-    db $08 : dw $0398
-    dw $2C50, $2C51, $2C52, $2C53, $2C54, $2C55, $2C56, $2C57
-    db $08 : dw $03D8
-    dw $2C60, $2C61, $2C62, $2C63, $2C64, $2C65, $2C66, $2C67
-    db $00
-
-;"zombie"
-    db $06 : dw $061A
-	dw $2023, $2018, $2016, $200B, $2012, $200E
-	db $00
-
-;"ghost"
-    db $05 : dw $061A
-    dw $2010, $2011, $2018, $201C, $201D
-    db $00
-
-;"mimic"
-    db $05 : dw $061A
-    dw $2016, $2012, $2016, $2012, $200C
-    db $00
-
-;"woo"
-    db $03 : dw $061C
-    dw $2020, $2018, $2018
-    db $00
-
-;"cockatrice and miniwing"
-    db $17 : dw $0608
-    dw $200C, $2018, $200C, $2014, $200A, $201D, $201B, $2012, $200C, $200E, $2045, $200A, $2017, $200D, $2045, $2016, $2012, $2017, $2012, $2020, $2012, $2017, $2010
-    db $00
-
-;"hydra"
-    db $05 : dw $061A
-    dw $2011, $2022, $200D, $201B, $200A
-    db $00
-
-;"asutaroto"
-    db $09 : dw $0616
-    dw $200A, $201C, $201E, $201D, $200A, $201B, $2018, $201D, $2018
-    db $00
-
-;"nebiroth"
-    db $08 : dw $0618
-    dw $2017, $200E, $200B, $2012, $201B, $2018, $201D, $2011
-    db $00
-
-;"samael"
-    db $06 : dw $0618
-    dw $201C, $200A, $2016, $200A, $200E, $2015
-    db $00
-
-;"red arremer ace"
-    db $0F : dw $0612
-    dw $201B, $200E, $200D, $2045, $200A, $201B, $201B, $200E, $2016, $200E, $201B, $2045, $200A, $200C, $200E
-    db $00
-
-;"princess prin prin", "B88 W58 H90"
-    db $12 : dw $060E
-    dw $2019, $201B, $2012, $2017, $200C, $200E, $201C, $201C, $2045, $2019, $201B, $2012, $2017, $2045, $2019, $201B, $2012, $2017
-    db $0B : dw $0654
-    dw $200B, $2008, $2008, $2045, $2020, $2005, $2008, $2045, $2011, $2009, $2000
-    db $00
-
-;"knight arthur"
-    db $0D : dw $0612
-    dw $2014, $2017, $2012, $2010, $2011, $201D, $2045, $200A, $201B, $201D, $2011, $201E, $201B
-    db $00
-
-    db $00
-
-    db $00
-
-    db $00
-
-    db $00
-}
-
-{ ;AA37 - EFFF
+{ ;A7DC - EFFF
+    incbin "fill_bytes/jp/bank04a.bin" ;partially duplicated tilemap data
     fillbyte $FF : fill 17865
 }
 elseif !version == 1
-    incbin "us_fill_bytes/bank04a.bin"
+    incbin "fill_bytes/us/bank04a.bin"
 elseif !version == 2
     db $00, $00, $00, $00
 
 { ;? - DFFF
-    incbin "eu_fill_bytes/bank04a.bin"
+    incbin "fill_bytes/eu/bank04a.bin"
 }
 
 { ;E000 - E7FF
@@ -2879,7 +2770,7 @@ _04E800:
 }
 
 { ;ECA0 - ECFF
-    incbin "eu_fill_bytes/bank04c.bin"
+    incbin "fill_bytes/eu/bank04c.bin"
 }
 
 { ;ED00 - ED7F
@@ -2899,7 +2790,7 @@ _04ED00:
 }
 
 { ;ED80 - EFFF
-    incbin "eu_fill_bytes/bank04d.bin"
+    incbin "fill_bytes/eu/bank04d.bin"
 }
 endif
 
@@ -3755,8 +3646,8 @@ _04F0E0:
 if !version == 0
     fillbyte $FF : fill 370
 elseif !version == 1
-    incbin "us_fill_bytes/bank04b.bin"
+    incbin "fill_bytes/us/bank04b.bin"
 elseif !version == 2
-     incbin "eu_fill_bytes/bank04b.bin"
+     incbin "fill_bytes/eu/bank04b.bin"
 endif
 }

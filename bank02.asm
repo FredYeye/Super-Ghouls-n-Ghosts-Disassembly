@@ -11647,9 +11647,9 @@ cockatrice_body:
     !A16
     stz $3A
     lda #$0001 : sta $33
-    !A8
-.D723:
     !A8 ;duplicate instruction
+.D723:
+    !A8
     brk #$00
 
 ;----- D727
@@ -13779,7 +13779,7 @@ ghost:
     ldy #$C4 : ldx #$21 : jsl set_sprite
     jsr _02E919_E929
     ldx.w difficulty
-    lda.w ghost_data_CDA2,X : sta $37
+    lda.w ghost_data_wait_timer_forming,X : sta $37
 .E725:
     brk #$00
 
@@ -13810,7 +13810,7 @@ ghost:
 
     jsl _02F9DA_F9E0
     ldx.w difficulty
-    lda.w ghost_data_CDA6,X
+    lda.w ghost_data_wait_timer_begin,X
     jmp .E838
 
 .E761:
@@ -13915,7 +13915,7 @@ ghost:
     bne .E817
 
     ldx.w difficulty
-    lda.w ghost_data_CDAA,X
+    lda.w ghost_data_wait_timer_next,X
 .E838:
     sta $37
     lda #$00
@@ -16015,8 +16015,8 @@ stage4_transform:
     !A16
     ldx #$1E
 .F7A5:
-    lda.l _038470_84EC+$00,X : sta $7EF462,X
-    lda.l _038470_84EC+$1E,X : sta $7EF4E2,X ;copies one value too much (non palette data)
+    lda.l palette_cycling_84EC+$00,X : sta $7EF462,X
+    lda.l palette_cycling_84EC+$1E,X : sta $7EF4E2,X ;copies one value too much (non palette data)
     dex #2
     bpl .F7A5
 
@@ -17291,8 +17291,8 @@ _02FF57: ;a x
 if !version == 0
     fillbyte $FF : fill 91
 elseif !version == 1
-    incbin "us_fill_bytes/bank02a.bin"
+    incbin "fill_bytes/us/bank02a.bin"
 elseif !version == 2
-    incbin "us_fill_bytes/bank02a.bin":5..0
+    incbin "fill_bytes/us/bank02a.bin":5..0
 endif
 }

@@ -11,7 +11,7 @@ set_hp: ;a- x-
     ora $0000
     tax
     !A8
-    lda.l _03F1A6-$80,X : sta !obj_hp
+    lda.l hp_list-$80,X : sta !obj_hp
     !AX8
     rtl
 }
@@ -6680,9 +6680,9 @@ _01B5AB: ;a8 x8
     asl
     tax
     !AX16
-    lda.l _038470+0,X : sta $06 : tax
-    lda.l _038470+0,X : sta $02
-    lda.l _038470+2,X : sta $0A
+    lda.l palette_cycling+0,X : sta $06 : tax
+    lda.l palette_cycling+0,X : sta $02
+    lda.l palette_cycling+2,X : sta $0A
     inc $0C
     rts
 
@@ -6699,12 +6699,12 @@ _01B5AB: ;a8 x8
     lda $03 : sta $0000
     stz $0001
     ldx $08
-    lda.l _038470+4,X : sta $05
+    lda.l palette_cycling+4,X : sta $05
     inx
     !A16
     ldy $0A
 .B61D:
-    lda.l _038470+4,X
+    lda.l palette_cycling+4,X
     phx
     tyx
     sta $7EF400,X
@@ -14672,7 +14672,7 @@ _01F2EE:
     stz $32
     lda !obj_direction : asl : tax
     !A16
-    lda.w _01BC65_BC65,X : sta $2F
+    lda.w _00BC65_BC65,X : sta $2F
     !A8
     ldy #$6C : jsl set_speed_x
     lda $2F : asl #2 : sta $31
@@ -14704,7 +14704,7 @@ _01F2EE:
     sta $32
     tax
     !A16
-    lda.w _01BC65_BC69,X : sta $0C
+    lda.w _00BC65_BC69,X : sta $0C
     !A8
     bra .F31B
 
@@ -15304,350 +15304,14 @@ _01F722: ;a8 x8
 }
 
 if !version == 0
-;----- duplicate code start
-
-;todo: consider turning dupe code into byte groups
-
-{ ;F783 - F7A5
-_01F783:
-    ;unused partial copy of _01F4F7
-    lda !arthur_pos_x+2 : sta !obj_pos_x+2
-    lda !arthur_pos_y+1 : sec : sbc #$0004 : sta !obj_pos_y+1
-    !A8
-    clc
-    lda $2E
-    ldx #$06
-    jsl _0189D9
-    lda $02C3
-    and #$0F
-    bne .F7A5
-
-    inc $40
-.F7A5:
-    rtl
-}
-
-{ ;F7A6 - F7AF
-    ;unused
-    stz $14E7
-    stz $14E3
-    jml _028B17
-}
-
-{ ;F7B0 - F870
-_01F7B0:
-    ;unused copy of the seek magic
-    lda $08 : ora #$80 : sta $08
-    lda #$20 : cop #$00
-
-;----- F7BA
-
-    jsr .F865
-    lda #!sfx_magic_seek : jsl _018049_8053
-    !X16
-    ldx #!slot_objects
-.F7C8:
-    lda.w !obj_active,X
-    beq .F80D
-
-    lda.w !obj_type,X
-    cmp #!id_chest
-    beq .F7D8
-
-    cmp #!id_chest2
-    bne .F80D
-
-.F7D8:
-    lda $0031,X
-    bne .F80D
-
-    !A16
-    lda.w !obj_pos_x+1,X
-    adc #$0030
-    sbc.w camera_x+1
-    cmp #$0160
-    bcs .F80D
-
-    lda.w !obj_pos_y+1,X
-    sbc.w camera_y+1
-    cmp #$0100
-    bcs .F80D
-
-    !A8
-    ldy.w #chest_B6DE
-    lda.w !obj_type,X
-    cmp #!id_chest
-    beq .F807
-
-    ldy.w #chest2_B691
-.F807:
-    !A16
-    tya : sta.w !obj_state+1,X
-.F80D:
-    !A16
-    clc
-    txa
-    adc #!obj_size
-    cmp #!slot_upgrade ;todo: maybe replace slot*count
-    tax
-    !A8
-    bcc .F7C8
-
-    !X8
-    lda #$40 : cop #$00
-
-;----- F822
-
-    jsr .F84F
-    cop #$00
-
-;----- F827
-
-    jsr .F865
-    cop #$00
-
-;----- F82C
-
-    jsr .F84F
-    cop #$00
-
-;----- F831
-
-    jsr .F865
-    cop #$00
-
-;----- F836
-
-    jsr .F84F
-    cop #$00
-
-;----- F83B
-
-    jsr .F865
-    cop #$00
-
-;----- F840
-
-    jsr .F84F
-    cop #$00
-
-;----- F845
-
-    jsr .F85A
-    stz $14E3
-    jml _028B0E
-
-;-----
-
-.F84F:
-    lda #$03 : sta $0332
-    inc $0331
-    lda #$04
-    rts
-
-;-----
-
-.F85A:
-    lda #$00 : sta $0332
-    inc $0331
-    lda #$04
-    rts
-
-;-----
-
-.F865:
-    lda #$06 : sta $0332
-    inc $0331
-    lda #$04
-    rts
-
-;-----
-
-.thing: ;unused
-    rtl
-}
-
-{ ;F871 - F8CF
-_01F871:
-    ;unused copy of _01F66A
-    phb
-    lda #$7F : pha : plb
-    !AX16
-    ldx #$01FE
-    lda #$FFFF
-    tay
-.F87F:
-    tya
-    sta $9E00,X
-    txa
-    and #$001F
-    bne .F88C
-
-    stz $9E00,X
-.F88C:
-    dex #2
-    bpl .F87F
-
-    tya
-    sta $9E00
-    !X8
-    ldx #$FE
-    ldy #$1C
-.F89A:
-    phx
-    tyx
-    lda.l _04984F_A0D7,X
-    plx
-    sta $9800,X
-    txa
-    and #$001F
-    bne .F8AF
-
-    stz $9800,X
-    ldy #$1E
-.F8AF:
-    dey #2
-    dex #2
-    cpx #$1E
-    bne .F89A
-
-    ldy #$1C
-.F8B9:
-    phx
-    tyx
-    lda.l _04984F_9879,X
-    plx
-    sta $9800,X
-    dey #2
-    dex #2
-    bne .F8B9
-
-    stz $9800
-    !AX8
-    plb
-    rts
-}
-
-{ ;F8D0 - F8DD
-_01F8D0:
-    ;unused copy of _01F6C9
-    jsr .local
-    rtl
-
-;-----
-
-.local:
-    stz $150C,X
-    sta $1501,X
-    inc $1500,X
-    rts
-}
-
-{ ;F8DE - F8EF
-    ;unused copy of _01F6D7
-    lda.w stage
-    asl
-    tax
-    lda.w _008B05+0,X : sta $032B
-    lda.w _008B05+1,X : sta $032C
-    rts
-}
-
-{ ;F8F0 - F928
-_01F8F0:
-    ;unused copy of _01F6E9
-    !AX16
-    clc : lda.w camera_x+1 : adc #$0080 : sta $0000
-    ldy $032B
-    lda.w _008B05,Y
-    cmp $00
-    bcs .ret
-
-    tya
-    clc
-    adc #$0005
-    sta $032B
-    !A8
-    lda #$00
-    xba
-    lda.w _008B05+2,Y
-    tax
-    stz $150C,X
-    lda.w _008B05+3,Y : sta $1501,X
-    lda.w _008B05+4,Y : sta $1500,X
-.ret:
-    !AX8
-    rts
-}
-
-{ ;F929 - F989
-_01F929:
-    ;unused copy of _01F722
-    phd
-    lda #$15 : xba : lda #$62 : tcd
-.F930:
-    lda $00
-    beq .F95E
-
-    lda $0C
-    bne .F93B
-
-    jsr .F96F
-.F93B:
-    dec $05
-    bne .F95E
-
-    lda $03
-    clc
-    adc #$03
-    cmp $02
-    bcc .F94A
-
-    lda #$00
-.F94A:
-    sta $03
-    tay
-    lda ($06),Y : sta $05
-    iny
-    !A16
-    lda ($06),Y : sta $08
-    !A8
-    lda #$02 : sta $04
-.F95E:
-    !A16
-    tdc
-    clc
-    adc #$0010
-    tcd
-    cmp #$15A2
-    !A8
-    bne .F930
-
-    pld
-    rts
-
-;-----
-
-.F96F:
-    lda #$80 : sta $0C : sta $03
-    lda #$01 : sta $05
-    ldx $01
-    lda.w _00BD0B+0,X : sta $02
-    !A16
-    lda.w _00BD0B+1,X : sta $06
-    !A8
-    rts
-}
-
-;----- duplicate code end
-
-{ ;F98A - FEFF
+{ ;F783 - FEFF
+    incbin "fill_bytes/jp/bank01a.bin" ;unused duplicate code
     fillbyte $FF : fill 1398
 }
 elseif !version == 1
-    incbin "us_fill_bytes/bank01a.bin"
+    incbin "fill_bytes/us/bank01a.bin"
 elseif !version == 2
-    incbin "eu_fill_bytes/bank01a.bin"
+    incbin "fill_bytes/eu/bank01a.bin"
 endif
 
 { ;FF00 - FF73
@@ -15699,8 +15363,8 @@ _01FF74:
 if !version == 0
     fillbyte $FF : fill 137
 elseif !version == 1
-    incbin "us_fill_bytes/bank01b.bin"
+    incbin "fill_bytes/us/bank01b.bin"
 elseif !version == 2
-    incbin "eu_fill_bytes/bank01b.bin"
+    incbin "fill_bytes/eu/bank01b.bin"
 endif
 }

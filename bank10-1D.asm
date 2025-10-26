@@ -121,7 +121,7 @@ if !version == 0
     db $00, $00, $00, $00, $00, $00, $00, $00
 }
 elseif !version == 1 || !version == 2
-    incbin "us_fill_bytes/bank18a.bin"
+    incbin "fill_bytes/us/bank18a.bin"
 endif
 
 if !version == 0
@@ -323,7 +323,7 @@ if !version == 0
 }
 elseif !version == 1 || !version == 2
     gfx_us_font_extra: incbin "graphics/us_font_extra.bin" ; question mark, apostrophe, opening and closing quotation marks
-    incbin "us_fill_bytes/bank1Da.bin"
+    incbin "fill_bytes/us/bank1Da.bin"
 endif
 
 check bankcross full
