@@ -221,16 +221,6 @@
     !b      = $80
 }
 
-{ ;different offsets between versions
-if !version == 0
-    !text_offset = _00D6E6
-    !text_offset2 = _00D6E6_D6EC
-elseif !version == 1 || !version == 2
-    !text_offset = _048000_us
-    !text_offset2 = _048000_us_8006
-endif
-}
-
 { ;engine defines
     ;4E: 24 bytes * 7, handlers? potentially something else interleaved?
     ;54: offset to _01FF00 function jump table

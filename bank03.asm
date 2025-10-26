@@ -11126,16 +11126,16 @@ endif
     stz $1EC4
     lda $0055,Y : asl : tay
     !AX16
-    lda.w !text_offset,Y
+    lda.w text,Y
     tay
 .EE2E:
-    ldx.w !text_offset2,Y
+    ldx.w text_base,Y
     iny #2
 .EE33:
     !A8
     lda #$08 : jsl _01A717_A728
 .EE3B:
-    lda.w !text_offset2,Y
+    lda.w text_base,Y
     cmp #$FF
     bne .EE46
 
@@ -11180,7 +11180,7 @@ endif
 
 .pause:
     iny
-    lda.w !text_offset2,Y : jsl _01A717_A728 ;frame count
+    lda.w text_base,Y : jsl _01A717_A728 ;frame count
     iny
     bra .EE3B
 
@@ -11189,7 +11189,7 @@ endif
 .EE71:
     ;choose text palette? unused?
     iny
-    lda.w !text_offset2,Y
+    lda.w text_base,Y
     !A16
     asl #10
     and #$1C00
@@ -11202,7 +11202,7 @@ endif
 
 .move_cursor:
     iny
-    lda.w !text_offset2,Y ;tile count
+    lda.w text_base,Y ;tile count
     asl
     !A16
     stx $1EBD
