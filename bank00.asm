@@ -1001,7 +1001,9 @@ cop: ;a8 x-
 
 { ;8B05 - 8B18
 _008B05:
-    dw offset(_008B05, .8B19), $0043, $005E, $00AB, $00AD, $00AF, $00BB, $0153, $0164, $0170
+    dw offset(_008B05, .8B19), offset(_008B05, .8B48), offset(_008B05, .8B63), offset(_008B05, .8BB0)
+    dw offset(_008B05, .8BB2), offset(_008B05, .8BB4), offset(_008B05, .8BC0), offset(_008B05, .8C58)
+    dw offset(_008B05, .8C69), offset(_008B05, .8C75)
 
 .8B19:
     dw $0000 : db $00, $03, $01
@@ -1015,7 +1017,7 @@ _008B05:
     dw $0DC0 : db $00, $04, $00
     dw $7FFF
 
-    ;0043
+.8B48:
     dw $0967 : db $62, $00, $01
     dw $0968 : db $00, $0F, $01
     dw $0A00 : db $72, $03, $01
@@ -1023,7 +1025,7 @@ _008B05:
     dw $1180 : db $1C, $10, $01
     dw $7FFF
 
-    ;005E
+.8B63:
     dw $0000 : db $00, $22, $01
     dw $000B : db $38, $38, $01
     dw $0030 : db $1C, $26, $01
@@ -1041,18 +1043,18 @@ _008B05:
     dw $0642 : db $2A, $21, $01
     dw $7FFF
 
-    ;00AB
+.8BB0:
     dw $7FFF
 
-    ;00AD
+.8BB2:
     dw $7FFF
 
-    ;00AF
+.8BB4:
     dw $0000 : db $00, $28, $01
     dw $0000 : db $0E, $29, $01
     dw $7FFF
 
-    ;00BB
+.8BC0:
     dw $0000 : db $62, $06, $01
     dw $0000 : db $00, $12, $01
     dw $0000 : db $0E, $13, $01
@@ -1085,18 +1087,18 @@ _008B05:
     dw $09A8 : db $46, $2A, $01
     dw $7FFF
 
-    ;0153
+.8C58:
     dw $0000 : db $00, $31, $01
     dw $0000 : db $0E, $32, $01
     dw $0000 : db $1C, $37, $01
     dw $7FFF
 
-    ;0164
+.8C69:
     dw $0000 : db $00, $2C, $01
     dw $0000 : db $0E, $2D, $01
     dw $7FFF
 
-    ;0170
+.8C75:
     dw $0000 : db $00, $39, $01
     dw $0000 : db $0E, $3A, $01
     dw $0000 : db $1C, $3B, $01
@@ -1355,7 +1357,10 @@ _00A6A4:
     ;offsets into ram destination, last ones probably repeated & unused?
     db $00, $0C, $18, $24, $30, $3C, $48, $54, $54, $54
 
-.A6AE: db offset(.A6AE, .A6B8), $27, $41, $56, $27, $27, $68, $77, $8F, $27
+.A6AE:
+    db offset(.A6AE, .A6B8), offset(.A6AE, .A6D5), offset(.A6AE, .A6EF), offset(.A6AE, .A704)
+    db offset(.A6AE, .A6D5), offset(.A6AE, .A6D5), offset(.A6AE, .A716), offset(.A6AE, .A725)
+    db offset(.A6AE, .A73D), offset(.A6AE, .A6D5)
 
 .A6B8:
     db $02 : dw $00F8, $00FC
@@ -1364,7 +1369,7 @@ _00A6A4:
     db $04 : dw $01C0, $01C8, $01E0, $01E8
     db $00
 
-    ;27
+.A6D5:
     db $02 : dw $00F8, $00FC
     db $03 : dw $01E0, $01D0, $01F0
     db $01 : dw $01C0
@@ -1372,25 +1377,25 @@ _00A6A4:
     db $02 : dw $01EB, $01FB
     db $00
 
-    ;41
+.A6EF:
     db $02 : dw $00F8, $00FC
     db $02 : dw $0180, $01C0
     db $02 : dw $01E0, $01E8
     db $02 : dw $0120, $0130
     db $00
 
-    ;56
+.A704:
     db $02 : dw $00F8, $00FC
     db $03 : dw $01A0, $01A8, $01D0
     db $02 : dw $00F8, $00FC
     db $00
 
-    ;68
+.A716:
     db $04 : dw $0150, $0158, $0180, $0188
     db $02 : dw $00F8, $00FC
     db $00
 
-    ;77
+.A725:
     db $01 : dw $0120
     db $02 : dw $00F8, $00FC
     db $02 : dw $0170, $01A0
@@ -1398,7 +1403,7 @@ _00A6A4:
     db $02 : dw $015B, $016B
     db $00
 
-    ;8F
+.A73D:
     db $02 : dw $01C0, $01E0
     db $02 : dw $01CE, $01EE
     db $02 : dw $00F8, $00FC
