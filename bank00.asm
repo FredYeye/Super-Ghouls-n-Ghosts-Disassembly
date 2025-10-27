@@ -3,10 +3,8 @@ org $008000
 { ;8000 - 80FF
 if !version == 0
     fillbyte $FF : fill 256
-elseif !version == 1
-    incbin "fill_bytes/us/bank00a.bin"
-elseif !version == 2
-    incbin "fill_bytes/eu/bank00a.bin"
+elseif !version == 1 || !version == 2
+    incbin "fill_bytes/eng/bank00a.bin"
 endif
 }
 
@@ -1110,10 +1108,8 @@ _008B05:
 { ;8C90 - A2FF
 if !version == 0
     fillbyte $FF : fill 5744
-elseif !version == 1
-    incbin "fill_bytes/us/bank00b.bin"
-elseif !version == 2
-    incbin "fill_bytes/eu/bank00b.bin"
+elseif !version == 1 || !version == 2
+    incbin "fill_bytes/eng/bank00b.bin"
 endif
 }
 
@@ -5626,9 +5622,9 @@ _00EC3F:
 if !version == 0
     fillbyte $FF : fill 181
 elseif !version == 1
-    incbin "fill_bytes/us/bank00c.bin"
+    incbin "fill_bytes/eng/bank00c.bin"
 elseif !version == 2
-    incbin "fill_bytes/eu/bank00c.bin"
+    incbin "fill_bytes/eng/bank00c.bin":83..0
 endif
 }
 
@@ -7184,9 +7180,9 @@ endif
 if !version == 0
     fillbyte $FF : fill 124
 elseif !version == 1
-    incbin "fill_bytes/us/bank00d.bin"
+    incbin "fill_bytes/eng/bank00d.bin"
 elseif !version == 2
-    incbin "fill_bytes/eu/bank00d.bin"
+    incbin "fill_bytes/eng/bank00d.bin":8..0
 endif
 }
 

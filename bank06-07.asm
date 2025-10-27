@@ -1651,7 +1651,7 @@ endif
 if !version == 0
     fillbyte $FF : fill 1479
 elseif !version == 1 || !version == 2
-    incbin "fill_bytes/us/bank07a.bin"
+    incbin "fill_bytes/eng/bank07a.bin"
 endif
 }
 

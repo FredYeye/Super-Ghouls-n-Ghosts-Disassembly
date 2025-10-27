@@ -17291,8 +17291,8 @@ _02FF57: ;a x
 if !version == 0
     fillbyte $FF : fill 91
 elseif !version == 1
-    incbin "fill_bytes/us/bank02a.bin"
+    incbin "fill_bytes/eng/bank02a.bin"
 elseif !version == 2
-    incbin "fill_bytes/us/bank02a.bin":5..0
+    incbin "fill_bytes/eng/bank02a.bin":5..0
 endif
 }

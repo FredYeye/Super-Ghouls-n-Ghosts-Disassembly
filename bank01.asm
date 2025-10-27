@@ -15309,9 +15309,9 @@ if !version == 0
     fillbyte $FF : fill 1398
 }
 elseif !version == 1
-    incbin "fill_bytes/us/bank01a.bin"
+    incbin "fill_bytes/eng/bank01a.bin"
 elseif !version == 2
-    incbin "fill_bytes/eu/bank01a.bin"
+    incbin "fill_bytes/eng/bank01a.bin":121..0
 endif
 
 { ;FF00 - FF73
@@ -15363,8 +15363,8 @@ _01FF74:
 if !version == 0
     fillbyte $FF : fill 137
 elseif !version == 1
-    incbin "fill_bytes/us/bank01b.bin"
+    incbin "fill_bytes/eng/bank01b.bin"
 elseif !version == 2
-    incbin "fill_bytes/eu/bank01b.bin"
+    incbin "fill_bytes/eng/bank01b.bin":4..0
 endif
 }

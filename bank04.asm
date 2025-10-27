@@ -2232,12 +2232,11 @@ if !version == 0
     fillbyte $FF : fill 17865
 }
 elseif !version == 1
-    incbin "fill_bytes/us/bank04a.bin"
+    incbin "fill_bytes/eng/bank04a.bin"
 elseif !version == 2
-    db $00, $00, $00, $00
-
 { ;? - DFFF
-    incbin "fill_bytes/eu/bank04a.bin"
+    db $00, $00, $00, $00
+    incbin "fill_bytes/eng/bank04a.bin":0..13158
 }
 
 { ;E000 - E7FF
@@ -2453,7 +2452,7 @@ _04E800:
 }
 
 { ;ECA0 - ECFF
-    incbin "fill_bytes/eu/bank04c.bin"
+    incbin "fill_bytes/eng/bank04a.bin":16390..16486
 }
 
 { ;ED00 - ED7F
@@ -2473,7 +2472,7 @@ _04ED00:
 }
 
 { ;ED80 - EFFF
-    incbin "fill_bytes/eu/bank04d.bin"
+    incbin "fill_bytes/eng/bank04a.bin":16614..0
 }
 endif
 
@@ -3328,9 +3327,7 @@ _04F0E0:
 { ;FE8E - FFFF
 if !version == 0
     fillbyte $FF : fill 370
-elseif !version == 1
-    incbin "fill_bytes/us/bank04b.bin"
-elseif !version == 2
-     incbin "fill_bytes/eu/bank04b.bin"
+elseif !version == 1 || !version == 2
+    incbin "fill_bytes/eng/bank04b.bin"
 endif
 }

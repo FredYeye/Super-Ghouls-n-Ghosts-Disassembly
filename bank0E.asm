@@ -153,5 +153,5 @@ incbin "graphics/item_armor_bronze.bin"
 if !version == 0
 	fillbyte $FF : fill 320
 elseif !version == 1 || !version == 2
-	incbin "fill_bytes/us/bank0Ea.bin"
+	incbin "fill_bytes/eng/bank0Ea.bin"
 endif

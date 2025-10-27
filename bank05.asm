@@ -219,10 +219,8 @@ meta_sprite_part_to_ram:
 { ;8191 - 81FF
 if !version == 0
 	fillbyte $FF : fill 111
-elseif !version == 1
-	incbin "fill_bytes/us/bank05a.bin"
-elseif !version == 2
-	incbin "fill_bytes/eu/bank05a.bin"
+elseif !version == 1 || !version == 2
+	incbin "fill_bytes/eng/bank05a.bin"
 endif
 }
 
@@ -2328,9 +2326,7 @@ _05A812:
 { ;FAFE - FFFF
 if !version == 0
 	fillbyte $FF : fill 1282
-elseif !version == 1
-	incbin "fill_bytes/us/bank05b.bin"
-elseif !version == 2
-	incbin "fill_bytes/eu/bank05b.bin"
+elseif !version == 1 || !version == 2
+	incbin "fill_bytes/eng/bank05b.bin"
 endif
 }

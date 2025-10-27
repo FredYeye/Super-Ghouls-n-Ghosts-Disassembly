@@ -12151,7 +12151,7 @@ if !version == 0
     fillbyte $FF : fill 793
 }
 elseif !version == 1
-    incbin "fill_bytes/us/bank03a.bin"
+    incbin "fill_bytes/eng/bank03a.bin":206..0
 elseif !version == 2
-    incbin "fill_bytes/eu/bank03a.bin"
+    incbin "fill_bytes/eng/bank03a.bin"
 endif
