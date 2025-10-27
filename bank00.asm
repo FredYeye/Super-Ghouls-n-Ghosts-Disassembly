@@ -44,9 +44,7 @@ entry: ;emulated mode (code entry)
     ldx #$23 : ldy #$10 : jsr clear_snes_regs
     stz !MDMAEN
     phb
-    lda #$7E
-    pha
-    plb
+    lda #$7E : pha : plb
     !X16
     ldy $02F3
     lda $02F5
@@ -81,8 +79,8 @@ entry: ;emulated mode (code entry)
 
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
-    lda #$A4 : sta $0030
-    lda #$83 : sta $0031
+    lda.b #irq    : sta $0030
+    lda.b #irq>>8 : sta $0031
     stz $0000
     lda #$80 : sta $0001
     lda #$06 : sta $0002
@@ -91,8 +89,7 @@ entry: ;emulated mode (code entry)
     cmp #$3901
     beq .81D7
 
-    lda #$3901
-    sta $0002F3
+    lda #$3901 : sta $0002F3
     stz $02F5
     jsl _01931E
 .81CD:
@@ -512,9 +509,7 @@ _0085A6: ;a- x8
     ldy $50
     beq .8617
 
-    ldx #$00
-    stx $50
-    stx !A1B0
+    ldx #$00 : stx $50 : stx !A1B0
     lda $51    : sta !VMADDL
     ldx #$81   : stx !VMAIN
     lda #$1801 : sta !DMAP0
@@ -540,9 +535,7 @@ _0085A6: ;a- x8
     ldy $D3
     beq .ret
 
-    ldx #$00
-    stx $D3
-    stx !A1B0
+    ldx #$00 : stx $D3 : stx !A1B0
     lda $D4    : sta !VMADDL
     ldx #$80   : stx !VMAIN
     lda #$1801 : sta !DMAP0
@@ -685,17 +678,15 @@ _008735: ;a8 x8
     stz !VMAIN
     lda #$08 : sta !DMAP0
     lda #$18 : sta !BBAD0
-    lda #$CD : sta !A1T0L
-    lda #$87 : sta !A1T0H
-    lda #$00 : sta !A1B0
+    lda.b #.src     : sta !A1T0L
+    lda.b #.src>>8  : sta !A1T0H
+    lda.b #.src>>16 : sta !A1B0
     lda #$00 : sta !DAS0L
     lda #$10 : sta !DAS0H
     lda #$01 : sta !MDMAEN
     rts
 
-;-----
-
-    db $40 ;stray byte, not sure what it was intended to be (unlikely to be rti)
+.src: db $40
 
 ;-----
 
@@ -1143,11 +1134,11 @@ ram_to_vram_offsets:
     ;source | vram dest | count
 
     dl $1C8000 : dw $6000, $0800 ;00
-    dl $03C000 : dw $7C00, $0400 ;07
-    dl $03C800 : dw $0000, $0100
-    dl $03C940 : dw $0410, $0280
-    dl $03CFE0 : dw $0200, $0010
-    dl $7F9800 : dw $5C00, $0280
+    dl $03C000 : dw $7C00, $0400 ;07 unused
+    dl $03C800 : dw $0000, $0100 ;0E unused
+    dl $03C940 : dw $0410, $0280 ;15 unused
+    dl $03CFE0 : dw $0200, $0010 ;1C unused
+    dl $7F9800 : dw $5C00, $0280 ;23
     dl $7F0000 : dw $6800, $0ED0 ;2A
     dl $7F0000 : dw $75A0, $0360
     dl $18EA00 : dw $6200, $0300
