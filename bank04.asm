@@ -3055,8 +3055,8 @@ _04F0E0:
 .FAF2:
     dw offset(.FAF2, .FBF2), offset(.FAF2, .FBFA), offset(.FAF2, .FC02), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FC0A), offset(.FAF2, .FC20), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
-    dw offset(.FAF2, .FC2F), offset(.FAF2, .FE8C), $0168, offset(.FAF2, .FE8C)
-    dw $0177, $0186, offset(.FAF2, .FE8C), $0195
+    dw offset(.FAF2, .FC2F), offset(.FAF2, .FE8C), offset(.FAF2, .FC5A), offset(.FAF2, .FE8C)
+    dw offset(.FAF2, .FC69), offset(.FAF2, .FC78), offset(.FAF2, .FE8C), $0195
     dw $019D, $01BA, offset(.FAF2, .FE8C), $01C2
     dw $01CA, $01D2, $01E8, offset(.FAF2, .FCE9)
     dw $01FF, offset(.FAF2, .FD07), offset(.FAF2, .FD0F), $0225
@@ -3122,14 +3122,17 @@ _04F0E0:
     dw $2D00 : dl $7FED60 : dw $0200
     dw $2B00 : dl $7FF740 : dw $0200
 
+.FC5A:
     db $02
     dw $3000 : dl $7FDC40 : dw $0200
     dw $20F0 : dl $7FDE40 : dw $0020
 
+.FC69:
     db $02
     dw $3E00 : dl $7FE260 : dw $0400
     dw $2E00 : dl $7FF4C0 : dw $0280
 
+.FC78:
     db $02
     dw $2300 : dl $7FD9C0 : dw $0200
     dw $2780 : dl $7FDBC0 : dw $0080

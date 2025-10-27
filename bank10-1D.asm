@@ -5,43 +5,43 @@ org $108000
 check bankcross off
 
 if !version == 0
-    gfx_unk01: incbin "graphics/unknown01.bin"
-    gfx_unk02: incbin "graphics/unknown02.bin"
+    gfx_unk01:         incbin "graphics/unknown01.bin"
+    gfx_unk02:         incbin "graphics/unknown02.bin"
 elseif !version == 1 || !version == 2
-    gfx_unk01: incbin "graphics/unknown01_us.bin"
-    gfx_unk02: incbin "graphics/unknown02_us.bin"
+    gfx_unk01:         incbin "graphics/unknown01_us.bin"
+    gfx_unk02:         incbin "graphics/unknown02_us.bin"
 endif
-    gfx_unk15: incbin "graphics/unknown15.bin"
-    gfx_unk17: incbin "graphics/unknown17.bin"
-    gfx_unk18: incbin "graphics/unknown18.bin"
+    gfx_unk15:         incbin "graphics/unknown15.bin"
+    gfx_unk17:         incbin "graphics/unknown17.bin"
+    gfx_unk18:         incbin "graphics/unknown18.bin"
 if !version == 0
-    gfx_logo: incbin "graphics/logo.bin" ;also has other stuff in it
+    gfx_logo:          incbin "graphics/logo.bin" ;also has other stuff in it
 elseif !version == 1 || !version == 2
-    gfx_logo: incbin "graphics/logo_us.bin"
+    gfx_logo:          incbin "graphics/logo_us.bin"
 endif
-    gfx_map: incbin "graphics/map.bin"
-    gfx_unk19: incbin "graphics/unknown19.bin"
-    gfx_unk29: incbin "graphics/unknown29.bin"
-    gfx_unk23: incbin "graphics/unknown23.bin"
-    gfx_unk03: incbin "graphics/unknown03.bin"
-    incbin "graphics/unknown38.bin"
-    gfx_unk27: incbin "graphics/unknown27.bin"
-    gfx_continue: incbin "graphics/continue.bin"
-    gfx_continue2: incbin "graphics/continue2.bin"
-    gfx_unk32: incbin "graphics/unknown32.bin"
-    gfx_unk33: incbin "graphics/unknown33.bin"
-    gfx_options: incbin "graphics/options.bin"
-    gfx_unk04: incbin "graphics/unknown04.bin"
-    incbin "graphics/unknown39.bin" ;temp / debug gfx
-    gfx_unk35: incbin "graphics/unknown35.bin"
-    gfx_unk34: incbin "graphics/unknown34.bin"
-    gfx_unk31: incbin "graphics/unknown31.bin"
+    gfx_map:           incbin "graphics/map.bin"
+    gfx_unk19:         incbin "graphics/unknown19.bin"
+    gfx_unk29:         incbin "graphics/unknown29.bin"
+    gfx_unk23:         incbin "graphics/unknown23.bin"
+    gfx_unk03:         incbin "graphics/unknown03.bin"
+                       incbin "graphics/unknown38.bin"
+    gfx_unk27:         incbin "graphics/unknown27.bin"
+    gfx_continue:      incbin "graphics/continue.bin"
+    gfx_continue2:     incbin "graphics/continue2.bin"
+    gfx_unk32:         incbin "graphics/unknown32.bin"
+    gfx_unk33:         incbin "graphics/unknown33.bin"
+    gfx_options:       incbin "graphics/options.bin"
+    gfx_unk04:         incbin "graphics/unknown04.bin"
+                       incbin "graphics/unknown39.bin" ;temp / debug gfx
+    gfx_unk35:         incbin "graphics/unknown35.bin"
+    gfx_unk34:         incbin "graphics/unknown34.bin"
+    gfx_unk31:         incbin "graphics/unknown31.bin"
     gfx_death_crawler: incbin "graphics/death_crawler.bin"
-    gfx_unk21: incbin "graphics/unknown21.bin" ;related to death crawler, tile map or really graphics?
-    gfx_unk24: incbin "graphics/unknown24.bin"
-    gfx_unk05: incbin "graphics/unknown05.bin" ;graphics + tilemaps?
-    gfx_intro_castle: incbin "graphics/game_start_cutscene_castle.bin"
-    gfx_unk06: incbin "graphics/unknown06.bin"
+    gfx_unk21:         incbin "graphics/unknown21.bin" ;related to death crawler, tile map or really graphics?
+    gfx_unk24:         incbin "graphics/unknown24.bin"
+    gfx_unk05:         incbin "graphics/unknown05.bin" ;graphics + tilemaps?
+    gfx_intro_castle:  incbin "graphics/game_start_cutscene_castle.bin"
+    gfx_unk06:         incbin "graphics/unknown06.bin"
 
 org $18BBE6
 
@@ -130,35 +130,35 @@ elseif !version == 1 || !version == 2
     gfx_stage1_objects: incbin "graphics/stage1_objects_us.bin"
 endif
 
-    gfx_unk16: incbin "graphics/unknown16.bin"
-    gfx_unk20: incbin "graphics/unknown20.bin"
-    gfx_unk25: incbin "graphics/unknown25.bin"
-    gfx_geyser_platform: incbin "graphics/geyser_platform.bin"
-    gfx_hydra:           incbin "graphics/hydra.bin"
-    gfx_unk22: incbin "graphics/unknown22.bin"
-    gfx_unk30: incbin "graphics/unknown30.bin"
+    gfx_unk16:             incbin "graphics/unknown16.bin"
+    gfx_unk20:             incbin "graphics/unknown20.bin"
+    gfx_unk25:             incbin "graphics/unknown25.bin"
+    gfx_geyser_platform:   incbin "graphics/geyser_platform.bin"
+    gfx_hydra:             incbin "graphics/hydra.bin"
+    gfx_unk22:             incbin "graphics/unknown22.bin"
+    gfx_unk30:             incbin "graphics/unknown30.bin"
     gfx_princess_dialogue: incbin "graphics/princess_dialogue.bin" ;contains unused projectile as well?
-    gfx_samael: incbin "graphics/samael.bin"
-    gfx_unk08: incbin "graphics/unknown08.bin"
-    gfx_skull_flower: incbin "graphics/skull_flower.bin"
-    gfx_unk10: incbin "graphics/unknown10.bin"
-    gfx_grilian: incbin "graphics/grilian.bin"
-    gfx_arremer: incbin "graphics/arremer.bin"
-    gfx_killer: incbin "graphics/killer.bin"
-    gfx_unk26: incbin "graphics/unknown26.bin"
-    gfx_ghost: incbin "graphics/ghost.bin"
-    gfx_mimic: incbin "graphics/mimic.bin"
-    gfx_unk11: incbin "graphics/unknown11.bin"
-    gfx_cockatrice: incbin "graphics/cockatrice.bin"
-    gfx_items_enemy_hits: incbin "graphics/items_enemy_hits.bin"
-    gfx_game_over: incbin "graphics/game_over.bin"
-    gfx_capcom: incbin "graphics/capcom_presents.bin"
-    gfx_font_hud: incbin "graphics/font_hud.bin" ;font etc?
-    gfx_astaroth: incbin "graphics/astaroth.bin"
-    gfx_nebiroth: incbin "graphics/nebiroth.bin"
-    gfx_unk13: incbin "graphics/unknown13.bin" ;intro stuff, but also 2bpp graphics! sort out later
-    gfx_veil_allocen: incbin "graphics/veil_allocen.bin"
-    gfx_unk14: incbin "graphics/unknown14.bin"
+    gfx_samael:            incbin "graphics/samael.bin"
+    gfx_unk08:             incbin "graphics/unknown08.bin"
+    gfx_skull_flower:      incbin "graphics/skull_flower.bin"
+    gfx_unk10:             incbin "graphics/unknown10.bin"
+    gfx_grilian:           incbin "graphics/grilian.bin"
+    gfx_arremer:           incbin "graphics/arremer.bin"
+    gfx_killer:            incbin "graphics/killer.bin"
+    gfx_unk26:             incbin "graphics/unknown26.bin"
+    gfx_ghost:             incbin "graphics/ghost.bin"
+    gfx_mimic:             incbin "graphics/mimic.bin"
+    gfx_unk11:             incbin "graphics/unknown11.bin"
+    gfx_cockatrice:        incbin "graphics/cockatrice.bin"
+    gfx_items_enemy_hits:  incbin "graphics/items_enemy_hits.bin"
+    gfx_game_over:         incbin "graphics/game_over.bin"
+    gfx_capcom:            incbin "graphics/capcom_presents.bin"
+    gfx_font_hud:          incbin "graphics/font_hud.bin" ;font etc?
+    gfx_astaroth:          incbin "graphics/astaroth.bin"
+    gfx_nebiroth:          incbin "graphics/nebiroth.bin"
+    gfx_unk13:             incbin "graphics/unknown13.bin" ;intro stuff, but also 2bpp graphics! sort out later
+    gfx_veil_allocen:      incbin "graphics/veil_allocen.bin"
+    gfx_unk14:             incbin "graphics/unknown14.bin"
 
 if !version == 0
 { : org $1DF642 ;F642 - FFFF

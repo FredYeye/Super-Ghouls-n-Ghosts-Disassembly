@@ -2083,52 +2083,52 @@ checkpoint_location: ;offsets into next data
 
 { ;B659 - B754
 _00B659: ;offsets into next section. 4 bytes per entry but only 2 reachable?
-    db offset(_00B659, .stage1), $34, $40, $40
-    db $4C, $58, $64, $70
-    db offset(_00B659, .stage3), $88, $58, $58
-    db offset(_00B659, .stage4), offset(_00B659, .stage4), offset(_00B659, .stage4), offset(_00B659, .stage4)
-    db $98, $98, $98, $98
-    db $9C, $9C, $9C, $9C
-    db $A8, $B4, $B4, $B4
-    db offset(_00B659, .stage6), $C0, $CC, $CC
-    db offset(_00B659, .stage7), $E4, $E4, $E4
-    db offset(_00B659, .stage8), $F0, $F0, $F0
+    db offset(_00B659, .stage1_a), offset(_00B659, .stage1_b), offset(_00B659, .stage1_boss), offset(_00B659, .stage1_boss)
+    db offset(_00B659, .stage2_a), offset(_00B659, .stage2_b), offset(_00B659, .stage2_after_pier), offset(_00B659, .stage2_second_ship)
+    db offset(_00B659, .stage3_a), offset(_00B659, .stage3_b), offset(_00B659, .stage2_b), offset(_00B659, .stage2_b)
+    db offset(_00B659, .stage4_a), offset(_00B659, .stage4_a), offset(_00B659, .stage4_a), offset(_00B659, .stage4_a)
+    db offset(_00B659, .stage4_b), offset(_00B659, .stage4_b), offset(_00B659, .stage4_b), offset(_00B659, .stage4_b)
+    db offset(_00B659, .stage4_boss), offset(_00B659, .stage4_boss), offset(_00B659, .stage4_boss), offset(_00B659, .stage4_boss)
+    db offset(_00B659, .stage5_a), offset(_00B659, .stage5_b), offset(_00B659, .stage5_b), offset(_00B659, .stage5_b)
+    db offset(_00B659, .stage6_a), offset(_00B659, .stage6_a), offset(_00B659, .stage6_boss), offset(_00B659, .stage6_boss)
+    db offset(_00B659, .stage7_a), offset(_00B659, .stage7_boss), offset(_00B659, .stage7_boss), offset(_00B659, .stage7_boss)
+    db offset(_00B659, .stage8_boss), offset(_00B659, .stage8_boss), offset(_00B659, .stage8_boss), offset(_00B659, .stage8_boss)
 
     ;level starting offsets + something else
 .stage1:
-    dw $0080, $00B0, $0000, $0000, $0000, $0000 ;1a
-    dw $0CC8, $0050, $0C48, $0000, $0624, $0000 ;1b
-    dw $1267, $00A0, $11E6, $0000, $08F3, $0000 ;1 boss
+..a:    dw $0080, $00B0, $0000, $0000, $0000, $0000
+..b:    dw $0CC8, $0050, $0C48, $0000, $0624, $0000
+..boss: dw $1267, $00A0, $11E6, $0000, $08F3, $0000
 
-    dw $0040, $0286, $0000, $0200, $0000, $0100 ;2a
-    dw $09D0, $029B, $0950, $0200, $04A8, $0100 ;2b
-    dw $01A7, $0284, $0126, $01FD, $0093, $0100 ;2, after bridge
-    dw $0633, $0214, $05B3, $0189, $02D9, $00C4 ;2, up on ship
+.stage2:
+..a:           dw $0040, $0286, $0000, $0200, $0000, $0100
+..b:           dw $09D0, $029B, $0950, $0200, $04A8, $0100
+..after_pier:  dw $01A7, $0284, $0126, $01FD, $0093, $0100
+..second_ship: dw $0633, $0214, $05B3, $0189, $02D9, $00C4
 
 .stage3:
-    dw $0040, $00F0, $0000, $0060, $0000, $0048
-    dw $069C, $0457, $061B, $03DE, $0493, $02E6
+..a: dw $0040, $00F0, $0000, $0060, $0000, $0048
+..b: dw $069C, $0457, $061B, $03DE, $0493, $02E6
 
 .stage4:
-    dw $0080, $0393
+..a:    dw $0080, $0393
+..b:    dw $0380, $0385
+..boss: dw $0080, $00A0, $0000, $0000, $0000, $02AA
 
-    dw $0380, $0385
-
-    dw $0080, $00A0, $0000, $0000, $0000, $02AA
-
-    dw $0080, $08AE, $0000, $0800, $0000, $0600
-    dw $07CE, $05A0, $074D, $0500, $0579, $03C0
+.stage5:
+..a: dw $0080, $08AE, $0000, $0800, $0000, $0600
+..b: dw $07CE, $05A0, $074D, $0500, $0579, $03C0
 
 .stage6:
-    dw $0050, $03B0, $0000, $0300, $0000, $0000
-    dw $03E5, $0170, $0364, $00FF, $01B2, $007F
+..a:    dw $0050, $03B0, $0000, $0300, $0000, $0000
+..boss: dw $03E5, $0170, $0364, $00FF, $01B2, $007F
 
 .stage7:
-    dw $0048, $07B0, $0000, $0700, $0000, $0000
-    dw $0377, $0190, $02F6, $0100, $017B, $0080
+..a:    dw $0048, $07B0, $0000, $0700, $0000, $0000
+..boss: dw $0377, $0190, $02F6, $0100, $017B, $0080
 
 .stage8:
-    dw $0040, $01A0, $0000, $0100, $0000, $0000
+..boss: dw $0040, $01A0, $0000, $0100, $0000, $0000
 }
 
 { ;B755 - B768
@@ -2199,10 +2199,10 @@ _00B805:
 ;-----
 
     .B80F: db offset(_00B805, .B81E), offset(_00B805, .B846), offset(_00B805, .B87A)
-    .B812: db .B82C-_00B805, .B846-_00B805, .B87A-_00B805
-    .B815: db .B839-_00B805, .B81E+1-_00B805, .B860-_00B805
-    .B818: db .B839-_00B805, .B853-_00B805, .B81E+1-_00B805
-    .B81B: db .B839-_00B805, .B853-_00B805, .B81E+1-_00B805
+    .B812: db offset(_00B805, .B82C), offset(_00B805, .B846), offset(_00B805, .B87A)
+    .B815: db offset(_00B805, .B839), offset(_00B805, .B81E+1), offset(_00B805, .B860)
+    .B818: db offset(_00B805, .B839), offset(_00B805, .B853), offset(_00B805, .B81E+1)
+    .B81B: db offset(_00B805, .B839), offset(_00B805, .B853), offset(_00B805, .B81E+1)
 
 ;-----
 
