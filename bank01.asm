@@ -523,7 +523,7 @@ _0183D4: ;a8 x16
     phb
     lda #$04 : pha : plb
     !X16
-    ldy.w _04A122,X
+    ldy.w text_tilemaps,X
 .83E6:
     !A8
     lda $0000,Y
@@ -564,7 +564,6 @@ _0183D4: ;a8 x16
 
 { ;8422 - 8450
 call_rng: ;a8 x-
-    ;todo: rename probably
     lda.w rng_state
     pha
     sta $0000
@@ -15329,7 +15328,7 @@ endif
     .1C: jml _019776
     .20: jml _019776_9797
     .24: jml _04A0F5 ;unused?
-    .28: jml _04A122 ;unused, not even code! might have been at some point
+    .28: jml text_tilemaps ;unused, not even code! might have been at some point
     .2C: jml _01FF74 ;unused, infinite loop
     .30: jml _0198A4
     .34: jml _0197D1
