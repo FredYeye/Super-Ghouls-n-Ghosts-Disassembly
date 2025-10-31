@@ -231,21 +231,22 @@ _058200:
 
 ;-----
 
-	;count, offset, bank (, offset, bank)
+	;count, offset (, offset, bank)
 .821A: ;stage 1
-	db $02 : dw $61E6 : db $08 : dw offset(.821A, _05A812) : db $05
+	;todo: convert offset, bank to dl offset
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw offset(.821A, _05A812) : db $05
 .8221:
-	db $02 : dw $61E6 : db $08 : dw $35FD : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $35FD : db $05
 .8228:
-	db $02 : dw $61E6 : db $08 : dw $413E : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $413E : db $05
 .822F:
-	db $02 : dw $61E6 : db $08 : dw $4DAC : db $05
-	db $02 : dw $61E6 : db $08 : dw $5228 : db $05
-	db $02 : dw $61E6 : db $08 : dw $56A6 : db $05
-	db $02 : dw $61E6 : db $08 : dw $5EDC : db $05
-	db $02 : dw $61E6 : db $08 : dw $67BC : db $05
-	db $02 : dw $61E6 : db $08 : dw $6C9C : db $05
-	db $02 : dw $61E6 : db $08 : dw $7024 : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $4DAC : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $5228 : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $56A6 : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $5EDC : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $67BC : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $6C9C : db $05
+	db $02 : dl offset(.821A&$FFFF, _08E400) : dw $7024 : db $05
 	db $01 : dw $7317 : db $05
 	db $01 : dw $7317 : db $05
 .8268:

@@ -999,7 +999,7 @@ stage1_earthquake_tiles:
 	db $02 : dw $1EBC : dw $1E40, $5E6B
 	db $02 : dw $1EBE : dw $1E41, $1E51
 
-.5 ;B663
+.5: ;B663
 	db $0A
 
 	db $18

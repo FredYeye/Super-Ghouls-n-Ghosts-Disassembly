@@ -2067,9 +2067,17 @@ stage1_earthquake:
 { ;B63D - B658
 checkpoint_location: ;offsets into next data
 
-.idx: db $0A, $0E, $12, $16, $16, $16, $18, $16, $16, $16
+.idx:
+    db offset(.idx, .x_1), offset(.idx, .x_2), offset(.idx, .x_3), offset(.idx, .x_4)
+    db offset(.idx, .x_4), offset(.idx, .x_4), offset(.idx, .x_5), offset(.idx, .x_4)
+    db offset(.idx, .x_4), offset(.idx, .x_4)
 
-.x: dw $0CA0, $7FFF, $09D0, $7FFF, $0640, $7FFF, $7FFF, $0780, $7FFF
+.x:
+..1: dw $0CA0, $7FFF
+..2: dw $09D0, $7FFF
+..3: dw $0640, $7FFF
+..4: dw $7FFF
+..5: dw $0780, $7FFF
 }
 
 { ;B659 - B754
