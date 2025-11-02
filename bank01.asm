@@ -5801,11 +5801,11 @@ endif
     stz $1F8F
     stz $1F90
     cpx #$00
-    beq +
+    beq .AD8C
 
     dec $1F8F
     dec $1F90
-+:
+.AD8C:
     lda #$0C : sta !slot_arthur
     jsl _019024
     lda $0292 : and #$01 : eor #$01 : sta $032E
