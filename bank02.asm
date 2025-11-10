@@ -14103,7 +14103,7 @@ _02E919: ;functions shared between ghost and ghost_unformed
 { ; E93C - E9F9
 ghost_unformed:
 
-.create: ;TODO
+.create:
     lda $07
     tax ;x = $07
     asl

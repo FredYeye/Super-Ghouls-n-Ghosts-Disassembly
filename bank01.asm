@@ -610,7 +610,7 @@ update_animation:
     tay
 +:
     sty $0C
-    jsr _0184B5
+    jsr _0184B3_84B5
     and #$FF7F
     sta !obj_anim_timer
     !AX8
@@ -659,7 +659,7 @@ set_sprite: ;a8 x8
 { ;84B3 - 84C2
 _0184B3:
     ldy $0C
-_0184B5:
+.84B5:
     lda ($0A),Y
     asl #3
     clc
@@ -692,7 +692,7 @@ _0184C3: ;a- x-
     lda.w _00A531+12 : sta $13ED
     lda.w _00A531+14 : sta $13EF
     ldy #$0034 ;weapons + magic + object + upgrade slot count (i.e. everything but arthur)
-    lda #!slot_arthur+!obj_size
+    lda #!slot_start+!obj_size
     tcd
     clc
     lda.w camera_x+1 : adc #$0080 : sta $0000
@@ -7816,7 +7816,7 @@ _01BF31: ;a8 x8
     rts
 }
 
-{ ;BF78 - BFCD
+{ ;BF78 - C00A
 _01BF78: ;a- x8
     phd
     !A16
@@ -7827,18 +7827,18 @@ _01BF78: ;a- x8
     tcd
     ldx.w _00B805+0,Y
     phy
-    jsr _01BFCE
+    jsr .BFCE
     ply
     lda #$16F8
     tcd
     ldx.w _00B805+1,Y
     phy
-    jsr _01BFCE
+    jsr .BFCE
     ply
     lda #$184E
     tcd
     ldx.w _00B805+2,Y
-    jsr _01BFCE
+    jsr .BFCE
     plx
     ldy.w _00B88B,X
     lda #$15A2
@@ -7860,10 +7860,10 @@ _01BF78: ;a- x8
     !AX8
     pld
     rts
-}
 
-{ ;BFCE - C00A
-_01BFCE: ;a16 x8
+;-----
+
+.BFCE: ;a16 x8
     ldy.w _00B805+00,X : sty $43
     ldy.w _00B805+01,X : sty $2F
     lda.w _00B805+02,X : sta $30
@@ -9690,7 +9690,7 @@ _01CCBD: ;a8 x8
     lda !obj_facing : sta !obj_direction
     stz $3C
 .CE2F:
-    lda !is_shooting
+    lda.w is_shooting
     bne .CE68
 
     lda $14D5
@@ -10104,7 +10104,7 @@ _01D090: ;a8 x8
     lda $0F
     bmi .D0C3
 
-    lda !is_shooting
+    lda.w is_shooting
     bne .D0C7
 
 .D0C3:
@@ -10167,7 +10167,7 @@ _01D090: ;a8 x8
 ;-----
 
 .D133:
-    lda !is_shooting
+    lda.w is_shooting
     beq +
 
     jsr .D2D4
@@ -10308,7 +10308,7 @@ _01D090: ;a8 x8
     lda.b #_01CCBD_CDC4>>8 : sta !obj_state+2
     lda.w transform_stored_armor_state : sta !armor_state
     lda #$FF  : sta $3D
-    stz !is_shooting
+    stz.w is_shooting
     lda $02B0
     beq .D239
 
@@ -10343,7 +10343,7 @@ _01D090: ;a8 x8
     lda $14C3
     bne .D2AA
 
-    lda !is_shooting
+    lda.w is_shooting
     ora.w current_cage
     bne .D2AA
 
@@ -10565,7 +10565,7 @@ _01D090: ;a8 x8
 
     dec.w weapon_cooldown
 +:
-    lda !is_shooting
+    lda.w is_shooting
     beq .D3F4
 
     lda.w shot_press
@@ -10575,7 +10575,7 @@ _01D090: ;a8 x8
     bne .D3F3
 
     lda #$FF : sta $3D
-    stz !is_shooting
+    stz.w is_shooting
 .D3F3:
     rts
 
@@ -10583,7 +10583,7 @@ _01D090: ;a8 x8
     lda.w shot_press
     beq .D3F3
 
-    inc !is_shooting
+    inc.w is_shooting
 .D3FC:
     lda.w jump_state
     beq .D417
@@ -10599,7 +10599,7 @@ _01D090: ;a8 x8
 
     lda #$01 : sta.w weapon_double_jump_boost
 .D414:
-    stz !is_shooting
+    stz.w is_shooting
 .D417:
     ldx #$00
     lda $09
@@ -10773,7 +10773,7 @@ _01D565: ;a8 x?
     jsl _019697
     jsr _01DDE6
     lda #$FF : sta $0F
-    stz !is_shooting
+    stz.w is_shooting
     jmp .D59F
 
 .D584:
@@ -11024,7 +11024,7 @@ _01D72B: ;a8 x8
     ldy #$00 : jsl set_speed_xyg ;knockback
     lda #$FF : sta $0F
     lda #$09 : sta $3C
-    stz !is_shooting
+    stz.w is_shooting
     stz !slot_upgrade
     stz !slot_upgrade+!obj_size*2
     lda !obj_hp
@@ -11410,7 +11410,7 @@ _01D9FA: ;arthur armor up code
     jsr _01DA88
     jsr _01DDE6
     lda #$FF : sta $0F
-    stz !is_shooting
+    stz.w is_shooting
     lda #$12 : sta $3C
     lda #$0C : sta !slot_upgrade2
     lda #!id_armor_up_vfx : sta !slot_upgrade2+!obj_type
@@ -11472,7 +11472,7 @@ _01DA88: ;a8 x8
 { ;DA99 - DAA3
 _01DA99: ;unused
     lda #$03 : sta $3C
-    stz !is_shooting
+    stz.w is_shooting
 .DAA0:
     brk #$00
 
@@ -11500,7 +11500,7 @@ _01DAB8:
     stz $02AC
     stz !slot_upgrade2
     stz.w can_charge_magic
-    stz !is_shooting
+    stz.w is_shooting
     lda #$FF : sta $0F : sta $19EC
     lda #$01 : sta !obj_direction : sta !obj_facing
     stz $3C
@@ -11584,7 +11584,7 @@ _01DB67: ;a8 x?
     stz $02AC
     stz !slot_upgrade2
     stz.w can_charge_magic
-    stz !is_shooting
+    stz.w is_shooting
     lda #$FF : sta $19EC
     lda #$FF : sta $0F
     stz !arthur_facing
@@ -11788,7 +11788,7 @@ _01DD01: ;a8 x8
     lda.w _00BACE,X : sta $3C
     ldy #$01 : jsl set_speed_xyg
     lda #$FF : sta $0F
-    stz !is_shooting
+    stz.w is_shooting
 .DD19:
     brk #$00
 

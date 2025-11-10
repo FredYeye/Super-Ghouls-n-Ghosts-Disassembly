@@ -2207,14 +2207,14 @@ _00B805:
 
     ;some offsets are B81E+1. not sure if intentional or not
     ;some of these values are map/tile banks etc
-    .B81E: db $00, $00 : dw $0FFF : db $08, $20, $40, $08, $09, $0A, $7F, $7F, $01 : db $00
-    .B82C: db $00, $00 : dw $0FFF : db $08, $40, $40, $08, $09, $0A, $7F, $7F, $0F
-    .B839: db $00, $00 : dw $0FFF : db $08, $40, $40, $0B, $0C, $0D, $7F, $7F, $0F ;stage 3
-    .B846: db $03, $10 : dw $07FF : db $00, $20, $26, $08, $09, $0A, $3F, $7F, $0F
-    .B853: db $03, $10 : dw $07FF : db $00, $20, $26, $0B, $0C, $0D, $3F, $7F, $0F
-    .B860: db $06, $18 : dw $07FF : db $00, $20, $26, $0B, $0C, $0D, $3F, $7F, $0F
-    .B86D: db $06, $10 : dw $07FF : db $00, $20, $26, $0B, $0C, $0D, $3F, $7F, $0F ;unused?
-    .B87A: db $06, $18 : dw $07FF : db $00, $20, $26, $08, $09, $0A, $3F, $7F, $0F
+    .B81E: db $00, $00 : dw $0FFF : db $08, $20, $40, screen_layouts>>16,  _098000>>16, _0A8000>>16, $7F, $7F, $01 : db $00
+    .B82C: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts>>16,  _098000>>16, _0A8000>>16, $7F, $7F, $0F
+    .B839: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $7F, $7F, $0F ;stage 3
+    .B846: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  _098000>>16, _0A8000>>16, $3F, $7F, $0F
+    .B853: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F
+    .B860: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F
+    .B86D: db $06, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F ;unused?
+    .B87A: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  _098000>>16, _0A8000>>16, $3F, $7F, $0F
 }
 
 { ;B887 - B88A
@@ -2222,22 +2222,23 @@ _00B805:
 }
 
 { ;B88B - B8D1
-_00B88B: ;offsets into next section
-    db $0A, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $0D, $10
+_00B88B:
+    db offset(_00B88B, .B895), offset(_00B88B, .B898), offset(_00B88B, .B898), offset(_00B88B, .B898)
+    db offset(_00B88B, .B898), offset(_00B88B, .B898), offset(_00B88B, .B898), offset(_00B88B, .B898)
+    db offset(_00B88B, .B898), offset(_00B88B, .B89B)
 
 ;-----
 
-    ;offsets
-    db .B8A2-_00B88B, .B8C2-_00B88B, .B8C2-_00B88B
-    db .B8B2-_00B88B, .B8C2-_00B88B, .B8C2-_00B88B
-    db .B89E-_00B88B, .B8C2-_00B88B, .B8C2-_00B88B
+.B895: db offset(_00B88B, .B8A2), offset(_00B88B, .B8C2), offset(_00B88B, .B8C2)
+.B898: db offset(_00B88B, .B8B2), offset(_00B88B, .B8C2), offset(_00B88B, .B8C2)
+.B89B: db offset(_00B88B, .B89E), offset(_00B88B, .B8C2), offset(_00B88B, .B8C2)
 
 ;-----
 
-    .B89E: dw $0000,$FF00
-    .B8A2: dw $0000,$0000, $0280,$0000, $FF80,$FF80, $FF80,$0178
-    .B8B2: dw $FF80,$FF80, $0178,$FF80, $FF80,$FFC0, $FF80,$0140
-    .B8C2: dw $FFF0,$FFF8, $0110,$FFF0, $FFE8,$FFF0, $FFE8,$00E8
+.B89E: dw $0000,$FF00
+.B8A2: dw $0000,$0000, $0280,$0000, $FF80,$FF80, $FF80,$0178
+.B8B2: dw $FF80,$FF80, $0178,$FF80, $FF80,$FFC0, $FF80,$0140
+.B8C2: dw $FFF0,$FFF8, $0110,$FFF0, $FFE8,$FFF0, $FFE8,$00E8
 }
 
 { ;B8D2 - B8D5
@@ -2561,8 +2562,8 @@ coord_offsets_torch:
 
 { ;BC00 - BC07
 _00BC00:
-    dl $FFFE80 : db $00 ;padding zero
-    dl $000180 : db $00 ;^
+    dd $00FFFE80
+    dd $00000180
 }
 
 { ;BC08 -

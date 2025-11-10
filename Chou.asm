@@ -293,7 +293,7 @@
 
     ;14A8: some kind of enemy count array?
 
-    !is_shooting                 = $14B1
+    is_shooting                  = $14B1
     can_charge_magic             = $14B2
     !armor_state                 = $14BA ;armor/transform state
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
@@ -379,15 +379,15 @@
     ; $29 gfx related
     ; $2B - 3D: obj dependent
 
-    !arthur_active    = $043C+$00 ;$043C
-    !arthur_state     = $043C+$02 ;$043E
-    !arthur_hp        = $043C+$0E ;$044A
-    !arthur_direction = $043C+$11 ;$044D
-    !arthur_facing    = $043C+$12 ;$044E
-    !arthur_speed_x   = $043C+$16 ;$0452
-    !arthur_speed_y   = $043C+$19 ;$0455
-    !arthur_pos_x     = $043C+$1E ;$045A
-    !arthur_pos_y     = $043C+$21 ;$045D
+    !arthur_active    = !slot_arthur+!obj_active    ;$043C
+    !arthur_state     = !slot_arthur+!obj_state     ;$043E
+    !arthur_hp        = !slot_arthur+!obj_hp        ;$044A
+    !arthur_direction = !slot_arthur+!obj_direction ;$044D
+    !arthur_facing    = !slot_arthur+!obj_facing    ;$044E
+    !arthur_speed_x   = !slot_arthur+!obj_speed_x   ;$0452
+    !arthur_speed_y   = !slot_arthur+!obj_speed_y   ;$0455
+    !arthur_pos_x     = !slot_arthur+!obj_pos_x     ;$045A
+    !arthur_pos_y     = !slot_arthur+!obj_pos_y     ;$045D
 
     !obj_size = $0041
 }
