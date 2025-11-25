@@ -36,7 +36,7 @@
 }
 
 { ;snes registers
-    !INIDISP  = $2100 ;Display Control 1
+    INIDISP   = $2100 ;Display Control 1
     !OBSEL    = $2101 ;Object Size and Object Base
     !OAMADDL  = $2102 ;OAM Address (lower 8bit)
     !OAMADDH  = $2103 ;OAM Address (upper 1bit) and Priority Rotation
@@ -226,12 +226,14 @@
     ;54: offset to _01FF00 function jump table
     ;related functions: _01A6AB, nmi_837D
 
-    ;$0278 game state?
+    ;                   $0276 flags? appears to be the start of this section
+    ;                   $0278 game state?
     money_bag_count   = $027A
+    difficulty_base   = $027B
     difficulty        = $027C
-    shot_buttons      = $027D
-    jump_buttons      = $027F
-    rng_state         = $0289
+    shot_buttons      = $027D ;2 bytes
+    jump_buttons      = $027F ;2 bytes
+    rng_state         = $0289 ;2 bytes
     stage             = $028D
     checkpoint        = $028F
     continues         = $0290
@@ -256,6 +258,7 @@
     jump_hold       = $02C0 ;1 byte
     shot_press      = $02C1 ;1 byte
     jump_press      = $02C2 ;1 byte
+
     ;02C3 inc every... "work frame" done? ie, no inc on lag frames
     ;02C4 inc on every video frame? regardless of lag frames
 
@@ -274,16 +277,9 @@
     chest_counter            = $0337
     hud_flicker_timer        = $0373
 
-    ;todo: change defines to labels
+    obj_start = $043C ; $11B0
 
-    !slot_start    = $043C
-    !slot_arthur   = $043C
-    !slot_weapons  = $047D ;10 slots
-    !slot_magic    = $0707 ;8 slots
-    !slot_objects  = $090F ;31 slots
-    !slot_upgrade  = $10EE ;1: face/plume
-    !slot_shield   = $112F ;2nd upgrade slot
-    !slot_upgrade2 = $1170 ;name?
+    ;todo: change defines to labels
 
     !slot_list_objects = $13F1 ;list of 16 bit indices for slot_objects
     !slot_list_weapons = $142F
@@ -339,57 +335,60 @@
     weapon_item_count   = $1FAB
     point_statue_count  = $1FAC
 
-    !options                  = $1FD9
-    !options_difficulty       = $1FD9
-    !options_controls         = $1FDA
-    !options_extra_lives      = $1FDB
-    !options_sound            = $1FDC
-    !options_stage_checkpoint = $1FDD
+    ;$1FD8 unused?
+
+    struct options $1FD9 ;1FD9 - 1FDD
+        .difficulty:       skip 1
+        .controls:         skip 1
+        .extra_lives:      skip 1
+        .sound:            skip 1
+        .stage_checkpoint: skip 1
+    endstruct
 }
 
 { ;object defines
-    !obj_active     = $00 ;1 byte
-    !obj_timer      = $01 ;1 byte
-    !obj_state      = $02 ;4 bytes
-    !obj_type       = $06 ;1 byte
-    !obj_init_param = $07
-    ; $08 ? flags, for gfx?
-    ; $09 ? flags
-    ; $0A ?
-    ; $0B ?
-    ; $0C ?
-    ; $0D ?
-    !obj_hp         = $0E ;1 byte
-    ; $0F ?
-    ; $10 ?
-    !obj_direction  = $11 ;1 byte
-    !obj_facing     = $12 ;1 byte
-    ; $13 ? ;physics pointer? 2 bytes
-    ; $15 ?
-    !obj_speed_x    = $16 ;3 bytes
-    !obj_speed_y    = $19 ;3 bytes
-    !obj_gravity    = $1C ;1 byte
-    ; $1D ?
-    !obj_pos_x      = $1E ;3 bytes
-    !obj_pos_y      = $21 ;3 bytes
-    !obj_anim_timer = $24 ;1 byte
-    ; $25 gfx related, animation frame id? stored together with the timer
-    ; $26 gfx related
-    ; $27 gfx related
-    ; $29 gfx related
-    ; $2B - 3D: obj dependent
+    struct obj 0 ;65 bytes / obj
+        .base:       skip 0
+        .active:     skip 1
+        .timer:      skip 1
+        .state:      skip 4
+        .type:       skip 1
+        .init_param: skip 1
+        .flags1:     skip 1 ;todo: names? flags_gfx and flags_...?
+        .flags2:     skip 1
+        ._0A_0D:     skip 4
+        .hp:         skip 1
+        ._0F_10:     skip 2
+        .direction:  skip 1
+        .facing:     skip 1
+        ._13:        skip 2 ;physics pointer?
+        ._15:        skip 1
+        .speed_x:    skip 3
+        .speed_y:    skip 3
+        .gravity:    skip 1
+        ._1D:        skip 1
+        .pos_x:      skip 3
+        .pos_y:      skip 3
+        .anim_timer: skip 1
+        ._25_29:     skip 4 ;gfx related
+        ;type dependent data + index, see struct base_ext
+    endstruct
 
-    !arthur_active    = !slot_arthur+!obj_active    ;$043C
-    !arthur_state     = !slot_arthur+!obj_state     ;$043E
-    !arthur_hp        = !slot_arthur+!obj_hp        ;$044A
-    !arthur_direction = !slot_arthur+!obj_direction ;$044D
-    !arthur_facing    = !slot_arthur+!obj_facing    ;$044E
-    !arthur_speed_x   = !slot_arthur+!obj_speed_x   ;$0452
-    !arthur_speed_y   = !slot_arthur+!obj_speed_y   ;$0455
-    !arthur_pos_x     = !slot_arthur+!obj_pos_x     ;$045A
-    !arthur_pos_y     = !slot_arthur+!obj_pos_y     ;$045D
+    struct base_ext extends obj
+        ._2B_3D: skip 23 ;type dependent data
+        .index:  skip 1  ;1-indexed slot id (set but not used)
+    endstruct
 
-    !obj_size = $0041
+    !obj_size = $0041 ;todo: set the size param on all ops using this const
+
+    !obj_start    = obj_start+obj[0]
+    !obj_arthur   = obj_start+obj[0]
+    !obj_weapons  = obj_start+obj[1]
+    !obj_magic    = obj_start+obj[11]
+    !obj_objects  = obj_start+obj[19] ;name?
+    !obj_upgrade  = obj_start+obj[50]
+    !obj_shield   = obj_start+obj[51]
+    !obj_upgrade2 = obj_start+obj[52]
 }
 
 { ;object IDs

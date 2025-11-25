@@ -904,16 +904,16 @@ _048B2B:
     ldy $04
     lda #$0C : sta $0000,X
     lda #$00 : pha
-    lda.w _048000+0,Y : sta.w !obj_type,X
+    lda.w _048000+0,Y : sta.w obj.type,X
     pha
     lda.w _048000+1,Y
     pha
     and #$1F
     sta $0007,X
-    lda.w _048000+2,Y : sta.w !obj_pos_x+1,X
-    lda.w _048000+3,Y : sta.w !obj_pos_x+2,X
-    lda.w _048000+4,Y : sta.w !obj_pos_y+1,X
-    lda.w _048000+5,Y : sta.w !obj_pos_y+2,X
+    lda.w _048000+2,Y : sta.w obj.pos_x+1,X
+    lda.w _048000+3,Y : sta.w obj.pos_x+2,X
+    lda.w _048000+4,Y : sta.w obj.pos_y+1,X
+    lda.w _048000+5,Y : sta.w obj.pos_y+2,X
     ldy $06
     pla : ora #$01 : sta $1D9A,Y
     tya
@@ -1538,7 +1538,7 @@ _049234: ;a8 x-
 { ;9242 - 9251
 set_stage_result_discarded: ;a8 x8
     ;sets stage & checkpoint values incorrectly, but shortly after gets zeroed and set elsewhere anyway!
-    lda !options_stage_checkpoint
+    lda.w options.stage_checkpoint
     tax
     and #$01
     sta.w checkpoint

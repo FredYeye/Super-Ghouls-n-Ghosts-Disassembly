@@ -28,7 +28,7 @@ entry: ;emulated mode (code entry)
     ldx #$0275
     txs
     !X8
-    lda #$8F : sta !INIDISP
+    lda #$8F : sta.w INIDISP
     ldx #$0D
 .8120:
     cpx #$01
@@ -127,7 +127,7 @@ nmi: ;a- x-
     stz !HDMAEN
     jsl disable_nmi
     jsr _0089F4
-    lda #$80 : sta !INIDISP
+    lda #$80 : sta.w INIDISP
     inc $02B6
     lda !RDNMI
     lda $0379
@@ -204,7 +204,7 @@ nmi: ;a- x-
     sta !NTRL1 : sta !NTRL2 : sta !NTRL3 : sta !NTRL4
     sta !NTRL5 : sta !NTRL6 : sta !NTRL7
 .835F:
-    lda $02F2 : sta !INIDISP
+    lda $02F2 : sta.w INIDISP
     jsr _0083C2_83C3
     jsr _00847F
     lda #$98 : sta !HTIMEL : stz !HTIMEH
@@ -269,7 +269,7 @@ _0083C2:
     lda #$09 : pha : plb
     phd
     !A16
-    lda #!slot_objects
+    lda.w #!obj_objects.base
     tcd
     !A8
     lda #$1F : sta $0036
@@ -979,11 +979,11 @@ brk: ;a- x-
 
 cop: ;a8 x-
     cli
-    sta !obj_timer
-    lda #$01 : sta !obj_active
+    sta.b obj.timer
+    lda #$01 : sta.b obj.active
     !A16
-    pla : sta !obj_state
-    pla : sta !obj_state+2
+    pla : sta.b obj.state
+    pla : sta.b obj.state+2
     !AX8
     jml _02821B_827A
 }
@@ -2524,8 +2524,8 @@ _00BB22: ;bowgun
     db $01, $01, $01
 
 .BB2E:
-    dw !slot_objects+!obj_size*0, !slot_objects+!obj_size*1, !slot_objects+!obj_size*2
-    dw !slot_objects+!obj_size*0, !slot_objects+!obj_size*1, !slot_objects+!obj_size*2
+    dw !obj_objects.base+!obj_size*0, !obj_objects.base+!obj_size*1, !obj_objects.base+!obj_size*2
+    dw !obj_objects.base+!obj_size*0, !obj_objects.base+!obj_size*1, !obj_objects.base+!obj_size*2
 
 .BB3A:
     db $1C, $1E, $00

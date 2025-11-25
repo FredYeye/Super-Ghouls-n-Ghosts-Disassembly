@@ -556,8 +556,8 @@ endif
 
     !X8
     !A16
-    lda #$04B8 : sta !obj_pos_x+1
-    lda #$0148 : sta !obj_pos_y+1
+    lda #$04B8 : sta.b obj.pos_x+1
+    lda #$0148 : sta.b obj.pos_y+1
     !A8
     ldy #$A8 : ldx #$21 : jsl set_sprite
     lda #$FF : sta $26
@@ -733,15 +733,15 @@ _039E79:
     lda.w tower_edge_data_CEEA,X : ldy #$E8 : ldx #$21 : jsl set_sprite_8480
     pla
     and #$01
-    sta !obj_facing
+    sta.b obj.facing
 .9EC7:
     brk #$00
 
 ;----- 9EC9
 
     !A16
-    lda !obj_pos_x+1 : sta $2D
-    lda !obj_pos_y+1 : sta $2F
+    lda.b obj.pos_x+1 : sta $2D
+    lda.b obj.pos_y+1 : sta $2F
     !A8
     lda $031C
     beq .9EDE
@@ -760,7 +760,7 @@ _039E79:
     clc
     lda.w camera_x+1
     adc #$001E
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     !A8
     bra .9F09
 
@@ -769,32 +769,32 @@ _039E79:
     clc
     lda.w camera_x+1
     adc #$00E2
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     !A8
 .9F09:
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sta $31
     and #$FFFF
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     !A8
     jsl _01A593
     bne .9F28
 
     !A16
     lda $2D
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     lda $2F
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
     bra .9F2E
 
 .9F28:
     !A16
-    lda $31 : sta !obj_pos_x+1
+    lda $31 : sta.b obj.pos_x+1
 .9F2E:
     !A16
     lda.w camera_x+1
-    cmp !obj_pos_x+1
+    cmp.b obj.pos_x+1
     !A8
     bcc .9F39
 
@@ -845,7 +845,7 @@ _039F40:
 
     jsl update_animation_normal
     !A16
-    inc !obj_pos_x+1
+    inc.b obj.pos_x+1
     !A8
     dec $2D
     bne .9F81
@@ -890,18 +890,18 @@ _039F9C:
 
 .9FE8:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$005E
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .9FFA
 
     !A8
     bra .9FC2
 
 .9FFA:
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     sta $2F
     !A8
     lda $08 : ora #$08 : sta $08
@@ -912,11 +912,11 @@ _039F9C:
 
 .A00B:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$005A
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A02B
 
     !A8
@@ -927,11 +927,11 @@ _039F9C:
 
 .A02B:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$005E
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A046
 
     !A8
@@ -948,11 +948,11 @@ _039F9C:
 
 .A04E:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$0056
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A06E
 
     !A8
@@ -963,11 +963,11 @@ _039F9C:
 
 .A06E:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$005A
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A088
 
     !A8
@@ -982,11 +982,11 @@ _039F9C:
 
 .A090:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$0045
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A0B2
 
     !A8
@@ -998,11 +998,11 @@ _039F9C:
 
 .A0B2:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$0056
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A0CC
 
     !A8
@@ -1017,11 +1017,11 @@ _039F9C:
 
 .A0D4:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$0030
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A0F4
 
     !A8
@@ -1032,11 +1032,11 @@ _039F9C:
 
 .A0F4:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$0045
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A110
 
     !A8
@@ -1051,16 +1051,16 @@ _039F9C:
 ;-----
 
 .A118:
-    jsl get_arthur_relative_side : eor #$01 : sta !obj_direction : sta !obj_facing
+    jsl get_arthur_relative_side : eor #$01 : sta.b obj.direction : sta.b obj.facing
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     clc
     adc #$0030
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A145
 
-    lda !obj_pos_y+1 : sta $2F
+    lda.b obj.pos_y+1 : sta $2F
     !A8
     ldy #$C2 : ldx #$21 : jsl set_sprite
     stz $33
@@ -1068,14 +1068,14 @@ _039F9C:
     jmp .9FC2
 
 .A145:
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0030
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A166
 
-    lda !obj_pos_y+1 : sta $2F
+    lda.b obj.pos_y+1 : sta $2F
     !A8
     ldy #$C2 : ldx #$21 : jsl set_sprite
     inc $33
@@ -1090,11 +1090,11 @@ _039F9C:
 
 .A16B:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0045
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A18D
 
     !A8
@@ -1106,11 +1106,11 @@ _039F9C:
 
 .A18D:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0030
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A1A7
 
     !A8
@@ -1125,11 +1125,11 @@ _039F9C:
 
 .A1AF:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0058
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A1CF
 
     !A8
@@ -1140,11 +1140,11 @@ _039F9C:
 
 .A1CF:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0045
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A1EB
 
     !A8
@@ -1160,11 +1160,11 @@ _039F9C:
 
 .A1F3:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$005C
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A213
 
     !A8
@@ -1175,11 +1175,11 @@ _039F9C:
 
 .A213:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0058
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A22D
 
     !A8
@@ -1194,11 +1194,11 @@ _039F9C:
 
 .A235:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0060
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A250
 
     !A8
@@ -1208,11 +1208,11 @@ _039F9C:
 
 .A250:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$005C
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcs .A26A
 
     !A8
@@ -1226,18 +1226,18 @@ _039F9C:
 
 .A270:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc #$0060
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .A283
 
     !A8
     jmp .9FC2
 
 .A283:
-    lda !obj_pos_y+1 : sta $2F
+    lda.b obj.pos_y+1 : sta $2F
     !A8
     ldy #$BC : ldx #$21 : jsl set_sprite
     lda $08 : ora #$08 : sta $08
@@ -1253,7 +1253,7 @@ _039F9C:
 
 .A29F:
     !A16
-    lda $2F : sta !obj_pos_y+1
+    lda $2F : sta.b obj.pos_y+1
     !A8
     rts
 
@@ -1274,7 +1274,7 @@ _039F9C:
 ;-----
 
 .destroy: ;A2C1
-    lda !obj_hp
+    lda.b obj.hp
     beq .A2CC
 
     jsl _02F9DA_F9E0
@@ -1306,11 +1306,11 @@ _03A2FC: ;unused?
     and #$04
     beq .A313
 
-    inc !obj_facing
+    inc.b obj.facing
     bra .A315
 
 .A313:
-    stz !obj_facing
+    stz.b obj.facing
 .A315:
     lda $07 : and #$03 : tax
     lda.w _00CF00,X : tay : jsl set_speed_xyg ;todo
@@ -1333,8 +1333,8 @@ _03A338:
 
 .create:
     !A16
-    lda !obj_pos_x+1 : sta $39
-    lda !obj_pos_y+1 : sta $3B
+    lda.b obj.pos_x+1 : sta $39
+    lda.b obj.pos_y+1 : sta $3B
     !A8
     stz $31
 .A346:
@@ -1474,8 +1474,8 @@ _03A42C:
     ldy #$B4 : ldx #$21 : jsl set_sprite
     lda $09 : ora #$B0 : sta $09
     !A16
-    lda !obj_pos_x+1 : sta $39
-    lda !obj_pos_y+1 : sta $3B
+    lda.b obj.pos_x+1 : sta $39
+    lda.b obj.pos_y+1 : sta $3B
     !A8
     stz $32
 .A448:
@@ -1483,7 +1483,7 @@ _03A42C:
 
 ;----- A44A
 
-    lda !arthur_hp
+    lda.w !obj_arthur.hp
     bmi .A448
 
     lda $32
@@ -1500,7 +1500,7 @@ _03A42C:
 
 .A464:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     cmp #$0280
     bcs .A47E
@@ -1515,39 +1515,39 @@ _03A42C:
     bcs .A49C
 
 .A47E:
-    sta !obj_pos_x+1
-    lda #$03C0 : sta !obj_pos_y+1
+    sta.b obj.pos_x+1
+    lda #$03C0 : sta.b obj.pos_y+1
     rts
 
 .A486:
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     sec
     sbc #$0240
     lsr
     clc
     adc #$03A0
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
     rts
 
 .A494:
-    sta !obj_pos_x+1
-    lda #$03A0 : sta !obj_pos_y+1
+    sta.b obj.pos_x+1
+    lda #$03A0 : sta.b obj.pos_y+1
     rts
 
 .A49C:
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     sec
     sbc #$00C0
     lsr
     sta $2D
-    lda #$03C0 : sec : sbc $2D : sta !obj_pos_y+1
+    lda #$03C0 : sec : sbc $2D : sta.b obj.pos_y+1
     rts
 
 ;-----
 
 .A4AE:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     cmp #$0130
     bcc .A4F6
@@ -1559,54 +1559,54 @@ _03A42C:
     cmp #$0200
     bcs .A4D6
 
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     sec
     sbc #$0130
     lsr
     sta $2D
-    lda #$02C0 : sec : sbc $2D : sta !obj_pos_y+1
+    lda #$02C0 : sec : sbc $2D : sta.b obj.pos_y+1
     rts
 
 .A4D6:
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     sec
     sbc #$0200
     lsr
     clc
     adc #$0258
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
     rts
 
 .A4E4:
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     sec
     sbc #$0280
     lsr
     sta $2D
-    lda #$0298 : sec : sbc $2D : sta !obj_pos_y+1
+    lda #$0298 : sec : sbc $2D : sta.b obj.pos_y+1
     rts
 
 .A4F6:
-    lda #$0130 : sta !obj_pos_x+1
-    lda #$02C0 : sta !obj_pos_y+1
+    lda #$0130 : sta.b obj.pos_x+1
+    lda #$02C0 : sta.b obj.pos_y+1
     rts
 
 ;-----
 
 .A501:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     cmp #$0290
     bcs .A510
 
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     bra .A515
 
 .A510:
-    lda #$0290 : sta !obj_pos_x+1
+    lda #$0290 : sta.b obj.pos_x+1
 .A515:
-    lda #$0120 : sta !obj_pos_y+1
+    lda #$0120 : sta.b obj.pos_y+1
     !A8
     rts
 
@@ -1628,20 +1628,20 @@ _03A42C:
 ;-----
 
 .A535:
-    lda !arthur_hp
+    lda.w !obj_arthur.hp
     bmi .A544
 
     inc $32
     ldy #$B6 : ldx #$21 : jsl set_sprite
 .A544:
-    lda #$FF : sta !slot_arthur+$0F
+    lda #$FF : sta.w !obj_arthur._0F_10
     inc $14C3
     inc $19EB
     stz $007E
     lda $09 : and #$FB : sta $09
     !A16
-    lda !obj_pos_x+1 : sta !arthur_pos_x+1
-    lda !obj_pos_y+1 : sec : sbc #$0008 : sta !arthur_pos_y+1
+    lda.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
+    lda.b obj.pos_y+1 : sec : sbc #$0008 : sta.w !obj_arthur.pos_y+1
     !A8
     lda #$50 : sta $31
     lda #$02 : sta $0F
@@ -1657,11 +1657,11 @@ _03A42C:
     bcc .A585
 
     !A16
-    dec !obj_pos_y+1 : dec !obj_pos_y+1
+    dec.b obj.pos_y+1 : dec.b obj.pos_y+1
 .A585:
     !A16
-    lda !obj_pos_x+1 : sta !arthur_pos_x+1
-    lda !obj_pos_y+1 : sec : sbc #$0008 : sta !arthur_pos_y+1
+    lda.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
+    lda.b obj.pos_y+1 : sec : sbc #$0008 : sta.w !obj_arthur.pos_y+1
     !A8
     dec $31
     bne .A59F
@@ -1676,12 +1676,12 @@ _03A42C:
     inc $19EB
     stz $007E
     ldy #$B4 : ldx #$21 : jsl set_sprite
-    lda !arthur_hp
+    lda.w !obj_arthur.hp
     bmi .A5C7
 
-    lda #$FF : sta !arthur_hp : sta !slot_arthur+$0F
+    lda #$FF : sta.w !obj_arthur.hp : sta.w !obj_arthur._0F_10
     jsl _02FDCD
-    lda !slot_arthur+$08 : and #$EF : sta !slot_arthur+$08
+    lda.w !obj_arthur.flags1 : and #$EF : sta.w !obj_arthur.flags1
 .A5C7:
     lda #$06 : sta $0F
     rtl
@@ -1763,7 +1763,7 @@ _03A5D7:
     ldy #$AC : ldx #$21 : jsl set_sprite
     stz $31
     stz $3A
-    lda #$03 : sta !obj_direction
+    lda #$03 : sta.b obj.direction
     lda #$0A : sta $3B
 .A66C:
     brk #$00
@@ -1776,7 +1776,7 @@ _03A5D7:
 
 .A678:
     lda #$04 : sta $39
-    lda #$03 : sta !obj_direction
+    lda #$03 : sta.b obj.direction
     lda #$0A : sta $3B
 .A684:
     brk #$00
@@ -1836,7 +1836,7 @@ _03A5D7:
     beq .A710
 
     lda #$0A : sta $39
-    jsl _01909B : sta !obj_direction
+    jsl _01909B : sta.b obj.direction
     ldy #$30 : jsl set_speed_xyg
     lda #$42 : sta $3B
 .A706:
@@ -1854,8 +1854,8 @@ _03A5D7:
     stz $0000
     !A16
     clc
-    lda !obj_pos_y+1 : adc #$0010 : sta $0001
-    cmp !arthur_pos_y+1
+    lda.b obj.pos_y+1 : adc #$0010 : sta $0001
+    cmp.w !obj_arthur.pos_y+1
     !A8
     bcc .A72E
 
@@ -1865,56 +1865,56 @@ _03A5D7:
 .A734:
     inc $3B
     clc
-    lda !obj_speed_y : adc !obj_gravity : sta !obj_speed_y
+    lda.b obj.speed_y : adc.b obj.gravity : sta.b obj.speed_y
     !A16
-    lda !obj_speed_y+1 : adc #$0000 : sta !obj_speed_y+1
+    lda.b obj.speed_y+1 : adc #$0000 : sta.b obj.speed_y+1
     clc
-    lda $0000 : adc !obj_speed_y : sta $0000
+    lda $0000 : adc.b obj.speed_y : sta $0000
     !A8
-    lda $0002 : adc !obj_speed_y+2 : sta $0002
+    lda $0002 : adc.b obj.speed_y+2 : sta $0002
     !A16
     lda $0001
-    cmp !arthur_pos_y+1
+    cmp.w !obj_arthur.pos_y+1
     !A8
     bcc .A734
 
-    jsl _01909B : sta !obj_direction
+    jsl _01909B : sta.b obj.direction
     !A16
     bne .A785
 
     clc
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     adc #$0100
     sta $0006
     clc
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     adc #$0100
     sec
     sbc $0006
     bne .A78B
 
 .A785:
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sec
-    sbc !arthur_pos_x+1
+    sbc.w !obj_arthur.pos_x+1
 .A78B:
     stz $0000
     sta $0001
     beq .A7B5
 
     ldy $3B
-    jsl _018A7E : sta !obj_speed_x+1 : sty $0001
+    jsl _018A7E : sta.b obj.speed_x+1 : sty $0001
     lda $0001
     ldy $3B
     jsl _018A7E
     clc
-    adc !obj_speed_x
-    sta !obj_speed_x
+    adc.b obj.speed_x
+    sta.b obj.speed_x
     lda #$0004
-    cmp !obj_speed_x+1
+    cmp.b obj.speed_x+1
     bcs .A7B5
 
-    sta !obj_speed_x+1
+    sta.b obj.speed_x+1
 .A7B5:
     !A8
 .A7B7:
@@ -1923,16 +1923,16 @@ _03A5D7:
 ;----- A7B9
 
     jsl update_pos
-    lda !obj_speed_y+2
+    lda.b obj.speed_y+2
     bpl .A7B7
 
     lda #$0E : sta $39
     jsl get_rng_16
     ldy.w arremer_data_CF39,X
     !A16
-    lda.w arremer_data_CF49,Y : sta !obj_speed_x
+    lda.w arremer_data_CF49,Y : sta.b obj.speed_x
     !A8
-    stz !obj_speed_x+2
+    stz.b obj.speed_x+2
     ldy #$1A
     jsl get_rng_bool
     beq .A7E1
@@ -2015,11 +2015,11 @@ _03A5D7:
     ldy #$A6 : ldx #$21 : jsl set_sprite
     stz $31
     lda #$03 : sta $3A
-    jsl get_rng_bool : sta !obj_direction
+    jsl get_rng_bool : sta.b obj.direction
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sbc #$0014
-    sta !obj_speed_y+1
+    sta.b obj.speed_y+1
     !A8
     ldy #$4E : jsl set_speed_x
 .A87F:
@@ -2043,9 +2043,9 @@ _03A5D7:
 
 .A8A1:
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sec
-    sbc !obj_speed_y+1
+    sbc.b obj.speed_y+1
     cmp #$0028
     !A8
     bcs .A8B5
@@ -2056,12 +2056,12 @@ _03A5D7:
     bra .A8BD
 
 .A8B5:
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     bra .A88F
 
 .A8BD:
     lda #$1A : sta $39
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     jsl get_rng_16
     lda.w arremer_data_CF61,X
     ldx.w difficulty
@@ -2097,7 +2097,7 @@ _03A5D7:
 
 ;----- A90E
 
-    lda !obj_anim_timer
+    lda.b obj.anim_timer
     cmp #$0A
     bne .A90C
 
@@ -2109,7 +2109,7 @@ _03A5D7:
 
 ;----- A921
 
-    lda !obj_anim_timer
+    lda.b obj.anim_timer
     dec
     bne .A91F
 
@@ -2120,7 +2120,7 @@ _03A5D7:
 .A929: ;charge towards arthur
     lda #$20 : sta $39
     ldy #$54 : jsl set_speed_x
-    lda !obj_facing : sta !obj_direction
+    lda.b obj.facing : sta.b obj.direction
     inc $30
 .A939:
     !A8
@@ -2138,19 +2138,19 @@ _03A5D7:
 
 .A950:
     !A16
-    lda !arthur_pos_x+1
-    ldx !obj_direction
+    lda.w !obj_arthur.pos_x+1
+    ldx.b obj.direction
     bne .A962
 
     adc #$0050
-    cmp !obj_pos_x+1
+    cmp.b obj.pos_x+1
     bcs .A939
 
     bra .A969
 
 .A962:
     adc #$FFB0
-    cmp !obj_pos_x+1
+    cmp.b obj.pos_x+1
     bcc .A939
 
 .A969:
@@ -2162,9 +2162,9 @@ _03A5D7:
     lda #$22 : sta $39
     ldy #$AC : ldx #$21 : jsl set_sprite
     stz $31
-    stz !obj_direction
+    stz.b obj.direction
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     cmp #$FF00
     !A8
     bcs .A996
@@ -2173,7 +2173,7 @@ _03A5D7:
     inc
     and #$0F
     lsr #2
-    sta !obj_direction
+    sta.b obj.direction
 .A996:
     brk #$00
 
@@ -2193,7 +2193,7 @@ _03A5D7:
     lda #$24 : sta $39
     jsl _01909B
     asl
-    sta !obj_direction
+    sta.b obj.direction
 .A9B7:
     brk #$00
 
@@ -2207,7 +2207,7 @@ _03A5D7:
     bvc .A9B7
 
     lda #$26 : sta $39
-    lda !obj_facing : sta !obj_direction
+    lda.b obj.facing : sta.b obj.direction
     ldy #$4E : jsl set_speed_x
     lda #$20 : sta $3B
 .A9DB:
@@ -2248,7 +2248,7 @@ _03A5D7:
 ;-----
 
 .destroy:
-    lda !obj_hp
+    lda.b obj.hp
     bne .AA14
 
     jml _028BEC
@@ -2284,7 +2284,7 @@ _03A5D7:
     lda $30
     bne .AA71
 
-    jsl _01909B : sta !obj_facing
+    jsl _01909B : sta.b obj.facing
 .AA71:
     jsl update_animation_normal
     ldx $32
@@ -2308,7 +2308,7 @@ _03A5D7:
     inc
     and #$1F
     lsr
-    sta !obj_facing
+    sta.b obj.facing
     lda #$02 : sta $07
 .AAA8:
     lda #!id_arremer_killers : jsl prepare_object
@@ -2322,7 +2322,7 @@ _03A5D7:
 .AAB3:
     pla
     pla
-    lda #$03 : sta !obj_direction
+    lda #$03 : sta.b obj.direction
     lda $3A
     beq .AAC5
 
@@ -2348,9 +2348,9 @@ _03A5D7:
 
     ldy #$0A
     !AX16
-    ldx #!slot_weapons
+    ldx.w #!obj_weapons.base
 .AAEA:
-    lda.w !obj_active,X
+    lda.w obj.active,X
     and #$000D
     beq .AB15
 
@@ -2358,16 +2358,16 @@ _03A5D7:
     bmi .AB15
 
     sec
-    lda !obj_pos_x+1
-    sbc.w !obj_pos_x+1,X
+    lda.b obj.pos_x+1
+    sbc.w obj.pos_x+1,X
     clc
     adc #$0030
     cmp #$0060
     bcs .AB15
 
     sec
-    lda !obj_pos_y+1
-    sbc.w !obj_pos_y+1,X
+    lda.b obj.pos_y+1
+    sbc.w obj.pos_y+1,X
     clc
     adc #$0020
     cmp #$0040
@@ -2376,7 +2376,7 @@ _03A5D7:
 .AB15:
     txa
     clc
-    adc #!obj_size
+    adc.w #!obj_size
     tax
     dey
     bne .AAEA
@@ -2390,7 +2390,7 @@ _03A5D7:
 .AB25:
     jsl set_direction32_custom_obj
     tax
-    lda.w arremer_data_CFB5,X : sta !obj_direction
+    lda.w arremer_data_CFB5,X : sta.b obj.direction
     pla
     pla
     lda $3A
@@ -2485,13 +2485,13 @@ _03AB47:
 
 .ABC7: ;tower platforms
     !A16
-    lda !obj_pos_x+1 : sta $35
-    lda !obj_pos_y+1 : sta $37
+    lda.b obj.pos_x+1 : sta $35
+    lda.b obj.pos_y+1 : sta $37
     !A8
     bra .ABD7
 
 .ABD5:
-    inc !obj_direction
+    inc.b obj.direction
 .ABD7:
     lda $07
     sec
@@ -2506,7 +2506,7 @@ _03AB47:
 
 ;----- ABEB
 
-    lda !arthur_speed_y+2
+    lda.w !obj_arthur.speed_y+2
     bmi .ABE9
 
     jsl .thing
@@ -2530,8 +2530,8 @@ _03AB47:
     jsl .thing
     jsl update_pos_xy
     !A16
-    lda !obj_pos_x+1 : sta $02D1 : sta $1F33
-    lda !obj_pos_y+1 : sta $02D3 : sta $1F35
+    lda.b obj.pos_x+1 : sta $02D1 : sta $1F33
+    lda.b obj.pos_y+1 : sta $02D3 : sta $1F35
     jsr .ACC1
     !A16
     dec $3B
@@ -2570,8 +2570,8 @@ _03AB47:
 
 .AC5E:
     !A16
-    lda $35 : sta !obj_pos_x+1
-    lda $37 : sta !obj_pos_y+1
+    lda $35 : sta.b obj.pos_x+1
+    lda $37 : sta.b obj.pos_y+1
     !A8
     stz $08
 .AC6C:
@@ -2598,8 +2598,8 @@ _03AB47:
     bne .AC79
 
     !A16
-    lda !obj_pos_x+1 : sta !obj_speed_x+1
-    lda !obj_pos_y+1 : sta !obj_speed_y+1
+    lda.b obj.pos_x+1 : sta.b obj.speed_x+1
+    lda.b obj.pos_y+1 : sta.b obj.speed_y+1
     !A8
     lda #$30 : sta $3B
 .AC93:
@@ -2635,8 +2635,8 @@ _03AB47:
     beq .ACD9
 
     !A16
-    clc : lda $31 : adc !obj_pos_x+1 : sta !arthur_pos_x+1
-    clc : lda $33 : adc !obj_pos_y+1 : sta !arthur_pos_y+1
+    clc : lda $31 : adc.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
+    clc : lda $33 : adc.b obj.pos_y+1 : sta.w !obj_arthur.pos_y+1
     !A8
 .ACD9:
     rts
@@ -2646,28 +2646,28 @@ _03AB47:
 .thing:
     stz $27
     !AX16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     clc
     adc $2D
     sec
-    sbc !arthur_pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     cmp $2F
     bcs .AD1D
 
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     clc
     adc #$0017
     sec
-    sbc !obj_pos_y+1
+    sbc.b obj.pos_y+1
     cmp #$0008
     bcs .AD1D
 
     eor #$FFFF
     inc
-    adc !arthur_pos_y+1
-    sta !arthur_pos_y+1
-    lda !arthur_pos_x+1 : sec : sbc !obj_pos_x+1 : sta $31
-    lda !arthur_pos_y+1 : sec : sbc !obj_pos_y+1 : sta $33
+    adc.w !obj_arthur.pos_y+1
+    sta.w !obj_arthur.pos_y+1
+    lda.w !obj_arthur.pos_x+1 : sec : sbc.b obj.pos_x+1 : sta $31
+    lda.w !obj_arthur.pos_y+1 : sec : sbc.b obj.pos_y+1 : sta $33
     !AX8
     lda #$80 : sta $14C3
     inc $27
@@ -2688,9 +2688,9 @@ _03AB47:
     !A16
     and #$00FF
     tay
-    lda.w moving_platform_data_D07F+0,Y : sta !obj_speed_x
-    lda.w moving_platform_data_D07F+2,Y : sta !obj_speed_x+2
-    lda.w moving_platform_data_D07F+4,Y : sta !obj_speed_y+1
+    lda.w moving_platform_data_D07F+0,Y : sta.b obj.speed_x
+    lda.w moving_platform_data_D07F+2,Y : sta.b obj.speed_x+2
+    lda.w moving_platform_data_D07F+4,Y : sta.b obj.speed_y+1
     inx #3
     stx $13
     lda #$0000
@@ -2748,7 +2748,7 @@ _03AD8A:
     ldy #$B6 : ldx #$21
 .ADA3:
     jsl set_sprite
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
     jsl set_hp
     lda #$08 : sta $38
     stz $31
@@ -2758,7 +2758,7 @@ _03AD8A:
 
 ;----- ADBD
 
-    stz !obj_facing
+    stz.b obj.facing
     jsr .ADD2
     asl
     tax
@@ -2783,7 +2783,7 @@ _03AD8A:
 ;-----
 
 .ADE2:
-    inc !obj_facing
+    inc.b obj.facing
 .ADE4:
     stz $35
     stz $36
@@ -2794,8 +2794,8 @@ _03AD8A:
     lda $33 : sta $0033,X
     !A16
     lda.w #.AF45 : sta $0003,X
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     lda $002D,X
     tax
     !A8
@@ -2850,10 +2850,10 @@ _03AD8A:
     bne .AE5D
 
     !A16
-    lda !obj_pos_x+1 : sta $13
-    lda !obj_pos_y+1 : sta $27
+    lda.b obj.pos_x+1 : sta $13
+    lda.b obj.pos_y+1 : sta $27
     !A8
-    lda !obj_direction
+    lda.b obj.direction
     sta $26
     inc $0F
 .AE7C:
@@ -2865,7 +2865,7 @@ _03AD8A:
     bmi .AED2
 
     stx $35
-    stz !obj_direction
+    stz.b obj.direction
     lda #!id_flower_projectile : jsl prepare_object_8C37
 .AE92:
     brk #$00
@@ -2875,8 +2875,8 @@ _03AD8A:
     lda #$01 : jsr .B0EB
     !AX16
     ldx $35
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     !AX8
     lda $1F97
     bne .AED8
@@ -2916,10 +2916,10 @@ _03AD8A:
     jsr .B01B
     stz $35
     stz $36
-    lda $26 : sta !obj_direction
+    lda $26 : sta.b obj.direction
     !A16
-    lda $13 : sta !obj_pos_x+1
-    lda $27 : sta !obj_pos_y+1
+    lda $13 : sta.b obj.pos_x+1
+    lda $27 : sta.b obj.pos_y+1
     !A8
     lda #$48 : sta $37
     jsr .B0B9
@@ -2936,8 +2936,8 @@ _03AD8A:
 
     inc $31
 .AF09:
-    stz !obj_direction
-    stz !obj_facing
+    stz.b obj.direction
+    stz.b obj.facing
     ldy #$BE : ldx #$21 : jsl set_sprite
     jsl _02F9ED
     jsl _03B114
@@ -2974,8 +2974,8 @@ _03AD8A:
 
 .AF45:
     stz $31
-    stz !obj_pos_x
-    stz !obj_pos_y
+    stz.b obj.pos_x
+    stz.b obj.pos_y
     lda #$01 : sta $08
     stz $34
 .AF51:
@@ -3004,18 +3004,18 @@ _03AD8A:
     asl #2
     tax
     lda.w skull_flower_multi_data_D112-$10,X : sta $38
-    lda.w skull_flower_multi_data_D112-$0F,X : sta !obj_direction
+    lda.w skull_flower_multi_data_D112-$0F,X : sta.b obj.direction
     lda $33
     and #$01
     !A16
     clc
     bne .AF9C
 
-    lda.w skull_flower_multi_data_D112-$0E,X : adc !obj_pos_x+1 : sta !obj_pos_x+1
+    lda.w skull_flower_multi_data_D112-$0E,X : adc.b obj.pos_x+1 : sta.b obj.pos_x+1
     bra .AFA3
 
 .AF9C:
-    lda.w skull_flower_multi_data_D112-$0E,X : adc !obj_pos_y+1 : sta !obj_pos_y+1
+    lda.w skull_flower_multi_data_D112-$0E,X : adc.b obj.pos_y+1 : sta.b obj.pos_y+1
 .AFA3:
     jsr .B0D5
     lda $32 : sta $37
@@ -3144,7 +3144,7 @@ _03AD8A:
     and #$01
     bne .B061
 
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
 .B061:
     lda $0F
     beq .B07A
@@ -3176,7 +3176,7 @@ _03AD8A:
     dec $38
     bne .B09C
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     lda #$10 : sta $38
 .B09C:
     rts
@@ -3191,9 +3191,9 @@ _03AD8A:
     asl
     tax
     !A16
-    lda.w skull_flower_multi_data_D0E2+0,X : sta !obj_speed_x+0
-    lda.w skull_flower_multi_data_D0E2+2,X : sta !obj_speed_x+2
-    lda.w skull_flower_multi_data_D0E2+4,X : sta !obj_speed_y+1
+    lda.w skull_flower_multi_data_D0E2+0,X : sta.b obj.speed_x+0
+    lda.w skull_flower_multi_data_D0E2+2,X : sta.b obj.speed_x+2
+    lda.w skull_flower_multi_data_D0E2+4,X : sta.b obj.speed_y+1
     !A8
     rts
 
@@ -3207,9 +3207,9 @@ _03AD8A:
     asl
     tax
     !A16
-    lda.w skull_flower_multi_data_D0FA+0,X : sta !obj_speed_x+0
-    lda.w skull_flower_multi_data_D0FA+2,X : sta !obj_speed_x+2
-    lda.w skull_flower_multi_data_D0FA+4,X : sta !obj_speed_y+1
+    lda.w skull_flower_multi_data_D0FA+0,X : sta.b obj.speed_x+0
+    lda.w skull_flower_multi_data_D0FA+2,X : sta.b obj.speed_x+2
+    lda.w skull_flower_multi_data_D0FA+4,X : sta.b obj.speed_y+1
     !A8
     rts
 
@@ -3218,9 +3218,9 @@ _03AD8A:
 .B0D5:
     !AX16
     ldx $2F
-    lda.w !obj_speed_x+0,X : sta !obj_speed_x+0
-    lda.w !obj_speed_x+2,X : sta !obj_speed_x+2
-    lda.w !obj_speed_y+1,X : sta !obj_speed_y+1
+    lda.w obj.speed_x+0,X : sta.b obj.speed_x+0
+    lda.w obj.speed_x+2,X : sta.b obj.speed_x+2
+    lda.w obj.speed_y+1,X : sta.b obj.speed_y+1
     !AX8
     rts
 
@@ -3229,12 +3229,12 @@ _03AD8A:
 .B0EB:
     clc : adc $15 : sta $15
     !A16
-    lda $13 : sta !obj_pos_x+1
-    lda $27 : sta !obj_pos_y+1
+    lda $13 : sta.b obj.pos_x+1
+    lda $27 : sta.b obj.pos_y+1
     !A8
     stz $1E
     stz $21
-    lda !obj_direction : inc : and #$1F : sta !obj_direction
+    lda.b obj.direction : inc : and #$1F : sta.b obj.direction
     lda $15 : ldx #$16 : jsl _0189D9
     jsl update_animation_normal
     rts
@@ -3243,11 +3243,11 @@ _03AD8A:
 { ;B114 - B12A
 _03B114: ;a8 x-
     lda $09 : ora #$04 : sta $09
-    stz !obj_pos_x
-    stz !obj_pos_y
+    stz.b obj.pos_x
+    stz.b obj.pos_y
     !A16
-    lda !obj_pos_x+1 : sta $39
-    lda !obj_pos_y+1 : sta $3B
+    lda.b obj.pos_x+1 : sta $39
+    lda.b obj.pos_y+1 : sta $3B
     !A8
     rtl
 }
@@ -3336,7 +3336,7 @@ _03B19E:
 
 ;----- B1C6
 
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
 if !version == 0 || !version == 1
     cmp #$1A30
 elseif !version == 2
@@ -3356,7 +3356,7 @@ endif
     stz $1554
     lda #$04 : sta $02D5 : sta $02D6
     lda #$10 : sta $02D7 : sta $02D8
-    lda #$30 : ora !slot_arthur+$09 : sta !slot_arthur+$09
+    lda #$30 : ora.w !obj_arthur.flags2 : sta.w !obj_arthur.flags2
     stz $15F1
     stz $1747
     stz $189D
@@ -3457,8 +3457,8 @@ endif
 
 ;----- B2D9
 
-    lda !arthur_pos_x+1 : sta !obj_pos_x+1
-    lda !arthur_pos_y+1 : sta !obj_pos_y+1
+    lda.w !obj_arthur.pos_x+1 : sta.b obj.pos_x+1
+    lda.w !obj_arthur.pos_y+1 : sta.b obj.pos_y+1
     clc
     lda $02C9
     adc #$000C
@@ -3526,35 +3526,35 @@ endif
     beq .B354
 
     sta $3B
-    sta !obj_direction
+    sta.b obj.direction
     ldx #$8E : jsl _0196EF : sta $3C
     brk #$00
 
 ;----- B36E
 
     !A16
-    lda !obj_pos_x+1 : sta !obj_speed_x+1
-    lda !obj_pos_y+1 : sta !obj_speed_y+1
+    lda.b obj.pos_x+1 : sta.b obj.speed_x+1
+    lda.b obj.pos_y+1 : sta.b obj.speed_y+1
     !A8
     ldx #$40 : jsl update_pos_xy_2
     !A16
     sec
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sbc #$1C00
     adc #$00E0
     cmp #$01C0
     bcs .B39E
 
     sec
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     sbc #$0280
     adc #$0060
     cmp #$00C0
     bcc .B3B4
 
 .B39E:
-    lda !obj_speed_x+1 : sta !obj_pos_x+1
-    lda !obj_speed_y+1 : sta !obj_pos_y+1
+    lda.b obj.speed_x+1 : sta.b obj.pos_x+1
+    lda.b obj.speed_y+1 : sta.b obj.pos_y+1
     !A8
 .B3A8:
     brk #$00
@@ -3639,8 +3639,8 @@ endif
     jsl get_object_slot
     bmi .B44E
 
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_death_crawler_part : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_death_crawler_part : sta.w obj.type,X
     lda $07 : sta $0007,X
     inc $07
     !X8
@@ -3651,15 +3651,15 @@ endif
     jsl get_object_slot
     bmi .B460
 
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_death_crawler : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_death_crawler : sta.w obj.type,X
     !X8
 .B460:
     jsl get_object_slot
     bmi .B472
 
-    lda #$0C : sta.w !obj_active,X
-    lda #$AF : sta.w !obj_type,X ;todo
+    lda #$0C : sta.w obj.active,X
+    lda #$AF : sta.w obj.type,X ;todo
     !X8
 .B472:
     rts
@@ -3746,11 +3746,11 @@ endif
     lda $1ED7
     beq .B528
 
-    lda #$8C : sta !obj_active
+    lda #$8C : sta.b obj.active
     asl $09 : lsr $09
 .B528:
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sta $1EB7
     sec
     sbc #$0080
@@ -3759,7 +3759,7 @@ endif
     eor #$FFFF
     inc
     sta $19BD
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     sta $1EB9
     sec
     sbc #$0080
@@ -3821,8 +3821,8 @@ _03B59C:
 
 .B5B6:
     !A16
-    lda $1EB7 : sta !obj_pos_x+1
-    lda $1EB9 : sta !obj_pos_y+1
+    lda $1EB7 : sta.b obj.pos_x+1
+    lda $1EB9 : sta.b obj.pos_y+1
     !A8
     clc
     lda $1F2B
@@ -3831,8 +3831,8 @@ _03B59C:
     sec
     sbc $2D
     lsr #3
-    sta !obj_direction
-    lda !obj_type
+    sta.b obj.direction
+    lda.b obj.type
     cmp #$AF
     beq .B5E3
 
@@ -3863,7 +3863,7 @@ _03B5F9:
     lda #$04 : sta $1D
     lda #$20 : sta $2D
     jsl set_hp
-    lda !obj_hp : sta $3C
+    lda.b obj.hp : sta $3C
     bra _03B59C_B5AB
 
 ;-----
@@ -3876,7 +3876,7 @@ _03B5F9:
     jsl _02F9CA
     jsl _02F9FA
 .B620:
-    lda !obj_hp
+    lda.b obj.hp
     cmp $3C
     beq .B634
 
@@ -3905,7 +3905,7 @@ _03B63C:
     lsr #3
     and #$03
     sta $3C
-    lda.w death_crawler_projectile_data_D14F,X : sta !obj_facing : sta !obj_direction
+    lda.w death_crawler_projectile_data_D14F,X : sta.b obj.facing : sta.b obj.direction
     ldy.w death_crawler_projectile_data_D137,X : jsl set_speed_xyg
     lda #$35 : jsl _018049_8053
 .B668:
@@ -3927,7 +3927,7 @@ _03B63C:
     clc
     lda.w camera_y+1
     adc #$0100
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
     !A8
     bcs .B692
 
@@ -3946,7 +3946,7 @@ _03B63C:
     clc
     lda.w camera_x+1
     adc #$0100
-    cmp !obj_pos_x+1
+    cmp.b obj.pos_x+1
     !A8
     bcs .B6AF
 
@@ -3963,7 +3963,7 @@ _03B63C:
     jsr .B6C9
     !A16
     lda.w camera_x+1
-    cmp !obj_pos_x+1
+    cmp.b obj.pos_x+1
     !A8
     bcc .B6C8
 
@@ -3984,7 +3984,7 @@ _03B63C:
     lda.w camera_x+1
     adc #$0080
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     clc
     adc #$0090
     cmp #$0120
@@ -3996,10 +3996,10 @@ _03B63C:
     asl
     tax
     !A16
-    clc : lda.w camera_y+1 : adc.w death_crawler_projectile_data_D12D,X : sta !obj_pos_y+1
-    stz !obj_speed_y
+    clc : lda.w camera_y+1 : adc.w death_crawler_projectile_data_D12D,X : sta.b obj.pos_y+1
+    stz.b obj.speed_y
     !A8
-    stz !obj_speed_y+2
+    stz.b obj.speed_y+2
     inc $3B
 .B6FD:
     rts
@@ -4025,8 +4025,8 @@ _03B711:
     asl #2
     tax
     !A16
-    lda.w _00D16A_D177+0,X : sta !obj_pos_x+1
-    lda.w _00D16A_D177+2,X : sta !obj_pos_y+1
+    lda.w _00D16A_D177+0,X : sta.b obj.pos_x+1
+    lda.w _00D16A_D177+2,X : sta.b obj.pos_y+1
     !A8
     inc $2D
     lda $2D
@@ -4073,7 +4073,7 @@ _03B74A:
 
 ;----- B773
 
-    stz !obj_direction
+    stz.b obj.direction
     ldy #$CA : ldx #$21 : jsl set_sprite
     lda #$90 : sta $09
     lda #$08 : cop #$00
@@ -4114,7 +4114,7 @@ _03B74A:
     cmp #$70
     bne .B7C5
 
-    inc !obj_direction
+    inc.b obj.direction
     ldx $07
     ldy.w lava_pillar_data_D1AF+4,X : lda.w lava_pillar_data_D1AF+5,X : tax : jsl set_sprite
     ldx.w difficulty
@@ -4179,7 +4179,7 @@ _03B74A:
 
 .thing:
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     cmp.w camera_x+1
     !A8
     bcs .B864
@@ -4213,21 +4213,21 @@ _03B74A:
 .B89E:
     !A16
     lda #$0008
-    ldx !obj_direction
+    ldx.b obj.direction
     beq .B8AA
 
     lda #$FFF8
 .B8AA:
     clc
-    adc !obj_pos_y+1
-    sta !obj_pos_y+1
+    adc.b obj.pos_y+1
+    sta.b obj.pos_y+1
     !A8
     rts
 }
 
 { ;B8B2 -
 _03B8B2: ;a8 x8
-    ldy !options_stage_checkpoint : sty $31
+    ldy.w options.stage_checkpoint : sty $31
     ldx.w _00D1C1,Y
     lda.w _00D1C1+$10,X : sta.w stage
     lda.w _00D1C1+$11,X : sta.w checkpoint
@@ -4339,25 +4339,25 @@ endif
     bit #!right
     beq .B985
 
-    lda !options_difficulty
+    lda.w options.difficulty
     cmp #$06
     beq .B994
 
     clc
     adc #$02
-    sta !options_difficulty
+    sta.w options.difficulty
     rts
 
 .B985:
     bit #!left
     beq .B994
 
-    lda !options_difficulty
+    lda.w options.difficulty
     beq .B994
 
     sec
     sbc #$02
-    sta !options_difficulty
+    sta.w options.difficulty
 .B994:
     rts
 
@@ -4373,20 +4373,20 @@ endif
     beq .B9B3
 
     clc
-    lda !options,X
+    lda.w options,X
     adc #$02
     cmp.w _00D1BB-1,X
     bcc .B9AF
 
     lda #$00
 .B9AF:
-    sta !options,X
+    sta.w options,X
 .B9B2:
     rts
 
 .B9B3:
     sec
-    lda !options,X
+    lda.w options,X
     sbc #$02
     bcs .B9AF
 
@@ -4415,9 +4415,9 @@ endif
     lda #$FE
 .B9D8:
     clc
-    adc !options,X
+    adc.w options,X
     and.w _00D1BD,X
-    sta !options,X ;only used to set sound mode
+    sta.w options,X ;only used to set sound mode
 .B9E2:
     rts
 
@@ -4447,22 +4447,12 @@ endif
 ;-----
 
 .BA04:
-    lda #$00
-    ldx !options_difficulty
-    jsl .BB96
-    clc
-    lda !options_controls
-    adc #$08
-    tax
-    lda #$01
-    jsl .BB96
-    clc
-    lda !options_controls
-    adc #$10
-    tax
-    lda #$01
-    jsl .BB96
-    lda !options_extra_lives
+    lda #$00 : ldx.w options.difficulty : jsl .BB96
+    clc : lda.w options.controls : adc #$08 : tax
+    lda #$01 : jsl .BB96
+    clc : lda.w options.controls : adc #$10 : tax
+    lda #$01 : jsl .BB96
+    lda.w options.extra_lives
     lsr
     inc
     ldy #$02
@@ -4470,15 +4460,9 @@ endif
     ldx #$041E
     jsr .BBE6
     !X8
-    clc
-    lda !options_sound
-    adc #$18
-    tax
-    lda #$03
-    jsl .BB96
-    ldx #$1C
-    lda #$04
-    jsl .BB96
+    clc : lda.w options.sound : adc #$18 : tax
+    lda #$03 : jsl .BB96
+    ldx #$1C : lda #$04 : jsl .BB96
     rts
 
 ;-----
@@ -4490,7 +4474,7 @@ endif
 
     ldx #$02 : jsl _049262
     stz $0F
-    lda !options_stage_checkpoint
+    lda.w options.stage_checkpoint
     tax
     lsr
     sta $2D
@@ -4562,7 +4546,7 @@ endif
     jsr .BAFB
     lda $2E : and #$01 : sta $2E
 .BAD2:
-    lda $2D : asl : ora $2E : sta !options_stage_checkpoint
+    lda $2D : asl : ora $2E : sta.w options.stage_checkpoint
     rts
 
 ;-----
@@ -4786,13 +4770,13 @@ _03BC15:
     !A16
     lda.w camera_x+1
     adc.w tiny_goblin_data_D205,X
-    sta !obj_pos_x+1
+    sta.b obj.pos_x+1
     sec
     lda $1737
     sbc.w camera_y+1
     clc
     adc #$0208
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
     !A8
     lda.w obj_type_count+!id_tiny_goblin
     cmp #$02
@@ -4823,7 +4807,7 @@ _03BC85:
     lda #$DC : sta $31
     jsl pot_creation
     jsl set_hp
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
     !A16
     stz $2D
     lda.w _00ED00+$5C : sta $27
@@ -4888,7 +4872,7 @@ _03BC85:
     beq .BD12
 
     lda #$08 : sta $2D
-    jsl get_arthur_relative_side : sta !obj_direction : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.direction : sta.b obj.facing
     ldy #$F6 : ldx #$21 : jsl set_sprite
     stz $2F
     ldy #$57 : jsl set_speed_x
@@ -4900,7 +4884,7 @@ _03BC85:
 
     jsl update_pos_x
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sec
     sbc #$0010
     sbc.w camera_x+1
@@ -4911,7 +4895,7 @@ _03BC85:
     jsl _01A593
     bne .BD43
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     jsl update_pos_x
 .BD6B:
     lda #$0A : sta $2D
@@ -4933,7 +4917,7 @@ _03BC85:
 
 .BD94:
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sec
     sbc #$0020
     sbc.w camera_x+1
@@ -4944,7 +4928,7 @@ _03BC85:
 ;-----
 
 .destroy:
-    lda !obj_hp
+    lda.b obj.hp
     bne .BDB1
 
     jsl drop_pot
@@ -5017,7 +5001,7 @@ _03BE26:
     inc
     and #$1F
     lsr
-    sta !obj_direction
+    sta.b obj.direction
     ldx.w stage
     cpx #$07
     bcc .BE4B
@@ -5060,7 +5044,7 @@ _03BE26:
     jsr .BF5C
     ldy #$E0 : ldx #$21 : jsl set_sprite
     jsl _02F9DA
-    lda !obj_direction : sta $2D
+    lda.b obj.direction : sta $2D
     ldx $07
     lda.w arremer_projectile_data_D222,X : sta $2E
     ldx.w stage
@@ -5070,8 +5054,8 @@ _03BE26:
     lda.w arremer_projectile_data_D220-7,X : sta $29
 .BEA7:
     !A16
-    lda !obj_pos_x+1 : sta !obj_speed_x+1
-    lda !obj_pos_y+1 : sta !obj_speed_y+1
+    lda.b obj.pos_x+1 : sta.b obj.speed_x+1
+    lda.b obj.pos_y+1 : sta.b obj.speed_y+1
     !A8
     lda #$60 : sta $3B
 .BEB7:
@@ -5091,7 +5075,7 @@ _03BE26:
 
     lda $2E : inc #2 : and #$3F : sta $2E
     jsr .BEF5
-    lda $2D : sta !obj_direction
+    lda $2D : sta.b obj.direction
     dec $3B
     bne .BEC6
 
@@ -5103,7 +5087,7 @@ _03BE26:
     inc
     and #$1F
     lsr
-    sta !obj_direction
+    sta.b obj.direction
 .BEE9:
     brk #$00
 
@@ -5117,7 +5101,7 @@ _03BE26:
 .BEF3:
     lda $2E
 .BEF5:
-    sta !obj_direction
+    sta.b obj.direction
     lda $0F
     ldx #$06 : jsl _018B25
     rts
@@ -5193,8 +5177,8 @@ _03BF65: ;a8 x8
     asl #2
     tax
     !A16
-    lda.w killer_data_D24D+0,X : sta !obj_pos_x+1
-    lda.w killer_data_D24D+2,X : sta !obj_pos_y+1
+    lda.w killer_data_D24D+0,X : sta.b obj.pos_x+1
+    lda.w killer_data_D24D+2,X : sta.b obj.pos_y+1
     !A8
     inc $2D
     lda $2D
@@ -5208,13 +5192,13 @@ _03BF65: ;a8 x8
 ;----- BF92
 
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     adc #$0020
     sbc.w camera_x+1
     cmp #$0140
     bcs .BF90
 
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     adc #$0020
     sbc.w camera_y+1
     cmp #$0140
@@ -5284,7 +5268,7 @@ _03BF65: ;a8 x8
 
     ldy #$A4
     ldx #$21
-    lda !obj_facing : eor #$01 : sta !obj_facing
+    lda.b obj.facing : eor #$01 : sta.b obj.facing
 .C033:
     jsl set_sprite
     inc $2E
@@ -5294,7 +5278,7 @@ _03BF65: ;a8 x8
     bne +
 
     jsl get_rng_16
-    sta !obj_direction
+    sta.b obj.direction
 +:
     ldx #$04
     jsl update_pos_xy_2
@@ -5303,8 +5287,8 @@ _03BF65: ;a8 x8
     bne .C015
 
     jsl get_arthur_relative_side
-    sta !obj_direction
-    sta !obj_facing
+    sta.b obj.direction
+    sta.b obj.facing
     ldy #$A2 : ldx #$21 : jsl set_sprite
     lda $2D : adc #$02 : and #$06 : sta $2D
     lda #$0C : jsl _0187E5
@@ -5314,12 +5298,12 @@ _03BF65: ;a8 x8
     !A8
     bne .C083
 
-    inc !obj_speed_x+1
+    inc.b obj.speed_x+1
     bra .C08A
 
 .C083:
     jsr .C124
-    lda !obj_speed_y+2
+    lda.b obj.speed_y+2
     bmi .C0A4
 
 .C08A:
@@ -5331,7 +5315,7 @@ _03BF65: ;a8 x8
     bvc .C0C6
 
     jsl update_pos_xyg_sub
-    lda !obj_speed_y+2
+    lda.b obj.speed_y+2
     bpl .C08A
 
     ldy #$14
@@ -5386,10 +5370,10 @@ _03BF65: ;a8 x8
 
     !A16
     lda #$0540
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
     bcc +
 
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
 +:
     !A8
 .C0FA:
@@ -5403,9 +5387,9 @@ _03BF65: ;a8 x8
 ;-----
 
 .C116:
-    lda #$FE80 : sta !obj_speed_y
+    lda #$FE80 : sta.b obj.speed_y
     !A8
-    dec !obj_speed_y+2
+    dec.b obj.speed_y+2
     lda #$30 : sta $2F
     rts
 
@@ -5413,9 +5397,9 @@ _03BF65: ;a8 x8
     stz $2F
     stz $0000
     !A16
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     sta $0001
-    cmp !arthur_pos_y+1
+    cmp.w !obj_arthur.pos_y+1
     bcs .C116
 
     !A8
@@ -5423,32 +5407,32 @@ _03BF65: ;a8 x8
 .C13D:
     inc $2F
     clc
-    lda !obj_speed_y   : adc !obj_gravity   : sta !obj_speed_y
+    lda.b obj.speed_y   : adc.b obj.gravity  : sta.b obj.speed_y
     !A16
-    lda !obj_speed_y+1 : adc #$0000         : sta !obj_speed_y+1
+    lda.b obj.speed_y+1 : adc #$0000         : sta.b obj.speed_y+1
     clc
-    lda $0000          : adc !obj_speed_y   : sta $0000
+    lda $0000          : adc.b obj.speed_y   : sta $0000
     !A8
-    lda $0002          : adc !obj_speed_y+2 : sta $0002
+    lda $0002          : adc.b obj.speed_y+2 : sta $0002
     !A16
     lda $0001
-    cmp !arthur_pos_y+1
+    cmp.w !obj_arthur.pos_y+1
     !A8
     bcc .C13D
 
-    jsl get_arthur_relative_side : sta !obj_direction
+    jsl get_arthur_relative_side : sta.b obj.direction
     !A16
     bne .C180
 
     sec
-    lda !arthur_pos_x+1
-    sbc !obj_pos_x+1
+    lda.w !obj_arthur.pos_x+1
+    sbc.b obj.pos_x+1
     bne .C186 ;supposed to be bra?
 
 .C180:
     sec
-    lda !obj_pos_x+1
-    sbc !arthur_pos_x+1
+    lda.b obj.pos_x+1
+    sbc.w !obj_arthur.pos_x+1
 
 .C186:
     stz $0000
@@ -5457,20 +5441,20 @@ _03BF65: ;a8 x8
 
     ldy $2F
     jsl _018A7E
-    sta !obj_speed_x+1
+    sta.b obj.speed_x+1
     sty $0001
     lda $0001
     ldy $2F
     jsl _018A7E
     clc
-    adc !obj_speed_x
-    sta !obj_speed_x
-    lda !obj_speed_x+1
+    adc.b obj.speed_x
+    sta.b obj.speed_x
+    lda.b obj.speed_x+1
     cmp #$0003
     bcc .C1B3
 
     lda #$0003
-    sta !obj_speed_x+1
+    sta.b obj.speed_x+1
 .C1B3:
     !A8
     rts
@@ -5514,8 +5498,8 @@ _03C1EA:
 .C1FE:
     ldx $0F
     !A16
-    lda !obj_speed_x+1 : adc.w explosion_spawner_data+0,X : sta !obj_pos_x+1
-    lda !obj_speed_y+1 : adc.w explosion_spawner_data+2,X : sta !obj_pos_y+1
+    lda.b obj.speed_x+1 : adc.w explosion_spawner_data+0,X : sta.b obj.pos_x+1
+    lda.b obj.speed_y+1 : adc.w explosion_spawner_data+2,X : sta.b obj.pos_y+1
     !A8
     lda #!id_explosion_spawner : jsl prepare_object
     lda #$06 : cop #$00
@@ -5581,7 +5565,7 @@ _03C1EA:
     adc $2E
     tax
     !A16
-    lda !obj_speed_x+1 : adc.w explosion_spawner_data_D295,X : sta !obj_pos_x+1
+    lda.b obj.speed_x+1 : adc.w explosion_spawner_data_D295,X : sta.b obj.pos_x+1
     !A8
     jsl get_rng_16
     and $30
@@ -5590,7 +5574,7 @@ _03C1EA:
     adc $2F
     tax
     !A16
-    lda !obj_speed_y+1 : adc.w explosion_spawner_data_D2C9,X : sta !obj_pos_y+1
+    lda.b obj.speed_y+1 : adc.w explosion_spawner_data_D2C9,X : sta.b obj.pos_y+1
     !A8
     lda #!id_explosion_spawner : jsl prepare_object
     lda #$04 : cop #$00
@@ -5610,8 +5594,8 @@ _03C1EA:
     sta $07
     lda #$04 : sta $1D
     !A16
-    lda !obj_pos_x+1 : sta !obj_speed_x+1
-    lda !obj_pos_y+1 : sta !obj_speed_y+1
+    lda.b obj.pos_x+1 : sta.b obj.speed_x+1
+    lda.b obj.pos_y+1 : sta.b obj.speed_y+1
     !A8
     rts
 }
@@ -5621,8 +5605,8 @@ _03C2C5:
 
 .create:
     lda $07 : and #$07 : tax
-    lda.w game_over_text_flames_data_D309,X : sta !obj_pos_x+1
-    lda #$78 : sta !obj_pos_y+1
+    lda.w game_over_text_flames_data_D309,X : sta.b obj.pos_x+1
+    lda #$78 : sta.b obj.pos_y+1
     ldx $07
     cpx #$08
     bcs .C2F6
@@ -5664,8 +5648,8 @@ _03C30E: ;unused?
     lda #$04 : sta $09
     ldy #$C4 : ldx #$21 : jsl set_sprite
     !A16
-    lda !obj_pos_x+1 : sta $39
-    lda !obj_pos_y+1 : sta $3B
+    lda.b obj.pos_x+1 : sta $39
+    lda.b obj.pos_y+1 : sta $3B
     !A8
 .C326:
     brk #$00
@@ -5679,7 +5663,7 @@ _03C30E: ;unused?
 _03C32A: ;a8 x8
     lda #$80 : sta $09
     ldy #$04 : ldx #$22 : jsl set_sprite
-    lda #$05 : sta !obj_hp
+    lda #$05 : sta.b obj.hp
 .C33A:
     brk #$00
 
@@ -5705,7 +5689,7 @@ _03C34F:
 
 ;----- C359
 
-    sec : lda $00CE : sbc #$DC : sta !obj_pos_y+1
+    sec : lda $00CE : sbc #$DC : sta.b obj.pos_y+1
     jsl update_animation_normal
     bra .C357
 }
@@ -5715,7 +5699,7 @@ _03C367:
 
 .create:
     !A16
-    clc : lda !obj_pos_x+1 : adc #$0010 : sta !obj_pos_x+1
+    clc : lda.b obj.pos_x+1 : adc #$0010 : sta.b obj.pos_x+1
     !A8
     lda #$38 : sta $10
     lda #$07 : sta $08
@@ -5744,11 +5728,11 @@ _03C392:
 
 ;----- C39A
 
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     cmp #$01B0
     bcs .C398
 
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     cmp #$0412
     bcs .C398
 
@@ -5805,7 +5789,7 @@ if !version == 1 || !version == 2
 
     lda #$17 : sta $031E
     !A16
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     cmp #$02E0
     !A8
     bcs .C411
@@ -5849,14 +5833,14 @@ _03C473:
 
     jsl _028166
     !A16
-    lda !arthur_pos_y+1
-    cmp !obj_pos_y+1
+    lda.w !obj_arthur.pos_y+1
+    cmp.b obj.pos_y+1
     bcc _03C473
 
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     sec
     sbc #$0060
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
     bcs _03C473
 
     !A8
@@ -5878,11 +5862,11 @@ _03C473:
     jsl _028B1E
     stz $0007,X
     lda #$01 : sta $000F,X
-    lda #!id_lava : sta.w !obj_type,X
-    lda #$0C : sta.w !obj_active,X
+    lda #!id_lava : sta.w obj.type,X
+    lda #$0C : sta.w obj.active,X
     !A16
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     sty $3C
     !AX8
     lda #$70 : sta $3E
@@ -5893,11 +5877,11 @@ _03C473:
     ldy $3C : jsl _028B1E
     lda #$01 : sta $0007,X
     lda $3E : sta $000F,X
-    lda #!id_lava : sta.w !obj_type,X
-    lda #$0C : sta.w !obj_active,X
+    lda #!id_lava : sta.w obj.type,X
+    lda #$0C : sta.w obj.active,X
     !A16
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     sty $3C
     !AX8
     dec $35
@@ -5908,11 +5892,11 @@ _03C473:
     ldy $3C : jsl _028B1E
     lda #$02 : sta $0007,X
     lda $3E : sta $000F,X
-    lda #!id_lava : sta.w !obj_type,X
-    lda #$0C : sta.w !obj_active,X
+    lda #!id_lava : sta.w obj.type,X
+    lda #$0C : sta.w obj.active,X
     !A16
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     sty $3C
     !AX8
     lda #$7F : cop #$00
@@ -5949,9 +5933,9 @@ _03C55C:
     lda $07
     bne .C59E
 
-    lda #$20 : sta !obj_speed_y+0
-    stz !obj_speed_y+1
-    stz !obj_speed_y+2
+    lda #$20 : sta.b obj.speed_y+0
+    stz.b obj.speed_y+1
+    stz.b obj.speed_y+2
     lda #$7F : sta $35
 .C594:
     brk #$00
@@ -5967,7 +5951,7 @@ _03C55C:
 
 .C5A0:
     !A16
-    inc !obj_pos_y+1
+    inc.b obj.pos_y+1
     !A8
     jsl _01A559
     beq .C59E
@@ -5989,8 +5973,8 @@ _03C5B9:
     lda $07 : sta $3C
     stz $07
     !A16
-    lda !obj_pos_x+1 : sta $0036 ;todo: does this do anything? mistake?
-    lda !obj_pos_y+1 : sta $0038
+    lda.b obj.pos_x+1 : sta $0036 ;todo: does this do anything? mistake?
+    lda.b obj.pos_y+1 : sta $0038
     !A8
     stz $1EBD
 .C5D0:
@@ -6021,8 +6005,8 @@ _03C5B9:
     jsr .C690
     pla : sta $002D,X
     lda $3C : sta $003C,X
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     stz $0031,X
     !A8
     dec $0F
@@ -6036,8 +6020,8 @@ _03C5B9:
     jsr .C690
     pla : sta $002D,X
     lda $3C : sta $003C,X
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     stz $0031,X
     !A8
     stx $34
@@ -6048,8 +6032,8 @@ _03C5B9:
     jsr .C690
     lda $3A : sta $002F,X
     lda $3C : sta $003C,X
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     lda $34 : sta $003A,X
     phx
     pla
@@ -6083,8 +6067,8 @@ _03C5B9:
 
 .C690:
     !A16
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     stz $0024,X
     rts
 }
@@ -6115,16 +6099,16 @@ _03C6A0:
     lda $09 : ora #$C0 : sta $09
     !A16
     lda.w _00ED00+$40 : sta $27
-    stz !obj_speed_x+0
-    stz !obj_speed_y+0
-    lda !obj_pos_x+1 : sta $36
-    lda !obj_pos_y+1 : sta $38
+    stz.b obj.speed_x+0
+    stz.b obj.speed_y+0
+    lda.b obj.pos_x+1 : sta $36
+    lda.b obj.pos_y+1 : sta $38
     !A8
     !X16
     stz $0033,X
     !X8
-    stz !obj_speed_x+2
-    stz !obj_speed_y+2
+    stz.b obj.speed_x+2
+    stz.b obj.speed_y+2
     lda #$FF : sta $26
     stz $31
     stz $32
@@ -6132,11 +6116,11 @@ _03C6A0:
     lda $3C : and #$01
     beq .C723
 
-    inc !obj_facing
+    inc.b obj.facing
     !AX16
     ldx $2F
-    lda.w !obj_pos_x+1,X : sta !obj_pos_x+1
-    lda.w !obj_pos_y+1,X : sta !obj_pos_y+1
+    lda.w obj.pos_x+1,X : sta.b obj.pos_x+1
+    lda.w obj.pos_y+1,X : sta.b obj.pos_y+1
     !AX8
 .C723:
     brk #$00
@@ -6149,28 +6133,28 @@ _03C6A0:
     cmp #$0008
     beq .C73D
 
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     clc
     adc #$00F0
     sec
-    sbc !arthur_pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     bcc .C755
 
     bra .C75A
 
 .C73D:
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     clc
     adc #$0160
     sec
-    sbc !arthur_pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     bcc .C755
 
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     clc
     adc #$00E0
     sec
-    sbc !obj_pos_y+1
+    sbc.b obj.pos_y+1
     bcs .C75A
 
 .C755:
@@ -6312,13 +6296,13 @@ _03C6A0:
     stz $0033,X
     lda #$0001 : sta $0031,X
     lda.w _00ED00+$68 : sta $27
-    lda !obj_pos_x+1 : sta $36
-    lda !obj_pos_y+1 : sta $38
-    stz !obj_speed_x+0
-    stz !obj_speed_y+0
+    lda.b obj.pos_x+1 : sta $36
+    lda.b obj.pos_y+1 : sta $38
+    stz.b obj.speed_x+0
+    stz.b obj.speed_y+0
     !AX8
-    stz !obj_speed_x+2
-    stz !obj_speed_y+2
+    stz.b obj.speed_x+2
+    stz.b obj.speed_y+2
     stz $31
     stz $32
     stz $35
@@ -6326,7 +6310,7 @@ _03C6A0:
     lda $3C : and #$01
     beq .C89D
 
-    inc !obj_facing
+    inc.b obj.facing
 .C89D:
     brk #$00
 
@@ -6355,7 +6339,7 @@ _03C6A0:
     !X16
     ldx $2D
     inc $0031,X
-    lda !obj_direction : sta.w !obj_direction,X
+    lda.b obj.direction : sta.w obj.direction,X
     !AX8
     lda #$18 : sta $35
     inc $0F
@@ -6384,10 +6368,10 @@ _03C6A0:
     dec $35
     bne .C91E
 
-    lda !obj_direction : ora #$10 : sta !obj_direction
+    lda.b obj.direction : ora #$10 : sta.b obj.direction
     !X16
     ldx $2D
-    lda !obj_direction : sta.w !obj_direction,X
+    lda.b obj.direction : sta.w obj.direction,X
     !X8
     lda #$39 : sta $35
     inc $0F
@@ -6401,7 +6385,7 @@ _03C6A0:
     beq .C939
 
     !A16
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     sec
     sbc $38
     bcc .C939
@@ -6412,8 +6396,8 @@ _03C6A0:
 
 .C939:
     !A16
-    lda $36 : sta !obj_pos_x+1
-    lda $38 : sta !obj_pos_y+1
+    lda $36 : sta.b obj.pos_x+1
+    lda $38 : sta.b obj.pos_y+1
     !A8
     inc $0F
     jmp .C89D
@@ -6460,7 +6444,7 @@ _03C6A0:
 
     !X16
     ldx $2D
-    lda !obj_direction : sta.w !obj_direction,X
+    lda.b obj.direction : sta.w obj.direction,X
     !X8
     lda #$7F : sta $35
     lda #$03 : sta $0F
@@ -6489,13 +6473,13 @@ _03C6A0:
 .C9D8:
     lda #$01CE : sta $29
 .C9DD:
-    lda !obj_pos_x+1 : sta $36
-    lda !obj_pos_y+1 : sta $38
-    stz !obj_speed_x+0
-    stz !obj_speed_y+0
+    lda.b obj.pos_x+1 : sta $36
+    lda.b obj.pos_y+1 : sta $38
+    stz.b obj.speed_x+0
+    stz.b obj.speed_y+0
     !A8
-    stz !obj_speed_x+2
-    stz !obj_speed_y+2
+    stz.b obj.speed_x+2
+    stz.b obj.speed_y+2
     lda #$FF : sta $26
     stz $31
     stz $32
@@ -6516,7 +6500,7 @@ _03C6A0:
     lda $3C : and #$01
     beq .CA29
 
-    inc !obj_facing
+    inc.b obj.facing
 .CA29:
     brk #$00
 
@@ -6591,7 +6575,7 @@ _03C6A0:
     lda.w cockatrice_head2_data_D32A,X
 .CA9B:
     !X16
-    ldx $2D : sta !obj_direction : sta.w !obj_direction,X
+    ldx $2D : sta.b obj.direction : sta.w obj.direction,X
     !X8
     lda #$04 : cop #$00
 
@@ -6633,8 +6617,8 @@ _03C6A0:
 
     !AX16
     ldx $2F
-    lda.w !obj_pos_x+1,X : sta !obj_pos_x+1
-    lda.w !obj_pos_y+1,X : sta !obj_pos_y+1
+    lda.w obj.pos_x+1,X : sta.b obj.pos_x+1
+    lda.w obj.pos_y+1,X : sta.b obj.pos_y+1
     !AX8
     lda $0F
     cmp #$05
@@ -6659,7 +6643,7 @@ _03C6A0:
 ;-----
 
 .destroy:
-    lda !obj_hp
+    lda.b obj.hp
     beq .CB4A
 
     lda $0F
@@ -6726,7 +6710,7 @@ _03CB94:
 .create:
     ldy #$0C : ldx #$22 : jsl set_sprite
     lda $09 : ora #$80 : sta $09
-    jsl set_direction32 : sta !obj_direction
+    jsl set_direction32 : sta.b obj.direction
 .CBA8:
     brk #$00
 
@@ -6772,7 +6756,7 @@ _03CBCD:
 
 ;----- CBFA
 
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
     sbc $2F
     bcc .CBF8
@@ -6808,7 +6792,7 @@ _03CBCD:
     lda.w jump_counter
     beq .CC3F
 
-    lda !arthur_speed_y+2
+    lda.w !obj_arthur.speed_y+2
     bmi .CC5C
 
 .CC3F:
@@ -6816,9 +6800,9 @@ _03CBCD:
     bcs .CC5C
 
     lda #$01 : sta $35
-    stz !arthur_speed_y+2
+    stz.w !obj_arthur.speed_y+2
     !A16
-    lda !obj_pos_y+1 : sec : sbc #$0018 : sta !arthur_pos_y+1
+    lda.b obj.pos_y+1 : sec : sbc #$0018 : sta.w !obj_arthur.pos_y+1
     !A8
     inc $14C3
 .CC5C:
@@ -6835,9 +6819,9 @@ _03CC61:
 
 .create:
     !A16
-    lda !arthur_pos_x+1
+    lda.w !obj_arthur.pos_x+1
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     bcc .CC70
 
     !A8
@@ -6944,9 +6928,9 @@ _03CCCA: ;a8 x8
 
 .CD6F:
     ldy #$AA : ldx #$21
-    lda !obj_direction : sta $12
+    lda.b obj.direction : sta $12
     jsl set_sprite
-    lda #$40 : sta !obj_speed_x
+    lda #$40 : sta.b obj.speed_x
 .CD7F:
     brk #$00
 
@@ -6962,10 +6946,10 @@ _03CCCA: ;a8 x8
     ldy #$00 : ldx #$20 : jsl set_sprite
     !A16
     lda.w _00ED00+$02  : sta $27
-    lda #$FFF0 : sta !obj_pos_x+1
-    lda #$00B7 : sta !obj_pos_y+1
+    lda #$FFF0 : sta.b obj.pos_x+1
+    lda #$00B7 : sta.b obj.pos_y+1
     !A8
-    inc !obj_speed_x+1
+    inc.b obj.speed_x+1
     lda #$80 : sta $37
     dec $26
     jsl _018E32_8E79
@@ -6992,14 +6976,14 @@ _03CCCA: ;a8 x8
 ;-----
 
 .CDD4: ;princess in 2nd scene
-    inc !obj_direction
+    inc.b obj.direction
     inc $12
     ldy #$A0 : ldx #$21 : jsl set_sprite
     !A16
-    lda #$00C0 : sta !obj_pos_x+1
-    lda #$00B7 : sta !obj_pos_y+1
+    lda #$00C0 : sta.b obj.pos_x+1
+    lda #$00B7 : sta.b obj.pos_y+1
     !A8
-    inc !obj_speed_x+1
+    inc.b obj.speed_x+1
     lda #$50
     cop #$00
 
@@ -7143,7 +7127,7 @@ _03CCCA: ;a8 x8
 
 .CF07: ;1st & 3rd demon in 3rd scene
     ldy #$B8 : ldx #$21
-    lda !obj_direction : sta $12
+    lda.b obj.direction : sta $12
     bra .CF15
 
 .CF11: ;2st demon in 3rd scene
@@ -7185,7 +7169,7 @@ _03CCCA: ;a8 x8
 ;----- CF46
 
     sec
-    lda !obj_pos_y+1 : sbc #$08 : sta !obj_pos_y+1
+    lda.b obj.pos_y+1 : sbc #$08 : sta.b obj.pos_y+1
     inc $0F
     lda $0F
     cmp #$02
@@ -7199,7 +7183,7 @@ _03CCCA: ;a8 x8
     ldy #$00 : ldx #$20 : jsl set_sprite
     !A16
     lda.w _00ED00+$02 : sta $27
-    lda #$0160 : sta !obj_speed_x
+    lda #$0160 : sta.b obj.speed_x
     !A8
     dec $26
     jsl _018E32_8E79
@@ -7217,12 +7201,12 @@ _03CCCA: ;a8 x8
 
 .CF85: ;princess after defeating samael
     lda $09 : ora #$80 : sta $09
-    lda #$01 : sta !obj_direction : sta !obj_facing
+    lda #$01 : sta.b obj.direction : sta.b obj.facing
     ldy #$EA : ldx #$21 : jsl set_sprite
     !A16
-    lda #$00F0 : sta !obj_pos_y+1
+    lda #$00F0 : sta.b obj.pos_y+1
     !A8
-    stz !obj_pos_x
+    stz.b obj.pos_x
     ldy #$42 : jsl set_speed_y
 .CFAA:
     brk #$00
@@ -7232,11 +7216,11 @@ _03CCCA: ;a8 x8
     jsl update_pos_y
     !A16
     lda #$01A0
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
     !A8
     bcs .CFAA
 
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
 if !version == 0
     lda #$BF : cop #$00
 elseif !version == 1 || !version == 2
@@ -7276,9 +7260,9 @@ endif
     cmp #$01
     beq .CFF0
 
-    stz !obj_facing
+    stz.b obj.facing
     !A16
-    sec : lda !obj_pos_x+1 : sbc #$0003 : sta !obj_pos_x+1
+    sec : lda.b obj.pos_x+1 : sbc #$0003 : sta.b obj.pos_x+1
     !A8
     ldy #$E8 : ldx #$21 : jsl set_sprite
 if !version == 0
@@ -7358,8 +7342,8 @@ endif
 .D09D: ;unused?
     ldy #$48 : ldx #$20 : jsl set_sprite
     !A16
-    lda #$0014 : sta !obj_pos_x+1
-    lda #$00CC : sta !obj_pos_y+1
+    lda #$0014 : sta.b obj.pos_x+1
+    lda #$00CC : sta.b obj.pos_y+1
     !A8
 .D0B3:
     brk #$00
@@ -7385,8 +7369,8 @@ endif
     asl #2
     tax
     !A16
-    lda.w _00D405+0,X : sta !obj_pos_x+1
-    lda.w _00D405+2,X : sta !obj_pos_y+1
+    lda.w _00D405+0,X : sta.b obj.pos_x+1
+    lda.w _00D405+2,X : sta.b obj.pos_y+1
     !A8
     rts
 }
@@ -7446,7 +7430,7 @@ _03D0D7:
     lda #$0100 : sta $29
     !A8
     ldy #$CE : ldx #$21 : jsl set_sprite
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
     ldx $3B : jsl _018E32
     ldx #$14 : jsl _028048
     lda #$78 : cop #$00
@@ -7454,9 +7438,9 @@ _03D0D7:
 ;----- D165
 
     jsl _02F9DA_F9E0
-    inc !obj_direction
+    inc.b obj.direction
     !A16
-    lda !obj_pos_x+1 : sta $35
+    lda.b obj.pos_x+1 : sta $35
     stz $33
     !A8
     stz $32
@@ -7468,7 +7452,7 @@ _03D0D7:
     lda.w astaroth_nebiroth_data_D445,X : sta $37
     ldy #$66 : jsl set_speed_x
     jsl get_rng_bool
-    sta !obj_direction
+    sta.b obj.direction
     cmp $33
     bne .D1AA
 
@@ -7477,7 +7461,7 @@ _03D0D7:
     cmp #$03
     bcc .D1AE
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
 .D1AA:
     sta $33
     stz $34
@@ -7486,7 +7470,7 @@ _03D0D7:
 
 ;----- D1B0
 
-    lda !slot_arthur+$09 : and #$01
+    lda.w !obj_arthur.flags2 : and #$01
     beq .D1BF
 
     ldy #$2C : jsl arthur_range_check
@@ -7503,12 +7487,12 @@ _03D0D7:
     !A16
     lda $35
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     cmp $2E
     !A8
     bcc .D1E5
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     bra .D1AE
 
 .D1E5:
@@ -7550,7 +7534,7 @@ _03D0D7:
 ;-----
 
 .destroy:
-    lda !obj_hp
+    lda.b obj.hp
     beq .D24A
 
     ldx #$03 : jsl _028048
@@ -7614,15 +7598,15 @@ _03D0D7:
 
 .thing:
     !A16
-    lda !obj_pos_x+1 : sta $1EBB
-    lda !obj_pos_y+1 : sta $1EBD
+    lda.b obj.pos_x+1 : sta $1EBB
+    lda.b obj.pos_y+1 : sta $1EBD
     !A8
     ldx $3A
     jsr (.D2DC,X)
     lda $3A
     bne .D2C6
 
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
 .D2C6:
     jsl update_animation_normal
     jsl _02F9BA
@@ -7729,9 +7713,9 @@ _03D36F:
 
 ;----- D38C
 
-    lda #$01 : sta !obj_direction : sta !obj_facing
+    lda #$01 : sta.b obj.direction : sta.b obj.facing
     !A16
-    lda #$04D0 : sta !obj_pos_x+1
+    lda #$04D0 : sta.b obj.pos_x+1
     !A8
     ldy #$90 : lda.b #_01FF00_5C : ldx #$23 : jsl _01A6FE
 .D3A5:
@@ -7773,7 +7757,7 @@ _03D36F:
 
     jsl _02F9DA_F9E0
     !A16
-    lda !obj_pos_x+1 : sta $35
+    lda.b obj.pos_x+1 : sta $35
     stz $33
     !A8
     stz $32
@@ -7783,7 +7767,7 @@ _03D36F:
     jsl get_rng_16
     lda.w astaroth_nebiroth_data_D445,X : sta $37
     ldy #$66 : jsl set_speed_x
-    jsl get_rng_bool : sta !obj_direction
+    jsl get_rng_bool : sta.b obj.direction
     cmp $33
     bne .D440
 
@@ -7792,7 +7776,7 @@ _03D36F:
     cmp #$03
     bcc .D444
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
 .D440:
     sta $33
     stz $34
@@ -7803,11 +7787,11 @@ _03D36F:
 
 ;----- D448
 
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
     dec $31
     beq .D4A8
 
-    lda !slot_arthur+$09
+    lda.w !obj_arthur.flags2
     and #$01
     beq .D461
 
@@ -7825,12 +7809,12 @@ _03D36F:
     !A16
     lda $35
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     cmp #$0080
     !A8
     bcc .D488
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     bra .D446
 
 .D488:
@@ -7845,7 +7829,7 @@ _03D36F:
 
 ;----- D49B
 
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
     dec $37
     bne .D499
 
@@ -7856,7 +7840,7 @@ _03D36F:
     jsl get_rng_16
     lda.w astaroth_nebiroth_data_D475,X : sta $30
     lda #$BE : sta $1D
-    ldx #$01 : lda !obj_facing
+    ldx #$01 : lda.b obj.facing
     beq .D4C1
 
     ldx #$07
@@ -7918,7 +7902,7 @@ _03D36F:
 ;-----
 
 .destroy:
-    lda !obj_hp
+    lda.b obj.hp
     beq .D557
 
     ldx #$03 : jsl _028048
@@ -7974,8 +7958,8 @@ _03D36F:
 
 .thing:
     !A16
-    lda !obj_pos_x+1 : sta $1EBB
-    lda !obj_pos_y+1 : sta $1EBD
+    lda.b obj.pos_x+1 : sta $1EBB
+    lda.b obj.pos_y+1 : sta $1EBD
     !A8
     jsl update_animation_normal
     jsl _02F9BA
@@ -7995,8 +7979,8 @@ _03D5C9:
 ;----- D5CF
 
     !A16
-    lda $1EBB : sta !obj_pos_x+1
-    clc : lda $1EBD : adc #$002A : sta !obj_pos_y+1
+    lda $1EBB : sta.b obj.pos_x+1
+    clc : lda $1EBD : adc #$002A : sta.b obj.pos_y+1
     !A16 ;mistake or unnecessary A16
     lda $1EB7
     beq .D5CD
@@ -8018,8 +8002,8 @@ _03D5F2:
     ldy #$DA : ldx #$21 : jsl set_sprite
     jsl _02F9DA_F9E0
     !A16
-    stz !obj_speed_x+1
-    lda #$0026 : sta !obj_speed_y+1
+    stz.b obj.speed_x+1
+    lda #$0026 : sta.b obj.speed_y+1
     !A8
     jsr .D66F
     lda #$1E : sta $37
@@ -8073,8 +8057,8 @@ _03D5F2:
 
 .D66F:
     !A16
-    clc : lda $1EBB : adc !obj_speed_x+1 : sta !obj_pos_x+1
-    clc : lda $1EBD : adc !obj_speed_y+1 : sta !obj_pos_y+1
+    clc : lda $1EBB : adc.b obj.speed_x+1 : sta.b obj.pos_x+1
+    clc : lda $1EBD : adc.b obj.speed_y+1 : sta.b obj.pos_y+1
     !A8
     rts
 
@@ -8082,8 +8066,8 @@ _03D5F2:
 
 .D684:
     !A16
-    sec : lda !obj_pos_x+1 : sbc $1EBB : sta !obj_speed_x+1
-    sec : lda !obj_pos_y+1 : sbc $1EBD : sta !obj_speed_y+1
+    sec : lda.b obj.pos_x+1 : sbc $1EBB : sta.b obj.speed_x+1
+    sec : lda.b obj.pos_y+1 : sbc $1EBD : sta.b obj.speed_y+1
     !A8
     rts
 
@@ -8099,8 +8083,8 @@ _03D5F2:
     inc $1EBF
     ldy #$DE : ldx #$21 : jsl set_sprite
     !A16
-    stz !obj_speed_x+1
-    lda #$0005 : sta !obj_speed_y+1
+    stz.b obj.speed_x+1
+    lda #$0005 : sta.b obj.speed_y+1
     !A8
     jsr .D66F
     lda #$30 : sta $37
@@ -8114,7 +8098,7 @@ _03D5F2:
     dec $37
     bne .D6C9
 
-    jsl set_direction32 : inc : and #$1F : lsr : sta !obj_direction
+    jsl set_direction32 : inc : and #$1F : lsr : sta.b obj.direction
     lda #$08 : jsl _0195E4
     bcc .D71F
 
@@ -8122,9 +8106,9 @@ _03D5F2:
     stz $0000
 .D6ED:
     jsl _028B1E
-    lda #!id_astaroth_laser : sta.w !obj_type,X
-    lda #$0C : sta.w !obj_active,X
-    lda !obj_direction : sta.w !obj_direction,X
+    lda #!id_astaroth_laser : sta.w obj.type,X
+    lda #$0C : sta.w obj.active,X
+    lda.b obj.direction : sta.w obj.direction,X
     !A16
     lda $13ED,Y : sta $002F,X
     lda $13F1,Y : sta $002D,X
@@ -8143,13 +8127,13 @@ _03D5F2:
 
 .D723:
     lda #$58 : jsl _018049_8053
-    ldx !obj_direction
-    lda.w astaroth_laser_data_D531,X : sta !obj_facing
+    ldx.b obj.direction
+    lda.w astaroth_laser_data_D531,X : sta.b obj.facing
     txa : asl : tax
     ldy.w astaroth_laser_data_D511+0,X : lda.w astaroth_laser_data_D511+1,X : tax : jsl set_sprite
     !A16
-    stz !obj_speed_x+1
-    lda #$0005 : sta !obj_speed_y+1
+    stz.b obj.speed_x+1
+    lda #$0005 : sta.b obj.speed_y+1
     !A8
     jsr .D66F
     jsl _02F9DA_F9E0
@@ -8195,13 +8179,13 @@ _03D5F2:
 ;----- D78A
 
     jsl _02F9DA_F9E0
-    lda !obj_direction : clc : adc #$08 : and #$0F : sta !obj_direction
+    lda.b obj.direction : clc : adc #$08 : and #$0F : sta.b obj.direction
 .D797:
     !AX16
     ldx $2F
-    lda.w !obj_pos_x+0,X : sta !obj_pos_x+0
-    lda.w !obj_pos_x+2,X : sta !obj_pos_x+2
-    lda.w !obj_pos_y+1,X : sta !obj_pos_y+1
+    lda.w obj.pos_x+0,X : sta.b obj.pos_x+0
+    lda.w obj.pos_x+2,X : sta.b obj.pos_x+2
+    lda.w obj.pos_y+1,X : sta.b obj.pos_y+1
     !AX8
     lda #$04 : ldx #$3C : jsl _0189D9
     brk #$00
@@ -8246,13 +8230,13 @@ _03D7BC:
     beq .D7E8
 
     ldx #$00
-    lda !obj_direction
+    lda.b obj.direction
     dec
     beq .D7F9
 
     ldx #$08
 .D7F9:
-    stx !obj_direction
+    stx.b obj.direction
     ldy #$EA : ldx #$21 : jsl set_sprite
     lda #$06 : sta $37
 .D807:
@@ -8287,7 +8271,7 @@ _03D832:
 
 .create:
     inc $1EBF
-    lda !obj_direction : sta !obj_facing
+    lda.b obj.direction : sta.b obj.facing
     ldy #$F2 : ldx #$21 : jsl set_sprite
     lda #$08 : sta $37
     jsr .D89C
@@ -8343,7 +8327,7 @@ _03D832:
 .D89C:
     clc
     !A16
-    lda !obj_pos_y+1 : adc #$000B : sta !obj_pos_y+1
+    lda.b obj.pos_y+1 : adc #$000B : sta.b obj.pos_y+1
     !A8
     rts
 
@@ -8352,7 +8336,7 @@ _03D832:
 ;unused, not sure what it's meant to do
     clc
     !A16
-    lda !obj_pos_x+1 : adc #$0008 : sta !obj_pos_y+1
+    lda.b obj.pos_x+1 : adc #$0008 : sta.b obj.pos_y+1
     !A8
     rts
 
@@ -8369,12 +8353,12 @@ _03D8C5:
     lda $07 : lsr : and #$01 : clc : adc #$0E : sta $3C
     lda $07
     and #$01
-    sta !obj_facing
+    sta.b obj.facing
     asl
     tax
-    lda.w conveyor_belt_data_D54D+1,X : sta !obj_speed_x+2
+    lda.w conveyor_belt_data_D54D+1,X : sta.b obj.speed_x+2
     !A16
-    lda.w conveyor_belt_data_D54D+0,X : sta !obj_speed_x+0
+    lda.w conveyor_belt_data_D54D+0,X : sta.b obj.speed_x+0
     !A8
     lda $07
     and #$02
@@ -8438,7 +8422,7 @@ _03D8C5:
     dec $37
     bne .D948
 
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     bra .D92C
 
 .D95C:
@@ -8483,10 +8467,10 @@ _03D8C5:
 
     !A16
     lda #$04E0
-    cmp !arthur_pos_y+1
+    cmp.w !obj_arthur.pos_y+1
     bcs .D9B9
 
-    sta !arthur_pos_y+1
+    sta.w !obj_arthur.pos_y+1
     clc
     adc $14D8
     sta $14DA
@@ -8499,10 +8483,10 @@ _03D8C5:
 
     !A16
 .D9B9:
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     clc
     adc $27
-    sta !arthur_pos_y+1
+    sta.w !obj_arthur.pos_y+1
     clc
     adc $14D8
     sta $14DA
@@ -8524,65 +8508,65 @@ _03D8C5:
     asl : sta $1F23
     !AX16
     sec
-    lda !obj_pos_x+1
-    sbc !arthur_pos_x+1
+    lda.b obj.pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     clc
     adc $1F1D
     cmp $1F1F
     bcs .DA62
 
     sec
-    lda !obj_pos_y+1
-    sbc !arthur_pos_y+1
+    lda.b obj.pos_y+1
+    sbc.w !obj_arthur.pos_y+1
     clc
     adc $1F21
     cmp $1F23
     bcs .DA62
 
-    lda !obj_pos_y+1
-    cmp !arthur_pos_y+1
+    lda.b obj.pos_y+1
+    cmp.w !obj_arthur.pos_y+1
     bcs .DA33
 
     adc $1F21
-    sta !arthur_pos_y+1
-    lda !arthur_speed_y
+    sta.w !obj_arthur.pos_y+1
+    lda.w !obj_arthur.speed_y
     bmi .DA1D
 
     cmp #$0080
     bcs .DA23
 
 .DA1D:
-    lda #$0080 : sta !arthur_speed_y
+    lda #$0080 : sta.w !obj_arthur.speed_y
 .DA23:
     clc
-    lda !arthur_pos_y+1 : adc $14D8 : sta $14DA
+    lda.w !obj_arthur.pos_y+1 : adc $14D8 : sta $14DA
     !AX8
-    stz !arthur_speed_y+2
+    stz.w !obj_arthur.speed_y+2
 .DA32:
     rts
 
 .DA33:
     sbc $1F21
-    cmp !arthur_pos_y+1
+    cmp.w !obj_arthur.pos_y+1
     beq .DA4C
 
     tax
     sec
-    lda !obj_pos_x+1
-    sbc !arthur_pos_x+1
+    lda.b obj.pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     clc
     adc $2F
     cmp $31
     bcs .DA62
 
-    stx !arthur_pos_y+1
+    stx.w !obj_arthur.pos_y+1
 .DA4C:
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     sec
-    sbc !obj_pos_y+1
+    sbc.b obj.pos_y+1
     sta $27
     clc
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     adc $14D8
     sta $14DA
     !AX8
@@ -8598,13 +8582,13 @@ _03D8C5:
     beq .DA98
 
     clc
-    lda !obj_speed_x+0 : adc !arthur_pos_x+0 : sta !arthur_pos_x+0
-    lda !obj_speed_x+1 : adc !arthur_pos_x+1 : sta !arthur_pos_x+1
-    lda !obj_speed_x+2 : adc !arthur_pos_x+2 : sta !arthur_pos_x+2
+    lda.b obj.speed_x+0 : adc.w !obj_arthur.pos_x+0 : sta.w !obj_arthur.pos_x+0
+    lda.b obj.speed_x+1 : adc.w !obj_arthur.pos_x+1 : sta.w !obj_arthur.pos_x+1
+    lda.b obj.speed_x+2 : adc.w !obj_arthur.pos_x+2 : sta.w !obj_arthur.pos_x+2
     !A16
     sec
-    lda !obj_pos_x+1
-    sbc !arthur_pos_x+1
+    lda.b obj.pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     clc
     adc $1F1D
     cmp $1F1F
@@ -8616,8 +8600,8 @@ _03D8C5:
     rts
 
 .DA99:
-    stz !arthur_speed_x+0
-    stz !arthur_speed_x+1
+    stz.w !obj_arthur.speed_x+0
+    stz.w !obj_arthur.speed_x+1
     rts
 }
 
@@ -8633,8 +8617,8 @@ _03DAA0:
     asl #2
     tax
     !A16
-    lda.w gate2_data_D551+0,X : sta !obj_pos_x+1
-    lda.w gate2_data_D551+2,X : sta !obj_pos_y+1
+    lda.w gate2_data_D551+0,X : sta.b obj.pos_x+1
+    lda.w gate2_data_D551+2,X : sta.b obj.pos_y+1
     phd : pla : clc : adc #$0030 : sta $13
     !A8
     txa
@@ -8667,7 +8651,7 @@ _03DAA0:
 if !version == 0
     jsr .DB35
 endif
-    dec !obj_pos_y+1
+    dec.b obj.pos_y+1
     inc $36
     dec $33
 if !version == 1 || !version == 2
@@ -8731,7 +8715,7 @@ _03DB5F:
     jmp (+,X) : +: dw .DBA8, .DC85, .DC7C
 
 .DBA8:
-    jsl get_arthur_relative_side : sta !obj_direction : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.direction : sta.b obj.facing
 .DBB0:
     ldy #$1C : ldx #$22 : jsl set_sprite
     jsl get_rng_16
@@ -8750,7 +8734,7 @@ _03DB5F:
 ;----- DBD2
 
     jsl get_arthur_relative_side
-    cmp !obj_facing
+    cmp.b obj.facing
     beq .DBF6
 
     ldy #$1E : ldx #$22 : jsl set_sprite
@@ -8763,7 +8747,7 @@ _03DB5F:
     dec $37
     bne .DBE6
 
-    lda !obj_facing : eor #$01 : sta !obj_direction : sta !obj_facing
+    lda.b obj.facing : eor #$01 : sta.b obj.direction : sta.b obj.facing
     bra .DBB0
 
 .DBF6:
@@ -8812,7 +8796,7 @@ _03DB5F:
 ;----- DC47
 
     jsl update_pos_xyg_add
-    lda !obj_speed_y+2
+    lda.b obj.speed_y+2
     bmi .DC45
 
 .DC4F:
@@ -8844,7 +8828,7 @@ _03DB5F:
     jsl get_rng_16
     lda.w mad_dog_data_D5B3,X : sta $2E
 .DC85:
-    jsl get_arthur_relative_side : sta !obj_direction : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.direction : sta.b obj.facing
 .DC8D:
     brk #$00
 
@@ -8890,7 +8874,7 @@ _03DB5F:
 ;----- DCE1
 
     jsl update_pos_xyg_add
-    lda !obj_speed_y+2
+    lda.b obj.speed_y+2
     bmi .DCDF
 
 .DCE9:
@@ -8926,7 +8910,7 @@ _03DB5F:
 ;-----
 
 .destroy:
-    lda !obj_hp
+    lda.b obj.hp
     bne .DD25
 
     jml _028BEC
@@ -8983,7 +8967,7 @@ _03DD3C:
     !A8
     stz $15
     jsl _02F9DA_F9E0
-    jsl get_rng_bool : sta !obj_direction
+    jsl get_rng_bool : sta.b obj.direction
 .DD9D:
     ldy #$B6 : ldx #$21 : jsl set_sprite
 .DDA5:
@@ -8994,7 +8978,7 @@ _03DD3C:
     ldy #$20 : jsl _0192AD
     bcs .DDA5
 
-    jsl get_rng_bool : sta !obj_direction
+    jsl get_rng_bool : sta.b obj.direction
     jsl get_rng_16
     lda.w grilian_data_D5D9,X : sta $37
     ldy #$3F : jsl set_speed_x
@@ -9023,7 +9007,7 @@ _03DD3C:
     bne .DDFA
 
 .DDF2:
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     bra .DDFE
 
 .DDFA:
@@ -9137,7 +9121,7 @@ _03DD3C:
     lda $2E
     bne .DEEB
 
-    jsl get_arthur_relative_side : sta !obj_facing
+    jsl get_arthur_relative_side : sta.b obj.facing
     jsl update_animation_normal
 .DEEB:
     ldx $3B : jsl _018E32
@@ -9148,7 +9132,7 @@ _03DD3C:
     !A16
     beq .DF0E
 
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     clc
     adc #$0020
     cmp.w camera_y+1
@@ -9157,7 +9141,7 @@ _03DD3C:
 .DF0E:
     lda.w camera_y+1
     adc #$0100
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
 .DF16:
     !A8
     bcc .DF1B
@@ -9181,7 +9165,7 @@ _03DF1F:
 
     inc $1FB1
     !A16
-    clc : lda.w camera_x+1 : adc #$0110 : sta !obj_pos_x+1
+    clc : lda.w camera_x+1 : adc #$0110 : sta.b obj.pos_x+1
     lda #$FFF8 : sta $2D
     lda.w #avalanche_data_D5FC : sta $13
     !AX8
@@ -9193,7 +9177,7 @@ _03DF1F:
 ;----- DF4B
 
     !A16
-    clc : lda.w camera_x+1 : adc #$0100 : sta !obj_pos_x+1
+    clc : lda.w camera_x+1 : adc #$0100 : sta.b obj.pos_x+1
     !A8
     jsl _01939D
     bne .DF65
@@ -9207,7 +9191,7 @@ _03DF1F:
     stz $35
     ldy #$69 : jsl set_speed_x
     ldx $07
-    lda.w avalanche_data_direction,X : sta !obj_direction
+    lda.w avalanche_data_direction,X : sta.b obj.direction
     stz $15
     stz $2D
     !A16
@@ -9216,7 +9200,7 @@ _03DF1F:
 
 ;----- DF7C
 
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     cmp #$0427
     bcs .DF7A
 
@@ -9235,7 +9219,7 @@ _03DF1F:
     lda #$68 : jsl _018049_8053
     lda $09 : ora #$80 : sta $09
     !A16
-    clc : lda !obj_pos_x+1 : adc #$0140 : sta !obj_pos_x+1
+    clc : lda.b obj.pos_x+1 : adc #$0140 : sta.b obj.pos_x+1
     lda #$0200 : sta $19C5
     stz $19C9
     !A8
@@ -9303,7 +9287,7 @@ _03DF1F:
 .E036:
     !A16
     clc
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     adc #$0100
     cmp.w camera_x+1
     !A8
@@ -9328,14 +9312,14 @@ _03DF1F:
     lda.w camera_x+1
     adc #$0080
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     clc
     adc #$0180
     cmp #$0300
     bcs .E04A
 
     sec
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sbc.w camera_x+1
     sta $0000
     eor #$FFFF
@@ -9348,13 +9332,13 @@ _03DF1F:
     lda.w camera_y+1
     adc #$0080
     sec
-    sbc !obj_pos_y+1
+    sbc.b obj.pos_y+1
     clc
     adc #$0100
     cmp #$0200
     bcs .E04A
 
-    sec : lda !obj_pos_y+1 : sbc.w camera_y+1 : sta $0000
+    sec : lda.b obj.pos_y+1 : sbc.w camera_y+1 : sta $0000
     clc : lda #$0080       : sbc $0000        : sta $19C9
     !AX8
     rts
@@ -9367,7 +9351,7 @@ _03DF1F:
     lda.w camera_x+1
     adc #$0080
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     clc
     adc #$0180
     cmp #$0300
@@ -9377,7 +9361,7 @@ _03DF1F:
     lda.w camera_y+1
     adc #$0080
     sec
-    sbc !obj_pos_y+1
+    sbc.b obj.pos_y+1
     clc
     adc #$0100
     cmp #$0200
@@ -9412,7 +9396,7 @@ _03DF1F:
     beq .E107
 
     !A16
-    clc : lda !obj_pos_x+1 : adc $31 : sta !arthur_pos_x+1
+    clc : lda.b obj.pos_x+1 : adc $31 : sta.w !obj_arthur.pos_x+1
     !A8
 .E107:
     rtl
@@ -9435,16 +9419,16 @@ _03DF1F:
 
     !A16
     sec
-    lda !arthur_pos_x+1
-    sbc !obj_pos_x+1
+    lda.w !obj_arthur.pos_x+1
+    sbc.b obj.pos_x+1
     clc
     adc #$00C0
     cmp #$0180
     bcs .E15F
 
     sec
-    lda !arthur_pos_y+1
-    sbc !obj_pos_y+1
+    lda.w !obj_arthur.pos_y+1
+    sbc.b obj.pos_y+1
     clc
     adc #$0040
     cmp #$0080
@@ -9452,12 +9436,12 @@ _03DF1F:
     bcs .E15F
 
     inc $14EF
-    lda.b #_01DC19    : sta !arthur_state+1
-    lda.b #_01DC19>>8 : sta !arthur_state+2
+    lda.b #_01DC19    : sta.w !obj_arthur.state+1
+    lda.b #_01DC19>>8 : sta.w !obj_arthur.state+2
     stz $14B3
-    stz !slot_upgrade2
+    stz.w !obj_upgrade2.active
     !A16
-    sec : lda !arthur_pos_x+1 : sbc !obj_pos_x+1 : sta $31
+    sec : lda.w !obj_arthur.pos_x+1 : sbc.b obj.pos_x+1 : sta $31
     !A8
 .E15F:
     rts
@@ -9487,23 +9471,23 @@ _03E160:
 
     lda #$03 : jsl _0195B2
     jsl get_object_slot
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_veil_allocen : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_veil_allocen : sta.w obj.type,X
     stx $1EB7
     ldy #$0000 : jsr .E1E2
     jsl get_object_slot
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_veil_allocen_part : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_veil_allocen_part : sta.w obj.type,X
     stx $1EB9
     ldy #$0004 : jsr .E1E2
     jsl get_object_slot
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_veil_allocen_claw1 : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_veil_allocen_claw1 : sta.w obj.type,X
     stx $1EBB
     ldy #$0008 : jsr .E1E2
     jsl get_object_slot
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_veil_allocen_claw2 : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_veil_allocen_claw2 : sta.w obj.type,X
     stx $1EBD
     ldy #$000C : jsr .E1E2
     !AX8
@@ -9511,8 +9495,8 @@ _03E160:
 
 .E1E2:
     !A16
-    lda.w veil_allocen_data_D608+0,Y : sta.w !obj_pos_x+1,X
-    lda.w veil_allocen_data_D608+2,Y : sta.w !obj_pos_y+1,X
+    lda.w veil_allocen_data_D608+0,Y : sta.w obj.pos_x+1,X
+    lda.w veil_allocen_data_D608+2,Y : sta.w obj.pos_y+1,X
     !A8
     rts
 }
@@ -9544,7 +9528,7 @@ _03E1F3:
 
     !A8
     jsl set_hp
-    lda !obj_hp : sta $3C
+    lda.b obj.hp : sta $3C
     lda #$80 : ora $09 : sta $09
     ldy #$28 : ldx #$22 : jsl set_sprite
 .E237:
@@ -9623,7 +9607,7 @@ _03E1F3:
 .E2CE:
     ldx #$00
 .E2D0:
-    sta !obj_direction
+    sta.b obj.direction
     sta $1EC3
     stx $1EC4
     ldx #$A8 : jsl _0196EF : sta $2D
@@ -9653,7 +9637,7 @@ _03E1F3:
 
 .E2FE:
     !A16
-    inc !obj_pos_x+1
+    inc.b obj.pos_x+1
     brk #$00
 
 ;----- E304
@@ -9665,7 +9649,7 @@ _03E1F3:
 
 .E30B:
     !A16
-    dec !obj_pos_x+1
+    dec.b obj.pos_x+1
     brk #$00
 
 ;----- E311
@@ -9683,16 +9667,16 @@ _03E1F3:
 
     lda $1EC9 : asl #2 : tax
     clc
-    lda.w veil_allocen_data_D618+0,X : adc !obj_pos_y+0 : sta !obj_pos_y+0
-    lda.w veil_allocen_data_D618+1,X : adc !obj_pos_y+1 : sta !obj_pos_y+1
-    lda.w veil_allocen_data_D618+2,X : adc !obj_pos_y+2 : sta !obj_pos_y+2
+    lda.w veil_allocen_data_D618+0,X : adc.b obj.pos_y+0 : sta.b obj.pos_y+0
+    lda.w veil_allocen_data_D618+1,X : adc.b obj.pos_y+1 : sta.b obj.pos_y+1
+    lda.w veil_allocen_data_D618+2,X : adc.b obj.pos_y+2 : sta.b obj.pos_y+2
     !A8
     lda $1EC9
     bne .E353
 
     !A16
     lda #$0298
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
     bcc .E362
 
     bra .E35C
@@ -9700,11 +9684,11 @@ _03E1F3:
 .E353:
     !A16
     lda #$02E0
-    cmp !obj_pos_y+1
+    cmp.b obj.pos_y+1
     bcs .E362
 
 .E35C:
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
     !A8
     bra .E368
 
@@ -9787,7 +9771,7 @@ _03E1F3:
     lda.w camera_x+1
     adc #$0080
     sec
-    sbc !obj_pos_x+1
+    sbc.b obj.pos_x+1
     adc #$0060
     cmp #$00C0
     !A8
@@ -9798,7 +9782,7 @@ _03E1F3:
 .E3F9:
     !A16
     sec
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sta $0000
     sbc #$1020
     clc
@@ -9806,9 +9790,9 @@ _03E1F3:
     cmp #$0120
     bcc .E41B
 
-    lda $0000 : sta !obj_pos_x+1
+    lda $0000 : sta.b obj.pos_x+1
     !A8
-    lda !obj_direction : eor #$01 : sta !obj_direction
+    lda.b obj.direction : eor #$01 : sta.b obj.direction
     rts
 
 .E41B:
@@ -9827,27 +9811,27 @@ _03E1F3:
 .E42A:
     jsr .E488
     !A16
-    lda !obj_pos_x+1 : sta $35
-    lda !obj_pos_y+1
+    lda.b obj.pos_x+1 : sta $35
+    lda.b obj.pos_y+1
     sta $37
     sec
     sbc #$0010
-    sta !obj_pos_y+1
+    sta.b obj.pos_y+1
     !A8
     jsl _02F9FA
     lda #$0B : jsl _02FBE4_FBE7
     !A16
-    clc : lda !obj_pos_y+1 : adc #$0020 : sta !obj_pos_y+1
+    clc : lda.b obj.pos_y+1 : adc #$0020 : sta.b obj.pos_y+1
     !A8
     lda #$09 : jsl _02F9C6
     !A16
-    lda $35 : sta !obj_pos_x+1
-    lda $37 : sta !obj_pos_y+1
+    lda $35 : sta.b obj.pos_x+1
+    lda $37 : sta.b obj.pos_y+1
     !A8
 .E467:
     jsl _02F9B2
-    jsl get_arthur_relative_side : eor #$01 : sta !obj_facing
-    lda !obj_hp
+    jsl get_arthur_relative_side : eor #$01 : sta.b obj.facing
+    lda.b obj.hp
     cmp $3C
     beq .E487
 
@@ -9875,9 +9859,9 @@ _03E1F3:
     ldx #$00
 .E49A:
     clc
-    lda !obj_pos_x+0,X : adc.w veil_allocen_data_D620+0,Y : sta !obj_pos_x+0,X
-    lda !obj_pos_x+1,X : adc.w veil_allocen_data_D620+1,Y : sta !obj_pos_x+1,X
-    lda !obj_pos_x+2,X : adc.w veil_allocen_data_D620+2,Y : sta !obj_pos_x+2,X
+    lda.b obj.pos_x+0,X : adc.w veil_allocen_data_D620+0,Y : sta.b obj.pos_x+0,X
+    lda.b obj.pos_x+1,X : adc.w veil_allocen_data_D620+1,Y : sta.b obj.pos_x+1,X
+    lda.b obj.pos_x+2,X : adc.w veil_allocen_data_D620+2,Y : sta.b obj.pos_x+2,X
     dec $30
     bne .E4BE
 
@@ -9975,10 +9959,10 @@ _03E54E:
     lda $1EC1
     beq .E567
 
-    jsl set_direction32 : sta !obj_direction
+    jsl set_direction32 : sta.b obj.direction
     inc $1EBF
     ldy #$3A : ldx #$22
-    lda !obj_facing
+    lda.b obj.facing
     bne .E583
 
     ldy #$3E : ldx #$22
@@ -9995,7 +9979,7 @@ _03E54E:
     dec $2D
     bne .E58A
 
-    lda !obj_direction : eor #$10 : sta !obj_direction
+    lda.b obj.direction : eor #$10 : sta.b obj.direction
 .E59F:
     brk #$00
 
@@ -10025,8 +10009,8 @@ _03E54E:
 .E5C1:
     !A16
     sec
-    lda !obj_pos_y+1
-    sbc !arthur_pos_y+1
+    lda.b obj.pos_y+1
+    sbc.w !obj_arthur.pos_y+1
     bpl .E5D2
 
     eor #$FFFF
@@ -10034,8 +10018,8 @@ _03E54E:
     sta $0000
 .E5D2:
     sec
-    lda !obj_pos_x+1
-    sbc !arthur_pos_x+1
+    lda.b obj.pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     bpl .E5DE
 
     eor #$FFFF
@@ -10070,7 +10054,7 @@ _03E54E:
 .E609:
     lda $08
     and #$F8
-    ldx !obj_facing
+    ldx.b obj.facing
     bne .E613
 
     ora #$01
@@ -10086,7 +10070,7 @@ _03E54E:
 .E621:
     !X16
     ldx $1EB7
-    lda.w !obj_facing,X : sta !obj_facing
+    lda.w obj.facing,X : sta.b obj.facing
     !X8
     rts
 
@@ -10095,7 +10079,7 @@ _03E54E:
 .E62E:
     jsr .E621
     ldy #$3C : ldx #$22
-    lda !obj_facing
+    lda.b obj.facing
     beq .E63D
 
     ldy #$38 : ldx #$22
@@ -10131,7 +10115,7 @@ _03E54E:
 .E65E:
     !AX16
     ldx $1EB7
-    lda.w !obj_facing,X
+    lda.w obj.facing,X
     and #$00FF
     beq .E671
 
@@ -10140,8 +10124,8 @@ _03E54E:
     adc #$0008
     tay
 .E671:
-    clc : lda.w !obj_pos_x+1,X : adc.w veil_allocen_data_D628+0,Y : sta !obj_pos_x+1
-    clc : lda.w !obj_pos_y+1,X : adc.w veil_allocen_data_D628+2,Y : sta !obj_pos_y+1
+    clc : lda.w obj.pos_x+1,X : adc.w veil_allocen_data_D628+0,Y : sta.b obj.pos_x+1
+    clc : lda.w obj.pos_y+1,X : adc.w veil_allocen_data_D628+2,Y : sta.b obj.pos_y+1
     !AX8
     rts
 
@@ -10165,10 +10149,10 @@ _03E54E:
     beq .E69F
 
     lda #$67 : jsl _018049_8053
-    jsl set_direction32 : sta !obj_direction
+    jsl set_direction32 : sta.b obj.direction
     inc $1EC0
     ldy #$3A : ldx #$22
-    lda !obj_facing
+    lda.b obj.facing
     beq .E6C1
 
     ldy #$3E : ldx #$22
@@ -10185,7 +10169,7 @@ _03E54E:
     dec $2D
     bne .E6C8
 
-    lda !obj_direction : eor #$10 : sta !obj_direction
+    lda.b obj.direction : eor #$10 : sta.b obj.direction
 .E6DD:
     brk #$00
 
@@ -10215,7 +10199,7 @@ _03E54E:
 .E708:
     lda $08
     and #$F8
-    ldx !obj_facing
+    ldx.b obj.facing
     beq .E712
 
     ora #$01
@@ -10231,7 +10215,7 @@ _03E54E:
 .E720:
     jsr .E621
     ldy #$38 : ldx #$22
-    lda !obj_facing
+    lda.b obj.facing
     beq .E72F
 
     ldy #$3C : ldx #$22
@@ -10246,7 +10230,7 @@ _03E54E:
     beq .E743
 
     lda $09 : and #$7F : sta $09
-    lda #$8C : sta !obj_active
+    lda #$8C : sta.b obj.active
 .E743:
     rts
 }
@@ -10256,7 +10240,7 @@ _03E744:
 
 .create:
     lda #$60 : jsl _018049_8053
-    jsl _01918E_set_direction16 : sta !obj_direction
+    jsl _01918E_set_direction16 : sta.b obj.direction
     lda #$80 : sta $09
     ldy #$32 : ldx #$22 : jsl set_sprite
     lda #$33 : sta $2D
@@ -10279,13 +10263,13 @@ _03E744:
     jsl get_object_slot
     bmi .E7A3
 
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_freeze_splinter : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_freeze_splinter : sta.w obj.type,X
     !A16
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     !A8
-    lda $000F : sta.w !obj_direction,X
+    lda $000F : sta.w obj.direction,X
     !X8
 .E7A3:
     dec $000F
@@ -10329,7 +10313,7 @@ _03E7BB:
     lda #$01 : sta.w is_frozen
     lda #$04 : sta.w frozen_counter
     stz $14B3
-    stz !slot_upgrade2
+    stz.w !obj_upgrade2.active
     jsl _0281DD
 .E7FD:
     rtl
@@ -10348,7 +10332,7 @@ _03E7FE: ;a8 x8
 
     ldx #$04
 .E80D:
-    lda !options,X
+    lda.w options,X
     cmp.w _00D638_D648,X
     bcs .E819
 
@@ -10359,7 +10343,7 @@ _03E7FE: ;a8 x8
 .E819:
     ldx #$0F
 -:
-    lda.w _00D638,X : sta !options,X
+    lda.w _00D638,X : sta.w options,X
     dex : bpl -
 
     rtl
@@ -10382,14 +10366,14 @@ _03E825:
     lda #$D2 : sta $1D
     stz $35
     !A16
-    lda #$0100 : sta !obj_pos_x+1 : sta $1EB9
-    lda #$010C : sta !obj_pos_y+1 : sta $1EBB
+    lda #$0100 : sta.b obj.pos_x+1 : sta $1EB9
+    lda #$010C : sta.b obj.pos_y+1 : sta $1EBB
     !A8
     stz $37
     lda #$0E : sta $38
     stz $1EBE
     jsl get_rng_bool
-    sta !obj_direction
+    sta.b obj.direction
     sta $39
     stz $3A
     sta $1EBD
@@ -10450,14 +10434,14 @@ _03E825:
 .E8E0:
     lda #$39 : jsl _018049_8053
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sec
     sbc #$0080
     cmp #$0100
     !A8
     bcc .E902
 
-    lda !obj_direction : eor #$01 : sta !obj_direction : sta $1EBD
+    lda.b obj.direction : eor #$01 : sta.b obj.direction : sta $1EBD
     pla : pla
     bra .E8AF
 
@@ -10528,7 +10512,7 @@ _03E825:
 
     jsl get_rng_bool
     inc $3A
-    sta !obj_direction
+    sta.b obj.direction
     sta $1EBD
     cmp $39
     bne .E9B1
@@ -10537,7 +10521,7 @@ _03E825:
     cmp #$03
     bne .E9B1
 
-    lda $39 : eor #$01 : sta !obj_direction : sta $1EBD : sta $39
+    lda $39 : eor #$01 : sta.b obj.direction : sta $1EBD : sta $39
     stz $3A
 .E9B1:
     jmp .E8A4
@@ -10575,8 +10559,8 @@ _03E825:
     bra .E9B8
 
 .E9F8:
-    inc !obj_direction
-    inc !obj_facing
+    inc.b obj.direction
+    inc.b obj.facing
 .E9FC:
     ldy #$B0 : ldx #$21 : jsl set_sprite
     jsl .EC3B
@@ -10591,23 +10575,23 @@ _03E825:
 
     sta $37
     lda $1EBD
-    eor !obj_facing
+    eor.b obj.facing
     clc
     adc $37
     tay
     ldx.w samael_data_D6A2,Y
     !A16
-    clc : lda.w samael_data_D6B4,X : adc $33 : sta !obj_speed_y+1
+    clc : lda.w samael_data_D6B4,X : adc $33 : sta.b obj.speed_y+1
     !A8
     bra .EA08
 
 .EA2D:
-    lda #$02 : sta !obj_direction
-    inc !obj_facing
+    lda #$02 : sta.b obj.direction
+    inc.b obj.facing
 .EA33:
     ldy #$B2 : ldx #$21 : jsl set_sprite
     jsl .EC3B
-    lda !obj_facing : eor #$01 : sta $28
+    lda.b obj.facing : eor #$01 : sta $28
 .EA45:
     brk #$00
 
@@ -10626,7 +10610,7 @@ _03E825:
     lda.w samael_data_D6A2,Y : asl : tax
     !A16
     lda.w samael_data_D6BA+0,X
-    ldy !obj_facing
+    ldy.b obj.facing
     beq .EA6B
 
     eor #$FFFF
@@ -10634,18 +10618,18 @@ _03E825:
 .EA6B:
     clc
     adc $31
-    sta !obj_speed_x+1
-    clc : lda.w samael_data_D6BA+2,X : adc $33 : sta !obj_speed_y+1
+    sta.b obj.speed_x+1
+    clc : lda.w samael_data_D6BA+2,X : adc $33 : sta.b obj.speed_y+1
     !A8
     bra .EA45
 
 .EA7C:
-    lda #$02 : sta !obj_direction
-    inc !obj_facing
+    lda #$02 : sta.b obj.direction
+    inc.b obj.facing
 .EA82:
     jsl .EC3B
     ldy #$A4 : ldx #$21 : jsl set_sprite
-    lda !obj_facing : eor #$01 : sta $28
+    lda.b obj.facing : eor #$01 : sta $28
 .EA94:
     brk #$00
 
@@ -10674,8 +10658,8 @@ _03E825:
     !X16
 .EAC7:
     jsl _028B1E
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_samael : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_samael : sta.w obj.type,X
     lda $07
     sta $0007,X
     clc
@@ -10692,7 +10676,7 @@ _03E825:
 
 .destroy:
     ldy #$AE : ldx #$21 : jsl set_sprite
-    lda !obj_hp
+    lda.b obj.hp
     beq .EB1E
 
     lda #$FF : sta $35
@@ -10724,7 +10708,7 @@ _03E825:
     stz $1562
     jsl _0190B9_90CB
     inc $1EB7
-    lda !arthur_hp
+    lda.w !obj_arthur.hp
     bmi .EB49
 
     inc $1ED7
@@ -10842,7 +10826,7 @@ _03E825:
     jsl .EC27
 .EC0E:
     !A16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     sta $1EB9
     sec
     sbc #$0100
@@ -10871,19 +10855,19 @@ _03E825:
     jsl _02F9DA_F9E0
     lda $07 : asl : tax
     !A16
-    lda.w samael_data_D655-4,X : sta !obj_speed_x+1 : sta $31
-    lda.w samael_data_D655-2,X : sta !obj_speed_y+1 : sta $33
+    lda.w samael_data_D655-4,X : sta.b obj.speed_x+1 : sta $31
+    lda.w samael_data_D655-2,X : sta.b obj.speed_y+1 : sta $33
 .EC55:
     lda $1EB7
     beq .EC61
 
     !A16
-    lda.w #.EBB5 : sta !obj_state+1
+    lda.w #.EBB5 : sta.b obj.state+1
 .EC61:
     !A16
-    lda $1EBB : adc !obj_speed_y+1 : sta !obj_pos_y+1
+    lda $1EBB : adc.b obj.speed_y+1 : sta.b obj.pos_y+1
     !A16
-    lda $1EB9 : adc !obj_speed_x+1 : sta !obj_pos_x+1
+    lda $1EB9 : adc.b obj.speed_x+1 : sta.b obj.pos_x+1
     !A8
     rtl
 }
@@ -10895,7 +10879,7 @@ _03EC76:
     ldy #$B6 : ldx #$21 : jsl set_sprite
     stz $13
     lda $07 : inc : sta $27
-    stz !obj_pos_y
+    stz.b obj.pos_y
 .EC87:
     brk #$00
 
@@ -10910,7 +10894,7 @@ _03EC76:
     lda #$0018 : sta $2D
     asl        : sta $2F
     !A8
-    lda #$04 : sta !obj_direction
+    lda #$04 : sta.b obj.direction
     lda #$01 : sta $3B
 .ECA7:
     brk #$00
@@ -10934,9 +10918,9 @@ _03EC76:
     inc
 .ECCC:
     clc
-    adc !obj_direction
+    adc.b obj.direction
     and #$0F
-    sta !obj_direction
+    sta.b obj.direction
     txa
     inc #2
     sta $13
@@ -10968,8 +10952,8 @@ _03EC76:
     beq .ED22
 
     !A16
-    clc : lda $31 : adc !obj_pos_x+1 : sta !arthur_pos_x+1
-    clc : lda $33 : adc !obj_pos_y+1 : sta !arthur_pos_y+1
+    clc : lda $31 : adc.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
+    clc : lda $33 : adc.b obj.pos_y+1 : sta.w !obj_arthur.pos_y+1
     clc :           adc $14D8        : sta $14DA
     !A8
 .ED22:
@@ -10987,28 +10971,28 @@ _03EC76:
 
 .ED2E:
     !AX16
-    lda !obj_pos_x+1
+    lda.b obj.pos_x+1
     clc
     adc $2D
     sec
-    sbc !arthur_pos_x+1
+    sbc.w !obj_arthur.pos_x+1
     cmp $2F
     bcs .ED75
 
-    lda !arthur_pos_y+1
+    lda.w !obj_arthur.pos_y+1
     clc
     adc #$0013
     sec
-    sbc !obj_pos_y+1
+    sbc.b obj.pos_y+1
     cmp #$0008
     bcs .ED75
 
     eor #$FFFF
     inc
-    adc !arthur_pos_y+1
-    sta !arthur_pos_y+1
-    lda !arthur_pos_x+1 : sec : sbc !obj_pos_x+1 : sta $31
-    lda !arthur_pos_y+1 : sec : sbc !obj_pos_y+1 : sta $33
+    adc.w !obj_arthur.pos_y+1
+    sta.w !obj_arthur.pos_y+1
+    lda.w !obj_arthur.pos_x+1 : sec : sbc.b obj.pos_x+1 : sta $31
+    lda.w !obj_arthur.pos_y+1 : sec : sbc.b obj.pos_y+1 : sta $33
     !AX8
     lda #$80 : sta $14C3
     inc $28
@@ -11030,8 +11014,8 @@ _03ED7B:
     bne .EDBE
 
     lda #$29 : jsl _018049_8053
-    ldx !obj_direction
-    lda.w astaroth_laser_data_D531,X : sta !obj_facing
+    ldx.b obj.direction
+    lda.w astaroth_laser_data_D531,X : sta.b obj.facing
     txa : asl : tax
     ldy.w astaroth_laser_data_D511+0,X
     lda.w astaroth_laser_data_D511+1,X
@@ -11103,7 +11087,7 @@ _03EDE2: ;a8 x8
 
     ldy #$E2 : ldx #$21 : jsl set_sprite
     ldy #$00 : jsl set_speed_x
-    lda #$01 : sta !obj_facing : sta !obj_direction
+    lda #$01 : sta.b obj.facing : sta.b obj.direction
 .EE11:
     brk #$00
 
@@ -11633,9 +11617,9 @@ _03F774: ;a8 x8
 ;----- F7AF
 
     clc
-    lda !obj_pos_x   : adc #$00 : sta !obj_pos_x
-    lda !obj_pos_x+1 : adc #$02 : sta !obj_pos_x+1
-    lda !obj_pos_x+2 : adc #$00 : sta !obj_pos_x+2
+    lda.b obj.pos_x   : adc #$00 : sta.b obj.pos_x
+    lda.b obj.pos_x+1 : adc #$02 : sta.b obj.pos_x+1
+    lda.b obj.pos_x+2 : adc #$00 : sta.b obj.pos_x+2
     lda #$FE : jsl update_animation_custom_timer
     dec $2D
     bne .F7AD
@@ -11665,7 +11649,7 @@ _03F7E0: ;a8 x8
     ldy #$B2 : ldx #$21
 .F7EC:
     jsl set_sprite
-    lda #$01 : sta !obj_facing
+    lda #$01 : sta.b obj.facing
 .F7F4:
     brk #$00
 
@@ -11681,11 +11665,11 @@ _03F7E0: ;a8 x8
 _03F7F9: ;a8 x8
     lda #$80 : sta $09
     ldy #$A6 : ldx #$21 : jsl set_sprite
-    lda #$01 : sta !obj_facing
+    lda #$01 : sta.b obj.facing
     jsl get_object_slot
     !X16
-    lda #$0C : sta.w !obj_active,X
-    lda #!id_satan_wings : sta.w !obj_type,X
+    lda #$0C : sta.w obj.active,X
+    lda #!id_satan_wings : sta.w obj.type,X
     stx $2D
     !X8
     lda #$78 : sta $2F
@@ -11707,17 +11691,17 @@ _03F7F9: ;a8 x8
 ;----- F834
 
     clc
-    lda !obj_pos_x   : adc #$33 : sta !obj_pos_x
-    lda !obj_pos_x+1 : adc #$03 : sta !obj_pos_x+1
-    lda !obj_pos_x+2 : adc #$00 : sta !obj_pos_x+2
+    lda.b obj.pos_x   : adc #$33 : sta.b obj.pos_x
+    lda.b obj.pos_x+1 : adc #$03 : sta.b obj.pos_x+1
+    lda.b obj.pos_x+2 : adc #$00 : sta.b obj.pos_x+2
     sec
     lda $35 : sbc #$C0 : sta $35
     lda $36 : sbc #$00 : sta $36
     lda $37 : sbc #$00 : sta $37
     clc
-    lda !obj_pos_y   : adc $35 : sta !obj_pos_y
-    lda !obj_pos_y+1 : adc $36 : sta !obj_pos_y+1
-    lda !obj_pos_y+2 : adc $37 : sta !obj_pos_y+2
+    lda.b obj.pos_y   : adc $35 : sta.b obj.pos_y
+    lda.b obj.pos_y+1 : adc $36 : sta.b obj.pos_y+1
+    lda.b obj.pos_y+2 : adc $37 : sta.b obj.pos_y+2
     bit $09
     bvs .F832
 
@@ -11733,8 +11717,8 @@ _03F7F9: ;a8 x8
 _03F875: ;a- x-
     !AX16
     ldx $2D
-    lda !obj_pos_x+1 : sta.w !obj_pos_x+1,X
-    lda !obj_pos_y+1 : sta.w !obj_pos_y+1,X
+    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
+    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
     !AX8
     rts
 
@@ -11747,7 +11731,7 @@ _03F875: ;a- x-
 { ;F88E - F8A1
 _03F88E: ;a8 x8
     ldy #$AC : ldx #$21 : jsl set_sprite
-    lda #$01 : sta !obj_facing
+    lda #$01 : sta.b obj.facing
 .F89A:
     brk #$00
 
@@ -12091,11 +12075,11 @@ _03FBFA:
 
     jsl update_animation_normal
     !A16
-    lda !obj_pos_y+1
+    lda.b obj.pos_y+1
     cmp #$007A
     beq .FC25
 
-    dec !obj_pos_y+1
+    dec.b obj.pos_y+1
     bra .FC25
 
     jml _0281A8_81B5 ;unreachable
@@ -12136,7 +12120,7 @@ endif
 
     jsl update_animation_normal
     !A16
-    lda !obj_pos_x : sec : sbc #$0040 : sta !obj_pos_x
+    lda.b obj.pos_x : sec : sbc #$0040 : sta.b obj.pos_x
     !A8
     bra .FC6F
 
