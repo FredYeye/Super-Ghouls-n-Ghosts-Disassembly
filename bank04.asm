@@ -1015,7 +1015,7 @@ _048C43: ;a8 x8
     jsl _018049_804D
     lda #$15 : jsl _01834C
     jsl disable_nmi
-    lda #$03 : sta !OBSEL
+    lda #$03 : sta.w OBSEL
     jsl _018074
     inc $0379
     jsl _018366

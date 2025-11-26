@@ -1828,13 +1828,13 @@ ending_obj:
 _028B0E: ;a8 x8
     ;clear armor pieces / magic
     jsr _0280E9
-    inc !open_magic_slots
+    inc.w open_magic_slots
     jmp _02821B_827A
 }
 
 { ;8B17 - 8B1D
 _028B17:
-    inc !open_magic_slots
+    inc.w open_magic_slots
 .8B1A: ;a8 x-
     jsr _0280E9_80EE
     rtl
@@ -2173,8 +2173,8 @@ zombie: ;a8 x8
 +:
     lda #$18 : sta $10
     lda #$02 : sta $1D
-    lda #$01 : sta $08
-    lda #$10 : sta $09
+    lda #$01 : sta.b obj.flags1
+    lda #$10 : sta.b obj.flags2
     !A16
     lda.w _00ED00+$3A : sta $27
     lda #zombie_data_coord_offsets : sta $13 ;collision related
@@ -2299,7 +2299,7 @@ zombie: ;a8 x8
     !A8
     bcc .8EA3
 
-    ldx #$58 : jsl _0196EF : sta $38 ;flight timer, 0 = no flight
+    ldx #$58 : jsl _0196EF : sta.b obj.zombie.flight_timer ;0 = no flight
     beq .8EA3
 
     inc $36
@@ -2311,7 +2311,7 @@ zombie: ;a8 x8
 
     jsl update_pos_y
     jsl _01A559
-    dec $38
+    dec.b obj.zombie.flight_timer
     bne .8E4D
 
     inc $0F
@@ -2333,9 +2333,7 @@ zombie: ;a8 x8
     stz $37
     ldy #$6E : ldx #$22 : jsl set_sprite
     ldy #$23 : jsl set_speed_xyg
-    jsl get_arthur_relative_side
-    sta $12
-    sta.b obj.direction
+    jsl get_arthur_relative_side : sta.b obj.facing : sta.b obj.direction
 .8E95:
     brk #$00
 
@@ -2581,7 +2579,7 @@ shield:
     lda !armor_state
     beq .9025
 
-    lda.w !obj_arthur._25_29 : tay
+    lda.w !obj_arthur._25 : tay
     lda.w shield_data_BF27,Y : sta $3C
     ldx.w current_cage
     lda $08 : and #$F8 : ora.w shield_data_BF43,Y : ora.w shield_data_BF24,X : sta $08
@@ -9241,7 +9239,7 @@ plume:
     cmp #!gold
     bne .C50D
 
-    lda.w !obj_arthur._25_29
+    lda.w !obj_arthur._25
 .C53F:
     tay
     lda.w plume_data_C7F8,Y
@@ -10433,7 +10431,7 @@ arthur_map: ;a8 x8
 ;-----
 
 .CD8C:
-    lda #$01 : sta !OBSEL
+    lda #$01 : sta.w OBSEL
     lda.w stage
     asl
     adc.w checkpoint
@@ -16398,7 +16396,7 @@ _02F9FA: ;a8 x-
     rtl
 
 .F9FE:
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08  ;if all magic slots are free,
     beq .ret2 ;do nothing
 
@@ -16459,7 +16457,7 @@ _02FA37: ;a8 x?
     beq .FAA0
 
 .FA6D: ;a8 x-
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     beq .FAA0
 
@@ -16489,7 +16487,7 @@ _02FA37: ;a8 x?
 
 { ;FAA1 - FABF
 _02FAA1: ;a8 x?
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     beq _02FA37_FAA0
 
@@ -16509,7 +16507,7 @@ _02FAA1: ;a8 x?
 
 { ;FAC0 - FAD3
 _02FAC0: ;a8 x-
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     beq _02FA37_FAA0
 
@@ -16562,7 +16560,7 @@ _02FAD4: ;a- x-
 
 { ;FB16 - FB2A
     ;unused
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     beq .FB29
 
@@ -17258,7 +17256,7 @@ _02FF57: ;a x
     asl               : sta $1F1F
     lda.w _00DDB2+1,Y : sta $1F21
     asl               : sta $1F23
-    lda.w !obj_shield._25_29
+    lda.w !obj_shield._25
     bne .FFA1
 
     !A16

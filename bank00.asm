@@ -133,7 +133,7 @@ nmi: ;a- x-
     lda $0379
     beq .825B
 
-    stz !OAMADDL
+    stz.w OAMADDL
     stz !OAMADDH
     lda #$00 : sta !DMAP0
     lda #$04 : sta !BBAD0
@@ -472,7 +472,7 @@ _00853D: ;a8 x8
 { ;8577 - 85A5
 _008577: ;a8 x-
     ;unused function
-    stz !OAMADDL
+    stz.w OAMADDL
     stz !OAMADDH
     lda #$00 : sta !DMAP0
     lda #$04 : sta !BBAD0

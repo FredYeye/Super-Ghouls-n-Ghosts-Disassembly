@@ -37,8 +37,8 @@
 
 { ;snes registers
     INIDISP   = $2100 ;Display Control 1
-    !OBSEL    = $2101 ;Object Size and Object Base
-    !OAMADDL  = $2102 ;OAM Address (lower 8bit)
+    OBSEL     = $2101 ;Object Size and Object Base
+    OAMADDL   = $2102 ;OAM Address (lower 8bit)
     !OAMADDH  = $2103 ;OAM Address (upper 1bit) and Priority Rotation
     !BGMODE   = $2105 ;BG Mode and BG Character Size
     !MOSAIC   = $2106 ;Mosaic Size and Mosaic Enable
@@ -285,7 +285,7 @@
     !slot_list_weapons = $142F
     !open_object_slots = $1443
     !open_weapon_slots = $1445
-    !open_magic_slots  = $1447
+    open_magic_slots   = $1447
 
     ;14A8: some kind of enemy count array?
 
@@ -370,13 +370,21 @@
         .pos_x:      skip 3
         .pos_y:      skip 3
         .anim_timer: skip 1
-        ._25_29:     skip 4 ;gfx related
-        ;type dependent data + index, see struct base_ext
+        ._25:        skip 1 ;gfx related
+        ._26:        skip 1 ;gfx related
+        ._27:        skip 2 ;gfx related
+        ._29:        skip 2 ;gfx related
+        ;2B-40:      see struct base_ext
     endstruct
 
     struct base_ext extends obj
-        ._2B_3D: skip 23 ;type dependent data
+        ._2B_3F: skip 21 ;type dependent data
         .index:  skip 1  ;1-indexed slot id (set but not used)
+    endstruct
+
+    struct zombie extends obj
+        .unk: skip 13
+        .flight_timer: skip 1
     endstruct
 
     !obj_size = $0041 ;todo: set the size param on all ops using this const

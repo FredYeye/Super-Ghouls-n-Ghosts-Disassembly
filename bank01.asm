@@ -1636,7 +1636,7 @@ _018CE2: ;a- x-
     bpl -
 
     !AX8
-    lda #$08 : sta !open_magic_slots
+    lda #$08 : sta.w open_magic_slots
     bra _018D7F
 }
 
@@ -2754,7 +2754,7 @@ _01951E: ;a8 x8
 
 { ;9539 - 957F
 _019539: ;a8 x8
-    lda #$03 : sta !OBSEL
+    lda #$03 : sta.w OBSEL
     lda #$30 : sta $02EB
     lda #$01 : sta $02D9
     lda #$03 : sta $02DC
@@ -3000,7 +3000,7 @@ _019697: ;a8 x8
 
 .96CA:
     phd
-    ldx #$08 : stx !open_magic_slots
+    ldx #$08 : stx.w open_magic_slots
     stz $14E7 ;torch magic active bool?
     !X16
     ldy.w #!obj_magic.base
@@ -9131,7 +9131,7 @@ _01C8A7: ;a x
     ora.w is_frozen
     bne .C93E
 
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     bne .C93E
 
@@ -10918,7 +10918,7 @@ _01D565: ;a8 x?
     lda $14E7
     bne .D6B5
 
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$03
     bcc .D6B5
 
@@ -13968,7 +13968,7 @@ _01EDAD:
 ;----- EE08
 
     jsr _01D957
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     bne .EE06
 
@@ -14131,7 +14131,7 @@ _01EF44:
 ;----- EF58
 
     jsr _01D957
-    lda !open_magic_slots
+    lda.w open_magic_slots
     cmp #$08
     bne .EF56
 
@@ -14907,7 +14907,7 @@ get_magic_slot: ;a8 x8
     rts ;no slots available (return -1)
 
 .F4F3:
-    dec !open_magic_slots
+    dec.w open_magic_slots
     rts
 }
 
