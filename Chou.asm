@@ -383,8 +383,18 @@
     endstruct
 
     struct zombie extends obj
-        .unk: skip 13
-        .flight_timer: skip 1
+        .unk1:                 skip 2
+        .unburrow_timer:       skip 2 ;2D
+        .unk2:                 skip 2
+        .coffin_open_timer:    skip 0 ;31
+        .reburrow_timer:       skip 2 ;31
+        .on_ground:            skip 1 ;33
+        .speed_idx:            skip 1 ;34
+        ._35:                  skip 1 ;35
+        .skip_collision_check: skip 1 ;36
+        ._37:                  skip 1 ;37
+        .flight_timer:         skip 1 ;38
+        .circling_timer:       skip 1 ;39
     endstruct
 
     !obj_size = $0041 ;todo: set the size param on all ops using this const
