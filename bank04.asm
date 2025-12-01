@@ -2,7 +2,7 @@ org $048000
 
 if !version == 1 || !version == 2
 { ;8000 - 84B2
-    incsrc "text.asm"
+    incsrc "various/text.asm"
 }
 endif
 
@@ -1951,7 +1951,7 @@ _04A0F5:
 }
 
 { ;A122 - A7DB
-    incsrc "text_tilemaps.asm"
+    incsrc "various/text_tilemaps.asm"
 }
 
 if !version == 0

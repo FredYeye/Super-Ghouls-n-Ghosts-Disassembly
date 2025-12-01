@@ -1,6 +1,3 @@
-;todo: consider splitting create / thing / destroy into separate braces.
-;      this may or may not work so cleanly for other objs though, check
-
 namespace zombie
 
 {

@@ -1302,7 +1302,7 @@ _098000: ;meta tiles. one meta tile = 4 words sequentially = 2x2 SW tiles. tiles
 }
 
 { ;E800 - FBFF
-    incsrc "palette_bg.asm"
+    incsrc "various/palette_bg.asm"
 }
 
 { ;FC00 - FCFF

@@ -450,7 +450,7 @@ db $04, $07
 }
 
 { ;8470 - 9C08
-    incsrc "palette_cycling.asm"
+    incsrc "various/palette_cycling.asm"
 }
 
 { ;9C09 - 9DD9
@@ -1329,96 +1329,7 @@ _03A2FC: ;unused?
 }
 
 { ;A338 - A3E6
-_03A338:
-
-.create:
-    !A16
-    lda.b obj.pos_x+1 : sta $39
-    lda.b obj.pos_y+1 : sta $3B
-    !A8
-    stz $31
-.A346:
-    brk #$00
-
-;----- A348
-
-    ldy #$28 : jsl _0192AD
-    bcs .A346
-
-    lda $09 : ora #$B4 : sta $09
-    inc $31
-    ldy #$B8 : ldx #$21 : jsl set_sprite
-    lda #$54 : cop #$00
-
-;----- A364
-
-    ldy #$AA : ldx #$21 : jsl set_sprite
-    bra .A38E
-
-.A36E:
-    brk #$00
-
-;----- A370
-
-    ldy #$28 : jsl _0192AD
-    bcs .A36E
-
-    inc $31
-    ldy #$B8 : ldx #$21 : jsl set_sprite
-    lda #$54 : cop #$00
-
-;----- A386
-
-    ldy #$AA : ldx #$21 : jsl set_sprite
-.A38E:
-    lda #$0E : cop #$00
-
-;----- A392
-
-    inc $32
-    ldy #$A8 : ldx #$21 : jsl set_sprite
-    ldx #$92 : jsl _0196EF : cop #$00
-
-;----- A3A4
-
-    stz $32
-    ldy #$B2 : ldx #$21 : jsl set_sprite
-    lda #$0E : cop #$00
-
-;----- A3B2
-
-    stz $31
-    ldx #$94 : jsl _0196EF : cop #$00
-
-;----- A3BC
-
-    lda $09
-    and #$40
-    bne .A36E
-
-    jml _0281A8_81B5
-
-;-----
-
-.thing:
-    lda $31
-    beq .A3D6
-
-    lda $08 : ora #$08 : sta $08
-    jsl update_animation_normal
-    bra .A3DE
-
-.A3D6:
-    lda $08 : and #$F7 : sta $08
-    bra .A3E6
-
-.A3DE:
-    lda $32
-    beq .A3E6
-
-    jsl _02F9B2
-.A3E6:
-    rtl
+    incsrc "objects/geyser.asm"
 }
 
 { ;A3E7 - A42B
@@ -5461,29 +5372,7 @@ _03BF65: ;a8 x8
 }
 
 { ;C1B6 - C1E9
-_03C1B6: ;a8 x8
-    inc $08
-    ldy #$B4 : ldx #$21 : jsl set_sprite
-    jsl _02F9DA
-    ldy #$5D : jsl set_speed_x
-.C1CA:
-    brk #$00
-
-;----- C1CC
-
-    jsl update_pos_x
-    jsl update_animation_normal
-    bit $09
-    bvs .C1CA
-
-    jml _0281A8_81B5
-
-;-----
-
-.C1DC:
-    jsl _02F9BE
-    ldy #$0C : jsl _02F9CE
-    jml _02F9B2
+    incsrc "objects/hannibal_projectile.asm"
 }
 
 { ;C1EA -
@@ -5660,25 +5549,7 @@ _03C30E: ;unused?
 }
 
 { ;C32A - C34E
-_03C32A: ;a8 x8
-    lda #$80 : sta $09
-    ldy #$04 : ldx #$22 : jsl set_sprite
-    lda #$05 : sta.b obj.hp
-.C33A:
-    brk #$00
-
-;----- C33C
-
-    bra .C33A
-
-;-----
-
-.C33E:
-    jsl _02F9CA
-    jsl _02F9B2
-    jsl _02F9BA
-    jsl _028074_80A3
-    rtl
+    incsrc "objects/coral.asm"
 }
 
 { ;C34F - C366
@@ -5715,113 +5586,7 @@ _03C367:
 }
 
 { ;C392 - C472
-_03C392:
-
-.create:
-    lda #$32 : cop #$00
-
-;----- C396
-
-    !A16
-.C398:
-    brk #$00
-
-;----- C39A
-
-    lda.w !obj_arthur.pos_x+1
-    cmp #$01B0
-    bcs .C398
-
-    lda.w !obj_arthur.pos_y+1
-    cmp #$0412
-    bcs .C398
-
-    !A16
-    stz $31
-    stz $33
-if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
-    lda #$E580 : sta $7EF7C2
-endif
-    !A8
-if !version == 0
-    lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
-endif
-.C3CB:
-    !AX8
-    lda #$39 : jsl _018049_8053
-    !AX16
-.C3D5:
-    ldy $31
-    ldx.w crumbling_wall_data_D377,Y : jsr .C428
-    !AX8
-    lda #$17 : sta $031E
-    lda #$0C : cop #$00
-
-;----- C3E6
-
-    !AX16
-    lda $33
-    cmp #$0008
-    bne .C3D5
-
-    stz $33
-    lda $31
-    cmp #$0006
-    beq .C407
-
-    inc $31 : inc $31
-    lda $31
-    cmp #$0006
-    beq .C3D5
-
-    bra .C3CB
-
-.C407:
-    !A16
-    lda #$E580 : sta $7EF7C2
-    !A8
-    lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
-if !version == 1 || !version == 2
-.C411:
-    brk #$00
-
-;----- C413
-
-    lda #$17 : sta $031E
-    !A16
-    lda.w !obj_arthur.pos_y+1
-    cmp #$02E0
-    !A8
-    bcs .C411
-endif
-
-    jml _0281A8_81B5
-
-;-----
-
-.C428:
-    !A16
-    lda #$0004 : sta $2D
-.C42F:
-    ldy $33
-    lda.w crumbling_wall_data_D37D,Y
-    tay
-    lda #$0004 : sta $35
-.C43A:
-    lda $0000,Y : iny #2 : sta $7ED800,X
-    lda $0000,Y : iny #2 : sta $7ED802,X
-    lda $0000,Y : iny #2 : sta $7ED804,X
-    lda $0000,Y : iny #2 : sta $7ED806,X
-    txa : clc : adc #$0040 : tax
-    dec $35
-    bne .C43A
-
-    dec $2D
-    bne .C42F
-
-    inc $33 : inc $33
-    !AX8
-    rts
+    incsrc "objects/crumbling_wall.asm"
 }
 
 { ;C473 - C557
@@ -8685,249 +8450,7 @@ endif
 }
 
 { ;DB5F - DD3B
-_03DB5F:
-
-.create:
-    ldx #$00 : jsl _018D5B
-    jsl set_hp
-    stz $15
-    stz $2D
-    inc $08
-    lda #$10 : sta $09
-    lda #$20 : sta $10
-    !A16
-    lda.w _00ED00+$06 : sta $27
-    lda #mad_dog_data_D5C3 : sta $13
-    !A8
-    lda #$FF : sta $26
-.DB89:
-    ldy #$1C : ldx #$22 : jsl set_sprite
-    jsl _02F9DA_F9E0
-.DB95:
-    brk #$00
-
-;----- DB97
-
-    bit $09
-    bvc .DB95
-
-    lda $07 : asl : tax
-    jmp (+,X) : +: dw .DBA8, .DC85, .DC7C
-
-.DBA8:
-    jsl get_arthur_relative_side : sta.b obj.direction : sta.b obj.facing
-.DBB0:
-    ldy #$1C : ldx #$22 : jsl set_sprite
-    jsl get_rng_16
-    lda.w mad_dog_data_D57B,X
-    ldx $9636 ;bug: loads $FF. supposed to be difficulty...?
-    clc
-    adc.w mad_dog_data_D58B,X
-    !A16
-    and #$00FF
-    asl
-    sta $37
-    !A8
-.DBD0:
-    brk #$00
-
-;----- DBD2
-
-    jsl get_arthur_relative_side
-    cmp.b obj.facing
-    beq .DBF6
-
-    ldy #$1E : ldx #$22 : jsl set_sprite
-    lda #$2C : sta $37
-.DBE6:
-    brk #$00
-
-;----- DBE8
-
-    dec $37
-    bne .DBE6
-
-    lda.b obj.facing : eor #$01 : sta.b obj.direction : sta.b obj.facing
-    bra .DBB0
-
-.DBF6:
-    ldy #$14 : jsl _0192AD
-    bcc .DC1A
-
-    !A16
-    dec $37
-    !A8
-    bne .DBD0
-
-    ldy #$1E : ldx #$22 : jsl set_sprite
-    lda #$77 : sta $37
-.DC12:
-    brk #$00
-
-;----- DC14
-
-    dec $37
-    bne .DC12
-
-    bra .DBB0
-
-.DC1A:
-    jsl get_rng_16
-    lda.w mad_dog_data_D58F,X
-    ldx $9636 ;bug: loads $FF. supposed to be difficulty...?
-    clc
-    adc.w mad_dog_data_D59F,X
-    cop #$00
-
-;----- DC2A
-
-.DC2A:
-    ldy #$20 : ldx #$22 : jsl set_sprite
-    ldy #$0E : sty $2D
-    jsl call_rng : and #$0F : cmp #$08
-    bcc .DC41
-
-    iny
-.DC41:
-    jsl set_speed_xyg
-.DC45:
-    brk #$00
-
-;----- DC47
-
-    jsl update_pos_xyg_add
-    lda.b obj.speed_y+2
-    bmi .DC45
-
-.DC4F:
-    brk #$00
-
-;----- DC51
-
-    jsl update_pos_xyg_add
-    bit $09
-    bvc .DC4F
-
-    jsl _01A559
-    beq .DC4F
-
-    stz $2D
-    ldy #$24 : ldx #$22 : jsl set_sprite
-    lda #$0A : cop #$00
-
-;----- DC6D
-
-    ldy #$1C : ldx #$22 : jsl set_sprite
-    lda #$0A : cop #$00
-
-;----- DC79
-
-    jmp .DBB0
-
-.DC7C:
-    jsl get_rng_16
-    lda.w mad_dog_data_D5B3,X : sta $2E
-.DC85:
-    jsl get_arthur_relative_side : sta.b obj.direction : sta.b obj.facing
-.DC8D:
-    brk #$00
-
-;----- DC8F
-
-    ldy #$30 : jsl _0192AD
-    bcs .DC8D
-
-    jsl get_rng_16
-    lda.w mad_dog_data_D5A3,X : cop #$00
-
-;----- DCA0
-
-.DCA0:
-    ldy #$26 : ldx #$22 : jsl set_sprite
-    ldy #$63 : sty $2D
-    jsl set_speed_x
-.DCB0:
-    brk #$00
-
-;----- DCB2
-
-    jsl _028074_807D
-    jsl update_pos_x
-    lda $07
-    cmp #$02
-    bne .DCCB
-
-    ldy $2E : jsl arthur_range_check
-    bcc .DCCB
-
-    jmp .DC2A
-
-.DCCB:
-    jsl _01A593
-    bne .DCB0
-
-    ldy #$20 : ldx #$22 : jsl set_sprite
-    ldy #$0F : jsl set_speed_xyg
-.DCDF:
-    brk #$00
-
-;----- DCE1
-
-    jsl update_pos_xyg_add
-    lda.b obj.speed_y+2
-    bmi .DCDF
-
-.DCE9:
-    brk #$00
-
-;----- DCEB
-
-    jsl update_pos_xyg_add
-    jsl _01A559
-    beq .DCE9
-
-    stz $2D
-    bra .DCA0
-
-;-----
-
-.thing:
-    jsl update_animation_normal
-    ldx #$02 : jsl _018E32
-    lda $2D
-    bne .DD15
-
-    jsl _02F9B6
-    jsl _02F9BA
-    jsl _02F9B2
-    bra .DD19
-
-.DD15:
-    jsl _0296FE
-.DD19:
-    jml _028074_80A3
-
-;-----
-
-.destroy:
-    lda.b obj.hp
-    bne .DD25
-
-    jml _028BEC
-
-.DD25:
-    jsl _02F9DA_F9E0
-    ldy #$22 : ldx #$22 : jsl set_sprite
-.DD31:
-    brk #$00
-
-;----- DD33
-
-    lda $24
-    cmp #$70
-    bne .DD31
-
-    jmp .DB89
+    incsrc "objects/mad_dog.asm"
 }
 
 { ;DD3C -
@@ -11371,7 +10894,7 @@ _03EF86: ;stage 3 tower tiles to put in layer 2
 }
 
 { ;F1A6 - F525
-    incsrc "hp_list.asm"
+    incsrc "various/hp_list.asm"
 }
 
 { ;F526 - F773
@@ -12048,41 +11571,7 @@ endif
 }
 
 { ;FBFA - FC3F
-_03FBFA:
-
-.create:
-    ldy #$BE : ldx #$21 : jsl set_sprite
-    lda $08 : ora #$03 : sta $08
-    lda $09 : ora #$10 : sta $09
-    !A16
-    lda #$0100 : sta $2D
-    !A8
-.FC17:
-    brk #$00
-
-;----- FC19
-
-    jsl update_animation_normal
-    !A16
-    dec $2D
-    !A8
-    bne .FC17
-.FC25:
-    !A8
-    lda #$78 : cop #$00
-
-;----- FC2B
-
-    jsl update_animation_normal
-    !A16
-    lda.b obj.pos_y+1
-    cmp #$007A
-    beq .FC25
-
-    dec.b obj.pos_y+1
-    bra .FC25
-
-    jml _0281A8_81B5 ;unreachable
+    incsrc "objects/sun.asm"
 }
 
 { ;FC40 - FC87

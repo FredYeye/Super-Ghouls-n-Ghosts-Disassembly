@@ -4448,7 +4448,7 @@ samael_platform_data:
 
 if !version == 0
 { ;D6E6 - DA6D
-    incsrc "text.asm"
+    incsrc "various/text.asm"
 }
 endif
 
