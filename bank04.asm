@@ -746,13 +746,13 @@ endif
 .game_start_cutscene_3:
     db $02
     db !id_arthur_cutscene, $82 : dw $0030, $00B8
-    db !id_satan_cutscene,  $80 : dw $00A0, $0060
+    db !id_satan,           $80 : dw $00A0, $0060
 
 .ending:
     db $03
-    db !id_sun,        $80 : dw $0040, $0094
-    db !id_ending_obj, $80 : dw $00C1, $008F
-    db !id_ending_obj, $81 : dw $00C0, $009D
+    db !id_sun,           $80 : dw $0040, $0094
+    db !id_ending_object, $80 : dw $00C1, $008F
+    db !id_ending_object, $81 : dw $00C0, $009D
 }
 
 { ;8A6B - 8AD2

@@ -3546,7 +3546,7 @@ _00CA45: db $1A, $1C, $1E
 }
 
 { ;CA48 - CAF0
-face_data:
+arthur_face_data:
 
 .CA48:
     dw $0000, $0010
@@ -5633,7 +5633,7 @@ _00ED00: ;sprite related. sprite sets to load?
     ;todo: needs lots of cleanup
     dw .arthur_underwear, .arthur_steel, .weapon, .wolf, .FAC3, .eagler, .magician, .armor
     dw .grilian, .arremer, .arthur_upgraded_armor, .arthur_upgraded_armor_gold, .raft_hanging, .F455, .shield, .trap
-    dw .plume, .face, .arthur_bee, .arthur_baby, .key_message, .siren, .key, .tower_edge
+    dw .plume, .arthur_face, .arthur_bee, .arthur_baby, .key_message, .siren, .key, .tower_edge
     dw .arthur_maiden, .arthur_seal, .magic, .armor_upgrade_vfx, .rotating_platform, .zombie, .miniwing, .cockatrice_wings
     dw .cockatrice_head, .cockatrice_legs, .cockatrice_body, .F917, .gate, .mimic, .mimic_ghost, .hydra
     dw .FCAC, .gate2, .FCED, .FCF5, .FD7C, .FD98, .tiny_goblin, .princess_dialogue
@@ -6303,7 +6303,7 @@ endif
 
 ;-----
 
-.face:
+.arthur_face:
     dw ..F569, ..F56F
 
 ..F569:

@@ -27,7 +27,7 @@
     !id_nuclear                     = $19
     !id_armor_up_vfx                = $1A
     !id_plume                       = $1B
-    !id_face                        = $1C
+    !id_arthur_face                 = $1C
     !id_stage4_transform            = $1D
     !id_shield                      = $1E
     !id_armor_piece                 = $1F
@@ -181,7 +181,7 @@
     !id_intro_cutscene_obj          = $B3 ;todo: rename to cutscene obj
     !id_arthur_cutscene             = $B4
     !id_princess_cutscene           = $B5
-    !id_satan_cutscene              = $B6
+    !id_satan                       = $B6
     !id_satan_wings                 = $B7
     !id_veil_allocen_claw1          = $B8
     !id_veil_allocen_claw2          = $B9
@@ -196,7 +196,7 @@
     !id_samael_platform             = $C2
     !id_samael_laser                = $C3
     !id_sun                         = $C4
-    !id_ending_obj                  = $C5
+    !id_ending_object               = $C5
 }
 
 {
