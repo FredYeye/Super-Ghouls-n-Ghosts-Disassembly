@@ -26,7 +26,7 @@
     !id_lightning                   = $18
     !id_nuclear                     = $19
     !id_armor_up_vfx                = $1A
-    !id_plume                       = $1B
+    !id_arthur_plume                = $1B
     !id_arthur_face                 = $1C
     !id_stage4_transform            = $1D
     !id_shield                      = $1E
@@ -179,8 +179,8 @@
     !id_veil_allocen                = $B1
     !id_veil_allocen_part           = $B2
     !id_intro_cutscene_obj          = $B3 ;todo: rename to cutscene obj
-    !id_arthur_cutscene             = $B4
-    !id_princess_cutscene           = $B5
+    !id_cutscene_arthur             = $B4
+    !id_cutscene_princess           = $B5
     !id_satan                       = $B6
     !id_satan_wings                 = $B7
     !id_veil_allocen_claw1          = $B8

@@ -735,17 +735,17 @@ endif
 
 .game_start_cutscene:
     db $02
-    db !id_arthur_cutscene,   $80 : dw $0070, $00B8
-    db !id_princess_cutscene, $80 : dw $0090, $00B8
+    db !id_cutscene_arthur,   $80 : dw $0070, $00B8
+    db !id_cutscene_princess, $80 : dw $0090, $00B8
 
 .game_start_cutscene_2:
     db $02
-    db !id_arthur_cutscene,   $80 : dw $007A, $00B8
-    db !id_princess_cutscene, $81 : dw $0086, $00B8
+    db !id_cutscene_arthur,   $80 : dw $007A, $00B8
+    db !id_cutscene_princess, $81 : dw $0086, $00B8
 
 .game_start_cutscene_3:
     db $02
-    db !id_arthur_cutscene, $82 : dw $0030, $00B8
+    db !id_cutscene_arthur, $82 : dw $0030, $00B8
     db !id_satan,           $80 : dw $00A0, $0060
 
 .ending:

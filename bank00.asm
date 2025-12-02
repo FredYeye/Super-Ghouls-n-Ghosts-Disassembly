@@ -3418,7 +3418,7 @@ black_cover_data:
 }
 
 { ;C7F8 - C8D5
-plume_data:
+arthur_plume_data:
 
 .C7F8:
     db $80, $02, $03, $06, $02, $03, $06, $82, $86, $00, $03, $06, $03, $06, $0A, $0B
@@ -5633,7 +5633,7 @@ _00ED00: ;sprite related. sprite sets to load?
     ;todo: needs lots of cleanup
     dw .arthur_underwear, .arthur_steel, .weapon, .wolf, .FAC3, .eagler, .magician, .armor
     dw .grilian, .arremer, .arthur_upgraded_armor, .arthur_upgraded_armor_gold, .raft_hanging, .F455, .shield, .trap
-    dw .plume, .arthur_face, .arthur_bee, .arthur_baby, .key_message, .siren, .key, .tower_edge
+    dw .arthur_plume, .arthur_face, .arthur_bee, .arthur_baby, .key_message, .siren, .key, .tower_edge
     dw .arthur_maiden, .arthur_seal, .magic, .armor_upgrade_vfx, .rotating_platform, .zombie, .miniwing, .cockatrice_wings
     dw .cockatrice_head, .cockatrice_legs, .cockatrice_body, .F917, .gate, .mimic, .mimic_ghost, .hydra
     dw .FCAC, .gate2, .FCED, .FCF5, .FD7C, .FD98, .tiny_goblin, .princess_dialogue
@@ -6270,7 +6270,7 @@ endif
 
 ;-----
 
-.plume:
+.arthur_plume:
     dw ..F517, ..F51D, ..F523, ..F529, ..F52F, ..F535, ..F53B, ..F541
     dw ..F547, ..F54D, ..F553, ..F559, ..F55F
 
