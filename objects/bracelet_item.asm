@@ -3,7 +3,7 @@ namespace bracelet_item
 {
 create:
     ldx.w stage
-    lda.l weapon_BB9C,X
+    lda.l weapon__BB9C,X
     tax
     jsl _018D5B
     !A16

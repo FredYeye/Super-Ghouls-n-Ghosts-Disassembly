@@ -15037,12 +15037,12 @@ _01F5A9:
     bcs .F606
 
     !A8
-    ldy.w #chest_B6DE
+    ldy.w #chest_create_B6DE
     lda.w obj.type,X
     cmp #!id_chest
     beq .F600
 
-    ldy.w #chest2_B691
+    ldy.w #chest2_create_B691
 .F600:
     !A16
     tya : sta.w obj.state+1,X
