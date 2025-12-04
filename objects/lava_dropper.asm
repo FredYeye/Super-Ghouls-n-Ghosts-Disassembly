@@ -85,6 +85,11 @@ create:
 ;----- C555
 
     jmp create
+
+;-----
+
+destroy: ;unused
+    jml _0281A8_81B5
 }
 
 namespace off

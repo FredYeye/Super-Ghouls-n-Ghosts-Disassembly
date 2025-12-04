@@ -528,8 +528,8 @@ _02821B: ;a8 x8
     dw flower_head_create, cockatrice_legs_create, cockatrice_neck_create, cockatrice_head_create, siren_projectile_create, arthur_map_create, miniwing_create, cockatrice_wings_create, cockatrice_body_create, skulls_create, money_bag_create, mimic_create, mimic_ghost_create, hannibal_create, storm_cesaris_projectile_create, coffin_dirt_create
     dw boss_explosion_spawner_create, boss_explosion_create, wolf_create, pier_create, rosebud_chunk_create, cockatrice_neck_base_create, storm_cesaris_create, storm_cesaris_parts_create, flying_knight_create, bat_spawner_create, bat_create, chest2_create, pier_splinter_create, bracelet_item_create, bracelet_item_sparkle_create, thunk_crumbling_wall_create
     dw thunk_grilian_create, _029ED3_create, magic_charge_create, thunk_tower_edge_create, thunk_silk_gate_create, thunk_gargoyle_statue_create, thunk_grilian_projectile_create, thunk_skull_flower_multi_inactive_create, skull_flower_multi_create, arremer_projectile_create, arremer_create, thunk_moving_platform_create, death_crawler_handler_create, death_crawler_part_create, death_crawler_create, $89C6
-    dw thunk_geyser_create, _0289D3_create, _0289DC_create, thunk_killer_create, thunk_tiny_goblin_create, game_over_text_flames_create, explosion_spawner_create, thunk_hannibal_projectile_create, thunk_coral_create, thunk_waterfall_end_create, thunk_silk_platform_create, $8A25, menu_control_create, thunk_lava_pillar_create, $8A47, thunk_lava_dropper_create
-    dw thunk_lava_create, astaroth_create, thunk_nebiroth_create, conveyor_belt_create, cockatrice_head2_spawner_create, cockatrice_head2_create, gate2_create, thunk_mad_dog_create, astaroth_flame_create, astaroth_laser_create, nuclear_projectile_create, ice_bridge_segment_create, ice_bridge_spawner_create, thunk_avalanche_create, thunk_death_crawler_projectile_create, $88A1
+    dw thunk_geyser_create, _0289D3_create, _0289DC_create, thunk_killer_create, thunk_tiny_goblin_create, thunk_game_over_text_flames_create, thunk_explosion_spawner_create, thunk_hannibal_projectile_create, thunk_coral_create, thunk_waterfall_end_create, thunk_silk_platform_create, $8A25, menu_control_create, thunk_lava_pillar_create, $8A47, thunk_lava_dropper_create
+    dw thunk_lava_create, astaroth_create, thunk_nebiroth_create, conveyor_belt_create, thunk_cockatrice_head2_spawner_create, thunk_cockatrice_head2_create, gate2_create, thunk_mad_dog_create, astaroth_flame_create, astaroth_laser_create, nuclear_projectile_create, thunk_ice_bridge_segment_create, thunk_ice_bridge_spawner_create, thunk_avalanche_create, thunk_death_crawler_projectile_create, $88A1
     dw thunk_cockatrice_head2_projectile_create, veil_allocen_create, veil_allocen_part_create, intro_cutscene_obj_create, thunk_cutscene_arthur_create, thunk_cutscene_princess_create, thunk_satan_create, thunk_satan_wings_create, veil_allocen_claw1_create, veil_allocen_claw2_create, veil_allocen_spawner_create, thunk_nebiroth_flame_create, thunk_nebiroth_laser_create, thunk_veil_allocen_projectile_create, thunk_freeze_splinter_create, thunk_astaroth_nebiroth_body_create
     dw thunk_princess_dialogue_create, thunk_samael_create, thunk_samael_platform_create, thunk_samael_laser_create, thunk_sun_create, thunk_ending_object_create
 
@@ -543,8 +543,8 @@ _02821B: ;a8 x8
     dw flower_part_head_destroy, cockatrice_legs_destroy, cockatrice_neck_destroy, cockatrice_head_destroy, _028BEC_8BF9, obj_void, miniwing_destroy, cockatrice_wings_destroy, cockatrice_body_destroy, $81B5, $8780, $8BEC, $8BEC, hannibal_destroy, $8BB9, $81B5
     dw boss_explosion_spawner_destroy, boss_explosion_destroy, wolf_destroy, $8780, $81B5, cockatrice_neck_base_destroy, storm_cesaris_destroy, storm_cesaris_parts_destroy, flying_knight_destroy, bat_spawner_destroy, bat_destroy, chest_destroy, $8780, $8780, $8780, $8780
     dw thunk_grilian_destroy, _029ED3_destroy, $8780, $8780, $8780, thunk_gargoyle_statue_destroy, $8BB9, $8780, skull_flower_multi_destroy, arremer_projectile_destroy, arremer_destroy, thunk_moving_platform_destroy, death_crawler_handler_destroy, $FFFF, death_crawler_destroy, $8780
-    dw $8780, $8780, _0289DC_destroy, thunk_killer_destroy, thunk_tiny_goblin_destroy, $8780, $8780, _028BB9, _028BEC, $8780, $8780, arremer_killers_destroy, $8780, $8780, $8780, $8A4F
-    dw $8780, astaroth_destroy, thunk_nebiroth_destroy, $8780, cockatrice_head2_spawner_destroy, cockatrice_head2_destroy, $8780, thunk_mad_dog_destroy, astaroth_flame_destroy, $81B5, $8780, ice_bridge_segment_destroy, ice_bridge_spawner_destroy, $8780, $81B5, $8780
+    dw $8780, $8780, _0289DC_destroy, thunk_killer_destroy, thunk_tiny_goblin_destroy, $8780, $8780, _028BB9, _028BEC, $8780, $8780, arremer_killers_destroy, $8780, $8780, $8780, thunk_lava_dropper_destroy
+    dw $8780, astaroth_destroy, thunk_nebiroth_destroy, $8780, thunk_cockatrice_head2_spawner_destroy, thunk_cockatrice_head2_destroy, $8780, thunk_mad_dog_destroy, astaroth_flame_destroy, $81B5, $8780, thunk_ice_bridge_segment_destroy, thunk_ice_bridge_spawner_destroy, $8780, $81B5, $8780
     dw _028BB9, veil_allocen_destroy, veil_allocen_part_destroy, $8780, $8780, $8780, $8780, $8780, veil_allocen_claw1_destroy, veil_allocen_claw2_destroy, $8780, thunk_nebiroth_flame_destroy, $81B5, $81B5, $81B5, $81B5
     dw $8780, thunk_samael_destroy, thunk_samael_platform_destroy, thunk_samael_laser_destroy, $8780, $8780
 
@@ -559,7 +559,7 @@ _02821B: ;a8 x8
     dw boss_explosion_spawner_thing, boss_explosion_thing, wolf_thing, pier_thing, rosebud_chunk_thing, $8780, storm_cesaris_thing, storm_cesaris_parts_thing, flying_knight_thing, bat_spawner_thing, bat_thing, chest_thing, $8780, bracelet_item_thing, bracelet_item_sparkle_thing, $8780
     dw thunk_grilian_thing, _029ED3_thing, $8780, thunk_tower_edge_thing, $8780, thunk_gargoyle_statue_thing, thunk_grilian_projectile_thing, $8780, skull_flower_multi_thing, arremer_projectile_thing, arremer_thing, thunk_moving_platform_thing, death_crawler_handler_thing, death_crawler_part_thing, death_crawler_thing, $8780
     dw thunk_geyser_thing, _0289D3_thing, _0289DC_thing, thunk_killer_thing, thunk_tiny_goblin_thing, $8780, $8780, thunk_hannibal_projectile_thing, thunk_coral_thing, $8780, $8780, arremer_killers_thing, $8780, thunk_lava_pillar_thing, $8780, $8780
-    dw thunk_lava_thing, astaroth_thing, thunk_nebiroth_thing, conveyor_belt_thing, cockatrice_head2_spawner_thing, cockatrice_head2_thing, $8780, thunk_mad_dog_thing, astaroth_flame_thing, $8ABB, nuclear_projectile_thing, ice_bridge_segment_thing, ice_bridge_spawner_thing, thunk_avalanche_thing, thunk_death_crawler_projectile_thing, $88A5
+    dw thunk_lava_thing, astaroth_thing, thunk_nebiroth_thing, conveyor_belt_thing, thunk_cockatrice_head2_spawner_thing, thunk_cockatrice_head2_thing, $8780, thunk_mad_dog_thing, astaroth_flame_thing, $8ABB, nuclear_projectile_thing, thunk_ice_bridge_segment_thing, thunk_ice_bridge_spawner_thing, thunk_avalanche_thing, thunk_death_crawler_projectile_thing, $88A5
     dw thunk_cockatrice_head2_projectile_thing, veil_allocen_thing, veil_allocen_part_thing, $88D1, thunk_cutscene_arthur_thing, thunk_cutscene_princess_thing, thunk_satan_thing, thunk_satan_wings_thing, veil_allocen_claw1_thing, veil_allocen_claw2_thing, $8780, thunk_nebiroth_flame_thing, thunk_nebiroth_laser_thing, thunk_veil_allocen_projectile_thing, thunk_freeze_splinter_thing, thunk_astaroth_nebiroth_body_thing
     dw $8780, thunk_samael_thing, thunk_samael_platform_thing, thunk_samael_laser_thing, $8780, $8780
 }
@@ -940,39 +940,19 @@ nuclear_projectile:
 }
 
 { ;887E - 888A
-ice_bridge_segment:
+thunk_ice_bridge_segment:
 
-.create:
-    jml _03CBCD_create
-
-;-----
-
-.thing:
-    jsl _03CBCD_thing
-    rts
-
-;-----
-
-.destroy:
-    jml _03CBCD_destroy
+.create:  jml ice_bridge_segment_create
+.thing:   jsl ice_bridge_segment_thing : rts
+.destroy: jml ice_bridge_segment_destroy
 }
 
 { ;888B - 8897
-ice_bridge_spawner:
+thunk_ice_bridge_spawner:
 
-.create:
-    jml _03CC61_create
-
-;-----
-
-.thing: ;unused?
-    jsl _03CC61_thing
-    rts
-
-;-----
-
-.destroy: ;unused?
-    jml _03CC61_destroy
+.create:  jml ice_bridge_spawner_create
+.thing:   jsl ice_bridge_spawner_thing : rts ;unused?
+.destroy: jml ice_bridge_spawner_destroy ;unused?
 }
 
 { ;8898 - 88A0
@@ -1343,17 +1323,15 @@ thunk_tiny_goblin:
 }
 
 { ;8A03 - 8A06
-game_over_text_flames:
+thunk_game_over_text_flames:
 
-.create:
-    jml _03C2C5_create
+.create: jml game_over_text_flames_create
 }
 
 { ;8A07 - 8A0A
-explosion_spawner:
+thunk_explosion_spawner:
 
-.create:
-    jml _03C1EA
+.create: jml explosion_spawner_create
 }
 
 { ;8A0B - 8A13
@@ -1425,15 +1403,11 @@ thunk_lava_pillar:
     jml _03A2FC
 }
 
-{ ;8A4B - 8A4E
+{ ;8A4B - 8A52
 thunk_lava_dropper:
 
-.create: jml lava_dropper_create
-}
-
-{ ;8A4F - 8A52
-    ;unused
-    jml _03C558
+.create:  jml lava_dropper_create
+.destroy: jml lava_dropper_destroy ;unused
 }
 
 { ;8A53 - 8A5B
@@ -1483,39 +1457,19 @@ conveyor_belt:
 }
 
 { ;8A7F - 8A8B
-cockatrice_head2_spawner:
+thunk_cockatrice_head2_spawner:
 
-.create:
-    jml _03C5B9_create
-
-;-----
-
-.destroy: ;unused
-    jml _03C5B9_destroy
-
-;-----
-
-.thing: ;unused
-    jsl _03C5B9_thing
-    rts
+.create:    jml cockatrice_head2_spawner_create
+.destroy:   jml cockatrice_head2_spawner_destroy ;unused
+.thing:     jsl cockatrice_head2_spawner_thing : rts ;unused
 }
 
 { ;8A8C - 8A98
-cockatrice_head2:
+thunk_cockatrice_head2:
 
-.create:
-    jml _03C6A0_create
-
-;-----
-
-.destroy:
-    jml _03C6A0_destroy
-
-;-----
-
-.thing:
-    jsl _03C6A0_thing
-    rts
+.create:  jml cockatrice_head2_create
+.destroy: jml cockatrice_head2_destroy
+.thing:   jsl cockatrice_head2_thing : rts
 }
 
 { ;8A99 - 8A9C
@@ -5667,631 +5621,17 @@ arthur_map: ;a8 x8
 }
 
 {
-    incsrc "objects/pier.asm"          ;CDD6 - CEB3
-    incsrc "objects/pier_splinter.asm" ;CEB4 - CF15
-    incsrc "objects/raft_pulley.asm"   ;CF16 - D1DE
-}
-
-{ ;D1DF - D1FD
-raft_hanging:
-
-.create:
-    lda #$02 : sta $08
-    lda #$10 : sta $09
-    ldy #$A2 : ldx #$21 : jsl set_sprite
-    lda.b obj.pos_y+1 : clc : adc #$10 : sta.b obj.pos_y+1
-.D1F6:
-    brk #$00
-
-;----- D1F8
-
-    jsl update_animation_normal
-    bra .D1F6
-}
-
-{
+    incsrc "objects/pier.asm"               ;CDD6 - CEB3
+    incsrc "objects/pier_splinter.asm"      ;CEB4 - CF15
+    incsrc "objects/raft_pulley.asm"        ;CF16 - D1DE
+    incsrc "objects/raft_hanging.asm"       ;D1DF - D1FD
     incsrc "objects/shell.asm"              ;D1FE - D323
     incsrc "objects/shell_pearl.asm"        ;D324 - D378
     incsrc "objects/flying_killer.asm"      ;D379 - D42D
     incsrc "objects/guillotine.asm"         ;D42E - D4AC
     incsrc "objects/arthur_face.asm"        ;D4AD - D53C
     incsrc "objects/cockatrice_spawner.asm" ;D53D - D655
-}
-
-{ ;D656 - DA95
-cockatrice_body:
-
-.create:
-    stz $1EC8
-    stz $3C
-    lda #$28 : sta $10
-    ldy #$FE : ldx #$21 : jsl set_sprite
-    !A16
-    lda #cockatrice_body_data_CA1D : sta $13
-    lda.w _00ED00+$44 : sta $27
-    lda #$0100 : sta $29
-    clc
-    lda #$13C0 : sta.b obj.pos_x+1
-    lda #$0038 : sta.b obj.pos_y+1
-    lda #$0100 : sta $31
-    !A8
-    lda $08 : ora #$03 : sta $08
-    stz $15
-    lda #$FF : sta $26
-    lda $09 : ora #$40 : sta $09
-    jsl update_animation_normal
-    jsl _018E32_8E73
-.D6A4:
-    !A8
-    brk #$00
-
-;----- D6A8
-
-    jsl update_animation_normal
-    !A16
-    lda.w !obj_arthur.pos_x+1
-    sec
-    sbc #$1330
-    bcs .D6BB
-
-    dec $31
-    bne .D6A4
-
-.D6BB:
-    !A8
-    ldy #$1F : jsl set_speed_xyg
-    inc.b obj.direction
-    !X16
-    ldx $1EBB
-    inc $003C,X
-    !AX8
-    lda #$30 : sta $31
-.D6D3:
-    !A8
-    jsr _02EB8F
-    brk #$00
-
-;----- D6DA
-
-    jsl update_pos_xyg_add
-    dec $31
-    bne .D6D3
-
-    !X16
-    ldx $1EB7
-    lda #$02 : sta $003B,X
-    !X8
-.D6EE:
-    jsr _02EB8F
-    brk #$00
-
-;----- D6F3
-
-    jsl update_pos_xyg_add
-    jsl _01A559
-    beq .D6EE
-
-    jsr _02EB8F
-    lda #$20 : cop #$00
-
-;----- D704
-
-    jsr _02EB8F
-    lda $09 : ora #$90 : sta $09
-    stz $0F
-    jsl set_hp
-    stz $38
-    stz $1EC7
-    !A16
-    stz $3A
-    lda #$0001 : sta $33
-    !A8 ;duplicate instruction
-.D723:
-    !A8
-    brk #$00
-
-;----- D727
-
-    lda $0F
-    cmp #$01
-    beq .D723
-
-    lda $0F
-    cmp #$03
-    beq .D73B
-
-    bra .D747
-
-    lda $0F   ;D735 - D73A: unused code
-    cmp #$05  ;
-    bne .D747 ;
-
-.D73B:
-    !A16
-    dec $33
-    bne .D747
-
-    !A8
-    inc $0F
-    bra .D723
-
-.D747:
-    !AX8
-    inc $3A
-    lda $3A
-    cmp #$80
-    bne .D723
-
-    ldx #$4C : jsl _0196EF
-    cmp #$00
-    beq .D723
-
-    !X16
-    ldx $1EB9
-    lda $003B,X
-    bne .D76D
-
-    lda #$20 : sta $31
-    lda #$08 : sta $0F
-.D76D:
-    !A8
-    bra .D723
-
-;-----
-
-.thing:
-    jsl update_animation_normal
-    jsl _018E32_8E73
-    lda $3C
-    bne .D780
-
-    jsr _02FD62_FD7C
-.D780:
-    lda $0F : asl : tax
-    jmp (+,X) : +: dw .D7A1, .D7B9, .D7E9, .D80B, .D8B3, .D8E7, .D915, .D974, .D99B, .D9B0, .D9C7, .DA28, .DA2B
-
-;-----
-
-.D7A1:
-    stz $39
-    stz $07
-    lda #$50 : sta.b obj.speed_y+0
-    lda #$FF : sta.b obj.speed_y+1 : sta.b obj.speed_y+2
-    lda #$60 : sta $31
-    inc $0F
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D7B9:
-    jsl update_pos_y
-    lda $31
-    cmp #$52
-    bne .D7C6
-
-    jsr .D7D8
-.D7C6:
-    dec $31
-    bne .D7D4
-
-    stz $38
-    stz $37
-    lda #$15 : sta.b obj.direction
-    inc $0F
-.D7D4:
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D7D8:
-    !X16
-    ldx $1EBB
-    stz $003C,X
-    ldx $1EB7
-    stz $003B,X
-    !X8
-    rts
-
-;-----
-
-.D7E9:
-    ldx #$4A : jsl _0196EF
-    ldx #$3F : jsl mulu
-    !A16
-    sta $33
-    lda #$0060 : sta.b obj.speed_x
-    lda #$0060 : sta.b obj.speed_y
-    !A8
-    inc $0F
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D80B:
-    lda $39
-    and #$04
-    cmp $07
-    beq .D875
-
-    sta $07
-    lda $38
-    bne .D841
-
-    lda $37
-    bne .D829
-
-    lda.b obj.direction
-    cmp #$0A
-    bne .D835
-
-    lda #$01 : sta $37
-    bra .D875
-
-.D829:
-    lda.b obj.direction
-    cmp #$16
-    bne .D83D
-
-    stz $37
-    dec.b obj.direction
-    bra .D875
-
-.D835:
-    lda.b obj.direction
-    beq .D83D
-
-    dec.b obj.direction
-    bra .D875
-
-.D83D:
-    inc.b obj.direction
-    bra .D875
-
-.D841:
-    lda $37
-    bne .D85D
-
-    lda.b obj.direction
-    cmp #$06
-    bne .D851
-
-    lda #$01 : sta $37
-    bra .D875
-
-.D851:
-    inc.b obj.direction
-    lda.b obj.direction
-    cmp #$20
-    bne .D875
-
-    stz.b obj.direction
-    bra .D875
-
-.D85D:
-    lda.b obj.direction
-    cmp #$1A
-    bne .D869
-
-    stz $37
-    dec.b obj.direction
-    bra .D875
-
-.D869:
-    lda.b obj.direction
-    beq .D871
-
-    dec.b obj.direction
-    bra .D875
-
-.D871:
-    lda #$1F : sta.b obj.direction
-.D875:
-    ldx #$1A : jsl update_pos_xy_2
-    !A16
-    lda.b obj.pos_x+1
-    sec
-    sbc #$12B0
-    bcc .D895
-
-    lda.b obj.pos_x+1
-    sec
-    sbc #$1380
-    bcs .D8A2
-
-    !A8
-    inc $39
-    jsr _02EB8F
-    rts
-
-.D895:
-    lda #$12B0 : sta.b obj.pos_x+1
-    !A8
-    lda #$04 : sta $36
-    bra .D8AD
-
-.D8A2:
-    lda #$1380 : sta.b obj.pos_x+1
-    !A8
-    lda #$04 : sta $36
-.D8AD:
-    inc $0F
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D8B3:
-    ldx #$56 : jsl _0196EF
-    sta $33
-    ldx #$2A : jsl _0196EF
-    beq .D8CD
-
-.D8C3:
-    stz $35
-    lda #$07 : sta $0F
-    jsr _02EB8F
-    rts
-
-.D8CD:
-    lda $35
-    cmp #$03
-    bcs .D8C3
-
-    inc $35
-    inc $0F
-    jsr _02EB8F
-    !A16
-    lda.b obj.pos_y : sta $1EC9
-    stz $1ECB
-    !A8
-    rts
-
-;-----
-
-.D8E7:
-    lda $1ECB
-    inc
-    and #$1F
-    sta $1ECB
-    asl
-    tax
-    bne .D904
-
-    dec $33
-    bne .D904
-
-    !A16
-    lda $1EC9 : sta.b obj.pos_y
-    !A8
-    inc $0F
-    rts
-
-.D904:
-    !A16
-    clc : lda.w cockatrice_body_data_C9C3,X : adc $1EC9 : sta.b obj.pos_y
-    !A8
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D915:
-    lda $36
-    sec
-    cmp #$04
-    bcc .D928
-
-    stz $36
-    lda $38
-    pha
-    eor #$01
-    sta $38
-    pla
-    bra .D938
-
-.D928:
-    lda $38
-    pha
-    ldx #$4C : jsl _0196EF
-    sta $38
-    pla
-    cmp $38
-    beq .D958
-
-.D938:
-    cmp #$00
-    bne .D949
-
-    lda.b obj.direction
-    sec
-    sbc #$0A
-    tax
-    lda.w cockatrice_body_data_CA03,X
-    sta.b obj.direction
-    bra .D958
-
-.D949:
-    lda.b obj.direction
-    cmp #$18
-    bmi .D952
-
-    sec
-    sbc #$13
-.D952:
-    tax
-    lda.w cockatrice_body_data_CA10,X
-    sta.b obj.direction
-.D958:
-    inc $36
-    ldx #$4A : jsl _0196EF
-    ldx #$3F : jsl mulu
-    !A16
-    sta $33
-    !A8
-    lda #$03 : sta $0F
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D974:
-    jsl set_direction32
-    tax
-    lda.w cockatrice_body_data_CA25,X : sta $1EC6
-    !X16
-    ldx $1EB9
-    lda #$02
-    sta $3B
-    sta $003B,X
-    sta $1EC5
-    ldx $1EBB
-    sta $003B,X
-    !X8
-    lda #$0A : sta $0F
-    rts
-
-;-----
-
-.D99B:
-    !AX8
-    lda $1EC7 ;miniwing count
-    cmp #$04
-    beq .D9AB
-
-    dec $31
-    bne .D9AA
-
-    inc $0F
-.D9AA:
-    rts
-
-.D9AB: ;gets here if there are 4 miniwings
-    lda #$06 : sta $0F
-    rts
-
-;-----
-
-.D9B0:
-    !AX8
-    lda #$03
-    sta $3B
-    !X16
-    ldx $1EBB
-    sta $003B,X
-    !X8
-    lda #$20 : sta $31
-    inc $0F
-    rts
-
-;-----
-
-.D9C7:
-    lda $3B
-    dec
-    asl
-    tax
-    jmp (+,X) : +: dw .D9D9, .D9ED, .DA01, .DA15, .DA15
-
-;-----
-
-.D9D9: ;unused?
-    !X16
-    ldx $1EB7
-    lda $003B,X
-    bne .DA28
-
-    !X8
-    lda #$06 : sta $0F
-    jsr _02EB8F
-    rts
-
-;-----
-
-.D9ED:
-    lda $1EC5
-    bne .DA28
-
-    !X16
-    ldx $1EBB
-    stz $003B,X
-    !X8
-    lda #$06 : sta $0F
-    rts
-
-;-----
-
-.DA01:
-    dec $31
-    bne .DA28
-
-    lda #$10 : sta $31
-    inc $3B
-    lda #!id_miniwing : jsl prepare_object
-    inc $1EC7
-    rts
-
-;-----
-
-.DA15:
-    dec $31
-    bne .DA28
-
-    !X16
-    ldx $1EBB
-    stz $003B,X
-    !X8
-    lda #$06 : sta $0F
-    rts
-
-;-----
-
-.DA28:
-    !X8
-    rts
-
-;-----
-
-.DA2B:
-    rts
-
-;-----
-
-.destroy:
-    lda #$0C : sta $0F
-    inc $3C
-    lda #!mus_defeat_boss : jsl _018049_8053
-    !X16
-    ldx $1EB7
-    lda $0008,X : ora #$10 : sta $0008,X
-    inc $003C,X
-    ldx $1EBD
-    lda $0008,X : ora #$10 : sta $0008,X
-    inc $003C,X
-    !X8
-    lda $08 : ora #$10 : sta $08
-    lda #!id_boss_explosion_spawner : jsl prepare_object
-    lda #$77 : sta $31
-.DA68:
-    brk #$00
-
-;----- DA6A
-
-    jsl update_animation_normal
-    jsl _018E32_8E73
-    dec $31
-    bne .DA68
-
-    lda #$72 : sta $1D
-    lda #!id_key : jsl prepare_object
-    !X16
-    ldy $1EB7 : jsr remove_child_object
-    ldy $1EBD : jsr remove_child_object
-    !AX8
-    inc $1ED7
-    jmp _0281A8_81B5
+    incsrc "objects/cockatrice_body.asm"    ;D656 - DA95
 }
 
 { ;DA96 - DB8F
