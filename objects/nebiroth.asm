@@ -42,7 +42,7 @@ create:
 
 ;----- D3C2
 
-    jsr _03D0D7_D1FE
+    jsr astaroth__D1FE
     bcc .D3C0
 
     ldx #$1C : jsl _028000

@@ -20,7 +20,7 @@ create:
     jsl set_hp
     stz $39
     ldy #$CA : ldx #$21 : jsl set_sprite
-    jsr _02C3FB
+    jsr _C3FB
     ldy #$12 : jsl set_speed_x
 .C18A:
     brk #$00
@@ -253,7 +253,7 @@ destroy:
     jmp _0281A8_81B5
 
 .C316:
-    jsr _02C3FB
+    jsr _C3FB
     lda #$10 : sta $09
     stz $08
     lda.w difficulty : asl : tax
@@ -374,6 +374,20 @@ thing:
     stz $0F
     lda #$20 : sta $37
 .C3FA:
+    rts
+
+;-----
+
+_C3FB: ;also used by rosebud chunk
+    !A16
+    lda #$0120
+    ldx.w stage
+    beq .C408
+
+    lda #$0190
+.C408:
+    sta $29
+    !A8
     rts
 }
 

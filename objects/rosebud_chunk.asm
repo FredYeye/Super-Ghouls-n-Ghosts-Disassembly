@@ -30,7 +30,7 @@ create:
     jsl _02F9DA
     lda #$19 : sta $3C
     ldy #$D0 : ldx #$21 : jsl set_sprite
-    jsr _02C3FB
+    jsr rosebud__C3FB
 .C0D9:
     brk #$00
 
@@ -51,7 +51,7 @@ create:
 .C0E9:
     jsl _02F9DA
     ldy #$D2 : ldx #$21 : jsl set_sprite
-    jsr _02C3FB
+    jsr rosebud__C3FB
     lda #$C0 : sta $3B
 .C0FC:
     brk #$00
