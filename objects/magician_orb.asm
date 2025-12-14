@@ -31,7 +31,7 @@ create:
 
     stz.w !obj_shield.active
     lda.w !obj_shield.type       : sta.w shield_state_stored
-    lda.w !obj_shield.init_param : sta $02B1
+    lda.w !obj_shield.init_param : sta.w shield_type_stored
 .B9A3:
     lda.w armor_state
     sta.w transform_armor_state_stored

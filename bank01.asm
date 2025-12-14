@@ -5761,8 +5761,8 @@ endif
     beq .AD21
 
     sta.w !obj_shield.type
-    lda $02B1 : sta.w !obj_shield.init_param ;shield type?
-    lda #$0C : sta.w !obj_shield.active
+    lda.w shield_type_stored : sta.w !obj_shield.init_param
+    lda #$0C                 : sta.w !obj_shield.active
 .AD21:
     lda.w upgrade_state_stored
     beq +
@@ -10308,8 +10308,8 @@ _01D090: ;a8 x8
     beq .D239
 
     sta.w !obj_shield.type
-    lda $02B1 : sta.w !obj_shield.init_param
-    lda #$0C  : sta.w !obj_shield.active
+    lda.w shield_type_stored : sta.w !obj_shield.init_param
+    lda #$0C                 : sta.w !obj_shield.active
 .D239:
     lda.w armor_state
     cmp #!arthur_state_bronze
@@ -11163,7 +11163,7 @@ _01D72B: ;a8 x8
     lda #!arthur_state_steel : sta.w arthur_state_stored
     stz.w upgrade_state_stored
     stz.w shield_state_stored
-    stz $02B1
+    stz.w shield_type_stored
     lda.w weapon_current : and #$FE : sta $02AD
 .D8AF:
     brk #$00
@@ -11745,7 +11745,7 @@ _01DC56: ;a8 x8
     lda #!arthur_state_steel : sta.w arthur_state_stored
     lda $14D3 : and #$FE : sta $02AD
     stz.w shield_state_stored
-    stz $02B1
+    stz.w shield_type_stored
     stz.w upgrade_state_stored
 .DCCB:
     brk #$00
@@ -11759,7 +11759,7 @@ _01DC56: ;a8 x8
 _01DCCF: ;a8 x-
     ;store armor / upgrades / weapon across stages
     stz.w shield_state_stored
-    stz $02B1
+    stz.w shield_type_stored
     stz.w upgrade_state_stored
     lda.w armor_state : sta.w arthur_state_stored
     lda.w weapon_current : sta $02AD
@@ -11771,7 +11771,7 @@ _01DCCF: ;a8 x-
     beq .DD00
 
     lda.w !obj_shield.type : sta.w shield_state_stored
-    lda.w !obj_shield.init_param : sta $02B1
+    lda.w !obj_shield.init_param : sta.w shield_type_stored
 .DD00:
     rtl
 }

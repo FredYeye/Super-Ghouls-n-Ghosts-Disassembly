@@ -249,10 +249,11 @@
     timer_seconds     = $02A9
     timer_ticks       = $02AA
 
-    arthur_state_stored  = $02AE
-    upgrade_state_stored = $02AF ;arthur face or plume
-    shield_state_stored  = $02B0 ;stores shield status for stage transitions and transformations
-    existing_weapon_type = $02B3
+    arthur_state_stored      = $02AE
+    upgrade_state_stored     = $02AF ;arthur face or plume
+    shield_state_stored      = $02B0 ;stores shield status for stage transitions and transformations
+    shield_type_stored       = $02B1
+    existing_weapon_type     = $02B3
 
     p1_button_hold  = $02B7 ;2 bytes
     p2_button_hold  = $02B9 ;2 bytes
