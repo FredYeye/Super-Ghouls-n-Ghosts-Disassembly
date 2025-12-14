@@ -5401,7 +5401,7 @@ endif
 
     lda #$04 : sta $02AE
     lda #$1B : sta $02AF
-    lda #$1E : sta $02B0
+    lda #!id_shield : sta.w shield_state_stored
 +:
     lda #$03 : sta $0278
     stz $0279
@@ -5757,7 +5757,7 @@ endif
     lda #$01 : sta.w can_charge_magic
     stz $14B3
 +:
-    lda $02B0 ;storing shield status across maps?
+    lda.w shield_state_stored
     beq .AD21
 
     sta.w !obj_shield.type
@@ -7646,10 +7646,8 @@ _01BE1C: ;a8 x-
     sta $7EF6C0,X
     dex #2 : bpl -
 
-    lda.w stage
-    asl
-    tax
-    lda.l _038000,X
+    lda.w stage : asl : tax
+    lda.l stage_layouts,X
     tay
     stz $0008
     lda $0000,Y : and #$00FF : sta $0006
@@ -9624,7 +9622,7 @@ _01CCBD: ;a8 x8
     bra .CDC4
 
 .CDBE:
-    lda #$2C : jsl _018049_8053 ;arthur land sfx
+    lda #!sfx_land : jsl _018049_8053
 
 .CDC4:
     lda $09 : and #$FE : sta $09
@@ -10306,7 +10304,7 @@ _01D090: ;a8 x8
     lda.w transform_stored_armor_state : sta !armor_state
     lda #$FF  : sta $3D
     stz.w is_shooting
-    lda $02B0
+    lda.w shield_state_stored
     beq .D239
 
     sta.w !obj_shield.type
@@ -11037,7 +11035,7 @@ _01D72B: ;a8 x8
 .D791:
     lda.w transform_stored_armor_state : sta !armor_state
     ldy #$01 : jsr set_arthur_palette_D9DB
-    lda #$2F : jsl _018049_8053 ;armor shatter sfx
+    lda #!sfx_armor_shatter : jsl _018049_8053
     lda #$05 : sta $0000 ;armor piece count
     jsr _019697_96CA
     stz $0332
@@ -11164,7 +11162,7 @@ _01D72B: ;a8 x8
     inc $0331
     lda #$01 : sta $02AE
     stz $02AF
-    stz $02B0
+    stz.w shield_state_stored
     stz $02B1
     lda.w weapon_current : and #$FE : sta $02AD
 .D8AF:
@@ -11746,7 +11744,7 @@ _01DC56: ;a8 x8
     stz $0279
     lda #$01 : sta $02AE
     lda $14D3 : and #$FE : sta $02AD
-    stz $02B0
+    stz.w shield_state_stored
     stz $02B1
     stz $02AF
 .DCCB:
@@ -11760,7 +11758,7 @@ _01DC56: ;a8 x8
 { ;DCCF - DD00
 _01DCCF: ;a8 x-
     ;store armor / upgrades / weapon across stages?
-    stz $02B0
+    stz.w shield_state_stored
     stz $02B1
     stz $02AF
     lda !armor_state : sta $02AE
@@ -11772,7 +11770,7 @@ _01DCCF: ;a8 x-
     lda.w !obj_shield.active
     beq .DD00
 
-    lda.w !obj_shield.type : sta $02B0
+    lda.w !obj_shield.type : sta.w shield_state_stored
     lda.w !obj_shield.init_param : sta $02B1
 .DD00:
     rtl

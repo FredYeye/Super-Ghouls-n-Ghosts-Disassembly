@@ -3,7 +3,7 @@ namespace shield
 {
 _9025:
     lda $08 : ora #$80 : sta $08
-    jmp create_90B2
+    jmp destroy
 
 create:
     ldy #$7C : ldx #$20
@@ -50,9 +50,11 @@ create:
 
     bra .905D
 
-.90B2:
-    lda #$2F : jsl _018049_8053
-    stz $02B0
+;-----
+
+destroy:
+    lda #!sfx_armor_shatter : jsl _018049_8053
+    stz.w shield_state_stored
     stz $07
     lda #$03 : sta $2D
 .90C1:

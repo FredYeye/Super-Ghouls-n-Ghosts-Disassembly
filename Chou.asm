@@ -249,6 +249,7 @@
     timer_seconds     = $02A9
     timer_ticks       = $02AA
 
+    shield_state_stored = $02B0 ;stores shield status for stage transitions and transformations
     existing_weapon_type = $02B3
 
     p1_button_hold  = $02B7 ;2 bytes
@@ -395,11 +396,13 @@ incsrc "object_defines.asm"
     !sfx_knife              = $22
     !sfx_lance2             = $27
     !sfx_jump               = $2B
+    !sfx_land               = $2C
     !sfx_armor_1            = $2D
     !sfx_armor_2            = $2E
+    !sfx_armor_shatter      = $2F
+    !sfx_arthur_death       = $31
     !sfx_wave_rise          = $32
     !sfx_wave_crash         = $33
-    !sfx_arthur_death       = $31
     !sfx_hit                = $38
     !sfx_impact             = $39
     !sfx_death              = $3B

@@ -25,12 +25,12 @@ create:
     jmp _0281A8_81B5
 
 .B98C:
-    stz $02B0
+    stz.w shield_state_stored
     lda.w !obj_shield.active
     beq .B9A3
 
     stz.w !obj_shield.active
-    lda.w !obj_shield.type       : sta $02B0
+    lda.w !obj_shield.type       : sta.w shield_state_stored
     lda.w !obj_shield.init_param : sta $02B1
 .B9A3:
     lda !armor_state
