@@ -7,7 +7,7 @@ _9025:
 
 create:
     ldy #$7C : ldx #$20
-    lda $07
+    lda.b obj.init_param
     beq .903A
 
     ldy #$60 : ldx #$21
@@ -18,11 +18,11 @@ create:
     lda.w _00ED00+$1C : sta $27
     lda #$001A : sta $29
     !A8
-    ldx $07
+    ldx.b obj.init_param
     lda.w shield_data_hp,X : sta.b obj.hp
     lda #$FF : sta $2D : sta $26
 .905D:
-    lda !armor_state
+    lda.w armor_state
     beq _9025
 
     lda.w !obj_arthur._25 : tay
@@ -55,15 +55,15 @@ create:
 destroy:
     lda #!sfx_armor_shatter : jsl _018049_8053
     stz.w shield_state_stored
-    stz $07
+    stz.b obj.init_param
     lda #$03 : sta $2D
 .90C1:
     lda #!id_shield_piece : jsl prepare_object
-    inc $07
+    inc.b obj.init_param
     dec $2D
     bne .90C1
 
-    stz $07
+    stz.b obj.init_param
     jsr _0280E9_80EE
     jmp _02821B_827A
 }

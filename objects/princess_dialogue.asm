@@ -187,10 +187,10 @@ _9CF6:
     stx $1F9D
     stz.w checkpoint
     inc.w loop
-    lda !armor_state
+    lda.w armor_state
     bne .9DD2
 
-    inc !armor_state
+    inc.w armor_state
 .9DD2:
     jsl _01DCCF
     jml _0281A8_81B5

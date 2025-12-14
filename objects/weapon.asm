@@ -16,8 +16,8 @@ create:
     cmp #!weapon_bracelet
     bcs .BBD2
 
-    lda !armor_state
-    cmp #!gold
+    lda.w armor_state
+    cmp #!arthur_state_gold
     bcc .BBD2
 
     jsr _0280E9
@@ -267,8 +267,8 @@ create:
     lda.w current_cage
     bne .BD31
 
-    lda !armor_state
-    cmp #!baby ;do nothing if transformed. todo: add define "transformed" (5) for these kinds of checks?
+    lda.w armor_state
+    cmp #!arthur_state_transformed ;do nothing if transformed
     bcs .BD31
 
     lda $14E3
@@ -289,7 +289,7 @@ create:
     lda #$00
 +:
     sta.w weapon_current
-    lda !armor_state
+    lda.w armor_state
     cmp #$02 ;todo: bronze is 3. 2 is maybe some leftover armor state. define?
     bcc +
 

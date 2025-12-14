@@ -5399,9 +5399,9 @@ endif
     cmp #$0B
     bne +
 
-    lda #$04 : sta $02AE
-    lda #$1B : sta $02AF
-    lda #!id_shield : sta.w shield_state_stored
+    lda #!arthur_state_gold : sta.w arthur_state_stored
+    lda #!id_arthur_plume : sta.w upgrade_state_stored
+    lda #!id_shield       : sta.w shield_state_stored
 +:
     lda #$03 : sta $0278
     stz $0279
@@ -5614,7 +5614,7 @@ endif
     stz $0293,X
     dex : bpl .ABB5
 
-    lda #$01 : sta $02AE
+    lda #!arthur_state_steel : sta.w arthur_state_stored
     !A16
     lda #$5F00 : sta $0318
     lda #$0200 : sta $031A
@@ -5742,16 +5742,16 @@ endif
     jsr _01B4DE
     lda $02AD : sta.w weapon_current
     and #$1E  : sta.w existing_weapon_type
-    lda $02AE
-    cmp #$05
+    lda.w arthur_state_stored
+    cmp #!arthur_state_transformed
     bcc +
 
-    lda #$01
+    lda #!arthur_state_steel
 +:
-    sta !armor_state
-    sta.w transform_stored_armor_state
+    sta.w armor_state
+    sta.w transform_armor_state_stored
 
-    cmp #$04
+    cmp #!arthur_state_gold
     bne +
 
     lda #$01 : sta.w can_charge_magic
@@ -5764,10 +5764,10 @@ endif
     lda $02B1 : sta.w !obj_shield.init_param ;shield type?
     lda #$0C : sta.w !obj_shield.active
 .AD21:
-    lda $02AF
+    lda.w upgrade_state_stored
     beq +
 
-    sta $10F4
+    sta.w !obj_upgrade.type
     lda #$0C : sta.w !obj_upgrade.active
 +:
     lda #$30 : ora $02F1 : sta $02F1
@@ -9354,8 +9354,8 @@ _01C8A7: ;a x
 ;-----
 
 .CB56:
-    lda !armor_state
-    cmp #!gold
+    lda.w armor_state
+    cmp #!arthur_state_gold
     beq .CBB5
 
     stz.w can_charge_magic
@@ -9534,7 +9534,7 @@ _01CCAF: ;a8 x8
 { ;CCBD -
 _01CCBD: ;a8 x8
     lda $0276 : and #$F8 : sta $0276
-    lda !armor_state
+    lda.w armor_state
     beq .CCCC
 
     lda #$01
@@ -10090,7 +10090,7 @@ _01D090: ;a8 x8
     lda $0F
     bne .D0B1
 
-    lda !armor_state : asl : tax
+    lda.w armor_state : asl : tax
     jsr (.D114,X)
 .D0B1:
     jsr .D2E2
@@ -10105,7 +10105,7 @@ _01D090: ;a8 x8
 .D0C3:
     jsl set_sprite_84A7
 .D0C7:
-    lda !armor_state
+    lda.w armor_state
     cmp $14B8
     beq .D0DC
 
@@ -10174,7 +10174,7 @@ _01D090: ;a8 x8
 ;-----
 
 .D143:
-    lda !armor_state
+    lda.w armor_state
     sec
     sbc #$04
     bpl +
@@ -10301,7 +10301,7 @@ _01D090: ;a8 x8
     lda $08   : and #$EF : sta $08
     lda.b #_01CCBD_CDC4    : sta.b obj.state+1
     lda.b #_01CCBD_CDC4>>8 : sta.b obj.state+2
-    lda.w transform_stored_armor_state : sta !armor_state
+    lda.w transform_armor_state_stored : sta.w armor_state
     lda #$FF  : sta $3D
     stz.w is_shooting
     lda.w shield_state_stored
@@ -10311,24 +10311,24 @@ _01D090: ;a8 x8
     lda $02B1 : sta.w !obj_shield.init_param
     lda #$0C  : sta.w !obj_shield.active
 .D239:
-    lda !armor_state
-    cmp #!bronze
+    lda.w armor_state
+    cmp #!arthur_state_bronze
     beq .D245
 
-    cmp #!gold
+    cmp #!arthur_state_gold
     beq .D250
 
     rts
 
 .D245:
-    lda #$1C : sta.w !obj_upgrade.type
-    lda #$0C : sta.w !obj_upgrade.active
+    lda #!id_arthur_face : sta.w !obj_upgrade.type
+    lda #$0C             : sta.w !obj_upgrade.active
     rts
 
 .D250:
-    lda #$1B : sta.w !obj_upgrade.type
-    lda #$0C : sta.w !obj_upgrade.active
-    lda #$01 : sta.w can_charge_magic
+    lda #!id_arthur_plume : sta.w !obj_upgrade.type
+    lda #$0C              : sta.w !obj_upgrade.active
+    lda #$01              : sta.w can_charge_magic
     stz $14B3
     rts
 
@@ -10415,8 +10415,8 @@ _01D090: ;a8 x8
 ;-----
 
 .D2E2:
-    lda !armor_state
-    cmp #!bee
+    lda.w armor_state
+    cmp #!arthur_state_bee
     beq .D30E
 
     lda.b obj.hp
@@ -10475,7 +10475,7 @@ _01D090: ;a8 x8
     bpl .D370
 
     ;time over
-    stz !armor_state
+    stz.w armor_state
     lda.b #_01D72B    : sta.b obj.state+1
     lda.b #_01D72B>>8 : sta.b obj.state+2
     lda #$FF : sta.b obj.hp
@@ -10760,8 +10760,8 @@ _01D565: ;a8 x?
     lda $14E3
     beq .D59E
 
-    lda !armor_state
-    cmp #!gold
+    lda.w armor_state
+    cmp #!arthur_state_gold
     bne .D59E
 
     pla : pla
@@ -11027,13 +11027,13 @@ _01D72B: ;a8 x8
 
     ;0 hp
     stz $02AC
-    stz !armor_state
+    stz.w armor_state
     lda $08 : and #$EF : sta $08
     jsr _01DA88
     jmp .D819
 
 .D791:
-    lda.w transform_stored_armor_state : sta !armor_state
+    lda.w transform_armor_state_stored : sta.w armor_state
     ldy #$01 : jsr set_arthur_palette_D9DB
     lda #!sfx_armor_shatter : jsl _018049_8053
     lda #$05 : sta $0000 ;armor piece count
@@ -11065,8 +11065,8 @@ _01D72B: ;a8 x8
 
 ;----- D7F1
 
-    stz !armor_state
-    stz.w transform_stored_armor_state
+    stz.w armor_state
+    stz.w transform_armor_state_stored
 .D7F7:
     jsr _01D8B3
     jsr _01D8F1
@@ -11160,8 +11160,8 @@ _01D72B: ;a8 x8
     stz $0279
     stz $0332
     inc $0331
-    lda #$01 : sta $02AE
-    stz $02AF
+    lda #!arthur_state_steel : sta.w arthur_state_stored
+    stz.w upgrade_state_stored
     stz.w shield_state_stored
     stz $02B1
     lda.w weapon_current : and #$FE : sta $02AD
@@ -11363,7 +11363,7 @@ get_weapon_slot: ;a8 x-
 
 { ;D9D8 - D9F9
 set_arthur_palette: ;a- x8
-    ldy !armor_state
+    ldy.w armor_state
 .D9DB: ;a- x8
     ldx.w _00B440,Y
     ldy #$02
@@ -11457,7 +11457,7 @@ _01D9FA: ;arthur armor up code
 { ;DA88 - DA98
 _01DA88: ;a8 x8
     ;todo: name? update arthur sprite set?
-    ldy !armor_state
+    ldy.w armor_state
     ldx.w _00BAAA,Y
     lda.w _00ED00+0,X : sta $27
     lda.w _00ED00+1,X : sta $28
@@ -11607,10 +11607,10 @@ _01DB67: ;a8 x?
     bra .DBA3
 
 .DBA7:
-    lda !armor_state
+    lda.w armor_state
     bne .DBB4
 
-    inc !armor_state
+    inc.w armor_state
     lda #$01 : sta.w !obj_arthur.hp
 .DBB4:
     jsr _01DA88
@@ -11675,7 +11675,7 @@ _01DB67: ;a8 x?
 _01DC19: ;hit by avalanche
     inc $14F5
     lda #$FF : sta $0F
-    ldx !armor_state
+    ldx.w armor_state
     lda.w _00BAC5,X : sta $3C
 .DC28:
     brk #$00
@@ -11692,7 +11692,7 @@ _01DC19: ;hit by avalanche
     stz $14EF
     stz $0F
     stz $14F5
-    lda !armor_state : asl : tax
+    lda.w armor_state : asl : tax
     jmp (+,X) : +: dw _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, arthur_baby_DF31, arthur_seal_E0AA, arthur_bee_E195, arthur_maiden_DFE8
 }
 
@@ -11703,7 +11703,7 @@ _01DC56: ;a8 x8
     lda $09 : and #$CF : sta $09
     inc $14CB
     lda #$FF : sta $0F
-    lda !armor_state
+    lda.w armor_state
     cmp #$05
     bcs .DC77
 
@@ -11742,11 +11742,11 @@ _01DC56: ;a8 x8
 .DCAF:
     sta $0278
     stz $0279
-    lda #$01 : sta $02AE
+    lda #!arthur_state_steel : sta.w arthur_state_stored
     lda $14D3 : and #$FE : sta $02AD
     stz.w shield_state_stored
     stz $02B1
-    stz $02AF
+    stz.w upgrade_state_stored
 .DCCB:
     brk #$00
 
@@ -11757,16 +11757,16 @@ _01DC56: ;a8 x8
 
 { ;DCCF - DD00
 _01DCCF: ;a8 x-
-    ;store armor / upgrades / weapon across stages?
+    ;store armor / upgrades / weapon across stages
     stz.w shield_state_stored
     stz $02B1
-    stz $02AF
-    lda !armor_state : sta $02AE
+    stz.w upgrade_state_stored
+    lda.w armor_state : sta.w arthur_state_stored
     lda.w weapon_current : sta $02AD
     lda.w !obj_upgrade.active
     beq .DD00
 
-    lda.w !obj_upgrade.type : sta $02AF
+    lda.w !obj_upgrade.type : sta.w upgrade_state_stored
     lda.w !obj_shield.active
     beq .DD00
 
@@ -11779,7 +11779,7 @@ _01DCCF: ;a8 x-
 { ;DD01 - DD44
 _01DD01: ;a8 x8
     inc.w jump_counter
-    ldx !armor_state
+    ldx.w armor_state
     lda.w _00BACE,X : sta $3C
     ldy #$01 : jsl set_speed_xyg
     lda #$FF : sta $0F
@@ -11797,7 +11797,7 @@ _01DD01: ;a8 x8
     beq .DD19
 
     stz.w jump_counter
-    lda !armor_state : asl : tax
+    lda.w armor_state : asl : tax
     jmp (+,X)
 
 +:
@@ -11924,7 +11924,7 @@ _01DDEF:
 { ;DDFC - DE0A
 _01DDFC:
     ;in rotating platform
-    ldx !armor_state
+    ldx.w armor_state
     lda.w _00BADD,X : sta $3C
 .DE04:
     brk #$00
@@ -13674,7 +13674,7 @@ _01EB18:
     stz $31
     ldy #$92 : ldx #$21 : jsl set_sprite
     lda #$FF : sta $2D
-    lda !armor_state
+    lda.w armor_state
     sta $07
     pha
     jsr .EC24
@@ -14966,7 +14966,7 @@ _01F4F7:
 ;-----
 
 .thing:
-    lda !armor_state
+    lda.w armor_state
     cmp #$04
     bne .F59F
 

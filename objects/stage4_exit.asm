@@ -15,7 +15,7 @@ create:
   lda $14D1
   bne .F7CF
 
-  lda !armor_state
+  lda.w armor_state
   cmp #$05
   bcs .F7CF
 

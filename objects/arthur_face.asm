@@ -15,7 +15,7 @@ create:
     !A8
     lda #$FF : sta $2D : sta $26
 .D4D4:
-    lda !armor_state
+    lda.w armor_state
     cmp #$02
     beq .D4E2
 

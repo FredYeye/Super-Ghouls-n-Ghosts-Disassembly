@@ -90,7 +90,7 @@ create:
     lda.w !obj_arthur.hp
     bmi .F6A1
 
-    lda !armor_state : asl : tax
+    lda.w armor_state : asl : tax
     lda.w rotating_platform_data_CED8+0,X : sta.w !obj_arthur.state+1
     lda.w rotating_platform_data_CED8+1,X : sta.w !obj_arthur.state+2
 .F6A1:

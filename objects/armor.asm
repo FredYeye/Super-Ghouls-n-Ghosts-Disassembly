@@ -6,7 +6,7 @@ create:
     stz $30
     stz $3B
     stz $3C
-    lda !armor_state : asl : tax
+    lda.w armor_state : asl : tax
     jmp (.BA49,X)
 
     jmp _0281A8_81B5 ;unreachable?
@@ -99,7 +99,7 @@ create:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .BAC8
 
-    lda !armor_state
+    lda.w armor_state
     cmp #$05
     bcs .BAC8
 
@@ -107,12 +107,12 @@ create:
     bmi .BAC8
 
     lda $3A : jsl _018049_8053
-    ldx !armor_state
+    ldx.w armor_state
     lda.w _00C2A4,X
     bmi .BB76
 
-    sta.w transform_stored_armor_state
-    sta !armor_state
+    sta.w transform_armor_state_stored
+    sta.w armor_state
     ldx #$01 : stx.w !obj_arthur.hp
     dec
     bne .BB2D
@@ -124,7 +124,7 @@ create:
 .BB2D:
     ldx.b #_01D9FA    : stx.w !obj_arthur.state+1
     ldx.b #_01D9FA>>8 : stx.w !obj_arthur.state+2
-    lda !armor_state
+    lda.w armor_state
     cmp #$04
     bne .BB4E
 
@@ -141,22 +141,22 @@ create:
     ldx $3C  : stx.w !obj_upgrade.type
     ldx #$0C : stx.w !obj_upgrade.active
     lda #$01 : ora.w weapon_current : sta.w weapon_current
-    lda !armor_state
-    cmp #!gold
+    lda.w armor_state
+    cmp #!arthur_state_gold
     bne .BB90
 
     inc.w can_charge_magic
     bra .BB90
 
 .BB76: ;picking up armor while transformed? unreachable?
-    lda !armor_state
+    lda.w armor_state
     cmp #$02
     bcc .BB85
 
     lda #$01 : ora.w weapon_current : sta.w weapon_current
 .BB85:
     lda #$01 : sta.w !obj_arthur.hp
-    lda.w _00C2A4_C2B2,X : sta.w transform_stored_armor_state
+    lda.w _00C2A4_C2B2,X : sta.w transform_armor_state_stored
 
 .BB90:
     jmp _0281A8_81B5

@@ -119,7 +119,7 @@ destroy:
     bra .B799
 
 .B796:
-    lda !armor_state
+    lda.w armor_state
 .B799:
     asl #4
     clc
@@ -147,7 +147,7 @@ endif
     db 3, 1, 3, 1, 1, 4, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1 ;blue shield
 
 .B827:
-    db !id_armor, !id_weapon, !id_pickup_shield, !id_magician, $44, $7D
+    db !id_armor, !id_weapon, !id_pickup_shield, !id_magician, !id_trap, !id_bracelet_item
 }
 
 namespace off

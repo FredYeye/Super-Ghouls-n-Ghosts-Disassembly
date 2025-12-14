@@ -33,11 +33,11 @@ create:
     lda.w !obj_shield.type       : sta.w shield_state_stored
     lda.w !obj_shield.init_param : sta $02B1
 .B9A3:
-    lda !armor_state
-    sta.w transform_stored_armor_state
+    lda.w armor_state
+    sta.w transform_armor_state_stored
     asl
     tax
-    jsr (.B9E8,X) : sta !armor_state
+    jsr (.B9E8,X) : sta.w armor_state
     lda #$7E : sta.w transform_timer
     lda #$01 : sta.w transform_timer+1
     lda #!sfx_transform : jsl _018049_8053
@@ -67,7 +67,7 @@ create:
 .underwear:
     lda.b #arthur_baby    : sta.w !obj_arthur.state+1
     lda.b #arthur_baby>>8 : sta.w !obj_arthur.state+2
-    lda #!baby
+    lda #!arthur_state_baby
     rts
 
 ;-----
@@ -75,7 +75,7 @@ create:
 .steel:
     lda.b #arthur_seal    : sta.w !obj_arthur.state+1
     lda.b #arthur_seal>>8 : sta.w !obj_arthur.state+2
-    lda #!seal
+    lda #!arthur_state_seal
     rts
 
 ;-----
@@ -83,7 +83,7 @@ create:
 .bronze:
     lda.b #arthur_bee    : sta.w !obj_arthur.state+1
     lda.b #arthur_bee>>8 : sta.w !obj_arthur.state+2
-    lda #!bee
+    lda #!arthur_state_bee
     rts
 
 ;-----
@@ -91,7 +91,7 @@ create:
 .gold:
     lda.b #arthur_maiden    : sta.w !obj_arthur.state+1
     lda.b #arthur_maiden>>8 : sta.w !obj_arthur.state+2
-    lda #!maiden
+    lda #!arthur_state_maiden
     rts
 
 ;-----

@@ -6057,8 +6057,8 @@ _02F9FA: ;a8 x-
 
 { ;FA37 - FAA0
 _02FA37: ;a8 x?
-    lda !armor_state
-    cmp #!gold
+    lda.w armor_state
+    cmp #!arthur_state_gold
     bne .FA62
 
     lda.w weapon_current

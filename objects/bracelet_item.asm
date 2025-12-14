@@ -99,7 +99,7 @@ create:
 ;----- C018
 
     lda #$0E : sta.w weapon_current
-    lda !armor_state
+    lda.w armor_state
     cmp #$02
     bcc .C027
 

@@ -49,7 +49,7 @@ create:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .BDF8
 
-    lda !armor_state
+    lda.w armor_state
     cmp #$05
     bcs .BDF8
 
@@ -63,12 +63,12 @@ create:
     lda.w !obj_shield.active
     bne .BE8F
 
-    lda !armor_state
+    lda.w armor_state
     bne .BE5A
 
     lda #$01 : sta.w !obj_arthur.hp
-    inc !armor_state
-    inc.w transform_stored_armor_state
+    inc.w armor_state
+    inc.w transform_armor_state_stored
     jmp _0281A8_81B5
 
 .BE5A:
@@ -83,11 +83,11 @@ create:
     ldx #$0C : stx.w !obj_upgrade.active
     lda.w weapon_current : ora #$01 : sta.w weapon_current
     lda #$01 : sta.w !obj_arthur.hp
-    lda #$03 : sta !armor_state : sta.w transform_stored_armor_state
+    lda #$03 : sta.w armor_state : sta.w transform_armor_state_stored
     jmp _0281A8_81B5
 
 .BE8F:
-    ldx !armor_state
+    ldx.w armor_state
     lda.w _00C2A4,X
     bmi .BEC1
 
@@ -109,7 +109,7 @@ create:
     jmp _0281A8_81B5
 
 .BEC1: ;not sure this is reachable? picking up shield while transformed...?
-    lda.w _00C2A4_C2B2,X : sta.w transform_stored_armor_state ;todo
+    lda.w _00C2A4_C2B2,X : sta.w transform_armor_state_stored ;todo
     jmp _0281A8_81B5
 
 ;-----

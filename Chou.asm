@@ -249,7 +249,9 @@
     timer_seconds     = $02A9
     timer_ticks       = $02AA
 
-    shield_state_stored = $02B0 ;stores shield status for stage transitions and transformations
+    arthur_state_stored  = $02AE
+    upgrade_state_stored = $02AF ;arthur face or plume
+    shield_state_stored  = $02B0 ;stores shield status for stage transitions and transformations
     existing_weapon_type = $02B3
 
     p1_button_hold  = $02B7 ;2 bytes
@@ -293,7 +295,7 @@
 
     is_shooting                  = $14B1
     can_charge_magic             = $14B2
-    !armor_state                 = $14BA ;armor/transform state
+    armor_state                  = $14BA ;armor/transform state
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
     ; = $14BE
     ; = $14C3
@@ -306,7 +308,7 @@
     magic_current                = $14CF
     weapon_current               = $14D3
     jump_type                    = $14DC ;jump type based on transform status
-    transform_stored_armor_state = $14DD
+    transform_armor_state_stored = $14DD
     transform_timer              = $14DE ;2 bytes
     ;is_casting_magic             = $14E3
     ;is_casting_magic2            = $14E4 ;what is this? magic sound related...?
@@ -372,18 +374,17 @@ incsrc "object_defines.asm"
 }
 
 { ;armor states
-    ;todo: prefix with something, armor_state_* maybe
-    ;todo: add a define for $05, something like is_transformed?
-
-    !underwear = $00
-    !steel     = $01
+    !arthur_state_underwear = $00
+    !arthur_state_steel     = $01
     ; $02 is unused
-    !bronze    = $03
-    !gold      = $04
-    !baby      = $05
-    !seal      = $06
-    !bee       = $07
-    !maiden    = $08
+    !arthur_state_bronze    = $03
+    !arthur_state_gold      = $04
+    !arthur_state_baby      = $05
+    !arthur_state_seal      = $06
+    !arthur_state_bee       = $07
+    !arthur_state_maiden    = $08
+
+    !arthur_state_transformed = $05
 }
 
 { ;music / sfx IDs

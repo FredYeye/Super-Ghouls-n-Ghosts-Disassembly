@@ -18,8 +18,8 @@ create:
     lda #$FF : sta $2D : sta $26
     jsl _01CCAF
 .C535:
-    lda !armor_state
-    cmp #!gold
+    lda.w armor_state
+    cmp #!arthur_state_gold
     bne _C50D
 
     lda.w !obj_arthur._25
