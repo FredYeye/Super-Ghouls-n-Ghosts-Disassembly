@@ -9,6 +9,7 @@ create: ;a- x8
     bcc +
 
     jmp _0281A8_81B5
+
 +:
     lda #$18 : sta $10
     lda #$02 : sta $1D
@@ -31,6 +32,7 @@ create: ;a- x8
     bne +
 
     jmp _0281A8_81B5
+
 +:
     brk #$00
 
@@ -66,6 +68,7 @@ create: ;a- x8
 
     stz $07
     jmp .8EBB
+
 .8DA5:
     stz $07
     lda #$01 : sta $12 : sta.b obj.direction

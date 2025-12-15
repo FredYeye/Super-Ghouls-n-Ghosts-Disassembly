@@ -92,7 +92,7 @@ _E9C1:
 
     beq create_E995
 
-    lda !open_object_slots
+    lda.w open_object_slots
     cmp #$02
     bcc create_E995
 

@@ -134,7 +134,7 @@ nmi: ;a- x-
     beq .825B
 
     stz.w OAMADDL
-    stz !OAMADDH
+    stz.w OAMADDH
     lda #$00 : sta !DMAP0
     lda #$04 : sta !BBAD0
     lda #$00 : sta !A1T0L
@@ -473,7 +473,7 @@ _00853D: ;a8 x8
 _008577: ;a8 x-
     ;unused function
     stz.w OAMADDL
-    stz !OAMADDH
+    stz.w OAMADDH
     lda #$00 : sta !DMAP0
     lda #$04 : sta !BBAD0
     lda #$00 : sta !A1T0L

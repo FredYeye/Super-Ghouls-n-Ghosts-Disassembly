@@ -139,7 +139,7 @@ create:
 
 _D1FE:
     clc
-    lda !open_object_slots
+    lda.w open_object_slots
     adc #$02
     cmp #$02
     bcc .D220

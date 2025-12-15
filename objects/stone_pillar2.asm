@@ -17,7 +17,7 @@ create:
     ldy #$08 : jsl arthur_range_check
     bcs .921F
 
-    inc $14CA
+    inc.w is_on_stone_pillar
 .921F:
     jsr _0281A8
     bra .9208

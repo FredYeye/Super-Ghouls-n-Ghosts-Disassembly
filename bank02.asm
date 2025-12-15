@@ -161,12 +161,12 @@ _0280CB:
 
 .remove_weapon: ;a8 x8
     jsr _0280E9
-    inc !open_weapon_slots : inc !open_weapon_slots
-    ldy !open_weapon_slots
+    inc.w open_weapon_slots : inc.w open_weapon_slots
+    ldy.w open_weapon_slots
     tdc
-    sta !slot_list_weapons,Y
+    sta.w slot_list_weapons,Y
     xba
-    sta !slot_list_weapons+1,Y
+    sta.w slot_list_weapons+1,Y
     jmp _02821B_827A
 }
 
@@ -204,12 +204,12 @@ _02810D: ;a8 x16
     phd
     phy
     pld
-    inc !open_weapon_slots : inc !open_weapon_slots
-    ldy !open_weapon_slots
+    inc.w open_weapon_slots : inc.w open_weapon_slots
+    ldy.w open_weapon_slots
     tdc
-    sta !slot_list_weapons+0,Y
+    sta.w slot_list_weapons+0,Y
     xba
-    sta !slot_list_weapons+1,Y
+    sta.w slot_list_weapons+1,Y
     !X8
     jsr _0280E9
     pld
@@ -337,12 +337,12 @@ _0281BB: ;a8 x8
     stz $1D9A,X
 +
     jsr _0280E9
-    inc !open_object_slots : inc !open_object_slots
-    ldy !open_object_slots
+    inc.w open_object_slots : inc.w open_object_slots
+    ldy.w open_object_slots
     tdc
-    sta !slot_list_objects+0,Y
+    sta.w slot_list_objects+0,Y
     xba
-    sta !slot_list_objects+1,Y
+    sta.w slot_list_objects+1,Y
     rts
 }
 
@@ -356,13 +356,12 @@ _0281DD:
     stz $1D9A,X
 .81EA:
     jsr _0280E9
-    inc !open_object_slots
-    inc !open_object_slots
-    ldy !open_object_slots
+    inc.w open_object_slots : inc.w open_object_slots
+    ldy.w open_object_slots
     tdc
-    sta !slot_list_objects+0,Y
+    sta.w slot_list_objects+0,Y
     xba
-    sta !slot_list_objects+1,Y
+    sta.w slot_list_objects+1,Y
     rtl
 }
 
@@ -388,7 +387,7 @@ _0281FF: ;a8 x8
 _02821B: ;a8 x8
     ;obj handling
     phd
-    lda #$35 : sta $02C5
+    lda #$35 : sta $02C5 ;obj count
     stz $02C6
     lda #$04 : xba : lda #$3C
     tcd
@@ -1519,26 +1518,26 @@ _028B17:
 
 { ;8B1E -
 _028B1E: ;a- x16
-    ldx !slot_list_objects,Y
+    ldx.w slot_list_objects,Y
     iny #2
     rtl
 
 .8B24: ;a- x16
     ;todo: name? gets object slot, doesn't have to check if they're available
     ;also only updates a temp index (y)
-    ldx !slot_list_objects,Y
+    ldx.w slot_list_objects,Y
     iny #2
     rts
 }
 
 { ;8B2A - 8B35
 _028B2A: ;a- x16
-    ldx !slot_list_objects,Y
+    ldx.w slot_list_objects,Y
     dey #2
     rtl
 
 .local: ;a- x16
-    ldx !slot_list_objects,Y
+    ldx.w slot_list_objects,Y
     dey #2
     rts
 }
@@ -2061,7 +2060,7 @@ _029713: ;eagler spawner
     jsl get_rng_bool
     bne .9728
 
-    lda !open_object_slots
+    lda.w open_object_slots
     clc
     adc #$02
     cmp #$08
@@ -2562,7 +2561,7 @@ _029AAF: ;icicle spawner
     lda #$0A : jsl _019662 : sta $2F
     asl                    : sta $31
     clc
-    lda !open_object_slots
+    lda.w open_object_slots
     adc #$0E
     cmp $31
     bcc .9BBE
@@ -2612,7 +2611,7 @@ _029AAF: ;icicle spawner
     lda $0002 : sta.w obj.direction,X
     !A16
     lda $13ED,Y : sta $002F,X ; todo: what is this?
-    lda !slot_list_objects,Y : sta $002D,X
+    lda.w slot_list_objects,Y : sta $002D,X
     lda $0004 : sta.w obj.pos_x+1,X
     lda $0006 : sta.w obj.pos_y+1,X
     lda $0008 : sta $0031,X
@@ -2656,7 +2655,7 @@ _029D5A:
 
 ;----- 9D83
 
-    lda !open_object_slots
+    lda.w open_object_slots
     clc
     adc #$02
     cmp #$08
@@ -5086,7 +5085,7 @@ _02E650: ;a8 x?
     bne .E660
 
     !A8
-    lda !open_object_slots
+    lda.w open_object_slots
     clc
     adc #$02
     cmp #$0C
@@ -5174,8 +5173,8 @@ _02E9FA:
     lda #$0C : sta.w obj.active,X
     lda $07 : sta $0007,X
     !A16
-    lda !slot_list_objects-4,Y : sta $002F,X
-    lda !slot_list_objects-0,Y : sta $002D,X
+    lda.w slot_list_objects-4,Y : sta $002F,X
+    lda.w slot_list_objects-0,Y : sta $002D,X
     !A8
     rts
 }
@@ -5235,8 +5234,8 @@ _02EB57: ;a8 x16
     lda $0F : sta $000F,X
     lda $07 : sta $0007,X
     !A16
-    lda !slot_list_objects+0,Y : sta $002F,X
-    lda !slot_list_objects+4,Y : sta $002D,X
+    lda.w slot_list_objects+0,Y : sta $002F,X
+    lda.w slot_list_objects+4,Y : sta $002D,X
     !A8
     rts
 
@@ -6441,7 +6440,7 @@ _02FC56: ;a8 x16
 
 { ;FCA7 - FCD3
 _02FCA7: ;a8 x16
-    lda !open_weapon_slots
+    lda.w open_weapon_slots
     bmi .FCD3
 
     phx

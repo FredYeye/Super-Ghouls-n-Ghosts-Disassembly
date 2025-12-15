@@ -16,7 +16,7 @@ create:
 
 ;----- E173
 
-    lda !open_object_slots
+    lda.w open_object_slots
     cmp #$06
     bcc .E171
 

@@ -1602,19 +1602,19 @@ _018CE2: ;a- x-
 
     !A16
     !X8
-    ldx #$12 : stx !open_weapon_slots
+    ldx #$12 : stx.w open_weapon_slots
     lda.w #!obj_weapons.base
 -:
-    sta !slot_list_weapons,X
+    sta.w slot_list_weapons,X
     clc
     adc.w #!obj_size
     dex #2
     bpl -
 
-    ldx #$3C : stx !open_object_slots
+    ldx #$3C : stx.w open_object_slots
     lda.w #!obj_objects.base
 -:
-    sta !slot_list_objects,X
+    sta.w slot_list_objects,X
     clc
     adc.w #!obj_size
     dex #2
@@ -1642,12 +1642,12 @@ _018CE2: ;a- x-
 
 { ;8D4A - 8D5A
 get_object_slot: ;a- x-
-    ldy !open_object_slots ;object slot index
+    ldy.w open_object_slots ;object slot index
     bmi .ret
 
     !X16
-    dec !open_object_slots : dec !open_object_slots ;next offset
-    ldx !slot_list_objects,Y ;return offset in X
+    dec.w open_object_slots : dec.w open_object_slots ;next offset
+    ldx.w slot_list_objects,Y ;return offset in X
 .ret
     rtl
 }
@@ -1884,7 +1884,7 @@ update_score: ;a8 x8
     dex
     bpl .8EE9
 
-    inc $036F
+    inc.w hud_update_score
     lda $1FB9
     bne .ret
 
@@ -1954,22 +1954,22 @@ add_extra_life: ;a8 x-
     sta.w extra_lives
     lda #!sfx_1up : jsl _018049_8053
 .8F7C:
-    inc $036D
+    inc.w hud_update_lives
     rts
 }
 
 { ;8F80 - 9023
 _018F80: ;a8 x8
-    lda $036F
+    lda.w hud_update_score
     beq .8F8F
 
-    stz $036F
+    stz.w hud_update_score
     ldx #$C4 : ldy #$00 : jsr .8FEA
 .8F8F:
-    lda $0370
+    lda.w hud_update_timer
     beq .8FCD
 
-    stz $0370
+    stz.w hud_update_timer
     !A16
     lda.w timer_minutes
     and #$00FF
@@ -1985,10 +1985,10 @@ _018F80: ;a8 x8
     !A8
     inc $0323
 .8FCD:
-    lda $036D
+    lda.w hud_update_lives
     beq .8FE9
 
-    stz $036D
+    stz.w hud_update_lives
     lda.w extra_lives
     !A16
     and #$00FF
@@ -2779,7 +2779,7 @@ _019539: ;a8 x8
 
 { ;9580 - 95B1
 _019580:
-    ldy !open_weapon_slots
+    ldy.w open_weapon_slots
     bmi .95B1
 
     !A16
@@ -2811,7 +2811,7 @@ _019580:
 
 { ;95B2 - 95E3
 _0195B2:
-    ldy !open_object_slots
+    ldy.w open_object_slots
     bmi .95E3
 
     sta $0000
@@ -2844,7 +2844,7 @@ _0195B2:
 
 { ;95E4 -
 _0195E4: ;a8 x8
-    ldy !open_object_slots
+    ldy.w open_object_slots
     bmi .9634
 
     sta $0000
@@ -2861,21 +2861,21 @@ _0195E4: ;a8 x8
     sec
     tya
     sbc $0000
-    sta !open_object_slots
+    sta.w open_object_slots
     !A16
 .9609: ;reorder obj slot indices, for proper rendering order
     phy
     ldx $0002
 .960D:
-    lda !slot_list_objects-0,Y
-    cmp !slot_list_objects-2,Y
+    lda.w slot_list_objects-0,Y
+    cmp.w slot_list_objects-2,Y
     bcs .skip_reorder
 
     pha
-    lda !slot_list_objects-2,Y
-    sta !slot_list_objects-0,Y
+    lda.w slot_list_objects-2,Y
+    sta.w slot_list_objects-0,Y
     pla
-    sta !slot_list_objects-2,Y
+    sta.w slot_list_objects-2,Y
 .skip_reorder:
     dey #2
     dex
@@ -2886,7 +2886,7 @@ _0195E4: ;a8 x8
     bne .9609
 
     !A8
-    ldy !open_object_slots
+    ldy.w open_object_slots
     iny #2
     sec
     rtl
@@ -3403,13 +3403,13 @@ endif
 ;-----
 
 .9A05:
-    lda $14CB
+    lda.w hit_by_water_crash
     bne .9A51
 
     lda $6F
     bmi .9A51
 
-    lda $14CA
+    lda.w is_on_stone_pillar
     bne .9A51
 
     !A16
@@ -5585,11 +5585,9 @@ endif
     beq .AB9C
 
     jsl _049252
-    lda $02AD
-    pha
+    lda $02AD : pha
     jsr .ABB3
-    pla
-    sta $02AD
+    pla : sta $02AD
     lda #$02
 .AB9C:
     sta $0278
@@ -5832,10 +5830,10 @@ endif
     stz.w timer_ticks
     lda #$01 : sta $1F1C
     lda #$02 : sta $0284
-    inc $036F
-    inc $0370
+    inc.w hud_update_score
+    inc.w hud_update_timer
     inc $036E
-    inc $036D
+    inc.w hud_update_lives
     jsr _01B4C5
     jsl _04F000
     jsr _01F6D7
@@ -7167,7 +7165,7 @@ _01B96E: ;a8 x-
 
     dec.w timer_ticks : bpl .ret
 
-    inc $0370
+    inc.w hud_update_timer
     lda #$3F : sta.w timer_ticks
     dec.w timer_seconds : bpl .ret
 
@@ -9544,7 +9542,7 @@ _01CCBD: ;a8 x8
     stz.w chest_counter
     stz.w knife_rapid_timer
     stz.w knife_rapid_count
-    stz $14CB
+    stz.w hit_by_water_crash
     stz $0338
     stz $033E
     lda #$FF : sta $0339 : sta $033F
@@ -10086,7 +10084,7 @@ _01D090: ;a8 x8
     jsr _01DEE7_DEE8
     lda $14C3 : sta $14BB
     stz $14C3
-    stz $14CA
+    stz.w is_on_stone_pillar
     lda $0F
     bne .D0B1
 
@@ -11351,12 +11349,12 @@ get_weapon_slot: ;a8 x-
     rtl
 
 .local: ;D9C7 a8 x-
-    ldy !open_weapon_slots
+    ldy.w open_weapon_slots
     bmi .D9D7
 
     !X16
-    dec !open_weapon_slots : dec !open_weapon_slots
-    ldx !slot_list_weapons,Y
+    dec.w open_weapon_slots : dec.w open_weapon_slots
+    ldx.w slot_list_weapons,Y
 .D9D7:
     rts
 }
@@ -11524,7 +11522,7 @@ _01DAB8:
 
     lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$16 : jsl _018C55
     !AX16
-    ldy !open_object_slots
+    ldy.w open_object_slots
     ldx $13F3,Y : stx $35
     stz $002D,X
     clc : lda.w camera_x+1 : adc #$00C0 : sta.w obj.pos_x+1,X
@@ -11701,7 +11699,7 @@ _01DC56: ;a8 x8
     ;hit by water crash
     inc $14D1
     lda $09 : and #$CF : sta $09
-    inc $14CB
+    inc.w hit_by_water_crash
     lda #$FF : sta $0F
     lda.w armor_state
     cmp #$05
@@ -15204,9 +15202,7 @@ _01F6C9: ;a8 x-
 
 { ;F6D7 - F6E8
 _01F6D7: ;a8 x8
-    lda.w stage
-    asl
-    tax
+    lda.w stage : asl : tax
     lda.w _008B05+0,X : sta $032B
     lda.w _008B05+1,X : sta $032C
     rts

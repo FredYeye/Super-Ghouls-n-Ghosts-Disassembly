@@ -39,7 +39,7 @@
     INIDISP   = $2100 ;Display Control 1
     OBSEL     = $2101 ;Object Size and Object Base
     OAMADDL   = $2102 ;OAM Address (lower 8bit)
-    !OAMADDH  = $2103 ;OAM Address (upper 1bit) and Priority Rotation
+    OAMADDH   = $2103 ;OAM Address (upper 1bit) and Priority Rotation
     !BGMODE   = $2105 ;BG Mode and BG Character Size
     !MOSAIC   = $2106 ;Mosaic Size and Mosaic Enable
     !BG1SC    = $2107 ;BG1 Screen Base and Screen Size
@@ -266,6 +266,7 @@
 
     ;02C3 inc every... "work frame" done? ie, no inc on lag frames
     ;02C4 inc on every video frame? regardless of lag frames
+    ;02C5 used as counter for looping over all objs
 
     ;sfx related
     ;02F5: counter to compare with apu's last played sound(?)
@@ -274,23 +275,26 @@
     ;02F8 - 317: sound queue of sorts
 
     ; $032A ;debugging? dpad moves the camera
+    ; $032B ;pointer, 2 bytes
     hud_visible              = $032E
     stage1_earthquake_active = $032F
     ; = $0331 some kind of update palette bool (uses 0332)
     ; = $0332 index (normal colors, all white, grayscale BG + white sprites)
     ; = $0333 timer used in demo cutscene, menu
     chest_counter            = $0337
+    hud_update_lives         = $036D
+    hud_update_score         = $036F
+    hud_update_timer         = $0370
     hud_flicker_timer        = $0373
 
     obj_start = $043C ; $11B0
 
-    ;todo: change defines to labels
-
-    !slot_list_objects = $13F1 ;list of 16 bit indices for slot_objects
-    !slot_list_weapons = $142F
-    !open_object_slots = $1443
-    !open_weapon_slots = $1445
-    open_magic_slots   = $1447
+    slot_list_objects = $13F1 ;list of 16 bit indices for slot_objects
+    slot_list_weapons = $142F
+    open_object_slots = $1443
+    open_weapon_slots = $1445
+    open_magic_slots  = $1447
+    ;$1448 2 bytes
 
     ;14A8: some kind of enemy count array?
 
@@ -305,6 +309,8 @@
     skip_double_jump_boost       = $14C7
     knife_rapid_timer            = $14C8
     knife_rapid_count            = $14C9
+    is_on_stone_pillar           = $14CA ;for wave crash
+    hit_by_water_crash           = $14CB
     jump_counter                 = $14CC
     magic_current                = $14CF
     weapon_current               = $14D3
