@@ -518,48 +518,84 @@ _02821B: ;a8 x8
     jmp (.destroy_object_offsets+256,X)
 
 .create_object_offsets:
-    dw arthur_create, lance_create, lance2_create, knife_create, knife2_create, bowgun_create, bowgun2_create, scythe_create, scythe2_create, torch_create, torch2_create, axe_create, axe2_create, triblade_create, triblade2_create, bracelet_create
-    dw bracelet2_create, lance_fire_trail_create, knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create, lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
-    dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, $EEEA, stone_pillar_create, $FFFF, flower_part_create, torch_flame_create, torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
-    dw shell_pearl_create, $9139, $9174, $9191, $91DD, belial_create, belial_flame_create, thunk_princess_create, hydra_fireball_create, $B3AA, rosebud_create, black_cover_create, bars_create, eagler_create, rotating_platform_create, chest_create
-    dw magician_create, armor_create, weapon_create, pickup_shield_create, trap_create, magician_orb_create, small_explosion_create, stone_pillar2_create, point_statue_create, stage4_exit_create, raft_pulley_create, zombie_create, $9224, water_crash_splash_create, flower_bud_create, flower_projectile_create
-    dw raft_hanging_create, icicle_create, gate_create, cockatrice_spawner_create, ready_go_create, siren_create, flying_killer_create, hydra_create, hydra_genie_create, key_create, key_message_create, raft_create, guillotine_create, $C40D, ghost_create, ghost_unformed_create
-    dw flower_head_create, cockatrice_legs_create, cockatrice_neck_create, cockatrice_head_create, siren_projectile_create, arthur_map_create, miniwing_create, cockatrice_wings_create, cockatrice_body_create, skulls_create, money_bag_create, mimic_create, mimic_ghost_create, hannibal_create, storm_cesaris_projectile_create, coffin_dirt_create
-    dw boss_explosion_spawner_create, boss_explosion_create, wolf_create, pier_create, rosebud_chunk_create, cockatrice_neck_base_create, storm_cesaris_create, storm_cesaris_parts_create, flying_knight_create, bat_spawner_create, bat_create, chest2_create, pier_splinter_create, bracelet_item_create, bracelet_item_sparkle_create, thunk_crumbling_wall_create
-    dw thunk_grilian_create, _029ED3_create, magic_charge_create, thunk_tower_edge_create, thunk_silk_gate_create, thunk_gargoyle_statue_create, thunk_grilian_projectile_create, thunk_skull_flower_multi_inactive_create, thunk_skull_flower_multi_create, arremer_projectile_create, thunk_arremer_create, thunk_moving_platform_create, thunk_death_crawler_handler_create, thunk_death_crawler_part_create, death_crawler_create, $89C6
-    dw thunk_geyser_create, _0289D3_create, _0289DC_create, thunk_killer_create, thunk_tiny_goblin_create, thunk_game_over_text_flames_create, thunk_explosion_spawner_create, thunk_hannibal_projectile_create, thunk_coral_create, thunk_waterfall_end_create, thunk_silk_platform_create, $8A25, thunk_menu_control_create, thunk_lava_pillar_create, $8A47, thunk_lava_dropper_create
-    dw thunk_lava_create, thunk_astaroth_create, thunk_nebiroth_create, thunk_conveyor_belt_create, thunk_cockatrice_head2_spawner_create, thunk_cockatrice_head2_create, thunk_gate2_create, thunk_mad_dog_create, thunk_astaroth_flame_create, thunk_astaroth_laser_create, nuclear_projectile_create, thunk_ice_bridge_segment_create, thunk_ice_bridge_spawner_create, thunk_avalanche_create, thunk_death_crawler_projectile_create, $88A1
-    dw thunk_cockatrice_head2_projectile_create, thunk_veil_allocen_create, veil_allocen_part_create, thunk_intro_cutscene_obj_create, thunk_cutscene_arthur_create, thunk_cutscene_princess_create, thunk_satan_create, thunk_satan_wings_create, veil_allocen_claw1_create, veil_allocen_claw2_create, thunk_veil_allocen_spawner_create, thunk_nebiroth_flame_create, thunk_nebiroth_laser_create, thunk_veil_allocen_projectile_create, thunk_freeze_splinter_create, thunk_astaroth_nebiroth_body_create
+    dw arthur_create, lance_create, lance2_create, knife_create, knife2_create, bowgun_create, bowgun2_create, scythe_create
+    dw scythe2_create, torch_create, torch2_create, axe_create, axe2_create, triblade_create, triblade2_create, bracelet_create
+    dw bracelet2_create, lance_fire_trail_create, knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create
+    dw lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
+    dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, _02EEEA_create, stone_pillar_create
+    dw $FFFF, flower_part_create, torch_flame_create, torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
+    dw shell_pearl_create, $9139, $9174, $9191, $91DD, belial_create, belial_flame_create, thunk_princess_create
+    dw hydra_fireball_create, $B3AA, rosebud_create, black_cover_create, bars_create, eagler_create, rotating_platform_create, chest_create
+    dw magician_create, armor_create, weapon_create, pickup_shield_create, trap_create, magician_orb_create, small_explosion_create, stone_pillar2_create
+    dw point_statue_create, stage4_exit_create, raft_pulley_create, zombie_create, $9224, water_crash_splash_create, flower_bud_create, flower_projectile_create
+    dw raft_hanging_create, icicle_create, gate_create, cockatrice_spawner_create, ready_go_create, siren_create, flying_killer_create, hydra_create
+    dw hydra_genie_create, key_create, key_message_create, raft_create, guillotine_create, $C40D, ghost_create, ghost_unformed_create
+    dw flower_head_create, cockatrice_legs_create, cockatrice_neck_create, cockatrice_head_create, siren_projectile_create, arthur_map_create, miniwing_create, cockatrice_wings_create
+    dw cockatrice_body_create, skulls_create, money_bag_create, mimic_create, mimic_ghost_create, hannibal_create, storm_cesaris_projectile_create, coffin_dirt_create
+    dw boss_explosion_spawner_create, boss_explosion_create, wolf_create, pier_create, rosebud_chunk_create, cockatrice_neck_base_create, storm_cesaris_create, storm_cesaris_parts_create
+    dw flying_knight_create, bat_spawner_create, bat_create, chest2_create, pier_splinter_create, bracelet_item_create, bracelet_item_sparkle_create, thunk_crumbling_wall_create
+    dw thunk_grilian_create, _029ED3_create, magic_charge_create, thunk_tower_edge_create, thunk_silk_gate_create, thunk_gargoyle_statue_create, thunk_grilian_projectile_create, thunk_skull_flower_multi_inactive_create
+    dw thunk_skull_flower_multi_create, arremer_projectile_create, thunk_arremer_create, thunk_moving_platform_create, thunk_death_crawler_handler_create, thunk_death_crawler_part_create, death_crawler_create, $89C6
+    dw thunk_geyser_create, _0289D3_create, _0289DC_create, thunk_killer_create, thunk_tiny_goblin_create, thunk_game_over_text_flames_create, thunk_explosion_spawner_create, thunk_hannibal_projectile_create
+    dw thunk_coral_create, thunk_waterfall_end_create, thunk_silk_platform_create, $8A25, thunk_menu_control_create, thunk_lava_pillar_create, $8A47, thunk_lava_dropper_create
+    dw thunk_lava_create, thunk_astaroth_create, thunk_nebiroth_create, thunk_conveyor_belt_create, thunk_cockatrice_head2_spawner_create, thunk_cockatrice_head2_create, thunk_gate2_create, thunk_mad_dog_create
+    dw thunk_astaroth_flame_create, thunk_astaroth_laser_create, nuclear_projectile_create, thunk_ice_bridge_segment_create, thunk_ice_bridge_spawner_create, thunk_avalanche_create, thunk_death_crawler_projectile_create, $88A1
+    dw thunk_cockatrice_head2_projectile_create, thunk_veil_allocen_create, veil_allocen_part_create, thunk_intro_cutscene_obj_create, thunk_cutscene_arthur_create, thunk_cutscene_princess_create, thunk_satan_create, thunk_satan_wings_create
+    dw veil_allocen_claw1_create, veil_allocen_claw2_create, thunk_veil_allocen_spawner_create, thunk_nebiroth_flame_create, thunk_nebiroth_laser_create, thunk_veil_allocen_projectile_create, thunk_freeze_splinter_create, thunk_astaroth_nebiroth_body_create
     dw thunk_princess_dialogue_create, thunk_samael_create, thunk_samael_platform_create, thunk_samael_laser_create, thunk_sun_create, thunk_ending_object_create
 
 .destroy_object_offsets:
-    dw arthur_destroy, weapon_destroy, weapon_destroy, weapon_destroy, knife2_destroy, weapon_destroy, weapon_destroy, scythe_destroy, scythe2_destroy, $878E, $878E, $878E, $878E, $878E, $878E, weapon_destroy_8792
-    dw weapon_destroy_8792, $8780, _0280CB_remove_weapon, $8780, $8780, $8780, $8780, $8780, $8780, $8780, $8780, $8780, $8780, $8780, shield_destroy, $8780
-    dw $8780, $8780, $8780, $8780, $81B5, $8780, $8780, $8780, $8780, flower_part_destroy, weapon_destroy, weapon_destroy, $8780, $8780, $8780, shell_destroy
-    dw $8BB9, $8780, $8780, $8780, $8780, $8780, $8780, $8780, $8BB9, $8780, rosebud_destroy, $8BEC, obj_void, eagler_destroy, $8780, chest_destroy
-    dw magician_destroy, $8780, $8780, $8780, $8780, $8BB9, $8780, $81B5, $81B5, $81B5, $81B5, zombie_destroy, $81B5, $81B5, $81B5, $8BB9
-    dw $8780, icicle_destroy, $8780, $8780, $8780, siren_destroy, flying_killer_destroy, hydra_destroy, $8780, key_destroy, key_message_destroy, $8780, guillotine_destroy, $8780, ghost_destroy, ghost_unformed_destroy
-    dw flower_part_head_destroy, cockatrice_legs_destroy, cockatrice_neck_destroy, cockatrice_head_destroy, _028BEC_8BF9, obj_void, miniwing_destroy, cockatrice_wings_destroy, cockatrice_body_destroy, $81B5, $8780, $8BEC, $8BEC, hannibal_destroy, $8BB9, $81B5
-    dw boss_explosion_spawner_destroy, boss_explosion_destroy, wolf_destroy, $8780, $81B5, cockatrice_neck_base_destroy, storm_cesaris_destroy, storm_cesaris_parts_destroy, flying_knight_destroy, bat_spawner_destroy, bat_destroy, chest_destroy, $8780, $8780, $8780, $8780
-    dw thunk_grilian_destroy, _029ED3_destroy, $8780, $8780, $8780, thunk_gargoyle_statue_destroy, $8BB9, $8780, thunk_skull_flower_multi_destroy, arremer_projectile_destroy, thunk_arremer_destroy, thunk_moving_platform_destroy, thunk_death_crawler_handler_destroy, $FFFF, death_crawler_destroy, $8780
-    dw $8780, $8780, _0289DC_destroy, thunk_killer_destroy, thunk_tiny_goblin_destroy, $8780, $8780, _028BB9, _028BEC, $8780, $8780, arremer_killers_destroy, $8780, $8780, $8780, thunk_lava_dropper_destroy
-    dw $8780, thunk_astaroth_destroy, thunk_nebiroth_destroy, $8780, thunk_cockatrice_head2_spawner_destroy, thunk_cockatrice_head2_destroy, $8780, thunk_mad_dog_destroy, thunk_astaroth_flame_destroy, $81B5, $8780, thunk_ice_bridge_segment_destroy, thunk_ice_bridge_spawner_destroy, $8780, $81B5, $8780
-    dw _028BB9, thunk_veil_allocen_destroy, veil_allocen_part_destroy, $8780, $8780, $8780, $8780, $8780, veil_allocen_claw1_destroy, veil_allocen_claw2_destroy, $8780, thunk_nebiroth_flame_destroy, $81B5, $81B5, $81B5, $81B5
+    dw arthur_destroy, weapon_destroy, weapon_destroy, weapon_destroy, knife2_destroy, weapon_destroy, weapon_destroy, scythe_destroy
+    dw scythe2_destroy, $878E, $878E, $878E, $878E, $878E, $878E, weapon_destroy_8792
+    dw weapon_destroy_8792, $8780, _0280CB_remove_weapon, $8780, $8780, $8780, $8780, $8780
+    dw $8780, $8780, $8780, $8780, $8780, $8780, shield_destroy, $8780
+    dw $8780, $8780, $8780, $8780, $81B5, $8780, $8780, $8780
+    dw $8780, flower_part_destroy, weapon_destroy, weapon_destroy, $8780, $8780, $8780, shell_destroy
+    dw $8BB9, $8780, $8780, $8780, $8780, $8780, $8780, $8780
+    dw $8BB9, $8780, rosebud_destroy, $8BEC, obj_void, eagler_destroy, $8780, chest_destroy
+    dw magician_destroy, $8780, $8780, $8780, $8780, $8BB9, $8780, $81B5
+    dw $81B5, $81B5, $81B5, zombie_destroy, $81B5, $81B5, $81B5, $8BB9
+    dw $8780, icicle_destroy, $8780, $8780, $8780, siren_destroy, flying_killer_destroy, hydra_destroy
+    dw $8780, key_destroy, key_message_destroy, $8780, guillotine_destroy, $8780, ghost_destroy, ghost_unformed_destroy
+    dw flower_part_head_destroy, cockatrice_legs_destroy, cockatrice_neck_destroy, cockatrice_head_destroy, _028BEC_8BF9, obj_void, miniwing_destroy, cockatrice_wings_destroy
+    dw cockatrice_body_destroy, $81B5, $8780, $8BEC, $8BEC, hannibal_destroy, $8BB9, $81B5
+    dw boss_explosion_spawner_destroy, boss_explosion_destroy, wolf_destroy, $8780, $81B5, cockatrice_neck_base_destroy, storm_cesaris_destroy, storm_cesaris_parts_destroy
+    dw flying_knight_destroy, bat_spawner_destroy, bat_destroy, chest_destroy, $8780, $8780, $8780, $8780
+    dw thunk_grilian_destroy, _029ED3_destroy, $8780, $8780, $8780, thunk_gargoyle_statue_destroy, $8BB9, $8780
+    dw thunk_skull_flower_multi_destroy, arremer_projectile_destroy, thunk_arremer_destroy, thunk_moving_platform_destroy, thunk_death_crawler_handler_destroy, $FFFF, death_crawler_destroy, $8780
+    dw $8780, $8780, _0289DC_destroy, thunk_killer_destroy, thunk_tiny_goblin_destroy, $8780, $8780, _028BB9
+    dw _028BEC, $8780, $8780, arremer_killers_destroy, $8780, $8780, $8780, thunk_lava_dropper_destroy
+    dw $8780, thunk_astaroth_destroy, thunk_nebiroth_destroy, $8780, thunk_cockatrice_head2_spawner_destroy, thunk_cockatrice_head2_destroy, $8780, thunk_mad_dog_destroy
+    dw thunk_astaroth_flame_destroy, $81B5, $8780, thunk_ice_bridge_segment_destroy, thunk_ice_bridge_spawner_destroy, $8780, $81B5, $8780
+    dw _028BB9, thunk_veil_allocen_destroy, veil_allocen_part_destroy, $8780, $8780, $8780, $8780, $8780
+    dw veil_allocen_claw1_destroy, veil_allocen_claw2_destroy, $8780, thunk_nebiroth_flame_destroy, $81B5, $81B5, $81B5, $81B5
     dw $8780, thunk_samael_destroy, thunk_samael_platform_destroy, thunk_samael_laser_destroy, $8780, $8780
 
 .thing_object_offsets: ;todo: figure out a better name. code that needs to run every frame regardless of state?
-    dw arthur_thing, $8780, $8780, $8780, $8780, $8780, bowgun2_thing, scythe_thing, $87D0, $8780, $8780, axe_thing, axe2_thing, triblade_thing, triblade2_thing, bracelet_thing
-    dw bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing, lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
-    dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780, _02FD62_FD7C, flower_part_thing, torch_flame_thing, torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
-    dw shell_pearl_thing, $8780, $8780, $8780, $8780, belial_thing, $8780, $8780, $AF04, $8780, rosebud_thing, $8780, obj_void, eagler_thing, rotating_platform_thing, chest_thing
-    dw magician_thing, armor_thing, weapon_thing, pickup_shield_thing, $8780, magician_orb_thing, $8780, $81B5, $81B5, $81B5, raft_pulley_thing, zombie_thing, $8780, $8780, $8780, flower_projectile_thing
-    dw $8780, icicle_thing, $8780, $8780, $8780, siren_thing, flying_killer_thing, hydra_thing, hydra_genie_thing, key_thing, key_message_thing, raft_thing, guillotine_thing, $8780, ghost_thing, ghost_unformed_thing
-    dw flower_head_thing, cockatrice_legs_thing, cockatrice_neck_thing, cockatrice_head_thing, siren_projectile_thing, obj_void, miniwing_thing, cockatrice_wings_thing, cockatrice_body_thing, skulls_thing, $8780, mimic_thing, mimic_ghost_thing, hannibal_thing, storm_cesaris_projectile_thing, $8780
-    dw boss_explosion_spawner_thing, boss_explosion_thing, wolf_thing, pier_thing, rosebud_chunk_thing, $8780, storm_cesaris_thing, storm_cesaris_parts_thing, flying_knight_thing, bat_spawner_thing, bat_thing, chest_thing, $8780, bracelet_item_thing, bracelet_item_sparkle_thing, $8780
-    dw thunk_grilian_thing, _029ED3_thing, $8780, thunk_tower_edge_thing, $8780, thunk_gargoyle_statue_thing, thunk_grilian_projectile_thing, $8780, thunk_skull_flower_multi_thing, arremer_projectile_thing, thunk_arremer_thing, thunk_moving_platform_thing, thunk_death_crawler_handler_thing, thunk_death_crawler_part_thing, death_crawler_thing, $8780
-    dw thunk_geyser_thing, _0289D3_thing, _0289DC_thing, thunk_killer_thing, thunk_tiny_goblin_thing, $8780, $8780, thunk_hannibal_projectile_thing, thunk_coral_thing, $8780, $8780, arremer_killers_thing, $8780, thunk_lava_pillar_thing, $8780, $8780
-    dw thunk_lava_thing, thunk_astaroth_thing, thunk_nebiroth_thing, thunk_conveyor_belt_thing, thunk_cockatrice_head2_spawner_thing, thunk_cockatrice_head2_thing, $8780, thunk_mad_dog_thing, thunk_astaroth_flame_thing, $8ABB, nuclear_projectile_thing, thunk_ice_bridge_segment_thing, thunk_ice_bridge_spawner_thing, thunk_avalanche_thing, thunk_death_crawler_projectile_thing, $88A5
-    dw thunk_cockatrice_head2_projectile_thing, thunk_veil_allocen_thing, veil_allocen_part_thing, $88D1, thunk_cutscene_arthur_thing, thunk_cutscene_princess_thing, thunk_satan_thing, thunk_satan_wings_thing, veil_allocen_claw1_thing, veil_allocen_claw2_thing, $8780, thunk_nebiroth_flame_thing, thunk_nebiroth_laser_thing, thunk_veil_allocen_projectile_thing, thunk_freeze_splinter_thing, thunk_astaroth_nebiroth_body_thing
+    dw arthur_thing, $8780, $8780, $8780, $8780, $8780, bowgun2_thing, scythe_thing
+    dw $87D0, $8780, $8780, axe_thing, axe2_thing, triblade_thing, triblade2_thing, bracelet_thing
+    dw bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing
+    dw lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
+    dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780
+    dw _02FD62_FD7C, flower_part_thing, torch_flame_thing, torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
+    dw shell_pearl_thing, $8780, $8780, $8780, $8780, belial_thing, $8780, $8780
+    dw $AF04, $8780, rosebud_thing, $8780, obj_void, eagler_thing, rotating_platform_thing, chest_thing
+    dw magician_thing, armor_thing, weapon_thing, pickup_shield_thing, $8780, magician_orb_thing, $8780, $81B5
+    dw $81B5, $81B5, raft_pulley_thing, zombie_thing, $8780, $8780, $8780, flower_projectile_thing
+    dw $8780, icicle_thing, $8780, $8780, $8780, siren_thing, flying_killer_thing, hydra_thing
+    dw hydra_genie_thing, key_thing, key_message_thing, raft_thing, guillotine_thing, $8780, ghost_thing, ghost_unformed_thing
+    dw flower_head_thing, cockatrice_legs_thing, cockatrice_neck_thing, cockatrice_head_thing, siren_projectile_thing, obj_void, miniwing_thing, cockatrice_wings_thing
+    dw cockatrice_body_thing, skulls_thing, $8780, mimic_thing, mimic_ghost_thing, hannibal_thing, storm_cesaris_projectile_thing, $8780
+    dw boss_explosion_spawner_thing, boss_explosion_thing, wolf_thing, pier_thing, rosebud_chunk_thing, $8780, storm_cesaris_thing, storm_cesaris_parts_thing
+    dw flying_knight_thing, bat_spawner_thing, bat_thing, chest_thing, $8780, bracelet_item_thing, bracelet_item_sparkle_thing, $8780
+    dw thunk_grilian_thing, _029ED3_thing, $8780, thunk_tower_edge_thing, $8780, thunk_gargoyle_statue_thing, thunk_grilian_projectile_thing, $8780
+    dw thunk_skull_flower_multi_thing, arremer_projectile_thing, thunk_arremer_thing, thunk_moving_platform_thing, thunk_death_crawler_handler_thing, thunk_death_crawler_part_thing, death_crawler_thing, $8780
+    dw thunk_geyser_thing, _0289D3_thing, _0289DC_thing, thunk_killer_thing, thunk_tiny_goblin_thing, $8780, $8780, thunk_hannibal_projectile_thing
+    dw thunk_coral_thing, $8780, $8780, arremer_killers_thing, $8780, thunk_lava_pillar_thing, $8780, $8780
+    dw thunk_lava_thing, thunk_astaroth_thing, thunk_nebiroth_thing, thunk_conveyor_belt_thing, thunk_cockatrice_head2_spawner_thing, thunk_cockatrice_head2_thing, $8780, thunk_mad_dog_thing
+    dw thunk_astaroth_flame_thing, $8ABB, nuclear_projectile_thing, thunk_ice_bridge_segment_thing, thunk_ice_bridge_spawner_thing, thunk_avalanche_thing, thunk_death_crawler_projectile_thing, $88A5
+    dw thunk_cockatrice_head2_projectile_thing, thunk_veil_allocen_thing, veil_allocen_part_thing, $88D1, thunk_cutscene_arthur_thing, thunk_cutscene_princess_thing, thunk_satan_thing, thunk_satan_wings_thing
+    dw veil_allocen_claw1_thing, veil_allocen_claw2_thing, $8780, thunk_nebiroth_flame_thing, thunk_nebiroth_laser_thing, thunk_veil_allocen_projectile_thing, thunk_freeze_splinter_thing, thunk_astaroth_nebiroth_body_thing
     dw $8780, thunk_samael_thing, thunk_samael_platform_thing, thunk_samael_laser_thing, $8780, $8780
 }
 
@@ -5283,220 +5319,12 @@ _02EBC1:
 }
 
 {
-    incsrc "objects/key.asm"         ;EBC8 - EE44
-    incsrc "objects/key_message.asm" ;EE45 - EEE9
-}
-
-{ ;EEEA - EF02
-    ;unused
-    ldy #$94 : ldx #$22 : jsl set_sprite
-    ldy #$FC : jsl set_speed_xyg
-.EEF8:
-    brk #$00
-
-;----- EEFA
-
-    jsl update_pos_xyg_add
-    jsr _028074
-    bra .EEF8
-}
-
-{
+    incsrc "objects/key.asm"               ;EBC8 - EE44
+    incsrc "objects/key_message.asm"       ;EE45 - EEE9
+    incsrc "objects/_02EEEA.asm"           ;EEEA - EF02
     incsrc "objects/flower_projectile.asm" ;EF03 - EF69
     incsrc "objects/flower_bud.asm"        ;EF6A - EFD1
-}
-
-{ ;EFD2 - F13D
-flower_head:
-
-.create:
-    jsr _02F13E_F15F
-    jsl set_hp
-    ldx.w stage
-    cpx #$06
-    bne .EFE7
-
-    clc
-if !version == 0 || !version == 1
-    lda #$0C : adc.b obj.hp : sta.b obj.hp
-elseif !version == 2
-    lda #$04 : adc.b obj.hp : sta.b obj.hp
-endif
-.EFE7:
-    stz $31
-    stz $32
-    stz $34
-    stz $35
-    stz $36
-    stz $0F
-    ldy #$8C : ldx #$22 : jsl set_sprite
-    lda #$01 : sta.b obj.direction
-    stz.b obj.facing
-.F001:
-    brk #$00
-
-;----- F003
-
-    lda $32
-    beq .F001
-
-    ldy #$8E : ldx #$22 : jsl set_sprite
-.F00F:
-    brk #$00
-
-;----- F011
-
-    jsl update_animation_normal
-    lda $31
-    beq .F00F
-
-    lda #$08 : sta $33
-    ldy #$0C : jsl set_speed_y
-    ldy #$21 : jsl set_speed_x
-    inc $34
-.F02B:
-    jsl update_pos_y
-    brk #$00
-
-;----- F031
-
-    lda $31 ;keep rising until $31 is 0
-    bne .F02B
-
-    inc $0F
-.F037:
-    jsl get_object_slot
-    bmi .F0A6
-
-    stz.b obj.direction
-    lda #$01 : sta $3C
-    stx $35
-    !A16
-    ldy $2D
-    lda.w obj.pos_x+1,Y : sta $13
-    sec
-    lda.w obj.pos_y+1,Y : sbc #$0008 : sta $27
-    !A8
-    lda $08 : and #$07 : dec : sta $0008,X
-    lda $09 : and #$30 : sta $0009,X
-    lda #!id_flower_projectile : jsl prepare_object_8C37
-    stz $34
-    lda #$01 : sta $3D ;speed up rotation
-.F074:
-    brk #$00
-
-;----- F076
-
-    jsr .F0B1
-    !AX16
-    ldx $35
-    lda.b obj.pos_x+1 : sta.w obj.pos_x+1,X
-    lda.b obj.pos_y+1 : sta.w obj.pos_y+1,X
-    !A8
-    lda $3C
-    cmp #$68
-    bcc .F074
-
-    inc $0031,X
-    !X8
-    lda #$FF : sta $3D ;slow down rotation
-.F098:
-    brk #$00
-
-;----- F09A
-
-    jsr .F0B1
-    lda $3C
-    dec
-    bne .F098
-
-    inc $34
-    stz.b obj.direction
-.F0A6:
-    ldx #$B2 : jsl _0196EF : cop #$00
-
-;----- F0AE
-
-    jmp .F037
-
-;-----
-
-.F0B1:
-    !AX8
-    jsl update_animation_normal
-    !A16
-    lda $13 : sta.b obj.pos_x+1
-    lda $27 : sta.b obj.pos_y+1
-    !A8
-    stz.b obj.pos_x
-    stz.b obj.pos_y
-    clc
-    lda $3C : adc $3D : sta $3C
-    inc.b obj.direction
-    lda.b obj.direction : and #$1F : sta.b obj.direction
-    ldx #$16
-    lda $3C : jsl _0189D9 ;3C = multiplicand
-    rts
-
-;-----
-
-.thing:
-    lda $34
-    beq .F0EA
-
-    jsr _02F13E
-    jsl update_animation_normal
-.F0EA:
-    lda.b obj.gravity
-    cmp.w current_cage
-    bne .F0FB
-
-    lda $0F : asl : tax
-    jsr (.F133,X)
-    jsr _02FD62_FD7C
-.F0FB:
-    lda $02C3
-    and #$07
-    bne .F130
-
-    jsl get_arthur_relative_side : sta.b obj.facing
-    !A16
-    lda.w stage
-    beq .F11A
-
-    clc
-    lda.w camera_y+1
-    adc #$0120
-    cmp.b obj.pos_y+1
-    bcc .F126
-
-.F11A:
-    sec
-    lda.w camera_x+1
-    sbc #$0040
-    sec
-    sbc.b obj.pos_x+1
-    bmi .F130
-
-.F126:
-    !A8
-    jsr _02F13E_F151
-    lda $07 : jmp _028B36_local
-
-.F130:
-    !A8
-    rts
-
-;-----
-
-.F133: dw _02FB9C_FBC0, .F137
-
-;-----
-
-.F137:
-    jsr _02FC0E
-    jsr _02F9FA_F9FE
-    rts
+    incsrc "objects/flower_head.asm"       ;EFD2 - F13D
 }
 
 { ;F13E -

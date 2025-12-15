@@ -333,7 +333,7 @@
 
     obj_type_count = $1A9A ;array counting active objects, per type. figure out length
 
-    bat_count = $1EBE
+    bat_count = $1EBE ;todo: also used by samael
     zombie_previous_x_spawn = $1ED8
 
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
