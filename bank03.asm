@@ -64,39 +64,8 @@ _039DDA:
     incsrc "objects/tower_edge.asm"      ;9E79 - 9F3F
     incsrc "objects/silk_gate.asm"       ;9F40 - 9F9B
     incsrc "objects/gargoyle_statue.asm" ;9F9C - A2FB
-}
-
-{ ;A2FC - A337
-_03A2FC: ;unused?
-    lda $07 : and #$03 : asl : ldy #$06 : ldx #$22 : jsl set_sprite_8480
-    lda $07
-    and #$04
-    beq .A313
-
-    inc.b obj.facing
-    bra .A315
-
-.A313:
-    stz.b obj.facing
-.A315:
-    lda $07 : and #$03 : tax
-    lda.w _00CF00,X : tay : jsl set_speed_xyg ;todo
-    lda #$7F : sta $2D
-.A326:
-    brk #$00
-
-;----- A328
-
-    jsl update_animation_normal
-    jsl update_pos_xyg_add
-    dec $2D
-    bne .A326
-
-    jml _0281A8_81B5
-}
-
-{ ;A338 - A3E6
-    incsrc "objects/geyser.asm"
+    incsrc "objects/_03A2FC.asm"         ;A2FC - A337
+    incsrc "objects/geyser.asm"          ;A338 - A3E6
 }
 
 { ;A3E7 - A42B
@@ -145,239 +114,8 @@ _03A3E7: ;unused?
     rtl
 }
 
-{ ;A42C - A5D6
-_03A42C:
-
-.create:
-    ldy #$B4 : ldx #$21 : jsl set_sprite
-    lda $09 : ora #$B0 : sta $09
-    !A16
-    lda.b obj.pos_x+1 : sta $39
-    lda.b obj.pos_y+1 : sta $3B
-    !A8
-    stz $32
-.A448:
-    brk #$00
-
-;----- A44A
-
-    lda.w !obj_arthur.hp
-    bmi .A448
-
-    lda $32
-    bne .A448
-
-    lda $07 : asl : tax
-    jsr (.A45E,X)
-    !A8
-    bra .A448
-
-.A45E: dw .A464, .A4AE, .A501
-
-;-----
-
-.A464:
-    !A16
-    lda.w !obj_arthur.pos_x+1
-    sec
-    cmp #$0280
-    bcs .A47E
-
-    cmp #$0240
-    bcs .A486
-
-    cmp #$0100
-    bcs .A494
-
-    cmp #$00C0
-    bcs .A49C
-
-.A47E:
-    sta.b obj.pos_x+1
-    lda #$03C0 : sta.b obj.pos_y+1
-    rts
-
-.A486:
-    sta.b obj.pos_x+1
-    sec
-    sbc #$0240
-    lsr
-    clc
-    adc #$03A0
-    sta.b obj.pos_y+1
-    rts
-
-.A494:
-    sta.b obj.pos_x+1
-    lda #$03A0 : sta.b obj.pos_y+1
-    rts
-
-.A49C:
-    sta.b obj.pos_x+1
-    sec
-    sbc #$00C0
-    lsr
-    sta $2D
-    lda #$03C0 : sec : sbc $2D : sta.b obj.pos_y+1
-    rts
-
-;-----
-
-.A4AE:
-    !A16
-    lda.w !obj_arthur.pos_x+1
-    sec
-    cmp #$0130
-    bcc .A4F6
-
-    cmp #$0280
-    bcs .A4E4
-
-    sec
-    cmp #$0200
-    bcs .A4D6
-
-    sta.b obj.pos_x+1
-    sec
-    sbc #$0130
-    lsr
-    sta $2D
-    lda #$02C0 : sec : sbc $2D : sta.b obj.pos_y+1
-    rts
-
-.A4D6:
-    sta.b obj.pos_x+1
-    sec
-    sbc #$0200
-    lsr
-    clc
-    adc #$0258
-    sta.b obj.pos_y+1
-    rts
-
-.A4E4:
-    sta.b obj.pos_x+1
-    sec
-    sbc #$0280
-    lsr
-    sta $2D
-    lda #$0298 : sec : sbc $2D : sta.b obj.pos_y+1
-    rts
-
-.A4F6:
-    lda #$0130 : sta.b obj.pos_x+1
-    lda #$02C0 : sta.b obj.pos_y+1
-    rts
-
-;-----
-
-.A501:
-    !A16
-    lda.w !obj_arthur.pos_x+1
-    sec
-    cmp #$0290
-    bcs .A510
-
-    sta.b obj.pos_x+1
-    bra .A515
-
-.A510:
-    lda #$0290 : sta.b obj.pos_x+1
-.A515:
-    lda #$0120 : sta.b obj.pos_y+1
-    !A8
-    rts
-
-;-----
-
-.thing:
-    jsl update_animation_normal
-    jsl arthur_overlap_check_FED8_8bit
-    bcs .A52C
-
-    ldx $0F
-    jmp (.A52D,X)
-
-.A52C:
-    rtl
-
-.A52D: dw .A535, .A573, .A5A0, .A5CC
-
-;-----
-
-.A535:
-    lda.w !obj_arthur.hp
-    bmi .A544
-
-    inc $32
-    ldy #$B6 : ldx #$21 : jsl set_sprite
-.A544:
-    lda #$FF : sta.w !obj_arthur._0F_10
-    inc $14C3
-    inc $19EB
-    stz $007E
-    lda $09 : and #$FB : sta $09
-    !A16
-    lda.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
-    lda.b obj.pos_y+1 : sec : sbc #$0008 : sta.w !obj_arthur.pos_y+1
-    !A8
-    lda #$50 : sta $31
-    lda #$02 : sta $0F
-    rtl
-
-;-----
-
-.A573:
-    inc $19EB
-    stz $007E
-    lda $31
-    cmp #$42
-    bcc .A585
-
-    !A16
-    dec.b obj.pos_y+1 : dec.b obj.pos_y+1
-.A585:
-    !A16
-    lda.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
-    lda.b obj.pos_y+1 : sec : sbc #$0008 : sta.w !obj_arthur.pos_y+1
-    !A8
-    dec $31
-    bne .A59F
-
-    lda #$04 : sta $0F
-.A59F:
-    rtl
-
-;-----
-
-.A5A0:
-    inc $19EB
-    stz $007E
-    ldy #$B4 : ldx #$21 : jsl set_sprite
-    lda.w !obj_arthur.hp
-    bmi .A5C7
-
-    lda #$FF : sta.w !obj_arthur.hp : sta.w !obj_arthur._0F_10
-    jsl _02FDCD
-    lda.w !obj_arthur.flags1 : and #$EF : sta.w !obj_arthur.flags1
-.A5C7:
-    lda #$06 : sta $0F
-    rtl
-
-;-----
-
-.A5CC:
-    inc $19EB
-    stz $007E
-    rtl
-
-;-----
-
-.destroy:
-    jml _0281A8_81B5
-}
-
 {
+    incsrc "objects/_03A42C.asm"                     ;A42C - A5D6
     incsrc "objects/arremer.asm"                     ;A5D7 - AB46
     incsrc "objects/moving_platform.asm"             ;AB47 - AD4F
     incsrc "objects/skull_flower_multi_inactive.asm" ;AD50 - AD89
@@ -397,51 +135,11 @@ _03B114: ;a8 x-
 }
 
 {
-    incsrc "objects/grilian_projectile.asm"    ;B12B - B19D
-    incsrc "objects/death_crawler_handler.asm" ;B19E - B59B
-    incsrc "objects/death_crawler_part.asm"    ;B59C - B5F8
-}
-
-{ ;B5F9 - B63B
-_03B5F9:
-
-.create:
-    lda #$C0 : sta $09
-    lda #$04 : sta $1D
-    lda #$20 : sta $2D
-    jsl set_hp
-    lda.b obj.hp : sta $3C
-    bra death_crawler_part_create_B5AB
-
-;-----
-
-.thing:
-    lda $1EC7
-    beq .B620
-
-    jsl _02F9B2
-    jsl _02F9CA
-    jsl _02F9FA
-.B620:
-    lda.b obj.hp
-    cmp $3C
-    beq .B634
-
-    sta $3C
-    ldx #$03 : jsl _028048
-    lda #!sfx_hit : jsl _018049_8053
-.B634:
-    rtl
-
-;-----
-
-.destroy:
-    inc $1ED7
-    jml _0281A8_81B5
-}
-
-{ ;B63C - B710
-    incsrc "objects/death_crawler_projectile.asm"
+    incsrc "objects/grilian_projectile.asm"       ;B12B - B19D
+    incsrc "objects/death_crawler_handler.asm"    ;B19E - B59B
+    incsrc "objects/death_crawler_part.asm"       ;B59C - B5F8
+    incsrc "objects/death_crawler.asm"            ;B5F9 - B63B
+    incsrc "objects/death_crawler_projectile.asm" ;B63C - B710
 }
 
 { ;B711 - B749
@@ -721,29 +419,11 @@ _03BE26:
 }
 
 {
-    incsrc "objects/killer.asm"                ;BF65 - C1B5
-    incsrc "objects/hannibal_projectile.asm"   ;C1B6 - C1E9
-    incsrc "objects/explosion_spawner.asm"     ;C1EA - C2C4
-    incsrc "objects/game_over_text_flames.asm" ;C2C5 - C30D
-}
-
-{ ;C30E - C329
-_03C30E: ;unused?
-    lda #$04 : sta $09
-    ldy #$C4 : ldx #$21 : jsl set_sprite
-    !A16
-    lda.b obj.pos_x+1 : sta $39
-    lda.b obj.pos_y+1 : sta $3B
-    !A8
-.C326:
-    brk #$00
-
-;----- C328
-
-    bra .C326
-}
-
-{
+    incsrc "objects/killer.asm"                      ;BF65 - C1B5
+    incsrc "objects/hannibal_projectile.asm"         ;C1B6 - C1E9
+    incsrc "objects/explosion_spawner.asm"           ;C1EA - C2C4
+    incsrc "objects/game_over_text_flames.asm"       ;C2C5 - C30D
+    incsrc "objects/_03C30E.asm"                     ;C30E - C329
     incsrc "objects/coral.asm"                       ;C32A - C34E
     incsrc "objects/waterfall_end.asm"               ;C34F - C366
     incsrc "objects/silk_platform.asm"               ;C367 - C391
@@ -769,57 +449,7 @@ _03C30E: ;unused?
     incsrc "objects/avalanche.asm"                   ;DF1F - E15F
     incsrc "objects/veil_allocen_spawner.asm"        ;E160 - E1F2
     incsrc "objects/veil_allocen.asm"                ;E1F3 - E4EF
-}
-
-{ ;E4F0 -
-_03E4F0:
-
-.create:
-    lda #$80 : sta $09
-    lda #$01 : sta $08
-    ldy #$2A : ldx #$22 : jsl set_sprite
-.E500:
-    brk #$00
-
-;----- E502
-
-    ldy #$30 : jsl arthur_range_check
-    bcs .E500
-
-    lda #$0D : jsl _018049_8053
-    brk #$00
-
-;----- E512
-
-    inc $0F
-    ldy #$2C : ldx #$22 : jsl set_sprite
-    lda #$3F : sta $2D
-.E520:
-    brk #$00
-
-;----- E522
-
-    jsl update_animation_normal
-    dec $2D
-    bne .E520
-
-    !A16
-    lda #$0140 : sta $29
-    lda.w _00ED00+$6E : sta $27
-    !A8
-    lda #$00 : jsl _018E32_8E81
-    inc $1EC7
-    jml _0281A8_81B5
-
-;-----
-
-.thing:
-    lda $0F
-    bne .E54D
-
-    jsl _02F9C2
-.E54D:
-    rtl
+    incsrc "objects/veil_allocen_part.asm"           ;E4F0 - E54D
 }
 
 { ;E54E - E743
@@ -1378,62 +1008,8 @@ endif
 endif
 
 { ;EF86 - F1A5
-_03EF86: ;stage 3 tower tiles to put in layer 2
-    dw $0020, $0040, $0060, $0080, $00A0, $00C0, $00E0, $0100
-    dw $0120, $0140, $0160, $0180, $01A0, $01C0, $01E0, $0200
-
-.EFA6:
-    dw $0084, $0084, $0940, $0942, $0944, $0946, $0948, $094A
-    dw $494A, $4948, $4946, $4944, $4942, $4940, $0084, $0084
-
-    dw $0084, $0084, $094C, $094E, $0960, $0962, $0964, $0966
-    dw $0968, $096A, $09EC, $09EE, $0A00, $0A02, $0084, $0084
-
-    dw $0084, $0084, $0A04, $0A06, $0A08, $0A0A, $0A0C, $0A0E
-    dw $0A20, $0A22, $0A24, $0A26, $0A28, $0A2A, $0084, $0084
-
-    dw $0084, $0084, $0A2C, $0A2E, $0A40, $0A42, $0A44, $0A46
-    dw $0A48, $0A4A, $0A4C, $0A4E, $0A60, $0A62, $0084, $0084
-
-    dw $0084, $0084, $0A64, $0A66, $0A68, $0A6A, $0A6C, $0A6E
-    dw $0840, $0842, $0844, $0846, $0848, $084A, $0084, $0084
-
-    dw $0084, $0084, $084C, $084E, $0860, $0862, $0864, $0866
-    dw $0868, $086A, $086C, $086E, $09C0, $09C2, $0084, $0084
-
-    dw $0084, $0084, $09C4, $09C6, $09C8, $09CA, $09CC, $09CE
-    dw $09E0, $09E2, $09E4, $09E6, $09E8, $09EA, $0084, $0084
-
-    dw $0084, $0084, $8940, $8942, $8944, $8946, $8948, $894A
-    dw $C94A, $C948, $C946, $C944, $C942, $C940, $0084, $0084
-
-    dw $0084, $0084, $894C, $894E, $8960, $8962, $8964, $8966
-    dw $8968, $896A, $89EC, $89EE, $8A00, $8A02, $0084, $0084
-
-    dw $0084, $0084, $8A04, $8A06, $8A08, $8A0A, $8A0C, $8A0E
-    dw $8A20, $8A22, $8A24, $8A26, $8A28, $8A2A, $0084, $0084
-
-    dw $0084, $0084, $8A2C, $8A2E, $8A40, $8A42, $8A44, $8A46
-    dw $8A48, $8A4A, $8A4C, $8A4E, $8A60, $8A62, $0084, $0084
-
-    dw $0084, $0084, $8A64, $8A66, $8A68, $8A6A, $8A6C, $8A6E
-    dw $8840, $8842, $8844, $8846, $8848, $884A, $0084, $0084
-
-    dw $0084, $0084, $884C, $884E, $8860, $8862, $8864, $8866
-    dw $8868, $886A, $886C, $886E, $89C0, $89C2, $0084, $0084
-
-    dw $0084, $0084, $89C4, $89C6, $89C8, $89CA, $89CC, $89CE
-    dw $89E0, $89E2, $89E4, $89E6, $89E8, $89EA, $0084, $0084
-
-    dw $0084, $0084, $0886, $0888, $088E, $096C, $096C, $096C
-    dw $496C, $496C, $496C, $488E, $4888, $4886, $0084, $0084
-
-    dw $0084, $0084, $088A, $088C, $096E, $096C, $096C, $096C
-    dw $496C, $496C, $496C, $496E, $488C, $488A, $0084, $0084
-}
-
-{ ;F1A6 - F525
-    incsrc "various/hp_list.asm"
+    incsrc "various/tower_tiles.asm" ;EF86 - F1A5
+    incsrc "various/hp_list.asm"     ;F1A6 - F525
 }
 
 { ;F526 - F773

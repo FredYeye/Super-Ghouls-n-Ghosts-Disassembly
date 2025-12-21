@@ -3200,7 +3200,7 @@ _0197D1: ;a8 x8
     txa
     ldy #$0040
     ldx #$001E
-    jsl _01C045_C055
+    jsl _01C045_far
     !AX8
     lda #$0C : sta $1A77
 .981F:
@@ -7551,14 +7551,14 @@ _01BD1D: ;a- x-
     phy
     phx
     tyx
-    lda _03EF86,X
+    lda.l tower_tiles,X
     plx
     tay
     lda #$0010 : sta $0006
 .BD66:
     phx
     tyx
-    lda _03EF86,X
+    lda.l tower_tiles,X
     plx
     sta $7FE000,X
     lda #$0084 : sta $7FE020,X
@@ -7583,14 +7583,14 @@ _01BD1D: ;a- x-
     ldy $0008
     phx
     tyx
-    lda _03EF86+$1C,X
+    lda.l tower_tiles+$1C,X
     plx
     tay
     lda #$0010 : sta $000A
 .BDA1:
     phx
     tyx
-    lda _03EF86,X
+    lda.l tower_tiles,X
     plx
     sta $7FDE00,X
     inx #2
@@ -7872,19 +7872,19 @@ _01BF78: ;a- x8
     rts
 }
 
-{ ;C00B - C027
+{ ;C00B - C044
 _01C00B: ;a16 x-
     !X16
-    lda #$0000 : jsr _01C028
-    lda #$000A : jsr _01C028
-    lda #$0014 : jsr _01C028
-    lda #$001E : jsr _01C028
+    lda #$0000 : jsr .C028
+    lda #$000A : jsr .C028
+    lda #$0014 : jsr .C028
+    lda #$001E : jsr .C028
     !X8
     rts
-}
 
-{ ;C028 - C044
-_01C028: ;a16 x16
+;-----
+
+.C028:
     phx
     sta $0010
     clc
@@ -7913,7 +7913,7 @@ _01C045: ;a16 x16
     ply
     jmp _01C172
 
-.C055: ;a16 x16
+.far: ;a16 x16
     jsr _01C045
     rtl
 }
