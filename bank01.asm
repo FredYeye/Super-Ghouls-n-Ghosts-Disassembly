@@ -3031,17 +3031,17 @@ _0196EF: ;a8 x8
     pha
     txy
     !AX16
-    lda ($3D),Y ;3D = offset to random_values
+    lda ($3D),Y ;3D = offset to random_values_idx
     sta $0000
     tay
     !A8
     pla
-    cmp.w random_values,Y
+    cmp.w random_values_idx,Y
     bcc +
 
     sta !WRDIVL
     stz !WRDIVH
-    lda.w random_values,Y : sta !WRDIVB
+    lda.w random_values_idx,Y : sta !WRDIVB
     nop #8
     lda !RDMPYL
 +:
@@ -3050,7 +3050,7 @@ _0196EF: ;a8 x8
     and #$00FF
     adc $0000
     tax
-    lda.w random_values+1,X
+    lda.w random_values_idx+1,X
     !AX8
     pld
     tay
@@ -5731,8 +5731,8 @@ endif
     sta.w difficulty
     asl
     tax
-    lda.w _00DFE5+0,X : sta $003D
-    lda.w _00DFE5+1,X : sta $003E
+    lda.w random_values_difficulty_offset+0,X : sta $003D
+    lda.w random_values_difficulty_offset+1,X : sta $003E
     jsl _058000
     jsl _0180B9
     jsl _018CE2
