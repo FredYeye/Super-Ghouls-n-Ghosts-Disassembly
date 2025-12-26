@@ -10092,7 +10092,7 @@ _01D090: ;a8 x8
     jsr (.D114,X)
 .D0B1:
     jsr _01D263_D2E2
-    jsr _01D263_D30F
+    jsr _01D30F
     jsr .D143
     lda $0F
     bmi .D0C3
@@ -10166,7 +10166,7 @@ _01D090: ;a8 x8
     jsr _01D263_D2D4
 +:
     jsl update_animation_normal
-    jsr _01D263_D3C4
+    jsr _01D371_D3C4
     rts
 
 ;-----
@@ -10264,7 +10264,7 @@ _01D1C4:
     beq _01D1C4
 
     pla : pla
-    brk #00
+    brk #$00
 
 ;----- D1D1
 
@@ -10331,7 +10331,7 @@ _01D1E1:
     rts
 }
 
-{ ;D263 - D564
+{ ;D263 - D30E
 _01D263: ;a8 x? ;arthur code, called from arthur idle?
     lda $14C3
     bne .D2AA
@@ -10427,17 +10427,16 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
     jsl _02FDB3
     lda.b obj.direction : eor #$01 : sta.b obj.direction
     ldx.w stage
-    sec
-    lda.b obj.hp : sbc.w _00BA5E,X : sta.b obj.hp
+    sec : lda.b obj.hp : sbc.w _00BA5E,X : sta.b obj.hp
     bpl .D30E
 
     inc $14D1
 .D30E:
     rts
+}
 
-;-----
-
-.D30F:
+{ ;D30F - D370
+_01D30F:
     lda $14D1
     bne .D370
 
@@ -10486,10 +10485,10 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
     inc $14D1
 .D370:
     rts
+}
 
-;-----
-
-.D371:
+{ ;D371 - D564
+_01D371:
     asl
     tax
     jmp (+,X) : +: dw .D3B7, .D384, .D392, .D3B8, .D3C3, .D3BC, .D3D1
@@ -10550,7 +10549,7 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
     bne .D3C3
 
     lda.w double_jump_state
-    bne .D371
+    bne _01D371
 
 .D3D1:
     lda.w weapon_cooldown
@@ -10678,7 +10677,7 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
     lda $1F25 : sta $002B,X
     lda $0000 : sta.w obj.type,X
     jsr _01DD90
-    lda $12 : sta.w obj.direction,X : sta.w obj.facing,X
+    lda.b obj.facing : sta.w obj.direction,X : sta.w obj.facing,X
     lda $0001 : sta $0007,X
 .D50A:
     rts
@@ -10843,9 +10842,9 @@ _01D565: ;a8 x?
     jsr get_magic_slot
     bmi .D62C
 
-    lda #$80 : sta $0008,X
-    lda #$0C : sta.w obj.active,X
-    lda #$14 : sta.w obj.type,X
+    lda #$80      : sta $0008,X
+    lda #$0C      : sta.w obj.active,X
+    lda #!id_seek : sta.w obj.type,X
     !X8
     lda #$FF : sta $0F
     stz $14B1
@@ -13156,7 +13155,7 @@ _01E6FD: ;a8 x8
     lda #!id_torch2_flame ;torch2
 .E745:
     ldy #$00
-    jsr _01D263_D4D8
+    jsr _01D371_D4D8
     bmi .E752
 
     jsl set_spawn_offset
@@ -13231,7 +13230,7 @@ _01E75E: ;a8 x8
     lda #!id_torch_flame
     ldy $07
     iny
-    jsr _01D263_D4D8
+    jsr _01D371_D4D8
     bmi .E7D3
 
     jsl set_spawn_offset
@@ -13345,7 +13344,7 @@ _01E836:
     lda #$2B
     ldy $07
     iny
-    jsr _01D263_D4D8
+    jsr _01D371_D4D8
     bmi .E8AB
 
     jsl set_spawn_offset
