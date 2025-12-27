@@ -1309,8 +1309,8 @@ speeds:
     dl $FFFFC0
     dl $000040 ;2A: ghost
     dl $FFFFC0 ;2D: ghost
-    dl $FFFC00
-    dl $000400
+    dl $FFFC00 ;30: axe2
+    dl $000400 ;33: axe2
     dl $000400
     dl $FFFF80
     dl $FFFE00

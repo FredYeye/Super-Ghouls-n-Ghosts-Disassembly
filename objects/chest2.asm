@@ -5,12 +5,12 @@ create:
     !AX8
     lda $09 : ora #$04 : sta $09
     !A16
-    lda $1F : sta $39
-    lda $22 : sta $3B
+    lda.b obj.pos_x+1 : sta $39
+    lda.b obj.pos_y+1 : sta $3B
     !A8
     stz $31
     lda #$70 : sta $1D
-.B687
+.B687:
     brk #$00
 
 ;----- B689

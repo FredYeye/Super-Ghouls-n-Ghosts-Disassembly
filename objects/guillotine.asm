@@ -1,3 +1,10 @@
+{
+struct guillotine extends obj
+    ._2D: skip 2 ;2D
+    ._2F: skip 2 ;2F
+endstruct
+}
+
 namespace guillotine
 
 {
@@ -13,10 +20,10 @@ create:
     lda $08 : ora #$03 : sta $08
     lda $09 : ora #$80 : sta $09
     !A16
-    lda.b obj.pos_x+1 : sta $2D
-    lda.b obj.pos_y+1 : sta $2F
-    lda #$0038 : clc : adc $2D : sta.b obj.pos_x+1
-    lda #$003C : clc : adc $2F : sta.b obj.pos_y+1
+    lda.b obj.pos_x+1 : sta.b obj.guillotine._2D
+    lda.b obj.pos_y+1 : sta.b obj.guillotine._2F
+    lda #$0038 : clc : adc.b obj.guillotine._2D : sta.b obj.pos_x+1
+    lda #$003C : clc : adc.b obj.guillotine._2F : sta.b obj.pos_y+1
     !AX8
 .D46A:
     lda.w difficulty
@@ -31,8 +38,8 @@ create:
     jsl update_animation_normal
     lda $25 : asl : tax ;25 gets updated to the animation frame ID
     !A16
-    lda.w guillotine_data_C97B,X : clc : adc $2D : sta.b obj.pos_x+1
-    lda.w guillotine_data_C99B,X : clc : adc $2F : sta.b obj.pos_y+1
+    lda.w guillotine_data_C97B,X : clc : adc.b obj.guillotine._2D : sta.b obj.pos_x+1
+    lda.w guillotine_data_C99B,X : clc : adc.b obj.guillotine._2F : sta.b obj.pos_y+1
     !A8
     txa
     cmp #$08

@@ -1,3 +1,16 @@
+{
+struct flying_killer extends obj
+    ._2D:                 skip 2 ;2D unused
+    .activation_distance: skip 2 ;2F
+    .rise_timer:          skip 1 ;31
+
+    ;used by pot system
+    ;.is_carrying_pot: skip 1 ;3A
+    ;.pot_offset:      skip 2 ;3B
+endstruct
+}
+
+
 namespace flying_killer
 
 {
@@ -5,11 +18,11 @@ create:
     jsr pot_creation_local
     lda #$80 : sta $09
     ldy #$B0 : ldx #$21 : jsl set_sprite
-    stz $30
+    stz.b obj.flying_killer.activation_distance+1
     jsl set_hp
     jsl get_arthur_relative_side : sta.b obj.direction : sta.b obj.facing
-    ldx #$28 : jsl _0196EF : sta $2F
-    ldx #$7E : jsl _0196EF : sta $31
+    ldx #$28 : jsl _0196EF : sta.b obj.flying_killer.activation_distance
+    ldx #$7E : jsl _0196EF : sta.b obj.flying_killer.rise_timer
 .D3A6:
     !A8
     brk #$00
@@ -20,7 +33,7 @@ create:
     !A16
     clc
     lda.w !obj_arthur.pos_x+1
-    adc $2F
+    adc.b obj.flying_killer.activation_distance
     cmp.b obj.pos_x+1
     bcc .D3A6
 
@@ -32,9 +45,9 @@ create:
 
     jsr _0281A8
     !A16
-    dec $22
+    dec.b obj.pos_y+1
     !A8
-    dec $31
+    dec.b obj.flying_killer.rise_timer
     bne .D3BB
 
     !AX8

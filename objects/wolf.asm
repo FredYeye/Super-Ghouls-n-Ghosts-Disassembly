@@ -1,3 +1,11 @@
+{
+struct wolf extends obj
+    ._2D:        skip 2 ;2D
+    .on_ground:  skip 1 ;2F
+    .is_jumping: skip 1 ;30
+endstruct
+}
+
 namespace wolf
 
 {

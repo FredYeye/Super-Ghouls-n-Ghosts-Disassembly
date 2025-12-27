@@ -252,37 +252,3 @@ struct base_ext extends obj
     .index:  skip 1  ;1-indexed slot id (set but not used)
 endstruct
 }
-
-{
-struct zombie extends obj
-    .unburrow_timer:       skip 2 ;2D
-    ._2F:                  skip 2 ;2F
-    .coffin_open_timer:    skip 0 ;31
-    .reburrow_timer:       skip 2 ;31
-    .on_ground:            skip 1 ;33
-    .speed_idx:            skip 1 ;34
-    ._35:                  skip 1 ;35
-    .skip_collision_check: skip 1 ;36
-    ._37:                  skip 1 ;37
-    .flight_timer:         skip 1 ;38
-    .circling_timer:       skip 1 ;39
-    .is_carrying_pot:      skip 1 ;3A
-    .pot_offset:           skip 2 ;3B
-    ._3D:                  skip 1 ;3D
-endstruct
-}
-
-{
-struct guillotine extends obj
-    ._2D: skip 2 ;2D
-    ._2F: skip 2 ;2F
-endstruct
-}
-
-{
-struct wolf extends obj
-    ._2D:        skip 2 ;2D
-    .on_ground:  skip 1 ;2F
-    .is_jumping: skip 1 ;30
-endstruct
-}
