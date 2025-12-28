@@ -16,7 +16,7 @@
     !id_triblade2                   = $0E
     !id_bracelet                    = $0F
     !id_bracelet2                   = $10
-    !id_lance_fire_trail            = $11
+    !id_lance2_fire_trail           = $11
     !id_knife2_shimmer              = $12
     !id_thunder                     = $13
     !id_seek                        = $14

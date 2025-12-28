@@ -518,12 +518,12 @@ _02821B: ;a8 x8
     jmp (.destroy_object_offsets+256,X)
 
 .create_object_offsets:
-    dw arthur_create, lance_create, lance2_create, knife_create, knife2_create, bowgun_create, bowgun2_create, scythe_create
-    dw scythe2_create, torch_create, torch2_create, axe_create, axe2_create, triblade_create, triblade2_create, bracelet_create
-    dw bracelet2_create, lance_fire_trail_create, knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create
+    dw arthur_create, thunk_lance_create, thunk_lance2_create, thunk_knife_create, thunk_knife2_create, thunk_bowgun_create, thunk_bowgun2_create, thunk_scythe_create
+    dw thunk_scythe2_create, torch_create, thunk_torch2_create, thunk_axe_create, thunk_axe2_create, thunk_triblade_create, thunk_triblade2_create, thunk_bracelet_create
+    dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create
     dw lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
     dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, _02EEEA_create, stone_pillar_create
-    dw $FFFF, flower_part_create, torch_flame_create, torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
+    dw $FFFF, flower_part_create, thunk_torch_flame_create, thunk_torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
     dw shell_pearl_create, $9139, $9174, $9191, $91DD, belial_create, belial_flame_create, thunk_princess_create
     dw hydra_fireball_create, $B3AA, rosebud_create, black_cover_create, bars_create, eagler_create, rotating_platform_create, chest_create
     dw magician_create, armor_create, weapon_create, pickup_shield_create, trap_create, magician_orb_create, small_explosion_create, stone_pillar2_create
@@ -545,8 +545,8 @@ _02821B: ;a8 x8
     dw thunk_princess_dialogue_create, thunk_samael_create, thunk_samael_platform_create, thunk_samael_laser_create, thunk_sun_create, thunk_ending_object_create
 
 .destroy_object_offsets:
-    dw arthur_destroy, weapon_destroy, weapon_destroy, weapon_destroy, knife2_destroy, weapon_destroy, weapon_destroy, scythe_destroy
-    dw scythe2_destroy, $878E, $878E, $878E, $878E, $878E, $878E, weapon_destroy_8792
+    dw arthur_destroy, weapon_destroy, weapon_destroy, weapon_destroy, thunk_knife2_destroy, weapon_destroy, weapon_destroy, thunk_scythe_destroy
+    dw thunk_scythe2_destroy, $878E, $878E, $878E, $878E, $878E, $878E, weapon_destroy_8792
     dw weapon_destroy_8792, $8780, _0280CB_remove_weapon, $8780, $8780, $8780, $8780, $8780
     dw $8780, $8780, $8780, $8780, $8780, $8780, shield_destroy, $8780
     dw $8780, $8780, $8780, $8780, $81B5, $8780, $8780, $8780
@@ -572,12 +572,12 @@ _02821B: ;a8 x8
     dw $8780, thunk_samael_destroy, thunk_samael_platform_destroy, thunk_samael_laser_destroy, $8780, $8780
 
 .thing_object_offsets: ;todo: figure out a better name. code that needs to run every frame regardless of state?
-    dw arthur_thing, $8780, $8780, $8780, $8780, $8780, bowgun2_thing, scythe_thing
-    dw $87D0, $8780, $8780, axe_thing, axe2_thing, triblade_thing, triblade2_thing, bracelet_thing
-    dw bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing
+    dw arthur_thing, $8780, $8780, $8780, $8780, $8780, thunk_bowgun2_thing, thunk_scythe_thing
+    dw $87D0, $8780, $8780, thunk_axe_thing, thunk_axe2_thing, thunk_triblade_thing, thunk_triblade2_thing, thunk_bracelet_thing
+    dw thunk_bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing
     dw lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
     dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780
-    dw _02FD62_FD7C, flower_part_thing, torch_flame_thing, torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
+    dw _02FD62_FD7C, flower_part_thing, thunk_torch_flame_thing, thunk_torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
     dw shell_pearl_thing, $8780, $8780, $8780, $8780, belial_thing, $8780, $8780
     dw $AF04, $8780, rosebud_thing, $8780, obj_void, eagler_thing, rotating_platform_thing, chest_thing
     dw magician_thing, armor_thing, weapon_thing, pickup_shield_thing, $8780, magician_orb_thing, $8780, $81B5
@@ -664,210 +664,135 @@ weapon_hit:
 }
 
 { ;87AB - 87AE
-lance:
+thunk_lance:
 
-.create:
-    jml _01E2AB
+.create: jml lance_create
 }
 
 { ;87AF - 87B2
-lance2:
+thunk_lance2:
 
-.create:
-    jml _01E2CF
+.create: jml lance_upgraded_create
 }
 
-{ ;87B3 -
-knife:
+{ ;87B3 - 87B6
+thunk_knife:
 
-.create:
-    jml _01E351
+.create: jml knife_create
 }
 
 { ;87B7 - 87BE
-knife2:
+thunk_knife2:
 
-.create:
-    jml _01E378
-
-;-----
-
-.destroy:
-    jml _01E378_destroy
+.create:  jml knife_upgraded_create
+.destroy: jml knife_upgraded_destroy
 }
 
 { ;87BF -
-bowgun:
+thunk_bowgun:
 
-.create:
-    jml _01E55A
+.create: jml bowgun_create
 }
 
 { ;87C3 -
-bowgun2:
+thunk_bowgun2:
 
-.create:
-    jml _01E590
-
-.thing:
-    jsl _01E590_thing
-    rts
+.create: jml bowgun_upgraded_create
+.thing:  jsl bowgun_upgraded_thing : rts
 }
 
 { ;87CC - 87D4
-scythe:
+thunk_scythe:
 
-.create:
-    jml _01E657_scythe_create
-
-;-----
-
-.thing:
-    jsl _01E657_thing
-    rts
+.create: jml scythe_create
+.thing:  jsl scythe_thing : rts
 }
 
 { ;87D5 - 87D8
-scythe2:
+thunk_scythe2:
 
-.create:
-    jml _01E657_scythe2_create
+.create: jml scythe_upgraded_create
 }
 
 { ;87D9 - 87DC
-torch:
+thunk_torch:
 
-.create:
-    jml _01E6FD
+.create: jml torch_create
 }
 
 { ;87DD - 87E0
-torch2:
+thunk_torch2:
 
-.create:
-    jml _01E6FD
+.create: jml torch_create
 }
 
 { ;87E1 -
-axe:
+thunk_axe:
 
-.create:
-    jml _01F2EE_create
-
-;-----
-
-.thing:
-    jsl _01F2EE_thing
-    rts
+.create: jml axe_create
+.thing:  jsl axe_thing : rts
 }
 
 { ;87EA - 87F2
-axe2:
+thunk_axe2:
 
-.create:
-    jml _01F2EE_axe2_create
-
-;-----
-
-.thing:
-    jsl _01F2EE_axe2_thing
-    rts
+.create: jml axe_upgraded_create
+.thing:  jsl axe_upgraded_thing : rts
 }
 
 { ;87F3 - 87FB
-triblade:
+thunk_triblade:
 
-.create:
-    jml _01F3FC_create
-
-;-----
-
-.thing:
-    jsl _01F3FC_thing
-    rts
+.create: jml triblade_create
+.thing:  jsl triblade_thing : rts
 }
 
 { ;87FC - 8804
-triblade2:
+thunk_triblade2:
 
-.create:
-    jml _01F3FC_triblade2_create
-
-;-----
-
-.thing:
-    jsl _01F3FC_triblade2_thing
-    rts
+.create: jml triblade_upgraded_create
+.thing:  jsl triblade_upgraded_thing : rts
 }
 
 { ;8805 - 880D
-bracelet:
+thunk_bracelet:
 
-.create:
-    jml _01EB18_create
-
-;-----
-
-.thing:
-    jsl _01EB18_thing
-    rts
+.create: jml bracelet_create
+.thing:  jsl bracelet_thing : rts
 }
 
 { ;880E - 8816
-bracelet2:
+thunk_bracelet2:
 
-.create:
-    jml _01EB18_create
-
-;-----
-
-.thing:
-    jsl _01EB18_thing
-    rts
+.create: jml bracelet_create
+.thing:  jsl bracelet_thing : rts
 }
 
 { ;8817 -
-torch_flame:
+thunk_torch_flame:
 
-.create:
-    jml _01E75E
-
-.thing:
-    jsl _01E75E_E821
-    rts
+.create: jml torch_flame_create
+.thing:  jsl torch_flame_thing : rts
 }
 
 { ;8820 - 8828
-torch2_flame:
+thunk_torch2_flame:
 
-.create:
-    jml _01E836_create
-
-;-----
-
-.thing:
-    jsl _01E75E_E821
-    rts
+.create: jml torch_flame_upgraded_create
+.thing:  jsl torch_flame_thing : rts
 }
 
 { ;8829 - 8831
-lance_fire_trail:
+thunk_lance2_fire_trail:
 
-.create:
-    jml _01E8F9
-
-;-----
-
-.thing:
-    jsl _01E8F9_E939
-    rts
+.create: jml lance2_fire_trail_create
+.thing:  jsl lance2_fire_trail_thing : rts
 }
 
 { ;8832 -
-knife2_shimmer:
+thunk_knife2_shimmer:
 
-.create:
-    jml _01E534_create
+.create: jml knife2_shimmer_create
 }
 
 { ;8836 - 883E
@@ -1348,13 +1273,13 @@ thunk_menu_control:
 }
 
 { ;8A36 - 8A39
-scythe_destroy:
-    jml _01E657_scythe_destroy
+thunk_scythe_destroy:
+    jml scythe_destroy
 }
 
 { ;BA3A - 8A3D
-scythe2_destroy:
-    jml _01E657_scythe2_destroy
+thunk_scythe2_destroy:
+    jml scythe_upgraded_destroy
 }
 
 { ;8A3E - 8A46
