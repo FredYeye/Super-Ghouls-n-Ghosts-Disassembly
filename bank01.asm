@@ -2322,7 +2322,8 @@ _01918E:
 
 { ;9226 - 92AC
 set_direction32: ;a- x-
-;todo: maybe add a .arthur label here
+
+.toward_arthur: ;todo: use this label
     !AX16
     ldx.w #!obj_arthur.base
 .custom_obj: ;a16 x16

@@ -519,7 +519,7 @@ _02821B: ;a8 x8
 
 .create_object_offsets:
     dw arthur_create, thunk_lance_create, thunk_lance2_create, thunk_knife_create, thunk_knife2_create, thunk_bowgun_create, thunk_bowgun2_create, thunk_scythe_create
-    dw thunk_scythe2_create, torch_create, thunk_torch2_create, thunk_axe_create, thunk_axe2_create, thunk_triblade_create, thunk_triblade2_create, thunk_bracelet_create
+    dw thunk_scythe2_create, thunk_torch_create, thunk_torch2_create, thunk_axe_create, thunk_axe2_create, thunk_triblade_create, thunk_triblade2_create, thunk_bracelet_create
     dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create
     dw lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
     dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, _02EEEA_create, stone_pillar_create
@@ -3843,7 +3843,7 @@ _02FDB3: ;a8 x-
 
 .FDB7: ;a8 x-
     lda #$8C : sta.w !obj_arthur.active
-    lda $0444 : ora #$80 : sta $0444 ;todo: label bitflags for arthur
+    lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
     lda $0276 : ora #$02 : sta $0276
     rts
 }
@@ -4006,8 +4006,7 @@ _02FE1E: ;a? x?
 
 { ;FEBC - FF21
 _02FEBC: ;a8 x-
-    ;todo: rename these labels
-    lda $0444
+    lda.w !obj_arthur.flags1
     bmi .FF20
 
     bit $09
@@ -4022,7 +4021,7 @@ _02FEBC: ;a8 x-
     bra .FEE4
 
 .arthur_overlap_check: ;a8 x-
-    lda $0444 ;arthur $08
+    lda.w !obj_arthur.flags1
     bmi .FF20
 
 .FED8: ;a8 x-
