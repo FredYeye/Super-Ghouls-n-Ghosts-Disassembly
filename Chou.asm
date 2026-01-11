@@ -20,7 +20,7 @@
     ;specific use: bank 6, big endian labels
     function be(label) = (label>>8)|(label<<8)
 
-    ;specific use: bank 5 & 8, offset to metasprite x/y positions | mode(0-2, 3 is an error?)
+    ;specific use: bank 5 & 8, offset to metasprite x/y positions | mode(0-2, 3 is an error)
     function meta(offset, mode) = (mode<<14)|(offset&$3FFF)
 }
 
@@ -411,6 +411,7 @@ incsrc "object_defines.asm"
     !sfx_arthur_death       = $31
     !sfx_wave_rise          = $32
     !sfx_wave_crash         = $33
+    !sfx_pause              = $36
     !sfx_hit                = $38
     !sfx_impact             = $39
     !sfx_death              = $3B

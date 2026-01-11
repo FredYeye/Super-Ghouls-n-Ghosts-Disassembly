@@ -6122,7 +6122,7 @@ _01B14B: ;a8 x8
     bit #!start
     beq .ret
 
-    lda #$36 : jsl _018049_8053 ;pause sound
+    lda #!sfx_pause : jsl _018049_8053
     lda #$F3 : jsl _018049_8053
     ldx #$90
 .B16A:

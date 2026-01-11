@@ -3,9 +3,9 @@ sprite_offsets: ;x/y sprite offsets to compose meta sprites
 
     ;todo: convert to signed decimal
 
-    ;arthur
+.arthur:
 
-    ;idle
+..idle:
     db  -8, -24
     db   0, -24
     db -12, -16
@@ -21,7 +21,7 @@ sprite_offsets: ;x/y sprite offsets to compose meta sprites
     db  -4,   8
     db   4,   8
 
-    ;walk 1
+..walk_1:
     db  -8, -24
     db   0, -24
     db -12, -16
@@ -36,7 +36,7 @@ sprite_offsets: ;x/y sprite offsets to compose meta sprites
     db  -8,   8
     db   0,   8
 
-    ;walk 2
+..walk_2:
     db -16, -24
     db  -8, -24
     db   0, -24
@@ -54,7 +54,7 @@ sprite_offsets: ;x/y sprite offsets to compose meta sprites
     db   8,   0
     db   4,   8
 
-    ;walk 3
+..walk_3:
     db  -8, -24
     db   0, -24
     db -12, -16
@@ -70,17 +70,70 @@ sprite_offsets: ;x/y sprite offsets to compose meta sprites
     db  -4,   8
     db   4,   8
 
-    ;walk 4
-    db $F8, $E8, $00, $E8, $F9, $F0, $01, $F0, $F8, $F8, $00, $F8, $08, $F8, $FC, $00, $04, $00, $F0, $08, $F8, $08, $00, $08
+..walk_4:
+    db  -8, -24
+    db   0, -24
+    db  -7, -16
+    db   1, -16
+    db  -8,  -8
+    db   0,  -8
+    db   8,  -8
+    db  -4,   0
+    db   4,   0
+    db -16,   8
+    db  -8,   8
+    db   0,   8
 
-    ;walk 5
-    db $FD, $E8, $05, $E8, $F8, $F0, $00, $F0, $08, $F0, $F0, $F8, $F8, $F8, $00, $F8, $08, $F8, $F0, $00, $F8, $00, $00, $00, $08, $00, $06, $08
+..walk_5:
+    db  -3, -24
+    db   5, -24
+    db  -8, -16
+    db   0, -16
+    db   8, -16
+    db -16,  -8
+    db  -8,  -8
+    db   0,  -8
+    db   8,  -8
+    db -16,   0
+    db  -8,   0
+    db   0,   0
+    db   8,   0
+    db   6,   8
 
-    ;walk 6
-    db $F8, $E8, $00, $E8, $F8, $F0, $00, $F0, $08, $F0, $F8, $F8, $00, $F8, $08, $F8, $F1, $00, $F9, $00, $01, $00, $F0, $08, $F8, $08, $00, $08, $08, $08
+..walk_6:
+    db  -8, -24
+    db   0, -24
+    db  -8, -16
+    db   0, -16
+    db   8, -16
+    db  -8,  -8
+    db   0,  -8
+    db   8,  -8
+    db -15,   0
+    db  -7,   0
+    db   1,   0
+    db -16,   8
+    db  -8,   8
+    db   0,   8
+    db   8,   8
 
     ;neutral jump 2
-    db $FD, $E8, $F0, $F0, $F8, $F0, $00, $F0, $08, $F0, $F0, $F8, $F8, $F8, $00, $F8, $08, $F8, $F0, $00, $F8, $00, $00, $00, $08, $00, $10, $00, $F0, $08, $08, $08
+    db  -3, -24
+    db -16, -16
+    db  -8, -16
+    db   0, -16
+    db   8, -16
+    db -16,  -8
+    db  -8,  -8
+    db   0,  -8
+    db   8,  -8
+    db -16,   0
+    db  -8,   0
+    db   0,   0
+    db   8,   0
+    db  16,   0
+    db -16,   8
+    db   8,   8
 
     ;jump 2
     db $F4, $EC, $FC, $EC, $04, $EC, $EC, $F4, $F4, $F4, $FC, $F4, $04, $F4, $F0, $FC, $F8, $FC, $00, $FC, $08, $FC, $F0, $04, $F8, $04, $00, $04, $08, $04
@@ -109,10 +162,38 @@ sprite_offsets: ;x/y sprite offsets to compose meta sprites
     db $F0, $08, $F8, $08, $00, $08, $08, $08
 
     ;neutral jump
-    db $FD, $E8, $F0, $F0, $F8, $F0, $00, $F0, $08, $F0, $F0, $F8, $F8, $F8, $00, $F8, $08, $F8, $F0, $00, $F8, $00, $00, $00, $08, $00, $F4, $08, $08, $08
+    db  -3, -24
+    db -16, -16
+    db  -8, -16
+    db   0, -16
+    db   8, -16
+    db -16,  -8
+    db  -8,  -8
+    db   0,  -8
+    db   8,  -8
+    db -16,   0
+    db  -8,   0
+    db   0,   0
+    db   8,   0
+    db -12,   8
+    db   8,   8
 
-    ;jump
-    db $F0, $EE, $F8, $EE, $00, $EE, $EE, $F6, $F6, $F6, $FE, $F6, $0E, $FA, $EE, $FE, $F6, $FE, $FE, $FE, $06, $FE, $0E, $02, $EE, $06, $F6, $06, $FE, $06
+    ;forward jump
+    db -16, -18
+    db  -8, -18
+    db   0, -18
+    db -18, -10
+    db -10, -10
+    db  -2, -10
+    db  14,  -6
+    db -18,  -2
+    db -10,  -2
+    db  -2,  -2
+    db   6,  -2
+    db  14,   2
+    db -18,   6
+    db -10,   6
+    db  -2,   6
 
     ;jump stall
     db $F8, $F0, $00, $F0, $F4, $F8, $FC, $F8, $04, $F8, $F4, $00, $FC, $00, $04, $00, $F8, $08, $00, $08

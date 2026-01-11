@@ -1463,12 +1463,12 @@ _08E400:
 	;animation timer (and sometimes index also)
 
 .E5A1: ;walk
-	db $0D : dw $801C, $0000, $0104
-	db $10 : dw $8036, $0000, $0204
-	db $0E : dw $8056, $0000, $0304
-	db $0C : dw $8072, $0000, $0404
-	db $0E : dw $808A, $0000, $0504
-	db $0F : dw $80A6, $0000, $0684
+	db $0D : dw meta(offset(sprite_offsets, sprite_offsets_arthur_walk_1), 2), $0000, $0104
+	db $10 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_walk_2), 2), $0000, $0204
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_walk_3), 2), $0000, $0304
+	db $0C : dw meta(offset(sprite_offsets, sprite_offsets_arthur_walk_4), 2), $0000, $0404
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_walk_5), 2), $0000, $0504
+	db $0F : dw meta(offset(sprite_offsets, sprite_offsets_arthur_walk_6), 2), $0000, $0684
 	dw $0000
 
 .E5CD: ;neutral jump
@@ -1480,7 +1480,7 @@ _08E400:
 	dw $0000
 
 .E5DF: ;idle
-	db $0E : dw $8000, $0000, $00FF
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_idle), 2), $0000, $00FF
 	dw $0000
 
 .E5E8: ;crouch
