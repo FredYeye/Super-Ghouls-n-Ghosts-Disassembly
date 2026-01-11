@@ -2,7 +2,7 @@ namespace point_statue
 
 {
 create:
-    inc.w point_statue_count
+    inc.w pot.point_statue_count
     ldx $07
     lda.w pot_data_graphics_offset-1,X : ldy #$00 : ldx #$20 : jsl set_sprite_8480
     lda $08 : ora #$20 : sta $08
@@ -22,7 +22,7 @@ create:
     !A8
     bcs .F3A8
 
-    dec.w point_statue_count
+    dec.w pot.point_statue_count
     jmp _0281A8_81B5
 
 .F3A8:
@@ -46,7 +46,7 @@ create:
 
 ;----- F3DD
 
-    dec.w point_statue_count
+    dec.w pot.point_statue_count
     jmp _0281A8_81B5
 
 ;-----
@@ -58,7 +58,7 @@ create:
 
 ;----- F3F5
 
-    dec.w point_statue_count
+    dec.w pot.point_statue_count
     jmp _0281A8_81B5
 
 ;-----
@@ -70,7 +70,7 @@ create:
 
 ;----- F40B
 
-    dec.w point_statue_count
+    dec.w pot.point_statue_count
     jmp _0281A8_81B5
 }
 

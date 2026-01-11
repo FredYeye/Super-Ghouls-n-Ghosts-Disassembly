@@ -306,7 +306,7 @@ _028176: ;a- x-
 
 .819F:
     !A8
-    dec.w weapon_item_count
+    dec.w pot.weapon_item_count
     pla : pla
     bra _0281A8_81B5
 
@@ -1668,56 +1668,56 @@ pot_creation: ;a8 x8
 
 .local: ;8C6E
     stz $3A
-    inc.w pot_spawn_counter ;spawned enemies that can carry pot
-    lda.w pot_spawn_counter
+    inc.w pot.enemy_counter
+    lda.w pot.enemy_counter
     cmp #$04
     bne .ret  ;return if this isn't the 4th pot enemy
 
-    stz.w pot_spawn_counter ;reset enemy counter
+    stz.w pot.enemy_counter ;reset enemy counter
     clc
-    lda.w weapon_item_count
-    adc.w point_statue_count
+    lda.w pot.weapon_item_count
+    adc.w pot.point_statue_count
     cmp #$03
     bcs .ret  ;return if already at max drop limit
 
-    lda.w weapon_item_count
+    lda.w pot.weapon_item_count
     cmp #$01
     beq .weapon_exists
 
-    lda.w point_statue_count
+    lda.w pot.point_statue_count
     cmp #$02
     beq .point_statues_exist
 
-    inc.w pot_count
-    lda.w pot_count
-    cmp.w pot_weapon_req ;required pot count to drop weapon
+    inc.w pot.counter
+    lda.w pot.counter
+    cmp.w pot.weapon_req
     bne .drop_statue
 
 .point_statues_exist:
     clc
     adc #$03
-    sta.w pot_weapon_req
+    sta.w pot.weapon_req
     lda #$FF  ;weapon
     bra .create_pot
 
 .drop_statue:
-    cmp.w pot_armor_state_req ;required pot count to drop armor statue
+    cmp.w pot.armor_statue_req
     bne .statue_or_1up
 
 .weapon_exists:
     clc
     adc #$0A
-    sta.w pot_armor_state_req
+    sta.w pot.armor_statue_req
     lda #$02  ;armor statue
     bra .create_pot
 
 .statue_or_1up:
-    cmp.w pot_extend_req ;required pot count to drop 1up
+    cmp.w pot.extend_req
     bne .statue
 
     clc
     adc #$30
-    sta.w pot_extend_req
+    sta.w pot.extend_req
     lda #$03  ;1up
     bra .create_pot
 

@@ -5818,11 +5818,11 @@ endif
     jsr _01AF04_AF08
     jsr .AE55
     jsr _01F66A
-    stz.w pot_spawn_counter
-    stz.w pot_count
-    lda #$03 : sta.w pot_weapon_req
-    lda #$0A : sta.w pot_armor_state_req
-    lda #$20 : sta.w pot_extend_req
+    stz.w pot.enemy_counter
+    stz.w pot.counter
+    lda #$03 : sta.w pot.weapon_req
+    lda #$0A : sta.w pot.armor_statue_req
+    lda #$20 : sta.w pot.extend_req
     lda #$00 : jsl _0183D4_83DB
     lda #$43 : sta $02EC
     lda #$05 : sta.w timer_minutes

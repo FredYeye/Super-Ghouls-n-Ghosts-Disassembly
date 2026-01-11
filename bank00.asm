@@ -616,8 +616,8 @@ _008700: ;a8 x-
     !A16
     lda $0318  : sta !VMADDL
     lda #$1801 : sta !DMAP0
-    lda #$9000 : sta !A1T0L
-    lda #$007F : sta !A1B0
+    lda.w #_7F9000     : sta !A1T0L
+    lda.w #_7F9000>>16 : sta !A1B0
     lda $031A  : sta !DAS0L
     !A8
     lda #$01   : sta !MDMAEN

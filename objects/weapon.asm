@@ -223,7 +223,7 @@ create:
 
 .BD11:
     jsl set_sprite
-    inc.w weapon_item_count
+    inc.w pot.weapon_item_count
     !A16
     lda.w _00ED00+$1A : sta $27
     !A8
@@ -303,7 +303,7 @@ create:
     and #$01
     tax
 .BDA6:
-    dec.w weapon_item_count
+    dec.w pot.weapon_item_count
     bne .BDB3
 
     lda.w weapon_current : and #$0E : sta.w existing_weapon_type
