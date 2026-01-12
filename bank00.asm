@@ -907,7 +907,7 @@ _0089F4: ;a8 x8
 +:
     stz !BG3HOFS
     stz !BG3HOFS
-    lda #$C0 : sta !BG3VOFS
+    lda #$C0 : sta !BG3VOFS ;only draw the bottom of layer 3 (HUD)
     stz !BG3VOFS
     rts
 }

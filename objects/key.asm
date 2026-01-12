@@ -223,7 +223,7 @@ destroy:
     lda.w loop
     beq .EDD1
 
-    lda $14D3
+    lda.w weapon_current
     and #$0E
     cmp #!weapon_bracelet
     beq .EDE4

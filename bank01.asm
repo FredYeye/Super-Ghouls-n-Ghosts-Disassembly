@@ -5586,9 +5586,9 @@ endif
     beq .AB9C
 
     jsl _049252
-    lda $02AD : pha
+    lda.w current_weapon_stored : pha
     jsr .ABB3
-    pla : sta $02AD
+    pla : sta.w current_weapon_stored
     lda #$02
 .AB9C:
     sta $0278
@@ -5739,7 +5739,7 @@ endif
     jsl _018CE2
     jsl _0180A6
     jsr _01B4DE
-    lda $02AD : sta.w weapon_current
+    lda.w current_weapon_stored : sta.w weapon_current
     and #$1E  : sta.w existing_weapon_type
     lda.w arthur_state_stored
     cmp #!arthur_state_transformed
@@ -11162,7 +11162,7 @@ _01D72B: ;a8 x8
     stz.w upgrade_state_stored
     stz.w shield_state_stored
     stz.w shield_type_stored
-    lda.w weapon_current : and #$FE : sta $02AD
+    lda.w weapon_current : and #$FE : sta.w current_weapon_stored
 .D8AF:
     brk #$00
 
@@ -11741,7 +11741,7 @@ _01DC56: ;a8 x8
     sta $0278
     stz $0279
     lda #!arthur_state_steel : sta.w arthur_state_stored
-    lda $14D3 : and #$FE : sta $02AD
+    lda.w weapon_current : and #$FE : sta.w current_weapon_stored
     stz.w shield_state_stored
     stz.w shield_type_stored
     stz.w upgrade_state_stored
@@ -11760,7 +11760,7 @@ _01DCCF: ;a8 x-
     stz.w shield_type_stored
     stz.w upgrade_state_stored
     lda.w armor_state : sta.w arthur_state_stored
-    lda.w weapon_current : sta $02AD
+    lda.w weapon_current : sta.w current_weapon_stored
     lda.w !obj_upgrade.active
     beq .DD00
 
