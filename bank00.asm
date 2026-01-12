@@ -608,11 +608,11 @@ _0086FC: ;a8 x8
 
 { ;8700 - 8734
 _008700: ;a8 x-
-    lda $0323
+    lda.w layer3_needs_update
     beq .ret
 
     lda #$80   : sta !VMAIN
-    stz $0323
+    stz.w layer3_needs_update
     !A16
     lda $0318  : sta !VMADDL
     lda #$1801 : sta !DMAP0

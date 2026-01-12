@@ -922,7 +922,7 @@ endif
     bne .EEC3
 
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     plx
     iny
     jmp .EE3B
@@ -987,7 +987,7 @@ endif
     ora $1EC3
     sta $7F9000,X
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     iny
     inx #2
     rts
@@ -1314,7 +1314,7 @@ elseif !version == 2
     lda #$02 : sta $1EBB
 endif
     lda #$04 : sta $1EBD
-    inc $0323
+    inc.w layer3_needs_update
     lda #$17 : sta $02D5 : sta $02D6
     ldx #$17
     jsl _03F526_F61C

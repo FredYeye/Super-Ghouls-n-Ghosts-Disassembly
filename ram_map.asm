@@ -57,6 +57,8 @@
 
     ; $0318 layer 3 VRAM offset?
 
+    layer3_needs_update = $0323
+
     ; $032A ;debugging? dpad moves the camera
     ; $032B ;pointer, 2 bytes
     hud_visible              = $032E

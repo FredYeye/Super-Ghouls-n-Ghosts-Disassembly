@@ -23,7 +23,7 @@ _CCE7: ;game over
     lda.w _00C919+0,Y : ldx #$0394 : jsr .CD4A
     lda.w _00C919+2,Y : ldx #$0414 : jsr .CD4A
     !AX8
-    inc $0323
+    inc.w layer3_needs_update
 .CD1B:
     brk #$00
 

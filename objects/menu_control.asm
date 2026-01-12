@@ -19,7 +19,7 @@ elseif !version == 1 || !version == 2
     lda.w _00C919+2,Y : ldx #$04D0 : jsr .BB85
 endif
     !AX8
-    inc $0323
+    inc.w layer3_needs_update
 .B8E4:
     brk #$00
 
@@ -483,7 +483,7 @@ endif
     bne .BBCA
 
     !AX8
-    inc $0323
+    inc.w layer3_needs_update
     rtl
 
 ;-----

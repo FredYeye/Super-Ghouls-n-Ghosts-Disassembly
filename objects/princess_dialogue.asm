@@ -35,7 +35,7 @@ elseif !version == 1 || !version == 2
 endif
     !AX8
     jsl _018061_8064
-    inc $0323
+    inc.w layer3_needs_update
     brk #$00
 
 ;----- 9C65

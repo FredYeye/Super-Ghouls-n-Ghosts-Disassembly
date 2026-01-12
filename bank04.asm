@@ -124,7 +124,7 @@ _0484B9:
     bne .8565
 
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     plx
     iny
     jmp .84DC
@@ -139,7 +139,7 @@ _0484B9:
     ora $1EC3
     sta $7F9000,X
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     iny
     inx #2
     rts
@@ -1484,7 +1484,7 @@ _049121: ;a? x?
     and #$0F
     jsr .920C
     !X8
-    inc $0323
+    inc.w layer3_needs_update
     rts
 
 ;-----

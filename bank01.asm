@@ -556,7 +556,7 @@ _0183D4: ;a8 x16
 
 .841B:
     !AX8
-    inc $0323
+    inc.w layer3_needs_update
     plb
     rtl
 }
@@ -1983,7 +1983,7 @@ _018F80: ;a8 x8
     lda.w timer_tens     : and #$00FF : ora #$2580 : sta $7F90F8
     lda.w timer_seconds : and #$00FF : ora #$2580 : sta $7F90FA
     !A8
-    inc $0323
+    inc.w layer3_needs_update
 .8FCD:
     lda.w hud_update_lives
     beq .8FE9
@@ -1995,7 +1995,7 @@ _018F80: ;a8 x8
     ora #$2580
     sta $7F9106
     !A8
-    inc $0323
+    inc.w layer3_needs_update
 .8FE9:
     rtl
 
@@ -2027,7 +2027,7 @@ _018F80: ;a8 x8
     bpl .9009
 
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     rts
 }
 
@@ -9116,7 +9116,7 @@ _01C8A7: ;a x
     stz $14E3
     stz $14F0
     lda.w weapon_current : jsr .CBDA
-    inc $0323
+    inc.w layer3_needs_update
 .C93E:
     rts
 
@@ -9234,7 +9234,7 @@ _01C8A7: ;a x
     ora #$8000
     sta $7F90E2,X
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     inc $14B4
     rts
 
@@ -9282,7 +9282,7 @@ _01C8A7: ;a x
     inc
     sta $7F90E0
     !A8
-    inc $0323
+    inc.w layer3_needs_update
     rts
 
 ;-----
@@ -9332,7 +9332,7 @@ _01C8A7: ;a x
                            ora #$8000 : sta $7F90E2,X
     !A8
 .CB2E:
-    inc $0323
+    inc.w layer3_needs_update
     dec $14B4
     bpl .CB55
 
@@ -9375,7 +9375,7 @@ _01C8A7: ;a x
     lda #$A1AE : sta $7F90DC : sta $7F90E2
     lda #$2DC7 : jsr .CA86
     lda.w weapon_current : jsr .CBDA
-    inc $0323
+    inc.w layer3_needs_update
     stz.w !obj_upgrade2.active
     stz.w !obj_upgrade2.flags1
     stz $14B5
