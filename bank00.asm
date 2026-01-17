@@ -268,10 +268,7 @@ _0083C2:
     phb
     lda #$09 : pha : plb
     phd
-    !A16
-    lda.w #!obj_objects.base
-    tcd
-    !A8
+    !A16 : lda.w #!obj_objects.base : tcd : !A8
     lda #$1F : sta $0036
     stz $0037
 .83DE:

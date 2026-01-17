@@ -389,8 +389,7 @@ _02821B: ;a8 x8
     phd
     lda #$35 : sta $02C5 ;obj count
     stz $02C6
-    lda #$04 : xba : lda #$3C
-    tcd
+    lda #$04 : xba : lda #$3C : tcd ;todo: use label
 
 .822A:
     lda $1F96
@@ -464,12 +463,8 @@ _02821B: ;a8 x8
     jsr (.thing_object_offsets,X)
 .828E:
     !A16
-    clc
-    tdc
-    adc.w #!obj_size
-    tcd
-    clc
-    lda.w !obj_arthur.pos_y+1 : adc $14D8 : sta $14DA
+    clc : tdc : adc.w #!obj_size : tcd
+    clc : lda.w !obj_arthur.pos_y+1 : adc $14D8 : sta $14DA
     !A8
     inc $02C6
     dec $02C5

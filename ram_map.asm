@@ -125,6 +125,8 @@
 
     ; $1EE8 ;distance from left screen edge arthur needs to reach to scroll the screen, 2 bytes
 
+    ; $1F2F bool
+
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
 
     struct pot $1FA5;$1FAC
@@ -138,6 +140,8 @@
         .point_statue_count: skip 1
     endstruct
 
+    ;$1FAD used by cockatrice_head2
+    ;$1FAF used by icicle spawner / other stage 5 things
     ;$1FD8 unused?
 
     struct options $1FD9;$1FDD
@@ -147,6 +151,9 @@
         .sound:            skip 1
         .stage_checkpoint: skip 1
     endstruct
+
+    ;$1FDE;$1FE8 options related
+    ;$1FEF
 
     ;7E2000                 ;meta sprite offsets
     ;7E2300                 ;meta sprite definitions

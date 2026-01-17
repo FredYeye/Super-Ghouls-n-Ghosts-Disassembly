@@ -153,8 +153,7 @@ _0180C7: ;a8 x8
     lda #$80 : sta !VMAIN
     !AX16
 .80E5:
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     lda.w ram_to_vram_offsets,  X : sta $0000
     lda.w ram_to_vram_offsets+2,X : sta $0002
     lda.w ram_to_vram_offsets+3,X : sta !VMADDL
@@ -176,8 +175,7 @@ _01810E: ;a8 x-
     php
     lda #$00 : sta !VMAIN
     !AX16
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     ldy.w _00DF21,X
     stz $00
     !A8
@@ -342,8 +340,7 @@ _01826E: ;a8 x8
 .827A:
     lda #$80 : sta !VMAIN
     !AX16
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     lda.w _00A4D9+0,X : sta $00
     lda.w _00A4D9+2,X : sta $02
     lda.w _00A4D9+3,X : sta !VMADDL
@@ -691,12 +688,9 @@ _0184C3: ;a- x-
     lda.w _00A531+12 : sta $13ED
     lda.w _00A531+14 : sta $13EF
     ldy.w #$34 ;weapons + magic + object + upgrade slot count (i.e. everything but arthur)
-    lda.w #obj_start+obj[1]
-    tcd
-    clc
-    lda.w camera_x+1 : adc #$0080 : sta $0000
-    clc
-    lda.w camera_y+1 : adc #$0080 : sta $0002
+    lda.w #obj_start+obj[1] : tcd
+    clc : lda.w camera_x+1 : adc #$0080 : sta $0000
+    clc : lda.w camera_y+1 : adc #$0080 : sta $0002
 .852A:
     lda $00
     and #$00FF
@@ -745,10 +739,7 @@ _0184C3: ;a- x-
     lda $08 : and #$BFFF : sta $08 ;clear "in range / playfield"(?) flag?
 
 .8587:
-    clc
-    tdc
-    adc.w #!obj_size
-    tcd
+    clc : tdc : adc.w #!obj_size : tcd
     dey
     bne .852A
 
@@ -800,8 +791,7 @@ _0185BB: ;a8 x-
     lda.w current_cage
     bne .85EF
 
-    lda #$04 : xba : lda #$3C
-    tcd
+    lda #$04 : xba : lda #$3C : tcd ;todo: use label
     jsr _01868B_868E
 .85EF:
     lda $13D5
@@ -830,8 +820,7 @@ _0185BB: ;a8 x-
     lda.w current_cage
     beq .862E
 
-    lda #$04 : xba : lda #$3C
-    tcd
+    lda #$04 : xba : lda #$3C : tcd ;todo: use label
     jsr _01868B_868E
 .862E:
     lda $13DD
@@ -878,10 +867,7 @@ _0185BB: ;a8 x-
 _018673: ;a8 x16
     sta $0378
 .8676:
-    lda $11B2,Y
-    xba
-    lda $11B1,Y
-    tcd
+    lda $11B2,Y : xba : lda $11B1,Y : tcd
     phy
     jsr _01868B_868E
     ply
@@ -953,8 +939,7 @@ _01868B:
     sta $0012
     lda $12
     lsr
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     bcs .8777
 
 .8716:
@@ -2592,10 +2577,7 @@ _0193D7:
     rtl
 .93E0:
     phd
-    lda #$00
-    xba
-    lda #$00
-    tcd
+    lda #$00 : xba : lda #$00 : tcd
 .93E7:
     ldy #$07
 .93E9:
@@ -2678,10 +2660,7 @@ _019485:
     sta $0002
     stz $0003
     phd
-    lda #$00
-    xba
-    lda #$00
-    tcd
+    lda #$00 : xba : lda #$00 : tcd
     !A16
     ldy #$00
     lda ($00),Y : sta $037C,X
@@ -2701,8 +2680,7 @@ _019485:
 { ;94CF - 951D
 _0194CF: ;a8 x-
     phd
-    lda #$00 : xba : lda #$00
-    tcd
+    lda #$00 : xba : lda #$00 : tcd
     !A8
     !X16
     ldx #$0000
@@ -3026,8 +3004,7 @@ _019697: ;a8 x8
 { ;96EF - 9734
 _0196EF: ;a8 x8
     phd
-    lda #$00 : xba : lda #$00
-    tcd
+    lda #$00 : xba : lda #$00 : tcd
     jsl call_rng
     pha
     txy
@@ -3189,8 +3166,7 @@ _0197D1: ;a8 x8
     lda.w _00ABA8+2,Y : sta $7EF700,X
     ldx.w _00ABA8+4,Y
     lda.w _00ABA8+6,Y : sta $7EF700,X
-    lda #$15A2
-    tcd
+    lda #$15A2 : tcd
     ldx #$0900
     lda $007B
     and #$0003
@@ -4367,8 +4343,7 @@ _01A21D: ;a- x-
     ; $4A.w: count, rounded up to nearest mod 8 value
 
 decompress_graphics_offsets: ;a16 x16
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     ldx.w gfx_decomp_offsets+0,Y
     stz $46
     lda.w gfx_decomp_offsets+4,Y : sta $48
@@ -4453,8 +4428,7 @@ _01A33C: ;a8 x8
     ldx.w stage
     ldy.w _00AFFD,X
     !AX16
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     lda.w _00AFFD,Y   : and #$00FF : sta $10
     lda.w _00AFFD+1,Y : sta $12
 .A357:
@@ -5011,8 +4985,7 @@ _01A6AB: ;a8 x8
     lda #$08 : sta $004E,Y
     !A16
     lda $0050,Y : tcs
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     !A8
     cpx #$0C
     bne +
@@ -6165,8 +6138,7 @@ _01B19D: ;a8 x8
     lda.w !obj_arthur.pos_x+2 : sta $14BF
     lda.w !obj_arthur.pos_y+1 : sta $14C1
     lda.w !obj_arthur.pos_y+2 : sta $14C2
-    lda #$00 : xba : lda #$00
-    tcd
+    lda #$00 : xba : lda #$00 : tcd
     jsl _018593
     stz $0330
     stz $14E9
@@ -6798,10 +6770,7 @@ _01B6AE:
     phd
     ldx.w magic_current
     stx $033F
-    lda #$03
-    xba
-    lda #$19
-    tcd
+    lda #$03 : xba : lda #$19 : tcd
     txa
     jsl _018E32_8E81
     !A8
@@ -6813,11 +6782,9 @@ _01B6AE:
 { ;B6CB - B86D
 _01B6CB: ;a8 x8
     phd
-    lda #$1A : xba : lda #$80
-    tcd
+    lda #$1A : xba : lda #$80 : tcd
     jsr .B6E0
-    lda #$1A : xba : lda #$8A
-    tcd
+    lda #$1A : xba : lda #$8A : tcd
     jsr .B6E0
     pld
     rts
@@ -7719,8 +7686,7 @@ _01BEBC: ;a8 x8
     phd
     jsr _01BF78
     !A16
-    lda #$15A2
-    tcd
+    lda #$15A2 : tcd
     ldx #$03 : stx $1A77
     lda.w stage
     asl #2
@@ -7743,10 +7709,7 @@ _01BEBC: ;a8 x8
 
 .BEF8:
     !A16
-    clc
-    tdc
-    adc #$0156
-    tcd
+    clc : tdc : adc #$0156 : tcd
     !A8
     ply
     iny
@@ -7817,38 +7780,32 @@ _01BF78: ;a- x8
     ldx.w stage
     phx
     ldy.w _00B805,X
-    lda #$15A2
-    tcd
+    lda #$15A2 : tcd
     ldx.w _00B805+0,Y
     phy
     jsr .BFCE
     ply
-    lda #$16F8
-    tcd
+    lda #$16F8 : tcd
     ldx.w _00B805+1,Y
     phy
     jsr .BFCE
     ply
-    lda #$184E
-    tcd
+    lda #$184E : tcd
     ldx.w _00B805+2,Y
     jsr .BFCE
     plx
     ldy.w _00B88B,X
-    lda #$15A2
-    tcd
+    lda #$15A2 : tcd
     ldx.w _00B88B+0,Y
     phy
     jsr _01C00B
     ply
-    lda #$16F8
-    tcd
+    lda #$16F8 : tcd
     ldx.w _00B88B+1,Y
     phy
     jsr _01C00B
     ply
-    lda #$184E
-    tcd
+    lda #$184E : tcd
     ldx.w _00B88B+2,Y
     jsr _01C00B
     !AX8
@@ -7934,8 +7891,7 @@ _01C062: ;a- x8
     php
     phd
     !A16
-    lda #$15A2
-    tcd
+    lda #$15A2 : tcd
 .C06A:
     lda $4F
     beq .C074
@@ -7977,8 +7933,7 @@ _01C062: ;a- x8
     cpx $1A75
     beq .C0DD
 
-    lda $1A2F,X : xba : lda $1A30,X : xba
-    tcd
+    lda $1A2F,X : xba : lda $1A30,X : xba : tcd
     ldy $1A31,X : sty $39
     clc
     txa
@@ -8614,10 +8569,7 @@ _01C4AB: ;a8 x8
     and #$0006
     tax
     phd
-    clc
-    tdc
-    adc #$00D3
-    tcd
+    clc : tdc : adc #$00D3 : tcd
     lda.w stage
     bne .C58F
 
@@ -9028,8 +8980,7 @@ _01C87B:
     asl
     tax
     !AX16
-    lda #$15A2
-    tcd
+    lda #$15A2 : tcd
     jsr (.C893,X)
     pld
     plp
