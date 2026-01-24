@@ -1912,7 +1912,7 @@ _029139:
 }
 
 { ;96E9 - 96FD
-_0296E9:
+_0296E9: ;only used by eagler
     jsr _02FA37_FA6D
     lda $02C3
     clc

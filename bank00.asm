@@ -25,8 +25,7 @@ entry: ;emulated mode (code entry)
     clc
     xce
     !X16
-    ldx #$0275
-    txs
+    ldx #stack[7].top : txs
     !X8
     lda #$8F : sta.w INIDISP
     ldx #$0D
@@ -69,12 +68,9 @@ entry: ;emulated mode (code entry)
     ldy #$90
     ldx #$0C
 .817F:
-    lda _00A309+0,X : sta $0052,Y
-    lda _00A309+1,X : sta $0053,Y
-    sec
-    tya
-    sbc #$18
-    tay
+    lda.w stack_offsets+0,X : sta.w !handler_offset.stack_id+0,Y
+    lda.w stack_offsets+1,X : sta.w !handler_offset.stack_id+1,Y
+    sec : tya : sbc #$18 : tay
     dex #2 : bpl .817F
 
     lda #$C3 : sta.w rng_state
@@ -1106,9 +1102,9 @@ _00A300: dl $7EF400, $7F9E00, $7F9800
 }
 
 { ;A309 - A316
-_00A309:
-    ;values to be transferred to the stack register
-    dw $0125, $0155, $0185, $01B5, $01E5, $0215, $0245
+stack_offsets:
+    dw stack[0].top, stack[1].top, stack[2].top, stack[3].top
+    dw stack[4].top, stack[5].top, stack[6].top
 }
 
 { ;A317 - A34C

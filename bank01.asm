@@ -727,8 +727,7 @@ _0184C3: ;a- x-
     ldy $13E1,X
     tdc
     sta $11B1,Y
-    inc $13E1,X
-    inc $13E1,X
+    inc $13E1,X : inc $13E1,X
     txy
     ldx.w _00A541,Y
     inc $13D1,X
@@ -4957,15 +4956,12 @@ _01A6AB: ;a8 x8
     lda #$07 : sta $02B5
     ldy #$00
 .A6B5:
-    ldx $004E,Y
+    ldx.w !handler_offset.state,Y
     cpx #$04
     bcs .A6C9
 
 .A6BC:
-    clc
-    tya
-    adc #$18
-    tay
+    clc : tya : adc #$18 : tay
     dec $02B5
     bne .A6B5
 
@@ -4977,20 +4973,20 @@ _01A6AB: ;a8 x8
 
     sty $02B4
     tya
-    bne +
+    bne .A6DA
 
     inc $02C3
     jsr _01A74A_A7A4
-+:
-    lda #$08 : sta $004E,Y
+.A6DA:
+    lda #$08 : sta.w !handler_offset.state,Y
     !A16
-    lda $0050,Y : tcs
+    lda.w !handler_offset.stack_reg,Y : tcs
     lda #$0000 : tcd
     !A8
     cpx #$0C
     bne +
 
-    lda $0054,Y : sta $003F
+    lda.w !handler_offset.fn_id,Y : sta $003F
     jmp ($003F) ;$0040 = $FF from _01FF00
 
 +:
@@ -5007,11 +5003,11 @@ _01A6FE: ;a- x-
     ;"install handler" function?
     php
     !AX8
-    sta $0054,Y ;sets 3F later
-    lda #$0C : sta $004E,Y
-    txa      : sta $0055,Y
+    sta.w !handler_offset.fn_id,Y
+    lda #$0C : sta.w !handler_offset.state,Y
+    txa      : sta.w !handler_offset.init_param,Y
     !A16
-    lda $0052,Y : sta $0050,Y
+    lda.w !handler_offset.stack_id,Y : sta.w !handler_offset.stack_reg,Y
     plp
     rtl
 }
@@ -5036,16 +5032,15 @@ _01A717: ;a8 x8
     !AX8
     ldy $02B4
     sta $004F,Y
-    lda #$01 : sta $004E,Y
+    lda #$01 : sta.w !handler_offset.state,Y
     tsc
     !A16
-    sta $0050,Y
+    sta.w !handler_offset.stack_reg,Y
     !A8
     bra .A71F
 
 .A744:
-    lda #$00
-    sta $004E,Y
+    lda #$00 : sta.w !handler_offset.state,Y
     rts
 }
 
@@ -6099,14 +6094,9 @@ _01B14B: ;a8 x8
     lda #$F3 : jsl _018049_8053
     ldx #$90
 .B16A:
-    lda $004E,X
-    pha
-    lda #$02
-    sta $004E,X
-    sec
-    txa
-    sbc #$18
-    tax
+    lda.w !handler_offset.state,X : pha
+    lda #$02 : sta.w !handler_offset.state,X
+    sec : txa : sbc #$18 : tax
     bne .B16A
 
 .B17A:
@@ -6118,12 +6108,8 @@ _01B14B: ;a8 x8
     lda #$F4 : jsl _018049_8053
     ldx #$18
 .B18F:
-    pla
-    sta $004E,X
-    clc
-    txa
-    adc #$18
-    tax
+    pla : sta.w !handler_offset.state,X
+    clc : txa : adc #$18 : tax
     cpx #$A8
     bne .B18F
 
@@ -6290,24 +6276,22 @@ _01B2ED:
 _01B315: ;a- x8
     ;stage 1 handler?
     !A16
-    lda #$0096 : tcd
-    stz $0B ;$00A1, event counter? not sure what to call it
+    lda.w #!handler_offset[3].base : tcd
+    stz.b handler.memory+4 ;event counter? not sure what to call it
     ldx.w checkpoint
-    ldy.w stage1_earthquake_start_offset,X : sty $0B
+    ldy.w stage1_earthquake_start_offset,X : sty.b handler.memory+4
 .B325:
     !A8
     lda #$01 : jsl _01A717_A728
     !A16
-    lda $0B
-    asl
-    tax
+    lda.b handler.memory+4 : asl : tax
     lda.w !obj_arthur.pos_x+1
     cmp.w stage1_earthquake_x_offset,X
     bcc .B325
 
     !A8
     inc.w stage1_earthquake_active
-    lda $0B
+    lda.b handler.memory+4
     cmp #$07
     bne .B350
 
@@ -9512,7 +9496,7 @@ _01CCBD: ;a8 x8
     stx $14
     lda #$FF : sta $26 : sta $14B8
     !A16
-    lda.w _00ED00+$04 : sta $0313+$27 ;todo: what is 313?
+    lda.w _00ED00+$04 : sta $0313+$27 ;todo: what is 313? edit: mistaken assumption most likely, should be 33A & 33C?
     lda.w _00ED00+$34 : sta $0340
     lda #$0020 : sta $0313+$29
     lda #$0050 : sta $0342
@@ -11338,8 +11322,8 @@ _01D9FA: ;arthur armor up code
     ldx #$90
     ldy #$06
 .D9FE:
-    lda $004E,X : sta $1FCB,Y
-    lda #$02 : sta $004E,X
+    lda.w !handler_offset.state,X : sta $1FCB,Y
+    lda #$02 : sta.w !handler_offset.state,X
     dey
     sec
     txa
@@ -11392,7 +11376,7 @@ _01D9FA: ;arthur armor up code
     ldx #$90
     ldy #$06
 .DA77:
-    lda $1FCB,Y : sta $004E,X
+    lda $1FCB,Y : sta.w !handler_offset.state,X
     dey
     sec
     txa
