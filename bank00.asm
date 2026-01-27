@@ -77,9 +77,9 @@ entry: ;emulated mode (code entry)
     lda #$01 : sta.w rng_state+1
     lda.b #irq    : sta $0030
     lda.b #irq>>8 : sta $0031
-    stz $0000
-    lda #$80 : sta $0001
-    lda #$06 : sta $0002
+    stz $0000 ;lowest byte of spc_code_start address
+    lda.b #spc_code_start>>8  : sta $0001
+    lda.b #spc_code_start>>16 : sta $0002
     !A16
     lda $02F3
     cmp #$3901
@@ -208,14 +208,14 @@ nmi: ;a- x-
 
     ldx #$A8
 .837D:
-    lda $0036,X
+    lda.w !handler_offset[-1].state,X
     cmp #$01
     bne +
 
-    dec $0037,X
+    dec.w !handler_offset[-1].timer,X
     bne +
 
-    lda #$04 : sta $0036,X
+    lda #$04 : sta.w !handler_offset[-1].state,X
 +:
     sec : txa : sbc #$18 : tax
     bne .837D
