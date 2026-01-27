@@ -5,6 +5,7 @@
 
     struct handler 0 ;24 bytes
         .base:         skip 0
+
         .state:        skip 1 ;similar to obj active field? C:init 2:pause 1:?
         .timer:        skip 1 ;timer?
         .stack_reg:    skip 2 ;current top of the stack
@@ -12,6 +13,8 @@
         .fn_id:        skip 1 ;which FF00 function to call
         .init_param:   skip 0
         .memory:       skip 17
+
+        .len:          skip 0
     endstruct
 
     handler_start = $004E;00F5 ;7 * 24 bytes
@@ -136,7 +139,22 @@
     frozen_counter               = $14F3
     ; $14F8 related to the bowgun magic
     ; $14F9 ;some kind of "exiting top of ladder" bool/counter
+    ; $14FA-14FF unused?
 
+    struct palette_cycle 0 ;14 bytes
+        .base: skip 0
+
+        .unk: skip 5
+        .timer: skip 1
+        .unk2: skip 8
+
+        .len: skip 0
+    endstruct
+
+    palette_cycle_start = $1500;1561 ;7 * 14 bytes
+
+    ;$1562;15A1 ;4 * 16 bytes
+    ;$1562;19A3 ;3 * 0x0156 bytes
     camera_x = $15DC;15DF
     camera_y = $15E0;15E3
 
@@ -145,8 +163,8 @@
     obj_type_count = $1A9A;1B99 ;array counting active objects per type
 
     static_obj_count_per_chunk = $1B9A;1C99 ;array of pre-placed obj counts per 32 px X or Y chunk
-    ;1C9A;1D99
-    ;1D9A;1E99 obj spawn param list?
+    ;1C9A;1D99 ;obj related static array
+    ;1D9A;1E99 ;obj spawn param list?
 
     bat_count = $1EBE ;todo: also used by samael
     zombie_previous_x_spawn = $1ED8;1ED9

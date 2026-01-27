@@ -70,7 +70,7 @@ entry: ;emulated mode (code entry)
 .817F:
     lda.w stack_offsets+0,X : sta.w !handler_offset.stack_id+0,Y
     lda.w stack_offsets+1,X : sta.w !handler_offset.stack_id+1,Y
-    sec : tya : sbc #$18 : tay
+    sec : tya : sbc.b #handler.len : tay
     dex #2 : bpl .817F
 
     lda #$C3 : sta.w rng_state
@@ -217,7 +217,7 @@ nmi: ;a- x-
 
     lda #$04 : sta.w !handler_offset[-1].state,X
 +:
-    sec : txa : sbc #$18 : tax
+    sec : txa : sbc.b #handler.len : tax
     bne .837D
 
     jsr _00853D
@@ -259,7 +259,7 @@ _0083C2:
     beq _0083C2
 
     phb
-    lda #$09 : pha : plb
+    lda.b #bank09>>16 : pha : plb
     phd
     !A16 : lda.w #!obj_objects.base : tcd : !A8
     lda #$1F : sta $0036
@@ -2514,8 +2514,8 @@ _00BB22: ;bowgun
     db $01, $01, $01
 
 .BB2E:
-    dw !obj_objects.base+!obj_size*0, !obj_objects.base+!obj_size*1, !obj_objects.base+!obj_size*2
-    dw !obj_objects.base+!obj_size*0, !obj_objects.base+!obj_size*1, !obj_objects.base+!obj_size*2
+    dw !obj_objects.base+obj.ext.len*0, !obj_objects.base+obj.ext.len*1, !obj_objects.base+obj.ext.len*2
+    dw !obj_objects.base+obj.ext.len*0, !obj_objects.base+obj.ext.len*1, !obj_objects.base+obj.ext.len*2
 
 .BB3A:
     db $1C, $1E, $00

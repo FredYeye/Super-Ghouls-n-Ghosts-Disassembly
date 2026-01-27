@@ -77,7 +77,7 @@ upgraded_create:
     !A16
     clc
     lda $2F
-    adc.w #!obj_size*3
+    adc.w #obj.ext.len*3
     tax
     !A8
     cpx.w #!obj_upgrade.active

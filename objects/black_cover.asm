@@ -134,7 +134,7 @@ create:
     !A16
     clc
     tya
-    adc.w #!obj_size
+    adc.w #obj.ext.len
     tay
     !A8
     pla

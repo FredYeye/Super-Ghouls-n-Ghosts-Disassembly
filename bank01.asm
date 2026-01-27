@@ -560,19 +560,15 @@ _0183D4: ;a8 x16
 
 { ;8422 - 8450
 call_rng: ;a8 x-
+    ;16-bit MCG, state *= 259
     lda.w rng_state
     pha
     sta $0000
-    lda.w rng_state+1
-    sta $0001
-    asl $0000
-    rol $0001
+    lda.w rng_state+1 : sta $0001
+    asl $0000 : rol $0001
     clc : lda $0000         : adc.w rng_state : sta.w rng_state
           lda.w rng_state+1 : adc $0001       : sta.w rng_state+1
-    pla
-    clc
-    adc.w rng_state+1
-    sta.w rng_state+1
+    pla : clc : adc.w rng_state+1 : sta.w rng_state+1
     rtl
 }
 
@@ -738,7 +734,7 @@ _0184C3: ;a- x-
     lda $08 : and #$BFFF : sta $08 ;clear "in range / playfield"(?) flag?
 
 .8587:
-    clc : tdc : adc.w #!obj_size : tcd
+    clc : tdc : adc.w #obj.ext.len : tcd
     dey
     bne .852A
 
@@ -1591,7 +1587,7 @@ _018CE2: ;a- x-
 -:
     sta.w slot_list_weapons,X
     clc
-    adc.w #!obj_size
+    adc.w #obj.ext.len
     dex #2
     bpl -
 
@@ -1600,7 +1596,7 @@ _018CE2: ;a- x-
 -:
     sta.w slot_list_objects,X
     clc
-    adc.w #!obj_size
+    adc.w #obj.ext.len
     dex #2
     bpl -
 
@@ -1614,7 +1610,7 @@ _018CE2: ;a- x-
     !A16
     txa
     sec
-    sbc.w #!obj_size
+    sbc.w #obj.ext.len
     tax
     !A8
     bpl -
@@ -2964,7 +2960,7 @@ _019697: ;a8 x8
     !A16
     tya
     clc
-    adc.w #!obj_size
+    adc.w #obj.ext.len
     tay
     !A8
     pla
@@ -2989,7 +2985,7 @@ _019697: ;a8 x8
     !A16
     tya
     clc
-    adc.w #!obj_size
+    adc.w #obj.ext.len
     tay
     !A8
     dex
@@ -4960,7 +4956,7 @@ _01A6AB: ;a8 x8
     bcs .A6C9
 
 .A6BC:
-    clc : tya : adc #$18 : tay
+    clc : tya : adc.b #handler.len : tay
     dec.w handler_loop_count
     bne .A6B5
 
@@ -6092,11 +6088,11 @@ _01B14B: ;a8 x8
 
     lda #!sfx_pause : jsl _018049_8053
     lda #$F3 : jsl _018049_8053
-    ldx #$90
+    ldx.b #handler[6].base
 .B16A:
     lda.w !handler_offset.state,X : pha
     lda #$02 : sta.w !handler_offset.state,X
-    sec : txa : sbc #$18 : tax
+    sec : txa : sbc.b #handler.len : tax
     bne .B16A
 
 .B17A:
@@ -6106,11 +6102,11 @@ _01B14B: ;a8 x8
     beq .B17A
 
     lda #$F4 : jsl _018049_8053
-    ldx #$18
+    ldx.b #handler[1].base
 .B18F:
     pla : sta.w !handler_offset.state,X
-    clc : txa : adc #$18 : tax
-    cpx #$A8
+    clc : txa : adc.b #handler.len : tax
+    cpx.b #handler[7].base
     bne .B18F
 
 .ret:
@@ -6140,7 +6136,7 @@ _01B19D: ;a8 x8
     jsr _01B6CB
     jsr _01B86E
     jsr _01C062
-    jsr _01B5AB_B5AF
+    jsr _01B5AB_local
     jsr _01F722
     jsr _01B26D_B271
     jsr _01B46D
@@ -6593,12 +6589,12 @@ _01B526: ;a8 x8
 
 { ;B5AB - B648
 _01B5AB: ;a8 x8
-    jsr .B5AF
+    jsr .local
     rtl
 
-.B5AF:
+.local:
     phd
-    lda #$15 : xba : lda #$00 : tcd
+    lda.b #palette_cycle_start>>8 : xba : lda.b #palette_cycle_start : tcd
 .B5B6:
     lda $00
     beq .B5C1
@@ -6609,11 +6605,8 @@ _01B5AB: ;a8 x8
     jsr (.B5D2,X)
 .B5C1:
     !A16
-    tdc
-    clc
-    adc #$000E
-    tcd
-    cmp #$1562
+    tdc : clc : adc.w #palette_cycle.len : tcd
+    cmp.w #palette_cycle_start+palette_cycle[7].base
     !AX8
     bne .B5B6
 
@@ -6626,13 +6619,11 @@ _01B5AB: ;a8 x8
 ;-----
 
 .B5DA:
-    lda $01
-    asl
-    tax
+    lda $01 : asl : tax
     !AX16
-    lda.l palette_cycling+0,X : sta $06 : tax
-    lda.l palette_cycling+0,X : sta $02
-    lda.l palette_cycling+2,X : sta $0A
+    lda.l palette_cycling_data+0,X : sta $06 : tax
+    lda.l palette_cycling_data+0,X : sta $02
+    lda.l palette_cycling_data+2,X : sta $0A
     inc $0C
     rts
 
@@ -6649,12 +6640,12 @@ _01B5AB: ;a8 x8
     lda $03 : sta $0000
     stz $0001
     ldx $08
-    lda.l palette_cycling+4,X : sta $05
+    lda.l palette_cycling_data+4,X : sta.b palette_cycle.timer
     inx
     !A16
     ldy $0A
 .B61D:
-    lda.l palette_cycling+4,X
+    lda.l palette_cycling_data+4,X
     phx
     tyx
     sta $7EF400,X
@@ -6673,7 +6664,7 @@ _01B5AB: ;a8 x8
 ;-----
 
 .B63B:
-    dec $05
+    dec.b palette_cycle.timer
     bne .B648
 
     lda #$02
@@ -7311,7 +7302,7 @@ _01B9A8: ;a8 x?
     !A16
     sec
     txa
-    sbc.w #!obj_size
+    sbc.w #obj.ext.len
     tax
     bne .BAE3
 
@@ -7387,7 +7378,7 @@ _01B9A8: ;a8 x?
     !A16
     sec
     txa
-    sbc.w #!obj_size
+    sbc.w #obj.ext.len
     tax
     bne .BBC6
 
@@ -9896,10 +9887,8 @@ _01CCBD: ;a8 x8
 
 { ;CFE6 - CFF2
 _01CFE6: ;a8 x-
-    lda #$20
-    sta $1EF0
-    asl
-    sta $1EF2
+    lda #$20 : sta $1EF0
+    asl      : sta $1EF2
     inc $14F9
     rts
 }
@@ -11319,16 +11308,13 @@ set_arthur_palette: ;a- x8
 
 { ;D9FA - DA87
 _01D9FA: ;arthur armor up code
-    ldx #$90
+    ldx.b #handler[6].base
     ldy #$06
 .D9FE:
     lda.w !handler_offset.state,X : sta $1FCB,Y
     lda #$02 : sta.w !handler_offset.state,X
     dey
-    sec
-    txa
-    sbc #$18
-    tax
+    sec : txa : sbc.b #handler.len : tax
     bne .D9FE
 
     ldy #$00
@@ -11373,15 +11359,12 @@ _01D9FA: ;arthur armor up code
     jsr _01DDEF_local
     stz $1F95
     stz $0F
-    ldx #$90
+    ldx.b #handler[6].base
     ldy #$06
 .DA77:
     lda $1FCB,Y : sta.w !handler_offset.state,X
     dey
-    sec
-    txa
-    sbc #$18
-    tax
+    sec : txa : sbc.b #handler.len : tax
     bne .DA77
 
     jmp _01CCBD_CDC4
@@ -13638,10 +13621,7 @@ get_magic_slot: ;a8 x8
     beq .F4F3
 
     !A16
-    clc
-    txa
-    adc.w #!obj_size
-    tax
+    clc : txa : adc.w #obj.ext.len : tax
     !A8
     dey
     bpl .F4DE
@@ -13793,7 +13773,7 @@ _01F5A9:
     !A16
     clc
     txa
-    adc.w #!obj_size
+    adc.w #obj.ext.len
     cmp.w #obj_start+obj[50] ;end of obj_object
     tax
     !A8
@@ -14015,10 +13995,7 @@ _01F722: ;a8 x8
     lda #$02 : sta $04
 .F757:
     !A16
-    tdc
-    clc
-    adc #$0010
-    tcd
+    tdc : clc : adc #$0010 : tcd
     cmp #$15A2
     !A8
     bne .F729

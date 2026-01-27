@@ -463,7 +463,7 @@ _02821B: ;a8 x8
     jsr (.thing_object_offsets,X)
 .828E:
     !A16
-    clc : tdc : adc.w #!obj_size : tcd
+    clc : tdc : adc.w #obj.ext.len : tcd
     clc : lda.w !obj_arthur.pos_y+1 : adc $14D8 : sta $14DA
     !A8
     inc $02C6

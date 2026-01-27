@@ -676,10 +676,7 @@ _AAB3:
     bcc .AB25
 
 .AB15:
-    txa
-    clc
-    adc.w #!obj_size
-    tax
+    txa : clc : adc.w #obj.ext.len : tax
     dey
     bne .AAEA
 

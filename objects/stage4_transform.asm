@@ -137,8 +137,8 @@ create:
     !A16
     ldx #$1E
 .F7A5:
-    lda.l palette_cycling_84EC+$00,X : sta $7EF462,X
-    lda.l palette_cycling_84EC+$1E,X : sta $7EF4E2,X ;copies one value too much (non palette data)
+    lda.l palette_cycling_data_84EC+$00,X : sta $7EF462,X
+    lda.l palette_cycling_data_84EC+$1E,X : sta $7EF4E2,X ;copies one value too much (non palette data)
     dex #2
     bpl .F7A5
 

@@ -1,4 +1,4 @@
-org $098000
+org $098000 : bank09:
 
 { ;8000 -
 _098000: ;meta tiles. one meta tile = 4 words sequentially = 2x2 SW tiles. tiles are in bank A

@@ -1,21 +1,21 @@
 {
-palette_cycling: ;palette swapping to animate color
-    dw offset(palette_cycling, .8528), offset(palette_cycling, .85C7), offset(palette_cycling, .8685), offset(palette_cycling, .869E)
-    dw offset(palette_cycling, .86C0), offset(palette_cycling, .877E), offset(palette_cycling, .8824), offset(palette_cycling, .8883)
-    dw offset(palette_cycling, .88B1), offset(palette_cycling, .88DF), offset(palette_cycling, .88F2), offset(palette_cycling, .8974)
-    dw offset(palette_cycling, .89F6), offset(palette_cycling, .8A24), offset(palette_cycling, .8A46), offset(palette_cycling, .8A80)
-    dw offset(palette_cycling, .8B26), offset(palette_cycling, .8B78), offset(palette_cycling, .8BD0), offset(palette_cycling, .8C36)
-    dw offset(palette_cycling, .8C9C), offset(palette_cycling, .8D02), offset(palette_cycling, .8D68), offset(palette_cycling, .8DB2)
-    dw offset(palette_cycling, .8E2A), offset(palette_cycling, .8E85), offset(palette_cycling, .8EFD), offset(palette_cycling, .8F58)
-    dw offset(palette_cycling, .8F92), offset(palette_cycling, .8FC3), offset(palette_cycling, .8FF4), offset(palette_cycling, .9025)
-    dw offset(palette_cycling, .906F), offset(palette_cycling, .90B9), offset(palette_cycling, .9103), offset(palette_cycling, .91B5)
-    dw offset(palette_cycling, .91E6), offset(palette_cycling, .9235), offset(palette_cycling, .9263), offset(palette_cycling, .92B5)
-    dw offset(palette_cycling, .9325), offset(palette_cycling, .93D7), offset(palette_cycling, .9489), offset(palette_cycling, .950B)
-    dw offset(palette_cycling, .9539), offset(palette_cycling, .955E), offset(palette_cycling, .95A8), offset(palette_cycling, .95C1)
-    dw offset(palette_cycling, .95DA), offset(palette_cycling, .9652), offset(palette_cycling, .969C), offset(palette_cycling, .96B2)
-    dw offset(palette_cycling, .9747), offset(palette_cycling, .97BF), offset(palette_cycling, .983F), offset(palette_cycling, .98BF)
-    dw offset(palette_cycling, .98E4), offset(palette_cycling, .9942), offset(palette_cycling, .99C2), offset(palette_cycling, .9A42)
-    dw offset(palette_cycling, .9AC2), offset(palette_cycling, .9B42)
+palette_cycling_data: ;palette swapping to animate color
+    dw offset(palette_cycling_data, .8528), offset(palette_cycling_data, .85C7), offset(palette_cycling_data, .8685), offset(palette_cycling_data, .869E)
+    dw offset(palette_cycling_data, .86C0), offset(palette_cycling_data, .877E), offset(palette_cycling_data, .8824), offset(palette_cycling_data, .8883)
+    dw offset(palette_cycling_data, .88B1), offset(palette_cycling_data, .88DF), offset(palette_cycling_data, .88F2), offset(palette_cycling_data, .8974)
+    dw offset(palette_cycling_data, .89F6), offset(palette_cycling_data, .8A24), offset(palette_cycling_data, .8A46), offset(palette_cycling_data, .8A80)
+    dw offset(palette_cycling_data, .8B26), offset(palette_cycling_data, .8B78), offset(palette_cycling_data, .8BD0), offset(palette_cycling_data, .8C36)
+    dw offset(palette_cycling_data, .8C9C), offset(palette_cycling_data, .8D02), offset(palette_cycling_data, .8D68), offset(palette_cycling_data, .8DB2)
+    dw offset(palette_cycling_data, .8E2A), offset(palette_cycling_data, .8E85), offset(palette_cycling_data, .8EFD), offset(palette_cycling_data, .8F58)
+    dw offset(palette_cycling_data, .8F92), offset(palette_cycling_data, .8FC3), offset(palette_cycling_data, .8FF4), offset(palette_cycling_data, .9025)
+    dw offset(palette_cycling_data, .906F), offset(palette_cycling_data, .90B9), offset(palette_cycling_data, .9103), offset(palette_cycling_data, .91B5)
+    dw offset(palette_cycling_data, .91E6), offset(palette_cycling_data, .9235), offset(palette_cycling_data, .9263), offset(palette_cycling_data, .92B5)
+    dw offset(palette_cycling_data, .9325), offset(palette_cycling_data, .93D7), offset(palette_cycling_data, .9489), offset(palette_cycling_data, .950B)
+    dw offset(palette_cycling_data, .9539), offset(palette_cycling_data, .955E), offset(palette_cycling_data, .95A8), offset(palette_cycling_data, .95C1)
+    dw offset(palette_cycling_data, .95DA), offset(palette_cycling_data, .9652), offset(palette_cycling_data, .969C), offset(palette_cycling_data, .96B2)
+    dw offset(palette_cycling_data, .9747), offset(palette_cycling_data, .97BF), offset(palette_cycling_data, .983F), offset(palette_cycling_data, .98BF)
+    dw offset(palette_cycling_data, .98E4), offset(palette_cycling_data, .9942), offset(palette_cycling_data, .99C2), offset(palette_cycling_data, .9A42)
+    dw offset(palette_cycling_data, .9AC2), offset(palette_cycling_data, .9B42)
 
 ;-----
 
