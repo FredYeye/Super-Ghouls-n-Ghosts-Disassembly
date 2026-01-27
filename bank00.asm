@@ -217,10 +217,7 @@ nmi: ;a- x-
 
     lda #$04 : sta $0036,X
 +:
-    sec
-    txa
-    sbc #$18
-    tax
+    sec : txa : sbc #$18 : tax
     bne .837D
 
     jsr _00853D
@@ -1419,7 +1416,7 @@ extend_table: db $04, $07, $08
 }
 
 { ;A7E6 - A7F1
-_01A7E6: ;unused
+_00A7E6: ;unused
     dw $0000, $FFE0
     dw $0000, $0000
     dw $FFB8, $0000
@@ -1930,7 +1927,7 @@ _00B440:
 }
 
 { ;B4FE - B52D
-_01B4FE:
+_00B4FE:
     ;stage, checkpoint, timer
     db $00, $00 : dw $018D
     db $01, $02 : dw $02AC
@@ -2145,7 +2142,7 @@ _00B76D:
 }
 
 { ;B7A5 - B7D4
-_01B7A5:
+_00B7A5:
 
 .B7A5: db $FF, $00, $04, $FF, $08, $10, $14, $FF, $0C, $18, $1C, $FF, $FF, $FF, $FF, $FF
 
@@ -2490,18 +2487,18 @@ _00BAE6:
 }
 
 { ;BB0E - BB15
-_01BB0E:
+_00BB0E:
 
 .BB0E: db $03, $04, $04, $03
 .BB12: db $32, $31, $31, $32
 }
 
 { ;BB16 - BB19
-_01BB16: db $32, $31, $31, $32
+_00BB16: db $32, $31, $31, $32
 }
 
 { ;BB1A - BB21
-_01BB1A: dw $FFC0, $0040
+_00BB1A: dw $FFC0, $0040
 
 .BB1E: dw $0006, $FFFA
 }
@@ -2560,7 +2557,7 @@ _00BC00:
 }
 
 { ;BC08 -
-_01BC08:
+_00BC08:
 
 .BC08: dw $0000, $4000
 .BC0C: dw $FFF9, $0007
@@ -3769,7 +3766,7 @@ db $40, $80, $C0 ;unused?
 }
 
 { ;CDD7 - CE80
-_01CDD7:
+_00CDD7:
 
 .CDD7: dw offset(.CDE1, .CDE1), offset(.CDE1, .CE01), offset(.CDE1, .CE21), offset(.CDE1, .CE41), offset(.CDE1, .CE61)
 

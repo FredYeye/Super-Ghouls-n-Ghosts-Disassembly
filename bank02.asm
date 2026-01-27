@@ -173,7 +173,7 @@ _0280CB:
 { ;80E9 - 810C
 _0280E9: ;a8 x8
     ldx.b obj.type
-    dec.w obj_type_count,X ;decrease type count
+    dec.w obj_type_count,X
 .80EE: ;a8 x-
     stz.b obj.active
     stz $2C

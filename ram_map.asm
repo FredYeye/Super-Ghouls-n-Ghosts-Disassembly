@@ -47,21 +47,25 @@
     timer_ticks       = $02AA
     ;02AB unused
 
-    current_weapon_stored = $02AD
-    arthur_state_stored   = $02AE
-    upgrade_state_stored  = $02AF ;arthur face or plume
-    shield_state_stored   = $02B0 ;stores shield status for stage transitions and transformations
-    shield_type_stored    = $02B1
-    existing_weapon_type  = $02B3
+    current_weapon_stored  = $02AD
+    arthur_state_stored    = $02AE
+    upgrade_state_stored   = $02AF ;arthur face or plume
+    shield_state_stored    = $02B0 ;stores shield status for stage transitions and transformations
+    shield_type_stored     = $02B1
+    existing_weapon_type   = $02B3
 
-    p1_button_hold  = $02B7;02B8
-    p2_button_hold  = $02B9;02BA
-    p1_button_press = $02BB;02BC
-    p2_button_press = $02BD;02BE
-    shot_hold       = $02BF
-    jump_hold       = $02C0
-    shot_press      = $02C1
-    jump_press      = $02C2
+    current_handler_offset = $02B4 
+    handler_loop_count     = $02B5
+    ;02B6 handler/nmi related bool?
+
+    p1_button_hold         = $02B7;02B8
+    p2_button_hold         = $02B9;02BA
+    p1_button_press        = $02BB;02BC
+    p2_button_press        = $02BD;02BE
+    shot_hold              = $02BF
+    jump_hold              = $02C0
+    shot_press             = $02C1
+    jump_press             = $02C2
 
     ;02C3 inc every... "work frame" done? ie, no inc on lag frames
     ;02C4 inc on every video frame? regardless of lag frames
@@ -98,8 +102,8 @@
     ;$13E1;13F0
     slot_list_objects = $13F1;142E ;list of 16 bit indices for slot_objects
     slot_list_weapons = $142F;1442
-    open_object_slots = $1443
-    open_weapon_slots = $1445
+    open_object_slots = $1443;1444
+    open_weapon_slots = $1445;1446
     open_magic_slots  = $1447
     ;$1448 2 bytes
 
@@ -111,7 +115,7 @@
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
     ; = $14BE
     ; = $14C3
-    current_cage                 = $14C4 ;0:outside 1:first cage 2:second cage
+    current_cage                 = $14C4;14C5 ;0:outside 1:first cage 2:second cage
     double_jump_state            = $14C6
     skip_double_jump_boost       = $14C7
     knife_rapid_timer            = $14C8
@@ -133,17 +137,21 @@
     ; $14F8 related to the bowgun magic
     ; $14F9 ;some kind of "exiting top of ladder" bool/counter
 
-    camera_x = $15DC;15DE
-    camera_y = $15E0;15E2
+    camera_x = $15DC;15DF
+    camera_y = $15E0;15E3
 
-    screen_boundary_left = $1A7D
+    screen_boundary_left = $1A7D;1A7E
 
-    obj_type_count = $1A9A ;array counting active objects, per type. figure out length
+    obj_type_count = $1A9A;1B99 ;array counting active objects per type
+
+    static_obj_count_per_chunk = $1B9A;1C99 ;array of pre-placed obj counts per 32 px X or Y chunk
+    ;1C9A;1D99
+    ;1D9A;1E99 obj spawn param list?
 
     bat_count = $1EBE ;todo: also used by samael
-    zombie_previous_x_spawn = $1ED8
+    zombie_previous_x_spawn = $1ED8;1ED9
 
-    ; $1EE8 ;distance from left screen edge arthur needs to reach to scroll the screen, 2 bytes
+    ; $1EE8;1EE9 ;distance from left screen edge arthur needs to reach to scroll the screen
 
     ; $1F2F bool
 
@@ -164,6 +172,7 @@
     ;$1FAF used by icicle spawner / other stage 5 things
 
     ;$1FCB;1FD1 ;stored handler state while armor is being picked up (1FCB goes unused)
+    ;$1FD2;1FD3 camera x/y direction selector for ? (1FD3 written to but not used)
 
     ;$1FD8 unused?
 
@@ -192,6 +201,8 @@
     ;7EF600;F6BF           ;unused?
     ;7EF6C0;FFFF           ;screen IDs?
 
-    ;7F seems to mostly be used as a buffer for decompression / sending data to vram
+    ;7F tentative map
+    ;7F0000;7FFF ;decompression buffer (7F00-7FFF unused?)
     _7F9000 = $7F9000      ;gfx layer related
+    ;7FA000;FFFF ;decompression? (F940-FFFF unused?)
 }

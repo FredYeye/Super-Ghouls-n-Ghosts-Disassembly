@@ -22,14 +22,14 @@ _0484B9:
     iny #2
 .84D4:
     !A8
-    lda #$04 : jsl _01A717_A728
+    lda #$04 : jsl _01A717_suspend_handler
 .84DC:
     lda.w text_base,Y
     cmp #$FF
     bne .84E8
 
     plb
-    jml _01A717
+    jml _01A717_remove_current_handler
 
 .84E8:
     cmp #$FD
@@ -63,7 +63,7 @@ _0484B9:
 
 .pause:
     iny
-    lda.w text_base,Y : jsl _01A717_A728
+    lda.w text_base,Y : jsl _01A717_suspend_handler
     iny
     bra .84DC
 
@@ -766,15 +766,15 @@ _048A6B: ;a8 x8
     !A16
     ldy $1FD2
     clc
-    lda $15DD,Y
+    lda.w camera_x+1,Y ;camera_y+1 in stage 7
     pha
-    adc #$0120
+    adc.w #256+32
     lsr #5
     sta $1E9A
-    lda $15DD,Y : sta $1E9E
+    lda.w camera_x+1,Y : sta $1E9E
     pla
     sec
-    sbc #$0020
+    sbc.w #32
     lsr #5
     sta $1E9C
     !AX8
@@ -834,7 +834,7 @@ _048AD3:
     ldx #$00
     ldy $1FD2
     sec
-    lda $15DD,Y
+    lda.w camera_x+1,Y
     sbc $1E9E
     bpl .8AFD
 
@@ -871,7 +871,7 @@ _048B2B:
     rts
 
 .8B2C: ;a8 x16
-    lda $1B9A,X
+    lda.w static_obj_count_per_chunk,X
     beq _048B2B
 
     sta $00
@@ -938,17 +938,15 @@ _048BB8: ;a8 x-
     !X16
     ldx #$0307
 -:
-    stz $1B9A,X
+    stz.w static_obj_count_per_chunk,X
     dex
     bpl -
 
     !A16
     lda #$FFFF : sta $02
     ldx.w stage
-    lda .8C2B,X : sta $1FD2
-    txa
-    asl
-    tax
+    lda .direction_select,X : sta $1FD2
+    txa : asl : tax
     ldy.w _048000,X : sty $3B
     inc $3B
     lda.w _048000,Y
@@ -968,16 +966,16 @@ _048BB8: ;a8 x-
     and #$00FF
     bne .8C00
 
-    lda.w _048000+3,Y
+    lda.w _048000+3,Y ;X pos
     bra .8C03
 
 .8C00:
-    lda.w _048000+5,Y
+    lda.w _048000+5,Y ;Y pos
 .8C03:
     lsr #5
     tax
     !A8
-    inc $1B9A,X
+    inc.w static_obj_count_per_chunk,X
     inc $03
     txa
     cmp $02
@@ -998,9 +996,9 @@ _048BB8: ;a8 x-
     !AX8
     rts
 
-.8C2B:
+.direction_select:
     db $00, $00, $00, $00, $00, $00, $00, $00
-    db $04, $00, $00, $00, $00, $00, $00, $00
+    db $04, $00, $00, $00, $00, $00, $00, $00 ;stage 7 loads a different value
     db $00, $00, $00, $00, $00, $00, $00, $00
 }
 
@@ -1043,7 +1041,7 @@ _048C43: ;a8 x8
     stz $1FB3
     jsr _049219_9228
     jsl _018021
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
 .8CE7:
     jsl _018021
     jsr _048E47
@@ -1051,7 +1049,7 @@ _048C43: ;a8 x8
     beq .8CE7
 
     jsr _049219_922E
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     jsl _048DF9
     jsr _049219_9228
 if !version == 0 || !version == 1
@@ -1067,7 +1065,7 @@ endif
     ldy #$08 : jsl _048E3F
     ldy #$0A : jsl _048E3F
     jsl _018021
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     lda #$A0 : sta $0333
 .8D30:
     jsl _018021
@@ -1075,7 +1073,7 @@ endif
     dec $0333 : bne .8D30
 
     jsr _049219_922E
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     jsl _01834C
     jsl disable_nmi
     jsl _018074
@@ -1098,7 +1096,7 @@ endif
     jsl _019539
     jsl enable_nmi
     jsr _049219_9228
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     stz.w stage
     jsl _018CE2
     ldy #$0C : jsl _048E3F
@@ -1110,17 +1108,17 @@ endif
     beq -
 
     jsr _049219_922E
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     stz $1FB3
     lda #$0F : sta $02F2
--:
+.8DE4:
     jsl _018021
     jsr _048E47
     lda $1FB3
-    beq -
+    beq .8DE4
 
     jsr _049219_921D
-    lda #$3E : jml _01A717_A728
+    lda #$3E : jml _01A717_suspend_handler
 }
 
 { ;8DF9 - 8E3E
@@ -1169,8 +1167,7 @@ _048E47: ;a8 x8
     inc $1FEF
 +:
     jsr _049219_922E
-    lda #$3E
-    jml _01A717_A728
+    lda #$3E : jml _01A717_suspend_handler
 }
 
 { ;8E68 - 8EAC
@@ -1212,7 +1209,7 @@ _048EAD: ;a8 x8
     jsl _01951E
     jsl _018049_804D
     jsl _01834C
-    lda #$0F : jsl _01A717_A728
+    lda #$0F : jsl _01A717_suspend_handler
     jsl disable_nmi
     jsl _018074
     jsl _018366
@@ -1243,7 +1240,7 @@ endif
 .8F30:
     jsr _049219
     jsl _018021
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
 .8F3D:
     !A16
     lda #$01E0 : sta $0333 ;timer until demo plays
@@ -1266,7 +1263,7 @@ endif
     jsl _049252
     jsr _049219_921D
     lda #$43 : jsl _018049_8053 ;ice sfx
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     lda #$30 : sta $02EB
     lda #$05 : sta $0279
     rtl
@@ -1276,7 +1273,7 @@ endif
     bne .8F60
 
     jsr _049219_921D
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     jsl _01834C
     jsl disable_nmi
     ldy #$BD : jsl _01A21D_decompress_graphics
@@ -1290,7 +1287,7 @@ endif
     lda #$05 : jsr _048E68_local
     jsl _018021
     jsr _049219
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
 .8FC8:
     jsl _018021
     jsl _01B5AB
@@ -1342,7 +1339,7 @@ _048FDD:
     bne .9052
 
     jsr _049219_921D
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     lda #$30 : sta $02EB
     rtl
 }
@@ -1398,7 +1395,7 @@ _049085: ;a8 x8
     pla
     sta.w stage
     jsr _049219
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     lda #$11 : jsl _018049_8053 ;game over music?
     lda #$F0
 .9109:
@@ -1409,7 +1406,7 @@ _049085: ;a8 x8
     bne .9109
 
     jsr _049219_921D
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     lda #$30
     sta $02EB
     rtl
@@ -1440,7 +1437,7 @@ _049121: ;a? x?
     lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$18 : jsl _018C55
     jsl _018021
     jsr _049219_9228
-    lda #$3E : jsl _01A717_A728
+    lda #$3E : jsl _01A717_suspend_handler
     lda.w stage : pha
     lda #$0A : sta.w stage
     jsl _048A6B
@@ -1457,7 +1454,8 @@ _049121: ;a? x?
     jsr .91D3
 .91CA:
     jsr _049219_922E
-    lda #$3E : jml _01A717_A728
+    lda #$3E : jml _01A717_suspend_handler
+
 .91D3:
     sed
     lda.w continues : sec : sbc #$01 : sta.w continues
@@ -1626,7 +1624,7 @@ _049310: ;a8 x8
     pha
     ora #$01
     sta !MOSAIC
-    lda #$03 : jsl _01A717_A728
+    lda #$03 : jsl _01A717_suspend_handler
     pla
     sec
     sbc #$10
@@ -1647,7 +1645,7 @@ _049310: ;a8 x8
     dec $00E5
     bne .93B8
 
-    lda #$3C : jsl _01A717_A728
+    lda #$3C : jsl _01A717_suspend_handler
 .93D5:
     lda #$01 : sta $02D5
     lda #$00
@@ -1655,7 +1653,7 @@ _049310: ;a8 x8
     pha
     ora #$01
     sta !MOSAIC
-    lda #$03 : jsl _01A717_A728
+    lda #$03 : jsl _01A717_suspend_handler
     pla
     clc
     adc #$10
@@ -1946,7 +1944,7 @@ _04A0F5:
     lda !STAT78
     lda !OPVCT : sta $F2FD
     lda $F31B : and #$3F : ora #$80 : sta $F31B
-    lda #$01 : jsl _01A717_A728
+    lda #$01 : jsl _01A717_suspend_handler
     bra _04A0F5
 }
 

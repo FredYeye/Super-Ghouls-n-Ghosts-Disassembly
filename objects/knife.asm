@@ -41,8 +41,8 @@ upgraded_create:
     inc $3C
     lda.b obj.direction : asl : tax
     !A16
-    lda.w _01BC08_BC08,X : sta $37
-    lda.w _01BC08_BC0C,X : sta $35
+    lda.w _00BC08_BC08,X : sta $37
+    lda.w _00BC08_BC0C,X : sta $35
     lda.b obj.pos_x+1 : sta $31
     lda #$262F : sta $39
     !A8
@@ -88,7 +88,7 @@ upgraded_create:
     lda.b obj.direction
     asl
     tax
-    clc : lda.w _01BB1A,X : adc.b obj.pos_x+1 : sta $31
+    clc : lda.w _00BB1A,X : adc.b obj.pos_x+1 : sta $31
 .E43A:
     !A8
     jsr _E449_E44C
@@ -171,7 +171,7 @@ upgraded_destroy:
     lda #$2621 : sta $39
     clc
     lda $31
-    adc.w _01BB1A_BB1E,X
+    adc.w _00BB1A_BB1E,X
     sta $31
     sec
     sbc.b obj.pos_x+1

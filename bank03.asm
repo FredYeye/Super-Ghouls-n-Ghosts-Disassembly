@@ -27,14 +27,14 @@ _039DDA:
     and #$00FF
     asl
     tay
-    lda.w _01CDD7_CDD7,Y : sta $0D
+    lda.w _00CDD7_CDD7,Y : sta $0D
     lda $09
     lsr #4
     asl
     clc
     adc $0D
     tay
-    lda.w _01CDD7_CDE1,Y
+    lda.w _00CDD7_CDE1,Y
     beq .9E56
 
     lda $7EF400,X : and #$001F :           jsr princess_dialogue__9CF2 :                                   sta $0000
@@ -52,12 +52,12 @@ _039DDA:
 
     !AX8
     inc $0331
-    lda #$03 : jsl _01A717_A728
+    lda #$03 : jsl _01A717_suspend_handler
     !AX16
     jmp .9DE9
 
 .9E75:
-    jml _01A717
+    jml _01A717_remove_current_handler
 }
 
 {
@@ -809,7 +809,7 @@ endif
     iny #2
 .EE33:
     !A8
-    lda #$08 : jsl _01A717_A728
+    lda #$08 : jsl _01A717_suspend_handler
 .EE3B:
     lda.w text_base,Y
     cmp #$FF
@@ -818,7 +818,7 @@ endif
 if !version == 1
     plb
 endif
-    jml _01A717 ;FF: exit
+    jml _01A717_remove_current_handler ;FF: exit
 
 .EE46:
     cmp #$FD
@@ -856,7 +856,7 @@ endif
 
 .pause:
     iny
-    lda.w text_base,Y : jsl _01A717_A728 ;frame count
+    lda.w text_base,Y : jsl _01A717_suspend_handler ;frame count
     iny
     bra .EE3B
 
@@ -1069,7 +1069,7 @@ _03F526:
     lda $1EC7
     beq .F5E1
 
-    lda #$60 : jsl _01A717_A728
+    lda #$60 : jsl _01A717_suspend_handler
     lda.b #_01FF00_0C : ldy #$90 : ldx #$04 : jsl _01A6FE
 .F5FB:
     lda #$01 : jsr .F745
@@ -1208,7 +1208,7 @@ _03F526:
     jsl _018021
     ply
     plx
-    lda #$01 : jsl _01A717_A728
+    lda #$01 : jsl _01A717_suspend_handler
     dec $0059
     bne .F74C
 
@@ -1321,7 +1321,7 @@ endif
     jsl _018360
     ldx #$18 : ldy #$78 : lda.b #_01FF00_08 : jsl _01A6FE
 .FA2B:
-    lda #$01 : jsl _01A717_A728
+    lda #$01 : jsl _01A717_suspend_handler
     jsl _018021
     !A16
     lda $1EC3
@@ -1394,7 +1394,7 @@ endif
     jmp .FA2B
 
 .FAB4:
-    lda #$01 : jsl _01A717_A728
+    lda #$01 : jsl _01A717_suspend_handler
     lda $00C6
     bne .FAB4
 
@@ -1417,13 +1417,13 @@ endif
     lda #$01 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
     ldx #$12 : ldy #$78 : lda.b #_01FF00_08 : jsl _01A6FE
 .FB21:
-    lda #$01 : jsl _01A717_A728
+    lda #$01 : jsl _01A717_suspend_handler
     lda $00C6
     bne .FB21
 
     lda #$01 : sta $1EB7
 .FB31:
-    lda #$3F : jsl _01A717_A728
+    lda #$3F : jsl _01A717_suspend_handler
     dec $1EB7
     bne .FB31
 
@@ -1435,12 +1435,12 @@ endif
     lda #$48 : sta $1EB7
 .FB49:
     jsl _01B5AB
-    lda #$02 : jsl _01A717_A728
+    lda #$02 : jsl _01A717_suspend_handler
     dec $1EB7
     bne .FB49
 
 .FB58:
-    lda #$01 : jsl _01A717_A728
+    lda #$01 : jsl _01A717_suspend_handler
     bra .FB58
 
 ;-----
