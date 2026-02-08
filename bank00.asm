@@ -133,11 +133,11 @@ nmi: ;a- x-
     stz.w OAMADDH
     lda #$00 : sta !DMAP0
     lda #$04 : sta !BBAD0
-    lda #$00 : sta !A1T0L
-    lda #$F1 : sta !A1T0H
-    lda #$7E : sta !A1B0
-    lda #$20 : sta !DAS0L
-    lda #$02 : sta !DAS0H
+    lda.b #sprite_attributes     : sta !A1T0L
+    lda.b #sprite_attributes>>8  : sta !A1T0H
+    lda.b #sprite_attributes>>16 : sta !A1B0
+    lda.b #$0220    : sta !DAS0L
+    lda.b #$0220>>8 : sta !DAS0H
     lda #$01 : sta !MDMAEN
     jsr _008669
     jsr _00893C
@@ -466,11 +466,11 @@ _008577: ;a8 x-
     stz.w OAMADDH
     lda #$00 : sta !DMAP0
     lda #$04 : sta !BBAD0
-    lda #$00 : sta !A1T0L
-    lda #$F1 : sta !A1T0H
-    lda #$7E : sta !A1B0
-    lda #$20 : sta !DAS0L
-    lda #$02 : sta !DAS0H
+    lda.b #sprite_attributes     : sta !A1T0L
+    lda.b #sprite_attributes>>8  : sta !A1T0H
+    lda.b #sprite_attributes>>16 : sta !A1B0
+    lda.b #$0220    : sta !DAS0L
+    lda.b #$0220>>8 : sta !DAS0H
     lda #$01 : sta !MDMAEN
     rts
 }
@@ -1214,13 +1214,14 @@ _00A4E9:
     dw $00F0, $01E0, $00F0, $01E0
 }
 
-{ ;A531 - A540
-    _00A531: dw $0000, $0060, $00C0, $0120, $0180, $01A8, $01D0, $01F8
-}
+{ ;A531 - A560
+sprite_queue:
 
-{ ;A541 - A560
-    ;offsets into $13D1 obj list counters
-_00A541:
+.offsets:
+    dw sprite_prio.queue_0, sprite_prio.queue_1, sprite_prio.queue_2, sprite_prio.queue_3
+    dw sprite_prio.queue_4, sprite_prio.queue_5, sprite_prio.queue_6, sprite_prio.queue_7
+
+.A541: ;offsets into $13D1 obj list counters
     dw $0000, $0002, $0004, $0006, $0008, $000A, $000C, $000E
     dw $0000, $0002, $0004, $0006, $0008, $000A, $000C, $000E ;unused duplicate
 }

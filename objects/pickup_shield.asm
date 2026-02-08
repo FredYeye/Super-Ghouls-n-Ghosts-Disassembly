@@ -105,7 +105,7 @@ create:
     lda #$1E : sta.w !obj_shield.type
     stz.w !obj_shield.flags1
     stz.w !obj_shield.flags2
-    stz.w !obj_shield._0F_10
+    stz.w !obj_shield._0F
     jmp _0281A8_81B5
 
 .BEC1: ;not sure this is reachable? picking up shield while transformed...?

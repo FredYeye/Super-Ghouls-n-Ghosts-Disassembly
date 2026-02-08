@@ -165,7 +165,7 @@ thing:
     inc $32
     ldy #$B6 : ldx #$21 : jsl set_sprite
 .A544:
-    lda #$FF : sta.w !obj_arthur._0F_10
+    lda #$FF : sta.w !obj_arthur._0F
     inc $14C3
     inc $19EB
     stz $007E
@@ -210,7 +210,7 @@ thing:
     lda.w !obj_arthur.hp
     bmi .A5C7
 
-    lda #$FF : sta.w !obj_arthur.hp : sta.w !obj_arthur._0F_10
+    lda #$FF : sta.w !obj_arthur.hp : sta.w !obj_arthur._0F
     jsl _02FDCD
     lda.w !obj_arthur.flags1 : and #$EF : sta.w !obj_arthur.flags1
 .A5C7:

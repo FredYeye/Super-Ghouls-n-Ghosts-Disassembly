@@ -3,7 +3,7 @@
     ;$0030;0031 irq pointer? unused?
     ;$004C;004D ?
 
-    struct handler 0 ;24 bytes
+    struct handler 0 ;24 bytes * 7
         .base:         skip 0
 
         .state:        skip 1 ;similar to obj active field? C:init 2:pause 1:?
@@ -17,8 +17,7 @@
         .len:          skip 0
     endstruct
 
-    handler_start = $004E;00F5 ;7 * 24 bytes
-    !handler_offset = handler_start+handler ;for accessing the struct with $4E as base offset
+    !handler_offset = $004E+handler ;$004E;00F5
 
     struct stack $00F6;0275 ;8 stacks * 48 bytes
         .bottom: skip 47
@@ -98,11 +97,29 @@
     hud_update_timer         = $0370
     hud_flicker_timer        = $0373
 
+    ;$0378 loop counter, sprite prio related
+
     obj_start = $043C;11B0
 
-    ;13D1 ;active object count lists? create struct here maybe 
+    struct sprite_prio 0
+        .queues: skip 0
+        .queue_0: skip 48*2
+        .queue_1: skip 48*2
+        .queue_2: skip 48*2
+        .queue_3: skip 48*2
+        .queue_4: skip 20*2
+        .queue_5: skip 20*2
+        .queue_6: skip 20*2
+        .queue_7: skip 20*2
+        .count:   skip 16
+        .offsets: skip 16
+    endstruct
 
-    ;$13E1;13F0
+    !sprite_prio_offset = $11B1+sprite_prio ;$11B1;13F0
+
+    ;$11B1;13D0 ;8 priority queues for sprite drawing
+    ;$13D1;13E0 ;active object count lists? create struct here maybe 
+    ;$13E1;13F0 ;index values into 11B1 arrays
     slot_list_objects = $13F1;142E ;list of 16 bit indices for slot_objects
     slot_list_weapons = $142F;1442
     open_object_slots = $1443;1444
@@ -154,7 +171,17 @@
     palette_cycle_start = $1500;1561 ;7 * 14 bytes
 
     ;$1562;15A1 ;4 * 16 bytes
-    ;$1562;19A3 ;3 * 0x0156 bytes
+    ;$15A2;19A3 ;3 * 0x0156 bytes
+
+;0x3A-0x3D cam x
+;0x3E-0x41 cam y
+;
+;0x44-0x46 long ptr
+;0x47-0x49 long ptr
+;0x4A-0x4C long ptr
+;
+;0xD6-0x155 word array?
+
     camera_x = $15DC;15DF
     camera_y = $15E0;15E3
 
@@ -211,9 +238,8 @@
     ;7EAE00;AE7F           ;palette for bosses?
     ;7EAE80;AFFF           ;unused?
     ;7EB000;EFFF           ;tile array, indexes into tile shape array
-    _7EF000 = $7EF000;F0FF ;tile shape array
-    ;7EF100;F2FF           ;snes sprite data
-    ;7EF300;F31F           ;also sprite related
+    _7EF000           = $7EF000;F0FF ;tile shape array
+    sprite_attributes = $7EF100;F31F ;snes sprite data
     ;7EF320;F3FF           ;unused?
     ;7EF400;F5FF?          ;palette (and/or DMA) related?
     ;7EF600;F6BF           ;unused?

@@ -211,7 +211,8 @@ struct obj 0 ;65 bytes / obj
     .flags2:     skip 1
     ._0A_0D:     skip 4
     .hp:         skip 1
-    ._0F_10:     skip 2
+    ._0F:        skip 1
+    ._10:        skip 1 ;index into array for determining if enemy is too far away from camera?
     .direction:  skip 1
     .facing:     skip 1
     ._13:        skip 2 ;physics pointer?
@@ -250,4 +251,24 @@ endstruct
     !obj_upgrade  = obj_start+obj[50]
     !obj_shield   = obj_start+obj[51]
     !obj_upgrade2 = obj_start+obj[52]
+}
+
+{
+    ;flags1
+    ;bit 0-2: priority
+    ;bit 3: show sprite?
+    ;bit 4: flicker
+    ;bit 5: shimmer
+    ;bit 6: unused?
+    ;bit 7: unused?
+
+    ;flags2
+    ;bit 0: ?
+    ;bit 1: ?
+    ;bit 2: ?
+    ;bit 3: ?
+    ;bit 4: ?
+    ;bit 5: ?
+    ;bit 6: "in range / playfield"? visible?
+    ;bit 7: ?
 }

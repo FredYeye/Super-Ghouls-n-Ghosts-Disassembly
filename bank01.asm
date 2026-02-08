@@ -667,22 +667,22 @@ _0184C3: ;a- x-
     php
     phd
     !AX16
-    stz $13D1
-    stz $13D3
-    stz $13D5
-    stz $13D7
-    stz $13D9
-    stz $13DB
-    stz $13DD
-    stz $13DF
-    lda.w _00A531+0  : sta $13E1
-    lda.w _00A531+2  : sta $13E3
-    lda.w _00A531+4  : sta $13E5
-    lda.w _00A531+6  : sta $13E7
-    lda.w _00A531+8  : sta $13E9
-    lda.w _00A531+10 : sta $13EB
-    lda.w _00A531+12 : sta $13ED
-    lda.w _00A531+14 : sta $13EF
+    stz.w !sprite_prio_offset.count+0*2
+    stz.w !sprite_prio_offset.count+1*2
+    stz.w !sprite_prio_offset.count+2*2
+    stz.w !sprite_prio_offset.count+3*2
+    stz.w !sprite_prio_offset.count+4*2
+    stz.w !sprite_prio_offset.count+5*2
+    stz.w !sprite_prio_offset.count+6*2
+    stz.w !sprite_prio_offset.count+7*2
+    lda.w sprite_queue_offsets+0  : sta.w !sprite_prio_offset.offsets+0*2
+    lda.w sprite_queue_offsets+2  : sta.w !sprite_prio_offset.offsets+1*2
+    lda.w sprite_queue_offsets+4  : sta.w !sprite_prio_offset.offsets+2*2
+    lda.w sprite_queue_offsets+6  : sta.w !sprite_prio_offset.offsets+3*2
+    lda.w sprite_queue_offsets+8  : sta.w !sprite_prio_offset.offsets+4*2
+    lda.w sprite_queue_offsets+10 : sta.w !sprite_prio_offset.offsets+5*2
+    lda.w sprite_queue_offsets+12 : sta.w !sprite_prio_offset.offsets+6*2
+    lda.w sprite_queue_offsets+14 : sta.w !sprite_prio_offset.offsets+7*2
     ldy.w #$34 ;weapons + magic + object + upgrade slot count (i.e. everything but arthur)
     lda.w #obj_start+obj[1] : tcd
     clc : lda.w camera_x+1 : adc #$0080 : sta $0000
@@ -720,13 +720,12 @@ _0184C3: ;a- x-
     and #$0007
     asl
     tax
-    ldy $13E1,X
-    tdc
-    sta $11B1,Y
-    inc $13E1,X : inc $13E1,X
+    ldy.w !sprite_prio_offset.offsets,X
+    tdc : sta.w !sprite_prio_offset.queues,Y
+    inc.w !sprite_prio_offset.offsets,X : inc.w !sprite_prio_offset.offsets,X
     txy
-    ldx.w _00A541,Y
-    inc $13D1,X
+    ldx.w sprite_queue_A541,Y
+    inc.w !sprite_prio_offset.count,X
     ply
     bra .8587
 
@@ -770,7 +769,7 @@ _0185BB: ;a8 x-
     ldx $0374
     phb
     lda #$7E : pha : plb
-    lda $13D1
+    lda.w !sprite_prio_offset.count+0*2
     beq +
 
     ldy #$0000 : jsr _018673
@@ -862,7 +861,7 @@ _0185BB: ;a8 x-
 _018673: ;a8 x16
     sta $0378
 .8676:
-    lda $11B2,Y : xba : lda $11B1,Y : tcd
+    lda.w !sprite_prio_offset.queues+1,Y : xba : lda.w !sprite_prio_offset.queues,Y : tcd
     phy
     jsr _01868B_868E
     ply
@@ -881,11 +880,11 @@ _01868B:
 
 .868E: ;a8 x16
     lda $08
-    bit #$10
+    bit #$10 ;todo: flicker bit
     beq +
 
     lda $02C3
-    and #$01
+    and #$01 ;skip drawing on odd (finished?) frames
     bne .868D
 +:
     phx
@@ -1569,51 +1568,44 @@ _018CE2: ;a- x-
 
     !X16
     ldx #$0100
--:
+.8CE7:
     stz $1A99,X
-    dex
-    bne -
+    dex : bne .8CE7
 
-    ldx #$0D74
--:
-    stz.w !obj_start,X
-    dex
-    bpl -
+    ldx.w #obj[53].base-1
+.8CF0:
+    stz.w !obj_start,X ;zero out object array
+    dex : bpl .8CF0
 
     !A16
     !X8
     ldx #$12 : stx.w open_weapon_slots
     lda.w #!obj_weapons.base
--:
+.8D02:
     sta.w slot_list_weapons,X
     clc
     adc.w #obj.ext.len
-    dex #2
-    bpl -
+    dex #2 : bpl .8D02
 
     ldx #$3C : stx.w open_object_slots
     lda.w #!obj_objects.base
--:
+.8D15:
     sta.w slot_list_objects,X
     clc
     adc.w #obj.ext.len
-    dex #2
-    bpl -
+    dex #2 : bpl .8D15
 
     !A8
     !X16
-    lda #$1F : sta $0000
+    lda.b #31 : sta $0000 ;obj_objects slot count
     ldx #$079E
--:
-    lda $0000 : sta $094F,X
+.8D2C:
+    lda $0000 : sta.w !obj_objects.ext.index,X
     dec $0000
     !A16
-    txa
-    sec
-    sbc.w #obj.ext.len
-    tax
+    txa : sec : sbc.w #obj.ext.len : tax
     !A8
-    bpl -
+    bpl .8D2C
 
     !AX8
     lda #$08 : sta.w open_magic_slots
@@ -4553,17 +4545,14 @@ _01A3ED:
     !A8
     sta $0010
     stz $0011
-    asl $0010
-    rol $0011
-    asl $0010
-    rol $0011
+    asl $0010 : rol $0011
+    asl $0010 : rol $0011
     lda $0000
     and #$F0
     lsr #3
     ora $0010
     sta $0010
-    lda $0003
-    sta $0007
+    lda $0003 : sta $0007
     lda $0001
     asl #2
     and #$0C
@@ -9181,7 +9170,7 @@ _01C8A7: ;a x
     stz $14F0
     stz.w !obj_upgrade2.active
     lda #$FF : sta $14B7
-    lda.w !obj_arthur._0F_10
+    lda.w !obj_arthur._0F
     bmi .CA73
 
     inc $14E3
@@ -11400,7 +11389,7 @@ _01DAA4:
     stx.w !obj_arthur.state+1
     sty.w !obj_arthur.state+2
     jsr _01DDE6
-    lda #$FF : sta.w !obj_arthur._0F_10
+    lda #$FF : sta.w !obj_arthur._0F
 .DAB7:
     rtl
 }
@@ -11780,7 +11769,7 @@ _01DD90: ;a8 x16
     ;unused
     lda.b #_01DA99    : sta.w !obj_arthur.state+1
     lda.b #_01DA99>>8 : sta.w !obj_arthur.state+2
-    stz.w !obj_arthur._0F_10
+    stz.w !obj_arthur._0F
     rtl
 }
 
@@ -11788,7 +11777,7 @@ _01DD90: ;a8 x16
 _01DDAE: ;a9 x-
     lda.b #_01DB67    : sta.w !obj_arthur.state+1
     lda.b #_01DB67>>8 : sta.w !obj_arthur.state+2
-    stz.w !obj_arthur._0F_10
+    stz.w !obj_arthur._0F
     !AX16
     ldx #$01C7
 .DDC0:

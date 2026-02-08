@@ -25,7 +25,7 @@ create:
     sta.b obj.pos_y+1
     lda #$00 : adc.w camera_y+2 : sta.b obj.pos_y+2
     ldy #$EE : ldx #$21 : jsl set_sprite
-    sta $09
+    sta $09 ;todo: what gets stored here?
     lda #$80 : sta $09
     jsl set_direction32 : sta.b obj.direction
     jsl set_hp
