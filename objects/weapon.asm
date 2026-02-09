@@ -68,7 +68,7 @@ create:
 
 .BC25:
     sta $0000
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     ora $0000
     tax

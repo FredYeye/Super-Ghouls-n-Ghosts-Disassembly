@@ -388,7 +388,7 @@ _B4A2:
     lda $1EC9
     beq .B4B6
 
-    lda $02C3 : and #$04 : lsr #2 : clc : adc #$11 : ora #$80 : sta $031E
+    lda.w frame_counter : and #$04 : lsr #2 : clc : adc #$11 : ora #$80 : sta $031E
 .B4B6:
     rts
 

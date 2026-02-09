@@ -372,7 +372,7 @@ destroy:
 ;----- EB63
 
     ldx #$12
-    lda $02C3
+    lda.w frame_counter
     and #$01
     bne .EB6E
 
@@ -468,7 +468,7 @@ thing:
     ora $35
     bne .EC0E
 
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     bne .EC0E
 

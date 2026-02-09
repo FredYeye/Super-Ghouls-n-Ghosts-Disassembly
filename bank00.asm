@@ -99,8 +99,8 @@ entry: ;emulated mode (code entry)
     lda #$01 : sta $02F1
     jsl enable_nmi
     cli
-    lda.b #_01FF00>>8 : sta $40
-    ldy #$00 : lda.b #_01FF00_00 : jsl _01A6FE
+    lda.b #_01FF00>>8 : sta.b handler_function_pointer+1
+    ldy.b #handler[0].base : lda.b #_01FF00_00 : jsl _01A6FE
     jsl _03E7FE
     jml _01A6AB
 }
@@ -119,7 +119,7 @@ nmi: ;a- x-
     !AX8
     pha
     plb
-    inc $02C4
+    inc.w video_frame_counter
     stz !HDMAEN
     jsl disable_nmi
     jsr _0089F4
@@ -206,6 +206,7 @@ nmi: ;a- x-
     lda #$98 : sta !HTIMEL : stz !HTIMEH
     lda #$26 : sta !VTIMEL : stz !VTIMEH
 
+    ;tick handler timers
     ldx #$A8
 .837D:
     lda.w !handler_offset[-1].state,X

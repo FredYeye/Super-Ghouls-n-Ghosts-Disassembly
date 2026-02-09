@@ -481,7 +481,7 @@ create:
 ;----- A998
 
     ldx #$42 : jsl update_pos_xy_2
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     beq .A9AC
 

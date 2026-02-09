@@ -109,7 +109,7 @@ create: ;a8 x8
     jsl set_sprite
     inc $2E
 .C039:
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     bne +
 

@@ -1,6 +1,6 @@
-{ ;ram map
-
+{
     ;$0030;0031 irq pointer? unused?
+    handler_function_pointer = $003F;0040
     ;$004C;004D ?
 
     struct handler 0 ;24 bytes * 7
@@ -69,8 +69,8 @@
     shot_press             = $02C1
     jump_press             = $02C2
 
-    ;02C3 inc every... "work frame" done? ie, no inc on lag frames
-    ;02C4 inc on every video frame? regardless of lag frames
+    frame_counter       = $02C3 ;updated when a frame's worth of work is done? i.e. not on lag frames
+    video_frame_counter = $02C4 ;incremented in NMI handler, not used for anything
     ;02C5 used as counter for looping over all objs
 
     ;sfx related
@@ -90,7 +90,8 @@
     stage1_earthquake_active = $032F
     ; = $0331 some kind of update palette bool (uses 0332)
     ; = $0332 index (normal colors, all white, grayscale BG + white sprites)
-    ; = $0333 timer used in demo cutscene, menu
+    timer_demo               = $0333;0334 ;timer until demo starts, also used for intro cutscene timer
+    ;$0335;0336 unused?
     chest_counter            = $0337
     hud_update_lives         = $036D
     hud_update_score         = $036F

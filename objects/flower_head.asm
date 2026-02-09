@@ -147,7 +147,7 @@ thing:
     jsr (.F133,X)
     jsr _02FD62_FD7C
 .F0FB:
-    lda $02C3
+    lda.w frame_counter
     and #$07
     bne .F130
 

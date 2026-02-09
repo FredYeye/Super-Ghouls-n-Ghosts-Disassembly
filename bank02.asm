@@ -1914,7 +1914,7 @@ _029139:
 { ;96E9 - 96FD
 _0296E9: ;only used by eagler
     jsr _02FA37_FA6D
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03
@@ -1929,7 +1929,7 @@ _0296E9: ;only used by eagler
 { ;96FE - 9712
 _0296FE: ;a8 x-
     jsr _02F9FA_F9FE
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03
@@ -3426,7 +3426,7 @@ _02FAD4: ;a- x-
 
 { ;FB2B - FB61
 _02FB2B: ;a8 x?
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03
@@ -3777,7 +3777,7 @@ _02FD62:
 ;-----
 
 .FD6A: ;a8 x?
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03
@@ -3790,7 +3790,7 @@ _02FD62:
     bra .FD8C
 
 .FD7C: ;a8 x-
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03
@@ -4062,7 +4062,7 @@ _02FEBC: ;a8 x-
 { ;FF22 - FF56
 _02FF22: ;a8 x-
     ;collision testing with the shield
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03

@@ -20,7 +20,7 @@ create: ;a8 x8
 
 ;----- 9620
 
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     bne .962F
 

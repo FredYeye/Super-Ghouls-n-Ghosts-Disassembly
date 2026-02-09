@@ -18,12 +18,12 @@ set_hp: ;a- x-
 
 { ;8021 - 8048
 _018021: ;a8 x-
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     stz $1F95
     stz $1F96
     jsl _018593
     jsl _02821B
-    jsl _0184C3
+    jsl fill_sprite_queue
     jsl _0185BB
     inc $0379
     lda $037B
@@ -663,7 +663,7 @@ _0184B3:
 }
 
 { ;84C3 - 8592
-_0184C3: ;a- x-
+fill_sprite_queue: ;a- x-
     php
     phd
     !AX16
@@ -719,9 +719,9 @@ _0184C3: ;a- x-
     phy
     and #$0007
     asl
-    tax
+    tax ;sprite priority * 2
     ldy.w !sprite_prio_offset.offsets,X
-    tdc : sta.w !sprite_prio_offset.queues,Y
+    tdc : sta.w !sprite_prio_offset.queues,Y ;store obj offset in queue
     inc.w !sprite_prio_offset.offsets,X : inc.w !sprite_prio_offset.offsets,X
     txy
     ldx.w sprite_queue_A541,Y
@@ -883,7 +883,7 @@ _01868B:
     bit #$10 ;todo: flicker bit
     beq +
 
-    lda $02C3
+    lda.w frame_counter
     and #$01 ;skip drawing on odd (finished?) frames
     bne .868D
 +:
@@ -895,7 +895,7 @@ _01868B:
 
     lda #$00
     xba
-    lda $02C3
+    lda.w frame_counter
     and #$1F
     lsr #3
     inc
@@ -3032,13 +3032,13 @@ _019735_eu:
     phy
     jsl _01A8CD
     ply
-    lda.w .9759,Y : jsl _01A717_suspend_handler
+    lda.w .9759,Y : jsl current_handler_suspend
     dey : bpl .973B
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
-.9752: db $00,$01,$02,$03,$02,$01,$00
-.9759: db $01,$05,$02,$04,$02,$05,$01
+.9752: db $00, $01, $02, $03, $02, $01, $00
+.9759: db 1, 5, 2, 4, 2, 5, 1
 }
 endif
 
@@ -3053,13 +3053,13 @@ _019735: ;a8 x8
 .973F:
     sta $0055,Y
 .9742:
-    lda $0055,Y : jsl _01A717_suspend_handler
+    lda $0055,Y : jsl current_handler_suspend
     inc $02F2
     lda $02F2
     cmp #$0F
     bne .9742
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;9757 - 9775
@@ -3073,11 +3073,11 @@ _019757: ;a8 x8
 .9763:
     sta $0055,Y
 .9766:
-    lda $0055,Y : jsl _01A717_suspend_handler
+    lda $0055,Y : jsl current_handler_suspend
     dec $02F2
     bne .9766
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;9776 - 97D0
@@ -3087,7 +3087,7 @@ _019776: ;a8 x8
 .9779:
     ldx #$1F
     jsr .97C3
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jsl _018360
 
     ldx #$1F
@@ -3112,7 +3112,7 @@ _019776: ;a8 x8
 
 .97A4:
     stz $02E8
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 .97AB:
     lda #$9F : sta $02EC
@@ -3135,14 +3135,14 @@ _019776: ;a8 x8
     txa
     ora #$E0
     sta $02EE
-    lda $0055,Y : jsl _01A717_suspend_handler
+    lda $0055,Y : jsl current_handler_suspend
     rts
 }
 
 { ;97D1 - 9A83
 _0197D1: ;a8 x8
     phd
-    lda.b #96 : jsl _01A717_suspend_handler
+    lda.b #96 : jsl current_handler_suspend
     jsr .985F
     !AX16
     lda $007B
@@ -3172,7 +3172,7 @@ _0197D1: ;a8 x8
     ldx #$1E : jsl _01C336
     ldy #$00 : jsl _01C386
     ldx #$1E : jsl _01C336
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $1A77
     bne .981F
 
@@ -3183,7 +3183,7 @@ _0197D1: ;a8 x8
     adc #$06
     sta $031E
 if !version == 2
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
 endif
     pla
     inc
@@ -3193,7 +3193,7 @@ endif
     sta $031F
     !AX8
     pld
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 ;-----
 
@@ -3231,7 +3231,7 @@ endif
 _0198A4: ;a- x8
     ;rising wave
     !A8
-    ldy #$30 : lda.b #_01FF00_34 : jsl _01A6FE
+    ldy.b #handler[2].base : lda.b #_01FF00_34 : jsl _01A6FE
     lda #$11 : sta $02D5 : sta $02D7
     lda #$01 : jsr _019A88
     jsr .9987
@@ -3252,7 +3252,7 @@ _0198A4: ;a- x8
     lda #$0C : sta $02DE
     lda #$04 : sta $031E
 if !version == 2
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
 endif
     lda #$4F : sta.w hud_flicker_timer
     !A16
@@ -3303,7 +3303,7 @@ if !version == 2
 endif
     lda #$01 : jsr _019A88
     pld
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 ;-----
 
@@ -3354,7 +3354,7 @@ endif
     inc $75
     lda #$03 : sta $031E
 if !version == 2
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
 endif
     lda #$17 : sta $02D5 : sta $02D7
     ldx #$54 : lda #$01 : jsl _01F6C9
@@ -3431,7 +3431,7 @@ water_crash_to_ram: ;a- x-
 _019A88: ;a8 x8
     pha
     jsl _01B26D
-    pla : jsl _01A717_suspend_handler
+    pla : jsl current_handler_suspend
     rts
 }
 
@@ -3453,21 +3453,21 @@ _019A93: ;a8 x8
     bne .9ADA
 
 .9ABA:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jsr .9B12
     lda $006D
     beq .9ABA
 
 .9AC8:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $16
     beq .9AC8
 
-    lda #$50 : jsl _01A717_suspend_handler
+    lda.b #80 : jsl current_handler_suspend
     bra .9AEB
 
 .9ADA:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$0B00
     bcc .9ADA
@@ -3477,17 +3477,17 @@ _019A93: ;a8 x8
 .9AEB:
     stz $08
 .9AED:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jsr .9B34
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jsr .9BC8
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $1ED7
     beq .9AED
 
     stz $0D
     stz $0E
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 ;-----
 
@@ -3516,7 +3516,7 @@ _019A93: ;a8 x8
     jsr .9B78
 .9B37:
     !A16
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     sec
     lda $1736,Y : sbc $0F : sta $1736,Y
     lda $1738,Y : sbc $11 : sta $1738,Y
@@ -3525,7 +3525,7 @@ _019A93: ;a8 x8
 
 .9B56:
     !A16
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     sec
     lda $1736,Y : sbc $0F : sta $1736,Y
     lda $1738,Y : sbc $11 : sta $1738,Y
@@ -3581,7 +3581,7 @@ _019A93: ;a8 x8
     jsr .9B78
 .9BCB:
     !A16
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     clc
     lda $1736,Y : adc $0F : sta $1736,Y
     lda $1738,Y : adc $11 : sta $1738,Y
@@ -3590,7 +3590,7 @@ _019A93: ;a8 x8
 
 .9BEA:
     !A16
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     clc
     lda $1736,Y : adc $0F : sta $1736,Y
     lda $1738,Y : adc $11 : sta $1738,Y
@@ -3605,21 +3605,21 @@ _019A93: ;a8 x8
 _019C0C: ;a8 x-
     !X16
 .9C0E:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx #$02B0
     cpx.w camera_x+1
     bcs .9C0E
 
     stx.w screen_boundary_left
 .9C1F:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx #$0800
     cpx.w camera_x+1
     bcs .9C1F
 
     stx.w screen_boundary_left
 .9C30:
-    lda #$02 : jsl _01A717_suspend_handler
+    lda.b #2 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$08D6
     bcc .9C30
@@ -3629,7 +3629,7 @@ _019C0C: ;a8 x-
     lda.w checkpoint
     bne .9C82
 
-    ldy #$18 : lda.b #_01FF00_38 : jsl _01A6FE
+    ldy.b #handler[1].base : lda.b #_01FF00_38 : jsl _01A6FE
     !AX16
     ldy #$0030
 .9C57:
@@ -3650,26 +3650,26 @@ _019C0C: ;a8 x-
     lda #$0080
 .9C75:
     sta $1EEE
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     dey
     bne .9C57
 
 .9C82:
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;9C86 - 9CBD
 _019C86: ;a- x-
     !AX16
 .9C88:
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     sec
     lda $1EAE : sbc #$0004 : sta $1EAE
     bpl .9C88
 
     stz $1EAD
     stz $1EAE
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
 .9CA8:
     sec
     lda $1EB1 : sbc #$0004 : sta $1EB1
@@ -3677,7 +3677,7 @@ _019C86: ;a- x-
 
     stz $1EB0
     stz $1EB1
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;9CBE - 9CDF
@@ -3708,13 +3708,13 @@ _019CBE: ;a16 x-
 { ;9CE0 - 9DE4
 _019CE0: ;a8 x8
     stz $006D
-    lda #$FF : jsl _01A717_suspend_handler
+    lda.b #255 : jsl current_handler_suspend
 .9CE9:
     lda #$A0 : sta $006E
 .9CEE:
     ldx #$00 : ldy #$00 : jsr .9D8A
     jsr .9D1F
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $006E
     bne .9CEE
 
@@ -3722,7 +3722,7 @@ _019CE0: ;a8 x8
 .9D08:
     ldx #$00 : ldy #$03 : jsr .9D8A
     jsr .9D1F
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $006E
     bne .9D08
 
@@ -3755,11 +3755,11 @@ _019CE0: ;a8 x8
     lda $1EB0 : adc #$50 : sta $1EB0
     lda $1EB1 : adc #$00 : sta $1EB1
     lda $1EB2 : adc #$00 : sta $1EB2
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dex
     bne .9D48
 
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
 .9D89:
     rts
 
@@ -3808,19 +3808,19 @@ _019CE0: ;a8 x8
 
 { ;9DE5 - 9E1A
 _019DE5: ;a8 x?
-    lda #$3F : jsl _01A717_suspend_handler
+    lda.b #63 : jsl current_handler_suspend
 .9DEB:
     lda #$40 : sta $0086
 .9DF0:
     ldx #$06 : ldy #$06 : jsr _019CE0_9D8A
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $0086
     bne .9DF0
 
     lda #$40 : sta $0086
 .9E07:
     ldx #$06 : ldy #$09 : jsr _019CE0_9D8A
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $0086
     bne .9E07
 
@@ -3833,7 +3833,7 @@ _019E1B: ;a8 x?
     lda #$01 : sta $CE
     jsl _018049_8051
 .9E25:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jsl get_object_slot
     bmi .9E25
 
@@ -3843,7 +3843,7 @@ _019E1B: ;a8 x?
     lda #$15B0 : sta.w obj.pos_x+1,X
     lda #$0228 : sta.w obj.pos_y+1,X
     !AX8
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx #$0F
     lda #$00
 .9E55:
@@ -3870,7 +3870,7 @@ _019E1B: ;a8 x?
     stz !DAS5B
     lda #$20 : ora $02F0 : sta $02F0
 .9EA9:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $CE
     cmp #$57
     bcc .9ECD
@@ -3892,7 +3892,7 @@ _019E1B: ;a8 x?
     bcc .9EA9
 
     inc $1F9F
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;9EEA - 9F42
@@ -3903,7 +3903,7 @@ _019EEA: ;a- x8
     stz $B7
 .9EF3:
     !A16
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     ldy #$00
     sec
     lda.w camera_x+1
@@ -3965,7 +3965,7 @@ _019F43: ;a8 x8
     lda #$0100 : sta $19C5
     lda #$0001 : sta $031D
 .9F68:
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     stz $031D
     lda.w camera_x+1
     cmp.w stage3_data_AB0C,X
@@ -3975,7 +3975,7 @@ _019F43: ;a8 x8
     tax
     bpl .9F57
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 .9F84:
     sec
@@ -4049,7 +4049,7 @@ _01A00A:
     lda #$01 : sta $0089
     lda #$01 : sta $1F2F
 .A01E:
-    lda #$BD : jsl _01A717_suspend_handler
+    lda.b #189 : jsl current_handler_suspend
     lda #$04
     bra .A02A
 
@@ -4078,7 +4078,7 @@ _01A00A:
     sta $008A
     lda #$04 : jsr .A067
 .A054:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $0087
     cmp $0089
     beq .A054
@@ -4091,14 +4091,14 @@ _01A00A:
 .A067:
     sta $85
 .A069:
-    lda #$06 : jsl _01A717_suspend_handler
+    lda.b #6 : jsl current_handler_suspend
     dec $1F2B
     dec $1F2D
     jsl _01B9A8_BA9C
     dec $85
     bne .A069
 
-    lda #$0F : jsl _01A717_suspend_handler
+    lda.b #15 : jsl current_handler_suspend
     rts
 
 ;-----
@@ -4106,14 +4106,14 @@ _01A00A:
 .A084:
     sta $85
 .A086:
-    lda #$06 : jsl _01A717_suspend_handler
+    lda.b #6 : jsl current_handler_suspend
     inc $1F2B
     inc $1F2D
     jsl _01B9A8_BA9C
     dec $85
     bne .A086
 
-    lda #$0F : jsl _01A717_suspend_handler
+    lda.b #15 : jsl current_handler_suspend
     rts
 }
 
@@ -4124,7 +4124,7 @@ _01A00A:
     beq .A0B1
 
     sta $0089,X
-    tya : jsl _01A717_suspend_handler
+    tya : jsl current_handler_suspend
 .A0B1:
     rts
 }
@@ -4138,10 +4138,10 @@ _01A0B2:
 
     ldx #$0580 : stx $19E8
     stz $1A7F
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 .A0C6:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_y+1
     cpx #$0500
     bcs .A0C6
@@ -4149,14 +4149,14 @@ _01A0B2:
     inc $19EB
     ldx #$0500 : stx $19E8
 .A0DD:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$0180
     bcc .A0DD
 
     stz $1A7F
 .A0EE:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$0700
     bcc .A0EE
@@ -4167,7 +4167,7 @@ _01A0B2:
     lda #$60 : sta $1EF0
     lda #$C0 : sta $1EF2
 .A10E:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $1EF0
     lda $1EF0
     pha
@@ -4177,7 +4177,7 @@ _01A0B2:
     cmp #$10
     bne .A10E
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;A128 - A190
@@ -4188,7 +4188,7 @@ _01A128:
 
     !A16
 .A12F:
-    lda #$0001 : jsl _01A717_suspend_handler
+    lda.w #1 : jsl current_handler_suspend
     lda.w camera_x+1
     cmp #$0400
     bcc .A12F
@@ -4201,7 +4201,7 @@ _01A128:
     eor #$02
     tax
     sta $02D7
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dey
     bne .A145
 
@@ -4209,25 +4209,25 @@ _01A128:
     lda #$15 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
     lda #$FF : sta $19DF : sta $19E3
     lda #$94 : sta $031E
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda #$13 : sta $031E
     lda $02DD : and #$FC : ora #$01 : sta $02DD
     lda $02D9 : ora #$20 : sta $02D9
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;A191 - A1F4
 _01A191: ;a8 x-
     !X16
 .A193:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$0220
     bcc .A193
 
     stz $1A7F
 .A1A4:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$0400
     bcc .A1A4
@@ -4240,7 +4240,7 @@ _01A191: ;a8 x-
     sta $1A7B
     !A8
 .A1C4:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     ldx.w camera_x+1
     cpx #$1800
     bcc .A1C4
@@ -4251,14 +4251,14 @@ _01A191: ;a8 x-
 
     lda #$01 : sta $19EB
 .A1DF:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dex
     stx.w camera_y+1
     stx $19E8
     cpx #$0200
     bne .A1DF
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;A1F5 - A21C
@@ -4274,7 +4274,7 @@ _01A1F5:
     ldx.w camera_y+1
     stx $07
 .A204:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda.w jump_counter
     bne .A21B
 
@@ -4488,7 +4488,7 @@ _01A397: ;a- x8
 
     phb
     lda #$00 : pha : plb
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     plb
     bra .A3C7
 
@@ -4496,7 +4496,7 @@ _01A397: ;a- x8
     plp
     plb
     pld
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 { ;A3ED - A4C8
@@ -4937,8 +4937,8 @@ _01A649: ;a8 x8
 { ;A6AB - A6FD
 _01A6AB: ;a8 x8
     stz $02B6
-    lda #$07 : sta.w handler_loop_count
-    ldy #$00
+    lda.b #7 : sta.w handler_loop_count
+    ldy.b #$00
 .A6B5:
     ldx.w !handler_offset.state,Y
     cpx #$04
@@ -4959,7 +4959,7 @@ _01A6AB: ;a8 x8
     tya
     bne .A6DA
 
-    inc $02C3
+    inc.w frame_counter
     jsr _01A74A_A7A4
 .A6DA:
     lda #$08 : sta.w !handler_offset.state,Y
@@ -4970,8 +4970,8 @@ _01A6AB: ;a8 x8
     cpx #$0C
     bne +
 
-    lda.w !handler_offset.fn_id,Y : sta $003F
-    jmp ($003F) ;$0040 = $FF from _01FF00
+    lda.w !handler_offset.fn_id,Y : sta.w handler_function_pointer
+    jmp.w (handler_function_pointer)
 
 +:
     plp
@@ -4997,9 +4997,9 @@ _01A6FE: ;a- x-
 }
 
 { ;A717 - A749
-_01A717: ;todo: better main function name... "current_handler"?
+current_handler:
 
-.remove_current_handler: ;a- x-
+.remove: ;a- x-
     !AX8
     ldy.w current_handler_offset
     jsr .clear_state
@@ -5007,7 +5007,7 @@ _01A717: ;todo: better main function name... "current_handler"?
     lda.b #stack[7].top>>8 : xba : lda.b #stack[7].top : tcs
     jmp _01A6AB_A6BC
 
-.suspend_handler: ;a- x-
+.suspend: ;a- x-
     ;suspend handler for A frames
     phb
     phd
@@ -5254,11 +5254,11 @@ elseif !version == 2
     lda #$8F : sta $02F2
     jsl enable_nmi
     lda #$62 : jsl _018049_8053
-    lda #$19 : jsl _01A717_suspend_handler
+    lda.b #25 : jsl current_handler_suspend
     ldx #$02 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
 endif
 .A8DC:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $0066
     bne .A8DC
 
@@ -5266,17 +5266,17 @@ if !version == 0 || !version == 1
     lda #$62 : jsl _018049_8053
     lda #$3F : sta $0055
 elseif !version == 2
-    lda #$12 : jsl _01A717_suspend_handler
+    lda.b #18 : jsl current_handler_suspend
     ldy #$30 : lda.b #_01FF00_74 : jsl _01A6FE
 .A964:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $007E
     bne .A964
 
     lda #$2E : sta $0055
 endif
 .A8F2:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda.w p1_button_hold+1
     bit #!start
     bne .A904
@@ -5286,7 +5286,7 @@ endif
 .A904:
     ldx #$04 : ldy #$18 : lda.b #_01FF00_20 : jsl _01A6FE
 .A90E:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $0066
     bne .A90E
 
@@ -5365,18 +5365,18 @@ endif
 
 .A9CE:
     jsl _018049_8051
-    lda #$3F : jsl _01A717_suspend_handler
+    lda.b #63 : jsl current_handler_suspend
     ldy $1FC7
     ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #_01FF00_68 : jsl _01A6FE
 .A9E6:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $00DE
     bne .A9E6
 
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldy $1FC7 : lda.w _00B52E_B546,Y : sta $02D5
     lda #$18 : sta $031E
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     !AX16
 
     lda #$1800 : sta $0318
@@ -5386,27 +5386,27 @@ endif
     !AX8
     stz $02F0
     stz $02E1
-    lda #$03 : jsl _01A717_suspend_handler
+    lda.b #3 : jsl current_handler_suspend
     lda #$00
     xba
     lda #$45 : jsl _018061_8064
     ldx $1FC7
     lda.w _00B52E_B53A,X : jsl _0183D4_83DB
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda #$84 : sta $02EC
     ldx #$08 : ldy #$90 : lda.b #_01FF00_6C : jsl _01A6FE
     !A16
     ldx #$1C : lda #$0010 : ldy #$00 : jsl _019136_9187
     !A8
 .AA64:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $00DE
     bne .AA64
 
-    lda #$7E : jsl _01A717_suspend_handler
+    lda.b #126 : jsl current_handler_suspend
     lda.b #_01FF00_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
 .AA7F:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $00DE
     bne .AA7F
 
@@ -5423,7 +5423,7 @@ endif
 
     jsl _01834C
     jsl _018074
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jml _03F8A3
 
 .AAAA:
@@ -5584,7 +5584,7 @@ endif
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
     lda #$02 : sta $029E
-    stz $02C3
+    stz.w frame_counter
     inc $0278
     rts
 
@@ -5612,11 +5612,11 @@ endif
 
 .AC16: ;mosaic transition
     jsl _0180A6
-    lda #$3F : jsl _01A717_suspend_handler
+    lda.b #63 : jsl current_handler_suspend
     ldx #$0F
 .AC22:
     stx !MOSAIC
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     clc
     txa
     adc #$10
@@ -5647,7 +5647,7 @@ endif
     ldx #$FF
 .AC7E:
     stx !MOSAIC
-    lda #$04 : jsl _01A717_suspend_handler
+    lda.b #4 : jsl current_handler_suspend
     sec
     txa
     sbc #$10
@@ -5809,7 +5809,7 @@ endif
     jsr _01F6E9
     jsr _01B2D6
     inc $0379
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     plx
     dex : bne .AE3C
 
@@ -6085,7 +6085,7 @@ _01B14B: ;a8 x8
     bne .B16A
 
 .B17A:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda.w p1_button_press+1 ;unpause check
     bit #!start
     beq .B17A
@@ -6140,7 +6140,7 @@ _01B19D: ;a8 x8
     jsr _01B658
     jsr _01B96E
     jsl _018F80
-    jsl _0184C3
+    jsl fill_sprite_queue
     jsl _0185BB
     jsr _01B9A8
     jsr _01B4EF
@@ -6150,7 +6150,7 @@ _01B19D: ;a8 x8
     jsr _01B2B1
     ldx #$01
 .B22B:
-    txa : jsl _01A717_suspend_handler
+    txa : jsl current_handler_suspend
     ldy $037A
     bne .B22B
 
@@ -6267,7 +6267,7 @@ _01B315: ;a- x8
     ldy.w stage1_earthquake_start_offset,X : sty.b handler.memory+4
 .B325:
     !A8
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     !A16
     lda.b handler.memory+4 : asl : tax
     lda.w !obj_arthur.pos_x+1
@@ -6294,7 +6294,7 @@ _01B315: ;a- x8
     stz.w stage1_earthquake_active
     lsr
     sta $007B
-    lda #$1F : jsl _01A717_suspend_handler
+    lda.b #31 : jsl current_handler_suspend
     lda #$0C : sta $02DD
     !A16
     lda #$0272 : sta $19DE
@@ -6321,7 +6321,7 @@ _01B315: ;a- x8
     lda #$02 : sta $1A80 ;horizontal screen shake
     stz $1A8E
     lda #$04 : sta $1A8A
-    lda #$1F : jsl _01A717_suspend_handler
+    lda.b #31 : jsl current_handler_suspend
     txa
     asl
     tay
@@ -6383,7 +6383,7 @@ _01B315: ;a- x8
     adc #$06
     sta $031F
 .B42A:
-    lda $0A : jsl _01A717_suspend_handler
+    lda $0A : jsl current_handler_suspend
     !A16
     dec $0D
     bne .B3D6
@@ -6396,7 +6396,7 @@ _01B315: ;a- x8
     cmp #$11
     bne +
 
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 +:
     sec
     sbc #$0A
@@ -6408,11 +6408,9 @@ _01B315: ;a- x8
 
     ldx #$16 : jsl _018DC0_8E0E
 +:
-    ldy #$18
-    lda.b #_01FF00_30
-    jsl _01A6FE
+    ldy.b #handler[1].base : lda.b #_01FF00_30 : jsl _01A6FE
 -:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $0066
     bne -
 
@@ -9315,7 +9313,7 @@ _01C8A7: ;a x
     bra .CBDA
 
 .CBCD:
-    lda $02C3
+    lda.w frame_counter
     and #$01
     bne .CC04
 
@@ -12779,7 +12777,7 @@ _01EC63:
     lda #$A6 : sta $1D
     lda #$08 : sta $0004
     lda.b obj.facing : sta $0005
-    lda $02C3 : sta $0006
+    lda.w frame_counter : sta $0006
 .ECE1:
     jsr get_magic_slot
     bmi .ED35
@@ -13583,7 +13581,7 @@ _01F264:
     bvc .F2EA
 
     jsl update_animation_normal
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     bne .F2E9
 
@@ -13652,7 +13650,7 @@ _01F4F7:
 ;----- F52E
 
     lda.b obj.direction : inc : and #$3F : sta.b obj.direction
-    lda $02C3
+    lda.w frame_counter
     and #$03
     bne .F549
 
@@ -13694,7 +13692,7 @@ _01F4F7:
     clc
     lda $2E
     ldx #$06 : jsl _0189D9
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     bne .F59E
 

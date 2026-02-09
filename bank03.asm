@@ -52,12 +52,12 @@ _039DDA:
 
     !AX8
     inc $0331
-    lda #$03 : jsl _01A717_suspend_handler
+    lda.b #3 : jsl current_handler_suspend
     !AX16
     jmp .9DE9
 
 .9E75:
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 }
 
 {
@@ -509,7 +509,7 @@ _03E54E:
 ;-----
 
 .E5B3:
-    lda $02C3
+    lda.w frame_counter
     and #$0F
     bne .E5C0
 
@@ -809,7 +809,7 @@ endif
     iny #2
 .EE33:
     !A8
-    lda #$08 : jsl _01A717_suspend_handler
+    lda.b #8 : jsl current_handler_suspend
 .EE3B:
     lda.w text_base,Y
     cmp #$FF
@@ -818,7 +818,7 @@ endif
 if !version == 1
     plb
 endif
-    jml _01A717_remove_current_handler ;FF: exit
+    jml current_handler_remove ;FF: exit
 
 .EE46:
     cmp #$FD
@@ -856,7 +856,7 @@ endif
 
 .pause:
     iny
-    lda.w text_base,Y : jsl _01A717_suspend_handler ;frame count
+    lda.w text_base,Y : jsl current_handler_suspend ;frame count
     iny
     bra .EE3B
 
@@ -1069,7 +1069,7 @@ _03F526:
     lda $1EC7
     beq .F5E1
 
-    lda #$60 : jsl _01A717_suspend_handler
+    lda.b #96 : jsl current_handler_suspend
     lda.b #_01FF00_0C : ldy #$90 : ldx #$04 : jsl _01A6FE
 .F5FB:
     lda #$01 : jsr .F745
@@ -1208,7 +1208,7 @@ _03F526:
     jsl _018021
     ply
     plx
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     dec $0059
     bne .F74C
 
@@ -1321,7 +1321,7 @@ endif
     jsl _018360
     ldx #$18 : ldy #$78 : lda.b #_01FF00_08 : jsl _01A6FE
 .FA2B:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     jsl _018021
     !A16
     lda $1EC3
@@ -1394,7 +1394,7 @@ endif
     jmp .FA2B
 
 .FAB4:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $00C6
     bne .FAB4
 
@@ -1417,13 +1417,13 @@ endif
     lda #$01 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
     ldx #$12 : ldy #$78 : lda.b #_01FF00_08 : jsl _01A6FE
 .FB21:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     lda $00C6
     bne .FB21
 
     lda #$01 : sta $1EB7
 .FB31:
-    lda #$3F : jsl _01A717_suspend_handler
+    lda.b #63 : jsl current_handler_suspend
     dec $1EB7
     bne .FB31
 
@@ -1435,12 +1435,12 @@ endif
     lda #$48 : sta $1EB7
 .FB49:
     jsl _01B5AB
-    lda #$02 : jsl _01A717_suspend_handler
+    lda.b #2 : jsl current_handler_suspend
     dec $1EB7
     bne .FB49
 
 .FB58:
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     bra .FB58
 
 ;-----

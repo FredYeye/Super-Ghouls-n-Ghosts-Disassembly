@@ -40,7 +40,7 @@ create:
     cmp #$06
     beq .94EF
 
-    lda $02C3
+    lda.w frame_counter
     lsr #3
     clc
     adc $3B

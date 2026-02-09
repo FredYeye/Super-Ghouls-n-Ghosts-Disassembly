@@ -425,7 +425,7 @@ thing:
     lda #$03 : jml _028B36
 
 .B07A:
-    lda $02C3
+    lda.w frame_counter
     clc
     adc $02C6
     and #$03

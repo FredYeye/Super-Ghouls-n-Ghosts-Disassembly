@@ -22,14 +22,14 @@ _0484B9:
     iny #2
 .84D4:
     !A8
-    lda #$04 : jsl _01A717_suspend_handler
+    lda.b #4 : jsl current_handler_suspend
 .84DC:
     lda.w text_base,Y
     cmp #$FF
     bne .84E8
 
     plb
-    jml _01A717_remove_current_handler
+    jml current_handler_remove
 
 .84E8:
     cmp #$FD
@@ -63,7 +63,7 @@ _0484B9:
 
 .pause:
     iny
-    lda.w text_base,Y : jsl _01A717_suspend_handler
+    lda.w text_base,Y : jsl current_handler_suspend
     iny
     bra .84DC
 
@@ -1041,7 +1041,7 @@ _048C43: ;a8 x8
     stz $1FB3
     jsr _049219_9228
     jsl _018021
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
 .8CE7:
     jsl _018021
     jsr _048E47
@@ -1049,7 +1049,7 @@ _048C43: ;a8 x8
     beq .8CE7
 
     jsr _049219_922E
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     jsl _048DF9
     jsr _049219_9228
 if !version == 0 || !version == 1
@@ -1065,15 +1065,15 @@ endif
     ldy #$08 : jsl _048E3F
     ldy #$0A : jsl _048E3F
     jsl _018021
-    lda #$3E : jsl _01A717_suspend_handler
-    lda #$A0 : sta $0333
+    lda.b #62 : jsl current_handler_suspend
+    lda.b #160 : sta.w timer_demo ;timer for arthur and princess moving towards eachother
 .8D30:
     jsl _018021
     jsr _048E47
-    dec $0333 : bne .8D30
+    dec.w timer_demo : bne .8D30
 
     jsr _049219_922E
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     jsl _01834C
     jsl disable_nmi
     jsl _018074
@@ -1096,7 +1096,7 @@ endif
     jsl _019539
     jsl enable_nmi
     jsr _049219_9228
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     stz.w stage
     jsl _018CE2
     ldy #$0C : jsl _048E3F
@@ -1108,7 +1108,7 @@ endif
     beq -
 
     jsr _049219_922E
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     stz $1FB3
     lda #$0F : sta $02F2
 .8DE4:
@@ -1118,7 +1118,7 @@ endif
     beq .8DE4
 
     jsr _049219_921D
-    lda #$3E : jml _01A717_suspend_handler
+    lda #$3E : jml current_handler_suspend
 }
 
 { ;8DF9 - 8E3E
@@ -1167,7 +1167,7 @@ _048E47: ;a8 x8
     inc $1FEF
 +:
     jsr _049219_922E
-    lda #$3E : jml _01A717_suspend_handler
+    lda #$3E : jml current_handler_suspend
 }
 
 { ;8E68 - 8EAC
@@ -1209,7 +1209,7 @@ _048EAD: ;a8 x8
     jsl _01951E
     jsl _018049_804D
     jsl _01834C
-    lda #$0F : jsl _01A717_suspend_handler
+    lda.b #15 : jsl current_handler_suspend
     jsl disable_nmi
     jsl _018074
     jsl _018366
@@ -1240,10 +1240,10 @@ endif
 .8F30:
     jsr _049219
     jsl _018021
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
 .8F3D:
     !A16
-    lda #$01E0 : sta $0333 ;timer until demo plays
+    lda.w #480 : sta.w timer_demo
     stz $1FB3
     !A8
 .8F4A:
@@ -1252,7 +1252,7 @@ endif
     bne .8F7E
 
     !A16
-    dec $0333
+    dec.w timer_demo
     !A8
     bne .8F4A
 
@@ -1263,7 +1263,7 @@ endif
     jsl _049252
     jsr _049219_921D
     lda #$43 : jsl _018049_8053 ;ice sfx
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     lda #$30 : sta $02EB
     lda #$05 : sta $0279
     rtl
@@ -1273,7 +1273,7 @@ endif
     bne .8F60
 
     jsr _049219_921D
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     jsl _01834C
     jsl disable_nmi
     ldy #$BD : jsl _01A21D_decompress_graphics
@@ -1287,7 +1287,7 @@ endif
     lda #$05 : jsr _048E68_local
     jsl _018021
     jsr _049219
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
 .8FC8:
     jsl _018021
     jsl _01B5AB
@@ -1339,7 +1339,7 @@ _048FDD:
     bne .9052
 
     jsr _049219_921D
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     lda #$30 : sta $02EB
     rtl
 }
@@ -1395,7 +1395,7 @@ _049085: ;a8 x8
     pla
     sta.w stage
     jsr _049219
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     lda #$11 : jsl _018049_8053 ;game over music?
     lda #$F0
 .9109:
@@ -1406,7 +1406,7 @@ _049085: ;a8 x8
     bne .9109
 
     jsr _049219_921D
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     lda #$30
     sta $02EB
     rtl
@@ -1437,7 +1437,7 @@ _049121: ;a? x?
     lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$18 : jsl _018C55
     jsl _018021
     jsr _049219_9228
-    lda #$3E : jsl _01A717_suspend_handler
+    lda.b #62 : jsl current_handler_suspend
     lda.w stage : pha
     lda #$0A : sta.w stage
     jsl _048A6B
@@ -1454,7 +1454,7 @@ _049121: ;a? x?
     jsr .91D3
 .91CA:
     jsr _049219_922E
-    lda #$3E : jml _01A717_suspend_handler
+    lda #$3E : jml current_handler_suspend
 
 .91D3:
     sed
@@ -1624,7 +1624,7 @@ _049310: ;a8 x8
     pha
     ora #$01
     sta !MOSAIC
-    lda #$03 : jsl _01A717_suspend_handler
+    lda.b #3 : jsl current_handler_suspend
     pla
     sec
     sbc #$10
@@ -1645,7 +1645,7 @@ _049310: ;a8 x8
     dec $00E5
     bne .93B8
 
-    lda #$3C : jsl _01A717_suspend_handler
+    lda.b #60 : jsl current_handler_suspend
 .93D5:
     lda #$01 : sta $02D5
     lda #$00
@@ -1653,7 +1653,7 @@ _049310: ;a8 x8
     pha
     ora #$01
     sta !MOSAIC
-    lda #$03 : jsl _01A717_suspend_handler
+    lda.b #3 : jsl current_handler_suspend
     pla
     clc
     adc #$10
@@ -1944,7 +1944,7 @@ _04A0F5:
     lda !STAT78
     lda !OPVCT : sta $F2FD
     lda $F31B : and #$3F : ora #$80 : sta $F31B
-    lda #$01 : jsl _01A717_suspend_handler
+    lda.b #1 : jsl current_handler_suspend
     bra _04A0F5
 }
 

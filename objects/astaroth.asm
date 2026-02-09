@@ -101,7 +101,7 @@ create:
 
 .D1BF:
     jsl update_pos_x
-    lda $02C3
+    lda.w frame_counter
     and #$1F
     bne .D1D0
 

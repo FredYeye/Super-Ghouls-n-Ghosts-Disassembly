@@ -139,7 +139,7 @@ create:
     ldx #$10 : jsl update_pos_xy_2
     lda $35
     ldx #$12 : jsl _0189D9
-    lda $02C3
+    lda.w frame_counter
     and #$03
     bne .E817
 
