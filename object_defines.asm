@@ -209,9 +209,9 @@ struct obj 0 ;65 bytes / obj
     .init_param: skip 1
     .flags1:     skip 1 ;todo: names? flags_gfx and flags_...? or combine them
     .flags2:     skip 1
-    ._0A_0D:     skip 4
+    ._0A_0D:     skip 4 ;0A-0B appears to be sprite related
     .hp:         skip 1
-    ._0F:        skip 1
+    ._0F:        skip 1 ;seems to often be used as a state index, but also other things. obj dependent?
     ._10:        skip 1 ;index into array for determining if enemy is too far away from camera?
     .direction:  skip 1
     .facing:     skip 1

@@ -18,8 +18,8 @@ create:
     jsr _02EBA8
     !A16
     lda.b obj.pos_x+1 ;do these three instructions even do anything?
-    clc              ;
-    adc #$0004       ;
+    clc               ;
+    adc #$0004        ;
     lda.w !obj_arthur.pos_x+1
     cmp #$1248
     bcs .DBDD
