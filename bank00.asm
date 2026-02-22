@@ -68,9 +68,9 @@ entry: ;emulated mode (code entry)
     ldy #$90
     ldx #$0C
 .817F:
-    lda.w stack_offsets+0,X : sta.w !handler_offset.stack_id+0,Y
-    lda.w stack_offsets+1,X : sta.w !handler_offset.stack_id+1,Y
-    sec : tya : sbc.b #handler.len : tay
+    lda.w stack_offsets+0,X : sta.w !task_offset.stack_id+0,Y
+    lda.w stack_offsets+1,X : sta.w !task_offset.stack_id+1,Y
+    sec : tya : sbc.b #task.len : tay
     dex #2 : bpl .817F
 
     lda #$C3 : sta.w rng_state
@@ -99,8 +99,8 @@ entry: ;emulated mode (code entry)
     lda #$01 : sta $02F1
     jsl enable_nmi
     cli
-    lda.b #_01FF00>>8 : sta.b handler_function_pointer+1
-    ldy.b #handler[0].base : lda.b #_01FF00_00 : jsl _01A6FE
+    lda.b #_01FF00>>8 : sta.b task_function_pointer+1
+    ldy.b #task[0].base : lda.b #_01FF00_00 : jsl _01A6FE
     jsl _03E7FE
     jml _01A6AB
 }
@@ -206,19 +206,19 @@ nmi: ;a- x-
     lda #$98 : sta !HTIMEL : stz !HTIMEH
     lda #$26 : sta !VTIMEL : stz !VTIMEH
 
-    ;tick handler timers
+    ;tick task timers
     ldx #$A8
 .837D:
-    lda.w !handler_offset[-1].state,X
+    lda.w !task_offset[-1].state,X
     cmp #$01
     bne +
 
-    dec.w !handler_offset[-1].timer,X
+    dec.w !task_offset[-1].timer,X
     bne +
 
-    lda #$04 : sta.w !handler_offset[-1].state,X
+    lda #$04 : sta.w !task_offset[-1].state,X
 +:
-    sec : txa : sbc.b #handler.len : tax
+    sec : txa : sbc.b #task.len : tax
     bne .837D
 
     jsr _00853D

@@ -18,7 +18,7 @@ set_hp: ;a- x-
 
 { ;8021 - 8048
 _018021: ;a8 x-
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     stz $1F95
     stz $1F96
     jsl _018593
@@ -3032,10 +3032,10 @@ _019735_eu:
     phy
     jsl _01A8CD
     ply
-    lda.w .9759,Y : jsl current_handler_suspend
+    lda.w .9759,Y : jsl current_task_suspend
     dey : bpl .973B
 
-    jml current_handler_remove
+    jml current_task_remove
 
 .9752: db $00, $01, $02, $03, $02, $01, $00
 .9759: db 1, 5, 2, 4, 2, 5, 1
@@ -3053,13 +3053,13 @@ _019735: ;a8 x8
 .973F:
     sta $0055,Y
 .9742:
-    lda $0055,Y : jsl current_handler_suspend
+    lda $0055,Y : jsl current_task_suspend
     inc $02F2
     lda $02F2
     cmp #$0F
     bne .9742
 
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;9757 - 9775
@@ -3073,11 +3073,11 @@ _019757: ;a8 x8
 .9763:
     sta $0055,Y
 .9766:
-    lda $0055,Y : jsl current_handler_suspend
+    lda $0055,Y : jsl current_task_suspend
     dec $02F2
     bne .9766
 
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;9776 - 97D0
@@ -3087,7 +3087,7 @@ _019776: ;a8 x8
 .9779:
     ldx #$1F
     jsr .97C3
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     jsl _018360
 
     ldx #$1F
@@ -3112,7 +3112,7 @@ _019776: ;a8 x8
 
 .97A4:
     stz $02E8
-    jml current_handler_remove
+    jml current_task_remove
 
 .97AB:
     lda #$9F : sta $02EC
@@ -3135,14 +3135,14 @@ _019776: ;a8 x8
     txa
     ora #$E0
     sta $02EE
-    lda $0055,Y : jsl current_handler_suspend
+    lda $0055,Y : jsl current_task_suspend
     rts
 }
 
 { ;97D1 - 9A83
 _0197D1: ;a8 x8
     phd
-    lda.b #96 : jsl current_handler_suspend
+    lda.b #96 : jsl current_task_suspend
     jsr .985F
     !AX16
     lda $007B
@@ -3172,7 +3172,7 @@ _0197D1: ;a8 x8
     ldx #$1E : jsl _01C336
     ldy #$00 : jsl _01C386
     ldx #$1E : jsl _01C336
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dec $1A77
     bne .981F
 
@@ -3183,7 +3183,7 @@ _0197D1: ;a8 x8
     adc #$06
     sta $031E
 if !version == 2
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
 endif
     pla
     inc
@@ -3193,7 +3193,7 @@ endif
     sta $031F
     !AX8
     pld
-    jml current_handler_remove
+    jml current_task_remove
 
 ;-----
 
@@ -3231,7 +3231,7 @@ endif
 _0198A4: ;a- x8
     ;rising wave
     !A8
-    ldy.b #handler[2].base : lda.b #_01FF00_34 : jsl _01A6FE
+    ldy.b #task[2].base : lda.b #_01FF00_34 : jsl _01A6FE
     lda #$11 : sta $02D5 : sta $02D7
     lda #$01 : jsr _019A88
     jsr .9987
@@ -3252,7 +3252,7 @@ _0198A4: ;a- x8
     lda #$0C : sta $02DE
     lda #$04 : sta $031E
 if !version == 2
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
 endif
     lda #$4F : sta.w hud_flicker_timer
     !A16
@@ -3303,7 +3303,7 @@ if !version == 2
 endif
     lda #$01 : jsr _019A88
     pld
-    jml current_handler_remove
+    jml current_task_remove
 
 ;-----
 
@@ -3354,7 +3354,7 @@ endif
     inc $75
     lda #$03 : sta $031E
 if !version == 2
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
 endif
     lda #$17 : sta $02D5 : sta $02D7
     ldx #$54 : lda #$01 : jsl _01F6C9
@@ -3431,7 +3431,7 @@ water_crash_to_ram: ;a- x-
 _019A88: ;a8 x8
     pha
     jsl _01B26D
-    pla : jsl current_handler_suspend
+    pla : jsl current_task_suspend
     rts
 }
 
@@ -3453,21 +3453,21 @@ _019A93: ;a8 x8
     bne .9ADA
 
 .9ABA:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     jsr .9B12
     lda $006D
     beq .9ABA
 
 .9AC8:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $16
     beq .9AC8
 
-    lda.b #80 : jsl current_handler_suspend
+    lda.b #80 : jsl current_task_suspend
     bra .9AEB
 
 .9ADA:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$0B00
     bcc .9ADA
@@ -3477,17 +3477,17 @@ _019A93: ;a8 x8
 .9AEB:
     stz $08
 .9AED:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     jsr .9B34
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     jsr .9BC8
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $1ED7
     beq .9AED
 
     stz $0D
     stz $0E
-    jml current_handler_remove
+    jml current_task_remove
 
 ;-----
 
@@ -3516,7 +3516,7 @@ _019A93: ;a8 x8
     jsr .9B78
 .9B37:
     !A16
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     sec
     lda $1736,Y : sbc $0F : sta $1736,Y
     lda $1738,Y : sbc $11 : sta $1738,Y
@@ -3525,7 +3525,7 @@ _019A93: ;a8 x8
 
 .9B56:
     !A16
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     sec
     lda $1736,Y : sbc $0F : sta $1736,Y
     lda $1738,Y : sbc $11 : sta $1738,Y
@@ -3581,7 +3581,7 @@ _019A93: ;a8 x8
     jsr .9B78
 .9BCB:
     !A16
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     clc
     lda $1736,Y : adc $0F : sta $1736,Y
     lda $1738,Y : adc $11 : sta $1738,Y
@@ -3590,7 +3590,7 @@ _019A93: ;a8 x8
 
 .9BEA:
     !A16
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     clc
     lda $1736,Y : adc $0F : sta $1736,Y
     lda $1738,Y : adc $11 : sta $1738,Y
@@ -3605,21 +3605,21 @@ _019A93: ;a8 x8
 _019C0C: ;a8 x-
     !X16
 .9C0E:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx #$02B0
     cpx.w camera_x+1
     bcs .9C0E
 
     stx.w screen_boundary_left
 .9C1F:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx #$0800
     cpx.w camera_x+1
     bcs .9C1F
 
     stx.w screen_boundary_left
 .9C30:
-    lda.b #2 : jsl current_handler_suspend
+    lda.b #2 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$08D6
     bcc .9C30
@@ -3629,7 +3629,7 @@ _019C0C: ;a8 x-
     lda.w checkpoint
     bne .9C82
 
-    ldy.b #handler[1].base : lda.b #_01FF00_38 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #_01FF00_38 : jsl _01A6FE
     !AX16
     ldy #$0030
 .9C57:
@@ -3650,26 +3650,26 @@ _019C0C: ;a8 x-
     lda #$0080
 .9C75:
     sta $1EEE
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     dey
     bne .9C57
 
 .9C82:
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;9C86 - 9CBD
 _019C86: ;a- x-
     !AX16
 .9C88:
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     sec
     lda $1EAE : sbc #$0004 : sta $1EAE
     bpl .9C88
 
     stz $1EAD
     stz $1EAE
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
 .9CA8:
     sec
     lda $1EB1 : sbc #$0004 : sta $1EB1
@@ -3677,7 +3677,7 @@ _019C86: ;a- x-
 
     stz $1EB0
     stz $1EB1
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;9CBE - 9CDF
@@ -3708,13 +3708,13 @@ _019CBE: ;a16 x-
 { ;9CE0 - 9DE4
 _019CE0: ;a8 x8
     stz $006D
-    lda.b #255 : jsl current_handler_suspend
+    lda.b #255 : jsl current_task_suspend
 .9CE9:
     lda #$A0 : sta $006E
 .9CEE:
     ldx #$00 : ldy #$00 : jsr .9D8A
     jsr .9D1F
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dec $006E
     bne .9CEE
 
@@ -3722,7 +3722,7 @@ _019CE0: ;a8 x8
 .9D08:
     ldx #$00 : ldy #$03 : jsr .9D8A
     jsr .9D1F
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dec $006E
     bne .9D08
 
@@ -3755,11 +3755,11 @@ _019CE0: ;a8 x8
     lda $1EB0 : adc #$50 : sta $1EB0
     lda $1EB1 : adc #$00 : sta $1EB1
     lda $1EB2 : adc #$00 : sta $1EB2
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dex
     bne .9D48
 
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
 .9D89:
     rts
 
@@ -3808,19 +3808,19 @@ _019CE0: ;a8 x8
 
 { ;9DE5 - 9E1A
 _019DE5: ;a8 x?
-    lda.b #63 : jsl current_handler_suspend
+    lda.b #63 : jsl current_task_suspend
 .9DEB:
     lda #$40 : sta $0086
 .9DF0:
     ldx #$06 : ldy #$06 : jsr _019CE0_9D8A
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dec $0086
     bne .9DF0
 
     lda #$40 : sta $0086
 .9E07:
     ldx #$06 : ldy #$09 : jsr _019CE0_9D8A
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dec $0086
     bne .9E07
 
@@ -3833,7 +3833,7 @@ _019E1B: ;a8 x?
     lda #$01 : sta $CE
     jsl _018049_8051
 .9E25:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     jsl get_object_slot
     bmi .9E25
 
@@ -3843,7 +3843,7 @@ _019E1B: ;a8 x?
     lda #$15B0 : sta.w obj.pos_x+1,X
     lda #$0228 : sta.w obj.pos_y+1,X
     !AX8
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx #$0F
     lda #$00
 .9E55:
@@ -3870,7 +3870,7 @@ _019E1B: ;a8 x?
     stz !DAS5B
     lda #$20 : ora $02F0 : sta $02F0
 .9EA9:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $CE
     cmp #$57
     bcc .9ECD
@@ -3892,7 +3892,7 @@ _019E1B: ;a8 x?
     bcc .9EA9
 
     inc $1F9F
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;9EEA - 9F42
@@ -3903,7 +3903,7 @@ _019EEA: ;a- x8
     stz $B7
 .9EF3:
     !A16
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     ldy #$00
     sec
     lda.w camera_x+1
@@ -3965,7 +3965,7 @@ _019F43: ;a8 x8
     lda #$0100 : sta $19C5
     lda #$0001 : sta $031D
 .9F68:
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     stz $031D
     lda.w camera_x+1
     cmp.w stage3_data_AB0C,X
@@ -3975,7 +3975,7 @@ _019F43: ;a8 x8
     tax
     bpl .9F57
 
-    jml current_handler_remove
+    jml current_task_remove
 
 .9F84:
     sec
@@ -4049,7 +4049,7 @@ _01A00A:
     lda #$01 : sta $0089
     lda #$01 : sta $1F2F
 .A01E:
-    lda.b #189 : jsl current_handler_suspend
+    lda.b #189 : jsl current_task_suspend
     lda #$04
     bra .A02A
 
@@ -4078,7 +4078,7 @@ _01A00A:
     sta $008A
     lda #$04 : jsr .A067
 .A054:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $0087
     cmp $0089
     beq .A054
@@ -4091,14 +4091,14 @@ _01A00A:
 .A067:
     sta $85
 .A069:
-    lda.b #6 : jsl current_handler_suspend
+    lda.b #6 : jsl current_task_suspend
     dec $1F2B
     dec $1F2D
     jsl _01B9A8_BA9C
     dec $85
     bne .A069
 
-    lda.b #15 : jsl current_handler_suspend
+    lda.b #15 : jsl current_task_suspend
     rts
 
 ;-----
@@ -4106,14 +4106,14 @@ _01A00A:
 .A084:
     sta $85
 .A086:
-    lda.b #6 : jsl current_handler_suspend
+    lda.b #6 : jsl current_task_suspend
     inc $1F2B
     inc $1F2D
     jsl _01B9A8_BA9C
     dec $85
     bne .A086
 
-    lda.b #15 : jsl current_handler_suspend
+    lda.b #15 : jsl current_task_suspend
     rts
 }
 
@@ -4124,7 +4124,7 @@ _01A00A:
     beq .A0B1
 
     sta $0089,X
-    tya : jsl current_handler_suspend
+    tya : jsl current_task_suspend
 .A0B1:
     rts
 }
@@ -4138,10 +4138,10 @@ _01A0B2:
 
     ldx #$0580 : stx $19E8
     stz $1A7F
-    jml current_handler_remove
+    jml current_task_remove
 
 .A0C6:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_y+1
     cpx #$0500
     bcs .A0C6
@@ -4149,14 +4149,14 @@ _01A0B2:
     inc $19EB
     ldx #$0500 : stx $19E8
 .A0DD:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$0180
     bcc .A0DD
 
     stz $1A7F
 .A0EE:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$0700
     bcc .A0EE
@@ -4167,7 +4167,7 @@ _01A0B2:
     lda #$60 : sta $1EF0
     lda #$C0 : sta $1EF2
 .A10E:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dec $1EF0
     lda $1EF0
     pha
@@ -4177,7 +4177,7 @@ _01A0B2:
     cmp #$10
     bne .A10E
 
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;A128 - A190
@@ -4188,7 +4188,7 @@ _01A128:
 
     !A16
 .A12F:
-    lda.w #1 : jsl current_handler_suspend
+    lda.w #1 : jsl current_task_suspend
     lda.w camera_x+1
     cmp #$0400
     bcc .A12F
@@ -4201,7 +4201,7 @@ _01A128:
     eor #$02
     tax
     sta $02D7
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dey
     bne .A145
 
@@ -4209,25 +4209,25 @@ _01A128:
     lda #$15 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
     lda #$FF : sta $19DF : sta $19E3
     lda #$94 : sta $031E
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda #$13 : sta $031E
     lda $02DD : and #$FC : ora #$01 : sta $02DD
     lda $02D9 : ora #$20 : sta $02D9
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;A191 - A1F4
 _01A191: ;a8 x-
     !X16
 .A193:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$0220
     bcc .A193
 
     stz $1A7F
 .A1A4:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$0400
     bcc .A1A4
@@ -4240,7 +4240,7 @@ _01A191: ;a8 x-
     sta $1A7B
     !A8
 .A1C4:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     ldx.w camera_x+1
     cpx #$1800
     bcc .A1C4
@@ -4251,14 +4251,14 @@ _01A191: ;a8 x-
 
     lda #$01 : sta $19EB
 .A1DF:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     dex
     stx.w camera_y+1
     stx $19E8
     cpx #$0200
     bne .A1DF
 
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;A1F5 - A21C
@@ -4274,7 +4274,7 @@ _01A1F5:
     ldx.w camera_y+1
     stx $07
 .A204:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda.w jump_counter
     bne .A21B
 
@@ -4488,7 +4488,7 @@ _01A397: ;a- x8
 
     phb
     lda #$00 : pha : plb
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     plb
     bra .A3C7
 
@@ -4496,7 +4496,7 @@ _01A397: ;a- x8
     plp
     plb
     pld
-    jml current_handler_remove
+    jml current_task_remove
 }
 
 { ;A3ED - A4C8
@@ -4937,16 +4937,16 @@ _01A649: ;a8 x8
 { ;A6AB - A6FD
 _01A6AB: ;a8 x8
     stz $02B6
-    lda.b #7 : sta.w handler_loop_count
+    lda.b #7 : sta.w task_loop_count
     ldy.b #$00
 .A6B5:
-    ldx.w !handler_offset.state,Y
+    ldx.w !task_offset.state,Y
     cpx #$04
     bcs .A6C9
 
 .A6BC:
-    clc : tya : adc.b #handler.len : tay
-    dec.w handler_loop_count
+    clc : tya : adc.b #task.len : tay
+    dec.w task_loop_count
     bne .A6B5
 
     jmp _01A6AB
@@ -4955,23 +4955,23 @@ _01A6AB: ;a8 x8
     lda $02B6
     bne _01A6AB
 
-    sty.w current_handler_offset
+    sty.w current_task_offset
     tya
     bne .A6DA
 
     inc.w frame_counter
     jsr _01A74A_A7A4
 .A6DA:
-    lda #$08 : sta.w !handler_offset.state,Y
+    lda #$08 : sta.w !task_offset.state,Y
     !A16
-    lda.w !handler_offset.stack_reg,Y : tcs
+    lda.w !task_offset.stack_reg,Y : tcs
     lda #$0000 : tcd
     !A8
     cpx #$0C
     bne +
 
-    lda.w !handler_offset.fn_id,Y : sta.w handler_function_pointer
-    jmp.w (handler_function_pointer)
+    lda.w !task_offset.fn_id,Y : sta.w task_function_pointer
+    jmp.w (task_function_pointer)
 
 +:
     plp
@@ -4984,48 +4984,48 @@ _01A6AB: ;a8 x8
 
 { ;A6FE - A716
 _01A6FE: ;a- x-
-    ;"install handler" function?
+    ;"install task" function?
     php
     !AX8
-    sta.w !handler_offset.fn_id,Y
-    lda #$0C : sta.w !handler_offset.state,Y
-    txa      : sta.w !handler_offset.init_param,Y
+    sta.w !task_offset.fn_id,Y
+    lda #$0C : sta.w !task_offset.state,Y
+    txa      : sta.w !task_offset.init_param,Y
     !A16
-    lda.w !handler_offset.stack_id,Y : sta.w !handler_offset.stack_reg,Y
+    lda.w !task_offset.stack_id,Y : sta.w !task_offset.stack_reg,Y
     plp
     rtl
 }
 
 { ;A717 - A749
-current_handler:
+current_task:
 
 .remove: ;a- x-
     !AX8
-    ldy.w current_handler_offset
+    ldy.w current_task_offset
     jsr .clear_state
 .A71F:
     lda.b #stack[7].top>>8 : xba : lda.b #stack[7].top : tcs
     jmp _01A6AB_A6BC
 
 .suspend: ;a- x-
-    ;suspend handler for A frames
+    ;suspend task for A frames
     phb
     phd
     phx
     phy
     php
     !AX8
-    ldy.w current_handler_offset
-    sta.w !handler_offset.timer,Y
-    lda #$01 : sta.w !handler_offset.state,Y
+    ldy.w current_task_offset
+    sta.w !task_offset.timer,Y
+    lda #$01 : sta.w !task_offset.state,Y
     tsc
     !A16
-    sta.w !handler_offset.stack_reg,Y
+    sta.w !task_offset.stack_reg,Y
     !A8
     bra .A71F
 
 .clear_state:
-    lda #$00 : sta.w !handler_offset.state,Y
+    lda #$00 : sta.w !task_offset.state,Y
     rts
 }
 
@@ -5254,11 +5254,11 @@ elseif !version == 2
     lda #$8F : sta $02F2
     jsl enable_nmi
     lda #$62 : jsl _018049_8053
-    lda.b #25 : jsl current_handler_suspend
+    lda.b #25 : jsl current_task_suspend
     ldx #$02 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
 endif
 .A8DC:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $0066
     bne .A8DC
 
@@ -5266,17 +5266,17 @@ if !version == 0 || !version == 1
     lda #$62 : jsl _018049_8053
     lda #$3F : sta $0055
 elseif !version == 2
-    lda.b #18 : jsl current_handler_suspend
+    lda.b #18 : jsl current_task_suspend
     ldy #$30 : lda.b #_01FF00_74 : jsl _01A6FE
 .A964:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $007E
     bne .A964
 
     lda #$2E : sta $0055
 endif
 .A8F2:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda.w p1_button_hold+1
     bit #!start
     bne .A904
@@ -5286,7 +5286,7 @@ endif
 .A904:
     ldx #$04 : ldy #$18 : lda.b #_01FF00_20 : jsl _01A6FE
 .A90E:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $0066
     bne .A90E
 
@@ -5365,18 +5365,18 @@ endif
 
 .A9CE:
     jsl _018049_8051
-    lda.b #63 : jsl current_handler_suspend
+    lda.b #63 : jsl current_task_suspend
     ldy $1FC7
     ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #_01FF00_68 : jsl _01A6FE
 .A9E6:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $00DE
     bne .A9E6
 
     ldy #$AF : jsl _01A21D_decompress_graphics
     ldy $1FC7 : lda.w _00B52E_B546,Y : sta $02D5
     lda #$18 : sta $031E
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     !AX16
 
     lda #$1800 : sta $0318
@@ -5386,27 +5386,27 @@ endif
     !AX8
     stz $02F0
     stz $02E1
-    lda.b #3 : jsl current_handler_suspend
+    lda.b #3 : jsl current_task_suspend
     lda #$00
     xba
     lda #$45 : jsl _018061_8064
     ldx $1FC7
     lda.w _00B52E_B53A,X : jsl _0183D4_83DB
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda #$84 : sta $02EC
     ldx #$08 : ldy #$90 : lda.b #_01FF00_6C : jsl _01A6FE
     !A16
     ldx #$1C : lda #$0010 : ldy #$00 : jsl _019136_9187
     !A8
 .AA64:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $00DE
     bne .AA64
 
-    lda.b #126 : jsl current_handler_suspend
+    lda.b #126 : jsl current_task_suspend
     lda.b #_01FF00_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
 .AA7F:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $00DE
     bne .AA7F
 
@@ -5423,7 +5423,7 @@ endif
 
     jsl _01834C
     jsl _018074
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     jml _03F8A3
 
 .AAAA:
@@ -5612,11 +5612,11 @@ endif
 
 .AC16: ;mosaic transition
     jsl _0180A6
-    lda.b #63 : jsl current_handler_suspend
+    lda.b #63 : jsl current_task_suspend
     ldx #$0F
 .AC22:
     stx !MOSAIC
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     clc
     txa
     adc #$10
@@ -5647,7 +5647,7 @@ endif
     ldx #$FF
 .AC7E:
     stx !MOSAIC
-    lda.b #4 : jsl current_handler_suspend
+    lda.b #4 : jsl current_task_suspend
     sec
     txa
     sbc #$10
@@ -5809,7 +5809,7 @@ endif
     jsr _01F6E9
     jsr _01B2D6
     inc $0379
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     plx
     dex : bne .AE3C
 
@@ -6077,25 +6077,25 @@ _01B14B: ;a8 x8
 
     lda #!sfx_pause : jsl _018049_8053
     lda #$F3 : jsl _018049_8053
-    ldx.b #handler[6].base
+    ldx.b #task[6].base
 .B16A:
-    lda.w !handler_offset.state,X : pha
-    lda #$02 : sta.w !handler_offset.state,X
-    sec : txa : sbc.b #handler.len : tax
+    lda.w !task_offset.state,X : pha
+    lda #$02 : sta.w !task_offset.state,X
+    sec : txa : sbc.b #task.len : tax
     bne .B16A
 
 .B17A:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda.w p1_button_press+1 ;unpause check
     bit #!start
     beq .B17A
 
     lda #$F4 : jsl _018049_8053
-    ldx.b #handler[1].base
+    ldx.b #task[1].base
 .B18F:
-    pla : sta.w !handler_offset.state,X
-    clc : txa : adc.b #handler.len : tax
-    cpx.b #handler[7].base
+    pla : sta.w !task_offset.state,X
+    clc : txa : adc.b #task.len : tax
+    cpx.b #task[7].base
     bne .B18F
 
 .ret:
@@ -6150,7 +6150,7 @@ _01B19D: ;a8 x8
     jsr _01B2B1
     ldx #$01
 .B22B:
-    txa : jsl current_handler_suspend
+    txa : jsl current_task_suspend
     ldy $037A
     bne .B22B
 
@@ -6261,22 +6261,22 @@ _01B2ED:
 _01B315: ;a- x8
     ;stage 1 handler?
     !A16
-    lda.w #!handler_offset[3].base : tcd
-    stz.b handler.memory+4 ;event counter? not sure what to call it
+    lda.w #!task_offset[3].base : tcd
+    stz.b task.memory+4 ;event counter? not sure what to call it
     ldx.w checkpoint
-    ldy.w stage1_earthquake_start_offset,X : sty.b handler.memory+4
+    ldy.w stage1_earthquake_start_offset,X : sty.b task.memory+4
 .B325:
     !A8
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     !A16
-    lda.b handler.memory+4 : asl : tax
+    lda.b task.memory+4 : asl : tax
     lda.w !obj_arthur.pos_x+1
     cmp.w stage1_earthquake_x_offset,X
     bcc .B325
 
     !A8
     inc.w stage1_earthquake_active
-    lda.b handler.memory+4
+    lda.b task.memory+4
     cmp #$07
     bne .B350
 
@@ -6294,7 +6294,7 @@ _01B315: ;a- x8
     stz.w stage1_earthquake_active
     lsr
     sta $007B
-    lda.b #31 : jsl current_handler_suspend
+    lda.b #31 : jsl current_task_suspend
     lda #$0C : sta $02DD
     !A16
     lda #$0272 : sta $19DE
@@ -6321,7 +6321,7 @@ _01B315: ;a- x8
     lda #$02 : sta $1A80 ;horizontal screen shake
     stz $1A8E
     lda #$04 : sta $1A8A
-    lda.b #31 : jsl current_handler_suspend
+    lda.b #31 : jsl current_task_suspend
     txa
     asl
     tay
@@ -6383,7 +6383,7 @@ _01B315: ;a- x8
     adc #$06
     sta $031F
 .B42A:
-    lda $0A : jsl current_handler_suspend
+    lda $0A : jsl current_task_suspend
     !A16
     dec $0D
     bne .B3D6
@@ -6396,7 +6396,7 @@ _01B315: ;a- x8
     cmp #$11
     bne +
 
-    jml current_handler_remove
+    jml current_task_remove
 +:
     sec
     sbc #$0A
@@ -6408,9 +6408,9 @@ _01B315: ;a- x8
 
     ldx #$16 : jsl _018DC0_8E0E
 +:
-    ldy.b #handler[1].base : lda.b #_01FF00_30 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #_01FF00_30 : jsl _01A6FE
 -:
-    lda.b #1 : jsl current_handler_suspend
+    lda.b #1 : jsl current_task_suspend
     lda $0066
     bne -
 
@@ -11295,13 +11295,13 @@ set_arthur_palette: ;a- x8
 
 { ;D9FA - DA87
 _01D9FA: ;arthur armor up code
-    ldx.b #handler[6].base
+    ldx.b #task[6].base
     ldy #$06
 .D9FE:
-    lda.w !handler_offset.state,X : sta $1FCB,Y
-    lda #$02 : sta.w !handler_offset.state,X
+    lda.w !task_offset.state,X : sta $1FCB,Y
+    lda #$02 : sta.w !task_offset.state,X
     dey
-    sec : txa : sbc.b #handler.len : tax
+    sec : txa : sbc.b #task.len : tax
     bne .D9FE
 
     ldy #$00
@@ -11346,12 +11346,12 @@ _01D9FA: ;arthur armor up code
     jsr _01DDEF_local
     stz $1F95
     stz $0F
-    ldx.b #handler[6].base
+    ldx.b #task[6].base
     ldy #$06
 .DA77:
-    lda $1FCB,Y : sta.w !handler_offset.state,X
+    lda $1FCB,Y : sta.w !task_offset.state,X
     dey
-    sec : txa : sbc.b #handler.len : tax
+    sec : txa : sbc.b #task.len : tax
     bne .DA77
 
     jmp _01CCBD_CDC4

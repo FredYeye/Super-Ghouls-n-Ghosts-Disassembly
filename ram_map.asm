@@ -1,15 +1,15 @@
 {
     ;$0030;0031 irq pointer? unused?
-    handler_function_pointer = $003F;0040
+    task_function_pointer = $003F;0040
     ;$004C;004D ?
 
-    struct handler 0 ;24 bytes * 7
+    struct task 0 ;24 bytes * 7
         .base:         skip 0
 
         .state:        skip 1 ;similar to obj active field? C:init 2:pause 1:?
         .timer:        skip 1 ;timer?
         .stack_reg:    skip 2 ;current top of the stack
-        .stack_id:     skip 2 ;(const) offset to handler's associated stack
+        .stack_id:     skip 2 ;(const) offset to task's associated stack
         .fn_id:        skip 1 ;which FF00 function to call
         .init_param:   skip 0
         .memory:       skip 17
@@ -17,7 +17,7 @@
         .len:          skip 0
     endstruct
 
-    !handler_offset = $004E+handler ;$004E;00F5
+    !task_offset = $004E+task ;$004E;00F5
 
     struct stack $00F6;0275 ;8 stacks * 48 bytes
         .bottom: skip 47
@@ -56,9 +56,9 @@
     shield_type_stored     = $02B1
     existing_weapon_type   = $02B3
 
-    current_handler_offset = $02B4 
-    handler_loop_count     = $02B5
-    ;02B6 handler/nmi related bool?
+    current_task_offset = $02B4 
+    task_loop_count     = $02B5
+    ;02B6 task/nmi related bool?
 
     p1_button_hold         = $02B7;02B8
     p2_button_hold         = $02B9;02BA
@@ -217,7 +217,7 @@
     ;$1FAD used by cockatrice_head2
     ;$1FAF used by icicle spawner / other stage 5 things
 
-    ;$1FCB;1FD1 ;stored handler state while armor is being picked up (1FCB goes unused)
+    ;$1FCB;1FD1 ;stored task state while armor is being picked up (1FCB goes unused)
     ;$1FD2;1FD3 camera x/y direction selector for ? (1FD3 written to but not used)
 
     ;$1FD8 unused?
