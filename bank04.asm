@@ -1935,21 +1935,9 @@ endif
     dw $3DEF, $39CE, $35AD, $318C, $2D6B, $294A, $2529, $2108, $1CE7, $18C6, $14A5, $1084, $0C63, $0842, $0421
 }
 
-{ ;A0F5 - A121
-_04A0F5:
-    lda #$08 : sta $F2FC
-    lda #$FF : sta $F2FF
-    lda #$00 : sta $F2FE
-    lda !SLHV
-    lda !STAT78
-    lda !OPVCT : sta $F2FD
-    lda $F31B : and #$3F : ora #$80 : sta $F31B
-    lda.b #1 : jsl current_task_suspend
-    bra _04A0F5
-}
-
-{ ;A122 - A7DB
-    incsrc "various/text_tilemaps.asm"
+{
+    incsrc "task_fns/_04A0F5.asm"      ;A0F5 - A121
+    incsrc "various/text_tilemaps.asm" ;A122 - A7DB
 }
 
 if !version == 0
