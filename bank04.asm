@@ -1,4 +1,4 @@
-org $048000
+org $048000 : bank04:
 
 if !version == 1 || !version == 2
 { ;8000 - 84B2
@@ -10,7 +10,7 @@ if !version == 2
 { ;84B9 - 8592
 _0484B9:
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     stz $1EC3
     stz $1EC4
     lda $0055,Y : asl : tay
@@ -761,7 +761,7 @@ _048A6B: ;a8 x8
     lda #$00 : pha : pha
     pld
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     jsr _048BB8
     !A16
     ldy $1FD2
@@ -829,7 +829,7 @@ _048AD3:
     beq .ret2
 
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     !A16
     ldx #$00
     ldy $1FD2
@@ -2222,7 +2222,7 @@ _04F021:
 
 .F025:
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     !A16
     clc
     lda.w camera_x+1 : adc #$0080 : sta $0000

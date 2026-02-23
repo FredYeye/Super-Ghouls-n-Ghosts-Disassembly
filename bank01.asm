@@ -511,13 +511,13 @@ _018366: ;a- x8
 { ;83D4 - 8421
 _0183D4: ;a8 x16
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     bra .83E6
 
 .83DB: ;a8 x8
     tax
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     !X16
     ldy.w text_tilemaps,X
 .83E6:
@@ -1718,7 +1718,7 @@ _018DC0: ;a8 x8
     lda.l _0493F2+41,X : sta $0327
 .8E0E: ;a8 x-
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
     lda #$00
     xba
     !X16
@@ -5568,7 +5568,7 @@ _01BDB8: ;a8 x8
 _01BE1C: ;a8 x-
     ;set up screen layout in memory
     phb
-    lda #$03 : pha : plb
+    lda.b #bank03>>16 : pha : plb
     !AX16
     ldx #$093E
     lda #$8000

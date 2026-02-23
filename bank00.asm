@@ -1,4 +1,4 @@
-org $008000
+org $008000 : bank00:
 
 { ;8000 - 80FF
 if !version == 0
@@ -238,7 +238,7 @@ irq: ;a- x-
     !A8
     pha
     phb
-    lda #$00 : pha : plb
+    lda.b #bank00>>16 : pha : plb
     lda !TIMEUP
 -:
     bit !HVBJOY

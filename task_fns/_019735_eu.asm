@@ -1,6 +1,6 @@
 {
 _019735_eu:
-    lda #$01 : pha : plb
+    lda.b #bank01>>16 : pha : plb
     ldy #$06
 .973B:
     lda.w .9752,Y

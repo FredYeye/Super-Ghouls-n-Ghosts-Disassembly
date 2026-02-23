@@ -31,7 +31,7 @@ _01A397: ;a- x8
     bcc .A3C7
 
     phb
-    lda #$00 : pha : plb
+    lda.b #bank00>>16 : pha : plb
     lda.b #1 : jsl current_task_suspend
     plb
     bra .A3C7

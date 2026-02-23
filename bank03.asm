@@ -1,4 +1,4 @@
-org $038000
+org $038000 : bank03:
 
 {
     incsrc "various/stage_layouts.asm"        ;8000 - 846F 
@@ -740,7 +740,7 @@ _03EE1D: ;a8 ;x8
     ;printing text on screen
 if !version == 1
     phb
-    lda #$04 : pha : plb
+    lda.b #bank04>>16 : pha : plb
 endif
     stz $1EC3
     stz $1EC4
