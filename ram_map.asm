@@ -201,6 +201,8 @@
 
     ; $1F2F bool
 
+    in_armor_up_anim = $1F95
+
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
 
     struct pot $1FA5;1FAC

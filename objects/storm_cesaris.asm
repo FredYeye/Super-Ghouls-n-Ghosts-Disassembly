@@ -119,7 +119,7 @@ create:
 
     lda #$35 : jsl _018049_8053
     lda #$03 : sta $07
-    lda #$6E : jsl prepare_object ;todo
+    lda.b #!id_storm_cesaris_projectile : jsl prepare_object
     jsr _946E
 .93A5:
     lda.b obj.pos_y+1

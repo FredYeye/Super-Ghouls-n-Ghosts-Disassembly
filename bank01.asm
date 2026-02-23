@@ -19,7 +19,7 @@ set_hp: ;a- x-
 { ;8021 - 8048
 _018021: ;a8 x-
     lda.b #1 : jsl current_task_suspend
-    stz $1F95
+    stz.w in_armor_up_anim
     stz $1F96
     jsl _018593
     jsl _02821B
@@ -6696,7 +6696,7 @@ _01C679:
     lda $032A
     bne _01C679
 
-    lda $1F95
+    lda.w in_armor_up_anim
     bne .C67C
 
     ldx $19EC
@@ -9332,7 +9332,7 @@ _01D9FA: ;arthur armor up code
     dec $2F
     bne .DA4E
 
-    inc $1F95
+    inc.w in_armor_up_anim
     stz $0332
     inc $0331
     lda #$24 : sta $39
@@ -9346,7 +9346,7 @@ _01D9FA: ;arthur armor up code
     bne .DA61
 
     jsr _01DDEF_local
-    stz $1F95
+    stz.w in_armor_up_anim
     stz $0F
     ldx.b #task[6].base
     ldy #$06

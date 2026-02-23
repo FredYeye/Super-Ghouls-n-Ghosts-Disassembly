@@ -389,7 +389,7 @@ _02821B: ;a8 x8
     phd
     lda #$35 : sta $02C5 ;obj count
     stz $02C6
-    lda #$04 : xba : lda #$3C : tcd ;todo: use label
+    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd ;todo: use label
 
 .822A:
     lda $1F96
@@ -413,8 +413,7 @@ _02821B: ;a8 x8
     jmp .828E
 
 .824B:
-    lda $1F95
-    beq .826E
+    lda.w in_armor_up_anim : beq .826E
 
     !A16
     tdc

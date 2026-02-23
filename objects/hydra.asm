@@ -1373,7 +1373,7 @@ create2: ;cont'd from create
     lda #$5F : sta $31
     lda #$4E : sta $1D
     lda $08 : and #$07 : sta $1ED6
-    lda #$38 : jsl prepare_object ;todo
+    lda.b #!id_hydra_fireball : jsl prepare_object
     jmp .AA07
 
 .AAC7:
