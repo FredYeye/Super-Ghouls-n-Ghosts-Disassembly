@@ -202,6 +202,7 @@
 {
 struct obj 0 ;65 bytes / obj
     .base:       skip 0
+
     .active:     skip 1
     .timer:      skip 1
     .state:      skip 4

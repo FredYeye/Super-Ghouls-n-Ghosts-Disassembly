@@ -75,8 +75,8 @@ entry: ;emulated mode (code entry)
 
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
-    lda.b #irq    : sta $0030
-    lda.b #irq>>8 : sta $0031
+    lda.b #irq    : sta.w irq_pointer
+    lda.b #irq>>8 : sta.w irq_pointer+1
     stz $0000 ;lowest byte of spc_code_start address
     lda.b #spc_code_start>>8  : sta $0001
     lda.b #spc_code_start>>16 : sta $0002

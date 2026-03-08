@@ -18,10 +18,10 @@ create:
     bcc .929C
 
     !X16
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_storm_cesaris : jsr .92C8
 .92B3:
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_storm_cesaris_parts : jsr .92C8
     bne .92B3
 

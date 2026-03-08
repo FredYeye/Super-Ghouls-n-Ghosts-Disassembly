@@ -389,7 +389,7 @@ _02821B: ;a8 x8
     phd
     lda #$35 : sta $02C5 ;obj count
     stz $02C6
-    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd ;todo: use label
+    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
 
 .822A:
     lda $1F96
@@ -515,7 +515,7 @@ _02821B: ;a8 x8
     dw arthur_create, thunk_lance_create, thunk_lance2_create, thunk_knife_create, thunk_knife2_create, thunk_bowgun_create, thunk_bowgun2_create, thunk_scythe_create
     dw thunk_scythe2_create, thunk_torch_create, thunk_torch2_create, thunk_axe_create, thunk_axe2_create, thunk_triblade_create, thunk_triblade2_create, thunk_bracelet_create
     dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create
-    dw lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
+    dw thunk_lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
     dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, _02EEEA_create, stone_pillar_create
     dw $FFFF, flower_part_create, thunk_torch_flame_create, thunk_torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
     dw shell_pearl_create, $9139, $9174, $9191, $91DD, belial_create, belial_flame_create, thunk_princess_create
@@ -569,7 +569,7 @@ _02821B: ;a8 x8
     dw arthur_thing, $8780, $8780, $8780, $8780, $8780, thunk_bowgun2_thing, thunk_scythe_thing
     dw $87D0, $8780, $8780, thunk_axe_thing, thunk_axe2_thing, thunk_triblade_thing, thunk_triblade2_thing, thunk_bracelet_thing
     dw thunk_bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing
-    dw lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
+    dw thunk_lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
     dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780
     dw _02FD62_FD7C, flower_part_thing, thunk_torch_flame_thing, thunk_torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
     dw shell_pearl_thing, $8780, $8780, $8780, $8780, belial_thing, $8780, $8780
@@ -855,16 +855,10 @@ tornado:
 }
 
 { ;8863 -
-lightning:
+thunk_lightning:
 
-.create:
-    jml _01ED46_create
-
-;-----
-
-.thing:
-    jsl _01ED46_thing
-    rts
+.create: jml lightning_create
+.thing:  jsl lightning_thing : rts
 }
 
 { ;886C -
@@ -1456,7 +1450,7 @@ _028B1E: ;a- x16
     iny #2
     rtl
 
-.8B24: ;a- x16
+.local: ;a- x16
     ;todo: name? gets object slot, doesn't have to check if they're available
     ;also only updates a temp index (y)
     ldx.w slot_list_objects,Y
@@ -2005,11 +1999,11 @@ _029713: ;eagler spawner
 
     lda.w obj_type_count+!id_eagler : clc : adc #$04 : sta.w obj_type_count+!id_eagler
     !X16
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_eagler : jsr .97FC
     lda #$04 : sta $07
 .9795:
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_eagler : jsr .97FC
     inc $07
     lda $07
@@ -2043,11 +2037,11 @@ _029713: ;eagler spawner
 
     lda.w obj_type_count+!id_eagler : clc : adc #$04 : sta.w obj_type_count+!id_eagler
     !X16
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_eagler : jsr .97FC
     lda #$04 : sta $07
 .97E2:
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_eagler : jsr .97FC
     inc $07
     lda $07
@@ -2212,14 +2206,14 @@ _029AAF: ;icicle spawner
     lda.b obj.pos_x+1 : sta $0004
     lda.b obj.pos_y+1 : sta $0006
     !A8
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     stx $0008
     jsr .9BC1
     lda $2F : sta $002F,X
     lda $33 : sta $0033,X
     ora $30 : sta $30
 .9BA1:
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     inc $0001
     jsr .9BC1
     lda $0001

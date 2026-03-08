@@ -29,13 +29,13 @@ create:
     !X16
     lda $07 : sta $2D
     stz $2E
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_flower_head : jsr _02E9FA_local
     jsr _EFC3
 .EF9F:
     clc
     lda $07 : adc #$10 : sta $07
-    jsr _028B1E_8B24
+    jsr _028B1E_local
     lda #!id_flower_part : jsr _02E9FA_local
     jsr _EFC3
     lda $2E : eor #$01 : sta $2E : sta.w obj.direction,X

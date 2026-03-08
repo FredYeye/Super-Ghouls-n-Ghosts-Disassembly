@@ -1,5 +1,5 @@
 {
-    ;$0030;0031 irq pointer? unused?
+    irq_pointer = $0030;0031 ;unused?
     task_function_pointer = $003F;0040
     ;$004C;004D ?
 
