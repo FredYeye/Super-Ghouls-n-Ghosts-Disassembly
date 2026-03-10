@@ -2390,7 +2390,7 @@ _00BA32:
 }
 
 { ;BA44 - BA47
-_00BA44: db -1, 0, 1, -1
+direction_left_or_right: db -1, 0, 1, -1 ;no input / left+right = skip (-1)
 }
 
 { ;BA48 - BA5D

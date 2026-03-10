@@ -145,6 +145,7 @@
     hit_by_water_crash           = $14CB
     jump_counter                 = $14CC
     magic_current                = $14CF
+    ;14D1 bool
     weapon_current               = $14D3
     jump_type                    = $14DC ;jump type based on transform status
     transform_armor_state_stored = $14DD

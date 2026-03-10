@@ -7738,7 +7738,7 @@ _01CCBD: ;a8 x8
 .arthur_jump:
     inc.w jump_counter
     lda #!sfx_jump : jsl _018049_8053
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     lda.w _00BA26,X : sta $14B0
     ldy.w _00BA2A,X
     lda.w jump_state
@@ -7780,7 +7780,7 @@ _01CCBD: ;a8 x8
     lda.w double_jump_state
     bne +
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
 +:
     jsr _01DE62_DE63
     jsr arthur_cap_fall_speed
@@ -7843,7 +7843,7 @@ _01CCBD: ;a8 x8
 
     jsr _01D957
 +:
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     lda #$00 : jsr _01D1C4_D1C5
     brk #$00
 
@@ -8005,7 +8005,7 @@ _01D090: ;a8 x8
     lda.w armor_state : asl : tax
     jsr (.D114,X)
 .D0B1:
-    jsr _01D263_D2E2
+    jsr _01D2E2
     jsr _01D30F
     jsr .D143
     lda $0F
@@ -8077,7 +8077,7 @@ _01D090: ;a8 x8
     lda.w is_shooting
     beq +
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
 +:
     jsl update_animation_normal
     jsr _01D371_D3C4
@@ -8245,7 +8245,7 @@ _01D1E1:
     rts
 }
 
-{ ;D263 - D30E
+{ ;D263 - D2D3
 _01D263: ;a8 x? ;arthur code, called from arthur idle?
     lda $14C3
     bne .D2AA
@@ -8310,23 +8310,21 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
     sbc $0328
     cmp $0329
     rts
+}
 
-;-----
+{ ;D2D4 - D2E1
+arthur_set_facing_get_pressed_direction:
+    lda.w p1_button_hold+1 : and #!right|!left : tax ;inputs stored in X. also used after return
+    lda.w direction_left_or_right,X
+    bmi ..skip
 
-.D2D4:
-    lda.w p1_button_hold+1
-    and #!right|!left
-    tax
-    lda.w _00BA44,X
-    bmi .D2E1 ;do nothing if nothing or left+right is pressed
-
-    sta.b obj.facing
-.D2E1:
+    sta.b obj.facing ;update facing if only left or only right pressed
+.skip:
     rts
+}
 
-;-----
-
-.D2E2:
+{ ;D2E2 - D30E
+_01D2E2:
     lda.w armor_state
     cmp #!arthur_state_bee
     beq .D30E
@@ -9837,7 +9835,7 @@ _01DDFC:
 
 ;----- DE06
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     bra .DE04
 }
 
@@ -10045,7 +10043,7 @@ arthur_baby: ;a8 x8
     lda #$02 : sta $3C
     inc.w jump_counter
     lda #!sfx_jump : jsl _018049_8053
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     ldy.w _00BA2A,X : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
 .DFA1:
@@ -10053,7 +10051,7 @@ arthur_baby: ;a8 x8
 
 ;----- DFA3
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     jsr arthur_cap_fall_speed
     jsr _01D8F1
     jsr _01D91C
@@ -10161,7 +10159,7 @@ arthur_maiden:
     lda #$04 : sta $3C
     inc.w jump_counter
     lda #$2B : jsl _018049_8053
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     lda.w _00BB0E_BB0E,X : sta $3C
     ldy.w _00BB0E_BB12,X : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
@@ -10170,7 +10168,7 @@ arthur_maiden:
 
 ;----- E074
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     jsr arthur_cap_fall_speed
     jsr _01D8F1
     jsr _01D91C
@@ -10254,7 +10252,7 @@ arthur_seal: ;a? x8
     lda #$02 : sta $3C
     inc.w jump_counter
     lda #$2B : jsl _018049_8053
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     ldy.w _00BB16,X : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
     lda #$2B : jsl _018049_8053
@@ -10279,7 +10277,7 @@ arthur_seal: ;a? x8
     dec $2F
     bne .E136
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     ldy.w _00BB16,X : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
     lda #$02 : sta $3C
@@ -10294,7 +10292,7 @@ arthur_seal: ;a? x8
 ;-----
 
 .E155:
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     jsr arthur_cap_fall_speed
     jsr _01D8F1
     jsr _01D91C
@@ -10389,7 +10387,7 @@ arthur_bee:
 .jump:
     inc.w jump_counter
     lda #$2B : jsl _018049_8053
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     ldy #$33 : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
 .E205:
@@ -10397,7 +10395,7 @@ arthur_bee:
 
 ;----- E207
 
-    jsr _01D263_D2D4
+    jsr arthur_set_facing_get_pressed_direction
     jsr arthur_cap_fall_speed
     jsr _01D8F1
     jsr _01D91C
