@@ -1472,11 +1472,11 @@ _08E400:
 	dw $0000
 
 .E5CD: ;neutral jump
-	db $0F : dw $822A, $0000, $07FF
+	db $0F : dw meta(offset(sprite_offsets, sprite_offsets_arthur_neutral_jump), 2), $0000, $07FF
 	dw $0000
 
 .E5D6: ;jump
-	db $0F : dw $8248, $0000, $08FF
+	db $0F : dw meta(offset(sprite_offsets, sprite_offsets_arthur_forward_jump), 2), $0000, $08FF
 	dw $0000
 
 .E5DF: ;idle
@@ -1484,79 +1484,79 @@ _08E400:
 	dw $0000
 
 .E5E8: ;crouch
-	db $08 : dw $8102, $0000, $09FF
+	db $08 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_crouch), 2), $0000, $09FF
 	dw $0000
 
 .E5F1: ;neutral jump 2
-	db $0A : dw $8266, $0000, $1507
-	db $10 : dw $80C4, $0000, $13FF
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_jump_stall), 2), $0000, $1507
+	db $10 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_neutral_jump_2), 2), $0000, $13FF
 	dw $0054
 
 .E601: ;jump 2
-	db $0A : dw $8266, $0000, $1507
-	db $0F : dw $80E4, $0000, $14FF
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_jump_stall), 2), $0000, $1507
+	db $0F : dw meta(offset(sprite_offsets, sprite_offsets_arthur_forward_jump_2), 2), $0000, $14FF
 	dw $0054
 
 .E611: ;shot
-	db $0F : dw $8112, $0000, $0A03
-	db $0F : dw $8130, $0000, $0B8C
+	db $0F : dw meta(offset(sprite_offsets, sprite_offsets_arthur_shot_1), 2), $0000, $0A03
+	db $0F : dw meta(offset(sprite_offsets, sprite_offsets_arthur_shot_2), 2), $0000, $0B8C
 	dw $007C
 
 .E621: ;crouch shot
-	db $0A : dw $814E, $0000, $0C03
-	db $0A : dw $8162, $0000, $0D8C
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_shot_crouch_1), 2), $0000, $0C03
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_shot_crouch_2), 2), $0000, $0D8C
 	dw $0054
 
-.E631:
-	db $0D : dw $827A, $0000, $1B03
-	db $0C : dw $8294, $0000, $1C83
+.E631: ;knockback (underwear_knockback + bones_knockback)
+	db $0D : dw meta(offset(sprite_offsets, sprite_offsets_arthur_underwear_knockback), 2), $0000, $1B03
+	db $0C : dw meta(offset(sprite_offsets, sprite_offsets_arthur_bones_knockback), 2), $0000, $1C83
 	dw $0000
 
-.E641:
-	db $10 : dw $82AC, $0000, $1D0C
-	db $0D : dw $82CC, $0000, $1E01
-	db $08 : dw $82E6, $0000, $1F1F
-	db $08 : dw $82E6, $0000, $20FF
+.E641: ;bone pile
+	db $10 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_bones_falling_1), 2), $0000, $1D0C
+	db $0D : dw meta(offset(sprite_offsets, sprite_offsets_arthur_bones_falling_2), 2), $0000, $1E01
+	db $08 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_bones_pile), 2), $0000, $1F1F
+	db $08 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_bones_pile), 2), $0000, $20FF
 	dw $0134
 
 .E65F: ;climb
-	db $0E : dw $8176, $0000, $0E04
-	db $0E : dw $81AE, $0000, $0F04
-	db $0E : dw $8192, $4000, $0E04
-	db $0E : dw $81CA, $4000, $0F84
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_climb_1), 2), $0000, $0E04
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_climb_2), 2), $0000, $0F04
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_climb_3), 2), $4000, $0E04
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_climb_4), 2), $4000, $0F84
 	dw $0000
 
-.E67D:
-	db $0A : dw $81E6, $0000, $1084
+.E67D: ;climb top
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_climb_top_1), 2), $0000, $1084
 	dw $0000
 
-.E686:
-	db $0A : dw $81FA, $0000, $11FF
+.E686: ;climb top 2
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_climb_top_2), 2), $0000, $11FF
 	dw $0000
 
-.E68F:
-	db $0E : dw $820E, $0000, $12FF
+.E68F: ;victory
+	db $0E : dw meta(offset(sprite_offsets, sprite_offsets_arthur_victory), 2), $0000, $12FF
 	dw $0000
 
-.E698:
-	db $08 : dw $832A, $0000, $1606
-	db $0A : dw $833A, $0000, $1706
-	db $0A : dw $834E, $0000, $18F6
+.E698: ;double jump flip
+	db $08 : dw meta(offset(sprite_offsets, sprite_offsets_arthur_double_jump_flip_1), 2), $0000, $1606
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_double_jump_flip_2), 2), $0000, $1706
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_double_jump_flip_3), 2), $0000, $18F6
 	dw $0000
 
 .E6AF:
-	db $0A : dw $8266, $0000, $15F7
+	db $0A : dw meta(offset(sprite_offsets, sprite_offsets_arthur_jump_stall), 2), $0000, $15F7
 	dw $0000
 
 .E6B8: ;unused? crouch anim when picking up armor (2nd anim broken)
-	db $0D : dw $82F6, $0000, $1908
+	db $0D : dw meta(offset(sprite_offsets, sprite_offsets_arthur_upgraded_armor_get_armor_1), 2), $0000, $1908
 	db $0F : dw $8362, $0000, $1AFF
 	dw $0000
 
-.E6C8:
-	db $0D : dw $82F6, $0000, $1908
+.E6C8: ;get armor
+	db $0D : dw meta(offset(sprite_offsets, sprite_offsets_arthur_upgraded_armor_get_armor_1), 2), $0000, $1908
 .E6CF:
-	db $0D : dw $8310, $0000, $1AFF
+	db $0D : dw meta(offset(sprite_offsets, sprite_offsets_arthur_upgraded_armor_get_armor_2), 2), $0000, $1AFF
 	dw $0000
 
 .E6D8:
@@ -1579,7 +1579,7 @@ _08E400:
 	db $07 : dw $842E, $0200, $02FF
 	dw $0000
 
-.E705:
+.E705: ;point statue
 	db $04 : dw $850A, $04E0, $00FF
 	dw $0000
 

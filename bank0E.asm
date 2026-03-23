@@ -74,8 +74,8 @@ arthur_sprites:
 ..pile_2:    incbin "graphics/arthur_bones.bin":(049*32)..(054*32)
 }
 
-incbin "graphics/weapon_bracelet.bin"
-incbin "graphics/item_lance.bin"
+gfx_bracelet: incbin "graphics/weapon_bracelet.bin"
+gfx_item_lance: incbin "graphics/item_lance.bin"
 incbin "graphics/item_triblade.bin"
 incbin "graphics/item_bowgun.bin"
 incbin "graphics/item_scythe.bin"
@@ -88,13 +88,13 @@ incbin "graphics/item_bracelet.bin"
 incbin "graphics/magician.bin"
 incbin "graphics/arthur_plume.bin"
 incbin "graphics/armor_up_charge_vfx.bin"
-incbin "graphics/arthur_bee.bin"
+gfx_arthur_bee: incbin "graphics/arthur_bee.bin"
 incbin "graphics/arthur_baby.bin"
 incbin "graphics/shield.bin"
 incbin "graphics/placeholder.bin"
-incbin "graphics/item_armor_steel.bin"
-incbin "graphics/item_armor_gold.bin"
-incbin "graphics/item_armor_bronze.bin"
+gfx_item_armor_steel:  incbin "graphics/item_armor_steel.bin"
+gfx_item_armor_gold:   incbin "graphics/item_armor_gold.bin"
+gfx_item_armor_bronze: incbin "graphics/item_armor_bronze.bin"
 if !version == 0
     fillbyte $FF : fill 320
 elseif !version == 1 || !version == 2

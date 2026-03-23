@@ -61,30 +61,30 @@ endif
     dl arthur_sprites_underwear_shot_2 : dw $01E0 : db $FF
 
 ..shot_crouch:
-    dl $0EBC60 : dw $0140 : db $FF
-    dl $0EBDA0 : dw $0140 : db $FF
+    dl arthur_sprites_underwear_crouch_shot_1 : dw $0140 : db $FF
+    dl arthur_sprites_underwear_crouch_shot_2 : dw $0140 : db $FF
 
 ..climb:
-    dl $0EBEE0 : dw $01C0 : db $FF
-    dl $0EC0A0 : dw $01C0 : db $FF
+    dl arthur_sprites_underwear_ladder_1 : dw $01C0 : db $FF
+    dl arthur_sprites_underwear_ladder_2 : dw $01C0 : db $FF
 
 ..climb_top:
-    dl $0EC260 : dw $0140 : db $FF
-    dl $0EC3A0 : dw $0140 : db $FF
+    dl arthur_sprites_underwear_butt_frame_1 : dw $0140 : db $FF
+    dl arthur_sprites_underwear_butt_frame_2 : dw $0140 : db $FF
 
 ..double_jump_neutral:
-    dl $0EC6A0 : dw $0200 : db $FF
+    dl arthur_sprites_underwear_double_jump_neutral : dw $0200 : db $FF
 
 ..double_jump_forward:
-    dl $0EC8A0 : dw $01E0 : db $FF
+    dl arthur_sprites_underwear_double_jump_forward : dw $01E0 : db $FF
 
 ..double_jump_crouch:
-    dl $0ECA80 : dw $0140 : db $FF
+    dl arthur_sprites_underwear_double_jump_crouch : dw $0140 : db $FF
 
 ..double_jump_flip:
-    dl $0ECBC0 : dw $0100 : db $FF
-    dl $0ECCC0 : dw $0140 : db $FF
-    dl $0ECE00 : dw $0140 : db $FF ;unused
+    dl arthur_sprites_underwear_double_jump_flip_1 : dw $0100 : db $FF
+    dl arthur_sprites_underwear_double_jump_flip_2 : dw $0140 : db $FF
+    dl arthur_sprites_underwear_double_jump_flip_3 : dw $0140 : db $FF ;unused
 
 ..knockback:
     dl arthur_sprites_underwear_knockback : dw $01C0 : db $FF
@@ -132,44 +132,44 @@ endif
     dl arthur_sprites_steel_jump_forward : dw $01E0 : db $FF
 
 ..crouch:
-    dl $0E9000 : dw $0100 : db $FF
+    dl arthur_sprites_steel_crouch : dw $0100 : db $FF
 
 ..shot:
-    dl $0E9100 : dw $01E0 : db $FF
-    dl $0E92E0 : dw $01E0 : db $FF
+    dl arthur_sprites_steel_shot_1 : dw $01E0 : db $FF
+    dl arthur_sprites_steel_shot_2 : dw $01E0 : db $FF
 
 ..shot_crouch:
-    dl $0E94C0 : dw $0140 : db $FF
-    dl $0E9600 : dw $0140 : db $FF
+    dl arthur_sprites_steel_crouch_shot_1 : dw $0140 : db $FF
+    dl arthur_sprites_steel_crouch_shot_2 : dw $0140 : db $FF
 
 ..climb:
-    dl $0E9740 : dw $01C0 : db $FF
-    dl $0E9900 : dw $01C0 : db $FF
+    dl arthur_sprites_steel_ladder_1 : dw $01C0 : db $FF
+    dl arthur_sprites_steel_ladder_2 : dw $01C0 : db $FF
 
 ..climb_top:
-    dl $0E9AC0 : dw $0140 : db $FF
-    dl $0E9C00 : dw $0140 : db $FF
+    dl arthur_sprites_steel_butt_frame_1 : dw $0140 : db $FF
+    dl arthur_sprites_steel_butt_frame_2 : dw $0140 : db $FF
 
 ..victory:
-    dl $0E9D40 : dw $01C0 : db $FF
+    dl arthur_sprites_steel_victory_pose : dw $01C0 : db $FF
 
 ..double_jump_neutral:
-    dl $0E9F00 : dw $0200 : db $FF
+    dl arthur_sprites_steel_double_jump_neutral : dw $0200 : db $FF
 
 ..double_jump_forward:
-    dl $0EA100 : dw $01E0 : db $FF
+    dl arthur_sprites_steel_double_jump_forward : dw $01E0 : db $FF
 
 ..double_jump_crouch:
-    dl $0EA2E0 : dw $0140 : db $FF
+    dl arthur_sprites_steel_double_jump_crouch : dw $0140 : db $FF
 
 ..double_jump_flip:
-    dl $0EA420 : dw $0100 : db $FF
-    dl $0EA520 : dw $0140 : db $FF
-    dl $0EA660 : dw $0140 : db $FF ;unused
+    dl arthur_sprites_steel_double_jump_flip_1 : dw $0100 : db $FF
+    dl arthur_sprites_steel_double_jump_flip_2 : dw $0140 : db $FF
+    dl arthur_sprites_steel_double_jump_flip_3 : dw $0140 : db $FF ;unused
 
 ..knockback:
     dl arthur_sprites_underwear_knockback : dw $01C0, $0130 ;0130 = vram offset, load steel armor pickup gfx
-    dl $0EFC20 : dw $00E0 : db $FF
+    dl gfx_item_armor_steel               : dw $00E0 : db $FF
 
 ;-----
 
@@ -192,8 +192,8 @@ endif
     dw ..knockback_bronze, .arthur_underwear_knockback+6, .arthur_underwear_knockback+12, .arthur_underwear_knockback+18, .arthur_underwear_knockback+24, .arthur_underwear_knockback+30
 
 ..knockback_bronze:
-    dl $0EC4E0 : dw $01C0, $0130
-    dl $0EFDE0 : dw $00E0 : db $FF
+    dl arthur_sprites_underwear_knockback : dw $01C0, $0130
+    dl gfx_item_armor_bronze              : dw $00E0 : db $FF
 
 ..gold:
     dw ..idle
@@ -214,60 +214,60 @@ endif
     dw ..knockback_gold, .arthur_underwear_knockback+6, .arthur_underwear_knockback+12, .arthur_underwear_knockback+18, .arthur_underwear_knockback+24, .arthur_underwear_knockback+30
 
 ..idle:
-    dl $0F8000 : dw $01C0 : db $FF
+    dl arthur_sprites_upgraded_armor_idle : dw $01C0 : db $FF
 
 ..walk:
-    dl $0F81C0 : dw $01A0 : db $FF
-    dl $0F8360 : dw $0200 : db $FF
-    dl $0F8560 : dw $01C0 : db $FF
-    dl $0F8720 : dw $0180 : db $FF
-    dl $0F88A0 : dw $01C0 : db $FF
-    dl $0F8A60 : dw $01E0 : db $FF
+    dl arthur_sprites_upgraded_armor_walk_1 : dw $01A0 : db $FF
+    dl arthur_sprites_upgraded_armor_walk_2 : dw $0200 : db $FF
+    dl arthur_sprites_upgraded_armor_walk_3 : dw $01C0 : db $FF
+    dl arthur_sprites_upgraded_armor_walk_4 : dw $0180 : db $FF
+    dl arthur_sprites_upgraded_armor_walk_5 : dw $01C0 : db $FF
+    dl arthur_sprites_upgraded_armor_walk_6 : dw $01E0 : db $FF
 
 ..jump_neutral:
-    dl $0F8C40 : dw $01E0 : db $FF
+    dl arthur_sprites_upgraded_armor_jump_neutral : dw $01E0 : db $FF
 
 ..jump_forward:
-    dl $0F8E20 : dw $01E0 : db $FF
+    dl arthur_sprites_upgraded_armor_jump_forward : dw $01E0 : db $FF
 
 ..crouch:
-    dl $0F9000 : dw $0100 : db $FF
+    dl arthur_sprites_upgraded_armor_crouch : dw $0100 : db $FF
 
 ..shot:
-    dl $0F9100 : dw $01E0 : db $FF
-    dl $0F92E0 : dw $01E0 : db $FF
+    dl arthur_sprites_upgraded_armor_shot_1 : dw $01E0 : db $FF
+    dl arthur_sprites_upgraded_armor_shot_2 : dw $01E0 : db $FF
 
 ..shot_crouch:
-    dl $0F94C0 : dw $0140 : db $FF
-    dl $0F9600 : dw $0140 : db $FF
+    dl arthur_sprites_upgraded_armor_crouch_shot_1 : dw $0140 : db $FF
+    dl arthur_sprites_upgraded_armor_crouch_shot_2 : dw $0140 : db $FF
 
 ..climb:
-    dl $0F9740 : dw $01C0 : db $FF
-    dl $0F9900 : dw $01C0 : db $FF
+    dl arthur_sprites_upgraded_armor_ladder_1 : dw $01C0 : db $FF
+    dl arthur_sprites_upgraded_armor_ladder_2 : dw $01C0 : db $FF
 
 ..climb_top:
-    dl $0F9AC0 : dw $0140 : db $FF
-    dl $0F9C00 : dw $0140 : db $FF
+    dl arthur_sprites_upgraded_armor_butt_frame_1 : dw $0140 : db $FF
+    dl arthur_sprites_upgraded_armor_butt_frame_2 : dw $0140 : db $FF
 
 ..victory:
-    dl $0F9D40 : dw $01C0 : db $FF
+    dl arthur_sprites_upgraded_armor_victory_pose : dw $01C0 : db $FF
 
 ..double_jump_neutral:
-    dl $0F9F00 : dw $0200 : db $FF
+    dl arthur_sprites_upgraded_armor_double_jump_neutral : dw $0200 : db $FF
 
 ..double_jump_forward:
-    dl $0FA100 : dw $01E0 : db $FF
+    dl arthur_sprites_upgraded_armor_double_jump_forward : dw $01E0 : db $FF
 
 ..double_jump_crouch:
-    dl $0FA2E0 : dw $0140 : db $FF
+    dl arthur_sprites_upgraded_armor_double_jump_crouch : dw $0140 : db $FF
 
 ..get_armor:
-    dl $0FA420 : dw $01A0 : db $FF
-    dl $0FA5C0 : dw $01A0 : db $FF
+    dl arthur_sprites_upgraded_armor_get_armor_1 : dw $01A0 : db $FF
+    dl arthur_sprites_upgraded_armor_get_armor_2 : dw $01A0 : db $FF
 
 ..knockback_gold:
-    dl $0EC4E0 : dw $01C0, $0130
-    dl $0EFD00 : dw $00E0 : db $FF
+    dl arthur_sprites_underwear_knockback : dw $01C0, $0130
+    dl gfx_item_armor_gold                : dw $00E0 : db $FF
 
 ;-----
 
@@ -283,67 +283,67 @@ endif
     dw ..F173
 
 ..lance:
-    dl $0FBF00 : dw $02A0 : dw $FC38
-    dl $0FB760 : dw $0040 : db $FF
+    dl gfx_lance     : dw $02A0 : dw $FC38
+    dl gfx_hud_lance : dw $0040 : db $FF
 
 ..lance2:
-    dl $0FBF00 : dw $02A0 : dw $FC38
-    dl $0FB7A0 : dw $0040 : db $FF
+    dl gfx_lance : dw $02A0 : dw $FC38
+    dl $0FB7A0   : dw $0040 : db $FF
 
 ..knife:
-    dl $0FC1A0 : dw $0200 : dw $FC38
-    dl $0FB7E0 : dw $0040 : db $FF
+    dl gfx_knife      : dw $0200 : dw $FC38
+    dl gfx_hud_knife  : dw $0040 : db $FF
 
 ..knife2:
     dl $0FC1A0 : dw $0200 : dw $FC38
-    dl $0FB820 : dw $0040 : db $FF
+    dl gfx_hud_knife2     : dw $0040 : db $FF
 
 ..bowgun:
-    dl $0FC3A0 : dw $0080 : dw $FC38
-    dl $0FB860 : dw $0040 : db $FF
+    dl gfx_bowgun     : dw $0080 : dw $FC38
+    dl gfx_hud_bowgun : dw $0040 : db $FF
 
 ..bowgun2:
-    dl $0FC420 : dw $05A0 : dw $FC38
+    dl gfx_bowgun2 : dw $05A0 : dw $FC38
     dl $0FB8A0 : dw $0040 : db $FF
 
 ..scythe:
-    dl $0FC9C0 : dw $0180 : dw $0100
-    dl $0FCB40 : dw $0200 : dw $FB38
-    dl $0FB8E0 : dw $0040 : db $FF
+    dl gfx_scythe_slash : dw $0180 : dw $0100
+    dl gfx_scythe       : dw $0200 : dw $FB38
+    dl gfx_hud_scythe   : dw $0040 : db $FF
 
 ..scythe2:
-    dl $0FC9C0 : dw $0180 : dw $0100
-    dl $0FCD40 : dw $0200 : dw $0100
-    dl $0FCF40 : dw $0140 : dw $FA38
-    dl $0FB920 : dw $0040 : db $FF
+    dl gfx_scythe_slash  : dw $0180 : dw $0100
+    dl gfx_scythe2       : dw $0200 : dw $0100
+    dl gfx_scythe2_trail : dw $0140 : dw $FA38
+    dl gfx_hud_scythe2   : dw $0040 : db $FF
 
 ..torch:
-    dl $0FD680 : dw $0580 : dw $FC38
-    dl $0FB960 : dw $0040 : db $FF
+    dl gfx_torch     : dw $0580 : dw $FC38
+    dl gfx_hud_torch : dw $0040 : db $FF
 
 ..torch2:
-    dl $0FD080 : dw $0600 : dw $FC38
-    dl $0FB9A0 : dw $0040 : db $FF
+    dl gfx_torch2     : dw $0600 : dw $FC38
+    dl gfx_hud_torch2 : dw $0040 : db $FF
 
 ..axe:
-    dl $0FDC00 : dw $0600 : dw $FC38 ;loads some triblade tiles
-    dl $0FB9E0 : dw $0040 : db $FF
+    dl gfx_axe     : dw $0600 : dw $FC38 ;loads some triblade tiles
+    dl gfx_hud_axe : dw $0040 : db $FF
 
 ..axe2:
-    dl $0FDC00 : dw $0600 : dw $FC38
-    dl $0FBA20 : dw $0040 : db $FF
+    dl gfx_axe      : dw $0600 : dw $FC38
+    dl gfx_hud_axe2 : dw $0040 : db $FF
 
 ..triblade:
-    dl $0FE180 : dw $01C0 : dw $FC38
-    dl $0FBA60 : dw $0040 : db $FF
+    dl gfx_triblade     : dw $01C0 : dw $FC38
+    dl gfx_hud_triblade : dw $0040 : db $FF
 
 ..triblade2:
-    dl $0FE340 : dw $00C0 : dw $FC38
-    dl $0FBAA0 : dw $0040 : db $FF
+    dl gfx_triblade2     : dw $00C0 : dw $FC38
+    dl gfx_hud_triblade2 : dw $0040 : db $FF
 
 ..bracelet:
-    dl $0ED600 : dw $03A0 : dw $FC38
-    dl $0FBAE0 : dw $0040 : db $FF
+    dl gfx_bracelet     : dw $03A0 : dw $FC38
+    dl gfx_hud_bracelet : dw $0040 : db $FF
 
 ..F173:
     dl $0FD680 : dw $0600 : db $FF ;torch flames and axe, probably some leftover set
@@ -351,16 +351,16 @@ endif
 ;-----
 
 .armor:
-    dw ..F17F, ..F185, ..F18B
+    dw ..steel, ..gold, ..bronze
 
-..F17F:
-    dl $0EFC20 : dw $00E0 : db $FF
+..steel:
+    dl gfx_item_armor_steel : dw $00E0 : db $FF
 
-..F185:
-    dl $0EFD00 : dw $00E0 : db $FF
+..gold:
+    dl gfx_item_armor_gold : dw $00E0 : db $FF
 
-..F18B:
-    dl $0EFDE0 : dw $00E0 : db $FF
+..bronze:
+    dl gfx_item_armor_bronze : dw $00E0 : db $FF
 
 ;-----
 
@@ -574,7 +574,7 @@ endif
     dw ..item_bracelet
 
 ..item_lance:
-    dl $0ED9A0 : dw $0080 : db $FF
+    dl gfx_item_lance : dw $0080 : db $FF
 
 ..item_knife:
     dl $0EDCA0 : dw $0040 : db $FF
@@ -677,9 +677,9 @@ endif
     dw ..F569, ..F56F
 
 ..F569:
-    dl $0FBD60 : dw $0020 : db $FF
+    dl gfx_arthur_face_1 : dw $0020 : db $FF
 ..F56F:
-    dl $0FBD80 : dw $0020 : db $FF ;face when shooting
+    dl gfx_arthur_face_2 : dw $0020 : db $FF ;face when shooting
 
 ;-----
 
@@ -687,7 +687,7 @@ endif
     dw ..F577
 
 ..F577:
-    dl $0EEE80 : dw $01A0 : db $FF
+    dl gfx_arthur_bee : dw $01A0 : db $FF
 
 ;-----
 

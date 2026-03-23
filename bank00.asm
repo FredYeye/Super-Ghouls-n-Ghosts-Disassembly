@@ -5045,7 +5045,7 @@ endif
 }
 
 { ;ED00 - FF43
-    incsrc "various/sprite_set_offsets.asm"
+    incsrc "various/sprite_set_data.asm"
 }
 
 { ;FF44 - FFBF

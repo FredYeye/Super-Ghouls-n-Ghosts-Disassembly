@@ -1,293 +1,50 @@
 {
-sprite_offsets: ;x/y sprite offsets to compose meta sprites
+sprite_offsets:
 
-    ;todo: convert to signed decimal
+;signed byte X/Y offset pairs, used to compose meta sprite relative to... obj pos / sprite center?
 
 .arthur:
 
-..idle:
-    db  -8, -24
-    db   0, -24
-    db -12, -16
-    db  -4, -16
-    db   4, -16
-    db -15,  -8
-    db  -7,  -8
-    db   1,  -8
-    db -15,   0
-    db  -7,   0
-    db   1,   0
-    db -12,   8
-    db  -4,   8
-    db   4,   8
+..idle:                       incbin "sprite_offsets/arthur_idle.bin"
+..walk_1:                     incbin "sprite_offsets/arthur_walk_1.bin"
+..walk_2:                     incbin "sprite_offsets/arthur_walk_2.bin"
+..walk_3:                     incbin "sprite_offsets/arthur_walk_3.bin"
+..walk_4:                     incbin "sprite_offsets/arthur_walk_4.bin"
+..walk_5:                     incbin "sprite_offsets/arthur_walk_5.bin"
+..walk_6:                     incbin "sprite_offsets/arthur_walk_6.bin"
+..neutral_jump_2:             incbin "sprite_offsets/arthur_neutral_jump_2.bin"
+..forward_jump_2:             incbin "sprite_offsets/arthur_forward_jump_2.bin"
+..crouch:                     incbin "sprite_offsets/arthur_crouch.bin"
+..shot_1:                     incbin "sprite_offsets/arthur_shot_1.bin"
+..shot_2:                     incbin "sprite_offsets/arthur_shot_2.bin"
+..shot_crouch_1:              incbin "sprite_offsets/arthur_shot_crouch_1.bin"
+..shot_crouch_2:              incbin "sprite_offsets/arthur_shot_crouch_2.bin"
+..climb_1:                    incbin "sprite_offsets/arthur_climb_1.bin"
+..climb_3:                    incbin "sprite_offsets/arthur_climb_3.bin"
+..climb_2:                    incbin "sprite_offsets/arthur_climb_2.bin"
+..climb_4:                    incbin "sprite_offsets/arthur_climb_4.bin"
+..climb_top_1:                incbin "sprite_offsets/arthur_climb_top_1.bin"
+..climb_top_2:                incbin "sprite_offsets/arthur_climb_top_2.bin"
+..victory:                    incbin "sprite_offsets/arthur_victory.bin"
+..neutral_jump:               incbin "sprite_offsets/arthur_neutral_jump.bin"
+..forward_jump:               incbin "sprite_offsets/arthur_forward_jump.bin"
+..jump_stall:                 incbin "sprite_offsets/arthur_jump_stall.bin"
+..underwear_knockback:        incbin "sprite_offsets/arthur_underwear_knockback.bin"
+..bones_knockback:            incbin "sprite_offsets/arthur_bones_knockback.bin"
+..bones_falling_1:            incbin "sprite_offsets/arthur_bones_falling_1.bin"
+..bones_falling_2:            incbin "sprite_offsets/arthur_bones_falling_2.bin"
+..bones_pile:                 incbin "sprite_offsets/arthur_bones_pile.bin" ;used for both pile_1 & pile_2
+..upgraded_armor_get_armor_1: incbin "sprite_offsets/arthur_upgraded_armor_get_armor_1.bin"
+..upgraded_armor_get_armor_2: incbin "sprite_offsets/arthur_upgraded_armor_get_armor_2.bin"
+..double_jump_flip_1:         incbin "sprite_offsets/arthur_double_jump_flip_1.bin"
+..double_jump_flip_2:         incbin "sprite_offsets/arthur_double_jump_flip_2.bin"
+..double_jump_flip_3:         incbin "sprite_offsets/arthur_double_jump_flip_3.bin"
 
-..walk_1:
-    db  -8, -24
-    db   0, -24
-    db -12, -16
-    db  -4, -16
-    db   4, -16
-    db -16,  -8
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db  -8,   0
-    db   0,   0
-    db  -8,   8
-    db   0,   8
+    ;unused power up pose?
+    db $F6, $E8, $FE, $E8, $F2, $F0, $FA, $F0, $02, $F0, $EE, $F8, $F6, $F8, $FE, $F8
+    db $06, $F8, $F6, $00, $FE, $00, $06, $00, $F6, $08, $FE, $08, $06, $08
 
-..walk_2:
-    db -16, -24
-    db  -8, -24
-    db   0, -24
-    db   8, -24
-    db -16, -16
-    db  -8, -16
-    db   0, -16
-    db   8, -16
-    db -12,  -8
-    db  -4,  -8
-    db   4,  -8
-    db -16,   0
-    db  -8,   0
-    db   0,   0
-    db   8,   0
-    db   4,   8
-
-..walk_3:
-    db  -8, -24
-    db   0, -24
-    db -12, -16
-    db  -4, -16
-    db   4, -16
-    db -10,  -8
-    db  -2,  -8
-    db   6,  -8
-    db -16,   0
-    db  -8,   0
-    db   0,   0
-    db -12,   8
-    db  -4,   8
-    db   4,   8
-
-..walk_4:
-    db  -8, -24
-    db   0, -24
-    db  -7, -16
-    db   1, -16
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db  -4,   0
-    db   4,   0
-    db -16,   8
-    db  -8,   8
-    db   0,   8
-
-..walk_5:
-    db  -3, -24
-    db   5, -24
-    db  -8, -16
-    db   0, -16
-    db   8, -16
-    db -16,  -8
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db -16,   0
-    db  -8,   0
-    db   0,   0
-    db   8,   0
-    db   6,   8
-
-..walk_6:
-    db  -8, -24
-    db   0, -24
-    db  -8, -16
-    db   0, -16
-    db   8, -16
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db -15,   0
-    db  -7,   0
-    db   1,   0
-    db -16,   8
-    db  -8,   8
-    db   0,   8
-    db   8,   8
-
-    ;neutral jump 2
-    db  -3, -24
-    db -16, -16
-    db  -8, -16
-    db   0, -16
-    db   8, -16
-    db -16,  -8
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db -16,   0
-    db  -8,   0
-    db   0,   0
-    db   8,   0
-    db  16,   0
-    db -16,   8
-    db   8,   8
-
-    ;jump 2
-    db $F4, $EC, $FC, $EC, $04, $EC, $EC, $F4, $F4, $F4, $FC, $F4, $04, $F4, $F0, $FC, $F8, $FC, $00, $FC, $08, $FC, $F0, $04, $F8, $04, $00, $04, $08, $04
-
-    ;crouch
-	db  -8,  -8
-	db   0,  -8
-	db  -8,   0
-	db   0,   0
-	db -16,   8
-	db  -8,   8
-	db   0,   8
-	db   8,   8
-
-    ;shot
-	db -13, -24
-	db  -5, -24
-	db   3, -24
-	db -12, -16
-	db  -4, -16
-	db   4, -16
-	db  -8,  -8
-	db   0,  -8
-	db   8,  -8
-	db  -8,   0
-	db   0,   0
-	db   8,   0
-	db -12,   8
-	db  -4,   8
-	db   4,   8
-
-    ;shot 2
-    db   4, -24
-    db   0, -16
-    db   8, -16
-    db -16,  -8
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db -16,   0
-    db  -8,   0
-    db   0,   0
-    db   8,   0
-    db  16,   0
-    db  -6,   8
-    db   2,   8
-    db  10,   8
-
-    ;crouch shot
-	db -12,  -8
-	db  -4,  -8
-	db   4,  -8
-	db -12,   0
-	db  -4,   0
-	db   4,   0
-	db -16,   8
-	db  -8,   8
-	db   0,   8
-	db   8,   8
-
-    ;crouch shot 2
-	db   0,  -8
-	db   8,  -8
-	db  -8,   0
-	db   0,   0
-	db   8,   0
-	db -16,   8
-	db  -8,   8
-	db   0,   8
-	db   8,   8
-	db  16,   8
-
-    ;climb
-    db -12, -24
-	db  -4, -24
-	db   4, -24
-	db -16, -16
-	db  -8, -16
-	db   0, -16
-	db   8, -16
-	db -12,  -8
-	db  -4,  -8
-	db   4,  -8
-	db  -8,   0
-	db   0,   0
-	db  -9,   8
-	db   0,   8
-
-    db $04, $E8, $FC, $E8, $F4, $E8, $08, $F0, $00, $F0, $F8, $F0, $F0, $F0, $04, $F8
-    db $FC, $F8, $F4, $F8, $00, $00, $F8, $00, $01, $08, $F8, $08, $F4, $E8, $FC, $E8
-    db $04, $E8, $F0, $F0, $F8, $F0, $00, $F0, $08, $F0, $F0, $F8, $F8, $F8, $00, $F8
-    db $F8, $00, $00, $00, $F7, $08, $00, $08, $04, $E8, $FC, $E8, $F4, $E8, $08, $F0
-    db $00, $F0, $F8, $F0, $F0, $F0, $08, $F8, $00, $F8, $F8, $F8, $00, $00, $F8, $00
-    db $01, $08, $F8, $08, $FA, $E8, $02, $E8, $F4, $F0, $FC, $F0, $04, $F0, $F3, $F8
-    db $FB, $F8, $03, $F8, $F8, $00, $F7, $08, $F8, $E8, $00, $E8, $F0, $F0, $F8, $F0
-    db $00, $F0, $08, $F0, $F0, $F8, $F8, $F8, $00, $F8, $08, $F8, $F4, $E8, $FC, $E8
-    db $04, $E8, $F4, $F0, $FC, $F0, $04, $F0, $F8, $F8, $00, $F8, $F8, $00, $00, $00
-    db $F0, $08, $F8, $08, $00, $08, $08, $08
-
-    ;neutral jump
-    db  -3, -24
-    db -16, -16
-    db  -8, -16
-    db   0, -16
-    db   8, -16
-    db -16,  -8
-    db  -8,  -8
-    db   0,  -8
-    db   8,  -8
-    db -16,   0
-    db  -8,   0
-    db   0,   0
-    db   8,   0
-    db -12,   8
-    db   8,   8
-
-    ;forward jump
-    db -16, -18
-    db  -8, -18
-    db   0, -18
-    db -18, -10
-    db -10, -10
-    db  -2, -10
-    db  14,  -6
-    db -18,  -2
-    db -10,  -2
-    db  -2,  -2
-    db   6,  -2
-    db  14,   2
-    db -18,   6
-    db -10,   6
-    db  -2,   6
-
-    ;jump stall
-    db $F8, $F0, $00, $F0, $F4, $F8, $FC, $F8, $04, $F8, $F4, $00, $FC, $00, $04, $00, $F8, $08, $00, $08
-
-    ;todo (84F0)
-    db $F9, $E8, $F0, $F0, $F8, $F0, $00, $F0, $08, $F0, $ED, $F8, $F5, $F8, $FD, $F8
-    db $05, $FA, $0B, $FA, $F5, $00, $FD, $00, $05, $00, $F0, $F0, $F8, $F0, $00, $F0
-    db $08, $F0, $EB, $F8, $F3, $F8, $FB, $F8, $03, $F8, $0B, $F8, $F8, $00, $00, $00
-    db $08, $00, $F8, $E8, $00, $E8, $08, $E8, $E8, $F0, $F0, $F0, $F8, $F0, $00, $F0
-    db $08, $F0, $EB, $F8, $ED, $F8, $F5, $F8, $FD, $F8, $05, $F8, $F8, $00, $00, $00
-    db $FD, $08, $F0, $F0, $F8, $F0, $00, $F0, $08, $F0, $F0, $F8, $F8, $F8, $00, $F8
-    db $08, $F8, $10, $F8, $E8, $FB, $F0, $00, $F8, $00, $00, $00, $F0, $00, $F8, $00
-    db $E8, $08, $F0, $08, $F8, $08, $00, $08, $08, $08, $10, $08, $F6, $F0, $FE, $F0
-    db $F2, $F8, $FA, $F8, $02, $F8, $F2, $00, $FA, $00, $02, $00, $0A, $00, $F2, $08
-    db $FA, $08, $02, $08, $0A, $08, $F6, $E0, $F6, $E8, $FE, $E8, $F8, $F0, $00, $F0
-    db $FA, $F8, $02, $F8, $F6, $00, $FE, $00, $06, $00, $F6, $08, $FE, $08, $06, $08
-    db $FC, $F3, $04, $F3, $F7, $FB, $FF, $FB, $07, $FB, $F7, $03, $FF, $03, $07, $03
-    db $F9, $F4, $01, $F4, $F9, $FC, $01, $FC, $F3, $04, $FB, $04, $03, $04, $F3, $0C
-    db $FB, $0C, $03, $0C, $F1, $F0, $F9, $F0, $EF, $F8, $F7, $F8, $FF, $F8, $EF, $00
-    db $F7, $00, $FF, $00, $F1, $08, $F9, $08, $F6, $E8, $FE, $E8, $F2, $F0, $FA, $F0
-    db $02, $F0, $EE, $F8, $F6, $F8, $FE, $F8, $06, $F8, $F6, $00, $FE, $00, $06, $00
-    db $F6, $08, $FE, $08, $06, $08, $F8, $00, $F8, $FC, $00, $FC, $F8, $04, $F8, $FA
+    db $F8, $00, $F8, $FC, $00, $FC, $F8, $04, $F8, $FA
     db $00, $F8, $F8, $F8, $00, $FC, $F8, $00, $F8, $F0, $F8, $F8, $00, $F8, $FD, $F0
     db $05, $F5, $FD, $F8, $01, $F0, $FA, $F8, $02, $F8, $F8, $F8, $F8, $00, $F8, $F8
     db $00, $F8, $F8, $F8, $00, $F8, $F8, $00, $FC, $F8, $FC, $00, $00, $F0, $F8, $F8

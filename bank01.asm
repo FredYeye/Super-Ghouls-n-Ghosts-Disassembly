@@ -8316,7 +8316,7 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
 arthur_set_facing_get_pressed_direction:
     lda.w p1_button_hold+1 : and #!right|!left : tax ;inputs stored in X. also used after return
     lda.w direction_left_or_right,X
-    bmi ..skip
+    bmi .skip
 
     sta.b obj.facing ;update facing if only left or only right pressed
 .skip:
