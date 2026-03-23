@@ -577,31 +577,31 @@ endif
     dl gfx_item_lance : dw $0080 : db $FF
 
 ..item_knife:
-    dl $0EDCA0 : dw $0040 : db $FF
+    dl gfx_item_knife : dw $0040 : db $FF
 
 ..item_bowgun:
-    dl $0EDAA0 : dw $0080 : db $FF
+    dl gfx_item_bowgun : dw $0080 : db $FF
 
 ..item_scythe:
-    dl $0EDB20 : dw $0080 : db $FF
+    dl gfx_item_scythe : dw $0080 : db $FF
 
 ..item_torch:
-    dl $0EDBA0 : dw $0080 : db $FF
+    dl gfx_item_torch : dw $0080 : db $FF
 
 ..item_axe:
-    dl $0EDC20 : dw $0080 : db $FF
+    dl gfx_item_axe : dw $0080 : db $FF
 
 ..item_triblade:
-    dl $0EDA20 : dw $0080 : db $FF
+    dl gfx_item_triblade : dw $0080 : db $FF
 
 ..item_shield:
-    dl $0EDCE0 : dw $0060 : db $FF
+    dl gfx_item_shield : dw $0060 : db $FF
 
 ..bracelet_fairy:
-    dl $0EDD40 : dw $0080 : db $FF
+    dl gfx_item_bracelet_fairy : dw $0080 : db $FF
 
 ..item_bracelet:
-    dl $0EDDC0 : dw $0080 : db $FF
+    dl gfx_item_bracelet : dw $0080 : db $FF
 
 ;-----
 
@@ -633,10 +633,10 @@ endif
     dw ..F4F1, ..F4F7
 
 ..F4F1:
-    dl $0FBE20 : dw $0060 : db $FF
+    dl gfx_trap_1 : dw $0060 : db $FF
 
 ..F4F7:
-    dl $0FBE80 : dw $0080 : db $FF
+    dl gfx_trap_2 : dw $0080 : db $FF
 
 ;-----
 
@@ -762,7 +762,7 @@ endif
     dw ..F60F
 
 ..F60F:
-    dl $0FBDA0 : dw $0080 : db $FF
+    dl gfx_key : dw $0080 : db $FF
 
 ;-----
 
@@ -860,33 +860,33 @@ endif
     dw ..thunder, ..fire_dragon, ..seek, ..tornado, ..shield, ..lightning, ..nuclear, ..F776
 
 ..thunder:
-    dl $0FE400 : dw $0580 : dw $F970
-    dl $0FBB60 : dw $0040 : db $FF
+    dl gfx_magic_thunder : dw $0580 : dw $F970 ;loads both thunder and arthur magic pose
+    dl gfx_hud_thunder   : dw $0040 : db $FF
 
 ..fire_dragon:
-    dl $0FE980 : dw $0380 : dw $F970
-    dl $0FBBA0 : dw $0040 : db $FF
+    dl gfx_fire_dragon     : dw $0380 : dw $F970
+    dl gfx_hud_fire_dragon : dw $0040 : db $FF
 
 ..seek:
-    dl $0FED00 : dw $0240 : dw $F970
-    dl $0FBBE0 : dw $0040 : db $FF
+    dl gfx_magic_seek : dw $0240 : dw $F970 ;not used
+    dl gfx_hud_seek   : dw $0040 : db $FF
 
 ..tornado:
-    dl $0FED00 : dw $0520 : dw $F970
-    dl $0FBC20 : dw $0040 : db $FF
+    dl gfx_magic_tornado : dw $0520 : dw $F970
+    dl gfx_hud_tornado : dw $0040 : db $FF
 
 ..shield:
-    dl $0FF220 : dw $0400 : dw $F970
-    dl $0FBC60 : dw $0040 : db $FF
+    dl gfx_magic_shield : dw $0400 : dw $F970
+    dl gfx_hud_shield   : dw $0040 : db $FF
 
 ..lightning:
-    dl $0FF620 : dw $0220 : dw $0120
-    dl $0FE640 : dw $0340 : dw $F850
-    dl $0FBCA0 : dw $0040 : db $FF
+    dl gfx_magic_lightning   : dw $0220 : dw $0120
+    dl gfx_magic_arthur_pose : dw $0340 : dw $F850
+    dl gfx_hud_lightning     : dw $0040 : db $FF
 
 ..nuclear:
-    dl $0FF840 : dw $0580 : dw $F970
-    dl $0FBCE0 : dw $0040 : db $FF
+    dl gfx_magic_nuclear : dw $0580 : dw $F970
+    dl gfx_hud_nuclear   : dw $0040 : db $FF
 
 ..F776:
     dl $1001C0 : dw $0020 : dw $F970 ;random address

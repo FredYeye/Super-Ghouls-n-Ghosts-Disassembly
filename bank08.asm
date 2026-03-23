@@ -1455,10 +1455,10 @@ _08E400:
 
 	;tile count
 
-	;offset into 058276 (x,y offsets) when anded with 0x3FFF. 2 upper bits appear to change behavior to load more data
+	;offset from 058276 (x,y offsets) when anded with 0x3FFF. 2 upper bits appear to change behavior to load more data
 	;(more data here if 2 upper bits were clear, needs more research)
 
-	;vram tile + h/v flip, also sprite centerpoint (upper byte)?
+	;vram tile + h/v flip, also sprite centerpoint (bits 12-13)?
 
 	;animation timer (and sometimes index also)
 

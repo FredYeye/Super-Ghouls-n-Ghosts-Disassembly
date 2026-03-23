@@ -6,9 +6,7 @@ _058000:
     php
     lda.b #bank05>>16 : pha : plb
     !X16
-    lda #$00 : xba : lda.w stage
-    asl
-    tay
+    lda #$00 : xba : lda.w stage : asl : tay
     stz $0A
     stz $0B
     ldx #$0300 : stx $0C
@@ -16,13 +14,10 @@ _058000:
     lda _058200_821A+0,X : sta $14
 .8021:
     lda.l _058200_821A+3,X : pha : plb
-    lda.l _058200_821A+2,X ;upper byte
-    xba
-    lda.l _058200_821A+1,X ;lower byte
-    tay
+    lda.l _058200_821A+2,X : xba : lda.l _058200_821A+1,X : tay
     inx #3
     phx
-    lda $821A,Y : sta $15 ;todo: label
+    lda.w _058200_821A,Y : sta $15 ;load data from either bank 5 or 8
     tyx
 .803B:
     inx #2
@@ -61,7 +56,7 @@ _05805F:
 -:
     iny #2
     inx #2
-    lda $826D,Y ;todo label
+    lda.w _05826F-2,Y
     cmp #$01FF
     beq -
 
@@ -72,14 +67,14 @@ _05805F:
 
 .mode2:
     jsr _05810A
-    lda $826F,Y : sta $00 ;todo label
-    lda $8270,Y : sta $01 ;todo label
+    lda.w _05826F+0,Y : sta $00
+    lda.w _05826F+1,Y : sta $01
     iny #2
     !A16
 -:
     iny
     inx #2
-    lda $826E,Y ;todo label
+    lda.w _05826F-1,Y
     and #$00FF
     cmp #$00FF
     beq -
@@ -94,7 +89,7 @@ _05805F:
 .mode3:
     jsr _05810A
     !A16
-    lda $826F,Y ;todo label
+    lda.w _05826F,Y
     dec
     sta $00
     iny #2
@@ -123,12 +118,12 @@ _05805F:
     ldx $0C
     inx #2
     stx $0C
-    lda $826D,Y : sta $7E1FFE,X ;todo label
+    lda.w _05826F-2,Y : sta $7E1FFE,X
     and #$00FF
     cmp #$0080
     bcc .80BA
 
-    lda $826F,Y : sta $7E2000,X ;todo label
+    lda.w _05826F-0,Y : sta $7E2000,X
     inx #2
     stx $0C
     ldx $0A
@@ -146,7 +141,7 @@ _05805F:
 _05810A: ;a16 x16
     pha
     !A8
-    lda $826F,Y ;todo label
+    lda.w _05826F,Y
     iny #3
     sta $10
     stz $11
@@ -226,7 +221,7 @@ elseif !version == 1 || !version == 2
 endif
 }
 
-{ ;8200 -
+{ ;8200 - 826E
 _058200:
     dw offset(.821A, .821A), offset(.821A, .8221), offset(.821A, .8228), offset(.821A, .822F)
     dw offset(.821A, .8236), offset(.821A, .823D), offset(.821A, .8244), offset(.821A, .824B)
@@ -249,10 +244,13 @@ _058200:
 .8260: db $01 : dl offset(.821A&$FFFF, _05A812_F531) ;map screen?
 .8264: db $01 : dl offset(.821A&$FFFF, _05A812_F531)
 .8268: db $02 : dl offset(.821A&$FFFF, _08E400) : dl offset(.821A&$FFFF, _05A812_F636)
+
+;todo: surely it makes more sense to place this label here?
+;anchor point for sprite animation offsets
+_05826F:
 }
 
 { ;826F - 8275
-_05826F: ;todo: this label should be removed
     db $01, $00, $05, $00, $00, $80, $00 ;unused?
 }
 
