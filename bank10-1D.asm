@@ -43,8 +43,6 @@ endif
     gfx_intro_castle:  incbin "graphics/game_start_cutscene_castle.bin"
     gfx_unk06:         incbin "graphics/unknown06.bin"
 
-org $18BBE6
-
 if !version == 0
 { ;BBE6 - BC47
     ;leftover copies of above data?

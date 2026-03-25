@@ -27,32 +27,30 @@ arthur_sprites_upgraded_armor:
 .get_armor_1:         incbin "graphics/arthur_upgraded_armor.bin":(289*32)..(302*32)
 .get_armor_2:         incbin "graphics/arthur_upgraded_armor.bin":(302*32)..(315*32)
 
-incbin "graphics/arthur_seal.bin"
-incbin "graphics/arthur_maiden.bin"
-gfx_hud_lance:       incbin "graphics/hud_lance.bin"
-gfx_hud_knife:       incbin "graphics/hud_knife.bin"
-gfx_hud_knife2:      incbin "graphics/hud_knife2.bin"
-gfx_hud_bowgun:      incbin "graphics/hud_bowgun.bin"
-gfx_hud_scythe:      incbin "graphics/hud_scythe.bin"
-gfx_hud_scythe2:     incbin "graphics/hud_scythe2.bin"
-gfx_hud_torch:       incbin "graphics/hud_torch.bin"
-gfx_hud_torch2:      incbin "graphics/hud_torch2.bin"
-gfx_hud_axe:         incbin "graphics/hud_axe.bin"
-gfx_hud_axe2:        incbin "graphics/hud_axe2.bin"
-gfx_hud_triblade:    incbin "graphics/hud_triblade.bin"
-gfx_hud_triblade2:   incbin "graphics/hud_triblade2.bin"
-gfx_hud_bracelet:    incbin "graphics/hud_bracelet.bin"
-incbin "graphics/pu07.bin" ;the characters P, U, 0, 7
-gfx_hud_thunder:     incbin "graphics/hud_thunder.bin"
-gfx_hud_fire_dragon: incbin "graphics/hud_fire_dragon.bin"
-gfx_hud_seek:        incbin "graphics/hud_seek.bin"
-gfx_hud_tornado:     incbin "graphics/hud_tornado.bin"
-gfx_hud_shield:      incbin "graphics/hud_shield.bin"
-gfx_hud_lightning:   incbin "graphics/hud_lightning.bin"
-gfx_hud_nuclear:     incbin "graphics/hud_nuclear.bin"
-
-fillbyte $FF : fill 64
-
+                       incbin "graphics/arthur_seal.bin"
+                       incbin "graphics/arthur_maiden.bin"
+gfx_hud_lance:         incbin "graphics/hud_lance.bin"
+gfx_hud_knife:         incbin "graphics/hud_knife.bin"
+gfx_hud_knife2:        incbin "graphics/hud_knife2.bin"
+gfx_hud_bowgun:        incbin "graphics/hud_bowgun.bin"
+gfx_hud_scythe:        incbin "graphics/hud_scythe.bin"
+gfx_hud_scythe2:       incbin "graphics/hud_scythe2.bin"
+gfx_hud_torch:         incbin "graphics/hud_torch.bin"
+gfx_hud_torch2:        incbin "graphics/hud_torch2.bin"
+gfx_hud_axe:           incbin "graphics/hud_axe.bin"
+gfx_hud_axe2:          incbin "graphics/hud_axe2.bin"
+gfx_hud_triblade:      incbin "graphics/hud_triblade.bin"
+gfx_hud_triblade2:     incbin "graphics/hud_triblade2.bin"
+gfx_hud_bracelet:      incbin "graphics/hud_bracelet.bin"
+                       incbin "graphics/pu07.bin" ;the characters P, U, 0, 7
+gfx_hud_thunder:       incbin "graphics/hud_thunder.bin"
+gfx_hud_fire_dragon:   incbin "graphics/hud_fire_dragon.bin"
+gfx_hud_seek:          incbin "graphics/hud_seek.bin"
+gfx_hud_tornado:       incbin "graphics/hud_tornado.bin"
+gfx_hud_shield:        incbin "graphics/hud_shield.bin"
+gfx_hud_lightning:     incbin "graphics/hud_lightning.bin"
+gfx_hud_nuclear:       incbin "graphics/hud_nuclear.bin"
+                       fillbyte $FF : fill 64
 gfx_arthur_face_1:     incbin "graphics/arthur_face.bin":(000*32)..(001*32)
 gfx_arthur_face_2:     incbin "graphics/arthur_face.bin":(001*32)..(002*32)
 gfx_key:               incbin "graphics/key.bin"

@@ -21,7 +21,7 @@
     function be(label) = (label>>8)|(label<<8)
 
     ;specific use: bank 5 & 8, offset to metasprite x/y positions | mode(0-2, 3 is an error)
-    function meta(offset, mode) = (mode<<14)|(offset&$3FFF)
+    function meta(id, mode) = (mode<<14)|(offset(sprite_offsets, id)&$3FFF)
 }
 
 incsrc "snes_defines.asm"
