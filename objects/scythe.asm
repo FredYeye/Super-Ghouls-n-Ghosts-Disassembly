@@ -10,7 +10,7 @@ create:
     ldy #$94 : ldx #$20
 .E661:
     jsl set_sprite
-    lda #$23 : jsl _018049_8053
+    lda.b #!sfx_scythe : jsl _018049_8053
     stz $3C
     lda $09 : ora #$C1 : sta $09
     ldy #$0B : jsl set_speed_xyg

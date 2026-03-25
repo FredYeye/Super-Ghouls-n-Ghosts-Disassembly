@@ -47,7 +47,7 @@ create:
     lda #$03 : sta $30
     ldy #$A2 : ldx #$21 : jsl set_sprite
 .9E0C:
-    lda #$46 : jsl _018049_8053
+    lda.b #!sfx_flying_knight : jsl _018049_8053
     jsr _9EC1
 
 .9E15:

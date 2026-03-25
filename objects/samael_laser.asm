@@ -5,7 +5,7 @@ create:
     lda $07
     bne .EDBE
 
-    lda #$29 : jsl _018049_8053
+    lda.b #!sfx_laser : jsl _018049_8053
     ldx.b obj.direction
     lda.w astaroth_laser_data_D531,X : sta.b obj.facing
     txa : asl : tax

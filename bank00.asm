@@ -2053,7 +2053,7 @@ stage1_earthquake:
 }
 
 { ;B633 - B63C
-    stage_music: db $01, $02, $05, $04, $04, $0C, $03, $06, $06, $08 ;song to play on stage load
+    stage_music: db !mus_stage_1, $02, $05, $04, $04, $0C, $03, $06, $06, $08 ;song to play on stage load
 }
 
 { ;B63D - B658

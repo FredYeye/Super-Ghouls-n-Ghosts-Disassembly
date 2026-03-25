@@ -19,9 +19,9 @@ create:
 
 {
 upgraded_create:
-    lda $09 : ora #$42 : sta $09
+    lda.b obj.flags2 : ora #$42 : sta.b obj.flags2
     stz $40
-    lda #$29 : jsl _018049_8053
+    lda.b #!sfx_laser : jsl _018049_8053
     ldy #$5E : ldx #$20 : jsl set_sprite
     lda #$18 : sta.w knife_rapid_timer
     inc.w knife_rapid_count

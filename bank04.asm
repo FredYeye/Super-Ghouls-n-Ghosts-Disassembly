@@ -1396,7 +1396,7 @@ _049085: ;a8 x8
     sta.w stage
     jsr _049219
     lda.b #62 : jsl current_task_suspend
-    lda #$11 : jsl _018049_8053 ;game over music?
+    lda.b #!mus_game_over : jsl _018049_8053
     lda #$F0
 .9109:
     pha
@@ -1429,7 +1429,7 @@ _049121: ;a? x?
     jsr .91DE
     jsl _018CE2
     jsl enable_nmi
-    lda #$13 : jsl _018049_8053
+    lda.b #!mus_continue : jsl _018049_8053
     ldx #$00 : lda #$33 : jsl _01F6C9
     ldx #$0E : lda #$34 : jsl _01F6C9
     ldx #$1C : lda #$35 : jsl _01F6C9
@@ -1606,7 +1606,7 @@ _049310: ;a8 x8
     bne .935C
 
     inc $0331
-    lda #$12 : jsl _018049_8053 ;map music
+    lda.b #!mus_map : jsl _018049_8053
     lda.w stage : pha
     lda #$0B : sta.w stage
     jsl _048A6B

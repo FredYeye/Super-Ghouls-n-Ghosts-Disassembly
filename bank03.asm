@@ -967,7 +967,7 @@ _03F526:
     inc $02B2
     jsl _01834C
     jsl _018049_804D
-    lda #$15 : jsl _018049_8053 ;start game sound
+    lda.b #!mus_intro : jsl _018049_8053
     jsl _0180B9
     jsr .F606
     jsl enable_nmi ;game start cutscene starts somewhere here

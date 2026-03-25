@@ -7,7 +7,7 @@ create:
 ;----- 9C0D
 
     lda #$F1 : jsl _018049_8053
-    lda #$14 : jsl _018049_8053
+    lda.b #!mus_talk_princess : jsl _018049_8053
     lda $02D5 : and #$FB : sta $02D5
     !AX16
     lda.w stage : pha

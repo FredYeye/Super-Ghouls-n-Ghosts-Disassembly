@@ -3,7 +3,7 @@ namespace magician_orb
 {
 create:
     !AX8
-    lda #$29 : jsl _018049_8053 ;"laser" sfx
+    lda.b #!sfx_laser : jsl _018049_8053
     ldy #$F2 : ldx #$20 : jsl set_sprite
     lda #$FF : sta $26
     lda $09 : ora #$84 : sta $09

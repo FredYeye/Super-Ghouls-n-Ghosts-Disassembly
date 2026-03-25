@@ -2,7 +2,7 @@ namespace knife2_shimmer
 
 {
 create:
-    lda #$29 : jsl _018049_8053
+    lda.b #!sfx_laser : jsl _018049_8053
     lda $08 : ora #$10 : sta $08
     ldy #$DE : ldx #$20 : jsl set_sprite
     lda #$18 : sta $2D

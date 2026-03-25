@@ -1720,7 +1720,7 @@ create2: ;cont'd from create
 .AD79:
     ldx #$2C : jsl _0196EF : sta $38
     inc $1EC9
-    lda #$65 : jsl _018049_8053
+    lda.b #!sfx_hydra_transform : jsl _018049_8053
 .AD8A:
     lda.b obj.direction : eor #$FF : sta.b obj.direction
     ldx #$34 : jsl _0196EF : sta $36

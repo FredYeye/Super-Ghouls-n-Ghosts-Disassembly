@@ -64,14 +64,23 @@ incsrc "object_defines.asm"
 }
 
 { ;music / sfx IDs
+    !mus_stage_1            = $01
     !mus_stage_1_boss       = $09
     !mus_stage_2_boss       = $0A
-    !mus_stage_3_boss       = $0B
+    !mus_stage_3_boss       = $0B ;oversight: most likely the stage 5 boss theme
     !mus_stage_6_7_boss     = $0E
     !mus_defeat_boss        = $10
+    !mus_game_over          = $11
+    !mus_map                = $12
+    !mus_continue           = $13
+    !mus_talk_princess      = $14
+    !mus_intro              = $15
+
     !sfx_lance              = $20
     !sfx_knife              = $22
+    !sfx_scythe             = $23
     !sfx_lance2             = $27
+    !sfx_laser              = $29 ;knife2, knife2_shimmer, magician_orb, samael_laser
     !sfx_jump               = $2B
     !sfx_land               = $2C
     !sfx_armor_1            = $2D
@@ -87,11 +96,14 @@ incsrc "object_defines.asm"
     !sfx_vortex             = $3E
     !sfx_ghost_spawn        = $3F
     !sfx_guillotine         = $40
+    !sfx_bars               = $44
     !sfx_grow               = $45
+    !sfx_flying_knight      = $46
     !sfx_shatter            = $47
     !sfx_gate_open          = $48
     !sfx_rosebud_grow       = $49
     !sfx_ship_creak         = $4A
+    !sfx_fireworks          = $4B
     !sfx_cockatrice_spew    = $4C
     !sfx_skulls             = $4D
     !sfx_rosebud_explode    = $4E
@@ -100,10 +112,12 @@ incsrc "object_defines.asm"
     !sfx_mimic_jump         = $51
     !sfx_magic_charge       = $52
     !sfx_magic_seek         = $54
+    !sfx_magic_tornado      = $55
     !sfx_transform          = $5A
     !sfx_lightning          = $5D
     !sfx_1up                = $61
     !sfx_death_crawler_spin = $64
+    !sfx_hydra_transform    = $65
 }
 
 { ;sound commands

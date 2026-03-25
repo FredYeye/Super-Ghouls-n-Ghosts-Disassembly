@@ -263,7 +263,7 @@ create: ;a8 x8
 
 .CF24:
     ldy #$A4 : ldx #$21 : jsl set_sprite
-    lda #$4B : jsl _018049_8053 ;fireworks sound
+    lda.b #!sfx_fireworks : jsl _018049_8053
 .CF32:
     brk #$00
 

@@ -514,7 +514,7 @@ _02821B: ;a8 x8
 .create_object_offsets:
     dw arthur_create, thunk_lance_create, thunk_lance2_create, thunk_knife_create, thunk_knife2_create, thunk_bowgun_create, thunk_bowgun2_create, thunk_scythe_create
     dw thunk_scythe2_create, thunk_torch_create, thunk_torch2_create, thunk_axe_create, thunk_axe2_create, thunk_triblade_create, thunk_triblade2_create, thunk_bracelet_create
-    dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, tornado_create
+    dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, seek_create, shield_magic_create, fire_dragon_create, thunk_tornado_create
     dw thunk_lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
     dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, _02EEEA_create, stone_pillar_create
     dw $FFFF, flower_part_create, thunk_torch_flame_create, thunk_torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
@@ -568,7 +568,7 @@ _02821B: ;a8 x8
 .thing_object_offsets: ;todo: figure out a better name. code that needs to run every frame regardless of state?
     dw arthur_thing, $8780, $8780, $8780, $8780, $8780, thunk_bowgun2_thing, thunk_scythe_thing
     dw $87D0, $8780, $8780, thunk_axe_thing, thunk_axe2_thing, thunk_triblade_thing, thunk_triblade2_thing, thunk_bracelet_thing
-    dw thunk_bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, tornado_thing
+    dw thunk_bracelet2_thing, $882D, $8780, thunder_thing, seek_thing, shield_magic_thing, fire_dragon_thing, thunk_tornado_thing
     dw thunk_lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
     dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780
     dw _02FD62_FD7C, flower_part_thing, thunk_torch_flame_thing, thunk_torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
@@ -842,16 +842,10 @@ fire_dragon:
 }
 
 { ;885A - 8862
-tornado:
+thunk_tornado:
 
-.create:
-    jml _01F264_create
-
-;-----
-
-.thing:
-    jsl _01F264_thing
-    rts
+.create: jml tornado_create
+.thing:  jsl tornado_thing : rts
 }
 
 { ;8863 -
