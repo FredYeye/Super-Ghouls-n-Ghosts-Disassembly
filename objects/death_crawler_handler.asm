@@ -35,7 +35,7 @@ endif
 
     lda #$1900 : sta.w screen_boundary_left
     !A8
-    lda #!mus_stage_3_boss : jsl _018049_8053
+    lda #!mus_stage_5_boss : jsl _018049_8053 ;oversight: wrong boss music
     stz $1500
     stz $150E
     stz $151C
@@ -43,7 +43,7 @@ endif
     stz $1538
     stz $1546
     stz $1554
-    lda #$04 : sta $02D5 : sta $02D6
+    lda #$04 : sta.w state_tm : sta.w state_ts
     lda #$10 : sta $02D7 : sta $02D8
     lda #$30 : ora.w !obj_arthur.flags2 : sta.w !obj_arthur.flags2
     stz $15F1
@@ -124,8 +124,8 @@ endif
 
 ;----- B28A
 
-    lda #$07 : sta $02D9
-    lda #$04 : sta $02D5 : sta $02D6
+    lda #$07 : sta.w state_bgmode
+    lda #$04 : sta.w state_tm : sta.w state_ts
     lda #$12 : sta $02D7 : sta $02D8
     lda #$40 : sta !SETINI ;EXTBG
     stz $2D
@@ -133,9 +133,9 @@ endif
     stz $39
     lda #$FF : sta $3B
     !A16
-    lda #$0080 : sta $02D1
-    lda #$0280 : sta $02D3
-    lda #$0060 : sta $02C9 : sta $02CF : sta $02CB : sta $02CD
+    lda #$0080 : sta.w state_m7x
+    lda #$0280 : sta.w state_m7y
+    lda #$0060 : sta.w state_m7a : sta.w state_m7d : sta.w state_m7b : sta.w state_m7c
     !A8
 .B2CD:
     lda #$80 : sta $1F2B ;rotation related
@@ -149,14 +149,14 @@ endif
     lda.w !obj_arthur.pos_x+1 : sta.b obj.pos_x+1
     lda.w !obj_arthur.pos_y+1 : sta.b obj.pos_y+1
     clc
-    lda $02C9
+    lda.w state_m7a
     adc #$000C
     cmp #$01D0
     bcc .B2F2
 
     lda #$01D0
 .B2F2:
-    sta $02C9 : sta $02CB : sta $02CD : sta $02CF
+    sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
     bcc .B2D7
 
     !A8
@@ -302,14 +302,14 @@ endif
     jsr _B4B7
     !A16
     sec
-    lda $02C9
+    lda.w state_m7a
     sbc #$000C
     cmp #$0020
     bcs .B412
 
     lda #$0020
 .B412:
-    sta $02C9 : sta $02CB : sta $02CD : sta $02CF
+    sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
     bcs .B3F1
 
     !A8
@@ -417,11 +417,11 @@ _B4D2:
     !A16
     beq .B4FF
 
-    clc : lda $02C9 : adc #$0004 : sta $02C9 : sta $02CB : sta $02CD : sta $02CF
+    clc : lda.w state_m7a : adc #$0004 : sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
     bra .B512
 
 .B4FF:
-    sec : lda $02C9 : sbc #$0004 : sta $02C9 : sta $02CB : sta $02CD : sta $02CF
+    sec : lda.w state_m7a : sbc #$0004 : sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
 .B512:
     !A8
 .B514:

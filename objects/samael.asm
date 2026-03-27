@@ -411,8 +411,8 @@ destroy:
 ;-----
 
 .EBA8:
-    stx $02D5
-    stx $02D6
+    stx.w state_tm
+    stx.w state_ts
     stx $02D7
     stx $02D8
     rts

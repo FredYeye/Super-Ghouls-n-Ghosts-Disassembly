@@ -49,10 +49,10 @@
     !WH3      = $2129 ;Window 2 Right Position (X2)
     !WBGLOG   = $212A ;Window 1/2 Mask Logic (BG1-BG4)
     !WOBJLOG  = $212B ;Window 1/2 Mask Logic (OBJ/MATH)
-    !TM       = $212C ;Main Screen Designation
+    TM        = $212C ;Main Screen Designation
     !TS       = $212D ;Sub Screen Designation
-    !TMW      = $212E ;Window Area Main Screen Disable
-    !TSW      = $212F ;Window Area Sub Screen Disable
+    TMW       = $212E ;Window Area Main Screen Disable
+    TSW       = $212F ;Window Area Sub Screen Disable
     !CGWSEL   = $2130 ;Color Math Control Register A
     !CGADSUB  = $2131 ;Color Math Control Register B
     !COLDATA  = $2132 ;Color Math Sub Screen Backdrop Color

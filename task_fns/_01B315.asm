@@ -36,7 +36,7 @@ _01B315: ;a- x8
     lsr
     sta $007B
     lda.b #31 : jsl current_task_suspend
-    lda #$0C : sta $02DD
+    lda #$0C : sta.w state_bg2sc
     !A16
     lda #$0272 : sta $19DE
     lda #$0272 : sta $19E2

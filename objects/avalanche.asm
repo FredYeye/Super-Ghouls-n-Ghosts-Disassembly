@@ -73,7 +73,7 @@ create:
 
 ;----- DFC0
 
-    lda #$17 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
+    lda #$17 : sta.w state_tm : sta.w state_ts : sta $02D7 : sta $02D8
 .DFCE:
     brk #$00
 
@@ -123,7 +123,7 @@ create:
     stz $19C9
     !A8
 .E01E:
-    lda #$15 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
+    lda #$15 : sta.w state_tm : sta.w state_ts : sta $02D7 : sta $02D8
     stz $1FB1
     stz $14EF
     jml _0281A8_81B5

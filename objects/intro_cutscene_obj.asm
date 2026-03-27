@@ -159,7 +159,7 @@ create: ;a8 x8
     stz $02EB
     stz $02EC
     stz $02EE
-    stz $02D5
+    stz.w state_tm
     lda #$12 : jsl _0190B9_palette_to_ram
     jsr _D0C1
     ldx #$01 : ldy #$0E : jsl _D0BB
@@ -229,12 +229,12 @@ create: ;a8 x8
 
 .CEF1:
     lda #$5D : jsl _018049_8053 ;lightning sfx
-    lda #$17 : sta $02D5
+    lda #$17 : sta.w state_tm
     rts
 
 .CEFD:
     lda $08 : and #$F7 : sta $08
-    stz $02D5
+    stz.w state_tm
     rts
 
 .CF07: ;1st & 3rd demon in 3rd scene
@@ -416,8 +416,8 @@ if !version == 0
     lda #$15 : sta $031E
 endif
     lda #$05 : sta $02E1
-    lda #$16 : sta $02D5 : sta $02D7
-    lda $02D9 : ora #$08 : sta $02D9
+    lda #$16 : sta.w state_tm : sta $02D7
+    lda.w state_bgmode : ora #$08 : sta.w state_bgmode
     ldx #$02 : ldy #$90 : lda.b #_01FF00_18 : jsl _01A6FE
 .D075:
     brk #$00

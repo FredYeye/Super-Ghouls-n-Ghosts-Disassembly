@@ -1058,7 +1058,7 @@ _03F526:
     jsl _019539
     lda #$C0 : sta !M7SEL
     jsl _018366
-    lda #$07 : sta $02D9
+    lda #$07 : sta.w state_bgmode
     lda #$11 : jsl _0190B9_palette_to_ram
     ldy #$25 : jsl _01A21D
     stz !VMAIN
@@ -1111,11 +1111,11 @@ _03F526:
     lda #$68 : sta $1FA3
     !A16
     ldx $005D
-    lda.w _00EC3F,X : sta $02C9 : sta $02CB : sta $02CD : sta $02CF
-    lda #$0068 : sta $02D1
-    lda #$0080 : sta $02D3
+    lda.w _00EC3F,X : sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
+    lda #$0068 : sta.w state_m7x
+    lda #$0080 : sta.w state_m7y
     !A8
-    lda #$01 : sta $02D5 : sta $02D6
+    lda #$01 : sta.w state_tm : sta.w state_ts
     jsl _018360
     jsl enable_nmi
     ldx $005D
@@ -1123,10 +1123,7 @@ _03F526:
 .F721:
     lda #$01 : jsr .F749
     !A16
-    sec
-    lda $02C9
-    sbc.w _00EC3F+6,X
-    sta $02C9 : sta $02CB : sta $02CD : sta $02CF
+    sec : lda.w state_m7a : sbc.w _00EC3F+6,X : sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
     !A8
     dey
     bne .F721
@@ -1192,9 +1189,9 @@ _03F8A3:
     !AX8
     jsl _01951E
     jsl _019539
-    lda $02DC : and #$FC :            sta $02DC
-    lda $02DD : and #$FC :            sta $02DD
-    lda $02DE : and #$FC : ora #$02 : sta $02DE
+    lda.w state_bg1sc : and #$FC :            sta.w state_bg1sc
+    lda.w state_bg2sc : and #$FC :            sta.w state_bg2sc
+    lda $02DE         : and #$FC : ora #$02 : sta $02DE
     lda #$13 : jsl _0190B9_palette_to_ram
     lda #$12 : sta.w stage
     jsl _019136
@@ -1222,7 +1219,7 @@ _03F8A3:
 
     !AX8
     lda #$05 : sta $02E1
-    lda $02D9 : ora #$08 : sta $02D9
+    lda.w state_bgmode : ora #$08 : sta.w state_bgmode
     lda $02D7 : ora #$04 : sta $02D7
     lda #$02 : sta !DMAP1
     lda #$0D : sta !BBAD1
@@ -1259,7 +1256,7 @@ elseif !version == 2
 endif
     lda #$04 : sta $1EBD
     inc.w layer3_needs_update
-    lda #$17 : sta $02D5 : sta $02D6
+    lda #$17 : sta.w state_tm : sta.w state_ts
     ldx #$17
     jsl _03F526_F61C
     jsl _018360
@@ -1352,13 +1349,13 @@ endif
     ldx #$2C : jsl _0180C7
     jsl _01951E
     jsl _019539
-    lda $02DC : and #$FC : sta $02DC
+    lda.w state_bg1sc : and #$FC : sta.w state_bg1sc
     lda #$13 : jsl _0190B9_palette_to_ram
     jsl _018360
     jsl enable_nmi
     jsl _018366
     !A8
-    lda #$01 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
+    lda #$01 : sta.w state_tm : sta.w state_ts : sta $02D7 : sta $02D8
     ldx #$12 : ldy #$78 : lda.b #_01FF00_08 : jsl _01A6FE
 .FB21:
     lda.b #1 : jsl current_task_suspend

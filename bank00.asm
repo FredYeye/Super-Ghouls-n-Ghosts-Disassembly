@@ -154,8 +154,8 @@ nmi: ;a- x-
     lda $02E3 : sta !WH1
     lda $02E4 : sta !WH2
     lda $02E5 : sta !WH3
-    lda $02DC : sta !BG1SC
-    lda $02DD : sta !BG2SC
+    lda.w state_bg1sc : sta !BG1SC
+    lda.w state_bg2sc : sta !BG2SC
     lda $02DE : sta !BG3SC
     lda $02E6 : sta !W12SEL
     lda $02E7 : sta !W34SEL
@@ -165,18 +165,18 @@ nmi: ;a- x-
     lda $02EB : sta !CGWSEL
     lda $02EC : sta !CGADSUB
     lda $02EE : sta !COLDATA
-    lda $02D5 : ldx $02D6 : sta !TM : stx !TS
-    lda $02C7 : sta !TMW
-    lda $02C8 : sta !TSW
+    lda.w state_tm : ldx.w state_ts : sta.w TM : stx !TS
+    lda.w state_tmw : sta.w TMW
+    lda.w state_tsw : sta.w TSW
     lda $02E0 : sta !BG12NBA
     lda $02E1 : sta !BG34NBA
 
     jsr _008700
-    lda $02D9 : sta !BGMODE
+    lda.w state_bgmode : sta !BGMODE
     lda $032E
     beq +
 
-    lda $02D9 : and #$39 : ora #$08 : sta !BGMODE
+    lda.w state_bgmode : and #$39 : ora #$08 : sta !BGMODE
     lda #$5C : sta !BG3SC
     lda #$05 : sta !BG34NBA
 +:
@@ -355,7 +355,7 @@ _0083C2:
 
 { ;847F - 851C
 _00847F: ;a8 x8
-    lda $02D9
+    lda.w state_bgmode
     and #$07
     cmp #$07
     bne .ret
@@ -363,14 +363,14 @@ _00847F: ;a8 x8
     lda $1FB0
     bne .84C0
 
-    lda $02C9 : sta !M7A
-    lda $02CA : sta !M7A
-    lda $02CB : sta !M7B
-    lda $02CC : sta !M7B
-    lda $02CD : sta !M7C
-    lda $02CE : sta !M7C
-    lda $02CF : sta !M7D
-    lda $02D0 : sta !M7D
+    lda.w state_m7a+0 : sta !M7A
+    lda.w state_m7a+1 : sta !M7A
+    lda.w state_m7b+0 : sta !M7B
+    lda.w state_m7b+1 : sta !M7B
+    lda.w state_m7c+0 : sta !M7C
+    lda.w state_m7c+1 : sta !M7C
+    lda.w state_m7d+0 : sta !M7D
+    lda.w state_m7d+1 : sta !M7D
     bra .8502
 
 .ret:
@@ -378,15 +378,15 @@ _00847F: ;a8 x8
 
 .84C0:
     !A16
-    lda $02CF : ldx $1FA3 : jsr _00851D
+    lda.w state_m7d : ldx $1FA3 : jsr _00851D
     sty !M7D
     stx !M7D
-    lda $02CD : ldx $1FA2 : jsr _00851D
+    lda.w state_m7c : ldx $1FA2 : jsr _00851D
     sty !M7C
     stx !M7C
-    lda $02CB : ldx $1FA1 : jsr _00851D
+    lda.w state_m7b : ldx $1FA1 : jsr _00851D
     phy : phx
-    lda $02C9 : ldx $1FA0 : jsr _00851D
+    lda.w state_m7a : ldx $1FA0 : jsr _00851D
     sty !M7A
     stx !M7A
     plx : ply
@@ -394,10 +394,10 @@ _00847F: ;a8 x8
     stx !M7B
 .8502:
     !A8
-    lda $02D1 : sta !M7X
-    lda $02D2 : sta !M7X
-    lda $02D3 : sta !M7Y
-    lda $02D4 : sta !M7Y
+    lda.w state_m7x+0 : sta !M7X
+    lda.w state_m7x+1 : sta !M7X
+    lda.w state_m7y+0 : sta !M7Y
+    lda.w state_m7y+1 : sta !M7Y
     rts
 }
 
@@ -2053,7 +2053,9 @@ stage1_earthquake:
 }
 
 { ;B633 - B63C
-    stage_music: db !mus_stage_1, $02, $05, $04, $04, $0C, $03, $06, $06, $08 ;song to play on stage load
+stage_music: ;song to play on stage load
+    db !mus_stage_1, !mus_stage_2, !mus_stage_3, !mus_stage_4, !mus_stage_4
+    db !mus_stage_4_boss, !mus_stage_5, !mus_stage_6_7, !mus_stage_6_7, !mus_samael
 }
 
 { ;B63D - B658

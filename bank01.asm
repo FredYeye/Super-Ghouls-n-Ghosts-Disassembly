@@ -2705,7 +2705,7 @@ _0194CF: ;a8 x-
 _01951E: ;a8 x8
     ldx #$29
 -:
-    stz $02C7,X
+    stz $02C7,X ;todo: label
     dex
     bpl -
 
@@ -2722,14 +2722,14 @@ _01951E: ;a8 x8
 _019539: ;a8 x8
     lda #$03 : sta.w OBSEL
     lda #$30 : sta $02EB
-    lda #$01 : sta $02D9
-    lda #$03 : sta $02DC
-    lda #$11 : sta $02DD
+    lda #$01 : sta.w state_bgmode
+    lda #$03 : sta.w state_bg1sc
+    lda #$11 : sta.w state_bg2sc
     ldx.w stage
     cpx #$02
     bne +
 
-    lda #$10 : sta $02DD
+    lda #$10 : sta.w state_bg2sc
 +:
     lda #$19 : sta $02DE
     lda #$22 : sta $02E0
@@ -4172,15 +4172,15 @@ _01AF04: ;a8 x8
     !A16
     clc
     lda.w camera_x+1 : sta $19BD : sta $1F89
-    adc #$0080       : sta $02D1
+    adc #$0080       : sta.w state_m7x
     clc
     lda.w camera_y+1 : sta $19C1 : sta $1F8B
-    adc #$0080       : sta $02D3
+    adc #$0080       : sta.w state_m7y
     lda #$0100
-    sta $02C9
-    stz $02CB
-    stz $02CD
-    sta $02CF
+    sta.w state_m7a
+    stz.w state_m7b
+    stz.w state_m7c
+    sta.w state_m7d
     !A8
     stz $19E6
     stz $19E8
@@ -4202,7 +4202,7 @@ _01AF04: ;a8 x8
     ldy #$15 : jsl _01819D
     ldy #$30 : lda.b #_01FF00_60 : jsl _01A6FE
     ldy #$78 : lda.b #_01FF00_54 : jsl _01A6FE
-    lda #$10 : sta $02DD
+    lda #$10 : sta.w state_bg2sc
     rts
 
 ;-----
@@ -4352,7 +4352,7 @@ _01B26D: ;a8 x-
     lda $02DF : sta $1F64 : sta $1F69
     lda $02E0 : sta $1F65 : sta $1F6A
     lda $02E1 : sta $1F66 : sta $1F6B
-    lda $02D9 : sta $1F6E : sta $1F70
+    lda.w state_bgmode : sta $1F6E : sta $1F70
     lda $02D7 : sta $1F79 : sta $1F7C
     lda $02D8 : sta $1F7A : sta $1F7D
     rts
@@ -5057,7 +5057,7 @@ _01B90E: ;a8 x8
     lda.w stage
     cmp #$04 : beq +
 
-    lda $02D9
+    lda.w state_bgmode
     and #$07
     cmp #$07 : beq .ret
 
@@ -5222,9 +5222,9 @@ _01B9A8: ;a8 x?
     asl #2
     and #$01FF
     tax
-    lda.l _09FE00+0,X : sta $02C9 : sta $02CF
-    lda.l _09FE00+2,X : sta $02CB
-    eor #$FFFF : inc  : sta $02CD
+    lda.l _09FE00+0,X : sta.w state_m7a : sta.w state_m7d
+    lda.l _09FE00+2,X : sta.w state_m7b
+    eor #$FFFF : inc  : sta.w state_m7c
     !AX8
     rts
 
@@ -5394,20 +5394,20 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BC6C:
-    clc : lda $1F83 : adc $02D1  : sta $02D1
-    sec             : sbc #$0080 : sta $19BD
-    clc : lda $1F85 : adc $02D3  : sta $02D3
-    sec             : sbc #$0080 : sta $19C1
+    clc : lda $1F83 : adc.w state_m7x : sta.w state_m7x
+    sec             : sbc #$0080      : sta $19BD
+    clc : lda $1F85 : adc.w state_m7y : sta.w state_m7y
+    sec             : sbc #$0080      : sta $19C1
     stz $1F8D
     rts
 
 ;-----
 
 .BC92:
-    lda $1F85 : clc : adc $02D1  : sta $02D1
-                sec : sbc #$0080 : sta $19BD
-    lda $1F83 : eor #$FFFF : inc : clc : adc $02D3  : sta $02D3
-                                   sec : sbc #$0080 : sta $19C1
+    lda $1F85 : clc : adc.w state_m7x : sta.w state_m7x
+                sec : sbc #$0080      : sta $19BD
+    lda $1F83 : eor #$FFFF : inc : clc : adc.w state_m7y : sta.w state_m7y
+                                   sec : sbc #$0080      : sta $19C1
     lda #$3000 : sta $1F8D
     rts
 
@@ -5418,8 +5418,8 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc $02D1
-    sta $02D1
+    adc.w state_m7x
+    sta.w state_m7x
     sec
     sbc #$0080
     sta $19BD
@@ -5427,8 +5427,8 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc $02D3
-    sta $02D3
+    adc.w state_m7y
+    sta.w state_m7y
     sec
     sbc #$0080
     sta $19C1
@@ -5442,15 +5442,15 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc $02D1
-    sta $02D1
+    adc.w state_m7x
+    sta.w state_m7x
     sec
     sbc #$0080
     sta $19BD
     lda $1F83
     clc
-    adc $02D3
-    sta $02D3
+    adc.w state_m7y
+    sta.w state_m7y
     sec
     sbc #$0080
     sta $19C1
@@ -7510,7 +7510,7 @@ _01CCBD: ;a8 x8
     lda $0292
     bpl .CD87
 
-    lda #$12 : sta $02D5 : sta $02D7
+    lda #$12 : sta.w state_tm : sta $02D7
     bra .CD8B
 
 .CD87:
@@ -9395,7 +9395,7 @@ _01DAA4:
 
 { ;DAB8 - DB66
 _01DAB8:
-    lda #$16 : jsl _018049_8053
+    lda.b #!mus_ending : jsl _018049_8053
     stz $02AC
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
@@ -9849,26 +9849,26 @@ _01DE0B: ;a8 x8
     bne .DE4D
 
 .DE17:
-    lda.w _00BAE6+00,X : sta $02D5 : sta $02C7
-    lda.w _00BAE6+10,X : sta $02D6 : sta $02C8
+    lda.w _00BAE6+00,X : sta.w state_tm : sta.w state_tmw
+    lda.w _00BAE6+10,X : sta.w state_ts : sta.w state_tsw
     lda.w _00BAE6+20,X : sta $02D7
     lda.w _00BAE6+30,X : sta $02D8
     lda $0292
     beq .DE4C
 
-    lda $02D7 : sta $02D5 : sta $02C7
-    lda $02D8 : sta $02D6 : sta $02C8
+    lda $02D7 : sta.w state_tm : sta.w state_tmw
+    lda $02D8 : sta.w state_ts : sta.w state_tsw
 .DE4C:
     rtl
 
 .DE4D:
     lda #$15
-    sta $02D5
-    sta $02D6
+    sta.w state_tm
+    sta.w state_ts
     sta $02D7
     sta $02D8
-    sta $02C7
-    sta $02C8
+    sta.w state_tmw
+    sta.w state_tsw
     rtl
 }
 

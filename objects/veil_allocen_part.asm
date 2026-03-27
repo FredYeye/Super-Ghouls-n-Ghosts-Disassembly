@@ -13,7 +13,7 @@ create:
     ldy #$30 : jsl arthur_range_check
     bcs .E500
 
-    lda #$0D : jsl _018049_8053
+    lda.b #!mus_stage_3_boss : jsl _018049_8053 ;oversight: wrong boss music
     brk #$00
 
 ;----- E512

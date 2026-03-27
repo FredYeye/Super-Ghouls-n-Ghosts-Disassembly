@@ -8,7 +8,7 @@ create:
 
     lda #$F1 : jsl _018049_8053
     lda.b #!mus_talk_princess : jsl _018049_8053
-    lda $02D5 : and #$FB : sta $02D5
+    lda.w state_tm : and #$FB : sta.w state_tm
     !AX16
     lda.w stage : pha
     lda #$0011 : sta.w stage
@@ -49,7 +49,7 @@ elseif !version == 1 || !version == 2
     lda #$1A : sta $031E
 endif
     lda #$05 : sta $02E1
-    lda $02D9 : ora #$08 : sta $02D9
+    lda.w state_bgmode : ora #$08 : sta.w state_bgmode
     lda #$04 : cop #$00
 
 ;----- 9C81
@@ -91,7 +91,7 @@ _9CF2:
 
 _9CF6:
     !AX8
-    lda $02D5 : ora #$04 : sta $02D5
+    lda.w state_tm : ora #$04 : sta.w state_tm
     ldx #$2A : ldy #$90 : lda.b #_01FF00_5C : jsl _01A6FE
 .9D0A:
     brk #$00

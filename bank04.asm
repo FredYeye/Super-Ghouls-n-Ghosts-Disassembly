@@ -1176,12 +1176,12 @@ _048E68: ;a8 x-
     rtl
 
 .local:
-    sta $02D5
-    sta $02D6
+    sta.w state_tm
+    sta.w state_ts
     lda #$01 : sta $02F1
-    ora #$08 : sta $02D9
+    ora #$08 : sta.w state_bgmode
     lda #$01
-    stz $02DC
+    stz.w state_bg1sc
     lda #$02 : sta $02E0
     lda #$18 : sta $02DE
     lda #$05 : sta $02E1
@@ -1308,11 +1308,11 @@ _048FDD:
     jsl _01951E
     jsl _018049_804D
     lda #$01 : sta $02F1
-    stz $02D5
-    stz $02D6
+    stz.w state_tm
+    stz.w state_ts
     jsl _018074
     jsl _018366
-    lda #$10 : sta $02D5 : sta $02D6
+    lda #$10 : sta.w state_tm : sta.w state_ts
     stz.w hud_visible
     jsl _018CE2
     jsr _049234
@@ -1368,13 +1368,11 @@ _049085: ;a8 x8
     jsl _01951E
     jsl _018049_804D
     lda #$01 : sta $02F1
-    stz $02D5
-    stz $02D6
+    stz.w state_tm
+    stz.w state_ts
     jsl _018074
     jsl _018366
-    lda #$10
-    sta $02D5
-    sta $02D6
+    lda #$10 : sta.w state_tm : sta.w state_ts
     stz $032E
     jsl _018CE2
     jsr _049234
@@ -1597,7 +1595,7 @@ _049310: ;a8 x8
     ldy #$85 : jsl _01A21D_decompress_graphics
     ldx #$70 : jsl _0180C7_ram_to_vram
     jsl _019539
-    lda #$11 : sta $02D5
+    lda #$11 : sta.w state_tm
     jsl _018366
     ldx #$00
 .935C:
@@ -1647,7 +1645,7 @@ _049310: ;a8 x8
 
     lda.b #60 : jsl current_task_suspend
 .93D5:
-    lda #$01 : sta $02D5
+    lda #$01 : sta.w state_tm
     lda #$00
 .93DC:
     pha

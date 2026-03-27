@@ -3,10 +3,10 @@ _0198A4: ;a- x8
     ;rising wave
     !A8
     ldy.b #task[2].base : lda.b #_01FF00_34 : jsl _01A6FE
-    lda #$11 : sta $02D5 : sta $02D7
+    lda #$11 : sta.w state_tm : sta $02D7
     lda #$01 : jsr _019A88
     jsr .9987
-    lda #$61 : sta $02D9
+    lda #$61 : sta.w state_bgmode
     !A16
     lda #$0272 : sta $19DE
     lda #$0272 : sta $19E2
@@ -18,7 +18,7 @@ _0198A4: ;a- x8
     stz $19B1
     !A8
     jsl _01B90E
-    lda #$08 : sta $02DD
+    lda #$08 : sta.w state_bg2sc
     stz $74
     lda #$0C : sta $02DE
     lda #$04 : sta $031E
@@ -34,7 +34,7 @@ endif
     stz $73
     stz $75
     !A8
-    lda #$15 : sta $02D5 : sta $02D7
+    lda #$15 : sta.w state_tm : sta $02D7
     ldx #$00 : lda #$02 : jsl _01F6C9
     lda #!sfx_wave_rise : jsl _018049_8053
 .9934:
@@ -60,17 +60,17 @@ endif
     !A8
     jsl _01B90E
 if !version == 0 || !version == 1
-    lda #$17 : sta $02D5 : sta $02D7
+    lda #$17 : sta.w state_tm : sta $02D7
 endif
-    lda #$01 : sta $02D9
-    lda #$11 : sta $02DD
+    lda #$01 : sta.w state_bgmode
+    lda #$11 : sta.w state_bg2sc
     lda #$19 : sta $02DE
     ldx #$00 : lda #$04 : jsl _01F6C9
     stz $1554
     !AX8
 if !version == 2
     lda #$03 : jsr _019A88
-    lda #$17 : sta $02D5 : sta $02D7
+    lda #$17 : sta.w state_tm : sta $02D7
 endif
     lda #$01 : jsr _019A88
     pld
@@ -127,7 +127,7 @@ endif
 if !version == 2
     lda.b #1 : jsl current_task_suspend
 endif
-    lda #$17 : sta $02D5 : sta $02D7
+    lda #$17 : sta.w state_tm : sta $02D7
     ldx #$54 : lda #$01 : jsl _01F6C9
     lda #$10 : jsr _019A88
     lda #$28 : sta $79

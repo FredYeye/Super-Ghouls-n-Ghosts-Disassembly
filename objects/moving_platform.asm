@@ -116,8 +116,8 @@ create:
     jsl thing
     jsl update_pos_xy
     !A16
-    lda.b obj.pos_x+1 : sta $02D1 : sta $1F33
-    lda.b obj.pos_y+1 : sta $02D3 : sta $1F35
+    lda.b obj.pos_x+1 : sta.w state_m7x : sta $1F33
+    lda.b obj.pos_y+1 : sta.w state_m7y : sta $1F35
     jsr _ACC1
     !A16
     dec $3B

@@ -24,12 +24,12 @@ _01A128:
     bne .A145
 
 .A155:
-    lda #$15 : sta $02D5 : sta $02D6 : sta $02D7 : sta $02D8
+    lda #$15 : sta.w state_tm : sta.w state_ts : sta $02D7 : sta $02D8
     lda #$FF : sta $19DF : sta $19E3
     lda #$94 : sta $031E
     lda.b #1 : jsl current_task_suspend
     lda #$13 : sta $031E
-    lda $02DD : and #$FC : ora #$01 : sta $02DD
-    lda $02D9 : ora #$20 : sta $02D9
+    lda.w state_bg2sc : and #$FC : ora #$01 : sta.w state_bg2sc
+    lda.w state_bgmode : ora #$20 : sta.w state_bgmode
     jml current_task_remove
 }

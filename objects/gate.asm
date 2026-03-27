@@ -2,7 +2,7 @@ namespace gate
 
 {
 create:
-    lda $02D5 : and #$0F : sta $02D5
+    lda.w state_tm : and #$0F : sta.w state_tm
     lda #$20 : sta $09
     lda #$FF : sta $19EC
     lda #$48 : jsl _018049_8053

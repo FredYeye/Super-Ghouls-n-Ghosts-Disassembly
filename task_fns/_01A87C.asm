@@ -151,7 +151,7 @@ endif
     bne .A9E6
 
     ldy #$AF : jsl _01A21D_decompress_graphics
-    ldy $1FC7 : lda.w _00B52E_B546,Y : sta $02D5
+    ldy $1FC7 : lda.w _00B52E_B546,Y : sta.w state_tm
     lda #$18 : sta $031E
     lda.b #1 : jsl current_task_suspend
     !AX16
@@ -414,7 +414,7 @@ endif
 .AC50:
     sta.w checkpoint
     jsl _01DE0B
-    lda $02D5 : and #$0F : sta $02D5 : sta $02D5 ;double stores here for some reason
+    lda.w state_tm : and #$0F : sta.w state_tm : sta.w state_tm ;double stores here for some reason
     lda $02D7 : and #$0F : sta $02D7 : sta $02D7 ;^
     inc $0379
     jsr _01B26D_B271
@@ -522,7 +522,7 @@ endif
     ldx #$16 : jsl _018DC0_8E0E
 +:
     ldx.w stage
-    lda.w _00B56C,X : sta $02D9
+    lda.w _00B56C,X : sta.w state_bgmode
     and #$07 : dec  : sta $02DA
     stz $1F8F
     stz $1F90
@@ -542,8 +542,8 @@ endif
     jsr _01BF31
     jsr _01BEBC
     jsl _048A6B
-    stz $02D5
-    stz $02D6
+    stz.w state_tm
+    stz.w state_ts
     jsl disable_nmi
     jsr _01AF04_AF08
     jsr .AE55

@@ -65,9 +65,17 @@ incsrc "object_defines.asm"
 
 { ;music / sfx IDs
     !mus_stage_1            = $01
+    !mus_stage_2            = $02
+    !mus_stage_5            = $03 ;stage 3 & 5 were swapped during development. the music still has the old order
+    !mus_stage_4            = $04
+    !mus_stage_3            = $05
+    !mus_stage_6_7          = $06
+    !mus_samael             = $08
     !mus_stage_1_boss       = $09
     !mus_stage_2_boss       = $0A
-    !mus_stage_3_boss       = $0B ;oversight: most likely the stage 5 boss theme
+    !mus_stage_5_boss       = $0B ;oversight: used in stage 3
+    !mus_stage_4_boss       = $0C
+    !mus_stage_3_boss       = $0D ;oversight: used in stage 5
     !mus_stage_6_7_boss     = $0E
     !mus_defeat_boss        = $10
     !mus_game_over          = $11
@@ -75,6 +83,7 @@ incsrc "object_defines.asm"
     !mus_continue           = $13
     !mus_talk_princess      = $14
     !mus_intro              = $15
+    !mus_ending             = $16
 
     !sfx_lance              = $20
     !sfx_knife              = $22

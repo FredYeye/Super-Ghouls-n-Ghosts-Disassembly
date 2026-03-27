@@ -73,6 +73,23 @@
     video_frame_counter = $02C4 ;incremented in NMI handler, not used for anything
     ;02C5 used as counter for looping over all objs
 
+    ;section name? use in _01951E later
+    state_tmw    = $02C7
+    state_tsw    = $02C8
+    state_m7a    = $02C9;02CA
+    state_m7b    = $02CB;02CC
+    state_m7c    = $02CD;02CE
+    state_m7d    = $02CF;02D0
+    state_m7x    = $02D1;02D2
+    state_m7y    = $02D3;02D4
+    state_tm     = $02D5
+    state_ts     = $02D6
+
+    state_bgmode = $02D9
+
+    state_bg1sc  = $02DC
+    state_bg2sc  = $02DD
+
     ;sfx related
     ;02F5: counter to compare with apu's last played sound(?)
     ;02F6: indexes into 2F8, reads
