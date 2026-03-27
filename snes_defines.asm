@@ -43,19 +43,19 @@
     !W12SEL   = $2123 ;Window BG1/BG2 Mask Settings
     !W34SEL   = $2124 ;Window BG3/BG4 Mask Settings
     !WOBJSEL  = $2125 ;Window OBJ/MATH Mask Settings
-    !WH0      = $2126 ;Window 1 Left Position (X1)
-    !WH1      = $2127 ;Window 1 Right Position (X2)
-    !WH2      = $2128 ;Window 2 Left Position (X1)
-    !WH3      = $2129 ;Window 2 Right Position (X2)
-    !WBGLOG   = $212A ;Window 1/2 Mask Logic (BG1-BG4)
-    !WOBJLOG  = $212B ;Window 1/2 Mask Logic (OBJ/MATH)
+    WH0       = $2126 ;Window 1 Left Position (X1)
+    WH1       = $2127 ;Window 1 Right Position (X2)
+    WH2       = $2128 ;Window 2 Left Position (X1)
+    WH3       = $2129 ;Window 2 Right Position (X2)
+    WBGLOG    = $212A ;Window 1/2 Mask Logic (BG1-BG4)
+    WOBJLOG   = $212B ;Window 1/2 Mask Logic (OBJ/MATH)
     TM        = $212C ;Main Screen Designation
     !TS       = $212D ;Sub Screen Designation
     TMW       = $212E ;Window Area Main Screen Disable
     TSW       = $212F ;Window Area Sub Screen Disable
     !CGWSEL   = $2130 ;Color Math Control Register A
     !CGADSUB  = $2131 ;Color Math Control Register B
-    !COLDATA  = $2132 ;Color Math Sub Screen Backdrop Color
+    COLDATA   = $2132 ;Color Math Sub Screen Backdrop Color
     !SETINI   = $2133 ;Display Control 2
 
     !MPYM     = $2135 ;PPU1 Signed Multiply Result   (middle 8bit)

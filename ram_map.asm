@@ -73,22 +73,48 @@
     video_frame_counter = $02C4 ;incremented in NMI handler, not used for anything
     ;02C5 used as counter for looping over all objs
 
-    ;section name? use in _01951E later
-    state_tmw    = $02C7
-    state_tsw    = $02C8
-    state_m7a    = $02C9;02CA
-    state_m7b    = $02CB;02CC
-    state_m7c    = $02CD;02CE
-    state_m7d    = $02CF;02D0
-    state_m7x    = $02D1;02D2
-    state_m7y    = $02D3;02D4
-    state_tm     = $02D5
-    state_ts     = $02D6
+    struct snes_reg $02C7;02F2
+        .base:     skip 0
 
-    state_bgmode = $02D9
-
-    state_bg1sc  = $02DC
-    state_bg2sc  = $02DD
+        .tmw:      skip 1
+        .tsw:      skip 1
+        .m7a:      skip 2
+        .m7b:      skip 2
+        .m7c:      skip 2
+        .m7d:      skip 2
+        .m7x:      skip 2
+        .m7y:      skip 2
+        .tm:       skip 1
+        .ts:       skip 1
+        .unk_2D7:  skip 1
+        .unk_2D8:  skip 1
+        .bgmode:   skip 1
+        .unk_2DA:  skip 1
+        .unk_2DB:  skip 1
+        .bg1sc:    skip 1
+        .bg2sc:    skip 1
+        .bg3sc:    skip 1
+        .unk_2DF:  skip 1
+        .bg12nba:  skip 1
+        .bg34nba:  skip 1
+        .wh0:      skip 1
+        .wh1:      skip 1
+        .wh2:      skip 1
+        .wh3:      skip 1
+        .w12sel:   skip 1
+        .w34sel:   skip 1
+        .wobjsel:  skip 1
+        .wbglog:   skip 1
+        .wobjlog:  skip 1
+        .cgwsel:   skip 1
+        .cgadsub:  skip 1
+        .unk_2ED:  skip 1
+        .coldata:  skip 1
+        .unk_2EF:  skip 1
+        .hdmaen:   skip 1
+        .nmitimen: skip 1
+        .inidisp:  skip 1
+    endstruct
 
     ;sfx related
     ;02F5: counter to compare with apu's last played sound(?)

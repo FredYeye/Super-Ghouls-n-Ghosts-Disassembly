@@ -96,7 +96,7 @@ entry: ;emulated mode (code entry)
     sta $02F5
 .81D7:
     !A8
-    lda #$01 : sta $02F1
+    lda #$01 : sta.w snes_reg.nmitimen
     jsl enable_nmi
     cli
     lda.b #_01FF00>>8 : sta.b task_function_pointer+1
@@ -150,40 +150,40 @@ nmi: ;a- x-
     jsr _008AB3
     jsr _0089B0
 
-    lda $02E2 : sta !WH0
-    lda $02E3 : sta !WH1
-    lda $02E4 : sta !WH2
-    lda $02E5 : sta !WH3
-    lda.w state_bg1sc : sta !BG1SC
-    lda.w state_bg2sc : sta !BG2SC
-    lda $02DE : sta !BG3SC
-    lda $02E6 : sta !W12SEL
-    lda $02E7 : sta !W34SEL
-    lda $02E8 : sta !WOBJSEL
-    lda $02E9 : sta !WBGLOG
-    lda $02EA : sta !WOBJLOG
-    lda $02EB : sta !CGWSEL
-    lda $02EC : sta !CGADSUB
-    lda $02EE : sta !COLDATA
-    lda.w state_tm : ldx.w state_ts : sta.w TM : stx !TS
-    lda.w state_tmw : sta.w TMW
-    lda.w state_tsw : sta.w TSW
-    lda $02E0 : sta !BG12NBA
-    lda $02E1 : sta !BG34NBA
+    lda.w snes_reg.wh0     : sta.w WH0
+    lda.w snes_reg.wh1     : sta.w WH1
+    lda.w snes_reg.wh2     : sta.w WH2
+    lda.w snes_reg.wh3     : sta.w WH3
+    lda.w snes_reg.bg1sc   : sta !BG1SC
+    lda.w snes_reg.bg2sc   : sta !BG2SC
+    lda.w snes_reg.bg3sc   : sta !BG3SC
+    lda.w snes_reg.w12sel  : sta !W12SEL
+    lda.w snes_reg.w34sel  : sta !W34SEL
+    lda.w snes_reg.wobjsel : sta !WOBJSEL
+    lda.w snes_reg.wbglog  : sta.w WBGLOG
+    lda.w snes_reg.wobjlog : sta.w WOBJLOG
+    lda.w snes_reg.cgwsel  : sta !CGWSEL
+    lda.w snes_reg.cgadsub : sta !CGADSUB
+    lda.w snes_reg.coldata : sta.w COLDATA
+    lda.w snes_reg.tm : ldx.w snes_reg.ts : sta.w TM : stx !TS
+    lda.w snes_reg.tmw : sta.w TMW
+    lda.w snes_reg.tsw : sta.w TSW
+    lda.w snes_reg.bg12nba : sta !BG12NBA
+    lda.w snes_reg.bg34nba : sta !BG34NBA
 
     jsr _008700
-    lda.w state_bgmode : sta !BGMODE
+    lda.w snes_reg.bgmode : sta !BGMODE
     lda $032E
     beq +
 
-    lda.w state_bgmode : and #$39 : ora #$08 : sta !BGMODE
+    lda.w snes_reg.bgmode : and #$39 : ora #$08 : sta !BGMODE
     lda #$5C : sta !BG3SC
     lda #$05 : sta !BG34NBA
 +:
     lda $1FAE
     beq +
 
-    lda $02F0 : sta !HDMAEN
+    lda.w snes_reg.hdmaen : sta !HDMAEN
     bra .835F
 
 +:
@@ -200,7 +200,7 @@ nmi: ;a- x-
     sta !NTRL1 : sta !NTRL2 : sta !NTRL3 : sta !NTRL4
     sta !NTRL5 : sta !NTRL6 : sta !NTRL7
 .835F:
-    lda $02F2 : sta.w INIDISP
+    lda.w snes_reg.inidisp : sta.w INIDISP
     jsr _0083C2_83C3
     jsr _00847F
     lda #$98 : sta !HTIMEL : stz !HTIMEH
@@ -244,7 +244,7 @@ irq: ;a- x-
     bit !HVBJOY
     bvc -
 
-    lda $02F0 : sta !HDMAEN
+    lda.w snes_reg.hdmaen : sta !HDMAEN
     lda #$81  : sta !NMITIMEN
     plb
     pla
@@ -355,7 +355,7 @@ _0083C2:
 
 { ;847F - 851C
 _00847F: ;a8 x8
-    lda.w state_bgmode
+    lda.w snes_reg.bgmode
     and #$07
     cmp #$07
     bne .ret
@@ -363,14 +363,14 @@ _00847F: ;a8 x8
     lda $1FB0
     bne .84C0
 
-    lda.w state_m7a+0 : sta !M7A
-    lda.w state_m7a+1 : sta !M7A
-    lda.w state_m7b+0 : sta !M7B
-    lda.w state_m7b+1 : sta !M7B
-    lda.w state_m7c+0 : sta !M7C
-    lda.w state_m7c+1 : sta !M7C
-    lda.w state_m7d+0 : sta !M7D
-    lda.w state_m7d+1 : sta !M7D
+    lda.w snes_reg.m7a+0 : sta !M7A
+    lda.w snes_reg.m7a+1 : sta !M7A
+    lda.w snes_reg.m7b+0 : sta !M7B
+    lda.w snes_reg.m7b+1 : sta !M7B
+    lda.w snes_reg.m7c+0 : sta !M7C
+    lda.w snes_reg.m7c+1 : sta !M7C
+    lda.w snes_reg.m7d+0 : sta !M7D
+    lda.w snes_reg.m7d+1 : sta !M7D
     bra .8502
 
 .ret:
@@ -378,15 +378,15 @@ _00847F: ;a8 x8
 
 .84C0:
     !A16
-    lda.w state_m7d : ldx $1FA3 : jsr _00851D
+    lda.w snes_reg.m7d : ldx $1FA3 : jsr _00851D
     sty !M7D
     stx !M7D
-    lda.w state_m7c : ldx $1FA2 : jsr _00851D
+    lda.w snes_reg.m7c : ldx $1FA2 : jsr _00851D
     sty !M7C
     stx !M7C
-    lda.w state_m7b : ldx $1FA1 : jsr _00851D
+    lda.w snes_reg.m7b : ldx $1FA1 : jsr _00851D
     phy : phx
-    lda.w state_m7a : ldx $1FA0 : jsr _00851D
+    lda.w snes_reg.m7a : ldx $1FA0 : jsr _00851D
     sty !M7A
     stx !M7A
     plx : ply
@@ -394,10 +394,10 @@ _00847F: ;a8 x8
     stx !M7B
 .8502:
     !A8
-    lda.w state_m7x+0 : sta !M7X
-    lda.w state_m7x+1 : sta !M7X
-    lda.w state_m7y+0 : sta !M7Y
-    lda.w state_m7y+1 : sta !M7Y
+    lda.w snes_reg.m7x+0 : sta !M7X
+    lda.w snes_reg.m7x+1 : sta !M7X
+    lda.w snes_reg.m7y+0 : sta !M7Y
+    lda.w snes_reg.m7y+1 : sta !M7Y
     rts
 }
 

@@ -8,7 +8,7 @@ create:
 
     lda #$F1 : jsl _018049_8053
     lda.b #!mus_talk_princess : jsl _018049_8053
-    lda.w state_tm : and #$FB : sta.w state_tm
+    lda.w snes_reg.tm : and #$FB : sta.w snes_reg.tm
     !AX16
     lda.w stage : pha
     lda #$0011 : sta.w stage
@@ -21,7 +21,7 @@ create:
 ;----- 9C3B
 
     stz $032E
-    stz $02F0
+    stz.w snes_reg.hdmaen
     !A16
     lda #$1800 : sta $0318
     lda #$0800 : sta $031A
@@ -48,8 +48,8 @@ elseif !version == 1 || !version == 2
     ldy #$2C : jsl _01A21D
     lda #$1A : sta $031E
 endif
-    lda #$05 : sta $02E1
-    lda.w state_bgmode : ora #$08 : sta.w state_bgmode
+    lda #$05 : sta.w snes_reg.bg34nba
+    lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
     lda #$04 : cop #$00
 
 ;----- 9C81
@@ -91,7 +91,7 @@ _9CF2:
 
 _9CF6:
     !AX8
-    lda.w state_tm : ora #$04 : sta.w state_tm
+    lda.w snes_reg.tm : ora #$04 : sta.w snes_reg.tm
     ldx #$2A : ldy #$90 : lda.b #_01FF00_5C : jsl _01A6FE
 .9D0A:
     brk #$00
@@ -114,9 +114,9 @@ _9CF6:
     !A8
     lda #$1D : sta $31
 .9D3F:
-    lda #$00 : sta $02EB
-    lda #$90 : sta $02EC
-    lda $31 : ora #$E0 : sta $02EE
+    lda #$00 : sta.w snes_reg.cgwsel
+    lda #$90 : sta.w snes_reg.cgadsub
+    lda $31 : ora #$E0 : sta.w snes_reg.coldata
     dec $31
     beq .9D62
 

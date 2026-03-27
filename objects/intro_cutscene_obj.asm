@@ -156,10 +156,10 @@ create: ;a8 x8
     lda $1FB3
     bne .CE4C
 
-    stz $02EB
-    stz $02EC
-    stz $02EE
-    stz.w state_tm
+    stz.w snes_reg.cgwsel
+    stz.w snes_reg.cgadsub
+    stz.w snes_reg.coldata
+    stz.w snes_reg.tm
     lda #$12 : jsl _0190B9_palette_to_ram
     jsr _D0C1
     ldx #$01 : ldy #$0E : jsl _D0BB
@@ -229,12 +229,12 @@ create: ;a8 x8
 
 .CEF1:
     lda #$5D : jsl _018049_8053 ;lightning sfx
-    lda #$17 : sta.w state_tm
+    lda #$17 : sta.w snes_reg.tm
     rts
 
 .CEFD:
     lda $08 : and #$F7 : sta $08
-    stz.w state_tm
+    stz.w snes_reg.tm
     rts
 
 .CF07: ;1st & 3rd demon in 3rd scene
@@ -385,7 +385,7 @@ endif
 
     !A8
     stz $032E
-    stz $02F0
+    stz.w snes_reg.hdmaen
 if !version == 0
     ldy #$27 : jsl _01A21D
 elseif !version == 1 || !version == 2
@@ -415,9 +415,9 @@ endif
 if !version == 0
     lda #$15 : sta $031E
 endif
-    lda #$05 : sta $02E1
-    lda #$16 : sta.w state_tm : sta $02D7
-    lda.w state_bgmode : ora #$08 : sta.w state_bgmode
+    lda #$05 : sta.w snes_reg.bg34nba
+    lda #$16 : sta.w snes_reg.tm : sta $02D7
+    lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
     ldx #$02 : ldy #$90 : lda.b #_01FF00_18 : jsl _01A6FE
 .D075:
     brk #$00

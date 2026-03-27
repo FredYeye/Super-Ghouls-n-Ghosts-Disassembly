@@ -432,13 +432,13 @@ _01826E: ;a8 x8
 
 { ;833A - 8342
 enable_nmi: ;a8 x-
-    lda $02F1 : ora #$80 : sta !NMITIMEN
+    lda.w snes_reg.nmitimen : ora #$80 : sta !NMITIMEN
     rtl
 }
 
 { ;8343 - 834B
 disable_nmi: ;a8 x-
-    lda $02F1 : and #$01 : sta !NMITIMEN
+    lda.w snes_reg.nmitimen : and #$01 : sta !NMITIMEN
     rtl
 }
 
@@ -449,13 +449,13 @@ _01834C: ;a8 x8
 
     lda !RDNMI
 +:
-    lda $02F2 : ora #$80 : sta.w INIDISP : sta $02F2
+    lda.w snes_reg.inidisp : ora #$80 : sta.w INIDISP : sta.w snes_reg.inidisp
     rtl
 }
 
 { ;8360 - 8365
-_018360: ;a8 x8
-    lda #$0F : sta $02F2
+set_max_brightness: ;a8 x8
+    lda #$0F : sta.w snes_reg.inidisp
     rtl
 }
 
@@ -2705,14 +2705,14 @@ _0194CF: ;a8 x-
 _01951E: ;a8 x8
     ldx #$29
 -:
-    stz $02C7,X ;todo: label
+    stz.w snes_reg.base,X
     dex
     bpl -
 
-    stz !WH0
-    stz !WH1
-    stz !WH2
-    stz !WH3
+    stz.w WH0
+    stz.w WH1
+    stz.w WH2
+    stz.w WH3
     stz !SETINI
     stz !HDMAEN
     rtl
@@ -2721,24 +2721,24 @@ _01951E: ;a8 x8
 { ;9539 - 957F
 _019539: ;a8 x8
     lda #$03 : sta.w OBSEL
-    lda #$30 : sta $02EB
-    lda #$01 : sta.w state_bgmode
-    lda #$03 : sta.w state_bg1sc
-    lda #$11 : sta.w state_bg2sc
+    lda #$30 : sta.w snes_reg.cgwsel
+    lda #$01 : sta.w snes_reg.bgmode
+    lda #$03 : sta.w snes_reg.bg1sc
+    lda #$11 : sta.w snes_reg.bg2sc
     ldx.w stage
     cpx #$02
     bne +
 
-    lda #$10 : sta.w state_bg2sc
+    lda #$10 : sta.w snes_reg.bg2sc
 +:
-    lda #$19 : sta $02DE
-    lda #$22 : sta $02E0
-    lda #$04 : sta $02E1
-    stz $02E6
-    stz $02E7
-    stz $02E9
+    lda #$19 : sta.w snes_reg.bg3sc
+    lda #$22 : sta.w snes_reg.bg12nba
+    lda #$04 : sta.w snes_reg.bg34nba
+    stz.w snes_reg.w12sel
+    stz.w snes_reg.w34sel
+    stz.w snes_reg.wbglog
     stz $02ED
-    stz $02EE
+    stz.w snes_reg.coldata
     stz !SETINI
     rtl
 }
@@ -4098,9 +4098,9 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage2:
-    lda #$07 : sta $02EC
-    lda #$02 : sta $02EB
-    lda #$E0 : sta $02EE
+    lda #$07 : sta.w snes_reg.cgadsub
+    lda #$02 : sta.w snes_reg.cgwsel
+    lda #$E0 : sta.w snes_reg.coldata
     ldy #$18 : lda.b #_01FF00_3C : jsl _01A6FE
     ldy #$30 : lda.b #_01FF00_40 : jsl _01A6FE
     ldy #$48 : lda.b #_01FF00_04 : ldx #$00 : jsl _01A6FE
@@ -4134,7 +4134,7 @@ _01AF04: ;a8 x8
     lda #$43 : sta $1F05 : sta $1F07
     lda #$53 : sta $1F09 : sta $1F0B
     stz $1F0C
-    lda #$C0 : sta $02F0
+    lda #$C0 : sta.w snes_reg.hdmaen
     rts
 
 ;-----
@@ -4146,8 +4146,8 @@ _01AF04: ;a8 x8
     ldy #$30 : lda.b #_01FF00_4C : ldx #$00 : jsl _01A6FE
     ldy #$48 : lda.b #_01FF00_4C : ldx #$02 : jsl _01A6FE
     ldy #$78 : lda.b #_01FF00_64 : jsl _01A6FE
-    lda #$E0 : sta $02EE
-    lda #$03 : sta $02E6
+    lda #$E0 : sta.w snes_reg.coldata
+    lda #$03 : sta.w snes_reg.w12sel
     lda #$FF : sta $19DF
     rts
 
@@ -4172,15 +4172,15 @@ _01AF04: ;a8 x8
     !A16
     clc
     lda.w camera_x+1 : sta $19BD : sta $1F89
-    adc #$0080       : sta.w state_m7x
+    adc #$0080       : sta.w snes_reg.m7x
     clc
     lda.w camera_y+1 : sta $19C1 : sta $1F8B
-    adc #$0080       : sta.w state_m7y
+    adc #$0080       : sta.w snes_reg.m7y
     lda #$0100
-    sta.w state_m7a
-    stz.w state_m7b
-    stz.w state_m7c
-    sta.w state_m7d
+    sta.w snes_reg.m7a
+    stz.w snes_reg.m7b
+    stz.w snes_reg.m7c
+    sta.w snes_reg.m7d
     !A8
     stz $19E6
     stz $19E8
@@ -4202,7 +4202,7 @@ _01AF04: ;a8 x8
     ldy #$15 : jsl _01819D
     ldy #$30 : lda.b #_01FF00_60 : jsl _01A6FE
     ldy #$78 : lda.b #_01FF00_54 : jsl _01A6FE
-    lda #$10 : sta.w state_bg2sc
+    lda #$10 : sta.w snes_reg.bg2sc
     rts
 
 ;-----
@@ -4348,13 +4348,13 @@ _01B26D: ;a8 x-
     rtl
 
 .B271: ;a8 x-
-    lda $02DE : sta $1F63 : sta $1F68
-    lda $02DF : sta $1F64 : sta $1F69
-    lda $02E0 : sta $1F65 : sta $1F6A
-    lda $02E1 : sta $1F66 : sta $1F6B
-    lda.w state_bgmode : sta $1F6E : sta $1F70
-    lda $02D7 : sta $1F79 : sta $1F7C
-    lda $02D8 : sta $1F7A : sta $1F7D
+    lda.w snes_reg.bg3sc   : sta $1F63 : sta $1F68
+    lda $02DF           : sta $1F64 : sta $1F69
+    lda.w snes_reg.bg12nba : sta $1F65 : sta $1F6A
+    lda.w snes_reg.bg34nba : sta $1F66 : sta $1F6B
+    lda.w snes_reg.bgmode  : sta $1F6E : sta $1F70
+    lda $02D7           : sta $1F79 : sta $1F7C
+    lda $02D8           : sta $1F7A : sta $1F7D
     rts
 }
 
@@ -4368,8 +4368,8 @@ _01B2B1: ;a8 x8
     sta.w hud_visible
 if !version == 0 || !version == 1
     tax
-    lda $02F0 : and #$FD : ora.w _00B5BC+0,X : sta $02F0
-    lda $02F1 : and #$CF : ora.w _00B5BC+2,X : sta $02F1
+    lda.w snes_reg.hdmaen   : and #$FD : ora.w _00B5BC+0,X : sta.w snes_reg.hdmaen
+    lda.w snes_reg.nmitimen : and #$CF : ora.w _00B5BC+2,X : sta.w snes_reg.nmitimen
 endif
 .ret:
     rts
@@ -5057,7 +5057,7 @@ _01B90E: ;a8 x8
     lda.w stage
     cmp #$04 : beq +
 
-    lda.w state_bgmode
+    lda.w snes_reg.bgmode
     and #$07
     cmp #$07 : beq .ret
 
@@ -5222,9 +5222,9 @@ _01B9A8: ;a8 x?
     asl #2
     and #$01FF
     tax
-    lda.l _09FE00+0,X : sta.w state_m7a : sta.w state_m7d
-    lda.l _09FE00+2,X : sta.w state_m7b
-    eor #$FFFF : inc  : sta.w state_m7c
+    lda.l _09FE00+0,X : sta.w snes_reg.m7a : sta.w snes_reg.m7d
+    lda.l _09FE00+2,X : sta.w snes_reg.m7b
+    eor #$FFFF : inc  : sta.w snes_reg.m7c
     !AX8
     rts
 
@@ -5394,9 +5394,9 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BC6C:
-    clc : lda $1F83 : adc.w state_m7x : sta.w state_m7x
+    clc : lda $1F83 : adc.w snes_reg.m7x : sta.w snes_reg.m7x
     sec             : sbc #$0080      : sta $19BD
-    clc : lda $1F85 : adc.w state_m7y : sta.w state_m7y
+    clc : lda $1F85 : adc.w snes_reg.m7y : sta.w snes_reg.m7y
     sec             : sbc #$0080      : sta $19C1
     stz $1F8D
     rts
@@ -5404,9 +5404,9 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BC92:
-    lda $1F85 : clc : adc.w state_m7x : sta.w state_m7x
+    lda $1F85 : clc : adc.w snes_reg.m7x : sta.w snes_reg.m7x
                 sec : sbc #$0080      : sta $19BD
-    lda $1F83 : eor #$FFFF : inc : clc : adc.w state_m7y : sta.w state_m7y
+    lda $1F83 : eor #$FFFF : inc : clc : adc.w snes_reg.m7y : sta.w snes_reg.m7y
                                    sec : sbc #$0080      : sta $19C1
     lda #$3000 : sta $1F8D
     rts
@@ -5418,8 +5418,8 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc.w state_m7x
-    sta.w state_m7x
+    adc.w snes_reg.m7x
+    sta.w snes_reg.m7x
     sec
     sbc #$0080
     sta $19BD
@@ -5427,8 +5427,8 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc.w state_m7y
-    sta.w state_m7y
+    adc.w snes_reg.m7y
+    sta.w snes_reg.m7y
     sec
     sbc #$0080
     sta $19C1
@@ -5442,15 +5442,15 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc.w state_m7x
-    sta.w state_m7x
+    adc.w snes_reg.m7x
+    sta.w snes_reg.m7x
     sec
     sbc #$0080
     sta $19BD
     lda $1F83
     clc
-    adc.w state_m7y
-    sta.w state_m7y
+    adc.w snes_reg.m7y
+    sta.w snes_reg.m7y
     sec
     sbc #$0080
     sta $19C1
@@ -7510,7 +7510,7 @@ _01CCBD: ;a8 x8
     lda $0292
     bpl .CD87
 
-    lda #$12 : sta.w state_tm : sta $02D7
+    lda #$12 : sta.w snes_reg.tm : sta $02D7
     bra .CD8B
 
 .CD87:
@@ -9849,26 +9849,26 @@ _01DE0B: ;a8 x8
     bne .DE4D
 
 .DE17:
-    lda.w _00BAE6+00,X : sta.w state_tm : sta.w state_tmw
-    lda.w _00BAE6+10,X : sta.w state_ts : sta.w state_tsw
+    lda.w _00BAE6+00,X : sta.w snes_reg.tm : sta.w snes_reg.tmw
+    lda.w _00BAE6+10,X : sta.w snes_reg.ts : sta.w snes_reg.tsw
     lda.w _00BAE6+20,X : sta $02D7
     lda.w _00BAE6+30,X : sta $02D8
     lda $0292
     beq .DE4C
 
-    lda $02D7 : sta.w state_tm : sta.w state_tmw
-    lda $02D8 : sta.w state_ts : sta.w state_tsw
+    lda $02D7 : sta.w snes_reg.tm : sta.w snes_reg.tmw
+    lda $02D8 : sta.w snes_reg.ts : sta.w snes_reg.tsw
 .DE4C:
     rtl
 
 .DE4D:
     lda #$15
-    sta.w state_tm
-    sta.w state_ts
+    sta.w snes_reg.tm
+    sta.w snes_reg.ts
     sta $02D7
     sta $02D8
-    sta.w state_tmw
-    sta.w state_tsw
+    sta.w snes_reg.tmw
+    sta.w snes_reg.tsw
     rtl
 }
 

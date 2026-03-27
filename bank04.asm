@@ -1006,7 +1006,7 @@ _048BB8: ;a8 x-
 _048C43: ;a8 x8
     ;setup intro cutscenes
 
-    stz $02F2
+    stz.w snes_reg.inidisp
     jsl _0180B9
     jsl _0180A6
     jsl _01951E
@@ -1053,11 +1053,11 @@ _048C43: ;a8 x8
     jsl _048DF9
     jsr _049219_9228
 if !version == 0 || !version == 1
-    jsl _018360
+    jsl set_max_brightness
     jsl enable_nmi
-    stz $02F2
+    stz.w snes_reg.inidisp
 elseif !version == 2
-    stz $02F2
+    stz.w snes_reg.inidisp
     jsl enable_nmi
 endif
     stz.w stage
@@ -1110,7 +1110,7 @@ endif
     jsr _049219_922E
     lda.b #62 : jsl current_task_suspend
     stz $1FB3
-    lda #$0F : sta $02F2
+    lda #$0F : sta.w snes_reg.inidisp
 .8DE4:
     jsl _018021
     jsr _048E47
@@ -1176,15 +1176,15 @@ _048E68: ;a8 x-
     rtl
 
 .local:
-    sta.w state_tm
-    sta.w state_ts
-    lda #$01 : sta $02F1
-    ora #$08 : sta.w state_bgmode
+    sta.w snes_reg.tm
+    sta.w snes_reg.ts
+    lda #$01 : sta.w snes_reg.nmitimen
+    ora #$08 : sta.w snes_reg.bgmode
     lda #$01
-    stz.w state_bg1sc
-    lda #$02 : sta $02E0
-    lda #$18 : sta $02DE
-    lda #$05 : sta $02E1
+    stz.w snes_reg.bg1sc
+    lda #$02 : sta.w snes_reg.bg12nba
+    lda #$18 : sta.w snes_reg.bg3sc
+    lda #$05 : sta.w snes_reg.bg34nba
     stz $032E
     !AX16
     lda #$1800 : sta $0318
@@ -1234,7 +1234,7 @@ endif
     beq .8F30
 
     stz $1FEF
-    jsl _018360
+    jsl set_max_brightness
     bra .8F3D
 
 .8F30:
@@ -1264,7 +1264,7 @@ endif
     jsr _049219_921D
     lda #$43 : jsl _018049_8053 ;ice sfx
     lda.b #62 : jsl current_task_suspend
-    lda #$30 : sta $02EB
+    lda #$30 : sta.w snes_reg.cgwsel
     lda #$05 : sta $0279
     rtl
 
@@ -1307,12 +1307,12 @@ _048FDD:
     jsl _018366
     jsl _01951E
     jsl _018049_804D
-    lda #$01 : sta $02F1
-    stz.w state_tm
-    stz.w state_ts
+    lda #$01 : sta.w snes_reg.nmitimen
+    stz.w snes_reg.tm
+    stz.w snes_reg.ts
     jsl _018074
     jsl _018366
-    lda #$10 : sta.w state_tm : sta.w state_ts
+    lda #$10 : sta.w snes_reg.tm : sta.w snes_reg.ts
     stz.w hud_visible
     jsl _018CE2
     jsr _049234
@@ -1325,7 +1325,7 @@ _048FDD:
     ldy #$4D : jsl _01A21D_decompress_graphics
     ldx #$4D : jsl _0180C7_ram_to_vram
     jsr _04906A
-    jsl _018360
+    jsl set_max_brightness
     jsl enable_nmi
     jsl _048A6B
     pla : sta.w stage
@@ -1340,7 +1340,7 @@ _048FDD:
 
     jsr _049219_921D
     lda.b #62 : jsl current_task_suspend
-    lda #$30 : sta $02EB
+    lda #$30 : sta.w snes_reg.cgwsel
     rtl
 }
 
@@ -1367,12 +1367,12 @@ _049085: ;a8 x8
     jsl _018366
     jsl _01951E
     jsl _018049_804D
-    lda #$01 : sta $02F1
-    stz.w state_tm
-    stz.w state_ts
+    lda #$01 : sta.w snes_reg.nmitimen
+    stz.w snes_reg.tm
+    stz.w snes_reg.ts
     jsl _018074
     jsl _018366
-    lda #$10 : sta.w state_tm : sta.w state_ts
+    lda #$10 : sta.w snes_reg.tm : sta.w snes_reg.ts
     stz $032E
     jsl _018CE2
     jsr _049234
@@ -1405,8 +1405,7 @@ _049085: ;a8 x8
 
     jsr _049219_921D
     lda.b #62 : jsl current_task_suspend
-    lda #$30
-    sta $02EB
+    lda #$30 : sta.w snes_reg.cgwsel
     rtl
 }
 
@@ -1585,7 +1584,7 @@ _049310: ;a8 x8
     jsl _01834C
     jsl _0180B9
     jsl _01951E
-    lda #$01 : sta $02F1
+    lda #$01 : sta.w snes_reg.nmitimen
     jsl _0180A6
     jsl disable_nmi
     jsl _018CE2
@@ -1595,7 +1594,7 @@ _049310: ;a8 x8
     ldy #$85 : jsl _01A21D_decompress_graphics
     ldx #$70 : jsl _0180C7_ram_to_vram
     jsl _019539
-    lda #$11 : sta.w state_tm
+    lda #$11 : sta.w snes_reg.tm
     jsl _018366
     ldx #$00
 .935C:
@@ -1610,7 +1609,7 @@ _049310: ;a8 x8
     jsl _048A6B
     jsl _058000
     pla : sta.w stage
-    jsl _018360
+    jsl set_max_brightness
     inc $0379
 
     jsl enable_nmi
@@ -1645,7 +1644,7 @@ _049310: ;a8 x8
 
     lda.b #60 : jsl current_task_suspend
 .93D5:
-    lda #$01 : sta.w state_tm
+    lda #$01 : sta.w snes_reg.tm
     lda #$00
 .93DC:
     pha

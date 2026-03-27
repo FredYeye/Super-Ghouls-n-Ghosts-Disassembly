@@ -43,7 +43,7 @@ endif
     stz $1538
     stz $1546
     stz $1554
-    lda #$04 : sta.w state_tm : sta.w state_ts
+    lda #$04 : sta.w snes_reg.tm : sta.w snes_reg.ts
     lda #$10 : sta $02D7 : sta $02D8
     lda #$30 : ora.w !obj_arthur.flags2 : sta.w !obj_arthur.flags2
     stz $15F1
@@ -124,8 +124,8 @@ endif
 
 ;----- B28A
 
-    lda #$07 : sta.w state_bgmode
-    lda #$04 : sta.w state_tm : sta.w state_ts
+    lda #$07 : sta.w snes_reg.bgmode
+    lda #$04 : sta.w snes_reg.tm : sta.w snes_reg.ts
     lda #$12 : sta $02D7 : sta $02D8
     lda #$40 : sta !SETINI ;EXTBG
     stz $2D
@@ -133,9 +133,9 @@ endif
     stz $39
     lda #$FF : sta $3B
     !A16
-    lda #$0080 : sta.w state_m7x
-    lda #$0280 : sta.w state_m7y
-    lda #$0060 : sta.w state_m7a : sta.w state_m7d : sta.w state_m7b : sta.w state_m7c
+    lda #$0080 : sta.w snes_reg.m7x
+    lda #$0280 : sta.w snes_reg.m7y
+    lda #$0060 : sta.w snes_reg.m7a : sta.w snes_reg.m7d : sta.w snes_reg.m7b : sta.w snes_reg.m7c
     !A8
 .B2CD:
     lda #$80 : sta $1F2B ;rotation related
@@ -149,14 +149,14 @@ endif
     lda.w !obj_arthur.pos_x+1 : sta.b obj.pos_x+1
     lda.w !obj_arthur.pos_y+1 : sta.b obj.pos_y+1
     clc
-    lda.w state_m7a
+    lda.w snes_reg.m7a
     adc #$000C
     cmp #$01D0
     bcc .B2F2
 
     lda #$01D0
 .B2F2:
-    sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
+    sta.w snes_reg.m7a : sta.w snes_reg.m7b : sta.w snes_reg.m7c : sta.w snes_reg.m7d
     bcc .B2D7
 
     !A8
@@ -302,14 +302,14 @@ endif
     jsr _B4B7
     !A16
     sec
-    lda.w state_m7a
+    lda.w snes_reg.m7a
     sbc #$000C
     cmp #$0020
     bcs .B412
 
     lda #$0020
 .B412:
-    sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
+    sta.w snes_reg.m7a : sta.w snes_reg.m7b : sta.w snes_reg.m7c : sta.w snes_reg.m7d
     bcs .B3F1
 
     !A8
@@ -417,11 +417,11 @@ _B4D2:
     !A16
     beq .B4FF
 
-    clc : lda.w state_m7a : adc #$0004 : sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
+    clc : lda.w snes_reg.m7a : adc #$0004 : sta.w snes_reg.m7a : sta.w snes_reg.m7b : sta.w snes_reg.m7c : sta.w snes_reg.m7d
     bra .B512
 
 .B4FF:
-    sec : lda.w state_m7a : sbc #$0004 : sta.w state_m7a : sta.w state_m7b : sta.w state_m7c : sta.w state_m7d
+    sec : lda.w snes_reg.m7a : sbc #$0004 : sta.w snes_reg.m7a : sta.w snes_reg.m7b : sta.w snes_reg.m7c : sta.w snes_reg.m7d
 .B512:
     !A8
 .B514:

@@ -2,7 +2,7 @@ namespace gate
 
 {
 create:
-    lda.w state_tm : and #$0F : sta.w state_tm
+    lda.w snes_reg.tm : and #$0F : sta.w snes_reg.tm
     lda #$20 : sta $09
     lda #$FF : sta $19EC
     lda #$48 : jsl _018049_8053
@@ -23,9 +23,9 @@ create:
     lda #$0100 : sta $29
     stz $33
     !AX8
-    lda #$80 : sta $02E6
-    lda #$08 : sta $02E7
-    lda #$02 : sta $02E8
+    lda #$80 : sta.w snes_reg.w12sel
+    lda #$08 : sta.w snes_reg.w34sel
+    lda #$02 : sta.w snes_reg.wobjsel
     jsr _C4EC
     ldy #$1A : ldx #$22
     lda.w stage
@@ -85,7 +85,7 @@ _C4EC:
     stz !A1B7
     lda #$04 : sta !DMAP7
     lda #$26 : sta !BBAD7
-    lda $02F0 : ora #$80 : sta $02F0
+    lda.w snes_reg.hdmaen : ora #$80 : sta.w snes_reg.hdmaen
     rts
 }
 
