@@ -1,7 +1,7 @@
 org $038000 : bank03:
 
 {
-    incsrc "various/stage_layouts.asm"        ;8000 - 846F 
+    incsrc "various/stage_layouts.asm"        ;8000 - 846F
     incsrc "various/palette_cycling_data.asm" ;8470 - 9C08
     incsrc "objects/princess_dialogue.asm"    ;9C09 - 9DD9
     incsrc "task_fns/_039DDA.asm"             ;9DDA - 9E78
@@ -1056,7 +1056,7 @@ _03F526:
     jsl _01834C
     jsl _01951E
     jsl _019539
-    lda #$C0 : sta !M7SEL
+    lda #$C0 : sta.w M7SEL
     jsl _018366
     lda #$07 : sta.w snes_reg.bgmode
     lda #$11 : jsl _0190B9_palette_to_ram
@@ -1221,24 +1221,21 @@ _03F8A3:
     lda #$05 : sta.w snes_reg.bg34nba
     lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
     lda $02D7 : ora #$04 : sta $02D7
-    lda #$02 : sta !DMAP1
-    lda #$0D : sta !BBAD1
-    lda #$57 : sta !A1T1L
-    lda #$1F : sta !A1T1H
-    lda #$00 : sta !A1B1
+    lda.b #!dmap_mode_2     : sta !DMAP1
+    lda.b #!BG1HOFS         : sta !BBAD1
+    lda.b #hdma_data+$00    : sta !A1T1L
+    lda.b #hdma_data+$00>>8 : sta !A1T1H
+    lda #$00                : sta !A1B1
     stz !DAS1B
     inc $1FAE
     lda #$02 : sta.w snes_reg.hdmaen
-    lda #$50 : sta $1F57
-    stz $1F58
-    stz $1F59
-    lda #$50 : sta $1F5A
-    stz $1F5B
-    stz $1F5C
-    lda #$60 : sta $1F5D
-    stz $1F5E
-    stz $1F5F
-    stz $1F60
+    lda #$50 : sta.w hdma_data+$00 ;line counters + hdma data (3 entries)
+    stz.w hdma_data+$01 : stz.w hdma_data+$02
+    lda #$50 : sta.w hdma_data+$03
+    stz.w hdma_data+$04 : stz.w hdma_data+$05
+    lda #$60 : sta.w hdma_data+$06
+    stz.w hdma_data+$07 : stz.w hdma_data+$08
+    stz.w hdma_data+$09            ;end byte
     lda #$00 : sta.w snes_reg.cgwsel
     lda #$17 : sta.w snes_reg.cgadsub
     lda #$E0 : sta.w snes_reg.coldata
@@ -1285,8 +1282,8 @@ if !version == 0 || !version == 1
 elseif !version == 2
     bne .FA6E
 endif
-    lda $1F5B : sec : sbc #$0001 : sta $1F5B
-    lda $1F58 : clc : adc #$0001 : sta $1F58
+    lda.w hdma_data+$04 : sec : sbc #$0001 : sta.w hdma_data+$04
+    lda.w hdma_data+$01 : clc : adc #$0001 : sta.w hdma_data+$01
     lda $19C5 : sec : sbc #$0001 : sta $19C5
 .FA6E:
     lda $1EC5
@@ -1294,7 +1291,7 @@ endif
 
     lda $19D1 : clc : adc #$0001 : sta $19D1
 .FA7D:
-    lda $1F5E : sec : sbc #$0001 : sta $1F5E
+    lda.w hdma_data+$07 : sec : sbc #$0001 : sta.w hdma_data+$07
     !AX8
     inc $1EB9
     lda $1EB9

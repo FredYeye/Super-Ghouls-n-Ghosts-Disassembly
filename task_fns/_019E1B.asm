@@ -32,12 +32,12 @@ _019E1B: ;a8 x?
     adc #$40
     sta $7F9802
     lda #$01 : sta $7F9803 : sta $7F9806 : sta $7F9809
-    lda #$02 : sta.w snes_reg.w12sel
-    lda #$01 : sta !DMAP5
-    lda #$26 : sta !BBAD5
-    lda #$00 : sta !A1T5L
-    lda #$98 : sta !A1T5H
-    lda #$7F : sta !A1B5
+    lda #$02   : sta.w snes_reg.w12sel
+    lda #$01   : sta !DMAP5
+    lda.b #WH0 : sta !BBAD5
+    lda #$00   : sta !A1T5L
+    lda #$98   : sta !A1T5H
+    lda #$7F   : sta !A1B5
     stz !DAS5B
     lda #$20 : ora.w snes_reg.hdmaen : sta.w snes_reg.hdmaen
 .9EA9:

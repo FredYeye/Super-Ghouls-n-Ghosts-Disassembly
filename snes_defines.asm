@@ -14,6 +14,7 @@
     OBSEL     = $2101 ;Object Size and Object Base
     OAMADDL   = $2102 ;OAM Address (lower 8bit)
     OAMADDH   = $2103 ;OAM Address (upper 1bit) and Priority Rotation
+    OAMDATA   = $2104 ;OAM Data Write (write-twice)
     !BGMODE   = $2105 ;BG Mode and BG Character Size
     !MOSAIC   = $2106 ;Mosaic Size and Mosaic Enable
     !BG1SC    = $2107 ;BG1 Screen Base and Screen Size
@@ -32,7 +33,7 @@
     !VMADDH   = $2117 ;VRAM Address (upper 8bit)
     !VMDATAL  = $2118 ;VRAM Data Write (lower 8bit)
     !VMDATAH  = $2119 ;VRAM Data Write (upper 8bit)
-    !M7SEL    = $211A ;Rotation/Scaling Mode Settings
+    M7SEL     = $211A ;Rotation/Scaling Mode Settings
     !M7A      = $211B ;Rotation/Scaling Parameter A & Maths 16bit operand (w2)
     !M7B      = $211C ;Rotation/Scaling Parameter B & Maths 8bit operand (w2)
     !M7C      = $211D ;Rotation/Scaling Parameter C         (write-twice)
@@ -40,6 +41,7 @@
     !M7X      = $211F ;Rotation/Scaling Center Coordinate X (write-twice)
     !M7Y      = $2120 ;Rotation/Scaling Center Coordinate Y (write-twice)
     !CGADD    = $2121 ;Palette CGRAM Address
+    CGDATA    = $2122 ;Palette CGRAM Data Write             (write-twice)
     !W12SEL   = $2123 ;Window BG1/BG2 Mask Settings
     !W34SEL   = $2124 ;Window BG3/BG4 Mask Settings
     !WOBJSEL  = $2125 ;Window OBJ/MATH Mask Settings
@@ -79,11 +81,11 @@
     !WRDIVH   = $4205 ;Set unsigned 16bit Dividend (upper 8bit)
     !WRDIVB   = $4206 ;Set unsigned 8bit Divisor and Start Division
     !HTIMEL   = $4207 ;H-Count Timer Setting (lower 8bits)
-    !HTIMEH   = $4208 ;H-Count Timer Setting (upper 1bit)
+    HTIMEH    = $4208 ;H-Count Timer Setting (upper 1bit)
     !VTIMEL   = $4209 ;V-Count Timer Setting (lower 8bits)
     !VTIMEH   = $420A ;V-Count Timer Setting (upper 1bit)
     !MDMAEN   = $420B ;Select General Purpose DMA Channel(s) and Start Transfer
-    !HDMAEN   = $420C ;Select H-Blank DMA (H-DMA) Channel(s)
+    HDMAEN    = $420C ;Select H-Blank DMA (H-DMA) Channel(s)
 
     !RDNMI    = $4210 ;V-Blank NMI Flag and CPU Version Number (Read/Ack)
     !TIMEUP   = $4211 ;H/V-Timer IRQ Flag (Read/Ack)
@@ -140,21 +142,21 @@
     !DAS4B    = $4347 ;Indirect HDMA Address (bank)
     !DAS5B    = $4357 ;Indirect HDMA Address (bank)
 
-    !A2A1L    = $4318 ;HDMA Table Current Address (low)
-    !A2A2L    = $4328 ;HDMA Table Current Address (low)
-    !A2A3L    = $4338 ;HDMA Table Current Address (low)
-    !A2A4L    = $4348 ;HDMA Table Current Address (low)
-    !A2A5L    = $4358 ;HDMA Table Current Address (low)
-    !A2A6L    = $4368 ;HDMA Table Current Address (low)
-    !A2A7L    = $4378 ;HDMA Table Current Address (low)
+    A2A1L     = $4318 ;HDMA Table Current Address (low)
+    A2A2L     = $4328 ;HDMA Table Current Address (low)
+    A2A3L     = $4338 ;HDMA Table Current Address (low)
+    A2A4L     = $4348 ;HDMA Table Current Address (low)
+    A2A5L     = $4358 ;HDMA Table Current Address (low)
+    A2A6L     = $4368 ;HDMA Table Current Address (low)
+    A2A7L     = $4378 ;HDMA Table Current Address (low)
 
-    !NTRL1    = $431A ;HDMA Line-Counter (from current Table entry)
-    !NTRL2    = $432A ;HDMA Line-Counter (from current Table entry)
-    !NTRL3    = $433A ;HDMA Line-Counter (from current Table entry)
-    !NTRL4    = $434A ;HDMA Line-Counter (from current Table entry)
-    !NTRL5    = $435A ;HDMA Line-Counter (from current Table entry)
-    !NTRL6    = $436A ;HDMA Line-Counter (from current Table entry)
-    !NTRL7    = $437A ;HDMA Line-Counter (from current Table entry)
+    NTRL1     = $431A ;HDMA Line-Counter (from current Table entry)
+    NTRL2     = $432A ;HDMA Line-Counter (from current Table entry)
+    NTRL3     = $433A ;HDMA Line-Counter (from current Table entry)
+    NTRL4     = $434A ;HDMA Line-Counter (from current Table entry)
+    NTRL5     = $435A ;HDMA Line-Counter (from current Table entry)
+    NTRL6     = $436A ;HDMA Line-Counter (from current Table entry)
+    NTRL7     = $437A ;HDMA Line-Counter (from current Table entry)
 }
 
 { ;SPC ports

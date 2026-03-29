@@ -415,7 +415,7 @@ endif
     sta.w checkpoint
     jsl _01DE0B
     lda.w snes_reg.tm : and #$0F : sta.w snes_reg.tm : sta.w snes_reg.tm ;double stores here for some reason
-    lda $02D7 : and #$0F : sta $02D7 : sta $02D7 ;^
+    lda $02D7         : and #$0F : sta $02D7 : sta $02D7 ;^
     inc $0379
     jsr _01B26D_B271
     jsr _01B90E_B912
@@ -596,37 +596,37 @@ endif
 ;-----
 
 .AE55:
-    lda #$01 : sta $1F57 : sta $1F5C
-    stz $1F61
-    lda #$03 : sta !DMAP1
-    lda #$11 : sta !BBAD1
-    lda #$57 : sta !A1T1L
-    lda #$1F : sta !A1T1H
-    lda #$00 : sta !A1B1
+    lda #$01 : sta.w hdma_data+$00 : sta.w hdma_data+$05 ;line counters
+    stz.w hdma_data+$0A                                  ;hdma data end
+    lda.b #!dmap_mode_3     : sta !DMAP1
+    lda.b #!BG3HOFS         : sta !BBAD1
+    lda.b #hdma_data+$00    : sta !A1T1L
+    lda.b #hdma_data+$00>>8 : sta !A1T1H
+    lda #$00                : sta !A1B1
     stz !DAS1B
-    lda #$01 : sta $1F62 : sta $1F67
-    stz $1F6C
-    lda #$04 : sta !DMAP3
-    lda #$09 : sta !BBAD3
-    lda #$62 : sta !A1T3L
-    lda #$1F : sta !A1T3H
-    lda #$00 : sta !A1B3
+    lda #$01 : sta.w hdma_data+$0B : sta.w hdma_data+$10
+    stz.w hdma_data+$15
+    lda.b #!dmap_mode_4     : sta !DMAP3
+    lda.b #!BG3SC           : sta !BBAD3
+    lda.b #hdma_data+$0B    : sta !A1T3L
+    lda.b #hdma_data+$0B>>8 : sta !A1T3H
+    lda #$00                : sta !A1B3
     stz !DAS3B
-    lda #$01 : sta $1F6D : sta $1F6F
-    stz $1F71
-    lda #$00 : sta !DMAP4
-    lda #$05 : sta !BBAD4
-    lda #$6D : sta !A1T4L
-    lda #$1F : sta !A1T4H
-    lda #$00 : sta !A1B4
+    lda #$01 : sta.w hdma_data+$16 : sta.w hdma_data+$18
+    stz.w hdma_data+$1A
+    lda.b #!dmap_mode_0     : sta !DMAP4
+    lda.b #!BGMODE          : sta !BBAD4
+    lda.b #hdma_data+$16    : sta !A1T4L
+    lda.b #hdma_data+$16>>8 : sta !A1T4H
+    lda #$00                : sta !A1B4
     stz !DAS4B
-    lda #$01 : sta $1F78 : sta $1F7B
-    stz $1F7E
-    lda #$01 : sta !DMAP5
-    lda #$2C : sta !BBAD5
-    lda #$78 : sta !A1T5L
-    lda #$1F : sta !A1T5H
-    lda #$00 : sta !A1B5
+    lda #$01 : sta.w hdma_data+$21 : sta.w hdma_data+$24
+    stz.w hdma_data+$27
+    lda.b #!dmap_mode_1     : sta !DMAP5
+    lda.b #TM               : sta !BBAD5
+    lda.b #hdma_data+$21    : sta !A1T5L
+    lda.b #hdma_data+$21>>8 : sta !A1T5H
+    lda #$00                : sta !A1B5
     stz !DAS5B
     lda #$00
     ldx $0292

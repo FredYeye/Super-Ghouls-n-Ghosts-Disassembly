@@ -245,6 +245,9 @@
 
     ; $1F2F bool
 
+    hdma_data = $1F57 ;hdma data struct: [line counter byte, bytes to transfer], end byte (00)
+    ;goes to at least 1F7E
+
     in_armor_up_anim = $1F95
 
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun

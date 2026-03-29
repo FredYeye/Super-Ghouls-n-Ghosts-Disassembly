@@ -2714,7 +2714,7 @@ _01951E: ;a8 x8
     stz.w WH2
     stz.w WH3
     stz !SETINI
-    stz !HDMAEN
+    stz.w HDMAEN
     rtl
 }
 
@@ -4348,13 +4348,13 @@ _01B26D: ;a8 x-
     rtl
 
 .B271: ;a8 x-
-    lda.w snes_reg.bg3sc   : sta $1F63 : sta $1F68
-    lda $02DF           : sta $1F64 : sta $1F69
-    lda.w snes_reg.bg12nba : sta $1F65 : sta $1F6A
-    lda.w snes_reg.bg34nba : sta $1F66 : sta $1F6B
-    lda.w snes_reg.bgmode  : sta $1F6E : sta $1F70
-    lda $02D7           : sta $1F79 : sta $1F7C
-    lda $02D8           : sta $1F7A : sta $1F7D
+    lda.w snes_reg.bg3sc   : sta.w hdma_data+$0C : sta.w hdma_data+$11
+    lda $02DF              : sta.w hdma_data+$0D : sta.w hdma_data+$12
+    lda.w snes_reg.bg12nba : sta.w hdma_data+$0E : sta.w hdma_data+$13
+    lda.w snes_reg.bg34nba : sta.w hdma_data+$0F : sta.w hdma_data+$14
+    lda.w snes_reg.bgmode  : sta.w hdma_data+$17 : sta.w hdma_data+$19
+    lda $02D7              : sta.w hdma_data+$22 : sta.w hdma_data+$25
+    lda $02D8              : sta.w hdma_data+$23 : sta.w hdma_data+$26
     rts
 }
 
@@ -5081,9 +5081,9 @@ _01B90E: ;a8 x8
     lda $1737,X : sta $19C9
 +:
     ldx $19E0
-    lda $1889,X : sta $19CD : sta $1F58 : sta $1F5D
+    lda $1889,X : sta $19CD : sta.w hdma_data+$01 : sta.w hdma_data+$06
     ldx $19E4
-    lda $188D,X : sta $19D1 : sta $1F5A : sta $1F5F
+    lda $188D,X : sta $19D1 : sta.w hdma_data+$03 : sta.w hdma_data+$08
     !AX8
 .ret
     rts
