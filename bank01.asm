@@ -4101,18 +4101,18 @@ _01AF04: ;a8 x8
     lda #$07 : sta.w snes_reg.cgadsub
     lda #$02 : sta.w snes_reg.cgwsel
     lda #$E0 : sta.w snes_reg.coldata
-    ldy #$18 : lda.b #_01FF00_3C : jsl _01A6FE
-    ldy #$30 : lda.b #_01FF00_40 : jsl _01A6FE
-    ldy #$48 : lda.b #_01FF00_04 : ldx #$00 : jsl _01A6FE
-    ldy #$60 : lda.b #_01FF00_04 : ldx #$01 : jsl _01A6FE
-    ldy #$90 : lda.b #_01FF00_58 : jsl _01A6FE
-    lda #$01 : sta $4360
-    lda #$2C : sta $4361
-    lda #$F4 : sta $4362
-    lda #$1E : sta $4363
-    lda #$00 : sta $4364
-    stz $4367
-    lda #$17
+    ldy.b #task[1].base : lda.b #_01FF00_3C : jsl _01A6FE
+    ldy.b #task[2].base : lda.b #_01FF00_40 : jsl _01A6FE
+    ldy.b #task[3].base : lda.b #_01FF00_04 : ldx #$00 : jsl _01A6FE
+    ldy.b #task[4].base : lda.b #_01FF00_04 : ldx #$01 : jsl _01A6FE
+    ldy.b #task[6].base : lda.b #_01FF00_58 : jsl _01A6FE
+    lda.b #!dmap_mode_1 : sta.w !DMAP6
+    lda.b #TM           : sta.w !BBAD6
+    lda #$F4            : sta.w !A1T6L ;todo: label
+    lda #$1E            : sta.w !A1T6H
+    lda #$00            : sta.w !A1B6
+    stz !DAS6B
+    lda #$17 ;todo: hdma data?
     ldx #$01
     sta $1EF5
     stx $1EF6
@@ -4125,13 +4125,13 @@ _01AF04: ;a8 x8
     sta $1EFE
     stx $1EFF
     stz $1F00
-    lda #$00 : sta $4370
-    lda #$31 : sta $4371
-    lda #$04 : sta $4372
-    lda #$1F : sta $4373
-    lda #$00 : sta $4374
-    stz $4377
-    lda #$43 : sta $1F05 : sta $1F07
+    lda.b #!dmap_mode_0 : sta.w !DMAP7
+    lda.b #!CGADSUB     : sta.w !BBAD7
+    lda #$04            : sta.w !A1T7L ;todo: label
+    lda #$1F            : sta.w !A1T7H
+    lda #$00            : sta.w !A1B7
+    stz.w !DAS7B
+    lda #$43 : sta $1F05 : sta $1F07 ;todo: hdma data?
     lda #$53 : sta $1F09 : sta $1F0B
     stz $1F0C
     lda #$C0 : sta.w snes_reg.hdmaen
@@ -5236,7 +5236,7 @@ _01B9A8: ;a8 x?
 
 ;-----
 
-.BAA0: ;todo: uh. are these loads actually for arthur? maybe change these definitions? slot_begin?
+.BAA0:
     !AX16
     lda.w !obj_arthur.pos_x+1 : sta $0000
     lda.w !obj_arthur.pos_y+1 : sta $0002
@@ -5249,7 +5249,7 @@ _01B9A8: ;a8 x?
 .BAE3:
     !A8
     lda.w !obj_start.type,X
-    cmp #$3E
+    cmp.b #!id_rotating_platform
     bne .BAF4
 
     lda.w !obj_start.init_param,X
@@ -5270,12 +5270,12 @@ _01B9A8: ;a8 x?
 
     bra .BB42
 
-.BB0A: ;todo: add more defines here
-    lda $0475,X : sta.w !obj_start.pos_x+1,X
-    lda $0477,X : sta.w !obj_start.pos_y+1,X
+.BB0A:
+    lda.w !obj_start+$39,X : sta.w !obj_start.pos_x+1,X ;todo: what is 39 and 3B?
+    lda.w !obj_start+$3B,X : sta.w !obj_start.pos_y+1,X
     jsr .BB70
-    lda.w !obj_start.pos_x+1,X : sta $0475,X
-    lda.w !obj_start.pos_y+1,X : sta $0477,X
+    lda.w !obj_start.pos_x+1,X : sta.w !obj_start+$39,X
+    lda.w !obj_start.pos_y+1,X : sta.w !obj_start+$3B,X
     bra .BB42
 
 .BB27:
@@ -5305,15 +5305,14 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BB70:
-    lda $045E,X : pha
-    sec : lda #$0400 : sbc $045B,X : sta $045E,X
-    pla : sta $045B,X
+    lda.w !obj_start.pos_y+1,X : pha
+    sec : lda #$0400 : sbc.w !obj_start.pos_x+1,X : sta.w !obj_start.pos_y+1,X
+    pla : sta.w !obj_start.pos_x+1,X
     rts
 
 ;-----
 
 .BB83:
-    ;todo: uh. are these loads actually for arthur? maybe change these definitions? slot_begin?
     ;third rotation device gets here, at least
     !AX16
     ldx.w !obj_arthur.pos_x+1 : stx $0000
@@ -5327,10 +5326,10 @@ _01B9A8: ;a8 x?
 .BBC6:
     !A8
     lda.w !obj_start.type,X
-    cmp #$3E
+    cmp.b #!id_rotating_platform
     bne .BBD7
 
-    lda $0443,X ;todo: more !obj_start
+    lda.w !obj_start.init_param,X
     cmp $1F93
     beq .BC23
 
@@ -5348,17 +5347,17 @@ _01B9A8: ;a8 x?
 
     bra .BC23
 
-.BBED:
-    lda $0475,X : sta $045B,X
-    lda $0477,X : sta $045E,X
+.BBED: ;todo: more !obj_start
+    lda.w !obj_start+$39,X : sta.w !obj_start.pos_x+1,X ;todo: 39 & 3B?
+    lda.w !obj_start+$3B,X : sta.w !obj_start.pos_y+1,X
     jsr .BC51
-    lda $045B,X : sta $0475,X
-    lda $045E,X : sta $0477,X
+    lda.w !obj_start.pos_x+1,X : sta.w !obj_start+$39,X
+    lda.w !obj_start.pos_y+1,X : sta.w !obj_start+$3B,X
     bra .BC23
 
 .BC0A: ;never seems to get reached?
-    clc : lda $045B,X : adc $000C : sta $045B,X
-    clc : lda $045E,X : adc $000E : sta $045E,X
+    clc : lda.w !obj_start.pos_x+1,X : adc $000C : sta.w !obj_start.pos_x+1,X
+    clc : lda.w !obj_start.pos_y+1,X : adc $000E : sta.w !obj_start.pos_y+1,X
     bra .BC23
 
 .BC20:
@@ -5382,9 +5381,9 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BC51:
-    lda $045B,X : pha
-    sec : lda #$0400 : sbc $045E,X : sta $045B,X
-    pla : sta $045E,X
+    lda.w !obj_start.pos_x+1,X : pha
+    sec : lda #$0400 : sbc.w !obj_start.pos_y+1,X : sta.w !obj_start.pos_x+1,X
+    pla : sta.w !obj_start.pos_y+1,X
     rts
 
 ;-----
@@ -5395,19 +5394,21 @@ _01B9A8: ;a8 x?
 
 .BC6C:
     clc : lda $1F83 : adc.w snes_reg.m7x : sta.w snes_reg.m7x
-    sec             : sbc #$0080      : sta $19BD
+    sec             : sbc #$0080         : sta $19BD
     clc : lda $1F85 : adc.w snes_reg.m7y : sta.w snes_reg.m7y
-    sec             : sbc #$0080      : sta $19C1
+    sec             : sbc #$0080         : sta $19C1
     stz $1F8D
     rts
 
 ;-----
 
 .BC92:
-    lda $1F85 : clc : adc.w snes_reg.m7x : sta.w snes_reg.m7x
-                sec : sbc #$0080      : sta $19BD
-    lda $1F83 : eor #$FFFF : inc : clc : adc.w snes_reg.m7y : sta.w snes_reg.m7y
-                                   sec : sbc #$0080      : sta $19C1
+    lda $1F85
+    clc : adc.w snes_reg.m7x : sta.w snes_reg.m7x
+    sec : sbc #$0080         : sta $19BD
+    lda $1F83 : eor #$FFFF : inc
+    clc : adc.w snes_reg.m7y : sta.w snes_reg.m7y
+    sec : sbc #$0080         : sta $19C1
     lda #$3000 : sta $1F8D
     rts
 

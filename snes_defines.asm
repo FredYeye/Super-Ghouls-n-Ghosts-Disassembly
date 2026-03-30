@@ -96,67 +96,75 @@
     !JOY1L    = $4218 ;Joypad 1 (gameport 1, pin 4) (lower 8bit)
 
     !DMAP0    = $4300 ;DMA/HDMA Parameters
-    !DMAP1    = $4310 ;DMA/HDMA Parameters
-    !DMAP2    = $4320 ;DMA/HDMA Parameters
-    !DMAP3    = $4330 ;DMA/HDMA Parameters
-    !DMAP4    = $4340 ;DMA/HDMA Parameters
-    !DMAP5    = $4350 ;DMA/HDMA Parameters
-    !DMAP7    = $4370 ;DMA/HDMA Parameters
+    !DMAP1    = $4310
+    !DMAP2    = $4320
+    !DMAP3    = $4330
+    !DMAP4    = $4340
+    !DMAP5    = $4350
+    !DMAP6    = $4360
+    !DMAP7    = $4370
 
     !BBAD0    = $4301 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
-    !BBAD1    = $4311 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
-    !BBAD2    = $4321 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
-    !BBAD3    = $4331 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
-    !BBAD4    = $4341 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
-    !BBAD5    = $4351 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
-    !BBAD7    = $4371 ;DMA/HDMA I/O-Bus Address (PPU-Bus aka B-Bus)
+    !BBAD1    = $4311
+    !BBAD2    = $4321
+    !BBAD3    = $4331
+    !BBAD4    = $4341
+    !BBAD5    = $4351
+    !BBAD6    = $4361
+    !BBAD7    = $4371
 
     !A1T0L    = $4302 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T1L    = $4312 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T2L    = $4322 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T3L    = $4332 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T4L    = $4342 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T5L    = $4352 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T6L    = $4362 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
-    !A1T7L    = $4372 ;HDMA Table Start Address (low)  / DMA Curr Addr (low)
+    !A1T1L    = $4312
+    !A1T2L    = $4322
+    !A1T3L    = $4332
+    !A1T4L    = $4342
+    !A1T5L    = $4352
+    !A1T6L    = $4362
+    !A1T7L    = $4372
 
     !A1T0H    = $4303 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
-    !A1T1H    = $4313 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
-    !A1T3H    = $4333 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
-    !A1T4H    = $4343 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
-    !A1T5H    = $4353 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
+    !A1T1H    = $4313
+    !A1T3H    = $4333
+    !A1T4H    = $4343
+    !A1T5H    = $4353
+    !A1T6H    = $4363
+    !A1T7H    = $4373
 
     !A1B0     = $4304 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B1     = $4314 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B2     = $4324 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B3     = $4334 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B4     = $4344 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B5     = $4354 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B7     = $4374 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
+    !A1B1     = $4314
+    !A1B2     = $4324
+    !A1B3     = $4334
+    !A1B4     = $4344
+    !A1B5     = $4354
+    !A1B6     = $4364
+    !A1B7     = $4374
 
     !DAS0L    = $4305 ;Indirect HDMA Address (low)  / DMA Byte-Counter (low)
+
     !DAS0H    = $4306 ;Indirect HDMA Address (high) / DMA Byte-Counter (high)
 
     !DAS1B    = $4317 ;Indirect HDMA Address (bank)
-    !DAS3B    = $4337 ;Indirect HDMA Address (bank)
-    !DAS4B    = $4347 ;Indirect HDMA Address (bank)
-    !DAS5B    = $4357 ;Indirect HDMA Address (bank)
+    !DAS3B    = $4337
+    !DAS4B    = $4347
+    !DAS5B    = $4357
+    !DAS6B    = $4367
+    !DAS7B    = $4377
 
     A2A1L     = $4318 ;HDMA Table Current Address (low)
-    A2A2L     = $4328 ;HDMA Table Current Address (low)
-    A2A3L     = $4338 ;HDMA Table Current Address (low)
-    A2A4L     = $4348 ;HDMA Table Current Address (low)
-    A2A5L     = $4358 ;HDMA Table Current Address (low)
-    A2A6L     = $4368 ;HDMA Table Current Address (low)
-    A2A7L     = $4378 ;HDMA Table Current Address (low)
+    A2A2L     = $4328
+    A2A3L     = $4338
+    A2A4L     = $4348
+    A2A5L     = $4358
+    A2A6L     = $4368
+    A2A7L     = $4378
 
     NTRL1     = $431A ;HDMA Line-Counter (from current Table entry)
-    NTRL2     = $432A ;HDMA Line-Counter (from current Table entry)
-    NTRL3     = $433A ;HDMA Line-Counter (from current Table entry)
-    NTRL4     = $434A ;HDMA Line-Counter (from current Table entry)
-    NTRL5     = $435A ;HDMA Line-Counter (from current Table entry)
-    NTRL6     = $436A ;HDMA Line-Counter (from current Table entry)
-    NTRL7     = $437A ;HDMA Line-Counter (from current Table entry)
+    NTRL2     = $432A
+    NTRL3     = $433A
+    NTRL4     = $434A
+    NTRL5     = $435A
+    NTRL6     = $436A
+    NTRL7     = $437A
 }
 
 { ;SPC ports

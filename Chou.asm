@@ -124,6 +124,8 @@ incsrc "object_defines.asm"
     !sfx_magic_seek         = $54
     !sfx_magic_tornado      = $55
     !sfx_transform          = $5A
+    !sfx_rotation           = $5B
+    !sfx_rotation_end       = $5C
     !sfx_lightning          = $5D
     !sfx_1up                = $61
     !sfx_death_crawler_spin = $64

@@ -67,7 +67,7 @@ create:
     lda.w rotating_platform_data_CED0+0,X : sta $1F92
     lda.w rotating_platform_data_CED0+1,X : sta $1F91
     lda #$02 : sta $1F94
-    lda #$5B : jsl _018049_8053
+    lda.b #!sfx_rotation : jsl _018049_8053
 .F65D:
     brk #$00
 
@@ -81,7 +81,7 @@ create:
     bne .F65D
 
     inc $1F93
-    lda #$5C : jsl _018049_8053
+    lda.b #!sfx_rotation_end : jsl _018049_8053
     ldy #$C8 : ldx #$21 : jsl set_sprite
     lda #$1F : cop #$00
 

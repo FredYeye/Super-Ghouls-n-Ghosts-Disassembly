@@ -116,6 +116,8 @@
         .inidisp:  skip 1
     endstruct
 
+    ;$02F3;02F4 ?
+
     ;sfx related
     ;02F5: counter to compare with apu's last played sound(?)
     ;02F6: indexes into 2F8, reads
@@ -248,8 +250,20 @@
     hdma_data = $1F57 ;hdma data struct: [line counter byte, bytes to transfer], end byte (00)
     ;goes to at least 1F7E
 
-    in_armor_up_anim = $1F95
+    ;$1F83;1F84 ;rotation related vars?
+    ;$1F85;1F86
 
+    ;$1F89;1F8A
+    ;$1F8B;1F8C
+    ;$1F8D;1F8E
+
+    ;$1F91
+    ;$1F92
+    ;$1F93 current temp stage offset in stage 4b rotations
+    ;$1F94
+    in_armor_up_anim = $1F95
+    ;$1F96
+    ;$1F97 rotation / skull flower related
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
 
     struct pot $1FA5;1FAC
