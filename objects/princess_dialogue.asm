@@ -184,7 +184,7 @@ _9CF6:
     ldx #$07
 .9DBC:
     lda #$07 : sta $0278
-    stx $1F9D
+    stx.w mosaic_transition_stage
     stz.w checkpoint
     inc.w loop
     lda.w armor_state

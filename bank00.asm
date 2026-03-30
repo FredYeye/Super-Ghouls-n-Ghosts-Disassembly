@@ -291,18 +291,14 @@ _0083C2:
     sbc $1F33
     ldx.w _09FD00+0,Y
     phy
-    jsr _00851D
-    sty $0032
-    stx $0033
+    jsr neg_imul : sty $0032 : stx $0033
     ply
     sec
     lda $3B
     sbc $1F35
     ldx.w _09FD00+1,Y
     phy
-    jsr _00851D
-    sty $0034
-    stx $0035
+    jsr neg_imul : sty $0034 : stx $0035
     ply
     sec
     lda $0032
@@ -316,18 +312,14 @@ _0083C2:
     sbc $1F33
     ldx.w _09FD00+1,Y
     phy
-    jsr _00851D
-    sty $0032
-    stx $0033
+    jsr neg_imul : sty $0032 : stx $0033
     ply
     sec
     lda $3B
     sbc $1F35
     ldx.w _09FD00+0,Y
     phy
-    jsr _00851D
-    sty $0034
-    stx $0035
+    jsr neg_imul : sty $0034 : stx $0035
     ply
     clc
     lda $0032
@@ -378,20 +370,11 @@ _00847F: ;a8 x8
 
 .84C0:
     !A16
-    lda.w snes_reg.m7d : ldx $1FA3 : jsr _00851D
-    sty !M7D
-    stx !M7D
-    lda.w snes_reg.m7c : ldx $1FA2 : jsr _00851D
-    sty !M7C
-    stx !M7C
-    lda.w snes_reg.m7b : ldx $1FA1 : jsr _00851D
-    phy : phx
-    lda.w snes_reg.m7a : ldx $1FA0 : jsr _00851D
-    sty !M7A
-    stx !M7A
-    plx : ply
-    sty !M7B
-    stx !M7B
+    lda.w snes_reg.m7d : ldx $1FA3 : jsr neg_imul : sty !M7D : stx !M7D
+    lda.w snes_reg.m7c : ldx $1FA2 : jsr neg_imul : sty !M7C : stx !M7C
+    lda.w snes_reg.m7b : ldx $1FA1 : jsr neg_imul : phy      : phx
+    lda.w snes_reg.m7a : ldx $1FA0 : jsr neg_imul : sty !M7A : stx !M7A
+    plx : ply                                     : sty !M7B : stx !M7B
 .8502:
     !A8
     lda.w snes_reg.m7x+0 : sta !M7X
@@ -402,22 +385,21 @@ _00847F: ;a8 x8
 }
 
 { ;851D - 853C
-_00851D: ;a16 x8
-    eor #$FFFF
-    inc
+neg_imul: ;a16 x8
+    ;negates the inputs (A16, X8) and performs a signed multiply
+    eor #$FFFF : inc
     tay
     sty !M7A
     xba
     tay
     sty !M7A
     txa
-    eor #$FFFF
-    inc
+    eor #$FFFF : inc
     tax
     stx !M7B
     ldy !MPYM
-    ldx !MPYH : stx !M7B
-    rts
+    ldx !MPYH : stx !M7B ;second store to M7B since it's a write-twice reg...? don't think it's needed?
+    rts ;x:MPYH y:MPYM
 }
 
 { ;853D - 8576
@@ -812,7 +794,7 @@ _00893C: ;a8 x8
 .ret:
     rts
 
-    .8984: db $01 : dw $2000 : dl $7F0000 : dw $1000
+.8984: db $01 : dw $2000 : dl $7F0000 : dw $1000
 }
 
 { ;898C - 89AF

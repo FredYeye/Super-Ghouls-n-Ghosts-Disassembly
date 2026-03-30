@@ -22,14 +22,14 @@ create:
   jsr arthur_overlap_check_8bit_local
   bcs .F7CF
 
-  lda #$07 : sta $0278
+  lda #$07 : sta $0278 ;todo: label the "game state" values. 7 is mosaic transition
   lda #$04
   ldx $07
   beq .F7EF
 
   lda #$05
 .F7EF:
-  sta $1F9D
+  sta.w mosaic_transition_stage
   jmp _0281A8_81B5
 }
 

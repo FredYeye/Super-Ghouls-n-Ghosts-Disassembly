@@ -265,6 +265,14 @@
     ;$1F96
     ;$1F97 rotation / skull flower related
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
+    ;$1F99 written to but never read?
+    ;$1F9A written to but never read?
+    ;$1F9B key exists + something with the s3 handler?
+    ;$1F9C unused?
+    mosaic_transition_stage = $1F9D
+    ;$1F9E key sets this, silk gate checks for it?
+    ;$1FA0;1FA3 rotation / multiply related
+    ;$1FA4 unused?
 
     struct pot $1FA5;1FAC
         .enemy_counter:      skip 1 ;spawned enemies that can carry pot
@@ -278,6 +286,7 @@
     endstruct
 
     ;$1FAD used by cockatrice_head2
+    ;$1FAE related to nmi hdmi
     ;$1FAF used by icicle spawner / other stage 5 things
 
     ;$1FCB;1FD1 ;stored task state while armor is being picked up (1FCB goes unused)

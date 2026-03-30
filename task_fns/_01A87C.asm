@@ -402,7 +402,7 @@ endif
     bne .AC22
 
     stz !MOSAIC
-    lda $1F9D : sta.w stage
+    lda.w mosaic_transition_stage : sta.w stage
     jsl _01DCCF
     jsr .AC99
     inc $0277
