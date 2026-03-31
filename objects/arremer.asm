@@ -162,7 +162,7 @@ create:
 
     jmp .A678
 .A72E:
-    lda #$38 : jsl _0187E5
+    lda #$38 : jsl clear_speed_xy_set_gravity
 .A734:
     inc $3B
     clc
@@ -204,10 +204,10 @@ create:
     beq .A7B5
 
     ldy $3B
-    jsl _018A7E : sta.b obj.speed_x+1 : sty $0001
+    jsl divu : sta.b obj.speed_x+1 : sty $0001
     lda $0001
     ldy $3B
-    jsl _018A7E
+    jsl divu
     clc
     adc.b obj.speed_x
     sta.b obj.speed_x

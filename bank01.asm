@@ -1042,8 +1042,7 @@ _01868B:
 }
 
 { ;87E5 - 87F1
-_0187E5: ;a- x-
-    ;clear X & Y speeds and set gravity
+clear_speed_xy_set_gravity: ;a- x-
     !A16
     stz.b obj.speed_x+0
     stz.b obj.speed_x+2 ;also clears speedY+0
@@ -1323,13 +1322,14 @@ mulu_multiplicand_set: ;a8 x-
 }
 
 { ;8A7E - 8A92
-_018A7E: ;a16 x8
+divu: ;a16 x8
+    ;a16 / x8
     sta !WRDIVL
     sty !WRDIVB
     nop #8
     lda !RDDIVL
     ldy !RDMPYL
-    rtl
+    rtl ;a16 = quotient, y8 = remainder
 }
 
 { ;8A93 - 8A9E
@@ -1346,11 +1346,7 @@ mulu: ;a8 x8
 { ;8A9F - 8AE1
 update_pos_xy_2: ;a- x-
     !AX16
-    clc
-    lda.b obj.direction
-    and #$00FF
-    adc.w speed_xy_offsets,X
-    tax
+    clc : lda.b obj.direction : and #$00FF : adc.w speed_xy_offsets,X : tax
     !A8
     clc
     lda speed_xy_x1,X : adc.b obj.pos_x+0 : sta.b obj.pos_x+0

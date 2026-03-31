@@ -127,7 +127,7 @@ create: ;a8 x8
     sta.b obj.facing
     ldy #$A2 : ldx #$21 : jsl set_sprite
     lda $2D : adc #$02 : and #$06 : sta $2D
-    lda #$0C : jsl _0187E5
+    lda #$0C : jsl clear_speed_xy_set_gravity
     jsl _019649
     ldx $2D
     and.w killer_data_D235,X
@@ -239,7 +239,7 @@ _C116:
     bcs _C116
 
     !A8
-    lda #$0E : jsl _0187E5
+    lda #$0E : jsl clear_speed_xy_set_gravity
 .C13D:
     inc $2F
     clc
@@ -276,12 +276,10 @@ _C116:
     beq .C1B3
 
     ldy $2F
-    jsl _018A7E
-    sta.b obj.speed_x+1
-    sty $0001
+    jsl divu : sta.b obj.speed_x+1 : sty $0001
     lda $0001
     ldy $2F
-    jsl _018A7E
+    jsl divu
     clc
     adc.b obj.speed_x
     sta.b obj.speed_x

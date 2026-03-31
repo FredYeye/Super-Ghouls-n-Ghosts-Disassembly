@@ -87,7 +87,7 @@ create:
     lda $3A
     beq .D95C
 
-    lda #$20 : jsl _0187E5
+    lda #$20 : jsl clear_speed_xy_set_gravity
 .D96E:
     brk #$00
 

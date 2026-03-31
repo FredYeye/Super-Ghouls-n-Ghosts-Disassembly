@@ -142,7 +142,7 @@ destroy:
     bvc .9D34
 
     ldy #$AA : ldx #$21 : jsl set_sprite
-    lda #$20 : jsl _0187E5
+    lda #$20 : jsl clear_speed_xy_set_gravity
 .9D10:
     brk #$00
 

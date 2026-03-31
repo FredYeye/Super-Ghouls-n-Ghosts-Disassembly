@@ -199,7 +199,7 @@ _AC5E:
     dec $3B
     bne .AC93
 
-    lda #$28 : jsl _0187E5
+    lda #$28 : jsl clear_speed_xy_set_gravity
 .ACAA:
     brk #$00
 

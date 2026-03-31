@@ -13,7 +13,7 @@ create:
     lda.w #tiny_goblin_data_D215 : sta $13
     !A8
     lda #$FF : sta $26
-    lda #$20 : jsl _0187E5
+    lda #$20 : jsl clear_speed_xy_set_gravity
     jsl _02F9DA
     ldy #$FC : ldx #$21 : jsl set_sprite
     jsl _018E32_8E73
