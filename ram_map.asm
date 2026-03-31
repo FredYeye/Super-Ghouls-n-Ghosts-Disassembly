@@ -1,5 +1,8 @@
 {
     irq_pointer = $0030;0031 ;unused?
+    ;$0032;0033
+    ;$0034;0035
+    ;$0036;0037
     task_function_pointer = $003F;0040
     ;$004C;004D ?
 
@@ -108,9 +111,9 @@
         .wobjlog:  skip 1
         .cgwsel:   skip 1
         .cgadsub:  skip 1
-        .unk_2ED:  skip 1
+        .unk_2ED:  skip 1 ;cleared but seems unused
         .coldata:  skip 1
-        .unk_2EF:  skip 1
+        .unk_2EF:  skip 1 ;unused?
         .hdmaen:   skip 1
         .nmitimen: skip 1
         .inidisp:  skip 1
@@ -290,6 +293,11 @@
     ;$1FAF used by icicle spawner / other stage 5 things
 
     avalanche_ongoing = $1FB1
+    ;$1FB2 unused?
+    ;$1FB3
+    ;$1FB4
+    ;$1FB5
+    ;$1FB6;1FB8 unused?
 
     ;$1FCB;1FD1 ;stored task state while armor is being picked up (1FCB goes unused)
     ;$1FD2;1FD3 camera x/y direction selector for ? (1FD3 written to but not used)

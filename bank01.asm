@@ -8839,7 +8839,7 @@ _01D565: ;a8 x?
     bne .D684
 
     inc $14E7
-    lda #$56 : jsl _018049_8053
+    lda.b #!sfx_magic_shield : jsl _018049_8053
     lda #$02 : sta $0000
 .D69B:
     jsr get_magic_slot
@@ -9890,7 +9890,7 @@ _01DE62:
 
     !A8
     inc $0331
-    lda #$43 : jsl _018049_8053
+    lda.b #!sfx_ice : jsl _018049_8053
     lda #$FF : sta $0F
     lda.w jump_counter
     beq .DEAB
@@ -10822,7 +10822,7 @@ _01EDAD:
     stz $14E6
     pla : sta $39
     pla : sta $3A
-    lda #$53 : jsl _018049_8053
+    lda.b #!sfx_magic_thunder_fire_dragon : jsl _018049_8053
 .EDBF:
     jsr get_magic_slot
     bpl .EDC7
@@ -11009,7 +11009,7 @@ _01EF44:
     stz $14E6
     pla : sta $39
     pla : sta $3A
-    lda #$53 : jsl _018049_8053
+    lda.b #!sfx_magic_thunder_fire_dragon : jsl _018049_8053
 .EF56:
     brk #$00
 
@@ -11497,223 +11497,9 @@ get_magic_slot: ;a8 x8
     rts
 }
 
-{ ;F4F7 -
-_01F4F7:
-
-.create:
-    lda #$03 : sta.b obj.hp
-    ldx $07
-    lda.w shield_magic_data_BCF8,X : sta.b obj.direction
-    lda $09 : ora #$8A : sta $09
-    stz $40
-    lda #$04 : sta $2D
-    lda #$20 : sta $2E
-    ldy #$46 : ldx #$21 : jsl set_sprite
-.F51A:
-    brk #$00
-
-;----- F51C
-
-    lda $24
-    cmp #$70
-    bne .F51A
-
-    ldy #$48 : ldx #$21 : jsl set_sprite
-    stz $3B
-.F52C:
-    brk #$00
-
-;----- F52E
-
-    lda.b obj.direction : inc : and #$3F : sta.b obj.direction
-    lda.w frame_counter
-    and #$03
-    bne .F549
-
-    lda $2D : inc : and #$0F : sta $2D
-    tax
-    lda.w shield_magic_data_BCFB,X : sta $2E
-.F549:
-    dec $3B
-    bne .F52C
-
-    ldy #$4E : ldx #$21 : jsl set_sprite
-.F555:
-    brk #$00
-
-;----- F557
-
-    lda $24
-    cmp #$7A
-    bne .F555
-
-    stz $14E7
-    stz $14E3
-    jml _028B0E
-
-;-----
-
-.thing:
-    lda.w armor_state
-    cmp #$04
-    bne .F59F
-
-    jsr _01DD7A
-    jsl update_animation_normal
-    !A16
-    lda.w !obj_arthur.pos_x+0 : sta.b obj.pos_x+0
-    lda.w !obj_arthur.pos_x+2 : sta.b obj.pos_x+2
-    lda.w !obj_arthur.pos_y+1 : sec : sbc #$0004 : sta.b obj.pos_y+1
-    !A8
-    clc
-    lda $2E
-    ldx #$06 : jsl _0189D9
-    lda.w frame_counter
-    and #$0F
-    bne .F59E
-
-    inc $40
-.F59E:
-     rtl
-
-.F59F: ;not sure if this can be reached?
-    stz $14E7
-    stz $14E3
-    jml _028B17
-}
-
-{ ;F5A9 - F669
-_01F5A9:
-
-.create:
-    lda $08 : ora #$80 : sta $08
-    lda #$20 : cop #$00
-
-;----- F5B3
-
-    jsr .F65E
-    lda #!sfx_magic_seek : jsl _018049_8053
-    !X16
-    ldx.w #!obj_objects.base
-.F5C1:
-    lda.w obj.active,X
-    beq .F606
-
-    lda.w obj.type,X
-    cmp #!id_chest
-    beq .F5D1
-
-    cmp #!id_chest2
-    bne .F606
-
-.F5D1:
-    lda $0031,X
-    bne .F606
-
-    !A16
-    lda.w obj.pos_x+1,X
-    adc #$0030
-    sbc.w camera_x+1
-    cmp #$0160
-    bcs .F606
-
-    lda.w obj.pos_y+1,X
-    sbc.w camera_y+1
-    cmp #$0100
-    bcs .F606
-
-    !A8
-    ldy.w #chest_create_B6DE
-    lda.w obj.type,X
-    cmp #!id_chest
-    beq .F600
-
-    ldy.w #chest2_create_B691
-.F600:
-    !A16
-    tya : sta.w obj.state+1,X
-.F606:
-    !A16
-    clc
-    txa
-    adc.w #obj.ext.len
-    cmp.w #obj_start+obj[50] ;end of obj_object
-    tax
-    !A8
-    bcc .F5C1
-
-    !X8
-    lda #$40 : cop #$00
-
-;----- F61B
-
-    jsr .F648
-    cop #$00
-
-;----- F620
-
-    jsr .F65E
-    cop #$00
-
-;----- F625
-
-    jsr .F648
-    cop #$00
-
-;----- F62A
-
-    jsr .F65E
-    cop #$00
-
-;----- F62F
-
-    jsr .F648
-    cop #$00
-
-;----- F634
-
-    jsr .F65E
-    cop #$00
-
-;----- F639
-
-    jsr .F648
-    cop #$00
-
-;----- F63E
-
-    jsr .F653
-    stz $14E3
-    jml _028B0E
-
-;-----
-
-.F648:
-    lda #$03 : sta $0332
-    inc $0331
-    lda #$04
-    rts
-
-;-----
-
-.F653:
-    lda #$00 : sta $0332
-    inc $0331
-    lda #$04
-    rts
-
-;-----
-
-.F65E:
-    lda #$06 : sta $0332
-    inc $0331
-    lda #$04
-    rts
-
-;-----
-
-.thing: ;unused
-    rtl
+{
+    incsrc "objects/shield_magic.asm" ;F4F7 - F5A8
+    incsrc "objects/seek.asm"         ;F5A9 - F669
 }
 
 { ;F66A - F6C8

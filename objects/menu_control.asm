@@ -32,7 +32,7 @@ endif
     bit #!select|!up|!down
     beq .B8E4
 
-    lda #$37 : jsl _018049_8053 ;menu movement sfx
+    lda.b #!sfx_menu_move : jsl _018049_8053
     lda $2D
     clc
     adc #$04
@@ -90,7 +90,7 @@ endif
 
 .B948:
     sta $0F
-    lda #$37 : jsl _018049_8053 ;menu movement sfx
+    lda.b #!sfx_menu_move : jsl _018049_8053
 .B950:
     lda $0F
     asl
@@ -294,7 +294,7 @@ endif
 .BA96:
     sta $0F
     jsl _018049_804D
-    lda #$37 : jsl _018049_8053 ;menu movement sfx
+    lda.b #!sfx_menu_move : jsl _018049_8053
 .BAA2:
     lda $0F
     asl

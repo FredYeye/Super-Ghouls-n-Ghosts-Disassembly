@@ -36,7 +36,7 @@ _CCE7: ;game over
     bit #!down|!up|!select
     beq .CD1B
 
-    lda #$37 : jsl _018049_8053
+    lda.b #!sfx_menu_move : jsl _018049_8053
     lda $2D
     clc
     adc #$04

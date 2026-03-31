@@ -130,7 +130,7 @@ laser_create:
 ;-----
 
 .D723:
-    lda #$58 : jsl _018049_8053
+    lda.b #!sfx_astaroth_nebiroth_laser : jsl _018049_8053
     ldx.b obj.direction
     lda.w astaroth_laser_data_D531,X : sta.b obj.facing
     txa : asl : tax

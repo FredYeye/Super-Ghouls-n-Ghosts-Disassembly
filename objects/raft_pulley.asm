@@ -80,7 +80,7 @@ thing:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .CFF6
 
-    lda #$3D : jsl _018049_8053
+    lda.b #!sfx_raft_pulley : jsl _018049_8053
     inc $0F
     stz $30
     inc $14C3
@@ -255,7 +255,7 @@ thing:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .D159
 
-    lda #$3D : jsl _018049_8053
+    lda.b #!sfx_raft_pulley : jsl _018049_8053
     lda #$01 : sta $0F
     inc $14C3
     lda.b obj.pos_y+1 : sec : sbc #$10 : sta.w !obj_arthur.pos_y+1

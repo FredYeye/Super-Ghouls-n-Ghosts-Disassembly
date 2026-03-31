@@ -2,12 +2,12 @@ namespace tornado
 
 {
 create:
-    jsr _01F5A9_F648
+    jsr seek__F648
     lda #$04 : cop #$00
 
 ;----- F26B
 
-    jsr _01F5A9_F653
+    jsr seek__F653
     lda.b #!sfx_magic_tornado : jsl _018049_8053
     lda.b obj.facing
     bne .F279

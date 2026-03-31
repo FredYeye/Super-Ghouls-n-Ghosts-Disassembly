@@ -20,7 +20,7 @@ _01EB18:
 ;-----
 
 create:
-    lda #$3A : jsl _018049_8053
+    lda.b #!sfx_bracelet : jsl _018049_8053
     jsr _01DD90
     lda $09 : ora #$42 : sta $09
     stz $40

@@ -14,7 +14,7 @@ create:
 
 ;----- ED5E
 
-    lda #$57 : jsl _018049_8053
+    lda.b #!sfx_magic_lightning : jsl _018049_8053
     lda #$06 : cop #$00
 
 ;----- ED68
