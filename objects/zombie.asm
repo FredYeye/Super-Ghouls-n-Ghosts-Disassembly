@@ -57,7 +57,7 @@ create: ;a- x8
 
 ;----- 8D6E
 
-    jsl _01939D
+    jsl search_solid_tile_vertical
     beq .8D65
 
     sec
@@ -150,8 +150,7 @@ create: ;a- x8
     dec.b obj.zombie.unburrow_timer
     bne .8E07
 
-    lda #$0001
-    sta $37
+    lda #$0001 : sta $37 ;16 bit store, clears the flight timer
     !A8
     lda $08 : and #$EF : sta $08
     !A16

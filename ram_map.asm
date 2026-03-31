@@ -289,6 +289,8 @@
     ;$1FAE related to nmi hdmi
     ;$1FAF used by icicle spawner / other stage 5 things
 
+    avalanche_ongoing = $1FB1
+
     ;$1FCB;1FD1 ;stored task state while armor is being picked up (1FCB goes unused)
     ;$1FD2;1FD3 camera x/y direction selector for ? (1FD3 written to but not used)
 

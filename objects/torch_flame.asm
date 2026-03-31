@@ -38,7 +38,7 @@ create:
     jml _0280CB_remove_weapon
 
 .E7A7:
-    jsl _01939D
+    jsl search_solid_tile_vertical
     beq .E79F
 
 .E7AD:
@@ -150,7 +150,7 @@ upgraded_create:
     jml _0280CB_remove_weapon
 
 .E87F:
-    jsl _01939D
+    jsl search_solid_tile_vertical
     beq .E877
 
 .E885:

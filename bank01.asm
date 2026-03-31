@@ -2517,26 +2517,23 @@ _019389: ;a8 x8
     !A16
     clc
     lda.w _00A8CA+0,Y : adc.w camera_y+1 : sta.b obj.pos_y+1
-    lda.w _00A8CA+2,Y : sta $2D
+    lda.w _00A8CA+2,Y : sta.b obj.base+$2D
     rtl
 }
 
 { ;939D - 93D6
-_01939D: ;a- x-
+search_solid_tile_vertical: ;a- x-
     !AX16
     lda.b obj.pos_x+1 : sta $0000
-    clc
-    lda.b obj.pos_y+1 : adc $2D : sta.b obj.pos_y+1 : sta $0002
+    clc : lda.b obj.pos_y+1 : adc.b obj.base+$2D : sta.b obj.pos_y+1 : sta $0002
     jsr _01A3ED_get_tile_type2
-    beq .ret
+    beq .ret ;adds obj.$2D to pos_y if solid tile isn't found
 
     php
-    lda $001F
-    pha
+    lda $001F : pha
     !A16
     ldy #$02
-    sec
-    lda.b obj.pos_y+1 : sbc ($13),Y : sta.b obj.pos_y+1
+    sec : lda.b obj.pos_y+1 : sbc ($13),Y : sta.b obj.pos_y+1
     !AX8
     lda $1F32
     bne .93D0

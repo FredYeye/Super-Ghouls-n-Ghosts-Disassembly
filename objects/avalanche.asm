@@ -2,14 +2,16 @@ namespace avalanche
 
 {
 create:
+
+.wait:
     brk #$00
 
 ;----- DF21
 
-    lda $1FB1
-    bne create
+    lda.w avalanche_ongoing
+    bne .wait
 
-    inc $1FB1
+    inc.w avalanche_ongoing
     !A16
     clc : lda.w camera_x+1 : adc #$0110 : sta.b obj.pos_x+1
     lda #$FFF8 : sta $2D
@@ -25,7 +27,7 @@ create:
     !A16
     clc : lda.w camera_x+1 : adc #$0100 : sta.b obj.pos_x+1
     !A8
-    jsl _01939D
+    jsl search_solid_tile_vertical
     bne .DF65
 
     dec $3C
@@ -118,13 +120,13 @@ create:
     lda $2D
     bne .E00A
 
-    rep #$02 ;mistake, supposed to be rep #$20
+    rep #$02 ;mistake, supposed to be rep #$20... though no 16 bit value is being stored either
     sta $19C5
     stz $19C9
     !A8
 .E01E:
     lda #$15 : sta.w snes_reg.tm : sta.w snes_reg.ts : sta $02D7 : sta $02D8
-    stz $1FB1
+    stz.w avalanche_ongoing
     stz $14EF
     jml _0281A8_81B5
 
