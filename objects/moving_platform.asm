@@ -24,7 +24,7 @@ create:
 
 ;----- AB8A
 
-    ldy #$24 : jsl _0192AD
+    ldy #$24 : jsl arthur_within_zone_check
     bcs .AB88
 
     lda #$20 : cop #$00

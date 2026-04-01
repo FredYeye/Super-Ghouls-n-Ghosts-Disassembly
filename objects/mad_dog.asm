@@ -65,7 +65,7 @@ create:
     bra .DBB0
 
 .DBF6:
-    ldy #$14 : jsl _0192AD
+    ldy #$14 : jsl arthur_within_zone_check
     bcc .DC1A
 
     !A16
@@ -148,7 +148,7 @@ create:
 
 ;----- DC8F
 
-    ldy #$30 : jsl _0192AD
+    ldy #$30 : jsl arthur_within_zone_check
     bcs .DC8D
 
     jsl get_rng_16

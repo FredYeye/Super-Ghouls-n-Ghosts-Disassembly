@@ -437,7 +437,7 @@ create:
     jmp destroy_CB69
 
 .CA32:
-    ldy #$38 : jsl _0192AD
+    ldy #$38 : jsl arthur_within_zone_check
     bcs .CA29
 
     lda $3C

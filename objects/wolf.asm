@@ -92,7 +92,7 @@ create:
     !A8
     bcc .E354
 
-    ldy #$14 : jsl _0192AD
+    ldy #$14 : jsl arthur_within_zone_check
     bcc .E370
 
 .E354:

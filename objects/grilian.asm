@@ -45,7 +45,7 @@ create:
 
 ;----- DDA7
 
-    ldy #$20 : jsl _0192AD
+    ldy #$20 : jsl arthur_within_zone_check
     bcs .DDA5
 
     jsl get_rng_bool : sta.b obj.direction

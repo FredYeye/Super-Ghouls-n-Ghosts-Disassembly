@@ -25,7 +25,7 @@ create:
 
 ;----- F44E
 
-    ldy #$18 : jsl _0192AD
+    ldy #$18 : jsl arthur_within_zone_check
     bcs .F44C
 
 .F456:

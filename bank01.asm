@@ -2364,12 +2364,12 @@ set_direction32: ;a- x-
 }
 
 { ;92AD - 92E5
-_0192AD: ;a- x8
+arthur_within_zone_check: ;a- x8
     ;if arthur within a zone around an object
     !A16
-    lda.w _00A852+0,Y : sta $0000
+    lda.w arthur_within_zone_check_data+0,Y : sta $0000
     asl               : sta $0002
-    lda.w _00A852+2,Y : sta $0004
+    lda.w arthur_within_zone_check_data+2,Y : sta $0004
     asl               : sta $0006
     sec
     lda.b obj.pos_x+1
@@ -2508,12 +2508,12 @@ _01931E: ;a- x-
 }
 
 { ;9389 - 939C
-_019389: ;a8 x8
+prepare_search_solid_tile_vertical: ;a8 x8
     sta $1F32
     !A16
     clc
-    lda.w _00A8CA+0,Y : adc.w camera_y+1 : sta.b obj.pos_y+1
-    lda.w _00A8CA+2,Y : sta.b obj.base+$2D
+    lda.w prepare_search_solid_tile_vertical_data+0,Y : adc.w camera_y+1 : sta.b obj.pos_y+1
+    lda.w prepare_search_solid_tile_vertical_data+2,Y : sta.b obj.base+$2D
     rtl
 }
 

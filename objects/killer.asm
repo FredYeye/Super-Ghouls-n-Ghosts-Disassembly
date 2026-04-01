@@ -62,7 +62,7 @@ create: ;a8 x8
 
 ;----- BFCD
 
-    ldy #$2C : jsl _0192AD
+    ldy #$2C : jsl arthur_within_zone_check
     bcs .BFCB
 
     jsl set_hp

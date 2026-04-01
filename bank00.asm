@@ -1444,7 +1444,7 @@ direction32:
 }
 
 { ;A852 - A88D
-_00A852:
+arthur_within_zone_check_data:
     dw $0050, $0030
     dw $0020, $0100
     dw $0080, $0100
@@ -1501,7 +1501,7 @@ arthur_range_check_data:
 }
 
 { ;A8CA - A8D1
-_00A8CA:
+prepare_search_solid_tile_vertical_data:
     dw $00D0, $FFF0
     dw $0010, $0010
 }

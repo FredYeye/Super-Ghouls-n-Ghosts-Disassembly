@@ -45,7 +45,7 @@ create: ;a- x8
     stz.b obj.zombie.speed_idx
     stz.b obj.zombie.skip_collision_check
     lda #$FF : sta $37
-    ldy #$04 : lda #$00 : jsl _019389
+    ldy #$04 : lda #$00 : jsl prepare_search_solid_tile_vertical
 .8D65:
     dec $2F
     bne +

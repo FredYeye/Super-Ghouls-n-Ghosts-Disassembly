@@ -15,7 +15,7 @@ create:
 
 ;----- D0ED
 
-    ldy #$34 : jsl _0192AD
+    ldy #$34 : jsl arthur_within_zone_check
     bcs .D0EB
 
     lda.w stage

@@ -1,64 +1,16 @@
 org $038000 : bank03:
 
 {
-    incsrc "various/stage_layouts.asm"        ;8000 - 846F
-    incsrc "various/palette_cycling_data.asm" ;8470 - 9C08
-    incsrc "objects/princess_dialogue.asm"    ;9C09 - 9DD9
-    incsrc "task_fns/_039DDA.asm"             ;9DDA - 9E78
-    incsrc "objects/tower_edge.asm"           ;9E79 - 9F3F
-    incsrc "objects/silk_gate.asm"            ;9F40 - 9F9B
-    incsrc "objects/gargoyle_statue.asm"      ;9F9C - A2FB
-    incsrc "objects/_03A2FC.asm"              ;A2FC - A337
-    incsrc "objects/geyser.asm"               ;A338 - A3E6
-}
-
-{ ;A3E7 - A42B
-_03A3E7: ;unused?
-
-.create:
-    lda $07
-    bne .A3F5
-
-    ldy #$A8 : ldx #$21 : jsl set_sprite
-    bra .A3FD
-
-.A3F5:
-    ldy #$AA : ldx #$21 : jsl set_sprite
-.A3FD:
-    lda $09 : ora #$F4 : sta $09
-    lda #$29 : sta $31
-.A407:
-    brk #$00
-
-;----- A409
-
-    lda $07
-    bne .A415
-
-    !A16
-    dec $3B
-    !A8
-    bra .A41B
-
-.A415:
-    !A16
-    inc $3B
-    !A8
-.A41B:
-    dec $31
-    bne .A407
-
-    jml _0281A8_81B5
-
-;-----
-
-.thing:
-    jsl update_animation_normal
-    jsl _02F9B2
-    rtl
-}
-
-{
+    incsrc "various/stage_layouts.asm"               ;8000 - 846F
+    incsrc "various/palette_cycling_data.asm"        ;8470 - 9C08
+    incsrc "objects/princess_dialogue.asm"           ;9C09 - 9DD9
+    incsrc "task_fns/_039DDA.asm"                    ;9DDA - 9E78
+    incsrc "objects/tower_edge.asm"                  ;9E79 - 9F3F
+    incsrc "objects/silk_gate.asm"                   ;9F40 - 9F9B
+    incsrc "objects/gargoyle_statue.asm"             ;9F9C - A2FB
+    incsrc "objects/_03A2FC.asm"                     ;A2FC - A337
+    incsrc "objects/geyser.asm"                      ;A338 - A3E6
+    incsrc "objects/_03A3E7.asm"                     ;A3E7 - A42B
     incsrc "objects/_03A42C.asm"                     ;A42C - A5D6
     incsrc "objects/arremer.asm"                     ;A5D7 - AB46
     incsrc "objects/moving_platform.asm"             ;AB47 - AD4F
@@ -184,185 +136,9 @@ _03BC15:
     jml _0281A8_81B5
 }
 
-{ ;BC85 - BE25
-    incsrc "objects/tiny_goblin.asm"
-}
-
-{ ;BE26 - BF64
-_03BE26:
-
-.arremer_projectile_create:
-    jsr .BF5C
-    ldy #$B4 : ldx #$21 : jsl set_sprite
-    jsl _02F9DA
-    jsl set_direction32
-    inc
-    and #$1F
-    lsr
-    sta.b obj.direction
-    ldx.w stage
-    cpx #$07
-    bcc .BE4B
-
-    lda.w arremer_projectile_data_D220-7,X : sta $29
-.BE4B:
-    brk #$00
-
-;----- BE4D
-
-    bit $09
-    bvc .BE7D
-    jsl update_animation_normal
-    ldx #$44 : jsl update_pos_xy_2
-    bra .BE4B
-
-;-----
-
-.arremer_projectile_thing:
-    ldx $2F
-    !A16
-    lda.w camera_x+1
-    cmp.w arremer_data_CF08,X
-    !A8
-    bcs .BE79
-
-    jsl _02F9BE
-    ldy #$0A : jsl _02F9CE
-    jml _02F9B2
-
-.BE79:
-    jml _0281DD
-
-.BE7D:
-    jml _0281A8_81B5
-
-;-----
-
-.killers_create:
-    jsr .BF5C
-    ldy #$E0 : ldx #$21 : jsl set_sprite
-    jsl _02F9DA
-    lda.b obj.direction : sta $2D
-    ldx $07
-    lda.w arremer_projectile_data_D222,X : sta $2E
-    ldx.w stage
-    cpx #$07
-    bcc .BEA7
-
-    lda.w arremer_projectile_data_D220-7,X : sta $29
-.BEA7:
-    !A16
-    lda.b obj.pos_x+1 : sta.b obj.speed_x+1
-    lda.b obj.pos_y+1 : sta.b obj.speed_y+1
-    !A8
-    lda #$60 : sta $3B
-.BEB7:
-    brk #$00
-
-;----- BEB9
-
-    inc $0F : inc $0F
-    jsr .BEF3
-    lda $0F : cmp #$10
-    bne .BEB7
-
-.BEC6:
-    brk #$00
-
-;----- BEC8
-
-    lda $2E : inc #2 : and #$3F : sta $2E
-    jsr .BEF5
-    lda $2D : sta.b obj.direction
-    dec $3B
-    bne .BEC6
-
-    lda #$06 : cop #$00
-
-;----- BEDF
-
-    jsl set_direction32
-    inc
-    and #$1F
-    lsr
-    sta.b obj.direction
-.BEE9:
-    brk #$00
-
-;----- BEEB
-
-    ldx #$14 : jsl update_pos_xy_2
-    bra .BEE9
-
-;-----
-
-.BEF3:
-    lda $2E
-.BEF5:
-    sta.b obj.direction
-    lda $0F
-    ldx #$06 : jsl _018B25
-    rts
-
-;-----
-
-.killers_destroy:
-    lda $0F
-    bmi .arremer_projectile_destroy
-
-    ldy #$E6 : ldx #$21 : jsl set_sprite
-    ldy #$07 : jsl update_score
-    lda #!sfx_death : jsl _018049_8053
-.BF18:
-    brk #$00
-
-;----- BF1A
-
-    jsl update_animation_normal
-    lda $24
-    cmp #$70
-    bne .BF18
-
-    jml _0281A8_81B5
-
-;-----
-
-.arremer_projectile_destroy:
-    stz $29
-    stz $2A
-    jml _028BB9
-
-;-----
-
-.killers_thing:
-    bit $09
-    bvc .BF58
-
-    ldx $2F
-    !A16
-    lda.w camera_x+1
-    cmp.w arremer_data_CF08,X
-    !A8
-    bcs .BF58
-
-    jsl update_animation_normal
-    jsl _02F9BA
-    jsl _02F9B6
-    ldy #$0A : jsl _02F9CE
-    jml _02F9B2
-
-.BF58:
-    jml _0281DD
-
-;-----
-
-.BF5C:
-    ldx.w stage
-    lda.w arremer_projectile_data_D219-2,X : sta $2F
-    rts
-}
-
 {
+    incsrc "objects/tiny_goblin.asm"                 ;BC85 - BE25
+    incsrc "objects/arremer_objects.asm"             ;BE26 - BF64
     incsrc "objects/killer.asm"                      ;BF65 - C1B5
     incsrc "objects/hannibal_projectile.asm"         ;C1B6 - C1E9
     incsrc "objects/explosion_spawner.asm"           ;C1EA - C2C4

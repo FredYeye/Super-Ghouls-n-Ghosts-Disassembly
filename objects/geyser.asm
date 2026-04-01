@@ -12,7 +12,7 @@ create:
 
 ;----- A348
 
-    ldy #$28 : jsl _0192AD
+    ldy #$28 : jsl arthur_within_zone_check
     bcs .A346
 
     lda $09 : ora #$B4 : sta $09
@@ -30,7 +30,7 @@ create:
 
 ;----- A370
 
-    ldy #$28 : jsl _0192AD
+    ldy #$28 : jsl arthur_within_zone_check
     bcs .A36E
 
     inc $31
