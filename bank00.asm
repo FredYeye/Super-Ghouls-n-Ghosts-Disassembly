@@ -2161,14 +2161,14 @@ _00B805:
 
     ;some offsets are B81E+1. not sure if intentional or not
     ;some of these values are map/tile banks etc
-    .B81E: db $00, $00 : dw $0FFF : db $08, $20, $40, screen_layouts>>16,  _098000>>16, _0A8000>>16, $7F, $7F, $01 : db $00
-    .B82C: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts>>16,  _098000>>16, _0A8000>>16, $7F, $7F, $0F
+    .B81E: db $00, $00 : dw $0FFF : db $08, $20, $40, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $7F, $7F, $01 : db $00
+    .B82C: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $7F, $7F, $0F
     .B839: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $7F, $7F, $0F ;stage 3
-    .B846: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  _098000>>16, _0A8000>>16, $3F, $7F, $0F
+    .B846: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $3F, $7F, $0F
     .B853: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F
     .B860: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F
     .B86D: db $06, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F ;unused?
-    .B87A: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  _098000>>16, _0A8000>>16, $3F, $7F, $0F
+    .B87A: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $3F, $7F, $0F
 }
 
 { ;B887 - B88A

@@ -514,10 +514,10 @@ _02821B: ;a8 x8
 .create_object_offsets:
     dw arthur_create, thunk_lance_create, thunk_lance2_create, thunk_knife_create, thunk_knife2_create, thunk_bowgun_create, thunk_bowgun2_create, thunk_scythe_create
     dw thunk_scythe2_create, thunk_torch_create, thunk_torch2_create, thunk_axe_create, thunk_axe2_create, thunk_triblade_create, thunk_triblade2_create, thunk_bracelet_create
-    dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, thunk_seek_create, thunk_shield_magic_create, fire_dragon_create, thunk_tornado_create
+    dw thunk_bracelet2_create, thunk_lance2_fire_trail_create, thunk_knife2_shimmer_create, thunder_create, thunk_seek_create, thunk_shield_magic_create, thunk_fire_dragon_create, thunk_tornado_create
     dw thunk_lightning_create, nuclear_create, armor_upgrade_vfx_create, arthur_plume_create, arthur_face_create, stage4_transform_create, shield_create, armor_piece_create
     dw shield_piece_create, weapon_hit_create, pot_create, bracelet_tail_create, enemy_spawner_create, $8780, _02EEEA_create, stone_pillar_create
-    dw $FFFF, flower_part_create, thunk_torch_flame_create, thunk_torch2_flame_create, $FFFF, $B0CD, $FFFF, shell_create
+    dw $FFFF, flower_part_create, thunk_torch_flame_create, thunk_torch2_flame_create, $FFFF, _02B0CD_create, $FFFF, shell_create
     dw shell_pearl_create, $9139, $9174, $9191, $91DD, belial_create, belial_flame_create, thunk_princess_create
     dw hydra_fireball_create, $B3AA, rosebud_create, black_cover_create, bars_create, eagler_create, rotating_platform_create, chest_create
     dw magician_create, armor_create, weapon_create, pickup_shield_create, trap_create, magician_orb_create, small_explosion_create, stone_pillar2_create
@@ -535,7 +535,7 @@ _02821B: ;a8 x8
     dw thunk_lava_create, thunk_astaroth_create, thunk_nebiroth_create, thunk_conveyor_belt_create, thunk_cockatrice_head2_spawner_create, thunk_cockatrice_head2_create, thunk_gate2_create, thunk_mad_dog_create
     dw thunk_astaroth_flame_create, thunk_astaroth_laser_create, nuclear_projectile_create, thunk_ice_bridge_segment_create, thunk_ice_bridge_spawner_create, thunk_avalanche_create, thunk_death_crawler_projectile_create, $88A1
     dw thunk_cockatrice_head2_projectile_create, thunk_veil_allocen_create, thunk_veil_allocen_part_create, thunk_intro_cutscene_obj_create, thunk_cutscene_arthur_create, thunk_cutscene_princess_create, thunk_satan_create, thunk_satan_wings_create
-    dw veil_allocen_claw1_create, veil_allocen_claw2_create, thunk_veil_allocen_spawner_create, thunk_nebiroth_flame_create, thunk_nebiroth_laser_create, thunk_veil_allocen_projectile_create, thunk_freeze_splinter_create, thunk_astaroth_nebiroth_body_create
+    dw thunk_veil_allocen_claw1_create, thunk_veil_allocen_claw2_create, thunk_veil_allocen_spawner_create, thunk_nebiroth_flame_create, thunk_nebiroth_laser_create, thunk_veil_allocen_projectile_create, thunk_freeze_splinter_create, thunk_astaroth_nebiroth_body_create
     dw thunk_princess_dialogue_create, thunk_samael_create, thunk_samael_platform_create, thunk_samael_laser_create, thunk_sun_create, thunk_ending_object_create
 
 .destroy_object_offsets:
@@ -562,13 +562,13 @@ _02821B: ;a8 x8
     dw $8780, thunk_astaroth_destroy, thunk_nebiroth_destroy, $8780, thunk_cockatrice_head2_spawner_destroy, thunk_cockatrice_head2_destroy, $8780, thunk_mad_dog_destroy
     dw thunk_astaroth_flame_destroy, $81B5, $8780, thunk_ice_bridge_segment_destroy, thunk_ice_bridge_spawner_destroy, $8780, $81B5, $8780
     dw _028BB9, thunk_veil_allocen_destroy, thunk_veil_allocen_part_destroy, $8780, $8780, $8780, $8780, $8780
-    dw veil_allocen_claw1_destroy, veil_allocen_claw2_destroy, $8780, thunk_nebiroth_flame_destroy, $81B5, $81B5, $81B5, $81B5
+    dw thunk_veil_allocen_claw1_destroy, thunk_veil_allocen_claw2_destroy, $8780, thunk_nebiroth_flame_destroy, $81B5, $81B5, $81B5, $81B5
     dw $8780, thunk_samael_destroy, thunk_samael_platform_destroy, thunk_samael_laser_destroy, $8780, $8780
 
 .thing_object_offsets: ;todo: figure out a better name. code that needs to run every frame regardless of state?
     dw arthur_thing, $8780, $8780, $8780, $8780, $8780, thunk_bowgun2_thing, thunk_scythe_thing
     dw $87D0, $8780, $8780, thunk_axe_thing, thunk_axe2_thing, thunk_triblade_thing, thunk_triblade2_thing, thunk_bracelet_thing
-    dw thunk_bracelet2_thing, $882D, $8780, thunder_thing, thunk_seek_thing, thunk_shield_magic_thing, fire_dragon_thing, thunk_tornado_thing
+    dw thunk_bracelet2_thing, $882D, $8780, thunder_thing, thunk_seek_thing, thunk_shield_magic_thing, thunk_fire_dragon_thing, thunk_tornado_thing
     dw thunk_lightning_thing, nuclear_thing, $8780, $8780, $8780, $8780, $8780, $8780
     dw $8780, $8780, $8780, bracelet_tail_thing, enemy_spawner_thing, $8780, $8780, $8780
     dw _02FD62_FD7C, flower_part_thing, thunk_torch_flame_thing, thunk_torch2_flame_thing, _02FD62_FD7C, $8780, $8780, shell_thing
@@ -589,7 +589,7 @@ _02821B: ;a8 x8
     dw thunk_lava_thing, thunk_astaroth_thing, thunk_nebiroth_thing, thunk_conveyor_belt_thing, thunk_cockatrice_head2_spawner_thing, thunk_cockatrice_head2_thing, $8780, thunk_mad_dog_thing
     dw thunk_astaroth_flame_thing, $8ABB, nuclear_projectile_thing, thunk_ice_bridge_segment_thing, thunk_ice_bridge_spawner_thing, thunk_avalanche_thing, thunk_death_crawler_projectile_thing, $88A5
     dw thunk_cockatrice_head2_projectile_thing, thunk_veil_allocen_thing, thunk_veil_allocen_part_thing, $88D1, thunk_cutscene_arthur_thing, thunk_cutscene_princess_thing, thunk_satan_thing, thunk_satan_wings_thing
-    dw veil_allocen_claw1_thing, veil_allocen_claw2_thing, $8780, thunk_nebiroth_flame_thing, thunk_nebiroth_laser_thing, thunk_veil_allocen_projectile_thing, thunk_freeze_splinter_thing, thunk_astaroth_nebiroth_body_thing
+    dw thunk_veil_allocen_claw1_thing, thunk_veil_allocen_claw2_thing, $8780, thunk_nebiroth_flame_thing, thunk_nebiroth_laser_thing, thunk_veil_allocen_projectile_thing, thunk_freeze_splinter_thing, thunk_astaroth_nebiroth_body_thing
     dw $8780, thunk_samael_thing, thunk_samael_platform_thing, thunk_samael_laser_thing, $8780, $8780
 }
 
@@ -817,16 +817,10 @@ thunk_shield_magic:
 }
 
 { ;8851 -
-fire_dragon:
+thunk_fire_dragon:
 
-.create:
-    jml _01EFD8_create
-
-;-----
-
-.thing:
-    jsl _01EFD8_thing
-    rts
+.create: jml fire_dragon_create
+.thing:  jsl fire_dragon_thing : rts
 }
 
 { ;885A - 8862
@@ -923,7 +917,7 @@ thunk_veil_allocen_part:
 
 .create: jml veil_allocen_part_create
 .thing:  jsl veil_allocen_part_thing : rts
-.destroy: jml _03E54E_create ;unused: leads to allocen claw1 create
+.destroy: jml veil_allocen_claws_claw1_create ;unused
 }
 
 { ;88CD - 88D5
@@ -962,39 +956,19 @@ thunk_satan_wings:
 }
 
 { ;88FA - 8906
-veil_allocen_claw1:
+thunk_veil_allocen_claw1:
 
-.create:
-    jml _03E54E_create
-
-;-----
-
-.thing:
-    jsl _03E54E_thing
-    rts
-
-;-----
-
-.destroy:
-    jml _03E54E_destroy
+.create:  jml veil_allocen_claws_claw1_create
+.thing:   jsl veil_allocen_claws_claw1_thing : rts
+.destroy: jml veil_allocen_claws_claw1_destroy
 }
 
 { ;8907 - 8913
-veil_allocen_claw2:
+thunk_veil_allocen_claw2:
 
-.create:
-    jml _03E54E_claw2_create ;$03E686
-
-;-----
-
-.thing: ;890B
-    jsl _03E54E_claw2_thing ;$03E6F1
-    rts
-
-;-----
-
-.destroy: ;8910
-    jml _03E54E_claw2_destroy
+.create:  jml veil_allocen_claws_claw2_create
+.thing:   jsl veil_allocen_claws_claw2_thing : rts
+.destroy: jml veil_allocen_claws_claw2_destroy
 }
 
 { ;8914 - 8917
@@ -2330,31 +2304,7 @@ update_pos_xy_2_child_obj:
 }
 
 { ;B0CD - B101
-    ;unused
-    stz $07
-.B0CF:
-    brk #$00
-
-;----- B0D1
-
-    jsl get_object_slot
-    bmi .B0FF
-
-    !X16
-    lda $07 : asl : tay
-    !A8
-    lda.w _00C2BB,Y      : sta.w obj.pos_x+1,X
-    lda.w _00C2BB_C2C5,Y : sta.w obj.pos_y+1,X
-    !A8
-    lda #$0C : sta.w obj.active,X
-    lda #!id_belial : sta.w obj.type,X
-    !X8
-    inc $07
-    cmp #$05 ;don't think this works correctly!
-    bne .B0CF
-
-.B0FF:
-    jmp _0281A8_81B5
+    incsrc "objects/_02B0CD.asm"
 }
 
 { ;B102 - B12D
