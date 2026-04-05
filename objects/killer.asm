@@ -41,7 +41,7 @@ create: ;a8 x8
     bcs .BF90
 
     !A8
-    lda #$93 : jsl prepare_object
+    lda.b #!id_killer : jsl prepare_object
     bra .BF71
 
 ;----- BFB8

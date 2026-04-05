@@ -95,7 +95,7 @@ destroy:
     lda #$05 : sta $2D
     lda #$66 : sta $1D
 .9699:
-    lda #$46 : jsl prepare_object
+    lda.b #!id_small_explosion : jsl prepare_object
     lda #$07 : cop #$00
 
 ;----- 96A3
@@ -109,7 +109,7 @@ destroy:
     lda #$05 : sta $2D
     lda #$66 : sta $1D
 .96C2:
-    lda #$46 : jsl prepare_object
+    lda.b #!id_small_explosion : jsl prepare_object
     lda #$07 : cop #$00
 
 ;----- 96CC

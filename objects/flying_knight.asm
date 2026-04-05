@@ -152,7 +152,7 @@ thing:
     ldy #$84 : jsr pot_spawn_offset_local
     jsl update_animation_normal
     jsr _02FBF9
-    jsr _02F9FA_F9FE
+    jsr _02F9FA_local
     jmp _02FD62_FD7C
 
 .9EBB:

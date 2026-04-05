@@ -197,9 +197,9 @@ destroy:
 ;----- 9434
 
     inc $1ED7
-    lda #$59 : jsl prepare_object
+    lda.b #!id_key : jsl prepare_object
     jsl _018049
-    lda #$10 : jsl _018049_8053
+    lda.b #!mus_defeat_boss : jsl _018049_8053
     jmp _0281A8_81B5
 
 .944A:

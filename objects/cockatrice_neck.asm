@@ -217,7 +217,7 @@ destroy:
 
 ;----- DD9B
 
-    lda #$46 : jsl prepare_object
+    lda.b #!id_small_explosion : jsl prepare_object
     jmp _0281A8_81B5
 }
 

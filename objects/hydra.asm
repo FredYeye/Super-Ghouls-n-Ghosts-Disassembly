@@ -923,7 +923,7 @@ create2: ;cont'd from create
     lda #$5F : sta $31
     lda #$4E : sta $1D
     lda $08 : and #$07 : sta $1ED6
-    lda #$38 : jsl prepare_object
+    lda.b #!id_hydra_fireball : jsl prepare_object
     jmp .A649
 
 .A70B:
@@ -1478,7 +1478,7 @@ create2: ;cont'd from create
     lda #$5F : sta $31
     lda #$4E : sta $1D
     lda $08 : and #$07 : sta $1ED6
-    lda #$38 : jsl prepare_object
+    lda.b #!id_hydra_fireball : jsl prepare_object
     jmp .AB17
 
 .ABD9:
@@ -1801,7 +1801,7 @@ create2: ;cont'd from create
 
     lda #$10 : jsl _018049_8053
     lda $08 : ora #$10 : sta $08
-    lda #$70 : jsl prepare_object
+    lda.b #!id_boss_explosion_spawner : jsl prepare_object
     lda #$5F : sta $31
 .AE1F:
     brk #$00
@@ -1812,7 +1812,7 @@ create2: ;cont'd from create
     bne .AE1F
 
     lda #$72 : sta $1D
-    lda #!id_key : jsl prepare_object
+    lda.b #!id_key : jsl prepare_object
     inc $1ED7
     jmp _0281A8_81B5
 

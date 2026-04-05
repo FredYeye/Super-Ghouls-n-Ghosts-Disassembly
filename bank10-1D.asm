@@ -128,25 +128,25 @@ elseif !version == 1 || !version == 2
     gfx_stage1_objects: incbin "graphics/stage1_objects_us.bin"
 endif
 
-    gfx_unk16:             incbin "graphics/unknown16.bin"
-    gfx_unk20:             incbin "graphics/unknown20.bin"
-    gfx_unk25:             incbin "graphics/unknown25.bin"
+    gfx_stage2_objects:    incbin "graphics/stage2_objects.bin"
+    gfx_stage3_objects:    incbin "graphics/stage3_objects.bin"
+    gfx_unk25:             incbin "graphics/unknown25.bin" ;stage 4 objects, but also intro demons?
     gfx_geyser_platform:   incbin "graphics/geyser_platform.bin"
     gfx_hydra:             incbin "graphics/hydra.bin"
-    gfx_unk22:             incbin "graphics/unknown22.bin"
-    gfx_unk30:             incbin "graphics/unknown30.bin"
+    gfx_stage5_objects:    incbin "graphics/stage5_objects.bin"
+    gfx_eagler_tail:       incbin "graphics/eagler_tail.bin"
     gfx_princess_dialogue: incbin "graphics/princess_dialogue.bin" ;contains unused projectile as well?
     gfx_samael:            incbin "graphics/samael.bin"
-    gfx_unk08:             incbin "graphics/unknown08.bin"
+    gfx_cockatrice_head:   incbin "graphics/cockatrice_head.bin"
     gfx_skull_flower:      incbin "graphics/skull_flower.bin"
-    gfx_unk10:             incbin "graphics/unknown10.bin"
+    gfx_wolf:              incbin "graphics/wolf.bin"
     gfx_grilian:           incbin "graphics/grilian.bin"
     gfx_arremer:           incbin "graphics/arremer.bin"
     gfx_killer:            incbin "graphics/killer.bin"
-    gfx_unk26:             incbin "graphics/unknown26.bin"
+    gfx_eagler:            incbin "graphics/eagler.bin"
     gfx_ghost:             incbin "graphics/ghost.bin"
     gfx_mimic:             incbin "graphics/mimic.bin"
-    gfx_unk11:             incbin "graphics/unknown11.bin"
+    gfx_boss_explosion:    incbin "graphics/boss_explosion.bin"
     gfx_cockatrice:        incbin "graphics/cockatrice.bin"
     gfx_items_enemy_hits:  incbin "graphics/items_enemy_hits.bin"
     gfx_game_over:         incbin "graphics/game_over.bin"
@@ -156,7 +156,7 @@ endif
     gfx_nebiroth:          incbin "graphics/nebiroth.bin"
     gfx_unk13:             incbin "graphics/unknown13.bin" ;intro stuff, but also 2bpp graphics! sort out later
     gfx_veil_allocen:      incbin "graphics/veil_allocen.bin"
-    gfx_unk14:             incbin "graphics/unknown14.bin"
+    gfx_rosebud:           incbin "graphics/rosebud.bin"
 
 if !version == 0
 { : org $1DF642 ;F642 - FFFF

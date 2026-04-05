@@ -33,7 +33,7 @@ create:
     lda #$08 : sta $34
     lda #$1E : sta $1D
 .CE41:
-    lda #$7C : jsl prepare_object
+    lda.b #!id_pier_splinter : jsl prepare_object
     lda $1D : clc : adc #$02 : sta $1D
     dec $34
     bne .CE41

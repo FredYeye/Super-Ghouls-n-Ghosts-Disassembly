@@ -25,7 +25,7 @@ _01A397: ;a- x8
     jsr decompress_graphics_function
     beq .A3E6
 
-    lda.l !SLHV
+    lda.l SLHV
     lda.l !OPVCT
     cmp #$F0
     bcc .A3C7

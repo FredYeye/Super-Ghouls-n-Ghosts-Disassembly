@@ -187,7 +187,7 @@ thing:
 
 .F137:
     jsr _02FC0E
-    jsr _02F9FA_F9FE
+    jsr _02F9FA_local
     rts
 }
 

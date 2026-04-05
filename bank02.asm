@@ -1885,7 +1885,7 @@ _0296E9: ;only used by eagler
 
 { ;96FE - 9712
 _0296FE: ;a8 x-
-    jsr _02F9FA_F9FE
+    jsr _02F9FA_local
     lda.w frame_counter
     clc
     adc $02C6
@@ -3195,13 +3195,13 @@ _02F9ED: ;a8 x-
 
 { ;F9FA - FA36
 _02F9FA: ;a8 x-
-    jsr .F9FE
+    jsr .local
     rtl
 
-.F9FE:
+.local:
     lda.w open_magic_slots
-    cmp #$08  ;if all magic slots are free,
-    beq .ret2 ;do nothing
+    cmp #$08  ;if all magic slots are free, do nothing
+    beq .ret2
 
     bit $09
     bvc .ret2
@@ -3305,6 +3305,7 @@ _02FAA1: ;a8 x?
     jsr _02FAD4_FADC
     !A8
     bcs _02FA37_FA9E
+
     bra _02FA37_FA84
 }
 

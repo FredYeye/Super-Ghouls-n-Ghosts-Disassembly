@@ -23,7 +23,7 @@
     !BG12NBA  = $210B ;BG Character Data Area Designation
     !BG34NBA  = $210C ;BG Character Data Area Designation
     !BG1HOFS  = $210D ;BG1 Horizontal Scroll (X) (write-twice) / M7HOFS
-    !BG1VOFS  = $210E ;BG1 Vertical Scroll   (Y) (write-twice) / M7VOFS
+    BG1VOFS   = $210E ;BG1 Vertical Scroll   (Y) (write-twice) / M7VOFS
     !BG2HOFS  = $210F ;BG2 Horizontal Scroll (X) (write-twice)
     !BG2VOFS  = $2110 ;BG2 Vertical Scroll   (Y) (write-twice)
     !BG3HOFS  = $2111 ;BG3 Horizontal Scroll (X) (write-twice)
@@ -62,7 +62,7 @@
 
     !MPYM     = $2135 ;PPU1 Signed Multiply Result   (middle 8bit)
     !MPYH     = $2136 ;PPU1 Signed Multiply Result   (upper 8bit)
-    !SLHV     = $2137 ;PPU1 Latch H/V-Counter by Software (Read=Strobe)
+    SLHV      = $2137 ;PPU1 Latch H/V-Counter by Software (Read=Strobe)
     !RDVRAML  = $2139 ;PPU1 VRAM Data Read           (lower 8bits)
     !RDVRAMH  = $213A ;PPU1 VRAM Data Read           (upper 8bits)
     !OPVCT    = $213D ;PPU2 Vertical Counter Latch   (read-twice)

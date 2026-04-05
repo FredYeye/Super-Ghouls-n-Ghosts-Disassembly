@@ -2,8 +2,7 @@ namespace scythe
 
 {
 upgraded_create:
-    ldy #$98
-    ldx #$20
+    ldy #$98 : ldx #$20
     bra create_E661
 
 create:

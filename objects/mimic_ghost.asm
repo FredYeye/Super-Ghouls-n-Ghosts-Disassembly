@@ -35,7 +35,7 @@ thing:
     ldx $3C : jsl _018E32
     jsr _02FD62_FD7C
     jsr _02FB62_FB69
-    jsr _02F9FA_F9FE
+    jsr _02F9FA_local
     jmp _028074_8087
 }
 
