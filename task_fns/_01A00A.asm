@@ -6,7 +6,7 @@ _01A00A:
     stz $0088
     stz $008A
     lda #$01 : sta $0089
-    lda #$01 : sta $1F2F
+    lda.b #1 : sta.w stage4_rotation_active
 .A01E:
     lda.b #189 : jsl current_task_suspend
     lda #$04

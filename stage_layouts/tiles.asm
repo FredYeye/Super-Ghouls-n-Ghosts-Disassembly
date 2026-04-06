@@ -1,9 +1,7 @@
 {
 tiles:
-
-    ;todo: consider turning this into incsrc, split by either stage or layer or something
-
-    ;tiles. 4 words stored sequentially per tile, for top left/right, bottom left/right
+    ;each word references an 8x8 tile.
+    ;4 sequential words form a 16x16 tile (top left/right, bottom left/right).
 
     ;word layout: v h o ppp cccccccccc
     ;c = offset

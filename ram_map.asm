@@ -248,7 +248,7 @@
 
     ; $1EE8;1EE9 ;distance from left screen edge arthur needs to reach to scroll the screen
 
-    ; $1F2F bool
+    stage4_rotation_active = $1F2F
 
     hdma_data = $1F57 ;hdma data struct: [line counter byte, bytes to transfer], end byte (00)
     ;goes to at least 1F7E

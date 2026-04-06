@@ -1,14 +1,4 @@
-org $0B8000
-
-{ ;8000 - EFFF
-    incsrc "various/screen_layouts2.asm"
-}
-
-{ ;F000 - F0FF
-    fillbyte $00 : fill 256
-}
-
-{ ;F100 - FFFF
+{
 recorded_inputs:
     ;buttons, count
 

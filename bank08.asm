@@ -1,7 +1,7 @@
 org $088000
 
 {
-	incsrc "various/screen_layouts.asm"        ;8000 - C5FF
+	incsrc "stage_layouts/screen_layouts.asm"  ;8000 - C5FF
 	gfx_the_end: incbin "graphics/the_end.bin" ;C600 - E052
 }
 

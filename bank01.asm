@@ -5155,7 +5155,7 @@ _01B9A8: ;a8 x?
     lda $1F91
     beq .BA08
 
-    lda #$01 : sta $1F2F
+    lda.b #1 : sta.w stage4_rotation_active
     lda $1F92
     bne .BA3B
 
@@ -5172,7 +5172,7 @@ _01B9A8: ;a8 x?
     dec $1F91
     bne .BA3A
 
-    stz $1F2F
+    stz.w stage4_rotation_active
     jsr .BA5E
 .BA3A:
     rts
@@ -5191,7 +5191,7 @@ _01B9A8: ;a8 x?
     dec $1F91
     bne .BA5D
 
-    stz $1F2F
+    stz.w stage4_rotation_active
     jsr .BA5E
 .BA5D:
     rts

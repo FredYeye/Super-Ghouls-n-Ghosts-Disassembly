@@ -1,7 +1,7 @@
 org $098000 : bank09:
 
 {
-    incsrc "various/meta_tiles.asm"            ;8000 - CEDF
+    incsrc "stage_layouts/meta_tiles.asm"      ;8000 - CEDF
     fillbyte $00 : fill 288                    ;CEE0 - CFFF
     gfx_unk36: incbin "graphics/unknown36.bin" ;D000 - E197 two tilemaps? second one being "the end"
     fillbyte $00 : fill 1640                   ;E198 - E7FF

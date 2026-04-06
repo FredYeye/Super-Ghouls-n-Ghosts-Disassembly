@@ -1,5 +1,7 @@
 {
-meta_tiles: ;one meta tile = 4 words sequentially = 2x2 SW tiles. tiles are in bank A
+meta_tiles:
+    ;indexes into bank A tiles. gets a 16x16 tile per word.
+    ;4 sequential words form a meta tile (top left/right, bottom left/right), sized 32x32. 
 
     ;stage 1 layer 1, (some layer 2 usage as well)
     dw $8000, $8000, $8000, $8000,  $8000, $8000, $8010, $8018 ;8000

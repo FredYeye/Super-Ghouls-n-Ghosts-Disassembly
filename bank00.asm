@@ -256,15 +256,15 @@ _0083C2:
     rts
 
 .83C3: ;a8 x8
-    lda $1F2F
+    lda.w stage4_rotation_active
     beq _0083C2
 
     phb
     lda.b #bank09>>16 : pha : plb
     phd
     !A16 : lda.w #!obj_objects.base : tcd : !A8
-    lda #$1F : sta $0036
-    stz $0037
+    lda.b #31 : sta $0036 ;obj_object count
+    stz $0037             ;clear upper byte of 16-bit count
 .83DE:
     !A8
     lda.w stage
@@ -306,7 +306,7 @@ _0083C2:
     asl
     clc
     adc $1F33
-    sta $1F
+    sta.b obj.pos_x+1
     sec
     lda $39
     sbc $1F33
@@ -327,13 +327,10 @@ _0083C2:
     asl
     clc
     adc $1F35
-    sta $22
+    sta.b obj.pos_y+1
 .846A:
     !A16
-    clc
-    tdc
-    adc #$0041
-    tcd
+    clc : tdc : adc.w #obj.ext.len : tcd
     dec $0036
     beq +
 
@@ -1987,15 +1984,15 @@ stage1_earthquake:
 
 .tile_offset:
     ;earthquake tile offsets, ?
-    dl stage1_earthquake_tiles_1  : db $05
-    dl stage1_earthquake_tiles_2  : db $05
-    dl stage1_earthquake_tiles_3  : db $05
-    dl stage1_earthquake_tiles_4  : db $05
-    dl stage1_earthquake_tiles_5  : db $05
-    dl stage1_earthquake_tiles_11 : db $05
-    dl stage1_earthquake_tiles_14 : db $05
-    dl stage1_earthquake_tiles_13 : db $05
-    dl stage1_earthquake_tiles_12 : db $05
+    dl stage1_earthquake_tiles_1   : db $05
+    dl stage1_earthquake_tiles_2   : db $05
+    dl stage1_earthquake_tiles_3   : db $05
+    dl stage1_earthquake_tiles_4   : db $05
+    dl stage1_earthquake_tiles_5   : db $05
+    dl stage1_earthquake_tiles_11  : db $05
+    dl stage1_earthquake_tiles2_14 : db $05
+    dl stage1_earthquake_tiles2_13 : db $05
+    dl stage1_earthquake_tiles_12  : db $05
 
     ;these offsets were probably meant for the water crashes, but ended up unused
     dl $000000 : db $86
@@ -2154,21 +2151,20 @@ _00B805:
     .B80F: db offset(_00B805, .B81E), offset(_00B805, .B846), offset(_00B805, .B87A)
     .B812: db offset(_00B805, .B82C), offset(_00B805, .B846), offset(_00B805, .B87A)
     .B815: db offset(_00B805, .B839), offset(_00B805, .B81E+1), offset(_00B805, .B860)
-    .B818: db offset(_00B805, .B839), offset(_00B805, .B853), offset(_00B805, .B81E+1)
+    .B818: db offset(_00B805, .B839), offset(_00B805, .B853), offset(_00B805, .B81E+1) ;some offsets are B81E+1. not sure if intentional or not
     .B81B: db offset(_00B805, .B839), offset(_00B805, .B853), offset(_00B805, .B81E+1)
 
 ;-----
 
-    ;some offsets are B81E+1. not sure if intentional or not
     ;some of these values are map/tile banks etc
-    .B81E: db $00, $00 : dw $0FFF : db $08, $20, $40, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $7F, $7F, $01 : db $00
-    .B82C: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $7F, $7F, $0F
-    .B839: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $7F, $7F, $0F ;stage 3
-    .B846: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $3F, $7F, $0F
-    .B853: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F
-    .B860: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F
-    .B86D: db $06, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, _0C8000>>16, _0D8000>>16, $3F, $7F, $0F ;unused?
-    .B87A: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  meta_tiles>>16, tiles>>16, $3F, $7F, $0F
+    .B81E: db $00, $00 : dw $0FFF : db $08, $20, $40, screen_layouts>>16,  meta_tiles>>16,  tiles>>16,  $7F, $7F, $01 : db $00
+    .B82C: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts>>16,  meta_tiles>>16,  tiles>>16,  $7F, $7F, $0F
+    .B839: db $00, $00 : dw $0FFF : db $08, $40, $40, screen_layouts2>>16, meta_tiles2>>16, tiles2>>16, $7F, $7F, $0F ;stage 3
+    .B846: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  meta_tiles>>16,  tiles>>16,  $3F, $7F, $0F
+    .B853: db $03, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, meta_tiles2>>16, tiles2>>16, $3F, $7F, $0F
+    .B860: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, meta_tiles2>>16, tiles2>>16, $3F, $7F, $0F
+    .B86D: db $06, $10 : dw $07FF : db $00, $20, $26, screen_layouts2>>16, meta_tiles2>>16, tiles2>>16, $3F, $7F, $0F ;unused?
+    .B87A: db $06, $18 : dw $07FF : db $00, $20, $26, screen_layouts>>16,  meta_tiles>>16,  tiles>>16,  $3F, $7F, $0F
 }
 
 { ;B887 - B88A

@@ -1,7 +1,7 @@
 org $038000 : bank03:
 
 {
-    incsrc "various/stage_layouts.asm"               ;8000 - 846F
+    incsrc "stage_layouts/stage_layouts.asm"         ;8000 - 846F
     incsrc "various/palette_cycling_data.asm"        ;8470 - 9C08
     incsrc "objects/princess_dialogue.asm"           ;9C09 - 9DD9
     incsrc "task_fns/_039DDA.asm"                    ;9DDA - 9E78
