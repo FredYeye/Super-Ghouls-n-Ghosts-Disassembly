@@ -8,7 +8,7 @@ create:
 
 .C6B3:
     lda.w stage
-    cmp #$07
+    cmp.b #!stage_6
     beq .C6C2
 
     ldx #$00 : jsl _018D5B
@@ -55,7 +55,7 @@ create:
 .C725:
     !AX16
     lda.w stage
-    cmp #$0008
+    cmp.w #!stage_7
     beq .C73D
 
     lda.b obj.pos_x+1
@@ -187,10 +187,7 @@ create:
     ldy #$FC : ldx #$21 : jsl set_sprite
     lda #$FF : sta $26
     jsl update_animation_normal
-    sec
-    lda.w stage
-    sbc #$07
-    tay
+    sec : lda.w stage : sbc.b #!stage_6 : tay
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
     lda $37 : sta $35
     lda $36 : sta $0F
@@ -389,7 +386,7 @@ create:
     !A16
     lda.w _00ED00+$68 : sta $27
     lda.w stage
-    cmp #$0008
+    cmp.w #!stage_7
     beq .C9D8
 
     lda #$012E : sta $29
@@ -411,10 +408,7 @@ create:
     stz $35
     stz $33
     jsl update_animation_normal
-    sec
-    lda.w stage
-    sbc #$07
-    tay
+    sec : lda.w stage : sbc.b #!stage_6 : tay
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
     !AX16
     ldx $2D
@@ -551,10 +545,7 @@ thing:
 
     lda $09 : ora #$40 : sta $09
     jsl update_animation_normal
-    sec
-    lda.w stage
-    sbc #$07
-    tay
+    sec : lda.w stage : sbc.b #!stage_6 : tay
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
 .CB0B:
     jsl _02F9B6

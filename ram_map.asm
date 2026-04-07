@@ -36,7 +36,7 @@
     jump_buttons      = $027F;0280
     rng_state         = $0289;028A
     ;                   $028B;028C ;unused?
-    stage             = $028D
+    stage             = $028D;028E
     checkpoint        = $028F
     continues         = $0290
     loop              = $0291

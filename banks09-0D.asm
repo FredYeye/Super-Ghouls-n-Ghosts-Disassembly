@@ -1,3 +1,17 @@
+org $098000 : bank09:
+
+{
+    incsrc "stage_layouts/meta_tiles.asm"      ;8000 - CEDF
+    fillbyte $00 : fill 288                    ;CEE0 - CFFF
+    gfx_unk36: incbin "graphics/unknown36.bin" ;D000 - E197 two tilemaps? second one being "the end"
+    fillbyte $00 : fill 1640                   ;E198 - E7FF
+    incsrc "various/palette_bg.asm"            ;E800 - FBFF
+    fillbyte $00 : fill 256                    ;FC00 - FCFF
+    incsrc "various/rotation_params.asm"       ;FD00 - FFFF
+}
+
+;-----
+
 org $0A8000
 
 {

@@ -333,7 +333,7 @@ _01826E: ;a8 x8
     php
     ldx #$00
     lda.w stage
-    cmp #$03
+    cmp.b #!stage_4
     beq .827A
 
     ldx #$08
@@ -1696,7 +1696,7 @@ _018DC0: ;a8 x8
 
     xba
     lda.w stage
-    cmp #$02
+    cmp.b #!stage_3
     bcs +
 
     ldx #$37
@@ -2090,7 +2090,7 @@ _01909B: ;a- x8
 _0190B9: ;a8 x-
     lda.w stage
     xba
-    lda #$00
+    lda.b #$00
     !AX16
     clc
     adc #$0040
@@ -2719,7 +2719,7 @@ _019539: ;a8 x8
     lda #$03 : sta.w snes_reg.bg1sc
     lda #$11 : sta.w snes_reg.bg2sc
     ldx.w stage
-    cpx #$02
+    cpx.b #!stage_3
     bne +
 
     lda #$10 : sta.w snes_reg.bg2sc
@@ -4775,7 +4775,7 @@ _01B6CB: ;a8 x8
 
     lda #$08
     ldx.w stage
-    cpx #$06
+    cpx.b #!stage_5
     bne .B721
 
     lda #$10
@@ -4854,8 +4854,7 @@ _01B6CB: ;a8 x8
     rts
 
 .B79D:
-    lda #$02
-    sta $04
+    lda #$02 : sta $04
     rts
 
 .B7A2:
@@ -5048,7 +5047,7 @@ _01B90E: ;a8 x8
 
 .B912: ;a8 x8
     lda.w stage
-    cmp #$04 : beq +
+    cmp.b #!stage_4b : beq +
 
     lda.w snes_reg.bgmode
     and #$07
@@ -5110,7 +5109,7 @@ _01B96E: ;a8 x-
 { ;B9A8 - BD1C
 _01B9A8: ;a8 x?
     lda.w stage
-    cmp #$03
+    cmp.b #!stage_4
     bne .BA08
 
     ;stage 4 stuff
@@ -5215,9 +5214,8 @@ _01B9A8: ;a8 x?
     asl #2
     and #$01FF
     tax
-    lda.l _09FE00+0,X : sta.w snes_reg.m7a : sta.w snes_reg.m7d
-    lda.l _09FE00+2,X : sta.w snes_reg.m7b
-    eor #$FFFF : inc  : sta.w snes_reg.m7c
+    lda.l rotation_parameters+0,X : sta.w snes_reg.m7a                     : sta.w snes_reg.m7d
+    lda.l rotation_parameters+2,X : sta.w snes_reg.m7b : eor #$FFFF : inc  : sta.w snes_reg.m7c
     !AX8
     rts
 
@@ -6823,10 +6821,10 @@ _01C679:
     sta $1A7B
 +:
     lda.w stage
-    cmp #$0006
+    cmp.w #!stage_5
     beq +
 
-    cmp #$0002
+    cmp.w #!stage_3
     bne .ret
 
 +:
@@ -7476,7 +7474,7 @@ _01CCBD: ;a8 x8
     lda #$0050 : sta $0342
     !A8
     lda.w stage
-    cmp #$04
+    cmp.b #!stage_4b
     bne .CD36
 
     lda #$01 : sta.b obj.facing ;make arthur face left initially in 4b
@@ -9484,7 +9482,7 @@ _01DB67: ;a8 x?
     stz $0332
     inc $0331
     lda.w stage
-    cmp #$08
+    cmp.b #!stage_7
     bne .DBA7
 
     lda.w loop
@@ -9836,7 +9834,7 @@ _01DDFC:
 { ;DE0B - DE61
 _01DE0B: ;a8 x8
     ldx.w stage
-    cpx #$06
+    cpx.b #!stage_5
     bne .DE17
 
     lda.w checkpoint

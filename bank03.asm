@@ -508,8 +508,7 @@ _03F526:
     jsl _048DF9
     lda #$10 : sta.w stage
     jsl _019136
-    pla
-    sta.w stage
+    pla : sta.w stage
     rts
 
 ;-----

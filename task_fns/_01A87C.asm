@@ -507,7 +507,7 @@ endif
     jsl _0190B9_90CB
     jsl _019539
     lda.w stage
-    cmp #$02
+    cmp.b #!stage_3
     bne +
 
     lda #$19 : sta.w snes_reg.bg3sc

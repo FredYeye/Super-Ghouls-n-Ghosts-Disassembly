@@ -7,7 +7,7 @@ _A5D7:
 create:
     lda $07 : sta $33
     ldx.w stage
-    cpx #$07
+    cpx.b #!stage_6
     bne .A5EE
 
     ldx #$02 : jsl _018D5B

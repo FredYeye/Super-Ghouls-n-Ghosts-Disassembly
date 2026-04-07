@@ -247,8 +247,7 @@ incsrc "object_defines.asm"
     incsrc bank05.asm
     incsrc bank06-07.asm
     incsrc bank08.asm
-    incsrc bank09.asm
-    incsrc banks0A-0D.asm
+    incsrc banks09-0D.asm
     incsrc bank0E.asm
     incsrc bank0F.asm
     incsrc bank10-1D.asm

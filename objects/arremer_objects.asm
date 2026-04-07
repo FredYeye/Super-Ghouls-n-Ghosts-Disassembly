@@ -11,7 +11,7 @@ projectile_create:
     lsr
     sta.b obj.direction
     ldx.w stage
-    cpx #$07
+    cpx.b #!stage_6
     bcc .BE4B
 
     lda.w arremer_projectile_data_D220-7,X : sta $29
@@ -57,7 +57,7 @@ killers_create:
     ldx $07
     lda.w arremer_projectile_data_D222,X : sta $2E
     ldx.w stage
-    cpx #$07
+    cpx.b #!stage_6
     bcc .BEA7
 
     lda.w arremer_projectile_data_D220-7,X : sta $29

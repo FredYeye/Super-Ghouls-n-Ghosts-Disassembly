@@ -9,7 +9,7 @@ create:
     lda $08 : ora #$03 : sta $08
     stz $0000
     lda.w stage
-    cmp #$08
+    cmp.b #!stage_7
     bne .EBF7
 
     stz $0000
@@ -217,7 +217,7 @@ thing:
 
 destroy:
     lda.w stage
-    cmp #$08
+    cmp.b #!stage_7
     bne .EDE4
 
     lda.w loop
@@ -264,7 +264,7 @@ destroy:
     lda.w stage
     beq .EE3C
 
-    cmp #$05
+    cmp.b #!stage_4c
     beq .EE3C
 
     jmp _0281A8_81B5

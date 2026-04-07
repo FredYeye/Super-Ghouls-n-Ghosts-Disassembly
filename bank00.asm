@@ -268,7 +268,7 @@ _0083C2:
 .83DE:
     !A8
     lda.w stage
-    cmp #$04
+    cmp.b #!stage_4b
     beq .83EB
 
     bit $09

@@ -188,10 +188,10 @@ _048A6B: ;a8 x8
     beq .8AD0
 
     ldy #$0B
-    cmp #$03
+    cmp.b #!stage_4
     beq .8AC1
 
-    cmp #$04
+    cmp.b #!stage_4b
     bne .8AC5
 
 .8AC1:
@@ -220,7 +220,7 @@ _048AD3:
 
 .8ADB: ;a8 x8
     lda.w stage
-    cmp #$04
+    cmp.b #!stage_4b
     beq .ret2
 
     phb
@@ -785,8 +785,7 @@ _049085: ;a8 x8
     jsr _04906A
     jsl enable_nmi
     jsl _048A6B
-    pla
-    sta.w stage
+    pla : sta.w stage
     jsr _049219
     lda.b #62 : jsl current_task_suspend
     lda.b #!mus_game_over : jsl _018049_8053

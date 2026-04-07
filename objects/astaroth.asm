@@ -4,7 +4,7 @@ namespace astaroth
 create:
     stz $1EBF
     lda.w stage
-    cmp #$07
+    cmp.b #!stage_6
     bne .D0EB
 
     !A16
@@ -19,7 +19,7 @@ create:
     bcs .D0EB
 
     lda.w stage
-    cmp #$08
+    cmp.b #!stage_7
     bne .D104
 
     lda $0292

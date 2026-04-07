@@ -50,7 +50,7 @@ create: ;a8 x8
     !A16
     lda #$0120 ;blue killer
     ldx.w stage
-    cpx #$02
+    cpx.b #!stage_3
     bne +
 
     lda #$0160 ;fire killer
@@ -201,7 +201,7 @@ destroy:
 
 thing:
     lda.w stage
-    cmp #$08
+    cmp.b #!stage_7
     bne .C0FA
 
     !A16

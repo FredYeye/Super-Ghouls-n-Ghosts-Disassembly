@@ -5,7 +5,7 @@ create:
     jsr _02F13E_F15F
     jsl set_hp
     ldx.w stage
-    cpx #$06
+    cpx.b #!stage_5
     bne .EFE7
 
     clc

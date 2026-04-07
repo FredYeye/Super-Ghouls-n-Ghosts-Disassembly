@@ -20,10 +20,10 @@ create:
     beq .F304
 
     lda.w stage
-    cmp #$04 ;stage 4, raft section
+    cmp.b #!stage_4b
     beq .F339
 
-    cmp #$01 ;stage 2
+    cmp.b #!stage_2
     bne .F31A
 
     lda.w checkpoint ;raft section

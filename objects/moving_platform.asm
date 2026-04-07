@@ -106,7 +106,7 @@ create:
 ;----- AC02
 
     lda.w stage
-    cmp #$02
+    cmp.b #!stage_3
     bne .AC0D
 
     bit $09

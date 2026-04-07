@@ -5,7 +5,7 @@ create:
     ldx #$03 : jsl _018D5B
     jsl set_hp
     lda.w stage
-    cmp #$08
+    cmp.b #!stage_7
     bne .F427
 
     clc

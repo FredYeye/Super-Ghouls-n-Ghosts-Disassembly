@@ -13,7 +13,7 @@ create:
     ldx #$01
     ldy #$16
     lda.w stage
-    cmp #$03
+    cmp.b #!stage_4
     beq .9895
 
     ldx #$03

@@ -283,7 +283,7 @@ _028166: ;a- x-
 _028176: ;a- x-
     !A16
     lda.w stage
-    cmp #$0008
+    cmp.w #!stage_7
     bne .8196
 
     lda.b obj.pos_y+1

@@ -4,7 +4,7 @@ namespace flower_projectile
 create:
     ldy #$90 : ldx #$22
     lda.w stage
-    cmp #$03
+    cmp.b #!stage_4
     bne .EF12
 
     ldy #$BA : ldx #$21
@@ -26,7 +26,7 @@ create:
 
     ldy #$96 : ldx #$22
     lda.w stage
-    cmp #$03
+    cmp.b #!stage_4
     bne .EF36
 
     ldy #$C0 : ldx #$21
