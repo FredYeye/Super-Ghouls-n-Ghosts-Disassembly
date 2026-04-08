@@ -1,3 +1,15 @@
+org $088000
+
+{
+	incsrc "stage_layouts/screen_layouts.asm"  ;8000 - C5FF
+	gfx_the_end: incbin "graphics/the_end.bin" ;C600 - E052
+	fillbyte $00 : fill 941                    ;E053 - E3FF
+	incsrc "various/sprite_defs.asm"           ;E400 - FD6F
+	fillbyte $00 : fill 656                    ;FD70 - FFFF
+}
+
+;-----
+
 org $098000 : bank09:
 
 {

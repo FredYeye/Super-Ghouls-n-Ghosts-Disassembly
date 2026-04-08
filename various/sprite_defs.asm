@@ -1,15 +1,4 @@
-org $088000
-
 {
-	incsrc "stage_layouts/screen_layouts.asm"  ;8000 - C5FF
-	gfx_the_end: incbin "graphics/the_end.bin" ;C600 - E052
-}
-
-{ ;E053 - E3FF
-	fillbyte $00 : fill 941
-}
-
-{ ;E400 - FD6F
 _08E400:
 	db $D0 ;count
 
@@ -1064,8 +1053,4 @@ endif
 	db $01 : dw $0500, $0639, $0002
 	db $01 : dw $0500, $063C, $0082
 	dw $0000
-}
-
-{ ;FD70 - FFFF
-	fillbyte $00 : fill 656
 }
