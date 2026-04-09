@@ -37,3 +37,7 @@
 
 !pi = 3.14159265359
 !step = 2*!pi/128 ;used for stage 4 rotation values
+
+;-----
+
+!obj_create = $0C

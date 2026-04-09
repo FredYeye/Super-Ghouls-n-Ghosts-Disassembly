@@ -59,7 +59,7 @@ create:
     lda #!id_torch_flame
     ldy $07
     iny
-    jsr _01D371_D4D8
+    jsr arthur__01D371_D4D8
     bmi .E7D3
 
     jsl set_spawn_offset
@@ -171,7 +171,7 @@ upgraded_create:
     lda #$2B
     ldy $07
     iny
-    jsr _01D371_D4D8
+    jsr arthur__01D371_D4D8
     bmi .E8AB
 
     jsl set_spawn_offset

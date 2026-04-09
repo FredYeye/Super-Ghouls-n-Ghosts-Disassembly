@@ -3742,7 +3742,7 @@ rotating_platform_data:
     db $01, $01
 
 .CED8:
-    dw _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4, _01CCBD_CDC4 ;armors
+    dw arthur_create_CDC4, arthur_create_CDC4, arthur_create_CDC4, arthur_create_CDC4, arthur_create_CDC4 ;armors
     dw arthur_baby_DF31, arthur_seal_E0AA, arthur_bee_E195, arthur_maiden_DFE8 ;transformations
 }
 
