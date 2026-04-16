@@ -28,7 +28,7 @@ if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
 endif
     !A8
 if !version == 0
-    lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
+    lda #$00 : sta.l tile_type+$90 : sta.l tile_type+$91 : sta.l tile_type+$92 : sta.l tile_type+$93
 endif
 .C3CB:
     !AX8
@@ -64,7 +64,7 @@ endif
     !A16
     lda #$E580 : sta $7EF7C2
     !A8
-    lda #$00 : sta $7EF090 : sta $7EF091 : sta $7EF092 : sta $7EF093
+    lda #$00 : sta.l tile_type+$90 : sta.l tile_type+$91 : sta.l tile_type+$92 : sta.l tile_type+$93
 if !version == 1 || !version == 2
 .C411:
     brk #$00

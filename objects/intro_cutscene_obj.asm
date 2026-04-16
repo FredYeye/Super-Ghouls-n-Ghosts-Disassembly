@@ -387,10 +387,10 @@ endif
     stz $032E
     stz.w snes_reg.hdmaen
 if !version == 0
-    ldy #$27 : jsl _01A21D
+    ldy #$27 : jsl decompress
 elseif !version == 1 || !version == 2
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldy #$2C : jsl _01A21D
+    ldy #$AF : jsl decompress_precalc
+    ldy #$2C : jsl decompress
     lda #$1A : sta $031E
 endif
     !A16
@@ -472,8 +472,7 @@ thing:
 ;-----
 
 _D0BB:
-    lda #$B3
-    jml _018C55
+    lda #$B3 : jml prepare_object2
 
 _D0C1:
     lda $0F

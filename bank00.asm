@@ -125,20 +125,20 @@ nmi: ;a- x-
     jsr _0089F4
     lda #$80 : sta.w INIDISP
     inc $02B6
-    lda !RDNMI
+    lda.w RDNMI
     lda $0379
     beq .825B
 
     stz.w OAMADDL
     stz.w OAMADDH
-    lda #$00                     : sta !DMAP0
-    lda.b #OAMDATA               : sta !BBAD0
-    lda.b #sprite_attributes     : sta !A1T0L
-    lda.b #sprite_attributes>>8  : sta !A1T0H
-    lda.b #sprite_attributes>>16 : sta !A1B0
-    lda.b #$0220                 : sta !DAS0L
-    lda.b #$0220>>8              : sta !DAS0H
-    lda #$01                     : sta !MDMAEN
+    lda #$00                   : sta !DMAP0
+    lda.b #OAMDATA             : sta !BBAD0
+    lda.b #oam_sprite_data     : sta !A1T0L
+    lda.b #oam_sprite_data>>8  : sta !A1T0H
+    lda.b #oam_sprite_data>>16 : sta !A1B0
+    lda.b #$0220               : sta !DAS0L
+    lda.b #$0220>>8            : sta !DAS0H
+    lda #$01                   : sta !MDMAEN
     jsr _008669
     jsr _00893C
     jsr _0085A6_85AA
@@ -165,7 +165,7 @@ nmi: ;a- x-
     lda.w snes_reg.cgwsel  : sta !CGWSEL
     lda.w snes_reg.cgadsub : sta !CGADSUB
     lda.w snes_reg.coldata : sta.w COLDATA
-    lda.w snes_reg.tm : ldx.w snes_reg.ts : sta.w TM : stx !TS
+    lda.w snes_reg.tm : ldx.w snes_reg.ts : sta.w TM : stx.w TS
     lda.w snes_reg.tmw : sta.w TMW
     lda.w snes_reg.tsw : sta.w TSW
     lda.w snes_reg.bg12nba : sta !BG12NBA
@@ -416,6 +416,7 @@ _00853D: ;a8 x8
 
     cmp #$F6
     bne .856B
+
 +:
     pha
     txa
@@ -444,14 +445,14 @@ _008577: ;a8 x-
     ;unused function
     stz.w OAMADDL
     stz.w OAMADDH
-    lda #$00                     : sta !DMAP0
-    lda.b #OAMDATA               : sta !BBAD0
-    lda.b #sprite_attributes     : sta !A1T0L
-    lda.b #sprite_attributes>>8  : sta !A1T0H
-    lda.b #sprite_attributes>>16 : sta !A1B0
-    lda.b #$0220                 : sta !DAS0L
-    lda.b #$0220>>8              : sta !DAS0H
-    lda #$01                     : sta !MDMAEN
+    lda #$00                   : sta !DMAP0
+    lda.b #OAMDATA             : sta !BBAD0
+    lda.b #oam_sprite_data     : sta !A1T0L
+    lda.b #oam_sprite_data>>8  : sta !A1T0H
+    lda.b #oam_sprite_data>>16 : sta !A1B0
+    lda.b #$0220               : sta !DAS0L
+    lda.b #$0220>>8            : sta !DAS0H
+    lda #$01                   : sta !MDMAEN
     rts
 }
 
@@ -1708,7 +1709,7 @@ _water_crash: ;stage 1 water crash tiles
 }
 
 { ;AFCC - AFFC
-_00AFCC:
+task_decompression_data:
     dw $0000 : dl gfx_cockatrice        : dw $4700
     dw $5000 : dl gfx_cockatrice_head   : dw $1100
     dw $0000 : dl gfx_death_crawler     : dw $3000
@@ -1719,12 +1720,14 @@ _00AFCC:
 }
 
 { ;AFFD - B105
-_00AFFD:
-    db offset(_00AFFD, .stage1), offset(_00AFFD, .stage2), offset(_00AFFD, .stage3), offset(_00AFFD, .stage4)
-    db offset(_00AFFD, .stage4_b), offset(_00AFFD, .stage4_c), offset(_00AFFD, .stage5), offset(_00AFFD, .stage6)
-    db offset(_00AFFD, .stage7), offset(_00AFFD, .stage8)
+compressed_stage_data:
 
-    ;loop count, ?
+.base:
+    db offset(.base, .stage1), offset(.base, .stage2), offset(.base, .stage3), offset(.base, .stage4)
+    db offset(.base, .stage4_b), offset(.base, .stage4_c), offset(.base, .stage5), offset(.base, .stage6)
+    db offset(.base, .stage7), offset(.base, .stage8)
+
+    ;count, ?
     ;offset, uncompressed size
 
 .stage1:
@@ -1804,8 +1807,7 @@ _00AFFD:
 }
 
 { ;B106 - B239
-gfx_decomp_offsets:
-    ;graphics decompression offsets
+compressed_data:
     ;layout: destination in extended RAM | source | count / uncompressed size
     dw $0000 : dl gfx_logo              : dw $3000 ;00
     dw $0000 : dl gfx_map               : dw $2200 ;07
@@ -1943,7 +1945,7 @@ _00B55C:
 }
 
 { ;B576 - B59D
-_00B576: ;indices into gfx_decomp_offsets, plus padding zero
+_00B576: ;indices into compressed_data, plus padding zero
     db $0E, $15, $31, $00
     db $1C, $23, $38, $00
     db $2A, $54, $3F, $00
@@ -1957,10 +1959,11 @@ _00B576: ;indices into gfx_decomp_offsets, plus padding zero
 }
 
 { ;B59E - B5BB
-_00B59E:
-    db $31, $77, $85, $8C, $93, $85, $AF, $85, $85, $3F
-    db $7E, $69, $85, $BD, $B6, $85, $AF, $85, $85, $3F
-    db $7E, $69, $85, $BD, $46, $85, $AF, $85, $85, $3F
+ram_to_vram_stage_offsets:
+    ;vertical data
+    db $07*7, $11*7, $13*7, $14*7, $15*7, $13*7, $19*7, $13*7, $13*7, $09*7
+    db $12*7, $0F*7, $13*7, $1B*7, $1A*7, $13*7, $19*7, $13*7, $13*7, $09*7
+    db $12*7, $0F*7, $13*7, $1B*7, $0A*7, $13*7, $19*7, $13*7, $13*7, $09*7
 }
 
 { ;B5BC - B5BF

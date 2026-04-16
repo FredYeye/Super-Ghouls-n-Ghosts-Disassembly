@@ -52,7 +52,7 @@
     WBGLOG    = $212A ;Window 1/2 Mask Logic (BG1-BG4)
     WOBJLOG   = $212B ;Window 1/2 Mask Logic (OBJ/MATH)
     TM        = $212C ;Main Screen Designation
-    !TS       = $212D ;Sub Screen Designation
+    TS        = $212D ;Sub Screen Designation
     TMW       = $212E ;Window Area Main Screen Disable
     TSW       = $212F ;Window Area Sub Screen Disable
     !CGWSEL   = $2130 ;Color Math Control Register A
@@ -65,7 +65,7 @@
     SLHV      = $2137 ;PPU1 Latch H/V-Counter by Software (Read=Strobe)
     !RDVRAML  = $2139 ;PPU1 VRAM Data Read           (lower 8bits)
     !RDVRAMH  = $213A ;PPU1 VRAM Data Read           (upper 8bits)
-    !OPVCT    = $213D ;PPU2 Vertical Counter Latch   (read-twice)
+    OPVCT     = $213D ;PPU2 Vertical Counter Latch   (read-twice)
     !STAT78   = $213F ;PPU2 Status and PPU2 Version Number
 
     !APUI00   = $2140 ;Main CPU to Sound CPU Communication Port 0
@@ -87,7 +87,7 @@
     !MDMAEN   = $420B ;Select General Purpose DMA Channel(s) and Start Transfer
     HDMAEN    = $420C ;Select H-Blank DMA (H-DMA) Channel(s)
 
-    !RDNMI    = $4210 ;V-Blank NMI Flag and CPU Version Number (Read/Ack)
+    RDNMI     = $4210 ;V-Blank NMI Flag and CPU Version Number (Read/Ack)
     !TIMEUP   = $4211 ;H/V-Timer IRQ Flag (Read/Ack)
     !HVBJOY   = $4212 ;H/V-Blank flag and Joypad Busy flag (R)
     !RDDIVL   = $4214 ;Unsigned Division Result (Quotient) (lower 8bit)
@@ -203,4 +203,16 @@
     !select = $20
     !y      = $40
     !b      = $80
+}
+
+;----- constants
+
+{
+    !vmain_inc_vram_addr = $80 ;inc vram address on access
+
+    !dmap_mode_0 = 0 ;1b | x+0
+    !dmap_mode_1 = 1 ;2b | x+0, x+1
+    !dmap_mode_2 = 2 ;2b | x+0, x+0
+    !dmap_mode_3 = 3 ;4b | x+0, x+0, x+1, x+1
+    !dmap_mode_4 = 4 ;4b | x+0, x+1, x+2, x+3
 }

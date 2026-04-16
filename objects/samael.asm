@@ -116,7 +116,7 @@ create:
 
     lda #$04 : sta $36 : sta $1EB8
     stz $3B
-    lda #!id_samael_laser : ldx #$00 : ldy #$02 : jsl _018C55
+    lda #!id_samael_laser : ldx #$00 : ldy #$02 : jsl prepare_object2
     jsl get_rng_bool
     ldx #$00
     ldy #$01
@@ -140,7 +140,7 @@ create:
 
 ;----- E95F
 
-    lda #!id_samael_laser : ldx $33 : ldy #$00 : jsl _018C55
+    lda #!id_samael_laser : ldx $33 : ldy #$00 : jsl prepare_object2
     clc : lda $33 : adc $34 : and #$0F : sta $33
     inc $3B
     lda $3B
@@ -192,8 +192,8 @@ create:
     jsl _EC3B
 
     ldy #$A0 : ldx #$21 : jsl set_sprite
-    lda #!id_samael_platform : ldx #$00 : ldy #$00 : jsl _018C55
-    lda #!id_samael_platform : ldx #$00 : ldy #$02 : jsl _018C55
+    lda #!id_samael_platform : ldx #$00 : ldy #$00 : jsl prepare_object2
+    lda #!id_samael_platform : ldx #$00 : ldy #$02 : jsl prepare_object2
     lda #$60 : jsl _018049_8053
 .E9EA:
     brk #$00
@@ -363,7 +363,7 @@ destroy:
     inc $1ED7
 .EB49:
     lda $08 : ora #$10 : sta $08
-    lda #!id_explosion_spawner : ldx #$00 : ldy #$08 : jsl _018C55
+    lda #!id_explosion_spawner : ldx #$00 : ldy #$08 : jsl prepare_object2
     lda #$FF : sta $3B
 .EB5D:
     jsl thing_EC0E

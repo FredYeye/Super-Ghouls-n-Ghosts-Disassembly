@@ -1639,12 +1639,12 @@ pot_spawn_offset: ;a8 x8
     jsr .local
     rtl
 
-.local: ;a8 x8 (8CF5)
+.local: ;a8 x8
     lda $3A
     beq .ret
 
     !X16
-    ldx $3B : jsl set_spawn_offset_8C8A
+    ldx $3B : jsl set_spawn_offset_custom_idx ;y already set
     lda #$01 : sta $0039,X
     !X8
 .ret:

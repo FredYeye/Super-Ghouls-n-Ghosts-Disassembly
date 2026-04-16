@@ -29,9 +29,7 @@ thing:
     lda #$01 : sta $33
 .B154:
     !AX16
-    ldy $30
-    ldx $2D
-    jsl set_spawn_offset_8C8A
+    ldy $30 : ldx $2D : jsl set_spawn_offset_custom_idx
     lda $32 : sta $003C,X
     lda $38 : sta $0012,X
     !AX8

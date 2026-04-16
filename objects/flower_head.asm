@@ -71,7 +71,7 @@ endif
     !A8
     lda $08 : and #$07 : dec : sta $0008,X
     lda $09 : and #$30 : sta $0009,X
-    lda #!id_flower_projectile : jsl prepare_object_8C37
+    lda #!id_flower_projectile : jsl prepare_object_with_obj_slot
     stz $34
     lda #$01 : sta $3D ;speed up rotation
 .F074:

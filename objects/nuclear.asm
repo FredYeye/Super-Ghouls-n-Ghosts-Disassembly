@@ -47,7 +47,7 @@ create:
     bmi .EA53
 
     lda #$0C : sta.w obj.active,X
-    lda #$AA : sta.w obj.type,X
+    lda.b #!id_nuclear_projectile : sta.w obj.type,X
     stz $0007,X
     lda.b obj.facing : sta.w obj.facing,X
     jsl set_spawn_offset

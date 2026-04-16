@@ -19,7 +19,7 @@ create:
     bne .F2ED
 
     !A16
-    jsl _018CB3_8CD6
+    jsl set_offset_from_obj_y_offset
     !AX8
     jsl update_animation_normal
     brk #$00

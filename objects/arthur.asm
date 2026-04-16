@@ -1213,8 +1213,7 @@ _01D371:
     asl
     clc
     adc.w knife_base_offset,Y
-    tay
-    jsl set_spawn_offset_8C8A
+    tay : jsl set_spawn_offset_custom_idx
     rts
 }
 

@@ -4,16 +4,16 @@ _01A87C: ;a8 x8
     jsl _01834C
     jsl _018366
     lda #$0F : sta.w snes_reg.inidisp
-    jsl _018074
+    jsl clear_oam_sprite_data
 if !version == 0 || !version == 1
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldx #$A8 : jsl _0180C7_ram_to_vram
-    ldy #$A8 : jsl _01A21D_decompress_graphics
-    ldx #$9A : jsl _0180C7_ram_to_vram
+    ldy #$AF : jsl decompress_precalc
+    ldx #$A8 : jsl copy_ram_to_vram_precalc
+    ldy #$A8 : jsl decompress_precalc
+    ldx #$9A : jsl copy_ram_to_vram_precalc
     lda #$04 : jsl _048E68
 elseif !version == 2
-    ldx #$30 : jsl _0180C7
-    ldx #$9A : jsl _0180C7_ram_to_vram
+    ldx #$30 : jsl copy_ram_to_vram
+    ldx #$9A : jsl copy_ram_to_vram_precalc
     lda #$01 : jsl _048E68
 endif
     stz.w snes_reg.bg34nba
@@ -150,7 +150,7 @@ endif
     lda $00DE
     bne .A9E6
 
-    ldy #$AF : jsl _01A21D_decompress_graphics
+    ldy #$AF : jsl decompress_precalc
     ldy $1FC7 : lda.w _00B52E_B546,Y : sta.w snes_reg.tm
     lda #$18 : sta $031E
     lda.b #1 : jsl current_task_suspend
@@ -199,7 +199,7 @@ endif
     bne .AAAA
 
     jsl _01834C
-    jsl _018074
+    jsl clear_oam_sprite_data
     lda.b #1 : jsl current_task_suspend
     jml _03F8A3
 
@@ -502,7 +502,7 @@ endif
     lda #$30 : ora.w snes_reg.nmitimen : sta.w snes_reg.nmitimen
     !X16
     ldx #$1000 : jsl _018091
-    jsl _018074
+    jsl clear_oam_sprite_data
     !AX8
     jsl _0190B9_90CB
     jsl _019539

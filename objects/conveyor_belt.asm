@@ -95,7 +95,7 @@ create:
 
     jsr _D9CB
     jsl update_pos_xyg_add
-    jsl _018911
+    jsl limit_fall_speed
     jsr _D9CB_D9CD
     jsr _DA65
     jsr _D998

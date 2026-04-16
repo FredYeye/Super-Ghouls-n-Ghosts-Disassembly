@@ -11,7 +11,7 @@ set_hp: ;a- x-
     ora $0000
     tax
     !A8
-    lda.l hp_list-$80,X : sta.b obj.hp
+    lda.l hp_list-$20*4,X : sta.b obj.hp
     !AX8
     rtl
 }
@@ -80,19 +80,19 @@ _018061: ;a16 x16
 }
 
 { ;8074 - 8090
-_018074: ;a8 x8
+clear_oam_sprite_data: ;a8 x8
     php
     !X16
     ldx #$01FF
     lda #$E0
 -:
-    sta $7EF100,X
+    sta.l oam_sprite_data,X ;low table
     dex : bpl -
 
     ldx #$001F
     lda #$00
 -:
-    sta $7EF300,X
+    sta.l oam_sprite_data+$200,X ;high table
     dex : bpl -
 
     plp
@@ -102,7 +102,7 @@ _018074: ;a8 x8
 { ;8091 - 80A5
 _018091: ;a8 x16
     ldy #$0020
-    lda #$80 : sta !VMAIN
+    lda.b #!vmain_inc_vram_addr : sta !VMAIN
     stx !VMADDL
     ldx #$0400
 -:
@@ -136,29 +136,25 @@ _0180B9: ;a8 x-
 }
 
 { ;80C7 - 810D
-_0180C7: ;a8 x8
+copy_ram_to_vram: ;a8 x8
+    ;x * 7 = index into ram_to_vram_offsets
     php
-    lda #$80 : sta !VMAIN
+    lda.b #!vmain_inc_vram_addr : sta !VMAIN
     !AX16
-    stx $0000 ;multiply x by 7
-    txa       ;
-    asl #3    ;
-    sec       ;
-    sbc $0000 ;
-    tax       ;
+    stx $0000 : txa : asl #3 : sec : sbc $0000 : tax ;X * 7
     bra .80E5
 
-.ram_to_vram: ;a8 x8
+.precalc: ;a8 x8
+    ;entry with x already precalculated (skip mult by 7)
     php
-    lda #$80 : sta !VMAIN
+    lda.b #!vmain_inc_vram_addr : sta !VMAIN
     !AX16
 .80E5:
     lda #$0000 : tcd
-    lda.w ram_to_vram_offsets,  X : sta $0000
+    lda.w ram_to_vram_offsets+0,X : sta $0000
     lda.w ram_to_vram_offsets+2,X : sta $0002
     lda.w ram_to_vram_offsets+3,X : sta !VMADDL
-    lda.w ram_to_vram_offsets+5,X
-    tax
+    lda.w ram_to_vram_offsets+5,X : tax
     ldy #$0000
 
 -:
@@ -444,10 +440,10 @@ disable_nmi: ;a8 x-
 
 { ;834C - 835F
 _01834C: ;a8 x8
-    lda !RDNMI
+    lda.w RDNMI
     bpl +
 
-    lda !RDNMI
+    lda.w RDNMI
 +:
     lda.w snes_reg.inidisp : ora #$80 : sta.w INIDISP : sta.w snes_reg.inidisp
     rtl
@@ -561,13 +557,12 @@ _0183D4: ;a8 x16
 { ;8422 - 8450
 call_rng: ;a8 x-
     ;16-bit MCG, state *= 259
-    lda.w rng_state
-    pha
-    sta $0000
+    lda.w rng_state : pha : sta $0000
     lda.w rng_state+1 : sta $0001
     asl $0000 : rol $0001
-    clc : lda $0000         : adc.w rng_state : sta.w rng_state
-          lda.w rng_state+1 : adc $0001       : sta.w rng_state+1
+    clc
+    lda $0000         : adc.w rng_state   : sta.w rng_state
+    lda.w rng_state+1 : adc $0001         : sta.w rng_state+1
     pla : clc : adc.w rng_state+1 : sta.w rng_state+1
     rtl
 }
@@ -753,7 +748,7 @@ _018593: ;a- x8
     ldx #$1E
     lda #$0000
 -:
-    sta $7EF300,X
+    sta.l oam_sprite_data+$200,X
     dex #2
     bpl -
 
@@ -842,12 +837,12 @@ _0185BB: ;a8 x-
     bne -
 
     ldy $0376
-    sta $F300,Y
+    sta.w oam_sprite_data+$200,Y
 .865F:
     !A8
     lda #$E1
 -:
-    sta $F101,X
+    sta.w oam_sprite_data+1,X
     inx #4
     cpx #$0200
     bcc -
@@ -940,12 +935,12 @@ _01868B:
     lda $0000,Y
     clc
     adc $02
-    sta $F100,X
+    sta.w oam_sprite_data+0,X
     sta $06
     clc
     lda $0004,Y
     adc $04
-    sta $F101,X
+    sta.w oam_sprite_data+1,X
     clc
     adc #$0020
     cmp #$0100
@@ -956,7 +951,7 @@ _01868B:
     adc $1A
     and $10
     ora $12
-    sta $F102,X
+    sta.w oam_sprite_data+2,X
     lsr $07
     ror $42
     asl $14
@@ -969,7 +964,7 @@ _01868B:
     lda #$0008 : sta $44
     phy
     ldy $0376
-    lda $42 : sta $F300,Y
+    lda $42 : sta.w oam_sprite_data+$200,Y
     inc $0376
     inc $0376
     ply
@@ -990,12 +985,12 @@ _01868B:
     lda $0002,Y
     clc
     adc $02
-    sta $F100,X
+    sta.w oam_sprite_data+0,X
     sta $06
     clc
     lda $0004,Y
     adc $04
-    sta $F101,X
+    sta.w oam_sprite_data+1,X
     clc
     adc #$0020
     cmp #$0100
@@ -1007,7 +1002,7 @@ _01868B:
     and $10
     ora $12
     eor #$4000
-    sta $F102,X
+    sta.w oam_sprite_data+2,X
     lsr $07
     ror $42
     asl $14
@@ -1020,7 +1015,7 @@ _01868B:
     lda #$0008 : sta $44
     phy
     ldy $0376
-    lda $42 : sta $F300,Y
+    lda $42 : sta.w oam_sprite_data+$200,Y
     inc $0376
     inc $0376
     ply
@@ -1175,7 +1170,7 @@ update_pos_x: ;a8 x-
 }
 
 { ;8911 - 8922
-_018911: ;a- x-
+limit_fall_speed: ;a- x-
     ;cap y speed to 6 px/f
     !A16
     lda #$0600
@@ -1428,10 +1423,7 @@ _018B25: ;a8 x-
 { ;8BBF - 8BF1
 _018BBF: ;a- x-
     !AX16
-    clc
-    and #$00FF
-    adc.w speed_xy_offsets,X
-    tax
+    clc : and #$00FF : adc.w speed_xy_offsets,X : tax
     !A8
     lda.l speed_xy_x1,X : sta.b obj.speed_x+0
     lda.l speed_xy_x2,X : sta.b obj.speed_x+1
@@ -1475,11 +1467,12 @@ prepare_object: ;a8 x8
     bmi .8C54
 
     lda $0000
-.8C37: ;a8 x16
+.with_obj_slot: ;a8 x16
+    ;entry where X already points to an obj slot
     sta.w obj.type,X
     lda #$0C : sta.w obj.active,X
     jsl set_spawn_offset
-    lda $12 : sta.w obj.direction,X : sta.w obj.facing,X
+    lda.b obj.facing : sta.w obj.direction,X : sta.w obj.facing,X
     lda $07 : sta $0007,X
     !AX8
     lda #$00
@@ -1488,7 +1481,7 @@ prepare_object: ;a8 x8
 }
 
 { ;8C55 - 8C83
-_018C55: ;a8 x8
+prepare_object2: ;a8 x8
     sta $0000 ;type
     stx $0001 ;direction
     sty $0002 ;params
@@ -1502,58 +1495,47 @@ _018C55: ;a8 x8
     lda $0002 : sta $0007,X
     !AX8
     lda #$00
-
 .ret:
     rtl
 }
 
 { ;8C84 - 8CB2
 set_spawn_offset: ;a8 x16
-    lda #$00
-    xba
-    lda $1D
-    tay
-.8C8A:
+    lda #$00 : xba : lda $1D : tay
+.custom_idx:
     !A16
     lda.b obj.facing
     and #$0001
     bne .left
 
-    clc
-    lda.b obj.pos_x+1 : adc.w spawn_offset_x,Y : sta.w obj.pos_x+1,X
-    bra .Y_offset
+    clc : lda.b obj.pos_x+1 : adc.w spawn_offset_x,Y : sta.w obj.pos_x+1,X
+    bra .y_offset
 
 .left:
-    sec
-    lda.b obj.pos_x+1 : sbc.w spawn_offset_x,Y : sta.w obj.pos_x+1,X
+    sec : lda.b obj.pos_x+1 : sbc.w spawn_offset_x,Y : sta.w obj.pos_x+1,X
 
-.Y_offset:
-    clc
-    lda.b obj.pos_y+1 : adc.w spawn_offset_y,Y : sta.w obj.pos_y+1,X
+.y_offset:
+    clc : lda.b obj.pos_y+1 : adc.w spawn_offset_y,Y : sta.w obj.pos_y+1,X
     !A8
     rtl
 }
 
 { ;8CB3 - 8CE1
-_018CB3:
+set_offset_from_obj:
     ;unused entry
-    lda #$00
-    xba
-    lda $1D
-    tay
+    lda #$00 : xba : lda $1D : tay
     !A16
     lda.b obj.facing
     and #$0001
-    bne .8CCD
+    bne .left
 
     clc : lda.w obj.pos_x+1,X : adc.w spawn_offset_x,Y : sta.b obj.pos_x+1
-    bra .8CD6
+    bra .y_offset
 
-.8CCD:
+.left:
     sec : lda.w obj.pos_x+1,X : sbc.w spawn_offset_x,Y : sta.b obj.pos_x+1
-.8CD6: ;a16 x16
-    clc
-    lda.w obj.pos_y+1,X : adc.w spawn_offset_y,Y : sta.b obj.pos_y+1
+.y_offset: ;a16 x16
+    clc : lda.w obj.pos_y+1,X : adc.w spawn_offset_y,Y : sta.b obj.pos_y+1
     !A8
     rtl
 }
@@ -1691,7 +1673,7 @@ _018DC0: ;a8 x8
     ldx #$00
     txa
 -:
-    sta $7EF000,X
+    sta.l tile_type,X ;clear array
     dex : bne -
 
     xba
@@ -1701,7 +1683,7 @@ _018DC0: ;a8 x8
 
     ldx #$37
 -:
-    lda.l _0493F2_9446,X : sta $7EF000,X
+    lda.l _0493F2_stage_1_2_shared,X : sta.l tile_type,X
     dex : bpl -
 
 +:
@@ -1720,12 +1702,12 @@ _018DC0: ;a8 x8
     !X16
     ldy.w _0493F2_942E,X
 -:
-    lda.w _0493F2_9446,Y
+    lda.w _0493F2_base+0,Y ;tile type index
     cmp #$FF
     beq +
 
     tax
-    lda.w _0493F2_9446+1,Y : sta $7EF000,X
+    lda.w _0493F2_base+1,Y : sta.l tile_type,X
     iny #2
     bra -
 
@@ -3119,174 +3101,8 @@ _019CBE: ;a16 x-
     incsrc "task_fns/_01A1F5.asm" ;A1F5 - A21C
 }
 
-{ ;A21D - A242
-_01A21D: ;a- x-
-    phd
-    phb
-    php
-    !AX16
-    sty $0000
-    tya
-    asl #3
-    sec
-    sbc $0000
-    tay
-    bra .A235
-
-.decompress_graphics: ;A230 | a- x-
-    phd
-    phb
-    php
-    !AX16
-.A235:
-    jsr decompress_graphics_offsets
-    beq + ;count is 0
-
--:
-    jsr decompress_graphics_function
-    bne - ;keep decompressing until count is 0
-
-+:
-    plp
-    plb
-    pld
-    rtl
-}
-
-{ ;A243 - A26E
-    ; X.w  : destination in extended ram
-    ; $46.l: source base address
-    ; Y.w  : source offset
-    ; $4A.w: count, rounded up to nearest mod 8 value
-
-decompress_graphics_offsets: ;a16 x16
-    lda #$0000 : tcd
-    ldx.w gfx_decomp_offsets+0,Y
-    stz $46
-    lda.w gfx_decomp_offsets+4,Y : sta $48
-    lda.w gfx_decomp_offsets+5,Y
-    clc
-    adc #$0007
-    and #$FFF8
-    lsr #3
-    sta $4A
-    lda.w gfx_decomp_offsets+2,Y
-.A263: ;a16 x16
-    tay
-    !A8
-    lda #$7F : pha : plb
-    lda $4A
-    ora $4B
-    rts
-}
-
-{ ;A26F - A33B
-    ;decompress graphics to ram
-
-    macro decompress_graphics(offset)
-    {
-        asl $00
-        bcs ?+
-
-        lda $01
-        bra ?store
-
-    ?+:
-        lda [$46],Y
-        iny : bne ?store
-
-        ldy #$8000
-        inc $48
-    ?store:
-        sta <offset>,X
-    }
-    endmacro
-
-;-----
-
-decompress_graphics_function: ;a8 x16
-    lda [$46],Y : sta $00
-    iny : bne +
-
-    ldy #$8000
-    inc $48
-
-+:
-    lda [$46],Y : sta $01
-    iny : bne +
-
-    ldy #$8000
-    inc $48
-
-+:
-    %decompress_graphics($0000)
-    %decompress_graphics($0001)
-    %decompress_graphics($0002)
-    %decompress_graphics($0003)
-    %decompress_graphics($0004)
-    %decompress_graphics($0005)
-    %decompress_graphics($0006)
-    %decompress_graphics($0007)
-
-    !A16
-    clc
-    txa
-    adc #$0008
-    tax
-    dec $4A
-    !A8
-    rts
-}
-
-{ ;A33C - A396
-_01A33C: ;a8 x8
-    php
-    phd
-    ldx.w stage
-    ldy.w _00AFFD,X
-    !AX16
-    lda #$0000 : tcd
-    lda.w _00AFFD,Y   : and #$00FF : sta $10
-    lda.w _00AFFD+1,Y : sta $12
-.A357:
-    lda.w _00AFFD+5,Y
-    stz $46
-    sta $48
-    lda.w _00AFFD+6,Y : sta $14
-    clc
-    adc #$0007
-    and #$FFF8
-    lsr #3
-    sta $4A
-    lda.w _00AFFD+3,Y
-    ldx $12
-    phy
-    php
-    phb
-    jsr decompress_graphics_offsets_A263
-    beq +
-
--:
-    jsr decompress_graphics_function
-    bne -
-
-+:
-    plb
-    plp
-    ply
-    iny #5
-    clc
-    lda $12 : adc $14 : sta $12
-    dec $10
-    bne .A357
-
-    pld
-    plp
-    rtl
-}
-
-{ ;A397 - A3EC
-    incsrc "task_fns/_01A397.asm"
+{ ;A21D - A3EC
+    incsrc "various/decompress.asm"
 }
 
 { ;A3ED - A4C8
@@ -3312,7 +3128,7 @@ _01A3ED:
 
     inc $14E9
 +:
-    lda $7EF000,X
+    lda.l tile_type,X
     tax
     rts
 
@@ -3396,7 +3212,7 @@ _01A3ED:
 
     inc $14E9
 +:
-    lda $7EF000,X
+    lda.l tile_type,X
     tax
     rts
 }
@@ -4021,18 +3837,16 @@ _01AF04: ;a8 x8
     rtl
 
 .AF08:
-    ldy #$46 : jsl _01A21D_decompress_graphics
-    ldx #$2A : jsl _0180C7_ram_to_vram
+    ldy #$0A*7 : jsl decompress_precalc
+    ldx #$06*7 : jsl copy_ram_to_vram_precalc
     lda.w stage
     asl #2
     tax
-    ldy.w _00B576+2,X
-    phy
-    ldy.w _00B576+1,X
-    phy
+    ldy.w _00B576+2,X : phy
+    ldy.w _00B576+1,X : phy
     ldy.w _00B576+0,X
     phy
-    jsl _01A21D_decompress_graphics
+    jsl decompress_precalc
     ply
     cpy #$70
     beq .AF3B
@@ -4040,7 +3854,7 @@ _01AF04: ;a8 x8
     cpy #$7E
     beq .AF3B
 
-    ldx #$54 : jsl _0180C7_ram_to_vram
+    ldx.b #$0C*7 : jsl copy_ram_to_vram_precalc
     bra .AF3F
 
 .AF3B:
@@ -4049,29 +3863,23 @@ _01AF04: ;a8 x8
     ply
     beq +
 
-    jsl _01A21D_decompress_graphics
+    jsl decompress_precalc
 +:
-    ply
-    jsl _01A21D_decompress_graphics
+    ply : jsl decompress_precalc
     lda.w stage
     pha
     asl
     tax
     jsr (.AF91,X)
-    jsl _01A33C
-    ply
-    ldx.w _00B59E,Y
-    phx
-    ldx.w _00B59E+10,Y
-    phx
-    ldx.w _00B59E+20,Y
-    jsl _0180C7_ram_to_vram
-    plx
-    jsl _0180C7_ram_to_vram
-    plx
-    jsl _0180C7_ram_to_vram
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldx #$23 : jsl _0180C7_ram_to_vram
+    jsl decompress_stage_data
+    ply ;stage
+    ldx.w ram_to_vram_stage_offsets+00,Y : phx
+    ldx.w ram_to_vram_stage_offsets+10,Y : phx
+    ldx.w ram_to_vram_stage_offsets+20,Y : jsl copy_ram_to_vram_precalc
+    plx                                  : jsl copy_ram_to_vram_precalc
+    plx                                  : jsl copy_ram_to_vram_precalc
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldx.b #$05*7 : jsl copy_ram_to_vram_precalc
     !AX16
     ldx #$01FE : lda #$01C5 : jsl _018061
     !AX8
@@ -4079,7 +3887,7 @@ _01AF04: ;a8 x8
     rts
 
 .AF91:
-    dw .stage1, .stage2, .B05D, .B0B2, .stage4_b
+    dw .stage1, .stage2, .stage3, .stage4, .stage4_b
     dw .stage4_c, .stage5, .stage6, .stage7, .stage8
 
 ;-----
@@ -4132,7 +3940,7 @@ _01AF04: ;a8 x8
 
 ;-----
 
-.B05D: ;stage 3
+.stage3:
     inc $1FB0
     jsr _01BD1D
     ldy.b #task[4].base : lda.b #_01FF00_48 : jsl _01A6FE
@@ -4155,7 +3963,7 @@ _01AF04: ;a8 x8
 
 ;-----
 
-.B0B2: ;stage 4
+.stage4:
     ldx #$00
 .B0B4:
     jsl _01810E
@@ -4188,7 +3996,7 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage5:
-    ldy #$E0 : jsl _01A21D_decompress_graphics
+    ldy #$E0 : jsl decompress_precalc
     ldy #$00 : jsl _01819D
     ldy #$07 : jsl _01819D
     ldy #$0E : jsl _01819D
@@ -7748,7 +7556,7 @@ _01DAB8:
 
 ;----- DB04
 
-    lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$16 : jsl _018C55
+    lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$16 : jsl prepare_object2
     !AX16
     ldy.w open_object_slots
     ldx $13F3,Y : stx $35
@@ -8841,7 +8649,7 @@ _01E967: ;knife related
     lda #$0008 : sta $0044
     phx
     ldx $0376
-    lda $0042 : sta $7EF300,X
+    lda $0042 : sta.l oam_sprite_data+$200,X
     inc $0376 : inc $0376
     plx
 .E98C:
@@ -9245,7 +9053,7 @@ _01F6E9: ;a- x-
 { ;F722 - F782
 _01F722: ;a8 x8
     phd
-    lda #$15 : xba : lda #$62 : tcd
+    lda #$15 : xba : lda #$62 : tcd ;todo: label
 .F729:
     lda $00
     beq .F757
@@ -9337,7 +9145,7 @@ endif
     .50: jml _01A00A
     .54: jml _01A0B2
     .58: jml _019C0C
-    .5C: jml _01A397 ;cockatrice, death crawler, nebiroth
+    .decompress: jml task_decompress
     .60: jml _01A128
     .64: jml _01A191
     .68: jml _039DDA ;ending slides related

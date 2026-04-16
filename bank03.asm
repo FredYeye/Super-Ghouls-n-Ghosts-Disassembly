@@ -481,8 +481,8 @@ _03F526:
     lda #$10 : jsr .F745
     ldx #$16 : jsr .F620
     jsr .F606
-    ldy #$26 : jsl _01A21D
-    ldx #$28 : jsl _0180C7
+    ldy #$26 : jsl decompress
+    ldx #$28 : jsl copy_ram_to_vram
     jsl set_max_brightness
     jsl enable_nmi
     stz $1EC7
@@ -537,7 +537,7 @@ _03F526:
     jsl _018366
     lda #$07 : sta.w snes_reg.bgmode
     lda #$11 : jsl _0190B9_palette_to_ram
-    ldy #$25 : jsl _01A21D
+    ldy #$25 : jsl decompress
     stz !VMAIN
     !X16
     ldx #$4000
@@ -651,18 +651,18 @@ _03F8A3:
     jsl disable_nmi
     jsl _01834C
     jsl _0180B9
-    jsl _018074
-    ldy #$28 : jsl _01A21D
-    ldy #$29 : jsl _01A21D
-    ldx #$29 : jsl _0180C7
-    ldx #$2A : jsl _0180C7
-    ldx #$2B : jsl _0180C7
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldx #$62 : jsl _0180C7_ram_to_vram
-    ldy #$A8 : jsl _01A21D_decompress_graphics
-    ldx #$2F : jsl _0180C7
-    ldy #$2A : jsl _01A21D
-    ldx #$2D : jsl _0180C7
+    jsl clear_oam_sprite_data
+    ldy #$28 : jsl decompress
+    ldy #$29 : jsl decompress
+    ldx #$29 : jsl copy_ram_to_vram
+    ldx #$2A : jsl copy_ram_to_vram
+    ldx #$2B : jsl copy_ram_to_vram
+    ldy #$AF : jsl decompress_precalc
+    ldx #$62 : jsl copy_ram_to_vram_precalc
+    ldy #$A8 : jsl decompress_precalc
+    ldx #$2F : jsl copy_ram_to_vram
+    ldy #$2A : jsl decompress
+    ldx #$2D : jsl copy_ram_to_vram
     !AX8
     jsl _01951E
     jsl _019539
@@ -817,10 +817,10 @@ endif
     jsl disable_nmi
     jsl _01834C
     jsl _0180B9
-    ldy #$28 : jsl _01A21D
-    ldx #$29 : jsl _0180C7
-    ldy #$29 : jsl _01A21D
-    ldx #$2C : jsl _0180C7
+    ldy #$28 : jsl decompress
+    ldx #$29 : jsl copy_ram_to_vram
+    ldy #$29 : jsl decompress
+    ldx #$2C : jsl copy_ram_to_vram
     jsl _01951E
     jsl _019539
     lda.w snes_reg.bg1sc : and #$FC : sta.w snes_reg.bg1sc

@@ -30,7 +30,7 @@ create:
     lda #$0C : sta.w obj.active,X
     lda #!id_raft_hanging : sta.w obj.type,X
     stx $2D
-    ldy #$0002 : jsl set_spawn_offset_8C8A
+    ldy #$0002 : jsl set_spawn_offset_custom_idx
     !X8
     lda #$05 : sta.b obj.speed_x
     lda #$02 : sta.b obj.speed_y
@@ -196,7 +196,7 @@ thing:
     lda.b obj.pos_y+1 : sec : sbc #$0010 : sta.w !obj_arthur.pos_y+1
 .D0BB:
     !AX16
-    ldx $2D : ldy #$0002 : jsl set_spawn_offset_8C8A
+    ldx $2D : ldy #$0002 : jsl set_spawn_offset_custom_idx
     !AX8
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .D0CE
@@ -290,7 +290,7 @@ thing:
     ldy #$03 : jsl set_speed_y
     jsl update_pos_xy
     !AX16
-    ldx $2D : ldy #$0002 : jsl set_spawn_offset_8C8A
+    ldx $2D : ldy #$0002 : jsl set_spawn_offset_custom_idx
     !AX8
     jsl update_animation_normal
     jsl _018E32_8E73
@@ -322,7 +322,7 @@ thing:
 .D1B9:
     jsl update_pos_xyg_add
     !AX16
-    ldx $2D : ldy #$0002 : jsl set_spawn_offset_8C8A
+    ldx $2D : ldy #$0002 : jsl set_spawn_offset_custom_idx
     !AX8
     jsl update_animation_normal
     jsl _018E32_8E73

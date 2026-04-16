@@ -41,11 +41,11 @@ endif
 ;----- 9C65
 
 if !version == 0
-    ldy #$27 : jsl _01A21D
+    ldy #$27 : jsl decompress
     lda #$15 : sta $031E
 elseif !version == 1 || !version == 2
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldy #$2C : jsl _01A21D
+    ldy #$AF : jsl decompress_precalc
+    ldy #$2C : jsl decompress
     lda #$1A : sta $031E
 endif
     lda #$05 : sta.w snes_reg.bg34nba
@@ -92,7 +92,7 @@ _9CF2:
 _9CF6:
     !AX8
     lda.w snes_reg.tm : ora #$04 : sta.w snes_reg.tm
-    ldx #$2A : ldy #$90 : lda.b #_01FF00_5C : jsl _01A6FE
+    ldx #$2A : ldy #$90 : lda.b #_01FF00_decompress : jsl _01A6FE
 .9D0A:
     brk #$00
 

@@ -2,7 +2,7 @@ namespace triblade
 
 {
 upgraded_create:
-    lda #$5F : jsl _018049_8053
+    lda.b #!sfx_axe2_triblade2 : jsl _018049_8053
     lda #$10 : sta $2F
     lda $09 : ora #$02 : sta $09
     stz $40

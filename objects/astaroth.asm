@@ -145,7 +145,7 @@ _D1FE:
     bcc .D220
 
     stz $1EB7
-    lda #!id_astaroth_nebiroth_body : ldx #$00 : ldy #$00 : jsl _018C55
+    lda #!id_astaroth_nebiroth_body : ldx #$00 : ldy #$00 : jsl prepare_object2
     !A16
     stz $1EBB
     stz $1EBD
@@ -181,7 +181,7 @@ destroy:
 .D251:
     inc $1EB7
     lda #$04 : sta $1D
-    ldx #$00 : ldy #$02 : lda #!id_explosion_spawner : jsl _018C55
+    ldx #$00 : ldy #$02 : lda #!id_explosion_spawner : jsl prepare_object2
     jsl _018E32_8E73
     lda $08 : ora #$10 : sta $08
     lda #$30 : cop #$00
@@ -213,7 +213,7 @@ destroy:
 
 .D297:
     lda #$04 : sta $1D
-    lda #!id_nebiroth : ldx #$00 : ldy #$00 : jsl _018C55
+    lda #!id_nebiroth : ldx #$00 : ldy #$00 : jsl prepare_object2
 .D2A5:
     jml _0281A8_81B5
 
@@ -263,7 +263,7 @@ _D2E8:
 
 _D30D:
     lda #$04 : sta $3A
-    lda #!id_astaroth_flame : ldx $39 : ldy #$00 : jsl _018C55
+    lda #!id_astaroth_flame : ldx $39 : ldy #$00 : jsl prepare_object2
     lda #$06 : sta $31
 .D31F:
     rts
@@ -287,7 +287,7 @@ _D320:
 _D332:
     lda #$08 : sta $3A
     lda #$08 : sta $31
-    lda #!id_astaroth_laser : ldx #$00 : ldy #$00 : jsl _018C55
+    lda #!id_astaroth_laser : ldx #$00 : ldy #$00 : jsl prepare_object2
     rts
 
 ;-----

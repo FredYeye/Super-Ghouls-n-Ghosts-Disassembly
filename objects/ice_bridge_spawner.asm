@@ -45,7 +45,7 @@ create:
 
     !X16
     lda $31 : sec : sbc $35 : sta $000F,X
-    lda #!id_ice_bridge_segment : jsl prepare_object_8C37
+    lda #!id_ice_bridge_segment : jsl prepare_object_with_obj_slot
     lda $1D : clc : adc #$02 : sta $1D
     dec $35
     bne .CC98

@@ -66,9 +66,8 @@ thing:
     lda.w !obj_arthur.pos_x+2 : sta.b obj.pos_x+2
     lda.w !obj_arthur.pos_y+1 : sec : sbc #$0004 : sta.b obj.pos_y+1
     !A8
-    clc
-    lda $2E
-    ldx #$06 : jsl _0189D9
+    clc ;unused op
+    lda $2E : ldx #$06 : jsl _0189D9
     lda.w frame_counter
     and #$0F
     bne .F59E

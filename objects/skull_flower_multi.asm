@@ -133,7 +133,7 @@ create:
 
     stx $35
     stz.b obj.direction
-    lda #!id_flower_projectile : jsl prepare_object_8C37
+    lda #!id_flower_projectile : jsl prepare_object_with_obj_slot
 .AE92:
     brk #$00
 

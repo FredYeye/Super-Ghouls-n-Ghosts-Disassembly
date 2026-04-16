@@ -409,7 +409,7 @@ _048C43: ;a8 x8
     lda #$15 : jsl _01834C
     jsl disable_nmi
     lda #$03 : sta.w OBSEL
-    jsl _018074
+    jsl clear_oam_sprite_data
     inc $0379
     jsl _018366
     lda #$0C : sta.w stage
@@ -417,13 +417,13 @@ _048C43: ;a8 x8
     jsl _058000
     stz.w stage
     jsl _01AF04
-    ldy #$F5 : jsl _01A21D_decompress_graphics
-    ldx #$C4 : jsl _0180C7_ram_to_vram
-    ldx #$D2 : jsl _0180C7_ram_to_vram
-    ldx #$D9 : jsl _0180C7_ram_to_vram
-    ldx #$E0 : jsl _0180C7_ram_to_vram
-    ldy #$FC : jsl _01A21D_decompress_graphics
-    ldx #$27 : jsl _0180C7
+    ldy #$F5 : jsl decompress_precalc
+    ldx #$C4 : jsl copy_ram_to_vram_precalc
+    ldx #$D2 : jsl copy_ram_to_vram_precalc
+    ldx #$D9 : jsl copy_ram_to_vram_precalc
+    ldx #$E0 : jsl copy_ram_to_vram_precalc
+    ldy #$FC : jsl decompress_precalc
+    ldx #$27 : jsl copy_ram_to_vram
     lda #$13 : jsr _048E68_local
     lda #$0D : sta.w stage
     jsl _019136
@@ -471,19 +471,19 @@ endif
     lda.b #62 : jsl current_task_suspend
     jsl _01834C
     jsl disable_nmi
-    jsl _018074
+    jsl clear_oam_sprite_data
     jsl _018366
     stz.w stage
     jsl _01AF04
-    ldy #$F5 : jsl _01A21D_decompress_graphics
-    ldx #$C4 : jsl _0180C7_ram_to_vram
-    ldx #$D2 : jsl _0180C7_ram_to_vram
-    ldx #$F5 : jsl _0180C7_ram_to_vram
-    ldx #$FC : jsl _0180C7_ram_to_vram
-    ldx #$25 : jsl _0180C7
-    ldx #$26 : jsl _0180C7
-    ldy #$FC : jsl _01A21D_decompress_graphics
-    ldx #$27 : jsl _0180C7
+    ldy #$F5 : jsl decompress_precalc
+    ldx #$C4 : jsl copy_ram_to_vram_precalc
+    ldx #$D2 : jsl copy_ram_to_vram_precalc
+    ldx #$F5 : jsl copy_ram_to_vram_precalc
+    ldx #$FC : jsl copy_ram_to_vram_precalc
+    ldx #$25 : jsl copy_ram_to_vram
+    ldx #$26 : jsl copy_ram_to_vram
+    ldy #$FC : jsl decompress_precalc
+    ldx #$27 : jsl copy_ram_to_vram
     lda #$17 : jsr _048E68_local
     lda #$0D : sta.w stage
     jsl _019136
@@ -521,13 +521,13 @@ _048DF9: ;a8 x8
     ;2nd scene in intro, also used in game start cutscene (castle indoors)
     jsl _01834C
     jsl disable_nmi
-    jsl _018074
+    jsl clear_oam_sprite_data
     jsl _018366
-    ldy #$F5 : jsl _01A21D_decompress_graphics
-    ldx #$E7 : jsl _0180C7_ram_to_vram
-    ldx #$EE : jsl _0180C7_ram_to_vram
-    ldy #$FC : jsl _01A21D_decompress_graphics
-    ldx #$27 : jsl _0180C7
+    ldy #$F5 : jsl decompress_precalc
+    ldx #$E7 : jsl copy_ram_to_vram_precalc
+    ldx #$EE : jsl copy_ram_to_vram_precalc
+    ldy #$FC : jsl decompress_precalc
+    ldx #$27 : jsl copy_ram_to_vram
     lda #$11 : jsr _048E68_local
     lda #$0D : sta.w stage
     jsl _019136
@@ -540,7 +540,7 @@ _048E3F: ;a8 x8
     ;init some cutscene object
     ldx #$00
     lda #$B3
-    jml _018C55
+    jml prepare_object2
 }
 
 { ;8E47 - 8E67
@@ -606,13 +606,13 @@ _048EAD: ;a8 x8
     jsl _01834C
     lda.b #15 : jsl current_task_suspend
     jsl disable_nmi
-    jsl _018074
+    jsl clear_oam_sprite_data
     jsl _018366
-    ldy #$00 : jsl _01A21D_decompress_graphics
-    ldx #$54 : jsl _0180C7_ram_to_vram
-    ldx #$5B : jsl _0180C7_ram_to_vram
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldx #$62 : jsl _0180C7_ram_to_vram
+    ldy #$00 : jsl decompress_precalc
+    ldx #$54 : jsl copy_ram_to_vram_precalc
+    ldx #$5B : jsl copy_ram_to_vram_precalc
+    ldy #$AF : jsl decompress_precalc
+    ldx #$62 : jsl copy_ram_to_vram_precalc
     lda #$05 : jsr _048E68_local
 if !version == 0
     lda #$02 : jsl _0183D4_83DB
@@ -671,10 +671,10 @@ endif
     lda.b #62 : jsl current_task_suspend
     jsl _01834C
     jsl disable_nmi
-    ldy #$BD : jsl _01A21D_decompress_graphics
-    ldx #$70 : jsl _0180C7_ram_to_vram
-    ldy #$B6 : jsl _01A21D_decompress_graphics
-    ldx #$A1 : jsl _0180C7_ram_to_vram
+    ldy #$BD : jsl decompress_precalc
+    ldx #$70 : jsl copy_ram_to_vram_precalc
+    ldy #$B6 : jsl decompress_precalc
+    ldx #$A1 : jsl copy_ram_to_vram_precalc
     jsl enable_nmi
 .8FB0:
     stz $1FB3
@@ -705,7 +705,7 @@ _048FDD:
     lda #$01 : sta.w snes_reg.nmitimen
     stz.w snes_reg.tm
     stz.w snes_reg.ts
-    jsl _018074
+    jsl clear_oam_sprite_data
     jsl _018366
     lda #$10 : sta.w snes_reg.tm : sta.w snes_reg.ts
     stz.w hud_visible
@@ -717,8 +717,8 @@ _048FDD:
     jsl _01834C
     jsl _019136
     jsl _058000
-    ldy #$4D : jsl _01A21D_decompress_graphics
-    ldx #$4D : jsl _0180C7_ram_to_vram
+    ldy #$4D : jsl decompress_precalc
+    ldx #$4D : jsl copy_ram_to_vram_precalc
     jsr _04906A
     jsl set_max_brightness
     jsl enable_nmi
@@ -765,7 +765,7 @@ _049085: ;a8 x8
     lda #$01 : sta.w snes_reg.nmitimen
     stz.w snes_reg.tm
     stz.w snes_reg.ts
-    jsl _018074
+    jsl clear_oam_sprite_data
     jsl _018366
     lda #$10 : sta.w snes_reg.tm : sta.w snes_reg.ts
     stz $032E
@@ -780,8 +780,8 @@ _049085: ;a8 x8
     lda #$0A : sta.w stage
     jsl _019136
     jsl _058000
-    ldy #$4D : jsl _01A21D_decompress_graphics
-    ldx #$4D : jsl _0180C7_ram_to_vram
+    ldy #$4D : jsl decompress_precalc
+    ldx #$4D : jsl copy_ram_to_vram_precalc
     jsr _04906A
     jsl enable_nmi
     jsl _048A6B
@@ -807,13 +807,13 @@ _049085: ;a8 x8
 _049121: ;a? x?
     jsl disable_nmi
     jsl _01834C
-    ldy #$93 : jsl _01A21D_decompress_graphics
-    ldx #$54 : jsl _0180C7_ram_to_vram
-    ldy #$9A : jsl _01A21D_decompress_graphics
-    ldx #$70 : jsl _0180C7_ram_to_vram
+    ldy #$93 : jsl decompress_precalc
+    ldx #$54 : jsl copy_ram_to_vram_precalc
+    ldy #$9A : jsl decompress_precalc
+    ldx #$70 : jsl copy_ram_to_vram_precalc
     lda #$0B : jsl _0190B9_palette_to_ram
-    ldy #$AF : jsl _01A21D_decompress_graphics
-    ldx #$62 : jsl _0180C7_ram_to_vram
+    ldy #$AF : jsl decompress_precalc
+    ldx #$62 : jsl copy_ram_to_vram_precalc
     lda #$15 : jsr _048E68_local
     lda #$04 : jsl _0183D4_83DB
     jsr .91E8
@@ -825,7 +825,7 @@ _049121: ;a? x?
     ldx #$0E : lda #$34 : jsl _01F6C9
     ldx #$1C : lda #$35 : jsl _01F6C9
     jsr _049234
-    lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$18 : jsl _018C55
+    lda #!id_intro_cutscene_obj : ldx #$00 : ldy #$18 : jsl prepare_object2
     jsl _018021
     jsr _049219_9228
     lda.b #62 : jsl current_task_suspend
@@ -982,11 +982,11 @@ _049310: ;a8 x8
     jsl _0180A6
     jsl disable_nmi
     jsl _018CE2
-    jsl _018074
-    ldy #$07 : jsl _01A21D_decompress_graphics
-    ldx #$54 : jsl _0180C7_ram_to_vram
-    ldy #$85 : jsl _01A21D_decompress_graphics
-    ldx #$70 : jsl _0180C7_ram_to_vram
+    jsl clear_oam_sprite_data
+    ldy #$07 : jsl decompress_precalc
+    ldx #$54 : jsl copy_ram_to_vram_precalc
+    ldy #$85 : jsl decompress_precalc
+    ldx #$70 : jsl copy_ram_to_vram_precalc
     jsl _019539
     lda #$11 : sta.w snes_reg.tm
     jsl _018366
@@ -1064,13 +1064,14 @@ _0493F2:
 ;-----
 
 .942E:
-    dw offset(.9446, .947E), offset(.9446, .950A), offset(.9446, .95FB), offset(.9446, .96DA)
-    dw offset(.9446, .970F), offset(.9446, .9710), offset(.9446, .971B), offset(.9446, .97CE)
-    dw offset(.9446, .97CE), offset(.9446, .97CE), offset(.9446, .97CE), offset(.9446, .94C5)
+    dw offset(.base, .stage_1), offset(.base, .950A), offset(.base, .95FB), offset(.base, .96DA)
+    dw offset(.base, .970F), offset(.base, .9710), offset(.base, .971B), offset(.base, .97CE)
+    dw offset(.base, .97CE), offset(.base, .97CE), offset(.base, .97CE), offset(.base, .94C5)
+.base:
 
 ;-----
 
-.9446: ;tile shapes / types
+.stage_1_2_shared: ;tile types for stage 1 & 2
     db $00, $01, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $7A, $7B, $7C, $7D
     db $7E, $7F, $0F, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $3B, $3C, $3D
     db $3E, $3F, $23, $24, $25, $26, $27, $28, $29, $2A, $2B, $2C, $2D, $2E, $2F, $17
@@ -1078,8 +1079,8 @@ _0493F2:
 
 ;-----
 
-    ;byte pairs, offset+data, FF terminates sequence
-.947E:
+    ;byte pairs, offset into tile type array + tile type, FF terminates sequence
+.stage_1:
     db $38, $01, $39, $01, $3A, $01, $3B, $01, $3C, $01, $3D, $01, $3E, $01, $3F, $01
     db $40, $01, $41, $01, $42, $01, $43, $01, $44, $01, $45, $01, $46, $01, $47, $01
     db $48, $01, $49, $70, $4A, $01, $50, $2E, $51, $7E, $52, $27, $53, $70, $54, $7E

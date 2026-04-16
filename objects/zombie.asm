@@ -307,7 +307,7 @@ create: ;a- x8
     sta $002D,X
     xba
     sta $002E,X
-    lda.b #!id_coffin_dirt : jsl prepare_object_8C37
+    lda.b #!id_coffin_dirt : jsl prepare_object_with_obj_slot
 .ret:
     rts
 

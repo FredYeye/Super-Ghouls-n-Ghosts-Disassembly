@@ -3,7 +3,9 @@
     ;$0032;0033
     ;$0034;0035
     ;$0036;0037
-    task_function_pointer = $003F;0040
+    task_function_pointer  = $003F;0040
+    decompression_bank_ptr = $0046;0049
+    decompression_size     = $004A;004B
     ;$004C;004D ?
 
     struct task 0 ;24 bytes * 7
@@ -180,6 +182,7 @@
 
     is_shooting                  = $14B1
     can_charge_magic             = $14B2
+    ; = $14B9 arthur crouch related
     armor_state                  = $14BA ;armor/transform state
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
     ; = $14BE
@@ -316,17 +319,17 @@
     ;$1FEF
     ;$1FF0;1FFF unused?
 
-    ;7E2000;22FF           ;meta sprite offsets (2298-22FF unused?)
-    ;7E2300;ADFF           ;meta sprite definitions (A712-ADFF unused?)
-    ;7EAE00;AE7F           ;palette for bosses?
-    ;7EAE80;AFFF           ;unused?
-    ;7EB000;EFFF           ;tile array, indexes into tile shape array
-    _7EF000           = $7EF000;F0FF ;tile shape array
-    sprite_attributes = $7EF100;F31F ;snes sprite data
-    ;7EF320;F3FF           ;unused?
-    ;7EF400;F5FF?          ;palette (and/or DMA) related?
-    ;7EF600;F6BF           ;unused?
-    ;7EF6C0;FFFF           ;screen IDs?
+    ;7E2000;22FF                   ;meta sprite offsets (2298-22FF unused?)
+    ;7E2300;ADFF                   ;meta sprite definitions (A712-ADFF unused?)
+    ;7EAE00;AE7F                   ;palette for bosses?
+    ;7EAE80;AFFF                   ;unused?
+    ;7EB000;EFFF                   ;tile array, indexes into tile type array
+    tile_type       = $7EF000;F0FF ;array
+    oam_sprite_data = $7EF100;F31F ;snes sprite data, low table ($200) + high table ($20)
+    ;7EF320;F3FF                   ;unused?
+    ;7EF400;F5FF?                  ;palette (and/or DMA) related?
+    ;7EF600;F6BF                   ;unused?
+    ;7EF6C0;FFFF                   ;screen IDs?
 
     ;7F tentative map
     ;7F0000;7FFF ;decompression buffer (7F00-7FFF unused?)

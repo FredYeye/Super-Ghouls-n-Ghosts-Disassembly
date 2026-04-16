@@ -23,7 +23,7 @@ create:
     !A16
     lda #$04D0 : sta.b obj.pos_x+1
     !A8
-    ldy #$90 : lda.b #_01FF00_5C : ldx #$23 : jsl _01A6FE
+    ldy #$90 : lda.b #_01FF00_decompress : ldx #$23 : jsl _01A6FE
 .D3A5:
     brk #$00
 
@@ -153,7 +153,7 @@ create:
 .D4C1:
     stx $39
 .D4C3:
-    lda #!id_nebiroth_flame : ldx $39 : ldy #$00 : jsl _018C55
+    lda #!id_nebiroth_flame : ldx $39 : ldy #$00 : jsl prepare_object2
     lda #$06 : sta $31
 .D4D1:
     brk #$00
@@ -192,7 +192,7 @@ create:
     lda #$08 : sta $2D
     stz $3C
     lda #$C0 : sta $1D
-    lda #!id_nebiroth_laser : ldx $12 : ldy #$00 : jsl _018C55
+    lda #!id_nebiroth_laser : ldx $12 : ldy #$00 : jsl prepare_object2
     ldx.w difficulty
     lda.w astaroth_nebiroth_data_D509,X : sta $37
 .D51D:
@@ -228,7 +228,7 @@ destroy:
     inc $1ED7
     inc $1EB7
     lda #$04 : sta $1D
-    ldx #$00 : ldy #$02 : lda #!id_explosion_spawner : jsl _018C55
+    ldx #$00 : ldy #$02 : lda #!id_explosion_spawner : jsl prepare_object2
     jsl _018E32_8E73
     lda $08 : ora #$10 : sta $08
     lda #$30 : cop #$00

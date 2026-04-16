@@ -207,7 +207,7 @@ _AC5E:
 
     jsl thing
     jsl update_pos_xyg_add
-    jsl _018911
+    jsl limit_fall_speed
     jsr _ACC1
     bit $09
     bvs .ACAA

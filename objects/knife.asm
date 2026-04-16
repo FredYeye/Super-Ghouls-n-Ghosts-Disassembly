@@ -119,14 +119,14 @@ _E449:
     sec : lda.b obj.pos_x+1 : sbc.w camera_x+1 : sec : sbc #$0004 : sta $2F
     sec : lda.b obj.pos_y+1 : sbc.w camera_y+1 : sec : sbc #$0004 : sta $33
     ldx $0374
-    lda $2F : sta $7EF100,X
+    lda $2F : sta.l oam_sprite_data+0,X
     jsr _01E967
-    lda $33 : sta $7EF101,X
-    lda $39 : eor $37 : sta $7EF102,X
-    sec : lda $31 : sbc.w camera_x+1 : sec : sbc #$0004 : sta $7EF104,X
+    lda $33 : sta.l oam_sprite_data+1,X
+    lda $39 : eor $37 : sta.l oam_sprite_data+2,X
+    sec : lda $31 : sbc.w camera_x+1 : sec : sbc #$0004 : sta.l oam_sprite_data+4,X
     jsr _01E967
-    lda $33 : sta $7EF105,X
-    lda #$222E : eor $37 : sta $7EF106,X
+    lda $33 : sta.l oam_sprite_data+5,X
+    lda #$222E : eor $37 : sta.l oam_sprite_data+6,X
     clc
     txa
     adc #$0008
@@ -145,10 +145,10 @@ _E449:
 
     sta $2D
 .E4D1:
-    clc : lda $2F : adc $35 : sta $2F : sta $7EF100,X
+    clc : lda $2F : adc $35 : sta $2F : sta.l oam_sprite_data+0,X
     jsr _01E967
-    lda $33 : sta $7EF101,X
-    lda #$262E : eor $37 : sta $7EF102,X
+    lda $33 : sta.l oam_sprite_data+1,X
+    lda #$262E : eor $37 : sta.l oam_sprite_data+2,X
     inx #4
     dec $0344
     dec $2D

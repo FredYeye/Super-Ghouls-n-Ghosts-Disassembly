@@ -12,9 +12,9 @@ stage_objects:
 
 .stage1:
 if !version == 0 || !version == 1
-    db $53
+    db 83
 elseif !version == 2
-    db $4F
+    db 79
 endif
 
     db !id_chest,              $85 : dw $0008, $0068
@@ -111,9 +111,9 @@ endif
 
 .stage2:
 if !version == 0 || !version == 1
-    db $61
+    db 97
 elseif !version == 2
-    db $5B
+    db 91
 endif
 
     db !id_pier,          $80 : dw $0050, $02B0
@@ -228,9 +228,9 @@ endif
 
 .stage3:
 if !version == 0 || !version == 1
-    db $5D
+    db 93
 elseif !version == 2
-    db $59
+    db 89
 endif
 
     db !id_chest,                 $9D : dw $0020, $0220
@@ -337,9 +337,9 @@ endif
 
 .stage4:
 if !version == 0 || !version == 1
-    db $0A
+    db 10
 elseif !version == 2
-    db $09
+    db 9
 endif
 
     db !id_stage4_transform,            $80 : dw $0000, $0000
@@ -356,13 +356,13 @@ endif
     db !id_rotating_platform,           $83 : dw $0370, $0140
 
 ..r1: ;first rotation
-    db $00
+    db 0
 
 ..r2: ;second rotation
 if !version == 0 || !version == 1
-    db $13
+    db 19
 elseif !version == 2
-    db $0F
+    db 15
 endif
 
     db !id_skull_flower_multi_inactive, $80 : dw $0060, $0100
@@ -390,12 +390,12 @@ endif
     db !id_chest,                       $98 : dw $03B0, $0160
 
 ..r3: ;third rotation
-    db $01
+    db 1
 
     db !id_chest, $92 : dw $0298, $02C0
 
 ..r4: ;fourth rotation
-    db $03
+    db 3
 
     db !id_stage4_exit, $80 : dw $0040, $0130
     db !id_chest2,      $94 : dw $0070, $00FA
@@ -403,9 +403,9 @@ endif
 
 ..b:
 if !version == 0 || !version == 1
-    db $16
+    db 22
 elseif !version == 2
-    db $11
+    db 17
 endif
 
     db !id_moving_platform, $82 : dw $0080, $02E4
@@ -438,15 +438,15 @@ endif
     db !id_moving_platform, $86 : dw $0380, $039C
 
 ..c:
-    db $01
+    db 1
 
     db !id_hydra, $8F : dw $0100, $0088
 
 .stage5:
 if !version == 0 || !version == 1
-    db $31
+    db 49
 elseif !version == 2
-    db $2F
+    db 47
 endif
 
     db !id_money_bag,            $80 : dw $0030, $0758
@@ -505,9 +505,9 @@ endif
 
 .stage6:
 if !version == 0 || !version == 1
-    db $10
+    db 16
 elseif !version == 2
-    db $0F
+    db 15
 endif
 
     db !id_chest,                    $8E : dw $0080, $0380
@@ -531,9 +531,9 @@ endif
 
 .stage7:
 if !version == 0 || !version == 1
-    db $19
+    db 25
 elseif !version == 2
-    db $16
+    db 22
 endif
 
     db !id_astaroth,                 $82 : dw $04D0, $0158
@@ -569,39 +569,39 @@ endif
     db !id_chest2,                   $93 : dw $0040, $0780
 
 .stage8:
-    db $02
+    db 2
     db !id_samael,   $90 : dw $0080, $0180
     db !id_princess, $80 : dw $0100, $01A0
 
 .game_over_time_over:
-    db $01
+    db 1
     db !id_arthur_map, $80 : dw $0080, $0080
 
 .map_screen:
-    db $01
+    db 1
     db !id_arthur_map, $81 : dw $0100, $0180
 
 .main_menu:
-    db $01
+    db 1
     db !id_menu_control, $80 : dw $0080, $0080
 
 .game_start_cutscene:
-    db $02
+    db 2
     db !id_cutscene_arthur,   $80 : dw $0070, $00B8
     db !id_cutscene_princess, $80 : dw $0090, $00B8
 
 .game_start_cutscene_2:
-    db $02
+    db 2
     db !id_cutscene_arthur,   $80 : dw $007A, $00B8
     db !id_cutscene_princess, $81 : dw $0086, $00B8
 
 .game_start_cutscene_3:
-    db $02
+    db 2
     db !id_cutscene_arthur, $82 : dw $0030, $00B8
     db !id_satan,           $80 : dw $00A0, $0060
 
 .ending:
-    db $03
+    db 3
     db !id_sun,           $80 : dw $0040, $0094
     db !id_ending_object, $80 : dw $00C1, $008F
     db !id_ending_object, $81 : dw $00C0, $009D

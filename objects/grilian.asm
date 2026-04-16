@@ -105,13 +105,13 @@ create:
     sta $30
     lda #$06 : sta $2D
     lda #$0A : sta $2F
-    lda #!id_grilian_projectile : ldx $30 : ldy #$00 : jsl _018C55
+    lda #!id_grilian_projectile : ldx $30 : ldy #$00 : jsl prepare_object2
     lda #$18 : cop #$00
 
 ;----- DE38
 
 .DE38:
-    lda #!id_grilian_projectile : ldx $30 : ldy #$02 : jsl _018C55
+    lda #!id_grilian_projectile : ldx $30 : ldy #$02 : jsl prepare_object2
     lda #$0A : cop #$00
 
 ;----- DE46

@@ -121,8 +121,7 @@ create:
     and #$0F
     sta.b obj.direction
 .E803:
-    lda $35
-    ldx #$12 : jsl _0189D9
+    lda $35 : ldx #$12 : jsl _0189D9
     dec $37
     bne .E7D6
 
@@ -137,8 +136,7 @@ create:
 ;----- E819
 
     ldx #$10 : jsl update_pos_xy_2
-    lda $35
-    ldx #$12 : jsl _0189D9
+    lda $35 : ldx #$12 : jsl _0189D9
     lda.w frame_counter
     and #$03
     bne .E817
