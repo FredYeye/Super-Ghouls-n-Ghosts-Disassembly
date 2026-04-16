@@ -32,7 +32,7 @@
     !VMADDL   = $2116 ;VRAM Address (lower 8bit)
     !VMADDH   = $2117 ;VRAM Address (upper 8bit)
     !VMDATAL  = $2118 ;VRAM Data Write (lower 8bit)
-    !VMDATAH  = $2119 ;VRAM Data Write (upper 8bit)
+    VMDATAH   = $2119 ;VRAM Data Write (upper 8bit)
     M7SEL     = $211A ;Rotation/Scaling Mode Settings
     !M7A      = $211B ;Rotation/Scaling Parameter A & Maths 16bit operand (w2)
     !M7B      = $211C ;Rotation/Scaling Parameter B & Maths 8bit operand (w2)
@@ -74,16 +74,16 @@
     !APUI03   = $2143 ;Main CPU to Sound CPU Communication Port 3
 
     !NMITIMEN = $4200 ;Interrupt Enable and Joypad Request
-    !WRIO     = $4201 ;Joypad Programmable I/O Port (Open-Collector Output)
+    WRIO      = $4201 ;Joypad Programmable I/O Port (Open-Collector Output)
     !WRMPYA   = $4202 ;Set unsigned 8bit Multiplicand
     !WRMPYB   = $4203 ;Set unsigned 8bit Multiplier and Start Multiplication
     !WRDIVL   = $4204 ;Set unsigned 16bit Dividend (lower 8bit)
     !WRDIVH   = $4205 ;Set unsigned 16bit Dividend (upper 8bit)
     !WRDIVB   = $4206 ;Set unsigned 8bit Divisor and Start Division
-    !HTIMEL   = $4207 ;H-Count Timer Setting (lower 8bits)
+    HTIMEL    = $4207 ;H-Count Timer Setting (lower 8bits)
     HTIMEH    = $4208 ;H-Count Timer Setting (upper 1bit)
-    !VTIMEL   = $4209 ;V-Count Timer Setting (lower 8bits)
-    !VTIMEH   = $420A ;V-Count Timer Setting (upper 1bit)
+    VTIMEL    = $4209 ;V-Count Timer Setting (lower 8bits)
+    VTIMEH    = $420A ;V-Count Timer Setting (upper 1bit)
     !MDMAEN   = $420B ;Select General Purpose DMA Channel(s) and Start Transfer
     HDMAEN    = $420C ;Select H-Blank DMA (H-DMA) Channel(s)
 
@@ -208,6 +208,8 @@
 ;----- constants
 
 {
+    !inidisp_forced_blanking = $80
+
     !vmain_inc_vram_addr = $80 ;inc vram address on access
 
     !dmap_mode_0 = 0 ;1b | x+0

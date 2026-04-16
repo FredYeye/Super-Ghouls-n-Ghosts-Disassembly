@@ -389,9 +389,9 @@ endif
 if !version == 0
     ldy #$27 : jsl decompress
 elseif !version == 1 || !version == 2
-    ldy #$AF : jsl decompress_precalc
-    ldy #$2C : jsl decompress
-    lda #$1A : sta $031E
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldy #$2C     : jsl decompress
+    lda #$1A     : sta $031E
 endif
     !A16
     stz $1889

@@ -443,7 +443,7 @@ _03F526:
     bne _03F526
 
     inc $02B2
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _018049_804D
     lda.b #!mus_intro : jsl _018049_8053
     jsl _0180B9
@@ -475,7 +475,7 @@ _03F526:
     jsl enable_nmi
     lda #$50 : jsr .F745
     ldx #$04 : jsr .F63D
-    jsl _01834C
+    jsl enable_forced_blanking
     lda #$10 : jsr .F745
     lda #!sfx_shatter : jsl _018049_8053
     lda #$10 : jsr .F745
@@ -530,7 +530,7 @@ _03F526:
 .F63D:
     stx $005D
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _01951E
     jsl _019539
     lda #$C0 : sta.w M7SEL
@@ -575,7 +575,7 @@ _03F526:
     stz !VMADDL
     stz !VMADDH
 .F6CA:
-    lda $7F0400,X : sta !VMDATAH
+    lda $7F0400,X : sta.w VMDATAH
     inx
     dey
     bne .F6CA
@@ -605,7 +605,7 @@ _03F526:
     dey
     bne .F721
 
-    jsl _01834C
+    jsl enable_forced_blanking
     rts
 
 ;-----
@@ -635,7 +635,7 @@ _03F526:
 .F767:
     pla : pla : pla : pla
     jsl _0180A6
-    jsl _01834C
+    jsl enable_forced_blanking
     rtl
 }
 
@@ -649,7 +649,7 @@ _03F526:
 { ;F8A3 -
 _03F8A3:
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _0180B9
     jsl clear_oam_sprite_data
     ldy #$28 : jsl decompress
@@ -755,7 +755,7 @@ endif
 if !version == 0 || !version == 1
     bne .FA7D
 
-    lda $1EB9 ;unused lda
+    lda $1EB9 ;unused lda (used in EU ver though?)
 elseif !version == 2
     bne .FA6E
 endif
@@ -815,7 +815,7 @@ endif
 
     !A8
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _0180B9
     ldy #$28 : jsl decompress
     ldx #$29 : jsl copy_ram_to_vram

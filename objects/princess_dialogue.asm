@@ -44,9 +44,9 @@ if !version == 0
     ldy #$27 : jsl decompress
     lda #$15 : sta $031E
 elseif !version == 1 || !version == 2
-    ldy #$AF : jsl decompress_precalc
-    ldy #$2C : jsl decompress
-    lda #$1A : sta $031E
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldy #$2C     : jsl decompress
+    lda #$1A     : sta $031E
 endif
     lda #$05 : sta.w snes_reg.bg34nba
     lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode

@@ -128,7 +128,7 @@ _0180B9: ;a8 x-
     !X16
     ldx #$1C93
 -:
-    stz $031E,X
+    stz $031E,X ;clear 031E - 1FB1
     dex : bpl -
 
     !AX8
@@ -369,7 +369,7 @@ _01826E: ;a8 x8
 
     ora $04
 .82CC:
-    sta !VMDATAH
+    sta.w VMDATAH
     pla
     lsr #4
     and #$0F
@@ -377,7 +377,7 @@ _01826E: ;a8 x8
 
     ora $04
 .82DA:
-    sta !VMDATAH
+    sta.w VMDATAH
     dec $08
     bne .82C2
 
@@ -439,13 +439,13 @@ disable_nmi: ;a8 x-
 }
 
 { ;834C - 835F
-_01834C: ;a8 x8
+enable_forced_blanking: ;a8 x8
     lda.w RDNMI
     bpl +
 
     lda.w RDNMI
 +:
-    lda.w snes_reg.inidisp : ora #$80 : sta.w INIDISP : sta.w snes_reg.inidisp
+    lda.w snes_reg.inidisp : ora.b #!inidisp_forced_blanking : sta.w INIDISP : sta.w snes_reg.inidisp
     rtl
 }
 
@@ -2680,9 +2680,8 @@ _0194CF: ;a8 x-
 _01951E: ;a8 x8
     ldx #$29
 -:
-    stz.w snes_reg.base,X
-    dex
-    bpl -
+    stz.w snes_reg.base,X ;clear snes_reg, except for .nmitimen and .inidisp
+    dex : bpl -
 
     stz.w WH0
     stz.w WH1
@@ -3837,8 +3836,8 @@ _01AF04: ;a8 x8
     rtl
 
 .AF08:
-    ldy #$0A*7 : jsl decompress_precalc
-    ldx #$06*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$0A*7 : jsl decompress_precalc
+    ldx.b #$06*7 : jsl copy_ram_to_vram_precalc
     lda.w stage
     asl #2
     tax
@@ -3996,14 +3995,14 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage5:
-    ldy #$E0 : jsl decompress_precalc
-    ldy #$00 : jsl _01819D
-    ldy #$07 : jsl _01819D
-    ldy #$0E : jsl _01819D
-    ldy #$15 : jsl _01819D
-    ldy #$30 : lda.b #_01FF00_60 : jsl _01A6FE
-    ldy #$78 : lda.b #_01FF00_54 : jsl _01A6FE
-    lda #$10 : sta.w snes_reg.bg2sc
+    ldy.b #$20*7 : jsl decompress_precalc
+    ldy #$00     : jsl _01819D
+    ldy #$07     : jsl _01819D
+    ldy #$0E     : jsl _01819D
+    ldy #$15     : jsl _01819D
+    ldy #$30     : lda.b #_01FF00_60 : jsl _01A6FE
+    ldy #$78     : lda.b #_01FF00_54 : jsl _01A6FE
+    lda #$10     : sta.w snes_reg.bg2sc
     rts
 
 ;-----
@@ -4135,7 +4134,7 @@ _01B19D: ;a8 x8
     bit #!start
     beq .B26C
 
-    jsl _01834C
+    jsl enable_forced_blanking
     stz $0278
     lda #$03 : sta $0279
     inc $1FEF

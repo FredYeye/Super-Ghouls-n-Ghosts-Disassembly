@@ -1,16 +1,16 @@
 {
 _01A87C: ;a8 x8
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _018366
     lda #$0F : sta.w snes_reg.inidisp
     jsl clear_oam_sprite_data
 if !version == 0 || !version == 1
-    ldy #$AF : jsl decompress_precalc
-    ldx #$A8 : jsl copy_ram_to_vram_precalc
-    ldy #$A8 : jsl decompress_precalc
-    ldx #$9A : jsl copy_ram_to_vram_precalc
-    lda #$04 : jsl _048E68
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldx #$A8     : jsl copy_ram_to_vram_precalc
+    ldy #$A8     : jsl decompress_precalc
+    ldx #$9A     : jsl copy_ram_to_vram_precalc
+    lda #$04     : jsl _048E68
 elseif !version == 2
     ldx #$30 : jsl copy_ram_to_vram
     ldx #$9A : jsl copy_ram_to_vram_precalc
@@ -150,7 +150,7 @@ endif
     lda $00DE
     bne .A9E6
 
-    ldy #$AF : jsl decompress_precalc
+    ldy.b #$19*7 : jsl decompress_precalc
     ldy $1FC7 : lda.w _00B52E_B546,Y : sta.w snes_reg.tm
     lda #$18 : sta $031E
     lda.b #1 : jsl current_task_suspend
@@ -198,7 +198,7 @@ endif
     cmp #$0C
     bne .AAAA
 
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl clear_oam_sprite_data
     lda.b #1 : jsl current_task_suspend
     jml _03F8A3
@@ -440,7 +440,7 @@ endif
 
 .AC99:
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     !A16
     lda #$5F00 : sta $0318
     lda #$0200 : sta $031A

@@ -37,7 +37,7 @@ entry: ;emulated mode (code entry)
     dex : bpl .8120
 
 .812A:
-    lda #$FF : sta !WRIO
+    lda #$FF : sta.w WRIO
     ldx #$01 : ldy #$0B : jsr clear_snes_regs
     ldx #$15 : ldy #$05 : jsr clear_snes_regs
     ldx #$23 : ldy #$10 : jsr clear_snes_regs
@@ -203,8 +203,8 @@ nmi: ;a- x-
     lda.w snes_reg.inidisp : sta.w INIDISP
     jsr _0083C2_83C3
     jsr _00847F
-    lda #$98 : sta !HTIMEL : stz.w HTIMEH
-    lda #$26 : sta !VTIMEL : stz !VTIMEH
+    lda #$98 : sta.w HTIMEL : stz.w HTIMEH
+    lda #$26 : sta.w VTIMEL : stz.w VTIMEH
 
     ;tick task timers
     ldx #$A8
@@ -704,7 +704,7 @@ _008807: ;a8 x8
     bcc .8831
 
     ldy #$00
-    lda.b #!VMDATAH
+    lda.b #VMDATAH
     bra .8833
 
 .8830: ;a8 x8

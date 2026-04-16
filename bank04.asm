@@ -406,7 +406,8 @@ _048C43: ;a8 x8
     jsl _0180A6
     jsl _01951E
     jsl _018049_804D
-    lda #$15 : jsl _01834C
+    lda #$15 ;unused lda
+    jsl enable_forced_blanking
     jsl disable_nmi
     lda #$03 : sta.w OBSEL
     jsl clear_oam_sprite_data
@@ -469,7 +470,7 @@ endif
 
     jsr _049219_922E
     lda.b #62 : jsl current_task_suspend
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl disable_nmi
     jsl clear_oam_sprite_data
     jsl _018366
@@ -519,7 +520,7 @@ endif
 { ;8DF9 - 8E3E
 _048DF9: ;a8 x8
     ;2nd scene in intro, also used in game start cutscene (castle indoors)
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl disable_nmi
     jsl clear_oam_sprite_data
     jsl _018366
@@ -603,7 +604,7 @@ _048EAD: ;a8 x8
     stz.w checkpoint
     jsl _01951E
     jsl _018049_804D
-    jsl _01834C
+    jsl enable_forced_blanking
     lda.b #15 : jsl current_task_suspend
     jsl disable_nmi
     jsl clear_oam_sprite_data
@@ -669,7 +670,7 @@ endif
 
     jsr _049219_921D
     lda.b #62 : jsl current_task_suspend
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl disable_nmi
     ldy #$BD : jsl decompress_precalc
     ldx #$70 : jsl copy_ram_to_vram_precalc
@@ -714,7 +715,7 @@ _048FDD:
     lda.w stage : pha
     lda #$0A : sta.w stage
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _019136
     jsl _058000
     ldy #$4D : jsl decompress_precalc
@@ -774,7 +775,7 @@ _049085: ;a8 x8
     lda.w stage
     pha
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     stz.w stage
     jsl _01AF04
     lda #$0A : sta.w stage
@@ -806,7 +807,7 @@ _049085: ;a8 x8
 { ;9121 - 9218
 _049121: ;a? x?
     jsl disable_nmi
-    jsl _01834C
+    jsl enable_forced_blanking
     ldy #$93 : jsl decompress_precalc
     ldx #$54 : jsl copy_ram_to_vram_precalc
     ldy #$9A : jsl decompress_precalc
@@ -975,7 +976,7 @@ _049310: ;a8 x8
     ;map screen
 
     jsl _018049_804D
-    jsl _01834C
+    jsl enable_forced_blanking
     jsl _0180B9
     jsl _01951E
     lda #$01 : sta.w snes_reg.nmitimen
