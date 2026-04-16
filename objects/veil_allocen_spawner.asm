@@ -2,7 +2,7 @@ namespace veil_allocen_spawner
 
 {
 create:
-    ldy #$90 : lda.b #_01FF00_decompress : ldx #$1C : jsl _01A6FE
+    ldy #$90 : lda.b #task_list_decompress : ldx #$1C : jsl _01A6FE
 .E16A:
     brk #$00
 

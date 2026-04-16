@@ -22,7 +22,7 @@ create: ;a8 x8
 
 thing:
     jsl _02F9BE
-    ldy #$0C : jsl _02F9CE
+    ldy #$0C : jsl collision_check_shield_far
     jml _02F9B2
 }
 

@@ -1914,7 +1914,7 @@ create:
 
 thing:
     jsr _02FA37_FA65
-    ldy #$14 : jsr _02FF22
+    ldy #$14 : jsr collision_check_shield
     jsr _02FD62_FD7C
     jsl update_animation_normal
     rts

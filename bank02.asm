@@ -390,9 +390,8 @@ _02821B: ;a8 x8
     lda #$35 : sta $02C5 ;obj count
     stz $02C6
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
-
 .822A:
-    lda $1F96
+    lda.w ready_go_active
     beq .824B
 
     !A16
@@ -484,7 +483,7 @@ _02821B: ;a8 x8
 
 .82BD:
     asl
-    bcs .82CE
+    bcs .destroy
 
     lda.b obj.type
     bmi +
@@ -498,15 +497,15 @@ _02821B: ;a8 x8
     tax
     jmp (.create_object_offsets+256,X)
 
-.82CE:
+.destroy:
     lda.b obj.type
-    bmi +
+    bmi ..hi
 
     asl
     tax
     jmp (.destroy_object_offsets,X)
 
-+:
+..hi:
     asl
     tax
     jmp (.destroy_object_offsets+256,X)
@@ -3077,8 +3076,8 @@ _02F9CA: ;a8 x-
 }
 
 { ;F9CE - F9D1
-_02F9CE: ;a8 x8
-    jsr _02FF22
+collision_check_shield_far: ;a8 x8
+    jsr collision_check_shield
     rtl
 }
 
@@ -3255,11 +3254,8 @@ _02FAD4: ;a- x-
     cmp #!magic_nuclear
     bne .FAF4
 
-    lda #$7E
-    sta $1F29
-    sta $1F1D
-    asl
-    sta $1F1F
+    lda #$7E : sta $1F29 : sta $1F1D
+    asl      : sta $1F1F
     bra .FB0B
 
 .FAF4:
@@ -3934,8 +3930,8 @@ _02FEBC: ;a8 x-
     rts
 }
 
-{ ;FF22 - FF56
-_02FF22: ;a8 x-
+{ ;FF22 - FFA4
+collision_check_shield: ;a8 x-
     ;collision testing with the shield
     lda.w frame_counter
     clc
@@ -3943,63 +3939,55 @@ _02FF22: ;a8 x-
     and #$03
     bne .ret
 
-    jsr _02FF57
+    jsr .overlap_check
     bcs .ret
 
     dec.w !obj_shield.hp
     bpl +
 
-    lda #$8C : sta.w !obj_shield.active
+    lda.b #!obj_destroy : sta.w !obj_shield.active
     lda.w !obj_shield.flags1 : ora #$80 : sta.w !obj_shield.flags1
 +:
-    lda #$8C : sta.b obj.active
-    lda $08  : ora #$80 : sta $08
-    asl $09  : lsr $09
+    lda.b #!obj_destroy : sta.b obj.active
+    lda.b obj.flags1  : ora #$80 : sta.b obj.flags1
+    asl.b obj.flags2  : lsr.b obj.flags2
     lda #$FF : sta $0F
 .ret:
     rts
-}
 
-{ ;FF57 - FFA4
-_02FF57: ;a x
+;-----
+
+.overlap_check: ;a8 x?
     bit $09
-    bvc .FFA1
+    bvc ..FFA1
 
     lda.w !obj_shield.active
     and #$0D
-    beq .FFA1
+    beq ..FFA1
 
     lda.w !obj_shield.flags1
-    bmi .FFA1
+    bmi ..FFA1
 
-    lda.w _00DDB2+0,Y : sta $1F1D
-    asl               : sta $1F1F
-    lda.w _00DDB2+1,Y : sta $1F21
-    asl               : sta $1F23
+    lda.w shield_hitboxes+0,Y : sta.w hitbox.width
+    asl                       : sta.w hitbox.width2
+    lda.w shield_hitboxes+1,Y : sta.w hitbox.height
+    asl                       : sta.w hitbox.height2
     lda.w !obj_shield._25
-    bne .FFA1
+    bne ..FFA1
 
     !A16
-    sec
-    lda.b obj.pos_x+1
-    sbc.w !obj_shield.pos_x+1
-    clc
-    adc $1F1D
-    cmp $1F1F
-    bcs .FFA2
+    sec : lda.b obj.pos_x+1 : sbc.w !obj_shield.pos_x+1 : clc : adc.w hitbox.width
+    cmp.w hitbox.width2 ;(obj.x - shield.x) + shield.width >= shield.width * 2, equal to |obj.x - shield.x| < width
+    bcs ..no_x_overlap
 
-    sec
-    lda.b obj.pos_y+1
-    sbc.w !obj_shield.pos_y+1
-    clc
-    adc $1F21
-    cmp $1F23
+    sec : lda.b obj.pos_y+1 : sbc.w !obj_shield.pos_y+1 : clc : adc.w hitbox.height
+    cmp.w hitbox.height2
     !AX8
     rts
 
-.FFA1:
+..FFA1:
     sec
-.FFA2:
+..no_x_overlap:
     !AX8
     rts
 }

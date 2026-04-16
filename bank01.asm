@@ -20,7 +20,7 @@ set_hp: ;a- x-
 _018021: ;a8 x-
     lda.b #1 : jsl current_task_suspend
     stz.w in_armor_up_anim
-    stz $1F96
+    stz.w ready_go_active
     jsl _018593
     jsl _02821B
     jsl fill_sprite_queue
@@ -3892,7 +3892,7 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage1:
-    ldy.b #task[3].base : lda.b #_01FF00_10 : jsl _01A6FE
+    ldy.b #task[3].base : lda.b #task_list_earthquake : jsl _01A6FE
     rts
 
 ;-----
@@ -3901,11 +3901,11 @@ _01AF04: ;a8 x8
     lda #$07 : sta.w snes_reg.cgadsub
     lda #$02 : sta.w snes_reg.cgwsel
     lda #$E0 : sta.w snes_reg.coldata
-    ldy.b #task[1].base : lda.b #_01FF00_3C : jsl _01A6FE
-    ldy.b #task[2].base : lda.b #_01FF00_40 : jsl _01A6FE
-    ldy.b #task[3].base : lda.b #_01FF00_04 : ldx #$00 : jsl _01A6FE
-    ldy.b #task[4].base : lda.b #_01FF00_04 : ldx #$01 : jsl _01A6FE
-    ldy.b #task[6].base : lda.b #_01FF00_58 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #task_list_3C : jsl _01A6FE
+    ldy.b #task[2].base : lda.b #task_list_40 : jsl _01A6FE
+    ldy.b #task[3].base : lda.b #task_list_04 : ldx #$00 : jsl _01A6FE
+    ldy.b #task[4].base : lda.b #task_list_04 : ldx #$01 : jsl _01A6FE
+    ldy.b #task[6].base : lda.b #task_list_58 : jsl _01A6FE
     lda.b #!dmap_mode_1 : sta.w !DMAP6
     lda.b #TM           : sta.w !BBAD6
     lda #$F4            : sta.w !A1T6L ;todo: label
@@ -3942,10 +3942,10 @@ _01AF04: ;a8 x8
 .stage3:
     inc $1FB0
     jsr _01BD1D
-    ldy.b #task[4].base : lda.b #_01FF00_48 : jsl _01A6FE
-    ldy.b #task[2].base : lda.b #_01FF00_4C : ldx #$00 : jsl _01A6FE
-    ldy.b #task[3].base : lda.b #_01FF00_4C : ldx #$02 : jsl _01A6FE
-    ldy.b #task[5].base : lda.b #_01FF00_64 : jsl _01A6FE
+    ldy.b #task[4].base : lda.b #task_list_48 : jsl _01A6FE
+    ldy.b #task[2].base : lda.b #task_list_4C : ldx #$00 : jsl _01A6FE
+    ldy.b #task[3].base : lda.b #task_list_4C : ldx #$02 : jsl _01A6FE
+    ldy.b #task[5].base : lda.b #task_list_64 : jsl _01A6FE
     lda #$E0 : sta.w snes_reg.coldata
     lda #$03 : sta.w snes_reg.w12sel
     lda #$FF : sta $19DF
@@ -3955,8 +3955,8 @@ _01AF04: ;a8 x8
 
 .stage4_b:
     ldx #$00 : lda #$30 : jsr _01F6C9_local
-    ldy #$30 : lda.b #_01FF00_50 : jsl _01A6FE
-    ldy #$48 : lda.b #_01FF00_70 : jsl _01A6FE
+    ldy #$30 : lda.b #task_list_50 : jsl _01A6FE
+    ldy #$48 : lda.b #task_list_70 : jsl _01A6FE
     ldx #$02
     bra .B0B4
 
@@ -4000,8 +4000,8 @@ _01AF04: ;a8 x8
     ldy #$07     : jsl _01819D
     ldy #$0E     : jsl _01819D
     ldy #$15     : jsl _01819D
-    ldy #$30     : lda.b #_01FF00_60 : jsl _01A6FE
-    ldy #$78     : lda.b #_01FF00_54 : jsl _01A6FE
+    ldy #$30     : lda.b #task_list_60 : jsl _01A6FE
+    ldy #$78     : lda.b #task_list_54 : jsl _01A6FE
     lda #$10     : sta.w snes_reg.bg2sc
     rts
 
@@ -4217,7 +4217,7 @@ _01B2ED:
 }
 
 { ;B315 - B46C
-    incsrc "task_fns/_01B315.asm"
+    incsrc "task_fns/earthquake.asm"
 }
 
 { ;B46D - B4C4
@@ -7250,7 +7250,7 @@ _01CCAF: ;a8 x8
 
 { ;D8E6 - D8F0
 _01D8E6: ;a8 x8
-    lda.b #_01FF00_0C : ldy.b #task[6].base : ldx #$08 : jsl _01A6FE
+    lda.b #task_list_0C : ldy.b #task[6].base : ldx #$08 : jsl _01A6FE
     rts
 }
 
@@ -9116,12 +9116,12 @@ elseif !version == 2
 endif
 
 { ;FF00 - FF73
-_01FF00: ;a- x-
+task_list: ;a- x-
     .00: jml _01A87C
     .04: jml _019A93
     .08: jml _019735
     .0C: jml _019757
-    .10: jml _01B315
+    .earthquake: jml task_earthquake
     .14: jml _048EAD ;never called from here?
 if !version == 0 || !version == 1
     .18: jml _03EE1D ;talking time

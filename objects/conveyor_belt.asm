@@ -155,9 +155,9 @@ _D9CB:
     bvc .DA32
 
     lda $2D : sta $1F1D
-    asl : sta $1F1F
+    asl     : sta $1F1F
     lda $2E : sta $1F21 : dec $1F21
-    asl : sta $1F23
+    asl     : sta $1F23
     !AX16
     sec
     lda.b obj.pos_x+1

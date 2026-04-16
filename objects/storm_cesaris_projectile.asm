@@ -32,7 +32,7 @@ create:
 
 thing:
     jsl update_animation_normal
-    ldy #$0E : jsr _02FF22
+    ldy #$0E : jsr collision_check_shield
     jsr _02FA37_FA65
     jmp _02FD62_FD7C
 }

@@ -85,7 +85,7 @@ thing:
     lda $25
     bne .C138
 
-    ldy #$22 : jsr _02FF22
+    ldy #$22 : jsr collision_check_shield
     jsr _02FA37_FA65
     jmp _02FD62_FD6A
 
@@ -93,7 +93,7 @@ thing:
     rts
 
 .C139:
-    ldy #$02 : jsr _02FF22
+    ldy #$02 : jsr collision_check_shield
     jsr _02FA37_FA65
     jsr _02FD62_FD7C
     jmp _028074_8087

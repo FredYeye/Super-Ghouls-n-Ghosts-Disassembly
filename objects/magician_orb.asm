@@ -97,7 +97,7 @@ create:
 ;-----
 
 thing:
-    ldy #$18 : jsr _02FF22
+    ldy #$18 : jsr collision_check_shield
     jsl update_animation_normal
     ldx #$0A : jsl update_pos_xy_2
     rts

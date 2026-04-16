@@ -596,7 +596,7 @@ _048E68: ;a8 x-
 { ;8EAD - 8FDC
 _048EAD: ;a8 x8
     ;runs when closing the options menu
-    jsr set_stage_result_discarded
+    jsr set_stage_old
     jsl _0180B9
     jsl _0180A6
     stz.w stage
@@ -656,7 +656,7 @@ endif
     rtl
 
 .8F60:
-    jsl _049252
+    jsl set_stage
     jsr _049219_921D
     lda.b #!sfx_ice : jsl _018049_8053
     lda.b #62 : jsl current_task_suspend
@@ -889,11 +889,11 @@ _049121: ;a? x?
 
 { ;9219 - 9233
 _049219:
-    lda.b #_01FF00_1C
+    lda.b #task_list_1C
     bra .921F
 
 .921D:
-    lda.b #_01FF00_20
+    lda.b #task_list_20
 .921F:
     ldx #$02
 .9221:
@@ -902,12 +902,12 @@ _049219:
     rts
 
 .9228: ;a8 x8
-    lda.b #_01FF00_08
+    lda.b #task_list_08
     ldx #$04
     bra .9221
 
 .922E: ;a8 x8
-    lda.b #_01FF00_0C
+    lda.b #task_list_0C
     ldx #$04
     bra .9221
 }
@@ -926,23 +926,21 @@ _049234: ;a8 x-
 }
 
 { ;9242 - 9251
-set_stage_result_discarded: ;a8 x8
+set_stage_old: ;a8 x8
     ;sets stage & checkpoint values incorrectly, but shortly after gets zeroed and set elsewhere anyway!
     lda.w options.stage_checkpoint
     tax
     and #$01
     sta.w checkpoint
-    lda.w _00DDF6,X : sta.w stage
+    lda.w set_stage_data,X : sta.w stage
     rts
 }
 
 { ;9252 - 9261
-_049252: ;a8 x8
-    lda.w stage : asl
-    clc
-    adc.w checkpoint
-    tax
-    lda.w _00DDF6,X : sta.w stage
+set_stage: ;a8 x8
+    ;this is done to account for stages 4b & 4c
+    lda.w stage : asl : clc : adc.w checkpoint : tax
+    lda.w set_stage_data,X : sta.w stage
     rtl
 }
 

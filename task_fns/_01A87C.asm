@@ -24,7 +24,7 @@ endif
 if !version == 0 || !version == 1
     lda #$08 : jsl _0183D4_83DB
     lda #$0B : jsl _0190B9_palette_to_ram
-    ldx #$04 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
+    ldx #$04 : ldy #$18 : lda.b #task_list_1C : jsl _01A6FE
     jsl enable_nmi
 elseif !version == 2
     lda #$00 : jsl _01A8CD
@@ -32,7 +32,7 @@ elseif !version == 2
     jsl enable_nmi
     lda #$62 : jsl _018049_8053
     lda.b #25 : jsl current_task_suspend
-    ldx #$02 : ldy #$18 : lda.b #_01FF00_1C : jsl _01A6FE
+    ldx #$02 : ldy #$18 : lda.b #task_list_1C : jsl _01A6FE
 endif
 .A8DC:
     lda.b #1 : jsl current_task_suspend
@@ -44,7 +44,7 @@ if !version == 0 || !version == 1
     lda #$3F : sta $0055
 elseif !version == 2
     lda.b #18 : jsl current_task_suspend
-    ldy #$30 : lda.b #_01FF00_74 : jsl _01A6FE
+    ldy #$30 : lda.b #task_list_74 : jsl _01A6FE
 .A964:
     lda.b #1 : jsl current_task_suspend
     lda $007E
@@ -61,7 +61,7 @@ endif
     dec $0055 : bne .A8F2
 
 .A904:
-    ldx #$04 : ldy #$18 : lda.b #_01FF00_20 : jsl _01A6FE
+    ldx #$04 : ldy #$18 : lda.b #task_list_20 : jsl _01A6FE
 .A90E:
     lda.b #1 : jsl current_task_suspend
     lda $0066
@@ -144,7 +144,7 @@ endif
     jsl _018049_8051
     lda.b #63 : jsl current_task_suspend
     ldy $1FC7
-    ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #_01FF00_68 : jsl _01A6FE
+    ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #task_list_68 : jsl _01A6FE
 .A9E6:
     lda.b #1 : jsl current_task_suspend
     lda $00DE
@@ -171,7 +171,7 @@ endif
     lda.w _00B52E_B53A,X : jsl _0183D4_83DB
     lda.b #1 : jsl current_task_suspend
     lda #$84 : sta.w snes_reg.cgadsub
-    ldx #$08 : ldy #$90 : lda.b #_01FF00_6C : jsl _01A6FE
+    ldx #$08 : ldy #$90 : lda.b #task_list_6C : jsl _01A6FE
     !A16
     ldx #$1C : lda #$0010 : ldy #$00 : jsl _019136_9187
     !A8
@@ -181,7 +181,7 @@ endif
     bne .AA64
 
     lda.b #126 : jsl current_task_suspend
-    lda.b #_01FF00_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
+    lda.b #task_list_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
 .AA7F:
     lda.b #1 : jsl current_task_suspend
     lda $00DE
@@ -300,7 +300,7 @@ endif
     bmi .AB70
 
     lda #$02 : sta $0278
-    jsl _049252
+    jsl set_stage
     rts
 
 .AB70: ;game over
@@ -315,7 +315,7 @@ endif
     lda $1FB3
     beq .AB9C
 
-    jsl _049252
+    jsl set_stage
     lda.w current_weapon_stored : pha
     jsr .ABB3
     pla : sta.w current_weapon_stored
@@ -332,7 +332,7 @@ endif
     bmi .AB70
 
     lda #$02 : sta $0278
-    jsl _049252
+    jsl set_stage
     rts
 
 ;-----

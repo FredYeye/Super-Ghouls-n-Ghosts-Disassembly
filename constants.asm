@@ -32,4 +32,5 @@
 
 ;-----
 
-!obj_create = $0C
+!obj_create  = $0C
+!obj_destroy = $8C

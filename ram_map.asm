@@ -251,6 +251,13 @@
 
     ; $1EE8;1EE9 ;distance from left screen edge arthur needs to reach to scroll the screen
 
+    struct hitbox $1F1D;1F24
+        .width:   skip 2
+        .width2:  skip 2
+        .height:  skip 2
+        .height2: skip 2
+    endstruct
+
     stage4_rotation_active = $1F2F
 
     hdma_data = $1F57 ;hdma data struct: [line counter byte, bytes to transfer], end byte (00)
@@ -268,7 +275,7 @@
     ;$1F93 current temp stage offset in stage 4b rotations
     ;$1F94
     in_armor_up_anim = $1F95
-    ;$1F96
+    ready_go_active  = $1F96
     ;$1F97 rotation / skull flower related
     bowgun_magic_active = $1F98 ;todo: rename to "on_raft" or similar? or even raft+bowgun
     ;$1F99 written to but never read?

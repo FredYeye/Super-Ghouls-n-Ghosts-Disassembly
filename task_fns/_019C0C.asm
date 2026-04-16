@@ -26,7 +26,7 @@ _019C0C: ;a8 x-
     lda.w checkpoint
     bne .9C82
 
-    ldy.b #task[1].base : lda.b #_01FF00_38 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #task_list_38 : jsl _01A6FE
     !AX16
     ldy #$0030
 .9C57:

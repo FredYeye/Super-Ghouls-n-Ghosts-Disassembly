@@ -38,7 +38,7 @@ projectile_thing:
     bcs .BE79
 
     jsl _02F9BE
-    ldy #$0A : jsl _02F9CE
+    ldy #$0A : jsl collision_check_shield_far
     jml _02F9B2
 
 .BE79:
@@ -158,7 +158,7 @@ killers_thing:
     jsl update_animation_normal
     jsl _02F9BA
     jsl _02F9B6
-    ldy #$0A : jsl _02F9CE
+    ldy #$0A : jsl collision_check_shield_far
     jml _02F9B2
 
 .BF58:

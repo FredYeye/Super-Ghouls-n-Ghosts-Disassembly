@@ -47,7 +47,7 @@ create:
 ;-----
 
 thing:
-    ldy #$00 : jsr _02FF22
+    ldy #$00 : jsr collision_check_shield
     jsr _02FA37_FA65
     jsr _02FD62_FD7C
     jmp _028074_8087

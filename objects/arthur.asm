@@ -59,7 +59,7 @@ create: ;a8 x8
 
     lda #$0C : sta.w !obj_weapons.active ;0C = "create" enum
     lda #!id_ready_go : sta.w !obj_weapons.type
-    lda #$01 : sta $1F96
+    lda #$01 : sta.w ready_go_active
     brk #$00
 
 ;----- CD78
@@ -88,7 +88,7 @@ create: ;a8 x8
     lda.l _04984F_9897+4 : sta $7EF526
     !A8
     inc $0331
-    stz $1F96
+    stz.w ready_go_active
     inc $02AC
     bra .CDC4
 

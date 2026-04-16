@@ -7,7 +7,7 @@ create:
 
     lda #!mus_stage_1_boss : jsl _018049_8053
 .D548:
-    ldx #$00 : ldy #$90 : lda.b #_01FF00_decompress : jsl _01A6FE
+    ldx #$00 : ldy #$90 : lda.b #task_list_decompress : jsl _01A6FE
 .D552:
     brk #$00
 
@@ -22,7 +22,7 @@ create:
     lda $00DE
     bne .D552
 
-    ldx #$07 : ldy #$90 : lda.b #_01FF00_decompress : jsl _01A6FE
+    ldx #$07 : ldy #$90 : lda.b #task_list_decompress : jsl _01A6FE
 .D56F:
     brk #$00
 

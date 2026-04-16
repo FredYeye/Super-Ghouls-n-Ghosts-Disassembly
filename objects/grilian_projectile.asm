@@ -46,7 +46,7 @@ thing:
     bvc .B197
 
     jsl _02F9BE
-    ldy #$08 : jsl _02F9CE
+    ldy #$08 : jsl collision_check_shield_far
     jsl _02F9B2
     jml update_animation_normal
 

@@ -86,7 +86,7 @@ endif
 
 ;----- B24C
 
-    ldy #$90 : lda.b #_01FF00_decompress : ldx #$15 : jsl _01A6FE
+    ldy #$90 : lda.b #task_list_decompress : ldx #$15 : jsl _01A6FE
 .B256:
     brk #$00
 
@@ -100,7 +100,7 @@ endif
 
 ;----- B264
 
-    ldy #$90 : lda.b #_01FF00_decompress : ldx #$0E : jsl _01A6FE
+    ldy #$90 : lda.b #task_list_decompress : ldx #$0E : jsl _01A6FE
 .B26E:
     brk #$00
 

@@ -56,7 +56,7 @@ destroy:
 ;-----
 
 thing:
-    ldy #$1C : jsl _02F9CE
+    ldy #$1C : jsl collision_check_shield_far
     jml _02F9B2
 }
 

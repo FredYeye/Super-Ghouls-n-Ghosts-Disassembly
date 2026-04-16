@@ -99,8 +99,8 @@ entry: ;emulated mode (code entry)
     lda #$01 : sta.w snes_reg.nmitimen
     jsl enable_nmi
     cli
-    lda.b #_01FF00>>8 : sta.b task_function_pointer+1
-    ldy.b #task[0].base : lda.b #_01FF00_00 : jsl _01A6FE
+    lda.b #task_list>>8 : sta.b task_function_pointer+1
+    ldy.b #task[0].base : lda.b #task_list_00 : jsl _01A6FE
     jsl _03E7FE
     jml _01A6AB
 }
@@ -1168,7 +1168,8 @@ _00A49D:
 }
 
 { ;A4BD - A4D8
-_00A4BD:
+_00A4BD: ;stage 5 data
+    ;vram offset, ram source address, count
     dw $1000 : dl $7F9000 : dw $0010
     dw $1010 : dl $7F9000 : dw $0010
     dw $1200 : dl $7F9000 : dw $0010
@@ -4749,7 +4750,7 @@ _00DD96: ;byte pairs, stone/lava pillar sizes
 }
 
 { ;DDB2 - DDD5
-_00DDB2:
+shield_hitboxes:
     db $0C, $1C
     db $08, $18
     db $08, $18
@@ -4776,17 +4777,17 @@ _00DDB2:
 }
 
 { ;DDF6 - DE09
-_00DDF6:
-    db $00, $00
-    db $01, $01
-    db $02, $02
-    db $03, $04
-    db $03, $04
-    db $03, $04
-    db $06, $06
-    db $07, $07
-    db $08, $08
-    db $09, $09
+set_stage_data:
+    db $00, $00 ;stage 1
+    db $01, $01 ;stage 2
+    db $02, $02 ;stage 3
+    db $03, $04 ;stage 4
+    db $03, $04 ;stage 4b
+    db $03, $04 ;stage 4c
+    db $06, $06 ;stage 5
+    db $07, $07 ;stage 6
+    db $08, $08 ;stage 7
+    db $09, $09 ;stage 8
 }
 
 { ;DE0A - DE0D

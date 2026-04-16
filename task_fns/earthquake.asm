@@ -1,6 +1,5 @@
 {
-_01B315: ;a- x8
-    ;stage 1 handler?
+task_earthquake: ;a- x8
     !A16
     lda.w #!task_offset[3].base : tcd
     stz.b task.memory+4 ;event counter? not sure what to call it
@@ -149,7 +148,7 @@ _01B315: ;a- x8
 
     ldx #$16 : jsl _018DC0_8E0E
 +:
-    ldy.b #task[1].base : lda.b #_01FF00_30 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #task_list_30 : jsl _01A6FE
 -:
     lda.b #1 : jsl current_task_suspend
     lda $0066

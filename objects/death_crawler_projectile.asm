@@ -115,7 +115,7 @@ thing:
     jsl update_animation_normal
     jsl _02F9BE
     jsl _02F9B2
-    ldy #$1E : jsl _02F9CE
+    ldy #$1E : jsl collision_check_shield_far
     rtl
 }
 

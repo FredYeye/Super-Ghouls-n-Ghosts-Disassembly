@@ -45,7 +45,7 @@ create:
 thing:
     jsl update_animation_normal
     jsl _02F9BE
-    ldy #$10 : jsl _02F9CE
+    ldy #$10 : jsl collision_check_shield_far
     rtl
 }
 

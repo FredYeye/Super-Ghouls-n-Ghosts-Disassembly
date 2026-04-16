@@ -418,7 +418,7 @@ endif
     lda #$05 : sta.w snes_reg.bg34nba
     lda #$16 : sta.w snes_reg.tm : sta $02D7
     lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
-    ldx #$02 : ldy #$90 : lda.b #_01FF00_18 : jsl _01A6FE
+    ldx #$02 : ldy #$90 : lda.b #task_list_18 : jsl _01A6FE
 .D075:
     brk #$00
 
@@ -431,7 +431,7 @@ endif
 
 ;----- D080
 
-    lda.b #_01FF00_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
+    lda.b #task_list_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
 .D08A:
     brk #$00
 

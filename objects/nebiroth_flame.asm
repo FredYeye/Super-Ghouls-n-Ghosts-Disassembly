@@ -60,7 +60,7 @@ thing:
     ldx #$3C : jsl update_pos_xy_2
     jsl update_animation_normal
     jsl _02F9BE
-    ldy #$1A : jsl _02F9CE
+    ldy #$1A : jsl collision_check_shield_far
     jml _02F9B2
 }
 

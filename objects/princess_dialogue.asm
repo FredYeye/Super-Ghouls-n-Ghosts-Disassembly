@@ -92,7 +92,7 @@ _9CF2:
 _9CF6:
     !AX8
     lda.w snes_reg.tm : ora #$04 : sta.w snes_reg.tm
-    ldx #$2A : ldy #$90 : lda.b #_01FF00_decompress : jsl _01A6FE
+    ldx #$2A : ldy #$90 : lda.b #task_list_decompress : jsl _01A6FE
 .9D0A:
     brk #$00
 
@@ -141,7 +141,7 @@ _9CF6:
     ldx #$01
 .9D77:
     ldy #$90
-    lda.b #_01FF00_18
+    lda.b #task_list_18
     jsl _01A6FE
 .9D7F:
     brk #$00
@@ -157,7 +157,7 @@ _9CF6:
 
 ;----- 9D96
 
-    ldx #$04 : ldy #$78 : lda.b #_01FF00_0C : jsl _01A6FE
+    ldx #$04 : ldy #$78 : lda.b #task_list_0C : jsl _01A6FE
 .9DA0:
     brk #$00
 

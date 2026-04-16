@@ -450,14 +450,14 @@ _03F526:
     jsr .F606
     jsl enable_nmi ;game start cutscene starts somewhere here
     ldx #$14 : jsr .F620
-    lda.b #_01FF00_08 : ldy #$90 : ldx #$02 : jsl _01A6FE
+    lda.b #task_list_08 : ldy #$90 : ldx #$02 : jsl _01A6FE
 .F557: ;fade in arthur & princess scene
     lda #$01 : jsr .F745
     lda $00DE
     bne .F557
 
     lda #$50 : jsr .F745
-    lda.b #_01FF00_0C : ldy #$90 : ldx #$02 : jsl _01A6FE
+    lda.b #task_list_0C : ldy #$90 : ldx #$02 : jsl _01A6FE
 .F570: ;fade out arthur & princess scene
     lda #$01 : jsr .F745
     lda $00DE
@@ -492,7 +492,7 @@ _03F526:
     beq .F5E1
 
     lda.b #96 : jsl current_task_suspend
-    lda.b #_01FF00_0C : ldy #$90 : ldx #$04 : jsl _01A6FE
+    lda.b #task_list_0C : ldy #$90 : ldx #$04 : jsl _01A6FE
 .F5FB:
     lda #$01 : jsr .F745
     lda $00DE
@@ -734,7 +734,7 @@ endif
     ldx #$17
     jsl _03F526_F61C
     jsl set_max_brightness
-    ldx #$18 : ldy #$78 : lda.b #_01FF00_08 : jsl _01A6FE
+    ldx #$18 : ldy #$78 : lda.b #task_list_08 : jsl _01A6FE
 .FA2B:
     lda.b #1 : jsl current_task_suspend
     jsl _018021
@@ -805,7 +805,7 @@ endif
     jmp .FA2B
 
 .FAA7:
-    ldx #$12 : ldy #$78 : lda.b #_01FF00_0C : jsl _01A6FE
+    ldx #$12 : ldy #$78 : lda.b #task_list_0C : jsl _01A6FE
     jmp .FA2B
 
 .FAB4:
@@ -830,7 +830,7 @@ endif
     jsl _018366
     !A8
     lda #$01 : sta.w snes_reg.tm : sta.w snes_reg.ts : sta $02D7 : sta $02D8
-    ldx #$12 : ldy.b #task[5].base : lda.b #_01FF00_08 : jsl _01A6FE
+    ldx #$12 : ldy.b #task[5].base : lda.b #task_list_08 : jsl _01A6FE
 .FB21:
     lda.b #1 : jsl current_task_suspend
     lda $00C6

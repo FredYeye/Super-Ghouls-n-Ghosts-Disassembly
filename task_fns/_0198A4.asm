@@ -2,7 +2,7 @@
 _0198A4: ;a- x8
     ;rising wave
     !A8
-    ldy.b #task[2].base : lda.b #_01FF00_34 : jsl _01A6FE
+    ldy.b #task[2].base : lda.b #task_list_34 : jsl _01A6FE
     lda #$11 : sta.w snes_reg.tm : sta $02D7
     lda #$01 : jsr _019A88
     jsr .9987

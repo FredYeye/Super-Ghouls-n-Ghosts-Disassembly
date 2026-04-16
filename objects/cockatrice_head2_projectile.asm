@@ -22,7 +22,7 @@ create:
 thing:
     jsl update_animation_normal
     jsl _02F9BE
-    ldy #$16 : jsl _02F9CE
+    ldy #$16 : jsl collision_check_shield_far
     jsl _02F9B2
     rtl
 }

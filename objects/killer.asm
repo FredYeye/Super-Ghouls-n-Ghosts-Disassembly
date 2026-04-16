@@ -217,7 +217,7 @@ thing:
     jsl update_animation_normal
     jsl _02F9FA
     jsl _02F9CA
-    ldy #$0A : jsl _02F9CE
+    ldy #$0A : jsl collision_check_shield_far
     jml _02F9B2
 
 ;-----
