@@ -1618,7 +1618,7 @@ destroy: ;a8 x8
     inc
 .D88D:
     sta $0278
-    stz $0279
+    stz.w game_sub_state
     stz $0332
     inc $0331
     lda #!arthur_state_steel : sta.w arthur_state_stored

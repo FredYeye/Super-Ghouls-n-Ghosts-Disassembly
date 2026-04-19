@@ -595,7 +595,6 @@ _048E68: ;a8 x-
 
 { ;8EAD - 8FDC
 _048EAD: ;a8 x8
-    ;runs when closing the options menu
     jsr set_stage_old
     jsl _0180B9
     jsl _0180A6
@@ -652,7 +651,7 @@ endif
     !A8
     bne .8F4A
 
-    inc $0279
+    inc.w game_sub_state ;!sub_state_demo / !sub_state_replay_intro
     rtl
 
 .8F60:
@@ -661,7 +660,7 @@ endif
     lda.b #!sfx_ice : jsl _018049_8053
     lda.b #62 : jsl current_task_suspend
     lda #$30 : sta.w snes_reg.cgwsel
-    lda #$05 : sta $0279
+    lda.b #!sub_state_game_start : sta.w game_sub_state
     rtl
 
 .8F7E:
@@ -898,7 +897,7 @@ _049219:
     ldx #$02
 .9221:
     ldy #$90
-    jsl _01A6FE
+    jsl add_task
     rts
 
 .9228: ;a8 x8

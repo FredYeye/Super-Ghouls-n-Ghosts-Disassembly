@@ -194,7 +194,7 @@ thing:
 ;-----
 
 .ED9E:
-    ldy #$90 : lda.b #task_list_44 : jsl _01A6FE
+    ldy #$90 : lda.b #task_list_44 : jsl add_task
     rts
 
 ;-----

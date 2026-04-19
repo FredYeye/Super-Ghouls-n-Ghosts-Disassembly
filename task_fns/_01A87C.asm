@@ -7,14 +7,14 @@ _01A87C: ;a8 x8
     jsl clear_oam_sprite_data
 if !version == 0 || !version == 1
     ldy.b #$19*7 : jsl decompress_precalc
-    ldx #$A8     : jsl copy_ram_to_vram_precalc
-    ldy #$A8     : jsl decompress_precalc
-    ldx #$9A     : jsl copy_ram_to_vram_precalc
+    ldx.b #$18*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$18*7 : jsl decompress_precalc
+    ldx.b #$16*7 : jsl copy_ram_to_vram_precalc
     lda #$04     : jsl _048E68
 elseif !version == 2
-    ldx #$30 : jsl copy_ram_to_vram
-    ldx #$9A : jsl copy_ram_to_vram_precalc
-    lda #$01 : jsl _048E68
+    ldx #$30     : jsl copy_ram_to_vram
+    ldx.b #$17*7 : jsl copy_ram_to_vram_precalc
+    lda #$01     : jsl _048E68
 endif
     stz.w snes_reg.bg34nba
     !A16
@@ -24,15 +24,15 @@ endif
 if !version == 0 || !version == 1
     lda #$08 : jsl _0183D4_83DB
     lda #$0B : jsl _0190B9_palette_to_ram
-    ldx #$04 : ldy #$18 : lda.b #task_list_1C : jsl _01A6FE
+    ldx #$04 : ldy #$18 : lda.b #task_list_1C : jsl add_task
     jsl enable_nmi
 elseif !version == 2
     lda #$00 : jsl _01A8CD
     lda #$8F : sta.w snes_reg.inidisp
     jsl enable_nmi
-    lda #$62 : jsl _018049_8053
+    lda.b #!sfx_capcom_logo : jsl _018049_8053
     lda.b #25 : jsl current_task_suspend
-    ldx #$02 : ldy #$18 : lda.b #task_list_1C : jsl _01A6FE
+    ldx #$02 : ldy #$18 : lda.b #task_list_1C : jsl add_task
 endif
 .A8DC:
     lda.b #1 : jsl current_task_suspend
@@ -40,11 +40,11 @@ endif
     bne .A8DC
 
 if !version == 0 || !version == 1
-    lda #$62 : jsl _018049_8053
+    lda.b #!sfx_capcom_logo : jsl _018049_8053
     lda #$3F : sta $0055
 elseif !version == 2
     lda.b #18 : jsl current_task_suspend
-    ldy #$30 : lda.b #task_list_74 : jsl _01A6FE
+    ldy #$30 : lda.b #task_list_74 : jsl add_task
 .A964:
     lda.b #1 : jsl current_task_suspend
     lda $007E
@@ -61,7 +61,7 @@ endif
     dec $0055 : bne .A8F2
 
 .A904:
-    ldx #$04 : ldy #$18 : lda.b #task_list_20 : jsl _01A6FE
+    ldx #$04 : ldy #$18 : lda.b #task_list_20 : jsl add_task
 .A90E:
     lda.b #1 : jsl current_task_suspend
     lda $0066
@@ -81,14 +81,16 @@ endif
     dw .AAC1, .ABB3, .AB59, .AC08, _01B19D, .AB61
     dw .ABA0, .AC16, .AAB4, .AAB0, .A940, .A945
 
+;-----
+
 .A940:
     jsl _03F8A3
     rts
 
+;-----
+
 .A945:
-    lda $0279
-    asl
-    tax
+    lda.w game_sub_state : asl : tax
     jmp (+,X) : +: dw .A955, .A96A, .A9CE, .AA8E
 
 .A955:
@@ -135,7 +137,7 @@ endif
     lda #!id_shield       : sta.w shield_state_stored
 +:
     lda #$03 : sta $0278
-    stz $0279
+    stz.w game_sub_state
     rts
 
 ;-----
@@ -144,7 +146,7 @@ endif
     jsl _018049_8051
     lda.b #63 : jsl current_task_suspend
     ldy $1FC7
-    ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #task_list_68 : jsl _01A6FE
+    ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #task_list_68 : jsl add_task
 .A9E6:
     lda.b #1 : jsl current_task_suspend
     lda $00DE
@@ -171,7 +173,7 @@ endif
     lda.w _00B52E_B53A,X : jsl _0183D4_83DB
     lda.b #1 : jsl current_task_suspend
     lda #$84 : sta.w snes_reg.cgadsub
-    ldx #$08 : ldy #$90 : lda.b #task_list_6C : jsl _01A6FE
+    ldx #$08 : ldy #$90 : lda.b #task_list_6C : jsl add_task
     !A16
     ldx #$1C : lda #$0010 : ldy #$00 : jsl _019136_9187
     !A8
@@ -181,13 +183,13 @@ endif
     bne .AA64
 
     lda.b #126 : jsl current_task_suspend
-    lda.b #task_list_0C : ldy #$90 : ldx #$08 : jsl _01A6FE
+    lda.b #task_list_0C : ldy #$90 : ldx #$08 : jsl add_task
 .AA7F:
     lda.b #1 : jsl current_task_suspend
     lda $00DE
     bne .AA7F
 
-    inc $0279
+    inc.w game_sub_state
     rts
 
 ;-----
@@ -204,13 +206,16 @@ endif
     jml _03F8A3
 
 .AAAA:
-    lda #$01
-    sta $0279
+    lda #$01 : sta.w game_sub_state
     rts
+
+;-----
 
 .AAB0:
     stz $0278
     rts
+
+;-----
 
 .AAB4:
     lda #$02 : sta $0022
@@ -218,23 +223,25 @@ endif
     stz $0278
     rts
 
+;-----
+
 .AAC1:
-    lda $0279 : asl : tax
+    lda.w game_sub_state : asl : tax
     jsr (.AACA,X)
     rts
 
-.AACA: dw .AAD6, .AADE, .AB0E, .AADE, .AB40, .AB44
+.AACA: dw .play_intro_cutscene, .run_menu, .setup_demo, .run_menu, .replay_intro_cutscene, .play_game_start_cutscene
 
 ;-----
 
-.AAD6:
+.play_intro_cutscene:
     jsl _048C43
-    inc $0279
+    inc.w game_sub_state ;!sub_state_menu
     rts
 
 ;-----
 
-.AADE:
+.run_menu:
     stz.w stage
     stz.w checkpoint
     stz $1FB9
@@ -251,7 +258,7 @@ endif
 
 ;-----
 
-.AB0E: ;gets here when demo is loading
+.setup_demo:
     lda #$02 : sta $1FB9
     lda #$01 : sta $1FC6
     lda $1FC7
@@ -265,22 +272,22 @@ if !version == 2
 endif
     lda $1FC7 : eor #$01 : sta $1FC7
     lda #$03  : sta $0278
-    stz $0279
+    stz.w game_sub_state ;!sub_state_intro
     rts
 
 ;-----
 
-.AB40:
-    stz $0279
+.replay_intro_cutscene:
+    stz.w game_sub_state ;!sub_state_intro
     rts
 
 ;-----
 
-.AB44: ;on pressing game start
+.play_game_start_cutscene:
     jsl _03F526_F527 ;play cutscene
-    lda #$05 : sta.w continues
+    lda.b #$05 : sta.w continues
     inc $0278
-    stz $0279
+    stz.w game_sub_state ;!sub_state_intro
     stz $1FB9
     rts
 
@@ -340,7 +347,7 @@ endif
 .ABB3: ;after start cutscene is over
     ldx #$21
 .ABB5:
-    stz $0293,X
+    stz.w score,X ;clear vars from "score" until "current_task_offset"
     dex : bpl .ABB5
 
     lda #!arthur_state_steel : sta.w arthur_state_stored
@@ -545,7 +552,7 @@ endif
     stz.w snes_reg.tm
     stz.w snes_reg.ts
     jsl disable_nmi
-    jsr _01AF04_AF08
+    jsr _01AF04_local
     jsr .AE55
     jsr _01F66A
     stz.w pot.enemy_counter

@@ -6,6 +6,27 @@
 
 ;-----
 
+!obj_create  = $0C
+!obj_destroy = $8C
+
+;-----
+
+;$0278
+;!state_? = 0 ;intro cutscene / menu / demo
+
+;-----
+
+!sub_state_intro = 0
+!sub_state_menu = 1
+!sub_state_demo = 2
+!sub_state_menu_cancel_demo = 3
+!sub_state_replay_intro = 4
+!sub_state_game_start = 5
+
+;0279 is also used for a second set of states!
+
+;-----
+
 !stage_1  = 0
 !stage_2  = 1
 !stage_3  = 2
@@ -32,5 +53,3 @@
 
 ;-----
 
-!obj_create  = $0C
-!obj_destroy = $8C

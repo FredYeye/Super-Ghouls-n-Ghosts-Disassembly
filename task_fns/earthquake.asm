@@ -148,7 +148,7 @@ task_earthquake: ;a- x8
 
     ldx #$16 : jsl _018DC0_8E0E
 +:
-    ldy.b #task[1].base : lda.b #task_list_30 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #task_list_30 : jsl add_task
 -:
     lda.b #1 : jsl current_task_suspend
     lda $0066

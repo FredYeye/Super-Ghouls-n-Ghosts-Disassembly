@@ -100,9 +100,9 @@ entry: ;emulated mode (code entry)
     jsl enable_nmi
     cli
     lda.b #task_list>>8 : sta.b task_function_pointer+1
-    ldy.b #task[0].base : lda.b #task_list_00 : jsl _01A6FE
+    ldy.b #task[0].base : lda.b #task_list_00 : jsl add_task
     jsl _03E7FE
-    jml _01A6AB
+    jml run_tasks
 }
 
 { ;81F7 - 83A3

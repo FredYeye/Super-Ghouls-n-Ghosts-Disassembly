@@ -31,6 +31,7 @@
 
     ;                   $0276 flags?
     ;                   $0278 game state?
+    game_sub_state    = $0279 ;sub game state, used by 2 game states (0 & 11)
     money_bag_count   = $027A
     difficulty_base   = $027B
     difficulty        = $027C

@@ -3540,7 +3540,7 @@ _01A649: ;a8 x8
 }
 
 { ;A6AB - A6FD
-_01A6AB: ;a8 x8
+run_tasks: ;a8 x8
     stz $02B6
     lda.b #7 : sta.w task_loop_count
     ldy.b #$00
@@ -3554,11 +3554,11 @@ _01A6AB: ;a8 x8
     dec.w task_loop_count
     bne .A6B5
 
-    jmp _01A6AB
+    jmp run_tasks
 
 .A6C9:
     lda $02B6
-    bne _01A6AB
+    bne run_tasks
 
     sty.w current_task_offset
     tya
@@ -3588,13 +3588,12 @@ _01A6AB: ;a8 x8
 }
 
 { ;A6FE - A716
-_01A6FE: ;a- x-
-    ;"install task" function?
+add_task: ;a- x-
     php
     !AX8
     sta.w !task_offset.fn_id,Y
-    lda #$0C : sta.w !task_offset.state,Y
-    txa      : sta.w !task_offset.init_param,Y
+    lda.b #!task_init : sta.w !task_offset.state,Y
+    txa               : sta.w !task_offset.init_param,Y
     !A16
     lda.w !task_offset.stack_id,Y : sta.w !task_offset.stack_reg,Y
     plp
@@ -3610,7 +3609,7 @@ current_task:
     jsr .clear_state
 .A71F:
     lda.b #stack[7].top>>8 : xba : lda.b #stack[7].top : tcs
-    jmp _01A6AB_A6BC
+    jmp run_tasks_A6BC
 
 .suspend: ;a- x-
     ;suspend task for A frames
@@ -3832,15 +3831,13 @@ endif
 
 { ;AF04 -
 _01AF04: ;a8 x8
-    jsr .AF08
+    jsr .local
     rtl
 
-.AF08:
+.local:
     ldy.b #$0A*7 : jsl decompress_precalc
     ldx.b #$06*7 : jsl copy_ram_to_vram_precalc
-    lda.w stage
-    asl #2
-    tax
+    lda.w stage : asl #2 : tax
     ldy.w _00B576+2,X : phy
     ldy.w _00B576+1,X : phy
     ldy.w _00B576+0,X
@@ -3892,7 +3889,7 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage1:
-    ldy.b #task[3].base : lda.b #task_list_earthquake : jsl _01A6FE
+    ldy.b #task[3].base : lda.b #task_list_earthquake : jsl add_task
     rts
 
 ;-----
@@ -3901,11 +3898,11 @@ _01AF04: ;a8 x8
     lda #$07 : sta.w snes_reg.cgadsub
     lda #$02 : sta.w snes_reg.cgwsel
     lda #$E0 : sta.w snes_reg.coldata
-    ldy.b #task[1].base : lda.b #task_list_3C : jsl _01A6FE
-    ldy.b #task[2].base : lda.b #task_list_40 : jsl _01A6FE
-    ldy.b #task[3].base : lda.b #task_list_04 : ldx #$00 : jsl _01A6FE
-    ldy.b #task[4].base : lda.b #task_list_04 : ldx #$01 : jsl _01A6FE
-    ldy.b #task[6].base : lda.b #task_list_58 : jsl _01A6FE
+    ldy.b #task[1].base : lda.b #task_list_3C : jsl add_task
+    ldy.b #task[2].base : lda.b #task_list_40 : jsl add_task
+    ldy.b #task[3].base : lda.b #task_list_04 : ldx #$00 : jsl add_task
+    ldy.b #task[4].base : lda.b #task_list_04 : ldx #$01 : jsl add_task
+    ldy.b #task[6].base : lda.b #task_list_58 : jsl add_task
     lda.b #!dmap_mode_1 : sta.w !DMAP6
     lda.b #TM           : sta.w !BBAD6
     lda #$F4            : sta.w !A1T6L ;todo: label
@@ -3942,10 +3939,10 @@ _01AF04: ;a8 x8
 .stage3:
     inc $1FB0
     jsr _01BD1D
-    ldy.b #task[4].base : lda.b #task_list_48 : jsl _01A6FE
-    ldy.b #task[2].base : lda.b #task_list_4C : ldx #$00 : jsl _01A6FE
-    ldy.b #task[3].base : lda.b #task_list_4C : ldx #$02 : jsl _01A6FE
-    ldy.b #task[5].base : lda.b #task_list_64 : jsl _01A6FE
+    ldy.b #task[4].base : lda.b #task_list_48 : jsl add_task
+    ldy.b #task[2].base : lda.b #task_list_4C : ldx #$00 : jsl add_task
+    ldy.b #task[3].base : lda.b #task_list_4C : ldx #$02 : jsl add_task
+    ldy.b #task[5].base : lda.b #task_list_64 : jsl add_task
     lda #$E0 : sta.w snes_reg.coldata
     lda #$03 : sta.w snes_reg.w12sel
     lda #$FF : sta $19DF
@@ -3955,8 +3952,8 @@ _01AF04: ;a8 x8
 
 .stage4_b:
     ldx #$00 : lda #$30 : jsr _01F6C9_local
-    ldy #$30 : lda.b #task_list_50 : jsl _01A6FE
-    ldy #$48 : lda.b #task_list_70 : jsl _01A6FE
+    ldy #$30 : lda.b #task_list_50 : jsl add_task
+    ldy #$48 : lda.b #task_list_70 : jsl add_task
     ldx #$02
     bra .B0B4
 
@@ -4000,8 +3997,8 @@ _01AF04: ;a8 x8
     ldy #$07     : jsl _01819D
     ldy #$0E     : jsl _01819D
     ldy #$15     : jsl _01819D
-    ldy #$30     : lda.b #task_list_60 : jsl _01A6FE
-    ldy #$78     : lda.b #task_list_54 : jsl _01A6FE
+    ldy #$30     : lda.b #task_list_60 : jsl add_task
+    ldy #$78     : lda.b #task_list_54 : jsl add_task
     lda #$10     : sta.w snes_reg.bg2sc
     rts
 
@@ -4126,7 +4123,7 @@ _01B19D: ;a8 x8
     bne .B26C
 
     lda #$0B : sta $0278
-    lda #$02 : sta $0279
+    lda #$02 : sta.w game_sub_state
     rts
 
 .B256:
@@ -4136,7 +4133,7 @@ _01B19D: ;a8 x8
 
     jsl enable_forced_blanking
     stz $0278
-    lda #$03 : sta $0279
+    lda #$03 : sta.w game_sub_state
     inc $1FEF
 .B26C:
     rts
@@ -7250,7 +7247,7 @@ _01CCAF: ;a8 x8
 
 { ;D8E6 - D8F0
 _01D8E6: ;a8 x8
-    lda.b #task_list_0C : ldy.b #task[6].base : ldx #$08 : jsl _01A6FE
+    lda.b #task_list_0C : ldy.b #task[6].base : ldx #$08 : jsl add_task
     rts
 }
 
@@ -7774,7 +7771,7 @@ _01DC56: ;a8 x8
     inc
 .DCAF:
     sta $0278
-    stz $0279
+    stz.w game_sub_state ;!sub_state_intro
     lda #!arthur_state_steel : sta.w arthur_state_stored
     lda.w weapon_current : and #$FE : sta.w current_weapon_stored
     stz.w shield_state_stored

@@ -71,6 +71,7 @@
     !sfx_lightning                 = $5D
     !sfx_axe2_triblade2            = $5F
     !sfx_1up                       = $61
+    !sfx_capcom_logo               = $62
     !sfx_death_crawler_spin        = $64
     !sfx_hydra_transform           = $65
 }

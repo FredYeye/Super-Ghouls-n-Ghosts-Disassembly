@@ -23,7 +23,7 @@ create:
     !A16
     lda #$04D0 : sta.b obj.pos_x+1
     !A8
-    ldy #$90 : lda.b #task_list_decompress : ldx #$23 : jsl _01A6FE
+    ldy #$90 : lda.b #task_list_decompress : ldx #$23 : jsl add_task
 .D3A5:
     brk #$00
 
