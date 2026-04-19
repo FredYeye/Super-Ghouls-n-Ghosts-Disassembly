@@ -60,7 +60,7 @@ create:
     ldy #$C2 : ldx #$21 : jsl set_sprite
     lda #$01 : sta.b obj.facing
     !A16
-    lda #belial_data_C2D3 : sta $13
+    lda.w #belial_data_C2D3 : sta $13
     !A8
     lda #$0A : sta.b obj.speed_x+0
     lda #$01 : sta $35

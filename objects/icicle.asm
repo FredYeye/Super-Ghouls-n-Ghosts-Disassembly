@@ -5,7 +5,7 @@ create:
     lda #$01 : sta $08
     stz $34
     !A16
-    lda #enemy_spawner_data_C15D : sta $13
+    lda.w #enemy_spawner_data_C15D : sta $13
     !A8
     ldx $07
     lda.w enemy_spawner_data_C096,X : sta $3B
@@ -193,7 +193,7 @@ thing:
     !AX16
     ldx $31
     stz $0008,X
-    lda #destroy_9CF0 : sta.w obj.state+1,X
+    lda.w #destroy_9CF0 : sta.w obj.state+1,X
     !AX8
     rts
 }

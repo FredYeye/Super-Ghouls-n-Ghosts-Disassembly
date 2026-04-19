@@ -173,7 +173,7 @@ task_decompress: ;a- x8
 
     lda.l SLHV
     lda.l OPVCT
-    cmp #240 : bcc .decompress ;decompress until scanline 240
+    cmp.b #240 : bcc .decompress ;decompress until scanline 240
 
     phb
     lda.b #bank00>>16 : pha : plb

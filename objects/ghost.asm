@@ -295,7 +295,7 @@ thing:
 
 .E909:
     !A16
-    lda #destroy_E8C6 : sta.b obj.state+1
+    lda.w #destroy_E8C6 : sta.b obj.state+1
     !A8
     lda $09 : and #$7F : sta $09
 .E918:

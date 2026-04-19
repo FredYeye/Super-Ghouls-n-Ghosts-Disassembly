@@ -33,7 +33,7 @@ create:
     tax
     jsl _018D5B
     !A16
-    lda #_00C2D7 : sta $13 ;collision offset, unused?
+    lda.w #_00C2D7 : sta $13 ;collision offset, unused?
     !A8
     stz $33
     lda #$FF : sta $26

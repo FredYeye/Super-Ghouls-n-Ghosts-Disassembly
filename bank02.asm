@@ -3251,7 +3251,7 @@ _02FAD4: ;a- x-
     tay
     !A8
     lda.w magic_current
-    cmp #!magic_nuclear
+    cmp.b #!magic_nuclear
     bne .FAF4
 
     lda #$7E : sta $1F29 : sta $1F1D

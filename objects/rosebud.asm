@@ -12,7 +12,7 @@ create:
     !A16
     lda $1F : sta $33
     lda $22 : sta $35
-    lda #rosebud_data_C765 : sta $13
+    lda.w #rosebud_data_C765 : sta $13
     !A8
     lda #$04 : sta $38
     lda #$40 : sta $37
@@ -112,7 +112,7 @@ create:
 
 .C21D:
     !A16
-    lda #rosebud_data_C785 : sta $13
+    lda.w #rosebud_data_C785 : sta $13
     !A8
 .C226:
     brk #$00

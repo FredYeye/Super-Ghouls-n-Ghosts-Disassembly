@@ -11,7 +11,7 @@ create:
     lda #$20 : sta $10
     !A16
     lda.w _00ED00+$06 : sta $27
-    lda #mad_dog_data_D5C3 : sta $13
+    lda.w #mad_dog_data_D5C3 : sta $13
     !A8
     lda #$FF : sta $26
 .DB89:

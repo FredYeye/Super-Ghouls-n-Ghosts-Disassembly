@@ -7,7 +7,7 @@ create:
     lda #$28 : sta $10
     ldy #$FE : ldx #$21 : jsl set_sprite
     !A16
-    lda #cockatrice_body_data_CA1D : sta $13
+    lda.w #cockatrice_body_data_CA1D : sta $13
     lda.w _00ED00+$44 : sta $27
     lda #$0100 : sta $29
     clc

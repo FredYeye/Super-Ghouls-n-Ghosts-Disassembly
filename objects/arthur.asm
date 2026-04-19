@@ -129,7 +129,7 @@ create: ;a8 x8
 .CE08:
     lda #$00 : jsr _01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     beq .CE18
 
     brk #$00
@@ -181,7 +181,7 @@ create: ;a8 x8
     lda #$00 : jsr _01D1C4_D1C5
     jsr _01D565
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .CE79
 
     brk #$00
@@ -218,7 +218,7 @@ create: ;a8 x8
 
 .CE85:
     lda.w p1_button_hold+1
-    and #!right|!left
+    and.b #!right|!left
     tax
     lda.w _00BA22,X
     bmi .CE9B
@@ -868,7 +868,7 @@ _01D263: ;a8 x? ;arthur code, called from arthur idle?
 
 { ;D2D4 - D2E1
 set_facing_get_pressed_direction:
-    lda.w p1_button_hold+1 : and #!right|!left : tax ;inputs stored in X. also used after return
+    lda.w p1_button_hold+1 : and.b #!right|!left : tax ;inputs stored in X. also used after return
     lda.w direction_left_or_right,X
     bmi .skip
 

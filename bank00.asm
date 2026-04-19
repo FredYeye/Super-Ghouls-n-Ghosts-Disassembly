@@ -25,7 +25,7 @@ entry: ;emulated mode (code entry)
     clc
     xce
     !X16
-    ldx #stack[7].top : txs
+    ldx.w #stack[7].top : txs
     !X8
     lda #$8F : sta.w INIDISP
     ldx #$0D

@@ -1024,11 +1024,11 @@ _049310: ;a8 x8
 .93B8:
     jsl _018021
     lda.w p1_button_press+1
-    bit #!b|!y|!start
+    bit.b #!b|!y|!start
     bne .93D5
 
     lda.w p1_button_press
-    bit #!x|!a
+    bit.b #!x|!a
     bne .93D5
 
     dec $00E5

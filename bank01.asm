@@ -1124,15 +1124,15 @@ update_pos:
 .xyg_sub: ;a8 x-
     sec
     lda.b obj.speed_y+0 : sbc.b obj.gravity : sta.b obj.speed_y+0
-    lda.b obj.speed_y+1 : sbc #00           : sta.b obj.speed_y+1
-    lda.b obj.speed_y+2 : sbc #00           : sta.b obj.speed_y+2
+    lda.b obj.speed_y+1 : sbc.b #00         : sta.b obj.speed_y+1
+    lda.b obj.speed_y+2 : sbc.b #00         : sta.b obj.speed_y+2
     bra update_pos_xy
 
 .xyg_add: ;88B7 | a8 x-
     clc
     lda.b obj.speed_y+0 : adc.b obj.gravity : sta.b obj.speed_y+0
-    lda.b obj.speed_y+1 : adc #00           : sta.b obj.speed_y+1
-    lda.b obj.speed_y+2 : adc #00           : sta.b obj.speed_y+2
+    lda.b obj.speed_y+1 : adc.b #00         : sta.b obj.speed_y+1
+    lda.b obj.speed_y+2 : adc.b #00         : sta.b obj.speed_y+2
 
 .xy: ;88CA | a8 x-
     jsr update_pos_x_local
@@ -6654,7 +6654,7 @@ _01C679:
 
 .C7AC:
     ;debugging? free camera movement
-    lda.w p1_button_hold+1 : and #!right|!left|!down|!up : tax
+    lda.w p1_button_hold+1 : and.b #!right|!left|!down|!up : tax
     ldy.w _00B7A5_B7A5,X
     bmi .C7F5
 
@@ -8124,7 +8124,7 @@ arthur_baby: ;a8 x8
     lda #$02 : jsr arthur_create_CE9C
     lda #$02 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .DF56
 
     brk #$00
@@ -8146,7 +8146,7 @@ arthur_baby: ;a8 x8
     lda #$02 : jsr arthur_create_CE9C
     lda #$02 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .DF7F
 
     brk #$00
@@ -8234,7 +8234,7 @@ arthur_maiden:
     lda #$08 : jsr arthur_create_CE9C
     lda #$08 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .E01E
 
     bit #!down
@@ -8261,7 +8261,7 @@ arthur_maiden:
     lda #$08 : jsr arthur_create_CE9C
     lda #$08 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .E045
 
     brk #$00
@@ -8344,7 +8344,7 @@ arthur_seal: ;a? x8
     lda #$04 : jsr arthur_create_CE9C
     lda #$04 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     beq .E0BA
 
     lda #$01 : sta $3C
@@ -8355,7 +8355,7 @@ arthur_seal: ;a? x8
     lda #$04 : jsr arthur_create_CE9C
     lda #$04 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .E0F4
 
     brk #$00
@@ -8475,7 +8475,7 @@ arthur_bee:
     lda #$06 : jsr arthur_create_CE9C
     lda #$06 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     beq .E1A5
 
     ldy #$60 : jsl set_speed_x
@@ -8484,7 +8484,7 @@ arthur_bee:
     jsr arthur_create_CE85
     lda #$06 : jsr arthur__01D1C4_D1C5
     lda.w p1_button_hold+1
-    bit #!right|!left
+    bit.b #!right|!left
     bne .E1D6
 
     brk #$00

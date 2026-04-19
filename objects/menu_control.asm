@@ -29,7 +29,7 @@ endif
     bit #!start
     bne .B900
 
-    bit #!select|!up|!down
+    bit.b #!select|!up|!down
     beq .B8E4
 
     lda.b #!sfx_menu_move : jsl _018049_8053
@@ -66,10 +66,10 @@ endif
     beq .B921
 
     lda.w p1_button_press+1
-    bit #!select|!up|!down
+    bit.b #!select|!up|!down
     beq .B950
 
-    bit #!select|!down
+    bit.b #!select|!down
     bne .B93F
 
     ;pressed up
@@ -108,7 +108,7 @@ endif
 
 .B96C: ;game level
     lda.w p1_button_press+1
-    bit #!left|!right
+    bit.b #!left|!right
     beq .B994
 
     bit #!right
@@ -140,7 +140,7 @@ endif
 
 .B995: ;control pad, player
     lda.w p1_button_press+1
-    bit #!left|!right
+    bit.b #!left|!right
     beq .B9B2
 
     ldx $0F
@@ -173,7 +173,7 @@ endif
 
 .B9C1: ;toggle sound mode to stereo or mono
     lda.w p1_button_press+1
-    bit #!left|!right
+    bit.b #!left|!right
     beq .B9E2
 
     ldx $0F
@@ -200,9 +200,9 @@ endif
 
 .B9E3: ;exit
     lda.w p1_button_press
-    and #!x|!a
+    and.b #!x|!a
     ora.w p1_button_press+1
-    bit #!y|!b|!start
+    bit.b #!y|!b|!start
     beq .BA03
 
     lda.w p2_button_hold
@@ -271,10 +271,10 @@ endif
     beq .BA6F
 
     lda.w p1_button_press+1
-    bit #!select|!up|!down
+    bit.b #!select|!up|!down
     beq .BAA2
 
-    bit #!select|!down
+    bit.b #!select|!down
     bne .BA8D
 
     lda $0F
@@ -353,7 +353,7 @@ endif
 .BAFB:
     ldx $0F
     lda.w p1_button_press+1
-    bit #!left|!right
+    bit.b #!left|!right
     beq .BB17
 
     bit #!right
@@ -405,9 +405,9 @@ endif
 
 .BB3A: ;exit
     lda.w p1_button_press
-    and #!a|!x
+    and.b #!a|!x
     ora.w p1_button_press+1
-    bit #!a|!x|!b|!y|!start
+    bit.b #!a|!x|!b|!y|!start
     beq .BB49
 
     inc $1FB4

@@ -36,7 +36,7 @@ create: ;a- x8
     lda #$10 : sta.b obj.flags2
     !A16
     lda.w _00ED00+$3A : sta $27
-    lda #zombie_data_coord_offsets : sta $13 ;collision related
+    lda.w #zombie_data_coord_offsets : sta $13 ;collision related
     !A8
     jsl set_hp
     lda #$10 : sta $2F

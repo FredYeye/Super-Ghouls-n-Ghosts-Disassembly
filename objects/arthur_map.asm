@@ -33,7 +33,7 @@ _CCE7: ;game over
     bit #!start
     bne .CD37
 
-    bit #!down|!up|!select
+    bit.b #!down|!up|!select
     beq .CD1B
 
     lda.b #!sfx_menu_move : jsl _018049_8053
