@@ -440,7 +440,7 @@ endif
     lda $00DE
     bne .D08A
 
-    lda #$0B : sta $0278
+    lda #$0B : sta.w game_state
     stz.w game_sub_state
 .D099:
     brk #$00

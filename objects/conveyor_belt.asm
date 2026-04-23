@@ -124,8 +124,8 @@ _D998:
 
     sta.w !obj_arthur.pos_y+1
     clc
-    adc $14D8
-    sta $14DA
+    adc.w arthur_hitbox.offset_from_ground
+    sta.w arthur_hitbox.pos_with_offset
     !A8
     rts
 
@@ -140,8 +140,8 @@ _D998:
     adc $27
     sta.w !obj_arthur.pos_y+1
     clc
-    adc $14D8
-    sta $14DA
+    adc.w arthur_hitbox.offset_from_ground
+    sta.w arthur_hitbox.pos_with_offset
     !A8
 .D9CA:
     rts
@@ -191,7 +191,7 @@ _D9CB:
     lda #$0080 : sta.w !obj_arthur.speed_y
 .DA23:
     clc
-    lda.w !obj_arthur.pos_y+1 : adc $14D8 : sta $14DA
+    lda.w !obj_arthur.pos_y+1 : adc.w arthur_hitbox.offset_from_ground : sta.w arthur_hitbox.pos_with_offset
     !AX8
     stz.w !obj_arthur.speed_y+2
 .DA32:
@@ -213,14 +213,8 @@ _D9CB:
 
     stx.w !obj_arthur.pos_y+1
 .DA4C:
-    lda.w !obj_arthur.pos_y+1
-    sec
-    sbc.b obj.pos_y+1
-    sta $27
-    clc
-    lda.w !obj_arthur.pos_y+1
-    adc $14D8
-    sta $14DA
+    lda.w !obj_arthur.pos_y+1 : sec : sbc.b obj.pos_y+1                      : sta $27
+    clc : lda.w !obj_arthur.pos_y+1 : adc.w arthur_hitbox.offset_from_ground : sta.w arthur_hitbox.pos_with_offset
     !AX8
     inc $3A
 .DA62:

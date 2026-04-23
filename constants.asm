@@ -12,7 +12,8 @@
 ;-----
 
 ;$0278
-;!state_? = 0 ;intro cutscene / menu / demo
+;!game_state_? = 0 ;intro cutscene / menu / demo
+!game_state_mosaic_transition = 7
 
 ;-----
 

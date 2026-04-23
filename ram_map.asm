@@ -30,7 +30,7 @@
     endstruct
 
     ;                   $0276 flags?
-    ;                   $0278 game state?
+    game_state        = $0278
     game_sub_state    = $0279 ;sub game state, used by 2 game states (0 & 11)
     money_bag_count   = $027A
     difficulty_base   = $027B
@@ -199,9 +199,22 @@
     magic_current                = $14CF
     ;14D1 bool
     weapon_current               = $14D3
+    ;$14D4 unused?
+    ;$14D5 raft related
+
+    struct arthur_hitbox $14D6;14DB
+        .height: skip 1
+        .width: skip 1
+        .offset_from_ground: skip 2
+        .pos_with_offset: skip 2
+    endstruct
+
     jump_type                    = $14DC ;jump type based on transform status
     transform_armor_state_stored = $14DD
     transform_timer              = $14DE;14DF
+    ;$14E0 unused?
+
+    ;$14E2 unused?
     ;is_casting_magic             = $14E3
     ;is_casting_magic2            = $14E4 ;what is this? magic sound related...?
     weapon_cooldown              = $14EC

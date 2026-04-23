@@ -183,7 +183,7 @@ _9CF6:
 
     ldx #$07
 .9DBC:
-    lda #$07 : sta $0278
+    lda.b #!game_state_mosaic_transition : sta.w game_state
     stx.w mosaic_transition_stage
     stz.w checkpoint
     inc.w loop

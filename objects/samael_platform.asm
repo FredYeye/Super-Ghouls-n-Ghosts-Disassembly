@@ -80,9 +80,9 @@ thing:
     beq .ED22
 
     !A16
-    clc : lda $31 : adc.b obj.pos_x+1 : sta.w !obj_arthur.pos_x+1
-    clc : lda $33 : adc.b obj.pos_y+1 : sta.w !obj_arthur.pos_y+1
-    clc :           adc $14D8        : sta $14DA
+    clc : lda $31 : adc.b obj.pos_x+1                      : sta.w !obj_arthur.pos_x+1
+    clc : lda $33 : adc.b obj.pos_y+1                      : sta.w !obj_arthur.pos_y+1
+    clc :           adc.w arthur_hitbox.offset_from_ground : sta.w arthur_hitbox.pos_with_offset
     !A8
 .ED22:
     rts

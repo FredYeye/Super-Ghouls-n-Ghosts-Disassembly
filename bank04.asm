@@ -418,12 +418,12 @@ _048C43: ;a8 x8
     jsl _058000
     stz.w stage
     jsl _01AF04
-    ldy #$F5 : jsl decompress_precalc
-    ldx #$C4 : jsl copy_ram_to_vram_precalc
-    ldx #$D2 : jsl copy_ram_to_vram_precalc
-    ldx #$D9 : jsl copy_ram_to_vram_precalc
-    ldx #$E0 : jsl copy_ram_to_vram_precalc
-    ldy #$FC : jsl decompress_precalc
+    ldy.b #$23*7 : jsl decompress_precalc
+    ldx.b #$1C*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$1E*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$1F*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$20*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$24*7 : jsl decompress_precalc
     ldx #$27 : jsl copy_ram_to_vram
     lda #$13 : jsr _048E68_local
     lda #$0D : sta.w stage
@@ -476,16 +476,16 @@ endif
     jsl _018366
     stz.w stage
     jsl _01AF04
-    ldy #$F5 : jsl decompress_precalc
-    ldx #$C4 : jsl copy_ram_to_vram_precalc
-    ldx #$D2 : jsl copy_ram_to_vram_precalc
-    ldx #$F5 : jsl copy_ram_to_vram_precalc
-    ldx #$FC : jsl copy_ram_to_vram_precalc
-    ldx #$25 : jsl copy_ram_to_vram
-    ldx #$26 : jsl copy_ram_to_vram
-    ldy #$FC : jsl decompress_precalc
-    ldx #$27 : jsl copy_ram_to_vram
-    lda #$17 : jsr _048E68_local
+    ldy.b #$23*7 : jsl decompress_precalc
+    ldx.b #$1C*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$1E*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$23*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$24*7 : jsl copy_ram_to_vram_precalc
+    ldx #$25     : jsl copy_ram_to_vram
+    ldx #$26     : jsl copy_ram_to_vram
+    ldy.b #$24*7 : jsl decompress_precalc
+    ldx #$27     : jsl copy_ram_to_vram
+    lda #$17     : jsr _048E68_local
     lda #$0D : sta.w stage
     jsl _019136
     lda #$10 : jsl _0190B9_palette_to_ram
@@ -524,12 +524,12 @@ _048DF9: ;a8 x8
     jsl disable_nmi
     jsl clear_oam_sprite_data
     jsl _018366
-    ldy #$F5 : jsl decompress_precalc
-    ldx #$E7 : jsl copy_ram_to_vram_precalc
-    ldx #$EE : jsl copy_ram_to_vram_precalc
-    ldy #$FC : jsl decompress_precalc
-    ldx #$27 : jsl copy_ram_to_vram
-    lda #$11 : jsr _048E68_local
+    ldy.b #$23*7 : jsl decompress_precalc
+    ldx.b #$21*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$22*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$24*7 : jsl decompress_precalc
+    ldx #$27     : jsl copy_ram_to_vram
+    lda #$11     : jsr _048E68_local
     lda #$0D : sta.w stage
     jsl _019136
     lda #$0F : jsl _0190B9_palette_to_ram
@@ -608,12 +608,12 @@ _048EAD: ;a8 x8
     jsl disable_nmi
     jsl clear_oam_sprite_data
     jsl _018366
-    ldy #$00 : jsl decompress_precalc
-    ldx #$54 : jsl copy_ram_to_vram_precalc
-    ldx #$5B : jsl copy_ram_to_vram_precalc
-    ldy #$AF : jsl decompress_precalc
-    ldx #$62 : jsl copy_ram_to_vram_precalc
-    lda #$05 : jsr _048E68_local
+    ldy.b #$00*7 : jsl decompress_precalc
+    ldx.b #$0C*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$0D*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldx.b #$0E*7 : jsl copy_ram_to_vram_precalc
+    lda #$05     : jsr _048E68_local
 if !version == 0
     lda #$02 : jsl _0183D4_83DB
 elseif !version == 1 || !version == 2
@@ -671,10 +671,10 @@ endif
     lda.b #62 : jsl current_task_suspend
     jsl enable_forced_blanking
     jsl disable_nmi
-    ldy #$BD : jsl decompress_precalc
-    ldx #$70 : jsl copy_ram_to_vram_precalc
-    ldy #$B6 : jsl decompress_precalc
-    ldx #$A1 : jsl copy_ram_to_vram_precalc
+    ldy.b #$1B*7 : jsl decompress_precalc
+    ldx.b #$10*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$1A*7 : jsl decompress_precalc
+    ldx.b #$17*7 : jsl copy_ram_to_vram_precalc
     jsl enable_nmi
 .8FB0:
     stz $1FB3
@@ -717,8 +717,8 @@ _048FDD:
     jsl enable_forced_blanking
     jsl _019136
     jsl _058000
-    ldy #$4D : jsl decompress_precalc
-    ldx #$4D : jsl copy_ram_to_vram_precalc
+    ldy.b #$0B*7 : jsl decompress_precalc
+    ldx.b #$0B*7 : jsl copy_ram_to_vram_precalc
     jsr _04906A
     jsl set_max_brightness
     jsl enable_nmi
@@ -780,8 +780,8 @@ _049085: ;a8 x8
     lda #$0A : sta.w stage
     jsl _019136
     jsl _058000
-    ldy #$4D : jsl decompress_precalc
-    ldx #$4D : jsl copy_ram_to_vram_precalc
+    ldy.b #$0B*7 : jsl decompress_precalc
+    ldx.b #$0B*7 : jsl copy_ram_to_vram_precalc
     jsr _04906A
     jsl enable_nmi
     jsl _048A6B
@@ -807,15 +807,15 @@ _049085: ;a8 x8
 _049121: ;a? x?
     jsl disable_nmi
     jsl enable_forced_blanking
-    ldy #$93 : jsl decompress_precalc
-    ldx #$54 : jsl copy_ram_to_vram_precalc
-    ldy #$9A : jsl decompress_precalc
-    ldx #$70 : jsl copy_ram_to_vram_precalc
-    lda #$0B : jsl _0190B9_palette_to_ram
-    ldy #$AF : jsl decompress_precalc
-    ldx #$62 : jsl copy_ram_to_vram_precalc
-    lda #$15 : jsr _048E68_local
-    lda #$04 : jsl _0183D4_83DB
+    ldy.b #$15*7 : jsl decompress_precalc
+    ldx.b #$0C*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$16*7 : jsl decompress_precalc
+    ldx.b #$10*7 : jsl copy_ram_to_vram_precalc
+    lda #$0B     : jsl _0190B9_palette_to_ram
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldx.b #$0E*7 : jsl copy_ram_to_vram_precalc
+    lda #$15     : jsr _048E68_local
+    lda #$04     : jsl _0183D4_83DB
     jsr .91E8
     jsr .91DE
     jsl _018CE2
@@ -981,10 +981,10 @@ _049310: ;a8 x8
     jsl disable_nmi
     jsl _018CE2
     jsl clear_oam_sprite_data
-    ldy #$07 : jsl decompress_precalc
-    ldx #$54 : jsl copy_ram_to_vram_precalc
-    ldy #$85 : jsl decompress_precalc
-    ldx #$70 : jsl copy_ram_to_vram_precalc
+    ldy.b #$01*7 : jsl decompress_precalc
+    ldx.b #$0C*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$13*7 : jsl decompress_precalc
+    ldx.b #$10*7 : jsl copy_ram_to_vram_precalc
     jsl _019539
     lda #$11 : sta.w snes_reg.tm
     jsl _018366
@@ -1614,8 +1614,7 @@ _04F021:
     phb
     lda.b #bank04>>16 : pha : plb
     !A16
-    clc
-    lda.w camera_x+1 : adc #$0080 : sta $0000
+    clc : lda.w camera_x+1 : adc #$0080 : sta $0000
     ldy #$00
     lda ($4C),Y ;has offset from _04F0E0
     cmp $00
@@ -1624,8 +1623,7 @@ _04F021:
     ldy #$02
     lda ($4C),Y
     tax
-    clc
-    lda $004C : adc #$0003 : sta $004C
+    clc : lda $004C : adc #$0003 : sta $004C
     !X16
     phx
     ldy _04F0E0_F1FA,X

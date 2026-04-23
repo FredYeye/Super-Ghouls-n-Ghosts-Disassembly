@@ -61,19 +61,19 @@ endif
     dec $0055 : bne .A8F2
 
 .A904:
-    ldx #$04 : ldy #$18 : lda.b #task_list_20 : jsl add_task
+    ldx #$04 : ldy.b #task[1].base : lda.b #task_list_20 : jsl add_task
 .A90E:
     lda.b #1 : jsl current_task_suspend
     lda $0066
     bne .A90E
 
 if !version == 0 || !version == 1
-    lda #$00 : sta $0278
+    lda #$00 : sta.w game_state
 elseif !version == 2
-    stz $0278
+    stz.w game_state
 endif
 .A91E:
-    lda $0278 : asl : tax
+    lda.w game_state : asl : tax
     jsr (.A928,X)
     bra .A91E
 
@@ -136,7 +136,7 @@ endif
     lda #!id_arthur_plume : sta.w upgrade_state_stored
     lda #!id_shield       : sta.w shield_state_stored
 +:
-    lda #$03 : sta $0278
+    lda #$03 : sta.w game_state
     stz.w game_sub_state
     rts
 
@@ -212,7 +212,7 @@ endif
 ;-----
 
 .AAB0:
-    stz $0278
+    stz.w game_state
     rts
 
 ;-----
@@ -220,7 +220,7 @@ endif
 .AAB4:
     lda #$02 : sta $0022
     jsl _049085
-    stz $0278
+    stz.w game_state
     rts
 
 ;-----
@@ -271,7 +271,7 @@ if !version == 2
     ldx #$02 : jsr .AC7D_eu
 endif
     lda $1FC7 : eor #$01 : sta $1FC7
-    lda #$03  : sta $0278
+    lda #$03  : sta.w game_state
     stz.w game_sub_state ;!sub_state_intro
     rts
 
@@ -286,7 +286,7 @@ endif
 .play_game_start_cutscene:
     jsl _03F526_F527 ;play cutscene
     lda.b #$05 : sta.w continues
-    inc $0278
+    inc.w game_state
     stz.w game_sub_state ;!sub_state_intro
     stz $1FB9
     rts
@@ -297,7 +297,7 @@ endif
 
 .AB59:
     jsl _049310
-    inc $0278
+    inc.w game_state
     rts
 
 ;-----
@@ -306,7 +306,7 @@ endif
     dec.w extra_lives
     bmi .AB70
 
-    lda #$02 : sta $0278
+    lda #$02 : sta.w game_state
     jsl set_stage
     rts
 
@@ -328,7 +328,7 @@ endif
     pla : sta.w current_weapon_stored
     lda #$02
 .AB9C:
-    sta $0278
+    sta.w game_state
     rts
 
 ;-----
@@ -338,7 +338,7 @@ endif
     dec.w extra_lives
     bmi .AB70
 
-    lda #$02 : sta $0278
+    lda #$02 : sta.w game_state
     jsl set_stage
     rts
 
@@ -369,7 +369,7 @@ endif
     lda #$01 : sta.w rng_state+1
     lda #$02 : sta $029E
     stz.w frame_counter
-    inc $0278
+    inc.w game_state
     rts
 
 ;-----
@@ -389,7 +389,7 @@ endif
     jsr .AC99
     stz $0277
     jsl set_max_brightness
-    inc $0278
+    inc.w game_state
     rts
 
 ;-----
@@ -440,7 +440,7 @@ endif
     bne .AC7E
 
     stz !MOSAIC
-    lda #$04 : sta $0278
+    lda #$04 : sta.w game_state
     rts
 
 ;-----

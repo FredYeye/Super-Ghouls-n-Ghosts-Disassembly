@@ -4122,7 +4122,7 @@ _01B19D: ;a8 x8
     !A8
     bne .B26C
 
-    lda #$0B : sta $0278
+    lda #$0B : sta.w game_state
     lda #$02 : sta.w game_sub_state
     rts
 
@@ -4132,7 +4132,7 @@ _01B19D: ;a8 x8
     beq .B26C
 
     jsl enable_forced_blanking
-    stz $0278
+    stz.w game_state
     lda #$03 : sta.w game_sub_state
     inc $1FEF
 .B26C:
@@ -6757,7 +6757,7 @@ _01C87B:
     ldx #$001E
     jmp _01C045
 
-.C8A1: db $18, $00, $00, $0C, $80, $00
+.C8A1: dw $0018, $0C00, $0080
 }
 
 { ;C8A7 - CC1A
@@ -7690,7 +7690,7 @@ arthur_grab_key: ;a8 x?
     lda $00DE
     bne .DBFF
 
-    lda #$02 : sta $0278
+    lda #$02 : sta.w game_state
     stz $028F
     lda.w stage : inc : sta.w stage
 .DC15:
@@ -7770,7 +7770,7 @@ _01DC56: ;a8 x8
 
     inc
 .DCAF:
-    sta $0278
+    sta.w game_state
     stz.w game_sub_state ;!sub_state_intro
     lda #!arthur_state_steel : sta.w arthur_state_stored
     lda.w weapon_current : and #$FE : sta.w current_weapon_stored

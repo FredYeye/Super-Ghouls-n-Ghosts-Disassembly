@@ -656,8 +656,8 @@ thing: ;a8 x8
     asl #2
     tax
     !A16
-    lda.w arthur_hitbox+0,X : sta $14D6
-    lda.w arthur_hitbox+2,X : sta $14D8
+    lda.w arthur_hitbox_data+0,X : sta.w arthur_hitbox.height ;also sets width
+    lda.w arthur_hitbox_data+2,X : sta.w arthur_hitbox.offset_from_ground
     !A8
     rts
 
@@ -1617,7 +1617,7 @@ destroy: ;a8 x8
 
     inc
 .D88D:
-    sta $0278
+    sta.w game_state
     stz.w game_sub_state
     stz $0332
     inc $0331

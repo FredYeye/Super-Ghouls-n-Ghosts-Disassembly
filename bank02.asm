@@ -462,7 +462,7 @@ _02821B: ;a8 x8
 .828E:
     !A16
     clc : tdc : adc.w #obj.ext.len : tcd
-    clc : lda.w !obj_arthur.pos_y+1 : adc $14D8 : sta $14DA
+    clc : lda.w !obj_arthur.pos_y+1 : adc.w arthur_hitbox.offset_from_ground : sta.w arthur_hitbox.pos_with_offset
     !A8
     inc $02C6
     dec $02C5
@@ -550,7 +550,7 @@ _02821B: ;a8 x8
     dw _0281A8_81B5, _0281A8_81B5, _0281A8_81B5, zombie_destroy, _0281A8_81B5, _0281A8_81B5, _0281A8_81B5, _028BB9
     dw $8780, icicle_destroy, $8780, $8780, $8780, siren_destroy, flying_killer_destroy, hydra_destroy
     dw $8780, key_destroy, key_message_destroy, $8780, guillotine_destroy, $8780, ghost_destroy, ghost_unformed_destroy
-    dw flower_part_head_destroy, cockatrice_legs_destroy, cockatrice_neck_destroy, cockatrice_head_destroy, _028BEC_8BF9, obj_void, miniwing_destroy, cockatrice_wings_destroy
+    dw flower_part_flower_head_destroy, cockatrice_legs_destroy, cockatrice_neck_destroy, cockatrice_head_destroy, _028BEC_8BF9, obj_void, miniwing_destroy, cockatrice_wings_destroy
     dw cockatrice_body_destroy, _0281A8_81B5, $8780, _028BEC, _028BEC, hannibal_destroy, _028BB9, _0281A8_81B5
     dw boss_explosion_spawner_destroy, boss_explosion_destroy, wolf_destroy, $8780, _0281A8_81B5, cockatrice_neck_base_destroy, storm_cesaris_destroy, storm_cesaris_parts_destroy
     dw flying_knight_destroy, bat_spawner_destroy, bat_destroy, chest_destroy, $8780, $8780, $8780, $8780
@@ -1621,10 +1621,10 @@ pot_creation: ;a8 x8
     jsl get_object_slot
     bmi .ret  ;return if no object slots available
 
-    lda #$0C     : sta $0000,X
-    lda #!id_pot : sta $0006,X
+    lda #$0C     : sta.w obj.active,X
+    lda #!id_pot : sta.w obj.type,X
     stz $003A,X
-    lda $0000 : sta $0007,X
+    lda $0000 : sta.w obj.init_param,X
     stz $0039,X
     stx $3B
     !AX8
@@ -2139,8 +2139,8 @@ _029AAF: ;icicle spawner
 
 .9BC1:
     lda $0000 : sta.w obj.type,X
-    lda #$0C : sta.w obj.active,X
-    lda $0001 : sta $0007,X
+    lda #$0C  : sta.w obj.active,X
+    lda $0001 : sta.w obj.init_param,X
     lda $0002 : sta.w obj.direction,X
     !A16
     lda $13ED,Y : sta $002F,X ; todo: what is this?
@@ -2629,204 +2629,8 @@ _02F13E:
     rts
 }
 
-{ ;F174 - F2A8
-flower_part:
-
-.create:
-    jsr _02F13E_F15F
-    lda $07
-    stz $0F
-    pha
-    and #$0F
-    sta $38
-    pla
-    lsr #4
-    cmp $38
-    bne .F18B
-
-    inc $0F
-.F18B:
-    stz $31
-    stz $32
-    lda #$08 : sta $33
-    ldy #$0C : jsl set_speed_y
-    ldy #$21 : jsl set_speed_x
-    lda $0F
-    asl
-    tax
-    jmp (+,X) : +: dw .F1AA, .F1CD
-
-;-----
-
-.F1AA:
-    brk #$00
-
-;----- F1AC
-
-    lda $32 ;wake up bool?
-    beq .F1AA
-
-    jsr .F256
-.F1B3:
-    brk #$00
-
-;----- F1B5
-
-    lda $31
-    beq .F1B3
-
-.F1B9:
-    jsl update_pos_y
-    jsr _02F13E
-    brk #$00
-
-;----- F1C2
-
-    lda $31
-    bne .F1B9
-
-.F1C6:
-    jsr _02F13E
-    brk #$00
-
-;----- F1CB
-
-    bra .F1C6
-
-;-----
-
-.F1CD:
-    brk #$00
-
-;----- F1CF
-
-    !A16
-    lda.w #_00CEB6 : sta $13
-    !A8
-    stz $15
-    ldy #$B4    ;bug: should be ldx!
-    jsl _0196EF ;x will always be 8 for this call!
-    sta $2D     ;possible values: 2, 4, 6
-.F1E2:
-    brk #$00
-
-;----- F1E4
-
-    ;intended ranges: $006E, $0060, $0080, $0020
-    ;possible ranges: $0200, $0040, $0090
-    ldy $2D : jsl arthur_range_check_x
-    bcs .F1E2
-
-    jsr .F256
-    !X16
-    lda $38 : sta $3B
-    ldy $2F
-.F1F7:
-    tyx
-    inc $0032,X
-    ldy $002F,X
-    dec $3B
-    bne .F1F7
-
-    stx $39
-    !X8
-    ldx #$5C : jsl _0196EF
-    cop #$00
-
-;----- F20E
-
-    lda #!sfx_grow : jsl _018049_8053
-    !X16
-    lda $38 : sta $3B
-    ldx $39
-    inc $0031,X
-    ldy $002D,X
-    sty $39
-    lda #$10 : cop #$00
-
-;----- F228
-
-    dec $3B
-.F22A:
-    ldx $39
-    inc $0031,X
-    ldy $002D,X
-    sty $39
-    lda #$13 : cop #$00
-
-;----- F238
-
-    dec $3B
-    bne .F22A
-
-    ldy $2F
-    lda $38 : sta $3B
-.F242:
-    tyx
-    stz $0031,X
-    ldy $002F,X
-    dec $3B
-    bne .F242
-
-    !X8
-.F24F:
-    brk #$00
-
-;----- F251
-
-    jsr _02F13E
-    bra .F24F
-
-;-----
-
-.F256:
-    ldy #$92 : ldx #$22 : jsl set_sprite
-    rts
-
-;-----
-
-.thing:
-    lda.b obj.gravity ;not used as gravity
-    cmp.w current_cage
-    bne .F26C
-
-    jsr _02FB9C_FBC0
-    jsr _02FD62_FD7C
-
-.F26C:
-    jsl update_animation_normal
-    lda $07
-    beq + : +: ;leftover branch
-    rts
-
-;-----
-
-.head_destroy:
-    jsr _02F13E_F151
-    jsr _028BDE_local
-    lda $07
-    ldy #$08 : ldx #$08 : jsr _028B7E
-    bra .F28A
-
-.destroy:
-    lda $31 : cop #$00
-.F28A:
-    lda #$3B : jsl _018049_8053
-    ldy #$76 : ldx #$20 : jsl set_sprite
-    lda #$1F : sta $2D
-.F29C:
-    brk #$00
-
-;----- F29E
-
-    jsl update_animation_normal
-    dec $2D
-    bne .F29C
-
-    jmp _0281A8_81B5
-}
-
 {
+    incsrc "objects/flower_part.asm"  ;F174 - F2A8
     incsrc "objects/coffin_dirt.asm"  ;F2A9 - F2F1
     incsrc "objects/pot.asm"          ;F2F2 - F370
     incsrc "objects/point_statue.asm" ;F371 - F410
@@ -3655,7 +3459,7 @@ _02FD62:
     bne .FDB1
 
 .FD75:
-    jsr _02FEBC
+    jsr collision_check_arthur
     bcs .FDAE
 
     bra .FD8C
@@ -3668,7 +3472,7 @@ _02FD62:
     bne .FDB1
 
 .FD87: ;a8 x-
-    jsr _02FEBC_arthur_overlap_check
+    jsr collision_check_arthur_arthur_overlap_check
     bcs .FDAE
 
 .FD8C: ;arthur being hit
@@ -3728,7 +3532,7 @@ arthur_overlap_check_8bit:
 ;------
 
 .local: ;a8 x-
-    jsr _02FEBC_arthur_overlap_check
+    jsr collision_check_arthur_arthur_overlap_check
     !AX8
     rts
 }
@@ -3739,7 +3543,7 @@ arthur_overlap_check_FED8_8bit:
     rtl
 
 .local: ;a8 x-
-    jsr _02FEBC_FED8
+    jsr collision_check_arthur_FED8
     !AX8
     rts
 }
@@ -3747,25 +3551,17 @@ arthur_overlap_check_FED8_8bit:
 { ;FDE5 - FE1D
 _02FDE5:
     ;unused
-    lda.w _00DD94+0,Y : sta $1F1D ;todo
-    asl               : sta $1F1F
-    lda.w _00DD94+2,Y : sta $1F21
-    asl               : sta $1F23
+    lda.w _00DD94+0,Y : sta.w hitbox.width
+    asl               : sta.w hitbox.width2
+    lda.w _00DD94+2,Y : sta.w hitbox.height
+    asl               : sta.w hitbox.height2
     !A16
-    sec
-    lda.b obj.pos_x+1
-    sbc.w !obj_arthur.pos_x+1
-    clc
-    adc $1F1D
-    cmp $1F1F
+    sec : lda.b obj.pos_x+1 : sbc.w !obj_arthur.pos_x+1 : clc : adc.w hitbox.width
+    cmp.w hitbox.width2
     bcs .FE17
 
-    sec
-    lda.b obj.pos_y+1
-    sbc.w !obj_arthur.pos_y+1
-    clc
-    adc $1F21
-    cmp $1F23
+    sec : lda.b obj.pos_y+1 : sbc.w !obj_arthur.pos_y+1 : clc : adc.w hitbox.height
+    cmp.w hitbox.height2
 .FE17:
     !A8
     rts
@@ -3793,7 +3589,7 @@ _02FE1E: ;a? x?
 .FE27: ;a8 x8
     asl
     tay
-    lda.w _00DD96+0,Y : sta $1F1D
+    lda.w _00DD96+0,Y : sta $1F1D ;todo
     asl               : sta $1F1F
     lda.w _00DD96+1,Y : sta $1F21
     asl               : sta $1F23
@@ -3871,7 +3667,11 @@ _02FE1E: ;a? x?
 }
 
 { ;FEBC - FF21
-_02FEBC: ;a8 x-
+collision_check_arthur: ;a8 x-
+
+;todo: add sub labels for each entry
+
+;.?: hitbox_list?
     lda.w !obj_arthur.flags1
     bmi .FF20
 
@@ -3901,27 +3701,17 @@ _02FEBC: ;a8 x-
 .FEE4:
     tay
     !A8
-    lda.w _00DAA2-$40+0,Y : adc $14D7 : sta $1F1D
-    asl
-    sta $1F1F
-    lda.w _00DAA2-$40+1,Y : adc $14D6 : sta $1F21
-    asl
-    sta $1F23
+    lda.w _00DAA2-$40+0,Y : adc.w arthur_hitbox.width  : sta.w hitbox.width
+    asl                                                : sta.w hitbox.width2
+    lda.w _00DAA2-$40+1,Y : adc.w arthur_hitbox.height : sta.w hitbox.height
+    asl                                                : sta.w hitbox.height2
     !A16
-    sec
-    lda.b obj.pos_x+1
-    sbc.w !obj_arthur.pos_x+1
-    clc
-    adc $1F1D
-    cmp $1F1F
+    sec : lda.b obj.pos_x+1 : sbc.w !obj_arthur.pos_x+1 : clc : adc.w hitbox.width
+    cmp.w hitbox.width2
     bcs .FF1F
 
-    sec
-    lda.b obj.pos_y+1
-    sbc $14DA
-    clc
-    adc $1F21
-    cmp $1F23
+    sec : lda.b obj.pos_y+1 : sbc.w arthur_hitbox.pos_with_offset : clc : adc.w hitbox.height
+    cmp.w hitbox.height2
 .FF1F:
     rts
 
@@ -3932,7 +3722,6 @@ _02FEBC: ;a8 x-
 
 { ;FF22 - FFA4
 collision_check_shield: ;a8 x-
-    ;collision testing with the shield
     lda.w frame_counter
     clc
     adc $02C6

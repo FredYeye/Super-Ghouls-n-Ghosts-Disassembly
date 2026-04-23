@@ -2245,7 +2245,7 @@ _00B938:
 }
 
 { ;B95C - B983
-arthur_hitbox:
+arthur_hitbox_data:
     ;height, width, height offset from ground
     ;data is arranged in sets of two; for standing/crouching
     db $10, $08 : dw $0000 ;arthur

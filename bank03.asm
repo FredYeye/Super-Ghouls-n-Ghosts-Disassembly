@@ -652,17 +652,17 @@ _03F8A3:
     jsl enable_forced_blanking
     jsl _0180B9
     jsl clear_oam_sprite_data
-    ldy #$28 : jsl decompress
-    ldy #$29 : jsl decompress
-    ldx #$29 : jsl copy_ram_to_vram
-    ldx #$2A : jsl copy_ram_to_vram
-    ldx #$2B : jsl copy_ram_to_vram
-    ldy #$AF : jsl decompress_precalc
-    ldx #$62 : jsl copy_ram_to_vram_precalc
-    ldy #$A8 : jsl decompress_precalc
-    ldx #$2F : jsl copy_ram_to_vram
-    ldy #$2A : jsl decompress
-    ldx #$2D : jsl copy_ram_to_vram
+    ldy #$28     : jsl decompress
+    ldy #$29     : jsl decompress
+    ldx #$29     : jsl copy_ram_to_vram
+    ldx #$2A     : jsl copy_ram_to_vram
+    ldx #$2B     : jsl copy_ram_to_vram
+    ldy.b #$19*7 : jsl decompress_precalc
+    ldx.b #$0E*7 : jsl copy_ram_to_vram_precalc
+    ldy.b #$18*7 : jsl decompress_precalc
+    ldx #$2F     : jsl copy_ram_to_vram
+    ldy #$2A     : jsl decompress
+    ldx #$2D     : jsl copy_ram_to_vram
     !AX8
     jsl _01951E
     jsl _019539
