@@ -3428,7 +3428,7 @@ _02FCD4:
 .FD57:
     tya
     clc
-    adc #$0041
+    adc.w #obj.ext.len
     tay
     dex
     bne .FD15

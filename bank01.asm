@@ -1265,37 +1265,23 @@ limit_fall_speed: ;a- x-
 _0189D9: ;a8 x-
     pha
     !AX16
-    clc
-    lda.b obj.direction
-    and #$00FF
-    adc.w speed_xy_offsets,X
-    tax
+    clc : lda.b obj.direction : and.w #$00FF : adc.w speed_xy_offsets,X : tax
     !A8
-    lda speed_xy_x1,X : sta $0000
-    lda speed_xy_x2,X : sta $0001
-    lda speed_xy_x3,X : sta $0002
-    lda speed_xy_y1,X : sta $0004
-    lda speed_xy_y2,X : sta $0005
-    lda speed_xy_y3,X : sta $0006
+    lda.l speed_xy_x1,X : sta $0000
+    lda.l speed_xy_x2,X : sta $0001
+    lda.l speed_xy_x3,X : sta $0002
+    lda.l speed_xy_y1,X : sta $0004
+    lda.l speed_xy_y2,X : sta $0005
+    lda.l speed_xy_y3,X : sta $0006
     pla : sta !WRMPYA
-    lda $0000
-    jsr mulu_multiplicand_set
+    lda $0000 : jsr mulu_multiplicand_set
     lda $0001
     sty $0000
-    jsr mulu_multiplicand_set
-    tya
-    clc
-    adc $0001
-    sta $0001
-    lda $0004
-    jsr mulu_multiplicand_set
+    jsr mulu_multiplicand_set : tya : clc : adc $0001 : sta $0001
+    lda $0004 : jsr mulu_multiplicand_set
     lda $0005
     sty $0004
-    jsr mulu_multiplicand_set
-    tya
-    clc
-    adc $0005
-    sta $0005
+    jsr mulu_multiplicand_set : tya : clc : adc $0005 : sta $0005
     clc
     lda.b obj.pos_x+0 : adc $0000 : sta.b obj.pos_x+0
     lda.b obj.pos_x+1 : adc $0001 : sta.b obj.pos_x+1
@@ -2893,8 +2879,8 @@ _019662: ;a- x-
 _019681: ;a8 x8
     lda.w weapon_current : asl : tax
     !A16
-    lda.w _00B984+00,X : sta $1F25
-    lda.w _00B984+32,X : sta $1F27
+    lda.w _00B984+$00,X : sta $1F25
+    lda.w _00B984+$20,X : sta $1F27
     !A8
     rtl
 }

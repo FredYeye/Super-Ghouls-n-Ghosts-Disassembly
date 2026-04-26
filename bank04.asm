@@ -147,7 +147,7 @@ _0484B9:
 endif
 
 { ;8000 - 8A6A
-    incsrc "various/stage_objects.asm"
+    incsrc "data/stage_objects.asm"
 }
 
 { ;8A6B - 8AD2
@@ -1326,8 +1326,8 @@ endif
 }
 
 {
-    incsrc "task_fns/_04A0F5.asm"      ;A0F5 - A121
-    incsrc "various/text_tilemaps.asm" ;A122 - A7DB
+    incsrc "task_fns/_04A0F5.asm"   ;A0F5 - A121
+    incsrc "data/text_tilemaps.asm" ;A122 - A7DB
 }
 
 if !version == 0

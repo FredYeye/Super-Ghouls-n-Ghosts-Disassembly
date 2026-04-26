@@ -255,8 +255,8 @@ _05826F:
 }
 
 {
-    incsrc "various/sprite_offsets.asm" ;8276 - A811
-    incsrc "various/sprite_defs2.asm"   ;A812 - FAFD
+    incsrc "sprite_data/sprite_offsets.asm" ;8276 - A811
+    incsrc "sprite_data/sprite_defs2.asm"   ;A812 - FAFD
 }
 
 { ;FAFE - FFFF

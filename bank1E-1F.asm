@@ -1,7 +1,7 @@
 org $1E8000
 
 { ;8000 - F3D7
-	incsrc "various/earthquake_tiles.asm"
+	incsrc "data/earthquake_tiles.asm"
 }
 
 { ;F3D8 - FFFF
@@ -17,7 +17,7 @@ endif
 org $1F8000
 
 { ;8000 - D5DF
-	incsrc "various/earthquake_tiles2.asm"
+	incsrc "data/earthquake_tiles2.asm"
 }
 
 { ;D5E0 - DFFF
@@ -29,7 +29,7 @@ endif
 }
 
 { ;E000 - F4BD
-	incsrc "various/speed_xy.asm"
+	incsrc "data/speed_xy.asm"
 }
 
 { ;F4BE - FFFF

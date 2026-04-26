@@ -2,7 +2,7 @@ org $038000 : bank03:
 
 {
     incsrc "stage_layouts/stage_layouts.asm"         ;8000 - 846F
-    incsrc "various/palette_cycling_data.asm"        ;8470 - 9C08
+    incsrc "data/palette_cycling_data.asm"           ;8470 - 9C08
     incsrc "objects/princess_dialogue.asm"           ;9C09 - 9DD9
     incsrc "task_fns/_039DDA.asm"                    ;9DDA - 9E78
     incsrc "objects/tower_edge.asm"                  ;9E79 - 9F3F
@@ -430,8 +430,8 @@ endif
 endif
 
 { ;EF86 - F1A5
-    incsrc "various/tower_tiles.asm" ;EF86 - F1A5
-    incsrc "various/hp_list.asm"     ;F1A6 - F525
+    incsrc "data/tower_tiles.asm" ;EF86 - F1A5
+    incsrc "data/hp_list.asm"     ;F1A6 - F525
 }
 
 { ;F526 - F773

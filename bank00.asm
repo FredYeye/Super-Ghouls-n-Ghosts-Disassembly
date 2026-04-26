@@ -1860,7 +1860,7 @@ endif
 }
 
 { ;B23A - B43F
-    incsrc "various/speed_xyg.asm"
+    incsrc "data/speed_xyg.asm"
 }
 
 { ;B440 - B4FD
@@ -2267,28 +2267,28 @@ arthur_hitbox_data:
 { ;B984 - B9C3
 _00B984:
     ;weapon heights?
-    db $06, $06, $06, $06
-    db $06, $06, $06, $06
-    db $06, $06, $06, $06
-    db $06, $06, $04, $06
-    db $08, $06, $0A, $06
-    db $06, $06, $06, $06
-    db $06, $06, $06, $06
+    db $06, $06,  $06, $06 ;lance
+    db $06, $06,  $06, $06 ;knife
+    db $06, $06,  $06, $06 ;bowgun
+    db $06, $06,  $04, $06 ;scythe
+    db $08, $06,  $0A, $06 ;torch
+    db $06, $06,  $06, $06 ;axe
+    db $06, $06,  $06, $06 ;triblade
 if !version == 0 || !version == 1
-    db $08, $08, $08, $08
+    db $08, $08,  $08, $08 ;bracelet
 elseif !version == 2
-    db $0C, $08, $0C, $08 ;bracelet projectile is 4px taller
+    db $0C, $08,  $0C, $08 ;bracelet projectile is 4px taller
 endif
 
     ;widths?
-    db $14, $14, $14, $14
-    db $08, $08, $08, $08
-    db $08, $08, $08, $08
-    db $20, $20, $20, $20
-    db $08, $08, $08, $08
-    db $08, $08, $08, $08
-    db $7E, $7E, $7E, $7E
-    db $08, $08, $08, $08
+    db $14, $14,  $14, $14 ;lance
+    db $08, $08,  $08, $08 ;knife
+    db $08, $08,  $08, $08 ;bowgun
+    db $20, $20,  $20, $20 ;scythe
+    db $08, $08,  $08, $08 ;torch
+    db $08, $08,  $08, $08 ;axe
+    db $7E, $7E,  $7E, $7E ;triblade
+    db $08, $08,  $08, $08 ;bracelet
 }
 
 { ;B9C4 -
@@ -3238,7 +3238,7 @@ chest_offset: ;chest x,y spawn offsets from trigger
 }
 
 { ;C3D9 - C758
-    incsrc "various/weapon_table.asm"
+    incsrc "data/weapon_table.asm"
 }
 
 { ;C759 - C7AC
@@ -4329,7 +4329,7 @@ samael_platform_data:
 
 if !version == 0
 { ;D6E6 - DA6D
-    incsrc "various/text.asm"
+    incsrc "data/text.asm"
 }
 endif
 
@@ -4839,7 +4839,7 @@ _00DF65:
 }
 
 { ;DFE5 - EA5E
-    incsrc "various/random_values.asm"
+    incsrc "data/random_values.asm"
 }
 
 { ;EA5F - EC1E
@@ -4934,7 +4934,7 @@ endif
 }
 
 { ;ED00 - FF43
-    incsrc "various/sprite_set_data.asm"
+    incsrc "sprite_data/sprite_set_data.asm"
 }
 
 { ;FF44 - FFBF

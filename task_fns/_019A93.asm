@@ -121,7 +121,7 @@ _019A93: ;a8 x8
 .9B94:
     jsr _019CBE
     sec
-    lda $0F : sbc $13 : sta $0F
+    lda $0F : sbc $13    : sta $0F
     lda $11 : sbc #$0000 : sta $11
     sec
     lda.w boat_AB80+0,X : sbc $0F ;sets carry flag
@@ -133,7 +133,7 @@ _019A93: ;a8 x8
 .9BB4:
     jsr _019CBE
     clc
-    lda $0F : adc $13 : sta $0F
+    lda $0F : adc $13    : sta $0F
     lda $11 : adc #$0000 : sta $11
     lda $11
     rts
