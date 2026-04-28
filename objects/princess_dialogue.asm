@@ -192,7 +192,7 @@ _9CF6:
 
     inc.w armor_state
 .9DD2:
-    jsl _01DCCF
+    jsl store_equip_state
     jml _0281A8_81B5
 }
 

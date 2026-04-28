@@ -79,7 +79,7 @@ endif
 
 .A928:
     dw .AAC1, .ABB3, .AB59, .AC08, _01B19D, .AB61
-    dw .ABA0, .AC16, .AAB4, .AAB0, .A940, .A945
+    dw .time_over, .mosaic_transition, .AAB4, .AAB0, .A940, .A945
 
 ;-----
 
@@ -333,8 +333,8 @@ endif
 
 ;-----
 
-.ABA0: ;time over
-    jsl _048FDD
+.time_over:
+    jsl time_over
     dec.w extra_lives
     bmi .AB70
 
@@ -394,7 +394,7 @@ endif
 
 ;-----
 
-.AC16: ;mosaic transition
+.mosaic_transition:
     jsl _0180A6
     lda.b #63 : jsl current_task_suspend
     ldx #$0F
@@ -410,7 +410,7 @@ endif
 
     stz !MOSAIC
     lda.w mosaic_transition_stage : sta.w stage
-    jsl _01DCCF
+    jsl store_equip_state
     jsr .AC99
     inc $0277
     lda #$01

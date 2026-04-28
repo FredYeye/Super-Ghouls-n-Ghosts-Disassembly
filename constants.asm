@@ -13,6 +13,7 @@
 
 ;$0278
 ;!game_state_? = 0 ;intro cutscene / menu / demo
+!game_state_time_over         = 6
 !game_state_mosaic_transition = 7
 
 ;-----

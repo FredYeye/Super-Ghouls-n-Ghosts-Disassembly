@@ -780,7 +780,7 @@ _0185BB: ;a8 x-
     lda.w current_cage
     bne .85EF
 
-    lda #$04 : xba : lda #$3C : tcd ;todo: use label
+    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
     jsr _01868B_868E
 .85EF:
     lda $13D5
@@ -809,7 +809,7 @@ _0185BB: ;a8 x-
     lda.w current_cage
     beq .862E
 
-    lda #$04 : xba : lda #$3C : tcd ;todo: use label
+    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
     jsr _01868B_868E
 .862E:
     lda $13DD
@@ -7625,7 +7625,7 @@ arthur_grab_key: ;a8 x?
 .DBB4:
     jsr _01DA88
     jsr set_arthur_palette
-    jsl _01DCCF
+    jsl store_equip_state
     lda #$0E : sta $3C
     lda.w !obj_upgrade.flags1 : and #$F7 : sta.w !obj_upgrade.flags1
 .DBCA:
@@ -7748,7 +7748,7 @@ _01DC56: ;a8 x8
     ldx $14D2
     beq .DCAF
 
-    inc
+    inc ;!game_state_time_over
 .DCAF:
     sta.w game_state
     stz.w game_sub_state ;!sub_state_intro
@@ -7766,23 +7766,22 @@ _01DC56: ;a8 x8
 }
 
 { ;DCCF - DD00
-_01DCCF: ;a8 x-
-    ;store armor / upgrades / weapon across stages
+store_equip_state: ;a8 x-
     stz.w shield_state_stored
     stz.w shield_type_stored
     stz.w upgrade_state_stored
     lda.w armor_state : sta.w arthur_state_stored
     lda.w weapon_current : sta.w current_weapon_stored
     lda.w !obj_upgrade.active
-    beq .DD00
+    beq .ret
 
     lda.w !obj_upgrade.type : sta.w upgrade_state_stored
     lda.w !obj_shield.active
-    beq .DD00
+    beq .ret
 
     lda.w !obj_shield.type : sta.w shield_state_stored
     lda.w !obj_shield.init_param : sta.w shield_type_stored
-.DD00:
+.ret:
     rtl
 }
 

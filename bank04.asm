@@ -539,9 +539,7 @@ _048DF9: ;a8 x8
 { ;8E3F - 8E46
 _048E3F: ;a8 x8
     ;init some cutscene object
-    ldx #$00
-    lda #$B3
-    jml prepare_object2
+    ldx #$00 : lda #$B3 : jml prepare_object2
 }
 
 { ;8E47 - 8E67
@@ -696,7 +694,7 @@ endif
 }
 
 { ;8FDD - 9069
-_048FDD:
+time_over:
     jsl _0180A6
     stz $1FB5
     jsl _018366
