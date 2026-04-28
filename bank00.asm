@@ -2100,7 +2100,7 @@ _00B755: ;unused? referenced in code but that code is unreachable as far as i ca
 _00B769: db $10, $11, $12, $13 ;temp stage values for rotations
 }
 
-{ ;B76D -
+{ ;B76D - B7A4
 _00B76D:
     dd $007FE000, $007FE200, $007FE400, $007FE600, $007FE800, $007FEA00, $007FEC00, $007FEE00
     dd $007FF000, $007FF200, $007FF400, $007FF600, $007FF800, $007FFA00

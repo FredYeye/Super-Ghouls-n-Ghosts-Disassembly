@@ -196,7 +196,7 @@ destroy:
 
 ;----- 9434
 
-    inc $1ED7
+    inc.w skip_tick_timer
     lda.b #!id_key : jsl prepare_object
     jsl _018049
     lda.b #!mus_defeat_boss : jsl _018049_8053

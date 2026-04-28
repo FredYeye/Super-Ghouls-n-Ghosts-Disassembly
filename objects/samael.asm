@@ -360,7 +360,7 @@ destroy:
     lda.w !obj_arthur.hp
     bmi .EB49
 
-    inc $1ED7
+    inc.w skip_tick_timer
 .EB49:
     lda $08 : ora #$10 : sta $08
     lda #!id_explosion_spawner : ldx #$00 : ldy #$08 : jsl prepare_object2

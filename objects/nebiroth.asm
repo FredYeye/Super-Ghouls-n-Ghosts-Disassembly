@@ -225,7 +225,7 @@ destroy:
 ;-----
 
 .D557:
-    inc $1ED7
+    inc.w skip_tick_timer
     inc $1EB7
     lda #$04 : sta $1D
     ldx #$00 : ldy #$02 : lda #!id_explosion_spawner : jsl prepare_object2

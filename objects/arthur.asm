@@ -795,7 +795,7 @@ _01D1E1: ;transformation
     lda #!id_arthur_plume : sta.w !obj_upgrade.type
     lda #$0C              : sta.w !obj_upgrade.active
     lda #$01              : sta.w can_charge_magic
-    stz $14B3
+    stz.w magic_bar_state
     rts
 }
 

@@ -491,7 +491,7 @@ endif
     bne +
 
     lda #$01 : sta.w can_charge_magic
-    stz $14B3
+    stz.w magic_bar_state
 +:
     lda.w shield_state_stored
     beq .AD21

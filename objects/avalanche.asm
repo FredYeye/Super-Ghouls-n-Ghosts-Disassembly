@@ -286,7 +286,7 @@ _E108:
     inc $14EF
     lda.b #_01DC19    : sta.w !obj_arthur.state+1
     lda.b #_01DC19>>8 : sta.w !obj_arthur.state+2
-    stz $14B3
+    stz.w magic_bar_state
     stz.w !obj_upgrade2.active
     !A16
     sec : lda.w !obj_arthur.pos_x+1 : sbc.b obj.pos_x+1 : sta $31

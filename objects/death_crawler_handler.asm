@@ -432,7 +432,7 @@ _B4D2:
 thing:
     jsr _B4A2
     jsr _B4D2
-    lda $1ED7
+    lda.w skip_tick_timer
     beq .B528
 
     lda #$8C : sta.b obj.active

@@ -2,7 +2,7 @@
 _019A93: ;a8 x8
     ldx $0055,Y
     lda.w boat_AB62+12,X : sta $0063,Y
-    stz $1ED7
+    stz.w skip_tick_timer
     !AX16
     txa
     asl
@@ -45,7 +45,7 @@ _019A93: ;a8 x8
     lda.b #1 : jsl current_task_suspend
     jsr .9BC8
     lda.b #1 : jsl current_task_suspend
-    lda $1ED7
+    lda.w skip_tick_timer
     beq .9AED
 
     stz $0D

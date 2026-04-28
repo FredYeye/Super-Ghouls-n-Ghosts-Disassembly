@@ -590,7 +590,7 @@ destroy:
     ldy $1EB7 : jsr remove_child_object
     ldy $1EBD : jsr remove_child_object
     !AX8
-    inc $1ED7
+    inc.w skip_tick_timer
     jmp _0281A8_81B5
 }
 

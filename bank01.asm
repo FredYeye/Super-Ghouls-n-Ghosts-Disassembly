@@ -1121,23 +1121,23 @@ _01884B: ;a8 x-
 { ;88A2 - 88E0
 update_pos:
 
+;todo: rename something here. updates speed also!
+
 .xyg_sub: ;a8 x-
     sec
     lda.b obj.speed_y+0 : sbc.b obj.gravity : sta.b obj.speed_y+0
     lda.b obj.speed_y+1 : sbc.b #00         : sta.b obj.speed_y+1
     lda.b obj.speed_y+2 : sbc.b #00         : sta.b obj.speed_y+2
-    bra update_pos_xy
+    bra .xy
 
-.xyg_add: ;88B7 | a8 x-
+.xyg_add: ;a8 x-
     clc
     lda.b obj.speed_y+0 : adc.b obj.gravity : sta.b obj.speed_y+0
     lda.b obj.speed_y+1 : adc.b #00         : sta.b obj.speed_y+1
     lda.b obj.speed_y+2 : adc.b #00         : sta.b obj.speed_y+2
-
-.xy: ;88CA | a8 x-
+.xy: ;a8 x-
     jsr update_pos_x_local
-
-.y: ;88CD | a8 x-
+.y: ;a8 x-
     clc
     lda.b obj.pos_y+0 : adc.b obj.speed_y+0 : sta.b obj.pos_y+0
     lda.b obj.pos_y+1 : adc.b obj.speed_y+1 : sta.b obj.pos_y+1
@@ -1150,7 +1150,7 @@ update_pos_x: ;a8 x-
     jsr .local
     rtl
 
-.local: ;88E5
+.local:
     lda.b obj.direction
     bne .88FD
 
@@ -1895,7 +1895,7 @@ add_extra_life: ;a8 x-
 }
 
 { ;8F80 - 9023
-_018F80: ;a8 x8
+update_hud: ;a8 x8
     lda.w hud_update_score
     beq .8F8F
 
@@ -1916,7 +1916,7 @@ _018F80: ;a8 x8
 +:
     ora #$2580
     sta $7F90F4
-    lda.w timer_tens     : and #$00FF : ora #$2580 : sta $7F90F8
+    lda.w timer_tens    : and #$00FF : ora #$2580 : sta $7F90F8
     lda.w timer_seconds : and #$00FF : ora #$2580 : sta $7F90FA
     !A8
     inc.w layer3_needs_update
@@ -3462,8 +3462,7 @@ _01A649: ;a8 x8
     bne .A673
 
     !AX16
-    sec
-    lda $0004 : sbc #$0010 : sta $004
+    sec : lda $0004 : sbc #$0010 : sta $0004
     lda $0007
     bit #$0780
     beq .A667
@@ -4078,10 +4077,10 @@ _01B19D: ;a8 x8
     jsr _01F6E9
 .B1FF:
     jsr _01CC1B
-    jsr _01C8A7
+    jsr magic_bar_handling
     jsr _01B658
-    jsr _01B96E
-    jsl _018F80
+    jsr tick_timer
+    jsl update_hud
     jsl fill_sprite_queue
     jsl _0185BB
     jsr _01B9A8
@@ -4468,7 +4467,7 @@ _01B658: ;a8 x8
     beq .B6AD
 
     stz.w !obj_upgrade2.active
-    stz $14B3
+    stz.w magic_bar_state
     jsl _019697
     jsl _019681
     ldx.w weapon_current
@@ -4872,21 +4871,21 @@ _01B90E: ;a8 x8
 }
 
 { ;B96E - B9A7
-_01B96E: ;a8 x-
-    lda $1ED7 : bne .ret ;most likely a "boss defeated" var
+tick_timer: ;a8 x-
+    lda.w skip_tick_timer : bne .ret
 
     lda.w timer_minutes : bmi .ret ;time over
 
     dec.w timer_ticks : bpl .ret
 
     inc.w hud_update_timer
-    lda #$3F : sta.w timer_ticks
+    lda.b #63 : sta.w timer_ticks
     dec.w timer_seconds : bpl .ret
 
-    lda #$09 : sta.w timer_seconds
+    lda.b #9 : sta.w timer_seconds
     dec.w timer_tens : bpl .ret
 
-    lda #$05 : sta.w timer_tens
+    lda.b #5 : sta.w timer_tens
     dec.w timer_minutes : bpl .ret
 
     stz.w timer_tens
@@ -6596,12 +6595,9 @@ _01C679:
     lsr
     sta $1EE1
 .C754:
-    clc
-    lda $1EDB : adc $1EAB : sta.w camera_y+1
-    clc
-    lda $1EDB : adc $1EAE : sta $1737
-    clc
-    lda $1EE1 : adc $1EB1 : sta $188D
+    clc : lda $1EDB : adc $1EAB : sta.w camera_y+1
+    clc : lda $1EDB : adc $1EAE : sta $1737
+    clc : lda $1EE1 : adc $1EB1 : sta $188D
 .C772:
     sec
     lda.w camera_x+1
@@ -6747,19 +6743,19 @@ _01C87B:
 }
 
 { ;C8A7 - CC1A
-_01C8A7: ;a x
+magic_bar_handling: ;a x
     lda.w can_charge_magic
     beq .C8D1
 
     lda.w !obj_arthur.hp
     bmi .C8D1
 
-    ldx $14B3
+    ldx.w magic_bar_state
     jsr (.C8BD, X)
     jsr .CBB6
     jmp .CB56
 
-.C8BD: dw .C8D2, .C93F, .CA9F, .C8C5
+.C8BD: dw .create_magic_bar, .C93F, .CA9F, .C8C5
 
 ;-----
 
@@ -6769,43 +6765,41 @@ _01C8A7: ;a x
     cmp #$0E
     beq .C8D1
 
-    stz $14B3
+    stz.w magic_bar_state
 .C8D1:
     rts
 
 ;-----
 
-.C8D2:
+.create_magic_bar:
     lda.w weapon_current
     and #$0E
     cmp #!weapon_bracelet
     bne .C8E4
 
     jsr .CB63
-    lda #$06 : sta $14B3
+    lda #$06 : sta.w magic_bar_state
     rts
 
-.C8E4: ;magic bar
+.C8E4:
     !A16
     ldx #$0A
 .C8E8:
-    lda.w _00B908+$00,X
-                 sta $7F9092,X
-    ora #$8000 : sta $7F90D2,X
+    lda.w _00B908+$00,X : sta $7F9092,X
+    ora #$8000          : sta $7F90D2,X
     dex #2
     bpl .C8E8
 
     ldx #$0A
 .C8FC:
-    lda.w _00B908+$0C,X
-    ora #$4000 : sta $7F90A2,X
-    ora #$8000 : sta $7F90E2,X
+    lda.w _00B908+$0C,X : ora #$4000 : sta $7F90A2,X
+    ora #$8000                       : sta $7F90E2,X
     dex #2
     bpl .C8FC
 
     lda #$2DC7 : jsr .CA86
     !A8
-    lda #$02 : sta $14B3
+    lda #$02 : sta.w magic_bar_state
     lda #$7F : sta $14B5 : sta $14B6
     stz $14E1
     stz $14B4
@@ -6964,7 +6958,7 @@ _01C8A7: ;a x
 
     stz $14B5
     lda #$05 : sta $14B4
-    lda #$04 : sta $14B3
+    lda #$04 : sta.w magic_bar_state
 .CA85:
     rts
 
@@ -7043,7 +7037,7 @@ _01C8A7: ;a x
 .CB45:
     stz $14B4
     lda #$7F : sta $14B5 : sta $14B6
-    lda #$02 : sta $14B3
+    lda #$02 : sta.w magic_bar_state
 .CB55:
     rts
 
@@ -7055,7 +7049,7 @@ _01C8A7: ;a x
     beq .CBB5
 
     stz.w can_charge_magic
-    stz $14B3
+    stz.w magic_bar_state
 .CB63:
     !A16
     ldx #$0C

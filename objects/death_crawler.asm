@@ -32,7 +32,7 @@ thing:
 ;-----
 
 destroy:
-    inc $1ED7
+    inc.w skip_tick_timer
     jml _0281A8_81B5
 }
 

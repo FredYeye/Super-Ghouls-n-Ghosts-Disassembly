@@ -177,7 +177,7 @@ destroy:
     lda $07
     bne .D251
 
-    inc $1ED7
+    inc.w skip_tick_timer
 .D251:
     inc $1EB7
     lda #$04 : sta $1D

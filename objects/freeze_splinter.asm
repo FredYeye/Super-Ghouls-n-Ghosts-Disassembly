@@ -24,7 +24,7 @@ thing:
 
     lda #$01 : sta.w is_frozen
     lda #$04 : sta.w frozen_counter
-    stz $14B3
+    stz.w magic_bar_state
     stz.w !obj_upgrade2.active
     jsl _0281DD
 .E7FD:

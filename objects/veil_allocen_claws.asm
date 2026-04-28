@@ -285,7 +285,7 @@ _E720:
 ;-----
 
 _E734:
-    lda $1ED7
+    lda.w skip_tick_timer
     beq .E743
 
     lda $09 : and #$7F : sta $09

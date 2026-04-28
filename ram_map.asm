@@ -1,4 +1,6 @@
 {
+    ;$001E ;tile collision result bool?
+
     irq_pointer = $0030;0031 ;unused?
     ;$0032;0033
     ;$0034;0035
@@ -132,9 +134,10 @@
 
     ;$0318;0319 layer 3 VRAM offset?
     ;$031A;031B layer 3 size
+    ;$031C ;bool
 
     layer3_needs_update = $0323
-
+    ;$0324;$0329 tile related
     ; $032A ;debugging? dpad moves the camera
     ; $032B ;pointer, 2 bytes
     hud_visible              = $032E
@@ -150,6 +153,11 @@
     hud_flicker_timer        = $0373
 
     ;$0378 loop counter, sprite prio related
+
+    ;dma struct?
+    ;$037A ?
+    ;$037B pending dma counter
+    ;$037C 8 byte structs, vram_addr.w source_addr.l size.w ?.b at least until 3C4
 
     obj_start = $043C;11B0
 
@@ -183,6 +191,7 @@
 
     is_shooting                  = $14B1
     can_charge_magic             = $14B2
+    magic_bar_state              = $14B3
     ; = $14B9 arthur crouch related
     armor_state                  = $14BA ;armor/transform state
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
@@ -261,7 +270,9 @@
     ;1D9A;1E99 ;obj spawn param list?
 
     bat_count = $1EBE ;todo: also used by samael
+    skip_tick_timer = $1ED7 ;boss defeated
     zombie_previous_x_spawn = $1ED8;1ED9
+    ;$1EDA unused
 
     ; $1EE8;1EE9 ;distance from left screen edge arthur needs to reach to scroll the screen
 

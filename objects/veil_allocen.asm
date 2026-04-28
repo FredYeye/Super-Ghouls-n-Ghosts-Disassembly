@@ -370,7 +370,7 @@ thing:
 ;-----
 
 destroy:
-    inc $1ED7
+    inc.w skip_tick_timer
     ldy #$30 : ldx #$22 : jsl set_sprite
     jsl _018049_8051
     lda #$04 : sta $1D

@@ -1813,7 +1813,7 @@ create2: ;cont'd from create
 
     lda #$72 : sta $1D
     lda.b #!id_key : jsl prepare_object
-    inc $1ED7
+    inc.w skip_tick_timer
     jmp _0281A8_81B5
 
 ;-----

@@ -9,7 +9,7 @@ create:
 
 ;----- B5AD
 
-    lda $1ED7
+    lda.w skip_tick_timer
     beq .B5B6
 
     jml _0281A8_81B5
