@@ -956,7 +956,7 @@ cop: ;a8 x-
     pla : sta.b obj.state
     pla : sta.b obj.state+2
     !AX8
-    jml _02821B_827A
+    jml object_handling_827A
 }
 
 { ;8B05 - 8B18

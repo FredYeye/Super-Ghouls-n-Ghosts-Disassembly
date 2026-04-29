@@ -65,7 +65,7 @@ destroy:
 
     stz.b obj.init_param
     jsr _0280E9_80EE
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 namespace off

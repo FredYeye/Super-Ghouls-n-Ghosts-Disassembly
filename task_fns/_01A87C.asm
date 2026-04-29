@@ -545,7 +545,7 @@ endif
     jsl _019136
     jsr _01BE1C
     jsr _01B526 ;set arthur spawn point and other things
-    jsr _01B4EF_B50E
+    jsr checkpoint_handling_set_x_pos
     jsr _01BF31
     jsr _01BEBC
     jsl _048A6B

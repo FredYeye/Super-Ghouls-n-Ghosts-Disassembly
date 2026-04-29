@@ -74,7 +74,7 @@ create:
     plx
     stx $07
     lda #$0C : sta.b obj.active
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 namespace off

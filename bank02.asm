@@ -149,7 +149,7 @@ remove_child_object: ;a- x16
 { ;80C5 - 80CA
 _0280C5: ;remove object?
     jsr _0280E9
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 { ;80CB - 80E8
@@ -167,7 +167,7 @@ _0280CB:
     sta.w slot_list_weapons,Y
     xba
     sta.w slot_list_weapons+1,Y
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 { ;80E9 - 810C
@@ -324,7 +324,7 @@ _0281A8: ;a- x8
     pla : pla
 .81B5: ;a8 x8
     jsr _0281BB
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 { ;81BB - 81DC
@@ -384,10 +384,9 @@ _0281FF: ;a8 x8
 }
 
 { ;821B - 877F
-_02821B: ;a8 x8
-    ;obj handling
+object_handling: ;a8 x8
     phd
-    lda #$35 : sta $02C5 ;obj count
+    lda #$35 : sta.w object_loop_counter
     stz $02C6
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
 .822A:
@@ -465,7 +464,7 @@ _02821B: ;a8 x8
     clc : lda.w !obj_arthur.pos_y+1 : adc.w arthur_hitbox.offset_from_ground : sta.w arthur_hitbox.pos_with_offset
     !A8
     inc $02C6
-    dec $02C5
+    dec.w object_loop_counter
     bne .822A
 
     pld
@@ -1339,7 +1338,7 @@ _028B0E: ;a8 x8
     ;clear armor pieces / magic
     jsr _0280E9
     inc.w open_magic_slots
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 { ;8B17 - 8B1D
@@ -2589,7 +2588,7 @@ _02EBC1:
     incsrc "objects/flower_head.asm"       ;EFD2 - F13D
 }
 
-{ ;F13E -
+{ ;F13E - F173
 ;various flower functions
 
 _02F13E:
@@ -3130,7 +3129,7 @@ _02FB2B: ;a8 x?
     stz $0008,X
     stz $0009,X
 .FB5F:
-    sep #$30
+    !AX8
     rts
 }
 
@@ -3153,8 +3152,7 @@ _02FB62: ;a? x?
     lda #$8C : sta $00
     lda $08 : ora #$80 : sta $08
     asl $09 : lsr $09
-    sec
-    lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp
+    sec : lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp
     bcs .FB99
 
     stz.b obj.hp
@@ -3232,7 +3230,7 @@ _02FBF9:
     cmp #$02
     beq _02FC0E_FC13
 
-    cmp $12
+    cmp.b obj.facing
     beq _02FC0E_FC13
 
     jmp _02FB9C_FBC5
@@ -3249,8 +3247,7 @@ _02FC0E: ;a8 x-
     jsr _02FC56
     bcs .FC3E
 
-    sec
-    lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp ;decrease enemy hp by weapon's hp(damage)
+    sec : lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp ;decrease enemy hp by weapon's hp(damage)
     bcs .FC3E
 
     stz.b obj.hp
@@ -3577,27 +3574,26 @@ _02FE1E: ;a? x?
     bvc .FE22
 
 .FE27: ;a8 x8
-    asl
-    tay
-    lda.w _00DD96+0,Y : sta $1F1D ;todo
-    asl               : sta $1F1F
-    lda.w _00DD96+1,Y : sta $1F21
-    asl               : sta $1F23
+    asl : tay
+    lda.w _00DD96+0,Y : sta.w hitbox.width
+    asl               : sta.w hitbox.width2
+    lda.w _00DD96+1,Y : sta.w hitbox.height
+    asl               : sta.w hitbox.height2
     !AX16
     sec
     lda.b obj.pos_x+1
     sbc $14BE
     clc
-    adc $1F1D
-    cmp $1F1F
+    adc.w hitbox.width
+    cmp.w hitbox.width2
     bcs .FE85
 
     sec
     lda.b obj.pos_y+1
     sbc.w !obj_arthur.pos_y+1
     clc
-    adc $1F21
-    cmp $1F23
+    adc.w hitbox.height
+    cmp.w hitbox.height2
     bcs .FE85
 
     lda.b obj.pos_y+1
@@ -3607,7 +3603,7 @@ _02FE1E: ;a? x?
     ldy.w bowgun_magic_active
     bne .FE78 ;branch if under solid object and on raft
 
-    adc $1F21
+    adc.w hitbox.height
     sta.w !obj_arthur.pos_y+1
     stz.w !obj_arthur.speed_y
     !AX8
@@ -3616,7 +3612,7 @@ _02FE1E: ;a? x?
 
 .FE78:
     inc
-    sbc $1F21
+    sbc.w hitbox.height
     sta.w !obj_arthur.pos_y+1
     !AX8
     inc $14C3
@@ -3627,29 +3623,29 @@ _02FE1E: ;a? x?
     lda.b obj.pos_x+1
     sbc.w !obj_arthur.pos_x+1
     clc
-    adc $1F1D
-    cmp $1F1F
+    adc.w hitbox.width
+    cmp.w hitbox.width2
     bcs .FEB9
 
     sec
     lda.b obj.pos_y+1
     sbc.w !obj_arthur.pos_y+1
     clc
-    adc $1F21
-    cmp $1F23
+    adc.w hitbox.height
+    cmp.w hitbox.height2
     bcs .FEB9
 
     lda.b obj.pos_x+1
     cmp.w !obj_arthur.pos_x+1
     bcc .FEB2
 
-    sbc $1F1D
-    sta $045B
+    sbc.w hitbox.width
+    sta.w !obj_arthur.pos_x+1
     bra .FEB9
 
 .FEB2:
     sec
-    adc $1F1D
+    adc.w hitbox.width
     sta.w !obj_arthur.pos_x+1
 .FEB9:
     !AX8

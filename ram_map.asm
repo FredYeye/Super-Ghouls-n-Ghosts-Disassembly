@@ -39,6 +39,7 @@
     difficulty        = $027C
     shot_buttons      = $027D;027E
     jump_buttons      = $027F;0280
+    ;$0281;0288 unused?
     rng_state         = $0289;028A
     ;                   $028B;028C ;unused?
     stage             = $028D;028E
@@ -55,8 +56,8 @@
     timer_tens        = $02A8
     timer_seconds     = $02A9
     timer_ticks       = $02AA
-    ;02AB unused
-
+    ;$02AB unused
+    ;$02AC bool
     current_weapon_stored  = $02AD
     arthur_state_stored    = $02AE
     upgrade_state_stored   = $02AF ;arthur face or plume
@@ -79,7 +80,7 @@
 
     frame_counter       = $02C3 ;updated when a frame's worth of work is done? i.e. not on lag frames
     video_frame_counter = $02C4 ;incremented in NMI handler, not used for anything
-    ;02C5 used as counter for looping over all objs
+    object_loop_counter = $02C5
 
     struct snes_reg $02C7;02F2
         .base:     skip 0
@@ -195,7 +196,9 @@
     ; = $14B9 arthur crouch related
     armor_state                  = $14BA ;armor/transform state
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
-    ; = $14BE
+    ; = $14BE;14BF ;arthur x pos at beginning of game frame?
+    ;$14C0 unused
+    ; = $14C1;14C2 ;arthur y pos at beginning of game frame?
     ; = $14C3
     current_cage                 = $14C4;14C5 ;0:outside 1:first cage 2:second cage
     double_jump_state            = $14C6
@@ -262,6 +265,8 @@
     camera_y = $15E0;15E3
 
     screen_boundary_left = $1A7D;1A7E
+
+    ;1A80;1A93 two structs?
 
     obj_type_count = $1A9A;1B99 ;array counting active objects per type
 

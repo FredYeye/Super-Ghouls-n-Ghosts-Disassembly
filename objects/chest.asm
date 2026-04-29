@@ -131,7 +131,7 @@ destroy:
     jsr _0280E9
     sta.b obj.type
     lda #$0C : sta $00
-    jml _02821B_827A
+    jml object_handling_827A
 
 .chest_order: ;indexes into B827
 if !version == 0 || !version == 1

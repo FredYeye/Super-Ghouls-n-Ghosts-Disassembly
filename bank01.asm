@@ -22,7 +22,7 @@ _018021: ;a8 x-
     stz.w in_armor_up_anim
     stz.w ready_go_active
     jsl _018593
-    jsl _02821B
+    jsl object_handling
     jsl fill_sprite_queue
     jsl _0185BB
     inc $0379
@@ -746,13 +746,13 @@ _018593: ;a- x8
     lda #$0008 : sta $44
     stz $42
     ldx #$1E
-    lda #$0000
+    lda.w #$0000
 -:
     sta.l oam_sprite_data+$200,X
     dex #2
     bpl -
 
-    lda #$0080 : sta $0344
+    lda.w #$0080 : sta $0344
     !A8
     rtl
 }
@@ -4005,7 +4005,7 @@ _01AF04: ;a8 x8
 }
 
 { ;B14B - B19C
-_01B14B: ;a8 x8
+pause_handling: ;a8 x8
     lda $1FB9
     bne .ret
 
@@ -4017,11 +4017,11 @@ _01B14B: ;a8 x8
     beq .ret
 
     lda #!sfx_pause : jsl _018049_8053
-    lda #$F3 : jsl _018049_8053
+    lda #$F3 : jsl _018049_8053 ;F3 suspend sound?
     ldx.b #task[6].base
 .B16A:
     lda.w !task_offset.state,X : pha
-    lda #$02 : sta.w !task_offset.state,X
+    lda.b #!task_pause : sta.w !task_offset.state,X
     sec : txa : sbc.b #task.len : tax
     bne .B16A
 
@@ -4031,7 +4031,7 @@ _01B14B: ;a8 x8
     bit #!start
     beq .B17A
 
-    lda #$F4 : jsl _018049_8053
+    lda #$F4 : jsl _018049_8053 ;F4 resume sound?
     ldx.b #task[1].base
 .B18F:
     pla : sta.w !task_offset.state,X
@@ -4045,7 +4045,7 @@ _01B14B: ;a8 x8
 
 { ;B19D - B26C
 _01B19D: ;a8 x8
-    jsr _01B14B
+    jsr pause_handling
     lda.w !obj_arthur.pos_x+1 : sta $14BE
     lda.w !obj_arthur.pos_x+2 : sta $14BF
     lda.w !obj_arthur.pos_y+1 : sta $14C1
@@ -4054,13 +4054,13 @@ _01B19D: ;a8 x8
     jsl _018593
     stz $0330
     stz $14E9
-    jsl _02821B
-    jsr _01B2DF
+    jsl object_handling
+    jsr tick_knife_rapid_timer
     jsl _048AD3_8ADB
     lda $1F9B
     bne .B1DB
 
-    jsr _01C679_C681
+    jsr _01C679_local
 .B1DB:
     jsr _01B90E_B912
     jsr _01B6CB
@@ -4084,11 +4084,11 @@ _01B19D: ;a8 x8
     jsl fill_sprite_queue
     jsl _0185BB
     jsr _01B9A8
-    jsr _01B4EF
+    jsr checkpoint_handling
     jsr _01BDB8
     jsr _01B2D6
     inc $0379
-    jsr _01B2B1
+    jsr hud_flicker
     ldx #$01
 .B22B:
     txa : jsl current_task_suspend
@@ -4141,7 +4141,7 @@ _01B26D: ;a8 x-
 }
 
 { ;B2B1 - B2D5
-_01B2B1: ;a8 x8
+hud_flicker: ;a8 x8
     lda.w hud_flicker_timer
     beq .ret
 
@@ -4168,7 +4168,7 @@ _01B2D6: ;a8 x-
 }
 
 { ;B2DF - B2EC
-_01B2DF: ;a8 x-
+tick_knife_rapid_timer: ;a8 x-
     lda.w knife_rapid_timer : beq .ret
 
     dec.w knife_rapid_timer
@@ -4277,7 +4277,7 @@ _01B4DE: ;a8 x-
 }
 
 { ;B4EF - B525
-_01B4EF: ;a8 x-
+checkpoint_handling: ;a8 x-
     !X16
     ldx.w !obj_arthur.pos_x+1
     cpx.w checkpoint_x_pos
@@ -4285,11 +4285,11 @@ _01B4EF: ;a8 x-
     bcc .B525
 
     lda #$01 : sta.w checkpoint
-    lda #$05 : sta.w timer_minutes
+    lda.b #5 : sta.w timer_minutes
     stz.w timer_tens
     stz.w timer_seconds
     stz.w timer_ticks
-.B50E: ;a8 x8
+.set_x_pos: ;a8 x8
     ldx.w stage
     lda.w checkpoint
     asl
@@ -4647,9 +4647,7 @@ _01B6CB: ;a8 x8
     rts
 
 .B7A2:
-    lda $04
-    asl
-    tax
+    lda $04 : asl : tax
     jmp (+,X) : +: dw .B7BF, .B724, .B7D0, .B7DB, .B7D0, .B824, .B7D0, .B849, .B7D0, .B800, .B78B
 
 ;-----
@@ -6470,10 +6468,10 @@ _01C679:
     rts
 
 .C67D: ;a8 x8
-    jsr .C681
+    jsr .local
     rtl
 
-.C681: ;a8 x8
+.local: ;a8 x8
     lda $032A
     bne _01C679
 

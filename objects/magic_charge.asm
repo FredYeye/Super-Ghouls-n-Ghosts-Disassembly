@@ -39,7 +39,7 @@ create:
     bne .F815
 
     stz $00
-    jmp _02821B_827A
+    jmp object_handling_827A
 
 ;-----
 

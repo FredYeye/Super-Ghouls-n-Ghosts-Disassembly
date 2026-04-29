@@ -23,7 +23,7 @@ create:
     jsr _0280E9
     lda #!id_bracelet_item : sta.b obj.type
     lda #$0C : sta.b obj.active
-    jml _02821B_827A
+    jml object_handling_827A
 
 .BBCE:
     lda #$FF : sta $07

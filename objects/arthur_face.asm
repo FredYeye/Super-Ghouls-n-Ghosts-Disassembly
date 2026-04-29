@@ -61,7 +61,7 @@ create:
 
 .D538:
     stz.b obj.active
-    jmp _02821B_827A
+    jmp object_handling_827A
 }
 
 

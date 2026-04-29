@@ -21,7 +21,7 @@ create:
     bne .E9B1
 
     stz $00
-    jml _02821B_827A
+    jml object_handling_827A
 }
 
 namespace off

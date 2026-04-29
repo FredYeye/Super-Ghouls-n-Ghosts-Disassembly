@@ -3,7 +3,7 @@ namespace arthur_plume
 {
 _C50D:
     stz.b obj.active
-    jml _02821B_827A
+    jml object_handling_827A
 
 create:
     brk #$00
