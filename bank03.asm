@@ -634,7 +634,7 @@ _03F526:
 
 .F767:
     pla : pla : pla : pla
-    jsl _0180A6
+    jsl remove_tasks
     jsl enable_forced_blanking
     rtl
 }
@@ -698,11 +698,11 @@ _03F8A3:
     lda #$05 : sta.w snes_reg.bg34nba
     lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
     lda $02D7 : ora #$04 : sta $02D7
-    lda.b #!dmap_mode_2     : sta  !DMAP1
-    lda.b #!BG1HOFS         : sta  !BBAD1
-    lda.b #hdma_data+$00    : sta  !A1T1L
+    lda.b #!dmap_mode_2     : sta   !DMAP1
+    lda.b #!BG1HOFS         : sta   !BBAD1
+    lda.b #hdma_data+$00    : sta   !A1T1L
     lda.b #hdma_data+$00>>8 : sta.w A1T1H
-    lda #$00                : sta  !A1B1
+    lda #$00                : sta.w A1B1
     stz.w DAS1B
     inc $1FAE
     lda #$02 : sta.w snes_reg.hdmaen

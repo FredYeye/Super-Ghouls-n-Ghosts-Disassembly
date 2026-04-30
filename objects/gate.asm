@@ -82,7 +82,7 @@ _C4EC:
     ldx $13 : stx !A1T7L
     !X8
     lda #$00
-    stz !A1B7
+    stz.w A1B7
     lda #$04   : sta !DMAP7
     lda.b #WH0 : sta !BBAD7
     lda.w snes_reg.hdmaen : ora #$80 : sta.w snes_reg.hdmaen

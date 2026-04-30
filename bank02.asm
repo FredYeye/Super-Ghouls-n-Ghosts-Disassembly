@@ -370,8 +370,7 @@ _0281FF: ;a8 x8
     ldx $2B
     beq .ret
 
-    inc $14A7,X
-    inc $14A7,X
+    inc $14A7,X : inc $14A7,X
     clc
     lda.w _00A6A4-1,X
     adc $14A7,X

@@ -176,7 +176,7 @@ create:
     !X16
     ldx.b obj.speed_x+2 : stx !A1T2L
     !X8
-    stz !A1B2
+    stz.w A1B2
     lda #$01   : sta !DMAP2
     lda.b #WH0 : sta !BBAD2
     lda.w snes_reg.hdmaen : ora #$04 : sta.w snes_reg.hdmaen

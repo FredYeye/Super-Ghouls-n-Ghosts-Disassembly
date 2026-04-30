@@ -113,13 +113,14 @@ _018091: ;a8 x16
 }
 
 { ;80A6 - 80B8
-_0180A6: ;a8 x-
-    stz $0066
-    stz $007E
-    stz $0096
-    stz $00AE
-    stz $00C6
-    stz $00DE
+remove_tasks: ;a8 x-
+    ;clear all tasks except [0], the main game state task
+    stz.w !task_offset[1].state
+    stz.w !task_offset[2].state
+    stz.w !task_offset[3].state
+    stz.w !task_offset[4].state
+    stz.w !task_offset[5].state
+    stz.w !task_offset[6].state
     rtl
 }
 
@@ -938,12 +939,8 @@ _01868B:
     and $10
     ora $12
     sta.w oam_sprite_data+2,X
-    lsr $07
-    ror $42
-    asl $14
-    asl $14
-    asl $14
-    ror $42
+    lsr $07 : ror $42
+    asl $14 : asl $14 : asl $14 : ror $42
     dec $44
     bne +
 
@@ -951,8 +948,7 @@ _01868B:
     phy
     ldy $0376
     lda $42 : sta.w oam_sprite_data+$200,Y
-    inc $0376
-    inc $0376
+    inc $0376 : inc $0376
     ply
 +:
     inx #4
@@ -982,12 +978,8 @@ _01868B:
     ora $12
     eor #$4000
     sta.w oam_sprite_data+2,X
-    lsr $07
-    ror $42
-    asl $14
-    asl $14
-    asl $14
-    ror $42
+    lsr $07 : ror $42
+    asl $14 : asl $14 : asl $14 : ror $42
     dec $44
     bne .87CA
 
@@ -995,8 +987,7 @@ _01868B:
     phy
     ldy $0376
     lda $42 : sta.w oam_sprite_data+$200,Y
-    inc $0376
-    inc $0376
+    inc $0376 : inc $0376
     ply
 .87CA:
     inx #4
@@ -2634,7 +2625,7 @@ _01951E: ;a8 x8
     stz.w WH1
     stz.w WH2
     stz.w WH3
-    stz !SETINI
+    stz.w SETINI
     stz.w HDMAEN
     rtl
 }
@@ -2660,7 +2651,7 @@ _019539: ;a8 x8
     stz.w snes_reg.wbglog
     stz $02ED
     stz.w snes_reg.coldata
-    stz !SETINI
+    stz.w SETINI
     rtl
 }
 
@@ -3511,7 +3502,7 @@ run_tasks: ;a8 x8
     bne .A6DA
 
     inc.w frame_counter
-    jsr _01A74A_A7A4
+    jsr _01A74A_entry
 .A6DA:
     lda #$08 : sta.w !task_offset.state,Y
     !A16
@@ -3592,9 +3583,7 @@ _01A74A:
     stz.w p2_button_press
     stz.w p2_button_hold+1
     stz.w p2_button_press+1
-    pla
-    eor #$FF
-    sta.w p1_button_press+1
+    pla : eor.b #$FF : sta.w p1_button_press+1
     lda.w p1_button_hold+1
     and #$10
     ora $1FC5
@@ -3616,7 +3605,7 @@ _01A74A:
     plx
     rts
 
-.A7A4: ;a8 x8
+.entry: ;a8 x8
     lda $1FB9
     cmp #$02
     beq _01A74A
@@ -3853,7 +3842,7 @@ _01AF04: ;a8 x8
     lda.b #TM           : sta.w !BBAD6
     lda #$F4            : sta.w !A1T6L ;todo: label
     lda #$1E            : sta.w A1T6H
-    lda #$00            : sta.w !A1B6
+    lda #$00            : sta.w A1B6
     stz.w DAS6B
     lda #$17 ;todo: hdma data?
     ldx #$01
@@ -3872,7 +3861,7 @@ _01AF04: ;a8 x8
     lda.b #!CGADSUB     : sta.w !BBAD7
     lda #$04            : sta.w !A1T7L ;todo: label
     lda #$1F            : sta.w A1T7H
-    lda #$00            : sta.w !A1B7
+    lda #$00            : sta.w A1B7
     stz.w DAS7B
     lda #$43 : sta $1F05 : sta $1F07 ;todo: hdma data?
     lda #$53 : sta $1F09 : sta $1F0B
@@ -3910,7 +3899,7 @@ _01AF04: ;a8 x8
 .B0B4:
     jsl _01810E
     stz $19EC
-    lda #$40 : sta !SETINI ;extbg
+    lda #$40 : sta.w SETINI ;extbg
     lda #$01 : sta $1FA0 : sta $1FA1 : sta $1FA2 : sta $1FA3
     !A16
     clc
@@ -4017,7 +4006,7 @@ _01B19D: ;a8 x8
     stz $14E9
     jsl object_handling
     jsr tick_knife_rapid_timer
-    jsl _048AD3_8ADB
+    jsl _048AD3_entry
     lda $1F9B
     bne .B1DB
 
@@ -4634,8 +4623,7 @@ _01B6CB: ;a8 x8
 
 .B7DB:
     !A16
-    clc
-    lda $02   : adc #$0100 : sta $02
+    clc : lda $02 : adc #$0100 : sta $02
     clc
     lda $1888 : adc $02    : sta $19CC
     lda $188A : adc #$0000 : sta $19CE
@@ -4667,8 +4655,7 @@ _01B6CB: ;a8 x8
 
 .B824:
     !A16
-    clc
-    lda $02   : adc #$0100 : sta $02
+    clc : lda $02 : adc #$0100 : sta $02
     sec
     lda $1888 : sbc $02    : sta $19CC
     lda $188A : sbc #$0000 : sta $19CE
@@ -4684,8 +4671,7 @@ _01B6CB: ;a8 x8
 
 .B849;
     !A16
-    clc
-    lda $02   : adc #$0100 : sta $02
+    clc : lda $02 : adc #$0100 : sta $02
     sec
     lda $188C : sbc $02    : sta $19D0
     lda $188E : sbc #$0000 : sta $19D2
@@ -7834,10 +7820,7 @@ _01DDAE: ;a9 x-
     ldx #$01C7
 .DDC0:
     stz $0707,X
-    sec
-    txa
-    sbc #$0041
-    tax
+    sec : txa : sbc #$0041 : tax
     bpl .DDC0
 
     !AX8

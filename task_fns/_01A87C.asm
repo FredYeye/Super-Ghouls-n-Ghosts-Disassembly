@@ -78,7 +78,7 @@ endif
     bra .A91E
 
 .A928:
-    dw .AAC1, .ABB3, .AB59, .AC08, _01B19D, .AB61
+    dw .AAC1, .ABB3, .AB59, .AC08, _01B19D, .lose_life
     dw .time_over, .mosaic_transition, .AAB4, .AAB0, .A940, .A945
 
 ;-----
@@ -219,7 +219,7 @@ endif
 
 .AAB4:
     lda #$02 : sta $0022
-    jsl _049085
+    jsl game_over
     stz.w game_state
     rts
 
@@ -302,16 +302,16 @@ endif
 
 ;-----
 
-.AB61:
+.lose_life:
     dec.w extra_lives
-    bmi .AB70
+    bmi .game_over
 
     lda #$02 : sta.w game_state
     jsl set_stage
     rts
 
-.AB70: ;game over
-    jsl _049085 ;show game over text & play music?
+.game_over:
+    jsl game_over
     lda.w continues
     beq .AB9C
 
@@ -336,7 +336,7 @@ endif
 .time_over:
     jsl time_over
     dec.w extra_lives
-    bmi .AB70
+    bmi .game_over
 
     lda #$02 : sta.w game_state
     jsl set_stage
@@ -395,7 +395,7 @@ endif
 ;-----
 
 .mosaic_transition:
-    jsl _0180A6
+    jsl remove_tasks
     lda.b #63 : jsl current_task_suspend
     ldx #$0F
 .AC22:
@@ -474,7 +474,7 @@ endif
     jsl _058000
     jsl _0180B9
     jsl _018CE2
-    jsl _0180A6
+    jsl remove_tasks
     jsr _01B4DE
     lda.w current_weapon_stored : sta.w weapon_current
     and #$1E  : sta.w existing_weapon_type
@@ -605,35 +605,35 @@ endif
 .AE55:
     lda #$01 : sta.w hdma_data+$00 : sta.w hdma_data+$05 ;line counters
     stz.w hdma_data+$0A                                  ;hdma data end
-    lda.b #!dmap_mode_3     : sta  !DMAP1
-    lda.b #!BG3HOFS         : sta  !BBAD1
-    lda.b #hdma_data+$00    : sta  !A1T1L
+    lda.b #!dmap_mode_3     : sta   !DMAP1
+    lda.b #!BG3HOFS         : sta   !BBAD1
+    lda.b #hdma_data+$00    : sta   !A1T1L
     lda.b #hdma_data+$00>>8 : sta.w A1T1H
-    lda #$00                : sta  !A1B1
+    lda #$00                : sta.w A1B1
     stz.w DAS1B
     lda #$01 : sta.w hdma_data+$0B : sta.w hdma_data+$10
     stz.w hdma_data+$15
-    lda.b #!dmap_mode_4     : sta  !DMAP3
-    lda.b #!BG3SC           : sta  !BBAD3
-    lda.b #hdma_data+$0B    : sta  !A1T3L
+    lda.b #!dmap_mode_4     : sta   !DMAP3
+    lda.b #!BG3SC           : sta   !BBAD3
+    lda.b #hdma_data+$0B    : sta   !A1T3L
     lda.b #hdma_data+$0B>>8 : sta.w A1T3H
-    lda #$00                : sta  !A1B3
+    lda #$00                : sta.w A1B3
     stz.w DAS3B
     lda #$01 : sta.w hdma_data+$16 : sta.w hdma_data+$18
     stz.w hdma_data+$1A
-    lda.b #!dmap_mode_0     : sta  !DMAP4
-    lda.b #!BGMODE          : sta  !BBAD4
-    lda.b #hdma_data+$16    : sta  !A1T4L
+    lda.b #!dmap_mode_0     : sta   !DMAP4
+    lda.b #!BGMODE          : sta   !BBAD4
+    lda.b #hdma_data+$16    : sta   !A1T4L
     lda.b #hdma_data+$16>>8 : sta.w A1T4H
-    lda #$00                : sta  !A1B4
+    lda #$00                : sta.w A1B4
     stz.w DAS4B
     lda #$01 : sta.w hdma_data+$21 : sta.w hdma_data+$24
     stz.w hdma_data+$27
-    lda.b #!dmap_mode_1     : sta  !DMAP5
-    lda.b #TM               : sta  !BBAD5
-    lda.b #hdma_data+$21    : sta  !A1T5L
+    lda.b #!dmap_mode_1     : sta   !DMAP5
+    lda.b #TM               : sta   !BBAD5
+    lda.b #hdma_data+$21    : sta   !A1T5L
     lda.b #hdma_data+$21>>8 : sta.w A1T5H
-    lda #$00                : sta  !A1B5
+    lda #$00                : sta.w A1B5
     stz.w DAS5B
     lda #$00
     ldx $0292

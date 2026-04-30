@@ -218,7 +218,7 @@ _048AD3:
     dw $FFE0, $0020
     dw $0101, $FFFF
 
-.8ADB: ;a8 x8
+.entry: ;a8 x8
     lda.w stage
     cmp.b #!stage_4b
     beq .ret2
@@ -403,7 +403,7 @@ _048C43: ;a8 x8
 
     stz.w snes_reg.inidisp
     jsl _0180B9
-    jsl _0180A6
+    jsl remove_tasks
     jsl _01951E
     jsl _018049_804D
     lda #$15 ;unused lda
@@ -595,7 +595,7 @@ _048E68: ;a8 x-
 _048EAD: ;a8 x8
     jsr set_stage_old
     jsl _0180B9
-    jsl _0180A6
+    jsl remove_tasks
     stz.w stage
     stz $028E
     stz.w checkpoint
@@ -695,7 +695,7 @@ endif
 
 { ;8FDD - 9069
 time_over:
-    jsl _0180A6
+    jsl remove_tasks
     stz $1FB5
     jsl _018366
     jsl _01951E
@@ -754,8 +754,8 @@ _04906A: ;a- x8
 }
 
 { ;9085 - 9120
-_049085: ;a8 x8
-    jsl _0180A6
+game_over: ;a8 x8
+    jsl remove_tasks
     stz $1FB5
     jsl _018366
     jsl _01951E
@@ -975,7 +975,7 @@ _049310: ;a8 x8
     jsl _0180B9
     jsl _01951E
     lda #$01 : sta.w snes_reg.nmitimen
-    jsl _0180A6
+    jsl remove_tasks
     jsl disable_nmi
     jsl _018CE2
     jsl clear_oam_sprite_data
@@ -1618,10 +1618,10 @@ _04F021:
     cmp $00
     bcs _04F021
 
-    ldy #$02
+    ldy.b #$02
     lda ($4C),Y
     tax
-    clc : lda $004C : adc #$0003 : sta $004C
+    clc : lda $004C : adc.w #$0003 : sta $004C
     !X16
     phx
     ldy _04F0E0_F1FA,X

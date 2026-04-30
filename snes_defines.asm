@@ -58,7 +58,7 @@
     !CGWSEL   = $2130 ;Color Math Control Register A
     !CGADSUB  = $2131 ;Color Math Control Register B
     COLDATA   = $2132 ;Color Math Sub Screen Backdrop Color
-    !SETINI   = $2133 ;Display Control 2
+    SETINI    = $2133 ;Display Control 2
 
     !MPYM     = $2135 ;PPU1 Signed Multiply Result   (middle 8bit)
     !MPYH     = $2136 ;PPU1 Signed Multiply Result   (upper 8bit)
@@ -130,14 +130,14 @@
     A1T6H     = $4363
     A1T7H     = $4373
 
-    !A1B0     = $4304 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
-    !A1B1     = $4314
-    !A1B2     = $4324
-    !A1B3     = $4334
-    !A1B4     = $4344
-    !A1B5     = $4354
-    !A1B6     = $4364
-    !A1B7     = $4374
+    A1B0      = $4304 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
+    A1B1      = $4314
+    A1B2      = $4324
+    A1B3      = $4334
+    A1B4      = $4344
+    A1B5      = $4354
+    A1B6      = $4364
+    A1B7      = $4374
 
     !DAS0L    = $4305 ;Indirect HDMA Address (low)  / DMA Byte-Counter (low)
 

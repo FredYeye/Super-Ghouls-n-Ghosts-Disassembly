@@ -127,7 +127,7 @@ endif
     lda #$07 : sta.w snes_reg.bgmode
     lda #$04 : sta.w snes_reg.tm : sta.w snes_reg.ts
     lda #$12 : sta $02D7 : sta $02D8
-    lda #$40 : sta !SETINI ;EXTBG
+    lda #$40 : sta.w SETINI ;EXTBG
     stz $2D
     stz $2E
     stz $39

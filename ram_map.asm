@@ -7,6 +7,7 @@
     ;$0036;0037
     random_values_ptr      = $003D;003E
     task_function_pointer  = $003F;0040
+    ;$0041 unused?
     decompression_bank_ptr = $0046;0049
     decompression_size     = $004A;004B
     ;$004C;004D ?

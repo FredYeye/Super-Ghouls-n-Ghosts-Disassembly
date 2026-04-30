@@ -135,7 +135,7 @@ nmi: ;a- x-
     lda.b #OAMDATA             : sta   !BBAD0
     lda.b #oam_sprite_data     : sta   !A1T0L
     lda.b #oam_sprite_data>>8  : sta.w A1T0H
-    lda.b #oam_sprite_data>>16 : sta   !A1B0
+    lda.b #oam_sprite_data>>16 : sta.w A1B0
     lda.b #$0220               : sta   !DAS0L
     lda.b #$0220>>8            : sta.w DAS0H
     lda #$01                   : sta   !MDMAEN
@@ -449,7 +449,7 @@ _008577: ;a8 x-
     lda.b #OAMDATA             : sta   !BBAD0
     lda.b #oam_sprite_data     : sta   !A1T0L
     lda.b #oam_sprite_data>>8  : sta.w A1T0H
-    lda.b #oam_sprite_data>>16 : sta   !A1B0
+    lda.b #oam_sprite_data>>16 : sta.w A1B0
     lda.b #$0220               : sta   !DAS0L
     lda.b #$0220>>8            : sta.w DAS0H
     lda #$01                   : sta   !MDMAEN
@@ -480,52 +480,36 @@ _0085A6: ;a- x8
     ldy $50
     beq .8617
 
-    ldx #$00 : stx $50 : stx !A1B0
+    ldx #$00 : stx $50 : stx.w A1B0
     lda $51    : sta !VMADDL
     ldx #$81   : stx !VMAIN
     lda #$1801 : sta !DMAP0
-    tdc
-    clc
-    adc #$0053
-    sta !A1T0L
+    tdc : clc : adc #$0053 : sta !A1T0L
     lda #$0040 : sta !DAS0L
     ldx #$01   : stx !MDMAEN
     dey : beq .8617
 
-    lda $51
-    eor #$0800
-    sta !VMADDL
-    tdc
-    clc
-    adc #$0093
-    sta !A1T0L
-    ldx #$00   : stx !A1B0
+    lda $51 : eor #$0800 : sta !VMADDL
+    tdc : clc : adc #$0093 : sta !A1T0L
+    ldx #$00   : stx.w A1B0
     lda #$0040 : sta !DAS0L
     ldx #$01   : stx !MDMAEN
 .8617:
     ldy $D3
     beq .ret
 
-    ldx #$00 : stx $D3 : stx !A1B0
+    ldx #$00 : stx $D3 : stx.w A1B0
     lda $D4    : sta !VMADDL
     ldx #$80   : stx !VMAIN
     lda #$1801 : sta !DMAP0
-    tdc
-    clc
-    adc #$00D6
-    sta !A1T0L
+    tdc : clc : adc #$00D6 : sta !A1T0L
     lda #$0040 : sta !DAS0L
     ldx #$01   : stx !MDMAEN
     dey : beq .ret
 
-    lda $D4
-    eor #$0400
-    sta !VMADDL
-    tdc
-    clc
-    adc #$0116
-    sta !A1T0L
-    ldx #$00   : stx !A1B0
+    lda $D4 : eor #$0400 : sta !VMADDL
+    tdc : clc : adc #$0116 : sta !A1T0L
+    ldx #$00   : stx.w A1B0
     lda #$0040 : sta !DAS0L
     ldx #$01   : stx !MDMAEN
 .ret
@@ -544,16 +528,13 @@ _008669: ;a8 x8
     lda $037C,X : sta !VMADDL
     lda #$1801  : sta !DMAP0
     lda $037E,X : sta !A1T0L
-    lda $0380,X : sta !A1B0
+    lda $0380,X : sta.w A1B0
     lda $0381,X : sta !DAS0L
     phy
     ldy $0383,X : sty !VMAIN
     ldy #$01    : sty !MDMAEN
     ply
-    clc
-    txa
-    adc #$0008
-    tax
+    clc : txa : adc #$0008 : tax
     dey : bne -
 
     !A8
@@ -588,7 +569,7 @@ _008700: ;a8 x-
     lda $0318  : sta !VMADDL
     lda #$1801 : sta !DMAP0
     lda.w #_7F9000     : sta !A1T0L
-    lda.w #_7F9000>>16 : sta !A1B0
+    lda.w #_7F9000>>16 : sta.w A1B0
     lda $031A  : sta !DAS0L
     !A8
     lda #$01   : sta !MDMAEN
@@ -651,7 +632,7 @@ _008735: ;a8 x8
     lda.b #!VMDATAL : sta   !BBAD0
     lda.b #.src     : sta   !A1T0L
     lda.b #.src>>8  : sta.w A1T0H
-    lda.b #.src>>16 : sta   !A1B0
+    lda.b #.src>>16 : sta.w A1B0
     lda #$00        : sta   !DAS0L
     lda #$10        : sta.w DAS0H
     lda #$01        : sta   !MDMAEN
@@ -667,7 +648,7 @@ _008735: ;a8 x8
     lda.b #!RDVRAML : sta   !BBAD0
     lda #$00        : sta   !A1T0L
     lda #$10        : sta.w A1T0H
-    lda #$7F        : sta   !A1B0
+    lda #$7F        : sta.w A1B0
     !A16
     lda #$1C00      : sta !DAS0L
     !A8
@@ -719,7 +700,7 @@ _008807: ;a8 x8
     lda .8871+1,Y : sta   !VMADDH
     lda .8871+2,Y : sta   !A1T0L
     lda .8871+3,Y : sta.w A1T0H
-    lda .8871+4,Y : sta   !A1B0
+    lda .8871+4,Y : sta.w A1B0
     lda .8871+5,Y : sta   !DAS0L
     lda .8871+6,Y : sta.w DAS0H
     lda #$01      : sta   !MDMAEN
@@ -785,7 +766,7 @@ _00893C: ;a8 x8
     lda .8984+1,Y   : sta   !VMADDH
     lda .8984+2,Y   : sta   !A1T0L
     lda .8984+3,Y   : sta.w A1T0H
-    lda .8984+4,Y   : sta   !A1B0
+    lda .8984+4,Y   : sta.w A1B0
     lda .8984+5,Y   : sta   !DAS0L
     lda .8984+6,Y   : sta.w DAS0H
     lda #$01        : sta   !MDMAEN
@@ -833,7 +814,7 @@ _0089B0: ;a8 x8
     ldx $0332
     lda _00A300+0,X : sta   !A1T0L
     lda _00A300+1,X : sta.w A1T0H
-    lda _00A300+2,X : sta   !A1B0
+    lda _00A300+2,X : sta.w A1B0
     cpx #$06
     bne +
 
@@ -903,7 +884,7 @@ _008A56: ; a8 x8
     ldy $0000,X : sty !VMADDL
     ldy #$1801  : sty !DMAP0
     ldy $0002,X : sty !A1T0L
-    lda $0004,X : sta !A1B0
+    lda $0004,X : sta.w A1B0
     ldy $0005,X : sty !DAS0L
     lda #$80    : sta !VMAIN
     lda #$01    : sta !MDMAEN
@@ -933,7 +914,7 @@ _008AB3: ;a8 x8
     lda.b #!VMDATAL : sta   !BBAD0
     lda #$00        : sta   !A1T0L
     lda #$00        : sta.w A1T0H
-    lda #$70        : sta   !A1B0
+    lda #$70        : sta.w A1B0
     !A16
     lda #$0800      : sta !DAS0L
     lda #$1800      : sta !VMADDL
