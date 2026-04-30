@@ -469,8 +469,8 @@ endif
     sta.w difficulty
     asl
     tax
-    lda.w random_values_difficulty_offset+0,X : sta $003D
-    lda.w random_values_difficulty_offset+1,X : sta $003E
+    lda.w random_values_difficulty_offset+0,X : sta.w random_values_ptr+0
+    lda.w random_values_difficulty_offset+1,X : sta.w random_values_ptr+1
     jsl _058000
     jsl _0180B9
     jsl _018CE2
@@ -605,36 +605,36 @@ endif
 .AE55:
     lda #$01 : sta.w hdma_data+$00 : sta.w hdma_data+$05 ;line counters
     stz.w hdma_data+$0A                                  ;hdma data end
-    lda.b #!dmap_mode_3     : sta !DMAP1
-    lda.b #!BG3HOFS         : sta !BBAD1
-    lda.b #hdma_data+$00    : sta !A1T1L
-    lda.b #hdma_data+$00>>8 : sta !A1T1H
-    lda #$00                : sta !A1B1
-    stz !DAS1B
+    lda.b #!dmap_mode_3     : sta  !DMAP1
+    lda.b #!BG3HOFS         : sta  !BBAD1
+    lda.b #hdma_data+$00    : sta  !A1T1L
+    lda.b #hdma_data+$00>>8 : sta.w A1T1H
+    lda #$00                : sta  !A1B1
+    stz.w DAS1B
     lda #$01 : sta.w hdma_data+$0B : sta.w hdma_data+$10
     stz.w hdma_data+$15
-    lda.b #!dmap_mode_4     : sta !DMAP3
-    lda.b #!BG3SC           : sta !BBAD3
-    lda.b #hdma_data+$0B    : sta !A1T3L
-    lda.b #hdma_data+$0B>>8 : sta !A1T3H
-    lda #$00                : sta !A1B3
-    stz !DAS3B
+    lda.b #!dmap_mode_4     : sta  !DMAP3
+    lda.b #!BG3SC           : sta  !BBAD3
+    lda.b #hdma_data+$0B    : sta  !A1T3L
+    lda.b #hdma_data+$0B>>8 : sta.w A1T3H
+    lda #$00                : sta  !A1B3
+    stz.w DAS3B
     lda #$01 : sta.w hdma_data+$16 : sta.w hdma_data+$18
     stz.w hdma_data+$1A
-    lda.b #!dmap_mode_0     : sta !DMAP4
-    lda.b #!BGMODE          : sta !BBAD4
-    lda.b #hdma_data+$16    : sta !A1T4L
-    lda.b #hdma_data+$16>>8 : sta !A1T4H
-    lda #$00                : sta !A1B4
-    stz !DAS4B
+    lda.b #!dmap_mode_0     : sta  !DMAP4
+    lda.b #!BGMODE          : sta  !BBAD4
+    lda.b #hdma_data+$16    : sta  !A1T4L
+    lda.b #hdma_data+$16>>8 : sta.w A1T4H
+    lda #$00                : sta  !A1B4
+    stz.w DAS4B
     lda #$01 : sta.w hdma_data+$21 : sta.w hdma_data+$24
     stz.w hdma_data+$27
-    lda.b #!dmap_mode_1     : sta !DMAP5
-    lda.b #TM               : sta !BBAD5
-    lda.b #hdma_data+$21    : sta !A1T5L
-    lda.b #hdma_data+$21>>8 : sta !A1T5H
-    lda #$00                : sta !A1B5
-    stz !DAS5B
+    lda.b #!dmap_mode_1     : sta  !DMAP5
+    lda.b #TM               : sta  !BBAD5
+    lda.b #hdma_data+$21    : sta  !A1T5L
+    lda.b #hdma_data+$21>>8 : sta.w A1T5H
+    lda #$00                : sta  !A1B5
+    stz.w DAS5B
     lda #$00
     ldx $0292
     bne +

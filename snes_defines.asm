@@ -66,7 +66,7 @@
     !RDVRAML  = $2139 ;PPU1 VRAM Data Read           (lower 8bits)
     !RDVRAMH  = $213A ;PPU1 VRAM Data Read           (upper 8bits)
     OPVCT     = $213D ;PPU2 Vertical Counter Latch   (read-twice)
-    !STAT78   = $213F ;PPU2 Status and PPU2 Version Number
+    STAT78    = $213F ;PPU2 Status and PPU2 Version Number
 
     !APUI00   = $2140 ;Main CPU to Sound CPU Communication Port 0
     !APUI01   = $2141 ;Main CPU to Sound CPU Communication Port 1
@@ -75,8 +75,8 @@
 
     !NMITIMEN = $4200 ;Interrupt Enable and Joypad Request
     WRIO      = $4201 ;Joypad Programmable I/O Port (Open-Collector Output)
-    !WRMPYA   = $4202 ;Set unsigned 8bit Multiplicand
-    !WRMPYB   = $4203 ;Set unsigned 8bit Multiplier and Start Multiplication
+    WRMPYA    = $4202 ;Set unsigned 8bit Multiplicand
+    WRMPYB    = $4203 ;Set unsigned 8bit Multiplier and Start Multiplication
     !WRDIVL   = $4204 ;Set unsigned 16bit Dividend (lower 8bit)
     !WRDIVH   = $4205 ;Set unsigned 16bit Dividend (upper 8bit)
     !WRDIVB   = $4206 ;Set unsigned 8bit Divisor and Start Division
@@ -122,13 +122,13 @@
     !A1T6L    = $4362
     !A1T7L    = $4372
 
-    !A1T0H    = $4303 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
-    !A1T1H    = $4313
-    !A1T3H    = $4333
-    !A1T4H    = $4343
-    !A1T5H    = $4353
-    !A1T6H    = $4363
-    !A1T7H    = $4373
+    A1T0H     = $4303 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
+    A1T1H     = $4313
+    A1T3H     = $4333
+    A1T4H     = $4343
+    A1T5H     = $4353
+    A1T6H     = $4363
+    A1T7H     = $4373
 
     !A1B0     = $4304 ;HDMA Table Start Address (bank) / DMA Curr Addr (bank)
     !A1B1     = $4314
@@ -141,14 +141,14 @@
 
     !DAS0L    = $4305 ;Indirect HDMA Address (low)  / DMA Byte-Counter (low)
 
-    !DAS0H    = $4306 ;Indirect HDMA Address (high) / DMA Byte-Counter (high)
+    DAS0H     = $4306 ;Indirect HDMA Address (high) / DMA Byte-Counter (high)
 
-    !DAS1B    = $4317 ;Indirect HDMA Address (bank)
-    !DAS3B    = $4337
-    !DAS4B    = $4347
-    !DAS5B    = $4357
-    !DAS6B    = $4367
-    !DAS7B    = $4377
+    DAS1B     = $4317 ;Indirect HDMA Address (bank)
+    DAS3B     = $4337
+    DAS4B     = $4347
+    DAS5B     = $4357
+    DAS6B     = $4367
+    DAS7B     = $4377
 
     A2A1L     = $4318 ;HDMA Table Current Address (low)
     A2A2L     = $4328

@@ -5,6 +5,7 @@
     ;$0032;0033
     ;$0034;0035
     ;$0036;0037
+    random_values_ptr      = $003D;003E
     task_function_pointer  = $003F;0040
     decompression_bank_ptr = $0046;0049
     decompression_size     = $004A;004B
@@ -57,7 +58,7 @@
     timer_seconds     = $02A9
     timer_ticks       = $02AA
     ;$02AB unused
-    ;$02AC bool
+    can_pause         = $02AC
     current_weapon_stored  = $02AD
     arthur_state_stored    = $02AE
     upgrade_state_stored   = $02AF ;arthur face or plume

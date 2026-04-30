@@ -386,7 +386,7 @@ _0281FF: ;a8 x8
 { ;821B - 877F
 object_handling: ;a8 x8
     phd
-    lda #$35 : sta.w object_loop_counter
+    lda.b #$35 : sta.w object_loop_counter
     stz $02C6
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
 .822A:

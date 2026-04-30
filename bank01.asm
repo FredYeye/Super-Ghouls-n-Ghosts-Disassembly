@@ -678,7 +678,7 @@ fill_sprite_queue: ;a- x-
     lda.w sprite_queue_offsets+10 : sta.w !sprite_prio_offset.offsets+5*2
     lda.w sprite_queue_offsets+12 : sta.w !sprite_prio_offset.offsets+6*2
     lda.w sprite_queue_offsets+14 : sta.w !sprite_prio_offset.offsets+7*2
-    ldy.w #$34 ;weapons + magic + object + upgrade slot count (i.e. everything but arthur)
+    ldy.w #52 ;weapons + magic + object + upgrade slot count (i.e. everything but arthur)
     lda.w #obj_start+obj[1] : tcd
     clc : lda.w camera_x+1 : adc #$0080 : sta $0000
     clc : lda.w camera_y+1 : adc #$0080 : sta $0002
@@ -687,9 +687,7 @@ fill_sprite_queue: ;a- x-
     and #$00FF
     beq .8587
 
-    lda $10
-    and #$00FF
-    tax
+    lda $10 : and #$00FF : tax
     sec
     lda $0000
     sbc.b obj.pos_x+1
@@ -707,7 +705,7 @@ fill_sprite_queue: ;a- x-
     bcs .8580
 
     lda $08 : ora #$4000 : sta $08 ;set "in range / playfield"(?) flag
-    lda $08
+    lda $08 ;unnecessary load
     bit #$0008
     beq .8587
 
@@ -870,32 +868,31 @@ _018673: ;a8 x16
 { ;868B - 87DA
 _01868B:
     !A8
-.868D:
+.flicker_odd_frame:
     rts
 
 .868E: ;a8 x16
-    lda $08
-    bit #$10 ;todo: flicker bit
-    beq +
+    lda.b obj.flags1
+    bit.b #!obj_flags1_flicker
+    beq .no_flicker
 
     lda.w frame_counter
-    and #$01 ;skip drawing on odd (finished?) frames
-    bne .868D
-+:
+    and #$01 ;skip drawing on odd frames
+    bne .flicker_odd_frame
+
+.no_flicker:
     phx
     ldx #$0000
-    lda $08
-    bit #$20
-    beq +
+    lda.b obj.flags1
+    bit.b #!obj_flags1_shimmer
+    beq .no_shimmer
 
-    lda #$00
-    xba
-    lda.w frame_counter
+    lda #$00 : xba : lda.w frame_counter
     and #$1F
     lsr #3
     inc
     tax
-+:
+.no_shimmer:
     lda #$FF : sta $0010
     stz $0012
     lda.l .87DB,X : sta $0011
@@ -916,27 +913,16 @@ _01868B:
     adc $0344
     sta $0344
     iny #2
-    sec
-    lda.b obj.pos_x+1 : sbc.w camera_x+1 : sta $0002
-    sec
-    lda.b obj.pos_y+1 : sbc.w camera_y+1 : sta $0004
+    sec : lda.b obj.pos_x+1 : sbc.w camera_x+1 : sta $0002
+    sec : lda.b obj.pos_y+1 : sbc.w camera_y+1 : sta $0004
     lda $29 : sta $001A
-    lda $08
-    eor #$3000
-    and #$3000
-    ora $0012
-    sta $0012
-    lda $12
-    lsr
+    lda $08 : eor #$3000 : and #$3000 : ora $0012 : sta $0012
+    lda.b obj.facing : lsr
     lda #$0000 : tcd
     bcs .8777
 
 .8716:
-    lda $0000,Y
-    clc
-    adc $02
-    sta.w oam_sprite_data+0,X
-    sta $06
+    lda $0000,Y : clc : adc $02 : sta.w oam_sprite_data+0,X : sta $06
     clc
     lda $0004,Y
     adc $04
@@ -971,10 +957,7 @@ _01868B:
 +:
     inx #4
 .876A:
-    clc
-    tya
-    adc #$0008
-    tay
+    clc : tya : adc #$0008 : tay
     dec $00
     bne .8716
 
@@ -982,11 +965,7 @@ _01868B:
     rts
 
 .8777:
-    lda $0002,Y
-    clc
-    adc $02
-    sta.w oam_sprite_data+0,X
-    sta $06
+    lda $0002,Y : clc : adc $02 : sta.w oam_sprite_data+0,X : sta $06
     clc
     lda $0004,Y
     adc $04
@@ -1022,10 +1001,7 @@ _01868B:
 .87CA:
     inx #4
 .87CE:
-    clc
-    tya
-    adc #$0008
-    tay
+    clc : tya : adc #$0008 : tay
     dec $00
     bne .8777
 
@@ -1273,7 +1249,7 @@ _0189D9: ;a8 x-
     lda.l speed_xy_y1,X : sta $0004
     lda.l speed_xy_y2,X : sta $0005
     lda.l speed_xy_y3,X : sta $0006
-    pla : sta !WRMPYA
+    pla : sta.w WRMPYA
     lda $0000 : jsr mulu_multiplicand_set
     lda $0001
     sty $0000
@@ -1296,7 +1272,7 @@ _0189D9: ;a8 x-
 
 { ;8A73 - 8A7D
 mulu_multiplicand_set: ;a8 x-
-    sta !WRMPYB
+    sta.w WRMPYB
     nop #4
     ldy !RDMPYL ;return 8 or 16-bit multiplication result in Y
     rts
@@ -1316,7 +1292,7 @@ divu: ;a16 x8
 { ;8A93 - 8A9E
 mulu: ;a8 x8
     ;a16 = x8 * a8
-    stx !WRMPYA
+    stx.w WRMPYA
     jsr mulu_multiplicand_set
     lda !RDMPYH
     xba
@@ -1362,11 +1338,7 @@ update_pos_xy_2: ;a- x-
 _018B25: ;a8 x-
     pha
     !AX16
-    clc
-    lda.b obj.direction
-    and #$00FF
-    adc.w speed_xy_offsets,X
-    tax
+    clc : lda.b obj.direction : and #$00FF : adc.w speed_xy_offsets,X : tax
     !A8
     lda speed_xy_x1,X : sta $0000
     lda speed_xy_x2,X : sta $0001
@@ -1374,26 +1346,15 @@ _018B25: ;a8 x-
     lda speed_xy_y1,X : sta $0004
     lda speed_xy_y2,X : sta $0005
     lda speed_xy_y3,X : sta $0006
-    pla
-    sta !WRMPYA
-    lda $0000
-    jsr mulu_multiplicand_set
+    pla : sta.w WRMPYA
+    lda $0000 : jsr mulu_multiplicand_set
     lda $0001
     sty $0000
-    jsr mulu_multiplicand_set
-    tya
-    clc
-    adc $0001
-    sta $0001
-    lda $0004
-    jsr mulu_multiplicand_set
+    jsr mulu_multiplicand_set : tya : clc : adc $0001 : sta $0001
+    lda $0004 : jsr mulu_multiplicand_set
     lda $0005
     sty $0004
-    jsr mulu_multiplicand_set
-    tya
-    clc
-    adc $0005
-    sta $0005
+    jsr mulu_multiplicand_set : tya : clc : adc $0005 : sta $0005
     clc
     lda.b obj.speed_x+0 : adc $0000 : sta.b obj.pos_x+0
     lda.b obj.speed_x+1 : adc $0001 : sta.b obj.pos_x+1
@@ -2956,7 +2917,7 @@ _0196EF: ;a8 x8
     pha
     txy
     !AX16
-    lda ($3D),Y ;3D = offset to random_values_idx
+    lda.b (random_values_ptr),Y
     sta $0000
     tay
     !A8
@@ -3891,9 +3852,9 @@ _01AF04: ;a8 x8
     lda.b #!dmap_mode_1 : sta.w !DMAP6
     lda.b #TM           : sta.w !BBAD6
     lda #$F4            : sta.w !A1T6L ;todo: label
-    lda #$1E            : sta.w !A1T6H
+    lda #$1E            : sta.w A1T6H
     lda #$00            : sta.w !A1B6
-    stz !DAS6B
+    stz.w DAS6B
     lda #$17 ;todo: hdma data?
     ldx #$01
     sta $1EF5
@@ -3910,9 +3871,9 @@ _01AF04: ;a8 x8
     lda.b #!dmap_mode_0 : sta.w !DMAP7
     lda.b #!CGADSUB     : sta.w !BBAD7
     lda #$04            : sta.w !A1T7L ;todo: label
-    lda #$1F            : sta.w !A1T7H
+    lda #$1F            : sta.w A1T7H
     lda #$00            : sta.w !A1B7
-    stz.w !DAS7B
+    stz.w DAS7B
     lda #$43 : sta $1F05 : sta $1F07 ;todo: hdma data?
     lda #$53 : sta $1F09 : sta $1F0B
     stz $1F0C
@@ -4009,7 +3970,7 @@ pause_handling: ;a8 x8
     lda $1FB9
     bne .ret
 
-    lda $02AC
+    lda.w can_pause
     beq .ret
 
     lda.w p1_button_press+1 ;pause check
@@ -5642,10 +5603,7 @@ _01C062: ;a- x8
     jsr .C0E0
     jsr .C115
 .C074:
-    clc
-    tdc
-    adc #$0156
-    tcd
+    clc : tdc : adc #$0156 : tcd
     cmp #$19A4
     bne .C06A
 
@@ -5657,11 +5615,7 @@ _01C062: ;a- x8
 
     lda $19EF,X : xba : lda $19F0,X : xba : tcd
     ldy $19F1,X : sty $38
-    clc
-    txa
-    adc #$04
-    and #$3F
-    sta $1A6F
+    clc : txa : adc #$04 : and #$3F : sta $1A6F
     lda.w _00B887,Y
     bit $4F
     beq .C0AA
@@ -5678,11 +5632,7 @@ _01C062: ;a- x8
 
     lda $1A2F,X : xba : lda $1A30,X : xba : tcd
     ldy $1A31,X : sty $39
-    clc
-    txa
-    adc #$04
-    and #$3F
-    sta $1A73
+    clc : txa : adc #$04 : and #$3F : sta $1A73
     lda.w _00B887+2,Y
     bit $4F
     beq .C0D8
@@ -7500,7 +7450,7 @@ _01DAA4:
 { ;DAB8 - DB66
 _01DAB8:
     lda.b #!mus_ending : jsl _018049_8053
-    stz $02AC
+    stz.w can_pause
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
     stz.w is_shooting
@@ -7584,7 +7534,7 @@ _01DAB8:
 { ;DB67 - DC18
 arthur_grab_key: ;a8 x?
     lda #$04 : jsr _01DDCE
-    stz $02AC
+    stz.w can_pause
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
     stz.w is_shooting

@@ -124,9 +124,7 @@ _CB0F: ;moving platform calls this for shaking
     beq .CB28
 
 .CB18:
-    jsl call_rng
-    and #$07
-    sta.b obj.direction
+    jsl call_rng : and #$07 : sta.b obj.direction
     lda #$01 : ldx #$30 : jsl _018B25
 .CB28:
     rts

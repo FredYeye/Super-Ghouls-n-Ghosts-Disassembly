@@ -173,8 +173,7 @@ thing:
 flower_head_destroy:
     jsr _02F13E_F151
     jsr _028BDE_local
-    lda $07
-    ldy #$08 : ldx #$08 : jsr _028B7E
+    lda $07 : ldy #$08 : ldx #$08 : jsr _028B7E
     bra destroy_F28A
 
 destroy:

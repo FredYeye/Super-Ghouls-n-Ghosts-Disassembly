@@ -131,14 +131,14 @@ nmi: ;a- x-
 
     stz.w OAMADDL
     stz.w OAMADDH
-    lda #$00                   : sta !DMAP0
-    lda.b #OAMDATA             : sta !BBAD0
-    lda.b #oam_sprite_data     : sta !A1T0L
-    lda.b #oam_sprite_data>>8  : sta !A1T0H
-    lda.b #oam_sprite_data>>16 : sta !A1B0
-    lda.b #$0220               : sta !DAS0L
-    lda.b #$0220>>8            : sta !DAS0H
-    lda #$01                   : sta !MDMAEN
+    lda #$00                   : sta   !DMAP0
+    lda.b #OAMDATA             : sta   !BBAD0
+    lda.b #oam_sprite_data     : sta   !A1T0L
+    lda.b #oam_sprite_data>>8  : sta.w A1T0H
+    lda.b #oam_sprite_data>>16 : sta   !A1B0
+    lda.b #$0220               : sta   !DAS0L
+    lda.b #$0220>>8            : sta.w DAS0H
+    lda #$01                   : sta   !MDMAEN
     jsr _008669
     jsr _00893C
     jsr _0085A6_85AA
@@ -445,14 +445,14 @@ _008577: ;a8 x-
     ;unused function
     stz.w OAMADDL
     stz.w OAMADDH
-    lda #$00                   : sta !DMAP0
-    lda.b #OAMDATA             : sta !BBAD0
-    lda.b #oam_sprite_data     : sta !A1T0L
-    lda.b #oam_sprite_data>>8  : sta !A1T0H
-    lda.b #oam_sprite_data>>16 : sta !A1B0
-    lda.b #$0220               : sta !DAS0L
-    lda.b #$0220>>8            : sta !DAS0H
-    lda #$01                   : sta !MDMAEN
+    lda #$00                   : sta   !DMAP0
+    lda.b #OAMDATA             : sta   !BBAD0
+    lda.b #oam_sprite_data     : sta   !A1T0L
+    lda.b #oam_sprite_data>>8  : sta.w A1T0H
+    lda.b #oam_sprite_data>>16 : sta   !A1B0
+    lda.b #$0220               : sta   !DAS0L
+    lda.b #$0220>>8            : sta.w DAS0H
+    lda #$01                   : sta   !MDMAEN
     rts
 }
 
@@ -647,14 +647,14 @@ _008735: ;a8 x8
     stz !VMADDL
     sta !VMADDH
     stz !VMAIN
-    lda #$08        : sta !DMAP0
-    lda.b #!VMDATAL : sta !BBAD0
-    lda.b #.src     : sta !A1T0L
-    lda.b #.src>>8  : sta !A1T0H
-    lda.b #.src>>16 : sta !A1B0
-    lda #$00        : sta !DAS0L
-    lda #$10        : sta !DAS0H
-    lda #$01        : sta !MDMAEN
+    lda #$08        : sta   !DMAP0
+    lda.b #!VMDATAL : sta   !BBAD0
+    lda.b #.src     : sta   !A1T0L
+    lda.b #.src>>8  : sta.w A1T0H
+    lda.b #.src>>16 : sta   !A1B0
+    lda #$00        : sta   !DAS0L
+    lda #$10        : sta.w DAS0H
+    lda #$01        : sta   !MDMAEN
     rts
 
 .src: db $40
@@ -662,12 +662,12 @@ _008735: ;a8 x8
 ;-----
 
 .87CE:
-    lda #$80        : sta !VMAIN
-    lda #$81        : sta !DMAP0
-    lda.b #!RDVRAML : sta !BBAD0
-    lda #$00        : sta !A1T0L
-    lda #$10        : sta !A1T0H
-    lda #$7F        : sta !A1B0
+    lda #$80        : sta   !VMAIN
+    lda #$81        : sta   !DMAP0
+    lda.b #!RDVRAML : sta   !BBAD0
+    lda #$00        : sta   !A1T0L
+    lda #$10        : sta.w A1T0H
+    lda #$7F        : sta   !A1B0
     !A16
     lda #$1C00      : sta !DAS0L
     !A8
@@ -715,14 +715,14 @@ _008807: ;a8 x8
     sta !BBAD0
     lda #$80    : sta !VMAIN : sty !DMAP0
     ldy .8871-1,X
-    lda .8871+0,Y : sta !VMADDL
-    lda .8871+1,Y : sta !VMADDH
-    lda .8871+2,Y : sta !A1T0L
-    lda .8871+3,Y : sta !A1T0H
-    lda .8871+4,Y : sta !A1B0
-    lda .8871+5,Y : sta !DAS0L
-    lda .8871+6,Y : sta !DAS0H
-    lda #$01      : sta !MDMAEN
+    lda .8871+0,Y : sta   !VMADDL
+    lda .8871+1,Y : sta   !VMADDH
+    lda .8871+2,Y : sta   !A1T0L
+    lda .8871+3,Y : sta.w A1T0H
+    lda .8871+4,Y : sta   !A1B0
+    lda .8871+5,Y : sta   !DAS0L
+    lda .8871+6,Y : sta.w DAS0H
+    lda #$01      : sta   !MDMAEN
 .8870:
     rts
 
@@ -779,16 +779,16 @@ _00893C: ;a8 x8
     stz $1F30
     ldy .8984-1,X
     stz !DMAP0
-    lda.b #!VMDATAL : sta !BBAD0
-    lda #$00        : sta !VMAIN
-    lda .8984+0,Y   : sta !VMADDL
-    lda .8984+1,Y   : sta !VMADDH
-    lda .8984+2,Y   : sta !A1T0L
-    lda .8984+3,Y   : sta !A1T0H
-    lda .8984+4,Y   : sta !A1B0
-    lda .8984+5,Y   : sta !DAS0L
-    lda .8984+6,Y   : sta !DAS0H
-    lda #$01        : sta !MDMAEN
+    lda.b #!VMDATAL : sta   !BBAD0
+    lda #$00        : sta   !VMAIN
+    lda .8984+0,Y   : sta   !VMADDL
+    lda .8984+1,Y   : sta   !VMADDH
+    lda .8984+2,Y   : sta   !A1T0L
+    lda .8984+3,Y   : sta.w A1T0H
+    lda .8984+4,Y   : sta   !A1B0
+    lda .8984+5,Y   : sta   !DAS0L
+    lda .8984+6,Y   : sta.w DAS0H
+    lda #$01        : sta   !MDMAEN
 .ret:
     rts
 
@@ -831,9 +831,9 @@ _0089B0: ;a8 x8
     lda #$00      : sta !DMAP0
     lda.b #CGDATA : sta !BBAD0
     ldx $0332
-    lda _00A300+0,X : sta !A1T0L
-    lda _00A300+1,X : sta !A1T0H
-    lda _00A300+2,X : sta !A1B0
+    lda _00A300+0,X : sta   !A1T0L
+    lda _00A300+1,X : sta.w A1T0H
+    lda _00A300+2,X : sta   !A1B0
     cpx #$06
     bne +
 
@@ -846,7 +846,7 @@ _0089B0: ;a8 x8
     ldy #$02
 .89E8:
     sta !DAS0L
-    sty !DAS0H
+    sty.w DAS0H
     lda #$01 : sta !MDMAEN
 .ret:
     rts
@@ -928,12 +928,12 @@ _008AB3: ;a8 x8
     lda $1EA8
     beq .ret
 
-    lda #$80        : sta !VMAIN
-    lda #$01        : sta !DMAP0
-    lda.b #!VMDATAL : sta !BBAD0
-    lda #$00        : sta !A1T0L
-    lda #$00        : sta !A1T0H
-    lda #$70        : sta !A1B0
+    lda #$80        : sta   !VMAIN
+    lda #$01        : sta   !DMAP0
+    lda.b #!VMDATAL : sta   !BBAD0
+    lda #$00        : sta   !A1T0L
+    lda #$00        : sta.w A1T0H
+    lda #$70        : sta   !A1B0
     !A16
     lda #$0800      : sta !DAS0L
     lda #$1800      : sta !VMADDL

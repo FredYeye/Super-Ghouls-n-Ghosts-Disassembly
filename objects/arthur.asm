@@ -89,7 +89,7 @@ create: ;a8 x8
     !A8
     inc $0331
     stz.w ready_go_active
-    inc $02AC
+    inc.w can_pause
     bra .CDC4
 
 .CDBE:
@@ -924,7 +924,7 @@ _01D30F:
     lda.b #_01DD5C>>8 : sta.b obj.state+2
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
-    stz $02AC
+    stz.w can_pause
     jsr _01DDE6
     rts
 
@@ -945,7 +945,7 @@ _01D30F:
     stz $0F
     stz $1170
     stz.w can_charge_magic
-    stz $02AC
+    stz.w can_pause
     jsr _01DDE6
     inc $14D2
     inc $14D1
@@ -1487,7 +1487,7 @@ destroy: ;a8 x8
     bpl .D791
 
     ;0 hp
-    stz $02AC
+    stz.w can_pause
     stz.w armor_state
     lda $08 : and #$EF : sta $08
     jsr _01DA88
@@ -1514,10 +1514,8 @@ destroy: ;a8 x8
     !A16
     and #$00FF
     tay
-    clc
-    lda.b obj.pos_x+1 : adc.w _00BA8A+0,Y : sta.w obj.pos_x+1,X
-    clc
-    lda.b obj.pos_y+1 : adc.w _00BA8A+2,Y : sta.w obj.pos_y+1,X
+    clc : lda.b obj.pos_x+1 : adc.w _00BA8A+0,Y : sta.w obj.pos_x+1,X
+    clc : lda.b obj.pos_y+1 : adc.w _00BA8A+2,Y : sta.w obj.pos_y+1,X
     !AX8
     dec $0000
     bpl .D7B0
@@ -1666,7 +1664,7 @@ _01D8BF: ;a8 x-?
     pla : pla
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
-    stz $02AC
+    stz.w can_pause
     jsr _01DDE6
     jmp _01DD5C
 }

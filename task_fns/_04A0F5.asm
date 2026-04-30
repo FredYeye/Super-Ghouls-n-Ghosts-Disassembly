@@ -4,7 +4,7 @@ _04A0F5:
     lda #$FF : sta $F2FF
     lda #$00 : sta $F2FE
     lda.w SLHV
-    lda !STAT78
+    lda.w STAT78
     lda.w OPVCT : sta $F2FD
     lda $F31B : and #$3F : ora #$80 : sta $F31B
     lda.b #1 : jsl current_task_suspend

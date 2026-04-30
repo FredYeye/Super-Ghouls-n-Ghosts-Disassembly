@@ -170,8 +170,7 @@ create:
 
     lda #$FF
 .C6C2:
-    ldy #$50
-    sty $36
+    ldy #$50 : sty $36
     stx $37
     sta $38
     !X16

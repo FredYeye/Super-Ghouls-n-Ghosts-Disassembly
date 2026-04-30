@@ -258,8 +258,8 @@ endstruct
     ;flags1
     ;bit 0-2: priority
     ;bit 3: show sprite?
-    ;bit 4: flicker
-    ;bit 5: shimmer
+    !obj_flags1_flicker = $10 ;bit 4
+    !obj_flags1_shimmer = $20 ;bit 5
     ;bit 6: unused?
     ;bit 7: unused?
 
