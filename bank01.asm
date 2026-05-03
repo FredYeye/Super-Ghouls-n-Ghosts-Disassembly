@@ -24,7 +24,7 @@ _018021: ;a8 x-
     jsl _018593
     jsl object_handling
     jsl fill_sprite_queue
-    jsl _0185BB
+    jsl update_oam_table
     inc $0379
     lda $037B
     beq +
@@ -598,9 +598,7 @@ update_animation:
     tay
 +:
     sty $0C
-    jsr _0184B3_84B5
-    and #$FF7F
-    sta.b obj.anim_timer
+    jsr _0184B3_84B5 : and #$FF7F : sta.b obj.anim_timer
     !AX8
     plb
 .ret:
@@ -711,9 +709,7 @@ fill_sprite_queue: ;a- x-
     beq .8587
 
     phy
-    and #$0007
-    asl
-    tax ;sprite priority * 2
+    and #$0007 : asl : tax ;X = sprite priority * 2
     ldy.w !sprite_prio_offset.offsets,X
     tdc : sta.w !sprite_prio_offset.queues,Y ;store obj offset in queue
     inc.w !sprite_prio_offset.offsets,X : inc.w !sprite_prio_offset.offsets,X
@@ -740,10 +736,10 @@ fill_sprite_queue: ;a- x-
 _018593: ;a- x8
     !A16
     stz $0379
-    stz $0374
-    stz $0376
-    lda #$0008 : sta $44
-    stz $42
+    stz.w oam_offset
+    stz.w oam_high_offset
+    lda #$0008 : sta.b oam_high_write_counter
+    stz.b oam_high_data
     ldx #$1E
     lda.w #$0000
 -:
@@ -757,21 +753,21 @@ _018593: ;a- x8
 }
 
 { ;85BB - 8672
-_0185BB: ;a8 x-
+update_oam_table: ;a8 x-
     phd
     !X16
-    ldx $0374
+    ldx.w oam_offset
     phb
     lda #$7E : pha : plb
     lda.w !sprite_prio_offset.count+0*2
     beq +
 
-    ldy #$0000 : jsr _018673
+    ldy.w #sprite_prio.queue_0 : jsr _018673
 +:
-    lda $13D3
+    lda.w !sprite_prio_offset.count+1*2
     beq +
 
-    ldy #$0060 : jsr _018673
+    ldy.w #sprite_prio.queue_1 : jsr _018673
 +:
     lda.w !obj_arthur.active
     beq .85EF
@@ -780,27 +776,27 @@ _0185BB: ;a8 x-
     bne .85EF
 
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
-    jsr _01868B_868E
+    jsr _01868B_entry
 .85EF:
-    lda $13D5
+    lda.w !sprite_prio_offset.count+2*2
     beq +
 
-    ldy #$00C0 : jsr _018673
+    ldy.w #sprite_prio.queue_2 : jsr _018673
 +:
-    lda $13D7
+    lda.w !sprite_prio_offset.count+3*2
     beq +
 
-    ldy #$0120 : jsr _018673
+    ldy.w #sprite_prio.queue_3 : jsr _018673
 +:
-    lda $13D9
+    lda.w !sprite_prio_offset.count+4*2
     beq +
 
-    ldy #$0180 : jsr _018673
+    ldy.w #sprite_prio.queue_4 : jsr _018673
 +:
-    lda $13DB
+    lda.w !sprite_prio_offset.count+5*2
     beq +
 
-    ldy #$01A8 : jsr _018673
+    ldy.w #sprite_prio.queue_5 : jsr _018673
 +:
     lda.w !obj_arthur.active
     beq .862E
@@ -809,33 +805,33 @@ _0185BB: ;a8 x-
     beq .862E
 
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
-    jsr _01868B_868E
+    jsr _01868B_entry
 .862E:
-    lda $13DD
+    lda.w !sprite_prio_offset.count+6*2
     beq +
 
-    ldy #$01D0 : jsr _018673
+    ldy.w #sprite_prio.queue_6 : jsr _018673
 +:
-    lda $13DF
+    lda.w !sprite_prio_offset.count+7*2
     beq +
 
-    ldy #$01F8 : jsr _018673
+    ldy.w #sprite_prio.queue_7 : jsr _018673
 +:
-    stx $0374
+    stx.w oam_offset
     pld
     !A16
-    lda $44
+    lda.b oam_high_write_counter
     and #$0007
     beq .865F
 
     tay
-    lda $42
+    lda.b oam_high_data
 -:
     lsr #2
     dey
     bne -
 
-    ldy $0376
+    ldy.w oam_high_offset
     sta.w oam_sprite_data+$200,Y
 .865F:
     !A8
@@ -857,7 +853,7 @@ _018673: ;a8 x16
 .8676:
     lda.w !sprite_prio_offset.queues+1,Y : xba : lda.w !sprite_prio_offset.queues,Y : tcd
     phy
-    jsr _01868B_868E
+    jsr _01868B_entry
     ply
     iny #2
     dec $0378
@@ -872,7 +868,7 @@ _01868B:
 .flicker_odd_frame:
     rts
 
-.868E: ;a8 x16
+.entry: ;a8 x16
     lda.b obj.flags1
     bit.b #!obj_flags1_flicker
     beq .no_flicker
@@ -900,10 +896,7 @@ _01868B:
     lda.l .87E0,X : sta $0013
     plx
     !A16
-    clc
-    lda $0C
-    adc $0A
-    tay
+    clc : lda $0C : adc $0A : tay
     lda $0000,Y
     cmp $0344
     bcs _01868B
@@ -923,32 +916,23 @@ _01868B:
     bcs .8777
 
 .8716:
-    lda $0000,Y : clc : adc $02 : sta.w oam_sprite_data+0,X : sta $06
-    clc
-    lda $0004,Y
-    adc $04
-    sta.w oam_sprite_data+1,X
-    clc
-    adc #$0020
-    cmp #$0100
+    lda $0000,Y : clc : adc $02 : sta.w oam_sprite_data+0,X : sta $06 ;X position (low byte)
+    clc : lda $0004,Y : adc $04 : sta.w oam_sprite_data+1,X           ;Y position
+    clc : adc #$0020 : cmp #$0100
     bcs .876A
 
-    lda $0006,Y
-    sta $14
-    adc $1A
-    and $10
-    ora $12
-    sta.w oam_sprite_data+2,X
-    lsr $07 : ror $42
-    asl $14 : asl $14 : asl $14 : ror $42
-    dec $44
+    lda $0006,Y : sta $14
+    adc $1A : and $10 : ora $12 : sta.w oam_sprite_data+2,X ;tile (9 bits), palette index, prio, flip h/v
+    lsr $07 : ror.b oam_high_data
+    asl $14 : asl $14 : asl $14 : ror.b oam_high_data
+    dec.b oam_high_write_counter
     bne +
 
-    lda #$0008 : sta $44
+    lda #$0008 : sta.b oam_high_write_counter
     phy
-    ldy $0376
-    lda $42 : sta.w oam_sprite_data+$200,Y
-    inc $0376 : inc $0376
+    ldy.w oam_high_offset
+    lda.b oam_high_data : sta.w oam_sprite_data+$200,Y
+    inc.w oam_high_offset : inc.w oam_high_offset
     ply
 +:
     inx #4
@@ -962,32 +946,22 @@ _01868B:
 
 .8777:
     lda $0002,Y : clc : adc $02 : sta.w oam_sprite_data+0,X : sta $06
-    clc
-    lda $0004,Y
-    adc $04
-    sta.w oam_sprite_data+1,X
-    clc
-    adc #$0020
-    cmp #$0100
+    clc : lda $0004,Y : adc $04 : sta.w oam_sprite_data+1,X
+    clc : adc #$0020 : cmp #$0100
     bcs .87CE
 
-    lda $0006,Y
-    sta $14
-    adc $1A
-    and $10
-    ora $12
-    eor #$4000
-    sta.w oam_sprite_data+2,X
-    lsr $07 : ror $42
-    asl $14 : asl $14 : asl $14 : ror $42
-    dec $44
+    lda $0006,Y : sta $14
+    adc $1A : and $10 : ora $12 : eor #$4000 : sta.w oam_sprite_data+2,X
+    lsr $07 : ror.b oam_high_data
+    asl $14 : asl $14 : asl $14 : ror.b oam_high_data
+    dec.b oam_high_write_counter
     bne .87CA
 
-    lda #$0008 : sta $44
+    lda #$0008 : sta.b oam_high_write_counter
     phy
-    ldy $0376
-    lda $42 : sta.w oam_sprite_data+$200,Y
-    inc $0376 : inc $0376
+    ldy.w oam_high_offset
+    lda.b oam_high_data : sta.w oam_sprite_data+$200,Y
+    inc.w oam_high_offset : inc.w oam_high_offset
     ply
 .87CA:
     inx #4
@@ -1451,7 +1425,6 @@ set_spawn_offset: ;a8 x16
 
 .left:
     sec : lda.b obj.pos_x+1 : sbc.w spawn_offset_x,Y : sta.w obj.pos_x+1,X
-
 .y_offset:
     clc : lda.b obj.pos_y+1 : adc.w spawn_offset_y,Y : sta.w obj.pos_y+1,X
     !A8
@@ -1717,14 +1690,12 @@ _018E32: ;a8 x8
     asl
     tay
 .8E83:
-    lda $037B
-    asl #3
-    tax
+    lda $037B : asl #3 : tax
     !AX16
     stz $1FC9
 .8E8F:
     lda ($27),Y : tay
-    lda $29 : asl #4 : clc : adc #$6000 : sta $037C,X
+    lda $29 : asl #4 : clc : adc.w #$6000 : sta $037C,X
 .8E9F:
     clc : lda $0000,Y : adc $1FC9 : sta $037E,X
     iny #2
@@ -1733,19 +1704,15 @@ _018E32: ;a8 x8
     !A8
     lda $0000,Y : sta $0382,X
     iny
-    lda #$80 : sta $0383,X
+    lda.b #$80 : sta $0383,X
     inc $037B
     lda $0000,Y
-    cmp #$FF
+    cmp.b #$FF
     beq .8E70
 
     !A16
-    clc
-    txa
-    adc #$0008
-    tax
-    clc
-    lda $0000,Y : adc $0374,X : sta $037C,X
+    clc : txa : adc.w #$0008 : tax
+    clc : lda $0000,Y : adc $0374,X : sta $037C,X
     iny #2
     bra .8E9F
 
@@ -3044,10 +3011,7 @@ _019CBE: ;a16 x-
 
 { ;A3ED - A4C8
 _01A3ED:
-    lda $0000
-    lsr #4
-    and #$003F
-    sta $0010
+    lda $0000 : lsr #4 : and #$003F : sta $0010
     lda $0004
     asl #2
     and #$0FC0
@@ -3196,18 +3160,11 @@ _01A4E2: ;a- x8
 
 .A50E: ;a- x8
     !A16
-    lda ($13),Y
-    eor #$FFFF
-    inc
+    lda ($13),Y : eor #$FFFF : inc
 .A516:
-    clc
-    adc $14BE
-    sta $0000
+    clc : adc $14BE : sta $0000
     iny #2
-    clc
-    lda ($13),Y
-    adc.b obj.pos_y+1
-    sta $0002
+    clc : lda ($13),Y : adc.b obj.pos_y+1 : sta $0002
     !X16
     bra .A537
 
@@ -3368,8 +3325,7 @@ _01A5F9: ;a- x-
     bne .A643
 
     !AX16
-    clc
-    lda $0004 : adc #$0010 : sta $0004
+    clc : lda $0004 : adc #$0010 : sta $0004
     lda $0007
     tax
     and #$0780
@@ -4032,7 +3988,7 @@ _01B19D: ;a8 x8
     jsr tick_timer
     jsl update_hud
     jsl fill_sprite_queue
-    jsl _0185BB
+    jsl update_oam_table
     jsr _01B9A8
     jsr checkpoint_handling
     jsr _01BDB8
@@ -5650,27 +5606,18 @@ _01C062: ;a- x8
     bcc .C114
 
     ldx $1A71
-    tdc
-    sta $19EF,X
-    tya
-    sta $19F1,X
-    clc
-    txa
-    adc #$0004
-    and #$003F
-    sta $1A71
-    tya
-    asl
-    tay
-    clc
-    lda.w _00B7FD,Y : adc $34 : sta $34
+    tdc : sta $19EF,X
+    tya : sta $19F1,X
+    clc : txa : adc #$0004 : and #$003F : sta $1A71
+    tya : asl : tay
+    clc : lda.w _00B7FD,Y : adc $34 : sta $34
 .C114:
     rts
 
 ;-----
 
 .C115:
-    ldy #$00
+    ldy.b #$00
     sec
     lda $3F
     sbc $36
@@ -5684,20 +5631,11 @@ _01C062: ;a- x8
     bcc .C149
 
     ldx $1A75
-    tdc
-    sta $1A2F,X
-    tya
-    sta $1A31,X
-    clc
-    txa
-    adc #$0004
-    and #$003F
-    sta $1A75
-    tya
-    asl
-    tay
-    clc
-    lda.w _00B7FD,Y : adc $36 : sta $36
+    tdc : sta $1A2F,X
+    tya : sta $1A31,X
+    clc : txa : adc #$0004 : and #$003F : sta $1A75
+    tya : asl : tay
+    clc : lda.w _00B7FD,Y : adc $36 : sta $36
 .C149:
     rts
 }
@@ -8547,16 +8485,16 @@ _01E285:
 _01E967: ;knife related
     xba
     lsr
-    ror $0042
-    lsr $0042
-    dec $0044
+    ror.w oam_high_data
+    lsr.w oam_high_data
+    dec.w oam_high_write_counter
     bne .E98C
 
-    lda #$0008 : sta $0044
+    lda #$0008 : sta.w oam_high_write_counter
     phx
-    ldx $0376
-    lda $0042 : sta.l oam_sprite_data+$200,X
-    inc $0376 : inc $0376
+    ldx.w oam_high_offset
+    lda.w oam_high_data : sta.l oam_sprite_data+$200,X
+    inc.w oam_high_offset : inc.w oam_high_offset
     plx
 .E98C:
     rts

@@ -111,8 +111,7 @@ create: ;a8 x8
     lda #$03 : sta $3C
     lda #$FF : sta $3D
 .CDEE:
-    lda #$00
-    jsr .CE9C
+    lda #$00 : jsr .CE9C
     jsr _01D263
     jsr _01D565
     jsr _01DE62_DE63
@@ -382,8 +381,7 @@ create: ;a8 x8
 .CF9D:
     jsr _01D263
     jsr _01D565
-    lda #$00
-    jsr .CE9C
+    lda #$00 : jsr .CE9C
     lda #!down
     bit.w p1_button_hold+1
     bne .CFB4

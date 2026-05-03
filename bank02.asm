@@ -1632,7 +1632,7 @@ pot_creation: ;a8 x8
 }
 
 { ;8CF1 - 8D08
-pot_spawn_offset: ;a8 x8
+pot_update_position: ;a8 x8
     jsr .local
     rtl
 

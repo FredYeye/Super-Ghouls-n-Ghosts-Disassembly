@@ -149,7 +149,7 @@ thing:
     bit $09
     bvc .9EBB
 
-    ldy #$84 : jsr pot_spawn_offset_local
+    ldy #$84 : jsr pot_update_position_local
     jsl update_animation_normal
     jsr _02FBF9
     jsr _02F9FA_local

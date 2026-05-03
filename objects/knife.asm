@@ -118,7 +118,7 @@ _E449:
 
     sec : lda.b obj.pos_x+1 : sbc.w camera_x+1 : sec : sbc #$0004 : sta $2F
     sec : lda.b obj.pos_y+1 : sbc.w camera_y+1 : sec : sbc #$0004 : sta $33
-    ldx $0374
+    ldx.w oam_offset
     lda $2F : sta.l oam_sprite_data+0,X
     jsr _01E967
     lda $33 : sta.l oam_sprite_data+1,X
@@ -127,10 +127,7 @@ _E449:
     jsr _01E967
     lda $33 : sta.l oam_sprite_data+5,X
     lda #$222E : eor $37 : sta.l oam_sprite_data+6,X
-    clc
-    txa
-    adc #$0008
-    tax
+    clc : txa : adc #$0008 : tax
     dec $0344 : dec $0344
     sec
     lda.b obj.pos_x+1
@@ -156,7 +153,7 @@ _E449:
 
 .E4F9:
     !A8
-    stx $0374
+    stx.w oam_offset
     rts
 
 ;-----

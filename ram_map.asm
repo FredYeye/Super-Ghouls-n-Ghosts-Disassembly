@@ -7,7 +7,9 @@
     ;$0036;0037
     random_values_ptr      = $003D;003E
     task_function_pointer  = $003F;0040
-    ;$0041 unused?
+    ;unused?                 $0041
+    oam_high_data          = $0042;0043
+    oam_high_write_counter = $0044;0045
     decompression_bank_ptr = $0046;0049
     decompression_size     = $004A;004B
     ;$004C;004D ?
@@ -41,9 +43,9 @@
     difficulty        = $027C
     shot_buttons      = $027D;027E
     jump_buttons      = $027F;0280
-    ;$0281;0288 unused?
+    ;unused?            $0281;0288
     rng_state         = $0289;028A
-    ;                   $028B;028C ;unused?
+    ;unused?            $028B;028C
     stage             = $028D;028E
     checkpoint        = $028F
     continues         = $0290
@@ -58,7 +60,7 @@
     timer_tens        = $02A8
     timer_seconds     = $02A9
     timer_ticks       = $02AA
-    ;$02AB unused
+    ;unused             $02AB
     can_pause         = $02AC
     current_weapon_stored  = $02AD
     arthur_state_stored    = $02AE
@@ -151,10 +153,13 @@
     ;$0335;0336 unused?
     chest_counter            = $0337
     hud_update_lives         = $036D
+    ;unused                  = $036E ;gets inc'd but never read. most likely a hud_update bool
     hud_update_score         = $036F
     hud_update_timer         = $0370
+    ;unused                  = $0371;0372
     hud_flicker_timer        = $0373
-
+    oam_offset               = $0374;0375
+    oam_high_offset          = $0376;0377
     ;$0378 loop counter, sprite prio related
 
     ;dma struct?
@@ -180,9 +185,6 @@
 
     !sprite_prio_offset = $11B1+sprite_prio ;$11B1;13F0
 
-    ;$11B1;13D0 ;8 priority queues for sprite drawing
-    ;$13D1;13E0 ;active object count lists? create struct here maybe 
-    ;$13E1;13F0 ;index values into 11B1 arrays
     slot_list_objects = $13F1;142E ;list of 16 bit indices for slot_objects
     slot_list_weapons = $142F;1442
     open_object_slots = $1443;1444
@@ -260,6 +262,8 @@
 ;0x44-0x46 long ptr
 ;0x47-0x49 long ptr
 ;0x4A-0x4C long ptr
+;
+;0x50 bool?
 ;
 ;0xD6-0x155 word array?
 

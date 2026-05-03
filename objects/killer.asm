@@ -213,7 +213,7 @@ thing:
 +:
     !A8
 .C0FA:
-    ldy #$80 : jsl pot_spawn_offset
+    ldy #$80 : jsl pot_update_position
     jsl update_animation_normal
     jsl _02F9FA
     jsl _02F9CA

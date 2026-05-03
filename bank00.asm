@@ -464,12 +464,9 @@ _0085A6: ;a- x8
 .85AA: ;a- x8
     phd
     !A16
-    lda #$15A2 : tcd
-    jsr .85C6
-    lda #$16F8 : tcd
-    jsr .85C6
-    lda #$184E : tcd
-    jsr .85C6
+    lda.w #$15A2 : tcd : jsr .85C6
+    lda.w #$16F8 : tcd : jsr .85C6
+    lda.w #$184E : tcd : jsr .85C6
     !A8
     pld
     rts

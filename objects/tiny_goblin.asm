@@ -166,7 +166,7 @@ thing:
     bvc .BE1E
 
 .BDF0:
-    ldy $31 : jsl pot_spawn_offset
+    ldy $31 : jsl pot_update_position
     jsl update_animation_normal
     lda $2F
     beq .BE0E

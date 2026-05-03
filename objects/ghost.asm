@@ -284,7 +284,7 @@ thing:
     bne .E909
 
 .E8F5:
-    ldy #$82 : jsr pot_spawn_offset_local
+    ldy #$82 : jsr pot_update_position_local
     jsl update_animation_normal
     jsl _0296FE
     rts

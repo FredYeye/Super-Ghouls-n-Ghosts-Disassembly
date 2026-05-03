@@ -49,7 +49,7 @@ create:
 ;-----
 
 thing:
-    ldy #$86 : jsr pot_spawn_offset_local
+    ldy #$86 : jsr pot_update_position_local
     jsl update_animation_normal
     jsr _02FA37_FA6D
     jsr _02FB62_FB69

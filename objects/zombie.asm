@@ -330,7 +330,7 @@ create: ;a- x8
 ;-----
 
 thing:
-    ldy #$0A : jsr pot_spawn_offset_local
+    ldy #$0A : jsr pot_update_position_local
     lda $0F ;flight timer
     beq .8FB1
 
