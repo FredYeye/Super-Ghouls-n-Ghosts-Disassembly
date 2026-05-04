@@ -280,7 +280,7 @@ _0181DD: ;a8 x-
     and #$07
     clc
     adc $03
-    sta $7EB000,X
+    sta.l tile_array,X
     lda !RDVRAML
     inx
     dey
@@ -307,7 +307,7 @@ _0181DD: ;a8 x-
     lda #$40 : sta $04
     ldy $02
 .8251:
-    lda $7EB000,X : sta $C000,Y
+    lda.l tile_array,X : sta $C000,Y
     inx
     !A16
     sec
@@ -2409,7 +2409,7 @@ search_solid_tile_vertical: ;a- x-
     !AX16
     lda.b obj.pos_x+1 : sta $0000
     clc : lda.b obj.pos_y+1 : adc.b obj.base+$2D : sta.b obj.pos_y+1 : sta $0002
-    jsr _01A3ED_get_tile_type2
+    jsr get_tile_type_entry_2
     beq .ret ;adds obj.$2D to pos_y if solid tile isn't found
 
     php
@@ -2921,7 +2921,7 @@ water_crash_to_ram: ;a- x-
 .9A60:
     lda #$0008 : sta $0002
 .9A66:
-    lda.w _water_crash+4,Y : sta $7ED000,X : sta $7ED010,X
+    lda.w _water_crash+4,Y : sta.l tile_array+$2000,X : sta.l tile_array+$2010,X
     iny #2
     inx #2
     dec $0002
@@ -3009,7 +3009,7 @@ _019CBE: ;a16 x-
     incsrc "various/decompress.asm"
 }
 
-{ ;A3ED - A4C8
+{ ;A3ED - A422
 _01A3ED:
     lda $0000 : lsr #4 : and #$003F : sta $0010
     lda $0004
@@ -3019,7 +3019,7 @@ _01A3ED:
     clc
     adc $1F8D
     tax
-    lda $7EB000,X
+    lda.l tile_array,X
     !AX8
     tax
     sec
@@ -3032,15 +3032,19 @@ _01A3ED:
     lda.l tile_type,X
     tax
     rts
+}
+
+{ ;A423 - A4C8
+get_tile_type:
 
 .A423:
     !AX8
     lda #$00
     rts
 
-.get_tile_type:  ;A428 | a- x-
+.entry: ;a- x-
     !AX16
-.get_tile_type2: ;A42A | a16 x16
+..2: ;a16 x16
     lda $0002
     bmi .A423
 
@@ -3075,12 +3079,12 @@ _01A3ED:
     asl
     tax
     stx $0007
-.A47E: ;a16 x16
-    lda $7EB000,X
+.precalc_index: ;a16 x16
+    lda.l tile_array+0,X
     bit #$4000
     beq +
 
-    lda $7EB002,X
+    lda.l tile_array+2,X
 +:
     bit #$0011
     beq +
@@ -3176,7 +3180,7 @@ _01A4E2: ;a- x8
 
 .A537:
     stz $001E
-    jsr _01A3ED_get_tile_type2
+    jsr get_tile_type_entry_2
     beq .A551
 
     cmp #$01
@@ -3219,7 +3223,7 @@ _01A559: ;a8 x8
 
 { ;A56B - A592
 _01A56B: ;a- x-
-    jsr _01A3ED_get_tile_type
+    jsr get_tile_type_entry
     beq .ret
 
     jsr _01A649
@@ -3261,7 +3265,7 @@ _01A593: ;a8 x8
 { ;A5A0 - A5AE
 update_coord_offset_x: ;a- x-
     !A16
-update_coord_offset_x_2: ;A5A2 | a16 x-
+.2: ;a16 x-
     ldy $15
     sec : lda.b obj.pos_x+1 : sbc ($13),Y : sta $0000
     !X16
@@ -3318,7 +3322,7 @@ _01A5AF: ;a8 x8
 _01A5F9: ;a- x-
     jsr _01A4C9
 .A5FC: ;a16 x16
-    jsr _01A3ED_get_tile_type2
+    jsr get_tile_type_entry_2
     bne .A632
 
     ldy $02DA
@@ -3343,7 +3347,7 @@ _01A5F9: ;a- x-
     adc #$0080
 .A62C:
     tax
-    jsr _01A3ED_A47E
+    jsr get_tile_type_precalc_index
     beq .A643
 
 .A632:
@@ -3384,7 +3388,7 @@ _01A649: ;a8 x8
     ora #$0780
 .A66D:
     tax
-    jsr _01A3ED_A47E
+    jsr get_tile_type_precalc_index
     beq .A684
 
 .A673: ;a8 x8
@@ -3540,12 +3544,8 @@ _01A74A:
     stz.w p2_button_hold+1
     stz.w p2_button_press+1
     pla : eor.b #$FF : sta.w p1_button_press+1
-    lda.w p1_button_hold+1
-    and #$10
-    ora $1FC5
-    sta.w p1_button_hold+1
-    and.w p1_button_press+1
-    sta.w p1_button_press+1
+    lda.w p1_button_hold+1 : and #$10 : ora $1FC5 : sta.w p1_button_hold+1
+    and.w p1_button_press+1                       : sta.w p1_button_press+1
     dec $1FC6
     bne +
 
@@ -4175,7 +4175,7 @@ _01B4DE: ;a8 x-
     ldx #$3FFF
     lda #$00
 -:
-    sta $7EB000,X
+    sta.l tile_array,X
     dex : bpl -
 
     !X8

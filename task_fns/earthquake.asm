@@ -92,7 +92,7 @@ task_earthquake: ;a- x8
     tax
     iny #2
 -:
-    lda [$07],Y : sta $7EB000,X
+    lda [$07],Y : sta.l tile_array,X
     iny #2
     clc
     txa : adc #$0040 : tax

@@ -154,32 +154,32 @@ _D9CB:
     bit $09
     bvc .DA32
 
-    lda $2D : sta $1F1D
-    asl     : sta $1F1F
-    lda $2E : sta $1F21 : dec $1F21
-    asl     : sta $1F23
+    lda $2D : sta.w hitbox.width
+    asl     : sta.w hitbox.width2
+    lda $2E : sta.w hitbox.height : dec.w hitbox.height
+    asl     : sta.w hitbox.height2
     !AX16
     sec
     lda.b obj.pos_x+1
     sbc.w !obj_arthur.pos_x+1
     clc
-    adc $1F1D
-    cmp $1F1F
+    adc.w hitbox.width
+    cmp.w hitbox.width2
     bcs .DA62
 
     sec
     lda.b obj.pos_y+1
     sbc.w !obj_arthur.pos_y+1
     clc
-    adc $1F21
-    cmp $1F23
+    adc.w hitbox.height
+    cmp.w hitbox.height2
     bcs .DA62
 
     lda.b obj.pos_y+1
     cmp.w !obj_arthur.pos_y+1
     bcs .DA33
 
-    adc $1F21
+    adc.w hitbox.height
     sta.w !obj_arthur.pos_y+1
     lda.w !obj_arthur.speed_y
     bmi .DA1D
@@ -198,7 +198,7 @@ _D9CB:
     rts
 
 .DA33:
-    sbc $1F21
+    sbc.w hitbox.height
     cmp.w !obj_arthur.pos_y+1
     beq .DA4C
 
@@ -236,8 +236,8 @@ _DA65:
     lda.b obj.pos_x+1
     sbc.w !obj_arthur.pos_x+1
     clc
-    adc $1F1D
-    cmp $1F1F
+    adc.w hitbox.width
+    cmp.w hitbox.width2
     !A8
     bcs .DA99
 

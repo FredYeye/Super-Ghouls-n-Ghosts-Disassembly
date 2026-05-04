@@ -366,7 +366,7 @@
     ;7E2300;ADFF                   ;meta sprite definitions (A712-ADFF unused?)
     ;7EAE00;AE7F                   ;palette for bosses?
     ;7EAE80;AFFF                   ;unused?
-    ;7EB000;EFFF                   ;tile array, indexes into tile type array
+    tile_array      = $7EB000;EFFF ;indexes into tile_type
     tile_type       = $7EF000;F0FF ;array
     oam_sprite_data = $7EF100;F31F ;snes sprite data, low table ($200) + high table ($20)
     ;7EF320;F3FF                   ;unused?

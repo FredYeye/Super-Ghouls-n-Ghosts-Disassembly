@@ -92,10 +92,10 @@ endif
     tay
     lda #$0004 : sta $35
 .C43A:
-    lda $0000,Y : iny #2 : sta $7ED800,X
-    lda $0000,Y : iny #2 : sta $7ED802,X
-    lda $0000,Y : iny #2 : sta $7ED804,X
-    lda $0000,Y : iny #2 : sta $7ED806,X
+    lda $0000,Y : iny #2 : sta.l tile_array+$2800,X
+    lda $0000,Y : iny #2 : sta.l tile_array+$2802,X
+    lda $0000,Y : iny #2 : sta.l tile_array+$2804,X
+    lda $0000,Y : iny #2 : sta.l tile_array+$2806,X
     txa : clc : adc #$0040 : tax
     dec $35
     bne .C43A

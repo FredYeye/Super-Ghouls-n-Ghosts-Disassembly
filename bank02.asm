@@ -385,7 +385,7 @@ _0281FF: ;a8 x8
 { ;821B - 877F
 object_handling: ;a8 x8
     phd
-    lda.b #$35 : sta.w object_loop_counter
+    lda.b #53 : sta.w object_loop_counter
     stz $02C6
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
 .822A:
@@ -1488,11 +1488,9 @@ _028BEC: ;a8 x8
 .8BF9:
     lda #$3B : jsl _018049_8053 ;enemy death sfx
     jsr _0281FF
-    lda.b obj.direction
-    pha
+    lda.b obj.direction : pha
     jsr _0280E9_80F2
-    pla
-    sta.b obj.facing
+    pla : sta.b obj.facing
     ldy #$78 : ldx #$20 : jsl set_sprite
 .8C13:
     brk #$00
@@ -1513,11 +1511,9 @@ _028C22: ;a8 x8
     ldy.w _00BE76-$20,X : jsl update_score
     lda #$3B : jsl _018049_8053 ;enemy death sfx
     jsr _0281FF
-    lda.b obj.direction
-    pha
+    lda.b obj.direction : pha
     jsr _0280E9_80F2
-    pla
-    sta.b obj.facing
+    pla : sta.b obj.facing
     ldy #$76 : ldx #$20 : jsl set_sprite
     lda #$16
     sta $2D
@@ -3056,20 +3052,14 @@ _02FAD4: ;a- x-
     cmp.b #!magic_nuclear
     bne .FAF4
 
-    lda #$7E : sta $1F29 : sta $1F1D
-    asl      : sta $1F1F
+    lda #$7E : sta $1F29 : sta.w hitbox.width
+    asl                  : sta.w hitbox.width2
     bra .FB0B
 
 .FAF4:
-    lda.w _00DC1E-$40,Y
-    clc
-    adc $1F28
-    sta $1F1D
-    asl
-    sta $1F1F
-    lda.w _00DC1E-$40+1,Y
-    adc $1F27
-    sta $1F29
+    lda.w _00DC1E-$40,Y : clc : adc $1F28 : sta.w hitbox.width
+    asl : sta.w hitbox.width2
+    lda.w _00DC1E-$40+1,Y     : adc $1F27 : sta $1F29
 .FB0B:
     !A16
     ldx #$0008
@@ -3376,8 +3366,8 @@ _02FCD4:
     tay
     !A8
     lda.w _00DC1E-$40+0,Y : sta $1F29
-    clc : adc $1F26       : sta $1F1D
-    asl                   : sta $1F1F
+    clc : adc $1F26       : sta.w hitbox.width
+    asl                   : sta.w hitbox.width2
     lda.w _00DC1E-$40+1,Y : sta $1F29
     !A16
     ldx #$000A
@@ -3398,18 +3388,18 @@ _02FCD4:
     lda.b obj.pos_x+1
     sbc.w obj.pos_x+1,Y
     clc
-    adc $1F1D
-    cmp $1F1F
+    adc.w hitbox.width
+    cmp.w hitbox.width2
     bcs .FD57
 
-    clc : lda $1F29 : adc $002B,Y : sta $1F21
-    asl                           : sta $1F23
+    clc : lda $1F29 : adc $002B,Y : sta.w hitbox.height
+    asl                           : sta.w hitbox.height2
     sec
     lda.b obj.pos_y+1
     sbc.w obj.pos_y+1,Y
     clc
-    adc $1F21
-    cmp $1F23
+    adc.w hitbox.height
+    cmp.w hitbox.height2
     bcs .FD57
 
     rts

@@ -716,36 +716,36 @@ if !version == 1 || !version == 2
     db offset(.8871, .893D)
 endif
 
-.888A: dw $0000 : dl $7EB000 : dw $1000
-.8891: dw $0C00 : dl $7EE000 : dw $0800
-.8898: dw $0800 : dl $7ED800 : dw $0800
-.889F: dw $0C00 : dl $7ED000 : dw $0800
+.888A: dw $0000 : dl tile_array       : dw $1000
+.8891: dw $0C00 : dl tile_array+$3000 : dw $0800
+.8898: dw $0800 : dl tile_array+$2800 : dw $0800
+.889F: dw $0C00 : dl tile_array+$2000 : dw $0800
 .88A6: dw $1800 : dl .88AD   : dw $1000
 
 .88AD: db $03, $4E, $02 ;leftover bytes?
 
-.88B0: dw $0000 : dl $7EB000 : dw $0800 ;send collision array to vram (stage 1)
-.88B7: dw $0400 : dl $7EB800 : dw $0800 ;send collision array to vram (stage 1)
-.88BE: dw $0000 : dl $7EC000 : dw $0800
-.88C5: dw $0400 : dl $7EC800 : dw $0800
-.88CC: dw $0000 : dl $7FA000 : dw $1000
-.88D3: dw $0000 : dl $7FB000 : dw $1000
-.88DA: dw $0000 : dl $7FC000 : dw $1000
-.88E1: dw $0000 : dl $7FDC00 : dw $1800
-.88E8: dw $1000 : dl $7F0000 : dw $1000
-.88EF: dw $2000 : dl $7F1000 : dw $1000
-.88F6: dw $3000 : dl $7F2000 : dw $1000
-.88FD: dw $1040 : dl $7F0040 : dw $04C0
-.8904: dw $1040 : dl $7F2A00 : dw $04C0
-.890B: dw $1000 : dl $7FB880 : dw $0400
-.8912: dw $1000 : dl .88AD+1 : dw $1000
-.8919: dw $5C00 : dl $7FD000 : dw $0800
-.8920: dw $7000 : dl $7F1000 : dw $1C00
-.8927: dw $0C00 : dl $7ED800 : dw $0800
-.892E: dw $0000 : dl $7F9800 : dw $0500
-.8935: dw $7000 : dl $7F2720 : dw $1000
+.88B0: dw $0000 : dl tile_array       : dw $0800 ;send collision array to vram (stage 1)
+.88B7: dw $0400 : dl tile_array+$0800 : dw $0800 ;send collision array to vram (stage 1)
+.88BE: dw $0000 : dl tile_array+$1000 : dw $0800
+.88C5: dw $0400 : dl tile_array+$1800 : dw $0800
+.88CC: dw $0000 : dl $7FA000          : dw $1000
+.88D3: dw $0000 : dl $7FB000          : dw $1000
+.88DA: dw $0000 : dl $7FC000          : dw $1000
+.88E1: dw $0000 : dl $7FDC00          : dw $1800
+.88E8: dw $1000 : dl $7F0000          : dw $1000
+.88EF: dw $2000 : dl $7F1000          : dw $1000
+.88F6: dw $3000 : dl $7F2000          : dw $1000
+.88FD: dw $1040 : dl $7F0040          : dw $04C0
+.8904: dw $1040 : dl $7F2A00          : dw $04C0
+.890B: dw $1000 : dl $7FB880          : dw $0400
+.8912: dw $1000 : dl .88AD+1          : dw $1000
+.8919: dw $5C00 : dl $7FD000          : dw $0800
+.8920: dw $7000 : dl $7F1000          : dw $1C00
+.8927: dw $0C00 : dl tile_array+$2800 : dw $0800
+.892E: dw $0000 : dl $7F9800          : dw $0500
+.8935: dw $7000 : dl $7F2720          : dw $1000
 if !version == 1 || !version == 2
-.893D: dw $5C00 : dl $7F9800 : dw $06A0
+.893D: dw $5C00 : dl $7F9800          : dw $06A0
 endif
 }
 
