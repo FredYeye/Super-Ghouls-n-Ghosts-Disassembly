@@ -3009,8 +3009,10 @@ _019CBE: ;a16 x-
     incsrc "various/decompress.asm"
 }
 
-{ ;A3ED - A422
-_01A3ED:
+{ ;A3ED - A4C8
+get_tile_type:
+
+.A3ED:
     lda $0000 : lsr #4 : and #$003F : sta $0010
     lda $0004
     asl #2
@@ -3032,10 +3034,6 @@ _01A3ED:
     lda.l tile_type,X
     tax
     rts
-}
-
-{ ;A423 - A4C8
-get_tile_type:
 
 .A423:
     !AX8
@@ -3051,18 +3049,14 @@ get_tile_type:
     and #$FFF0
     sta $0004
     ldy $02DA
-    bne _01A3ED
+    bne .A3ED
 
     !A8
     sta $0010
     stz $0011
     asl $0010 : rol $0011
     asl $0010 : rol $0011
-    lda $0000
-    and #$F0
-    lsr #3
-    ora $0010
-    sta $0010
+    lda $0000 : and #$F0 : lsr #3 : ora $0010 : sta $0010
     lda $0003 : sta $0007
     lda $0001
     asl #2

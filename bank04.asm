@@ -1610,7 +1610,7 @@ _04F021:
 
 .F025:
     phb
-    lda.b #bank04>>16 : pha : plb
+    lda.b #_04F0E0>>16 : pha : plb
     !A16
     clc : lda.w camera_x+1 : adc #$0080 : sta $0000
     ldy #$00
