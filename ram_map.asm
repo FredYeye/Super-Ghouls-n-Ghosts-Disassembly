@@ -99,11 +99,10 @@
         .m7y:      skip 2
         .tm:       skip 1
         .ts:       skip 1
-        .unk_2D7:  skip 1
-        .unk_2D8:  skip 1
+        .unk_2D7:  skip 1 ;tm/ts related
+        .unk_2D8:  skip 1 ;tm/ts related
         .bgmode:   skip 1
-        .unk_2DA:  skip 1
-        .unk_2DB:  skip 1
+        .unk_2DA:  skip 2
         .bg1sc:    skip 1
         .bg2sc:    skip 1
         .bg3sc:    skip 1

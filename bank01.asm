@@ -4164,7 +4164,7 @@ _01B4C5: ;a x
 }
 
 { ;B4DE - B4EE
-_01B4DE: ;a8 x-
+clear_tile_array: ;a8 x-
     !X16
     ldx #$3FFF
     lda #$00

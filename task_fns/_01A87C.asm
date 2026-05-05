@@ -13,7 +13,7 @@ if !version == 0 || !version == 1
     lda #$04     : jsl _048E68
 elseif !version == 2
     ldx #$30     : jsl copy_ram_to_vram
-    ldx.b #$17*7 : jsl copy_ram_to_vram_precalc
+    ldx.b #$16*7 : jsl copy_ram_to_vram_precalc
     lda #$01     : jsl _048E68
 endif
     stz.w snes_reg.bg34nba
@@ -84,7 +84,7 @@ endif
 ;-----
 
 .A940:
-    jsl _03F8A3
+    jsl credits
     rts
 
 ;-----
@@ -203,7 +203,7 @@ endif
     jsl enable_forced_blanking
     jsl clear_oam_sprite_data
     lda.b #1 : jsl current_task_suspend
-    jml _03F8A3
+    jml credits
 
 .AAAA:
     lda #$01 : sta.w game_sub_state
@@ -475,7 +475,7 @@ endif
     jsl _0180B9
     jsl _018CE2
     jsl remove_tasks
-    jsr _01B4DE
+    jsr clear_tile_array
     lda.w current_weapon_stored : sta.w weapon_current
     and #$1E  : sta.w existing_weapon_type
     lda.w arthur_state_stored

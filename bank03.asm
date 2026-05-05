@@ -647,7 +647,7 @@ _03F526:
 }
 
 { ;F8A3 -
-_03F8A3:
+credits:
     jsl disable_nmi
     jsl enable_forced_blanking
     jsl _0180B9

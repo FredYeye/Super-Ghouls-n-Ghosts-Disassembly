@@ -30,41 +30,6 @@ incsrc "snes_defines.asm"
 incsrc "object_defines.asm"
 incsrc "sound_defines.asm"
 
-{ ;weapon IDs
-    !weapon_lance    = $00
-    !weapon_knife    = $02
-    !weapon_bowgun   = $04
-    !weapon_scythe   = $06
-    !weapon_torch    = $08
-    !weapon_axe      = $0A
-    !weapon_triblade = $0C ;JP name: cross sword. todo: rename? most things are based on the jp names...
-    !weapon_bracelet = $0E
-}
-
-{ ;magic IDs
-    !magic_thunder     = 0
-    !magic_fire_dragon = 1
-    !magic_seek        = 2
-    !magic_shield      = 3
-    !magic_lightning   = 4
-    !magic_tornado     = 5
-    !magic_nuclear     = 6
-}
-
-{ ;armor states
-    !arthur_state_underwear = $00
-    !arthur_state_steel     = $01
-    ; $02 is unused
-    !arthur_state_bronze    = $03
-    !arthur_state_gold      = $04
-    !arthur_state_baby      = $05
-    !arthur_state_seal      = $06
-    !arthur_state_bee       = $07
-    !arthur_state_maiden    = $08
-
-    !arthur_state_transformed = $05
-}
-
 { ;include banks
     incsrc bank00.asm
     incsrc bank01.asm

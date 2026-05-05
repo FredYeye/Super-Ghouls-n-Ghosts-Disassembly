@@ -577,7 +577,7 @@ spc_0609:
 }
 
 if !version == 2
-    incsrc "music/spc_code.asm"
+    incsrc "various/spc_code.asm"
 endif
 
 spc_0656: ;0656 - 07D1
@@ -1423,7 +1423,7 @@ spc_0B0E:
     jmp  spc_0B4B
 
 if !version == 0 || !version == 1
-    incsrc "music/spc_code.asm"
+    incsrc "various/spc_code.asm"
 endif
 
 base off

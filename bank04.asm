@@ -2,7 +2,7 @@ org $048000 : bank04:
 
 if !version == 1 || !version == 2
 { ;8000 - 84B2
-    incsrc "various/text.asm"
+    incsrc "data/text.asm"
 }
 endif
 
