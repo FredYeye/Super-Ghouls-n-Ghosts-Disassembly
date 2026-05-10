@@ -27,7 +27,7 @@ create:
     ldy #$EE : ldx #$21 : jsl set_sprite
     sta $09 ;todo: what gets stored here?
     lda #$80 : sta $09
-    jsl set_direction32 : sta.b obj.direction
+    jsl set_direction32_to_arthur : sta.b obj.direction
     jsl set_hp
 .EB1D:
     !A8

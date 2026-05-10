@@ -68,7 +68,7 @@ endif
 _DB35:
     sec : lda $2F : sbc.w camera_y+1 : sec : sbc #$28 : sta $30
     !X16
-    ldx $13 : stx !A1T7L
+    ldx $13 : stx.w A1T7L
     !X8
     stz.w A1B7
     lda #$01   : sta !DMAP7

@@ -102,7 +102,7 @@ laser_create:
     dec $37
     bne .D6C9
 
-    jsl set_direction32 : inc : and #$1F : lsr : sta.b obj.direction
+    jsl set_direction32_to_arthur : inc : and #$1F : lsr : sta.b obj.direction
     lda #$08 : jsl _0195E4
     bcc .D71F
 

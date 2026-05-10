@@ -10,8 +10,7 @@ create:
     !A8
     lda #$FF : sta $26
     jsr mimic__F53A
-    jsl set_direction32
-    sta.b obj.direction
+    jsl set_direction32_to_arthur : sta.b obj.direction
     stz.b obj.facing
     clc
     adc #$08

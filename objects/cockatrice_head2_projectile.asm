@@ -4,7 +4,7 @@ namespace cockatrice_head2_projectile
 create:
     ldy #$0C : ldx #$22 : jsl set_sprite
     lda $09 : ora #$80 : sta $09
-    jsl set_direction32 : sta.b obj.direction
+    jsl set_direction32_to_arthur : sta.b obj.direction
 .CBA8:
     brk #$00
 

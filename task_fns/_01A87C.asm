@@ -543,7 +543,7 @@ endif
     jsl _019024
     lda $0292 : and #$01 : eor #$01 : sta $032E
     jsl _019136
-    jsr _01BE1C
+    jsr load_stage_screen_layout
     jsr _01B526 ;set arthur spawn point and other things
     jsr checkpoint_handling_set_x_pos
     jsr _01BF31
@@ -623,7 +623,7 @@ endif
     stz.w hdma_data+$1A
     lda.b #!dmap_mode_0     : sta   !DMAP4
     lda.b #!BGMODE          : sta   !BBAD4
-    lda.b #hdma_data+$16    : sta   !A1T4L
+    lda.b #hdma_data+$16    : sta.w A1T4L
     lda.b #hdma_data+$16>>8 : sta.w A1T4H
     lda #$00                : sta.w A1B4
     stz.w DAS4B
@@ -631,7 +631,7 @@ endif
     stz.w hdma_data+$27
     lda.b #!dmap_mode_1     : sta   !DMAP5
     lda.b #TM               : sta   !BBAD5
-    lda.b #hdma_data+$21    : sta   !A1T5L
+    lda.b #hdma_data+$21    : sta.w A1T5L
     lda.b #hdma_data+$21>>8 : sta.w A1T5H
     lda #$00                : sta.w A1B5
     stz.w DAS5B

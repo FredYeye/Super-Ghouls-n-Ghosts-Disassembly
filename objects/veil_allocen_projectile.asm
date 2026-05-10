@@ -3,7 +3,7 @@ namespace veil_allocen_projectile
 {
 create:
     lda #$60 : jsl _018049_8053
-    jsl _01918E_set_direction16 : sta.b obj.direction
+    jsl set_direction16_to_arthur : sta.b obj.direction
     lda #$80 : sta $09
     ldy #$32 : ldx #$22 : jsl set_sprite
     lda #$33 : sta $2D

@@ -307,13 +307,10 @@ _0181DD: ;a8 x-
     lda #$40 : sta $04
     ldy $02
 .8251:
-    lda.l tile_array,X : sta $C000,Y
+    lda.l tile_array,X : sta.w tile_array+$1000,Y
     inx
     !A16
-    sec
-    tya
-    sbc #$0040
-    tay
+    sec : tya : sbc #$0040 : tay
     !A8
     dec $04
     bne .8251
@@ -1154,7 +1151,7 @@ limit_fall_speed: ;a- x-
     sta !WRDIVL
     ldy $000E : sty !WRDIVB
     nop #8
-    lda !RDDIVL
+    lda.w RDDIVL
     ldy $0002
     bpl .898B
 
@@ -1182,7 +1179,7 @@ limit_fall_speed: ;a- x-
     sta !WRDIVL
     ldy $000E : sty !WRDIVB
     nop #8
-    lda !RDDIVL
+    lda.w RDDIVL
     ldy $0006
     bpl .89C7
 
@@ -1249,7 +1246,7 @@ divu: ;a16 x8
     sta !WRDIVL
     sty !WRDIVB
     nop #8
-    lda !RDDIVL
+    lda.w RDDIVL
     ldy !RDMPYL
     rtl ;a16 = quotient, y8 = remainder
 }
@@ -1955,15 +1952,12 @@ get_arthur_relative_side: ;a- x8
 }
 
 { ;909B - 90B8
-_01909B: ;a- x8
+get_arthur_relative_side_wrap: ;a- x8
+    ;adds #$0100 to take negative obj positions into account (outside left map edge)
     !A16
-    clc
-    lda.b obj.pos_x+1 : adc #$0100 : sta $0000
+    clc : lda.b obj.pos_x+1 : adc.w #$0100 : sta $0000
     ldx #$00
-    clc
-    lda.w !obj_arthur.pos_x+1
-    adc #$0100
-    cmp $0000
+    clc : lda.w !obj_arthur.pos_x+1 : adc.w #$0100 : cmp $0000
     bcs .90B5
 
     inx
@@ -2097,8 +2091,9 @@ _019136: ;a- x-
 }
 
 { ;918E - 9225
-_01918E:
-    ;unused
+set_direction16:
+
+    ;unused entry
     !AX16
     lda.b obj.facing
     and #$0001
@@ -2113,7 +2108,7 @@ _01918E:
     clc : lda.w !obj_arthur.pos_y+1 : adc.w _00A7E6+2,X : sta $0006
     bra .91CA
 
-.set_direction16: ;a- x-
+.to_arthur: ;a- x-
     !AX16
     ldx.w #!obj_arthur.base
     lda.w obj.pos_x+1,X : sta $0004
@@ -2163,13 +2158,8 @@ _01918E:
 
     inx
 .9214:
-    tya
-    asl #2
-    sta $0000
-    txa
-    clc
-    adc $0000
-    tax
+    tya : asl #2 : sta $0000
+    txa : clc : adc $0000 : tax
     lda.w direction16,X
     !AX8
     rtl
@@ -2178,7 +2168,7 @@ _01918E:
 { ;9226 - 92AC
 set_direction32: ;a- x-
 
-.toward_arthur: ;todo: use this label
+.to_arthur:
     !AX16
     ldx.w #!obj_arthur.base
 .custom_obj: ;a16 x16
@@ -2255,9 +2245,9 @@ arthur_within_zone_check: ;a- x8
     ;if arthur within a zone around an object
     !A16
     lda.w arthur_within_zone_check_data+0,Y : sta $0000
-    asl               : sta $0002
+    asl                                     : sta $0002
     lda.w arthur_within_zone_check_data+2,Y : sta $0004
-    asl               : sta $0006
+    asl                                     : sta $0006
     sec
     lda.b obj.pos_x+1
     sbc.w !obj_arthur.pos_x+1
@@ -2780,14 +2770,12 @@ get_rng_bool: ;a8 x8
 { ;9662 - 9680
 _019662: ;a- x-
     !AX16
-    and #$00FF
-    asl #4
-    sta $0002
+    and #$00FF : asl #4 : sta $0002 ;stores a 16 bit value...
     !A8
     jsl call_rng
     and #$0F
     clc
-    adc $0002
+    adc $0002 ;...and only adds the lower byte! still works since call_rng doesn't clobber B
     tay
     lda.w _00A90A,Y
     !X8
@@ -3577,7 +3565,7 @@ _01A74A:
 ;-----
 
 .A7BF: ;a8 x8
-    lda !HVBJOY
+    lda.w HVBJOY
     lsr
     bcs .A7BF
 
@@ -3790,7 +3778,7 @@ _01AF04: ;a8 x8
     ldy.b #task[6].base : lda.b #task_list_58 : jsl add_task
     lda.b #!dmap_mode_1 : sta.w !DMAP6
     lda.b #TM           : sta.w !BBAD6
-    lda #$F4            : sta.w !A1T6L ;todo: label
+    lda #$F4            : sta.w A1T6L ;todo: label
     lda #$1E            : sta.w A1T6H
     lda #$00            : sta.w A1B6
     stz.w DAS6B
@@ -3809,7 +3797,7 @@ _01AF04: ;a8 x8
     stz $1F00
     lda.b #!dmap_mode_0 : sta.w !DMAP7
     lda.b #!CGADSUB     : sta.w !BBAD7
-    lda #$04            : sta.w !A1T7L ;todo: label
+    lda #$04            : sta.w A1T7L ;todo: label
     lda #$1F            : sta.w A1T7H
     lda #$00            : sta.w A1B7
     stz.w DAS7B
@@ -5241,20 +5229,18 @@ _01BDB8: ;a8 x8
 }
 
 { ;BE1C - BEBB
-_01BE1C: ;a8 x-
-    ;set up screen layout in memory
+load_stage_screen_layout: ;a8 x-
     phb
-    lda.b #bank03>>16 : pha : plb
+    lda.b #stage_layouts>>16 : pha : plb
     !AX16
     ldx #$093E
     lda #$8000
 -:
-    sta $7EF6C0,X
+    sta.l screen_array,X
     dex #2 : bpl -
 
     lda.w stage : asl : tax
-    lda.l stage_layouts,X
-    tay
+    lda.l stage_layouts,X : tay
     stz $0008
     lda $0000,Y : and #$00FF : sta $0006
     stz $0010
@@ -5279,30 +5265,18 @@ _01BE1C: ;a8 x-
     pha
     and #$00FF
     sta $00
-    pla
-    xba
-    and #$00FF
-    sta $0002
+    pla : xba : and #$00FF : sta $0002
     ldx $0008
 .BE7B:
     lda $0000 : sta $0004
 .BE81:
-    lda $0002,Y
-    and #$00FF
-    xba
-    lsr
-    ora #$8000
-    sta $7EF700,X
+    lda $0002,Y : and #$00FF : xba : lsr : ora #$8000 : sta.l screen_array+$40,X
     inx #2
     iny
     dec $0004
     bpl .BE81
 
-    clc
-    txa
-    and #$FFC0
-    adc #$0040
-    tax
+    clc : txa : and #$FFC0 : adc #$0040 : tax
     dec $0002
     bpl .BE7B
 
@@ -5339,8 +5313,7 @@ _01BEBC: ;a8 x8
 
     stx $1A78
 -:
-    ldy #$01
-    jsr _01C38A
+    ldy #$01 : jsr _01C38A
     ldx #$00
     jsr _01C29D_C2A1
     jsl _0085A6
@@ -5349,7 +5322,7 @@ _01BEBC: ;a8 x8
 
 .BEF8:
     !A16
-    clc : tdc : adc #$0156 : tcd
+    clc : tdc : adc.w #tile_handling.len : tcd
     !A8
     ply
     iny
@@ -5420,32 +5393,32 @@ _01BF78: ;a- x8
     ldx.w stage
     phx
     ldy.w _00B805,X
-    lda #$15A2 : tcd
+    lda.w #!tile_handling_offset[0].base : tcd
     ldx.w _00B805+0,Y
     phy
     jsr .BFCE
     ply
-    lda #$16F8 : tcd
+    lda.w #!tile_handling_offset[1].base : tcd
     ldx.w _00B805+1,Y
     phy
     jsr .BFCE
     ply
-    lda #$184E : tcd
+    lda.w #!tile_handling_offset[2].base : tcd
     ldx.w _00B805+2,Y
     jsr .BFCE
     plx
     ldy.w _00B88B,X
-    lda #$15A2 : tcd
+    lda.w #!tile_handling_offset[0].base : tcd
     ldx.w _00B88B+0,Y
     phy
     jsr _01C00B
     ply
-    lda #$16F8 : tcd
+    lda.w #!tile_handling_offset[1].base : tcd
     ldx.w _00B88B+1,Y
     phy
     jsr _01C00B
     ply
-    lda #$184E : tcd
+    lda.w #!tile_handling_offset[2].base : tcd
     ldx.w _00B88B+2,Y
     jsr _01C00B
     !AX8
@@ -5461,9 +5434,9 @@ _01BF78: ;a- x8
     ldy.w _00B805+04,X : sty $33
     ldy.w _00B805+05,X : sty $28
     ldy.w _00B805+06,X : sty $2A
-    ldy.w _00B805+07,X : sty $46
-    ldy.w _00B805+08,X : sty $49
-    ldy.w _00B805+09,X : sty $4C
+    ldy.w _00B805+07,X : sty.b tile_handling.ptr_screen_layout+2
+    ldy.w _00B805+08,X : sty.b tile_handling.ptr_meta_tile+2
+    ldy.w _00B805+09,X : sty.b tile_handling.ptr_tile+2
     ldy.w _00B805+10,X : sty $4D
     ldy.w _00B805+11,X : sty $2C
     ldy.w _00B805+12,X : sty $4F
@@ -5531,7 +5504,7 @@ _01C062: ;a- x8
     php
     phd
     !A16
-    lda #$15A2 : tcd
+    lda.w #!tile_handling_offset.base : tcd
 .C06A:
     lda $4F
     beq .C074
@@ -5539,8 +5512,8 @@ _01C062: ;a- x8
     jsr .C0E0
     jsr .C115
 .C074:
-    clc : tdc : adc #$0156 : tcd
-    cmp #$19A4
+    clc : tdc : adc.w #tile_handling.len : tcd
+    cmp.w #!tile_handling_offset[3].base
     bne .C06A
 
     !A8
@@ -5961,24 +5934,22 @@ _01C38A: ;a- x8
     tay
     ldx $0000
 .C3C3:
-    lda $7EF700,X : ora #$8000 : sta $44
+    lda.l screen_array+$40,X : ora #$8000 : sta.b tile_handling.ptr_screen_layout
     tyx
     ldy $0002
 .C3D0:
-    lda [$44],Y : ora #$8000 : sta $47
+    lda.b [tile_handling.ptr_screen_layout],Y : ora #$8000 : sta.b tile_handling.ptr_meta_tile
     ldy $0004
 .C3DA:
-    lda [$47],Y : ora #$8000 : sta $4A
+    lda.b [tile_handling.ptr_meta_tile],Y : ora #$8000 : sta.b tile_handling.ptr_tile
     ldy $0006
 .C3E4:
-    lda [$4A],Y : sta $53,X
+    lda.b [tile_handling.ptr_tile],Y : sta $53,X
     dec $0008
     beq .C42F
 
     inx #2
-    txa
-    and $4D
-    tax
+    txa : and $4D : tax
     tya
     eor #$0004
     tay
@@ -6007,28 +5978,20 @@ _01C38A: ;a- x8
 
 .C42F:
     plx
-    lda $00,X
-    and #$041F
-    ora $2E
-    sta $51
+    lda $00,X : and #$041F : ora $2E : sta $51
     tdc
-    cmp #$15A2
+    cmp.w #$15A2
     bne .C493
 
     !X8
-    lda $02,X
-    and #$0004
-    lsr
-    tay
+    lda $02,X : and #$0004 : lsr : tay
     lda $51
     and #$041F
     asl
     adc.w _00B8D2,Y
     ldx #$00
     phb
-    ldy #$7E
-    phy
-    plb
+    ldy #$7E : phy : plb
     !X16
     tay
     lda $28
@@ -6036,12 +5999,9 @@ _01C38A: ;a- x8
     bcs .C47B
 
 -:
-    lda $53,X : sta $B000,Y
-    lda $73,X : sta $B400,Y
-    clc
-    tya
-    adc #$0040
-    tay
+    lda $53,X : sta.w tile_array,Y
+    lda $73,X : sta.w tile_array+$400,Y
+    clc : tya : adc #$0040 : tay
     inx #2
     cpx #$0020
     bne -
@@ -6049,12 +6009,9 @@ _01C38A: ;a- x8
     bra .C492
 
 .C47B:
-    lda $53,X : sta $B000,Y
-    lda $93,X : sta $D000,Y
-    clc
-    tya
-    adc #$0040
-    tay
+    lda $53,X : sta.w tile_array,Y
+    lda $93,X : sta.w tile_array+$2000,Y
+    clc : tya : adc #$0040 : tay
     inx #2
     cpx #$0040
     bne .C47B
@@ -6107,7 +6064,7 @@ _01C4AB: ;a8 x8
     tay
     ldx $0000
 .C4DF:
-    lda $7EF700,X : ora #$8000 : sta $44
+    lda.l screen_array+$40,X : ora #$8000 : sta $44
     tyx
     ldy $0002
 .C4EC:
@@ -6180,7 +6137,7 @@ _01C4AB: ;a8 x8
     and #$0006
     tax
     phd
-    clc : tdc : adc #$00D3 : tcd
+    clc : tdc : adc.w #$00D3 : tcd
     lda.w stage
     bne .C58F
 
@@ -6214,8 +6171,8 @@ _01C4AB: ;a8 x8
 .C5B5:
     ldx #$0000
 .C5B8:
-    lda $03,X : sta $B000,Y
-    lda $43,X : sta $B800,Y
+    lda $03,X : sta.w tile_array,Y
+    lda $43,X : sta.w tile_array+$800,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6228,8 +6185,8 @@ _01C4AB: ;a8 x8
 .C5CC: ;stage 7 gets here at least
     ldx #$0000
 .C5CF:
-    lda $03,X : sta $B000,Y : sta $C000,Y
-    lda $43,X : sta $B800,Y
+    lda $03,X : sta.w tile_array,Y : sta.w tile_array+$1000,Y
+    lda $43,X : sta.w tile_array+$800,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6242,8 +6199,8 @@ _01C4AB: ;a8 x8
 .C5E6:
     ldx #$0000
 .C5E9:
-    lda $43,X : sta $B800,Y ;bank 7E, transfer post-water crash tiles?
-    lda $03,X : sta $C000,Y
+    lda $43,X : sta.w tile_array+$800,Y ;transfer post-water crash tiles?
+    lda $03,X : sta.w tile_array+$1000,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6258,8 +6215,8 @@ _01C4AB: ;a8 x8
     ;updates tile collision array?
     ldx #$0000
 .C600:
-    lda $43,X : sta $B800,Y : sta $C800,Y
-    lda $03,X : sta $C000,Y
+    lda $43,X : sta.w tile_array+$800,Y : sta.w tile_array+$1800,Y
+    lda $03,X : sta.w tile_array+$1000,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6272,8 +6229,8 @@ _01C4AB: ;a8 x8
 .C617: ;not sure if this is used
     ldx #$0000
 .C61A:
-    lda $03,X : sta $C000,Y
-    lda $43,X : sta $C800,Y
+    lda $03,X : sta.w tile_array+$1000,Y
+    lda $43,X : sta.w tile_array+$1800,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6288,8 +6245,8 @@ _01C4AB: ;a8 x8
     ;updates tile collision array?
     ldx #$0000
 .C631:
-    lda $03,X : sta $C000,Y : sta $B000,Y
-    lda $43,X : sta $C800,Y
+    lda $03,X : sta.w tile_array+$1000,Y : sta.w tile_array,Y
+    lda $43,X : sta.w tile_array+$1800,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6302,8 +6259,8 @@ _01C4AB: ;a8 x8
 .C648:
     ldx #$0000
 .C64B:
-    lda $43,X : sta $C800,Y
-    lda $03,X : sta $B000,Y
+    lda $43,X : sta.w tile_array+$1800,Y
+    lda $03,X : sta.w tile_array,Y
     iny #2
     inx #2
     cpx #$0040
@@ -6318,8 +6275,8 @@ _01C4AB: ;a8 x8
     ;updates tile collision array?
     ldx #$0000
 .C662:
-    lda $43,X : sta $C800,Y : sta $B800,Y
-    lda $03,X : sta $B000,Y
+    lda $43,X : sta.w tile_array+$1800,Y : sta.w tile_array+$800,Y
+    lda $03,X : sta.w tile_array,Y
     iny #2
     inx #2
     cpx #$0040

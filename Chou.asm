@@ -24,11 +24,13 @@
     function meta(id, mode) = (mode<<14)|(offset(sprite_offsets, id)&$3FFF)
 }
 
-incsrc "ram_map.asm"
-incsrc "constants.asm"
-incsrc "snes_defines.asm"
-incsrc "object_defines.asm"
-incsrc "sound_defines.asm"
+{
+    incsrc "ram_map.asm"
+    incsrc "constants.asm"
+    incsrc "snes_defines.asm"
+    incsrc "object_defines.asm"
+    incsrc "sound_defines.asm"
+}
 
 { ;include banks
     incsrc bank00.asm

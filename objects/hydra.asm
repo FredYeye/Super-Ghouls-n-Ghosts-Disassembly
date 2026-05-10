@@ -1897,7 +1897,7 @@ create:
     bne .AEDC
 
     ldy #$BA : ldx #$21 : jsl set_sprite
-    jsl _01918E_set_direction16 : sta.b obj.direction
+    jsl set_direction16_to_arthur : sta.b obj.direction
 .AEF4:
     brk #$00
 

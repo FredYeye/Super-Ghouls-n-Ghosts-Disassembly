@@ -94,10 +94,7 @@ decompress_step: ;a8 x16
     %decompress_part($0006)
     %decompress_part($0007)
     !A16
-    clc
-    txa
-    adc #$0008
-    tax
+    clc : txa : adc #$0008 : tax
     dec.b decompression_size
     !A8
     rts

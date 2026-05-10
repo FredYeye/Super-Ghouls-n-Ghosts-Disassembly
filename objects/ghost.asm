@@ -46,11 +46,7 @@ create:
     jmp .E838
 
 .E761:
-    jsl set_direction32
-    inc
-    and #$1F
-    lsr
-    sta.b obj.direction
+    jsl set_direction32_to_arthur : inc : and #$1F : lsr : sta.b obj.direction
     jsl get_arthur_relative_side
     cmp.b obj.facing
     beq .E78D
@@ -181,8 +177,7 @@ create:
 ;----- E863
 
     ldx #$10 : jsl update_pos_xy_2
-    lda $35
-    ldx #$12 : jsl _0189D9
+    lda $35 : ldx #$12 : jsl _0189D9
     bra .E861
 
 ;-----

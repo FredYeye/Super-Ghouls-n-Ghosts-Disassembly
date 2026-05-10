@@ -438,8 +438,7 @@ thing:
 ;-----
 
 .D974:
-    jsl set_direction32
-    tax
+    jsl set_direction32_to_arthur : tax
     lda.w cockatrice_body_data_CA25,X : sta $1EC6
     !X16
     ldx $1EB9

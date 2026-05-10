@@ -9,9 +9,9 @@ _0197D1: ;a8 x8
     and #$00FF
     tay
     ldx.w _00ABA8+0,Y
-    lda.w _00ABA8+2,Y : sta $7EF700,X
+    lda.w _00ABA8+2,Y : sta.l screen_array+$40,X
     ldx.w _00ABA8+4,Y
-    lda.w _00ABA8+6,Y : sta $7EF700,X
+    lda.w _00ABA8+6,Y : sta.l screen_array+$40,X
     lda #$15A2 : tcd
     ldx #$0900
     lda $007B

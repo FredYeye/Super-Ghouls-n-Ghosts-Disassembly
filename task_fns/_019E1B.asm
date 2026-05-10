@@ -35,7 +35,7 @@ _019E1B: ;a8 x?
     lda #$02   : sta.w snes_reg.w12sel
     lda #$01   : sta   !DMAP5
     lda.b #WH0 : sta   !BBAD5
-    lda #$00   : sta   !A1T5L
+    lda #$00   : sta.w A1T5L
     lda #$98   : sta.w A1T5H
     lda #$7F   : sta.w A1B5
     stz.w DAS5B

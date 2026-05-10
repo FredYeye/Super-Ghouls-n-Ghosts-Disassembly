@@ -9,7 +9,7 @@ create:
     lda $09 : ora #$84 : sta $09
     stz $33
     lda $08 : and #$F8 : ora #$01 : sta $08
-    jsl _01918E_set_direction16 : sta.b obj.direction
+    jsl set_direction16_to_arthur : sta.b obj.direction
 .B97C:
     brk #$00
 

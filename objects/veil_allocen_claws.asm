@@ -18,7 +18,7 @@ claw1_create:
     lda $1EC1
     beq .E567
 
-    jsl set_direction32 : sta.b obj.direction
+    jsl set_direction32_to_arthur : sta.b obj.direction
     inc $1EBF
     ldy #$3A : ldx #$22
     lda.b obj.facing
@@ -208,7 +208,7 @@ claw2_create:
     beq .E69F
 
     lda #$67 : jsl _018049_8053
-    jsl set_direction32 : sta.b obj.direction
+    jsl set_direction32_to_arthur : sta.b obj.direction
     inc $1EC0
     ldy #$3A : ldx #$22
     lda.b obj.facing

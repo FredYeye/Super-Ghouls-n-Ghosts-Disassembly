@@ -21,7 +21,7 @@
     !BG2SC    = $2108 ;BG2 Screen Base and Screen Size
     !BG3SC    = $2109 ;BG3 Screen Base and Screen Size
     !BG12NBA  = $210B ;BG Character Data Area Designation
-    !BG34NBA  = $210C ;BG Character Data Area Designation
+    BG34NBA   = $210C ;BG Character Data Area Designation
     !BG1HOFS  = $210D ;BG1 Horizontal Scroll (X) (write-twice) / M7HOFS
     BG1VOFS   = $210E ;BG1 Vertical Scroll   (Y) (write-twice) / M7VOFS
     !BG2HOFS  = $210F ;BG2 Horizontal Scroll (X) (write-twice)
@@ -40,7 +40,7 @@
     !M7D      = $211E ;Rotation/Scaling Parameter D         (write-twice)
     !M7X      = $211F ;Rotation/Scaling Center Coordinate X (write-twice)
     !M7Y      = $2120 ;Rotation/Scaling Center Coordinate Y (write-twice)
-    !CGADD    = $2121 ;Palette CGRAM Address
+    CGADD     = $2121 ;Palette CGRAM Address
     CGDATA    = $2122 ;Palette CGRAM Data Write             (write-twice)
     !W12SEL   = $2123 ;Window BG1/BG2 Mask Settings
     !W34SEL   = $2124 ;Window BG3/BG4 Mask Settings
@@ -55,7 +55,7 @@
     TS        = $212D ;Sub Screen Designation
     TMW       = $212E ;Window Area Main Screen Disable
     TSW       = $212F ;Window Area Sub Screen Disable
-    !CGWSEL   = $2130 ;Color Math Control Register A
+    CGWSEL    = $2130 ;Color Math Control Register A
     !CGADSUB  = $2131 ;Color Math Control Register B
     COLDATA   = $2132 ;Color Math Sub Screen Backdrop Color
     SETINI    = $2133 ;Display Control 2
@@ -88,9 +88,9 @@
     HDMAEN    = $420C ;Select H-Blank DMA (H-DMA) Channel(s)
 
     RDNMI     = $4210 ;V-Blank NMI Flag and CPU Version Number (Read/Ack)
-    !TIMEUP   = $4211 ;H/V-Timer IRQ Flag (Read/Ack)
-    !HVBJOY   = $4212 ;H/V-Blank flag and Joypad Busy flag (R)
-    !RDDIVL   = $4214 ;Unsigned Division Result (Quotient) (lower 8bit)
+    TIMEUP    = $4211 ;H/V-Timer IRQ Flag (Read/Ack)
+    HVBJOY    = $4212 ;H/V-Blank flag and Joypad Busy flag (R)
+    RDDIVL    = $4214 ;Unsigned Division Result (Quotient) (lower 8bit)
     !RDMPYL   = $4216 ;Unsigned Division Remainder / Multiply Product (lower 8bit)
     !RDMPYH   = $4217 ;Unsigned Division Remainder / Multiply Product (upper 8bit)
     !JOY1L    = $4218 ;Joypad 1 (gameport 1, pin 4) (lower 8bit)
@@ -117,10 +117,10 @@
     !A1T1L    = $4312
     !A1T2L    = $4322
     !A1T3L    = $4332
-    !A1T4L    = $4342
-    !A1T5L    = $4352
-    !A1T6L    = $4362
-    !A1T7L    = $4372
+    A1T4L     = $4342
+    A1T5L     = $4352
+    A1T6L     = $4362
+    A1T7L     = $4372
 
     A1T0H     = $4303 ;HDMA Table Start Address (high) / DMA Curr Addr (high)
     A1T1H     = $4313

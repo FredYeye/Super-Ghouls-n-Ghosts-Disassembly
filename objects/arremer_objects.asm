@@ -5,7 +5,7 @@ projectile_create:
     jsr _BF5C
     ldy #$B4 : ldx #$21 : jsl set_sprite
     jsl _02F9DA
-    jsl set_direction32
+    jsl set_direction32_to_arthur
     inc
     and #$1F
     lsr
@@ -92,7 +92,7 @@ killers_create:
 
 ;----- BEDF
 
-    jsl set_direction32
+    jsl set_direction32_to_arthur
     inc
     and #$1F
     lsr

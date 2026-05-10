@@ -98,7 +98,7 @@ create:
     bne .DE0A
 
     sta $2E
-    jsl set_direction32
+    jsl set_direction32_to_arthur
     inc
     and #$1F
     lsr

@@ -114,11 +114,9 @@ nmi: ;a- x-
     phx
     phy
     cld
-    lda #$0000
-    tcd
+    lda #$0000 : tcd
     !AX8
-    pha
-    plb
+    pha : plb
     inc.w video_frame_counter
     stz.w HDMAEN
     jsl disable_nmi
@@ -162,14 +160,14 @@ nmi: ;a- x-
     lda.w snes_reg.wobjsel : sta !WOBJSEL
     lda.w snes_reg.wbglog  : sta.w WBGLOG
     lda.w snes_reg.wobjlog : sta.w WOBJLOG
-    lda.w snes_reg.cgwsel  : sta !CGWSEL
+    lda.w snes_reg.cgwsel  : sta.w CGWSEL
     lda.w snes_reg.cgadsub : sta !CGADSUB
     lda.w snes_reg.coldata : sta.w COLDATA
     lda.w snes_reg.tm : ldx.w snes_reg.ts : sta.w TM : stx.w TS
-    lda.w snes_reg.tmw : sta.w TMW
-    lda.w snes_reg.tsw : sta.w TSW
+    lda.w snes_reg.tmw     : sta.w TMW
+    lda.w snes_reg.tsw     : sta.w TSW
     lda.w snes_reg.bg12nba : sta !BG12NBA
-    lda.w snes_reg.bg34nba : sta !BG34NBA
+    lda.w snes_reg.bg34nba : sta.w BG34NBA
 
     jsr _008700
     lda.w snes_reg.bgmode : sta !BGMODE
@@ -178,7 +176,7 @@ nmi: ;a- x-
 
     lda.w snes_reg.bgmode : and #$39 : ora #$08 : sta !BGMODE
     lda #$5C : sta !BG3SC
-    lda #$05 : sta !BG34NBA
+    lda #$05 : sta.w BG34NBA
 +:
     lda $1FAE
     beq +
@@ -191,10 +189,10 @@ nmi: ;a- x-
     lda !A1T1L : sta.w A2A1L
     lda !A1T2L : sta.w A2A2L
     lda !A1T3L : sta.w A2A3L
-    lda !A1T4L : sta.w A2A4L
-    lda !A1T5L : sta.w A2A5L
-    lda !A1T6L : sta.w A2A6L
-    lda !A1T7L : sta.w A2A7L
+    lda.w A1T4L : sta.w A2A4L
+    lda.w A1T5L : sta.w A2A5L
+    lda.w A1T6L : sta.w A2A6L
+    lda.w A1T7L : sta.w A2A7L
     !A8
     lda #$01
     sta.w NTRL1 : sta.w NTRL2 : sta.w NTRL3 : sta.w NTRL4
@@ -239,9 +237,9 @@ irq: ;a- x-
     pha
     phb
     lda.b #bank00>>16 : pha : plb
-    lda !TIMEUP
+    lda.w TIMEUP
 -:
-    bit !HVBJOY
+    bit.w HVBJOY
     bvc -
 
     lda.w snes_reg.hdmaen : sta.w HDMAEN
@@ -464,9 +462,9 @@ _0085A6: ;a- x8
 .85AA: ;a- x8
     phd
     !A16
-    lda.w #$15A2 : tcd : jsr .85C6
-    lda.w #$16F8 : tcd : jsr .85C6
-    lda.w #$184E : tcd : jsr .85C6
+    lda.w #!tile_handling_offset[0].base : tcd : jsr .85C6
+    lda.w #!tile_handling_offset[1].base : tcd : jsr .85C6
+    lda.w #!tile_handling_offset[2].base : tcd : jsr .85C6
     !A8
     pld
     rts
@@ -804,7 +802,7 @@ _0089B0: ;a8 x8
     lda $0331
     beq .ret
 
-    stz !CGADD
+    stz.w CGADD
     stz $0331
     lda #$00      : sta !DMAP0
     lda.b #CGDATA : sta !BBAD0
@@ -2120,7 +2118,7 @@ _00B7D5:
 }
 
 { ;B801 - B804
-    _00B801: db $0A, $00, $1E, $14
+    _00B801: db $0A, $00, $1E, $14 ;tile loading scroll direction? right, left, down, up
 }
 
 { ;B805 - B886

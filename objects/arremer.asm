@@ -137,7 +137,7 @@ create:
     beq .A710
 
     lda #$0A : sta $39
-    jsl _01909B : sta.b obj.direction
+    jsl get_arthur_relative_side_wrap : sta.b obj.direction
     ldy #$30 : jsl set_speed_xyg
     lda #$42 : sta $3B
 .A706:
@@ -179,7 +179,7 @@ create:
     !A8
     bcc .A734
 
-    jsl _01909B : sta.b obj.direction
+    jsl get_arthur_relative_side_wrap : sta.b obj.direction
     !A16
     bne .A785
 
@@ -470,7 +470,7 @@ create:
     !A8
     bcs .A996
 
-    jsl _01918E_set_direction16
+    jsl set_direction16_to_arthur
     inc
     and #$0F
     lsr #2
@@ -492,9 +492,7 @@ create:
 
 .A9AC:
     lda #$24 : sta $39
-    jsl _01909B
-    asl
-    sta.b obj.direction
+    jsl get_arthur_relative_side_wrap : asl : sta.b obj.direction
 .A9B7:
     brk #$00
 
@@ -586,7 +584,7 @@ thing:
     lda $30
     bne .AA71
 
-    jsl _01909B : sta.b obj.facing
+    jsl get_arthur_relative_side_wrap : sta.b obj.facing
 .AA71:
     jsl update_animation_normal
     ldx $32
@@ -606,7 +604,7 @@ _AA87:
     rts
 
 .AA9A:
-    jsl set_direction32
+    jsl set_direction32_to_arthur
     inc
     and #$1F
     lsr

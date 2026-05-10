@@ -484,13 +484,13 @@ create:
     lda $3C : and #$01
     beq .CA93
 
-    jsl set_direction32
+    jsl set_direction32_to_arthur
     tax
     lda.w cockatrice_head2_data_D34A,X
     bra .CA9B
 
 .CA93:
-    jsl set_direction32 : tax
+    jsl set_direction32_to_arthur : tax
     lda.w cockatrice_head2_data_D32A,X
 .CA9B:
     !X16

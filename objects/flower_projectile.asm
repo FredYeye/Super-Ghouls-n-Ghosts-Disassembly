@@ -34,7 +34,7 @@ create:
     jsl set_sprite
     lda $08 : and #$F8 : sta $08
     lda $09 : ora #$C0 : and #$CF : sta $09
-    jsl _01918E_set_direction16 : sta.b obj.direction
+    jsl set_direction16_to_arthur : sta.b obj.direction
 .EF4E:
     brk #$00
 

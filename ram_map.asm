@@ -253,18 +253,33 @@
     palette_cycle_start = $1500;1561 ;7 * 14 bytes
 
     ;$1562;15A1 ;4 * 16 bytes
-    ;$15A2;19A3 ;3 * 0x0156 bytes
 
-;0x3A-0x3D cam x
-;0x3E-0x41 cam y
-;
-;0x44-0x46 long ptr
-;0x47-0x49 long ptr
-;0x4A-0x4C long ptr
-;
-;0x50 bool?
-;
-;0xD6-0x155 word array?
+    struct tile_handling 0 ;name? $156 bytes
+        .base:     skip 0
+
+        .unk1:     skip $3A
+
+        ;0x02-0x03
+        ;0x04-0x05
+        ;0x06-0x07
+        ;0x08-0x09
+
+        .camera_x:          skip 4 ;0x3A-0x3D name?
+        .camera_y:          skip 4 ;0x3E-0x41 name?
+        .unk2:              skip 2
+        .ptr_screen_layout: skip 3 ;0x44-0x46
+        .ptr_meta_tile:     skip 3 ;0x47-0x49
+        .ptr_tile:          skip 3 ;0x4A-0x4C
+
+        ;0x50 bool?
+        ;0xD6-0x155 word array?
+
+        .unk3:     skip $109
+
+        .len:      skip 0
+    endstruct
+
+    !tile_handling_offset = $15A2+tile_handling ;$15A2;19A3
 
     camera_x = $15DC;15DF
     camera_y = $15E0;15E3
@@ -371,7 +386,7 @@
     ;7EF320;F3FF                   ;unused?
     ;7EF400;F5FF?                  ;palette (and/or DMA) related?
     ;7EF600;F6BF                   ;unused?
-    ;7EF6C0;FFFF                   ;screen IDs?
+    screen_array    = $7EF6C0;FFFF ;stage screen IDs. F700 is real the starting point, <F700 gets filled with empty screen to handle objs going outside the edge i assume
 
     ;7F tentative map
     ;7F0000;7FFF ;decompression buffer (7F00-7FFF unused?)

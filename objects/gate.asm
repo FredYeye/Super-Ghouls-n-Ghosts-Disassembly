@@ -79,7 +79,7 @@ create:
 
 _C4EC:
     !X16
-    ldx $13 : stx !A1T7L
+    ldx $13 : stx.w A1T7L
     !X8
     lda #$00
     stz.w A1B7

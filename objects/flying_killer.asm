@@ -51,7 +51,7 @@ create:
     bne .D3BB
 
     !AX8
-    jsl _01918E_set_direction16 : sta.b obj.direction
+    jsl set_direction16_to_arthur : sta.b obj.direction
     lda #$01 : sta.b obj.facing
     bra .D3EF
 

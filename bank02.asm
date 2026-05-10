@@ -2244,11 +2244,7 @@ _029ED3: ;blank obj
 update_pos_xy_2_child_obj:
     !AX16
     ldy $2D
-    clc
-    lda.b obj.direction
-    and #$00FF
-    adc.l speed_xy_offsets,X
-    tax
+    clc : lda.b obj.direction : and #$00FF : adc.l speed_xy_offsets,X : tax
     !A8
     clc
     lda speed_xy_x1,X : adc.b obj.pos_x+0 : sta.w obj.pos_x+0,Y
@@ -2258,7 +2254,6 @@ update_pos_xy_2_child_obj:
     lda speed_xy_y1,X : adc.b obj.pos_y+0 : sta.w obj.pos_y+0,Y
     lda speed_xy_y2,X : adc.b obj.pos_y+1 : sta.w obj.pos_y+1,Y
     lda speed_xy_y3,X : adc.b obj.pos_y+2 : sta.w obj.pos_y+2,Y
-
     !X8
     rtl
 }

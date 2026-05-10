@@ -68,7 +68,7 @@ create:
 
 ;----- F47A
 
-    jsl _01918E_set_direction16
+    jsl set_direction16_to_arthur
     inc
     and #$0F
     lsr

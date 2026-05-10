@@ -251,7 +251,7 @@ _D2E8:
     lda #$02 : sta $3A
     jsl get_rng_16
     lda.w astaroth_nebiroth_data_D465,X : sta $30
-    jsl set_direction32 : inc : and #$1F : lsr : sta $39
+    jsl set_direction32_to_arthur : inc : and #$1F : lsr : sta $39
 .D307:
     rts
 

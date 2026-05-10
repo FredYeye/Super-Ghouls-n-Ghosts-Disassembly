@@ -844,7 +844,7 @@ endif
 
 if !version == 2
     lda #$F6 : jsl _018049_8053
-    lda #$60 : jsl _018049_8053
+    lda #$60 : jsl _018049_8053 ;volume fade speed
 endif
     ldx #$00 : lda #$3D : jsl _01F6C9
     lda #$48 : sta $1EB7

@@ -490,7 +490,7 @@ thing:
 ;-----
 
 _EC27:
-    jsl _01918E_set_direction16
+    jsl set_direction16_to_arthur
     lsr
     inc
     and #$06

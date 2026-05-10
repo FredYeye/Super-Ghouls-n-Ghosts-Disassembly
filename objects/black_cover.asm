@@ -132,10 +132,7 @@ create:
     ply
 .C68B:
     !A16
-    clc
-    tya
-    adc.w #obj.ext.len
-    tay
+    clc : tya : adc.w #obj.ext.len : tay
     !A8
     pla
     dec
