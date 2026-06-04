@@ -2156,14 +2156,14 @@ _04F0E0:
     dw offset(.FAF2, .FBF2), offset(.FAF2, .FBFA), offset(.FAF2, .FC02), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FC0A), offset(.FAF2, .FC20), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FC2F), offset(.FAF2, .FE8C), offset(.FAF2, .FC5A), offset(.FAF2, .FE8C)
-    dw offset(.FAF2, .FC69), offset(.FAF2, .FC78), offset(.FAF2, .FE8C), $0195
-    dw $019D, $01BA, offset(.FAF2, .FE8C), $01C2
-    dw $01CA, $01D2, $01E8, offset(.FAF2, .FCE9)
-    dw $01FF, offset(.FAF2, .FD07), offset(.FAF2, .FD0F), $0225
-    dw $022D, offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), $0235
-    dw $023D, offset(.FAF2, .FE8C), $0245, $024D
-    dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), $025C, offset(.FAF2, .FD56)
-    dw offset(.FAF2, .FE8C), $0284, $026C, offset(.FAF2, .FE8C)
+    dw offset(.FAF2, .FC69), offset(.FAF2, .FC78), offset(.FAF2, .FE8C), offset(.FAF2, .FC87)
+    dw offset(.FAF2, .FC8F), offset(.FAF2, .FCAC), offset(.FAF2, .FE8C), offset(.FAF2, .FCB4)
+    dw offset(.FAF2, .FCBC), offset(.FAF2, .FCC4), offset(.FAF2, .FCDA), offset(.FAF2, .FCE9)
+    dw offset(.FAF2, .FCF1), offset(.FAF2, .FD07), offset(.FAF2, .FD0F), offset(.FAF2, .FD17)
+    dw offset(.FAF2, .FD1F), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FD27)
+    dw offset(.FAF2, .FD2F), offset(.FAF2, .FE8C), offset(.FAF2, .FD37), offset(.FAF2, .FD3F)
+    dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FD4E), offset(.FAF2, .FD56)
+    dw offset(.FAF2, .FE8C), offset(.FAF2, .FD76), offset(.FAF2, .FD5E), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FD66), offset(.FAF2, .FD6E), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
@@ -2173,18 +2173,18 @@ _04F0E0:
     dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
     dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
-    dw $028C, $0294, $029C, $02A4
-    dw $02AC, $02B4, $02BC, $02C4
-    dw $02CC, offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
-    dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), $0333
-    dw $02D4, offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
-    dw $02DC, $02E4, offset(.FAF2, .FE8C), $02EC
-    dw $02F4, $02FC, $0304, $030C
-    dw offset(.FAF2, .FE8C), $031B, offset(.FAF2, .FE15), offset(.FAF2, .FE1D)
-    dw $033B, $0343, $034B, $0353
+    dw offset(.FAF2, .FD7E), offset(.FAF2, .FD86), offset(.FAF2, .FD8E), offset(.FAF2, .FD96)
+    dw offset(.FAF2, .FD9E), offset(.FAF2, .FDA6), offset(.FAF2, .FDAE), offset(.FAF2, .FDB6)
+    dw offset(.FAF2, .FDBE), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
+    dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE25)
+    dw offset(.FAF2, .FDC6), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
+    dw offset(.FAF2, .FDCE), offset(.FAF2, .FDD6), offset(.FAF2, .FE8C), offset(.FAF2, .FDDE)
+    dw offset(.FAF2, .FDE6), offset(.FAF2, .FDEE), offset(.FAF2, .FDF6), offset(.FAF2, .FDFE)
+    dw offset(.FAF2, .FE8C), offset(.FAF2, .FE0D), offset(.FAF2, .FE15), offset(.FAF2, .FE1D)
+    dw offset(.FAF2, .FE2D), offset(.FAF2, .FE35), offset(.FAF2, .FE3D), offset(.FAF2, .FE45)
     dw offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C), offset(.FAF2, .FE8C)
-    dw $036A, $035B, $0372, $037A
-    dw offset(.FAF2, .FE8C), $0382, $038A, $0392
+    dw offset(.FAF2, .FE5C), offset(.FAF2, .FE4D), offset(.FAF2, .FE64), offset(.FAF2, .FE6C)
+    dw offset(.FAF2, .FE8C), offset(.FAF2, .FE74), offset(.FAF2, .FE7C), offset(.FAF2, .FE84)
 
 ;-----
 
@@ -2237,29 +2237,36 @@ _04F0E0:
     dw $2300 : dl $7FD9C0 : dw $0200
     dw $2780 : dl $7FDBC0 : dw $0080
 
+.FC87:
     db $01
     dw $5500 : dl $7FB600 : dw $0A00
 
+.FC8F:
     db $04
     dw $4800 : dl $7FA000 : dw $1000
     dw $7200 : dl $7F0C00 : dw $0900
     dw $3500 : dl $7FE000 : dw $0200
     dw $5000 : dl $7FE200 : dw $0800
 
+.FCAC:
     db $01
     dw $7200 : dl $7F4FC0 : dw $0400
 
+.FCB4:
     db $01
     dw $7700 : dl $7F45C0 : dw $0A00
 
+.FCBC:
     db $01
     dw $7E00 : dl $7F41C0 : dw $0400
 
+.FCC4:
     db $03
     dw $3100 : dl $7FB000 : dw $0200
     dw $3300 : dl $7FDE00 : dw $0200
     dw $5400 : dl $7FEE00 : dw $0200
 
+.FCDA:
     db $02
     dw $2120 : dl $7FF160 : dw $01C0
     dw $5300 : dl $7FF320 : dw $01A0
@@ -2268,6 +2275,7 @@ _04F0E0:
     db $01
     dw $6C00 : dl $7F62E0 : dw $0720
 
+.FCF1:
     db $03
     dw $5A00 : dl $7FB200 : dw $0400
     dw $4000 : dl $7FB600 : dw $1000
@@ -2281,25 +2289,32 @@ _04F0E0:
     db $01
     dw $7440 : dl $7F57C0 : dw $0100
 
+.FD17:
     db $01
     dw $7540 : dl $7F58C0 : dw $0100
 
+.FD1F:
     db $01
     dw $7600 : dl $7F59C0 : dw $1400
 
+.FD27:
     db $01
     dw $3700 : dl $7FEC00 : dw $0200
 
+.FD2F:
     db $01
     dw $5800 : dl $7FA000 : dw $0600
 
+.FD37:
     db $01
     dw $4000 : dl $7FA600 : dw $1000
 
+.FD3F:
     db $02
     dw $2400 : dl $7FB600 : dw $0800
     dw $3C00 : dl $7FBE00 : dw $0800
 
+.FD4E:
     db $01
     dw $7400 : dl $7F0CA0 : dw $0800
 
@@ -2307,6 +2322,7 @@ _04F0E0:
     db $01
     dw $7C00 : dl $7F31A0 : dw $0400
 
+.FD5E:
     db $01
     dw $7500 : dl $7F14A0 : dw $0E00
 
@@ -2318,61 +2334,80 @@ _04F0E0:
     db $01
     dw $7600 : dl $7F0800 : dw $04A0
 
+.FD76:
     db $01
     dw $6C00 : dl $7F88E0 : dw $0720
 
+.FD7E:
     db $01
     dw $70E0 : dl $7F1780 : dw $0040
 
+.FD86:
     db $01
     dw $71E0 : dl $7F17C0 : dw $0040
 
+.FD8E:
     db $01
     dw $72E0 : dl $7F1800 : dw $0040
 
+.FD96:
     db $01
     dw $73E0 : dl $7F1840 : dw $0040
 
+.FD9E:
     db $01
     dw $74E0 : dl $7F1880 : dw $0040
 
+.FDA6:
     db $01
     dw $75E0 : dl $7F18C0 : dw $0040
 
+.FDAE:
     db $01
     dw $7600 : dl $7F1900 : dw $1400
 
+.FDB6:
     db $01
     dw $6C00 : dl $7F4180 : dw $0720
 
+.FDBE:
     db $01
     dw $2EA0 : dl $7FA000 : dw $0000
 
+.FDC6:
     db $01
     dw $7C00 : dl $7F1400 : dw $0800
 
+.FDCE:
     db $01
     dw $5800 : dl $7FA000 : dw $0800
 
+.FDD6:
     db $01
     dw $4400 : dl $7FB080 : dw $0800
 
+.FDDE:
     db $01
     dw $2100 : dl $7FB000 : dw $0080
 
+.FDE6:
     db $01
     dw $7E00 : dl $7F0000 : dw $0200
 
+.FDEE:
     db $01
     dw $6C00 : dl $7F75C0 : dw $0720
 
+.FDF6:
     db $01
     dw $5000 : dl $7FAE00 : dw $0800
 
+.FDFE:
     db $02
     dw $3E00 : dl $7FD8C0 : dw $0100
     dw $3F00 : dl $7FE660 : dw $0100
 
+.FE0D:
     db $01
     dw $7B00 : dl $7F0000 : dw $0200
 
@@ -2384,40 +2419,52 @@ _04F0E0:
     db $01
     dw $7400 : dl $7F0400 : dw $1400
 
+.FE25:
     db $01
     dw $7B00 : dl $7F1C00 : dw $0100
 
+.FE2D:
     db $01
     dw $7800 : dl $7F7460 : dw $1000
 
+.FE35:
     db $01
     dw $7400 : dl $7F8460 : dw $0360
 
+.FE3D:
     db $01
     dw $6C00 : dl $7F5240 : dw $0720
 
+.FE45:
     db $01
     dw $7400 : dl $7F0000 : dw $0100
 
+.FE4D:
     db $02
     dw $7400 : dl $7F7E80 : dw $0360
     dw $7800 : dl $7F6E80 : dw $1000
 
+.FE5C:
     db $01
     dw $6C00 : dl $7F4C60 : dw $0720
 
+.FE64:
     db $01
     dw $7200 : dl $7F3C60 : dw $03E0
 
+.FE6C:
     db $01
     dw $7200 : dl $7F81E0 : dw $0E00
 
+.FE74:
     db $01
     dw $7000 : dl $7F0000 : dw $1000
 
+.FE7C:
     db $01
     dw $7800 : dl $7F1000 : dw $1000
 
+.FE84:
     db $01
     dw $6C00 : dl $7F2000 : dw $0720
 

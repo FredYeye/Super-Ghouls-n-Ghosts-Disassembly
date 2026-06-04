@@ -1,6 +1,10 @@
 {
     ;$001E ;tile collision result bool?
 
+    ;$0020;002F
+    ;so far the only data written here is due to bugs (weapon layer fn, killer BFCD)
+    ;set_spawn_offset writes / reads here at the continue screen
+
     irq_pointer = $0030;0031 ;unused?
     ;$0032;0033
     ;$0034;0035
@@ -162,9 +166,9 @@
     ;$0378 loop counter, sprite prio related
 
     ;dma struct?
-    ;$037A ?
+    ;$037A bool
     ;$037B pending dma counter
-    ;$037C 8 byte structs, vram_addr.w source_addr.l size.w ?.b at least until 3C4
+    ;$037C 8 byte structs, vram_addr.w source_addr.l size.w ?.b at least until 3D4
 
     obj_start = $043C;11B0
 
@@ -272,7 +276,11 @@
         .ptr_tile:          skip 3 ;0x4A-0x4C
 
         ;0x50 bool?
-        ;0xD6-0x155 word array?
+        ;0x51-0x52
+        ;0x53-0xD2 word array (fetched tiles?)
+        ;0xD3 bool
+        ;0xD4-0xD5
+        ;0xD6-0x155 word array? another set of fetched tiles?
 
         .unk3:     skip $109
 
