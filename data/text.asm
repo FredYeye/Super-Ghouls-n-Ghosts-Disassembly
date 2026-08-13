@@ -4,7 +4,7 @@ text:
 
 .base:
 
-if !version == 0
+if !version == !JP
 .loop_1:
     dw $0100 ;initial cursor offset in tiles
 
@@ -251,7 +251,7 @@ if !version == 0
     db $FC, $4F
 
     db $FF
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
 .loop_1:
     dw $0100
 
@@ -298,7 +298,7 @@ elseif !version == 1 || !version == 2
     db $FE, $03
     db $0B, $1B, $0A, $0C, $0E, $15, $0E, $1D, $53, $27
     db $FC, $4F
-if !version == 2
+if !version == !EU
     db $FC, $4F
 endif
 
@@ -354,7 +354,7 @@ endif
     db $FE, $03
     db $1D, $11, $0E, $45, $20, $0A, $22, $45, $11, $0E, $1B, $0E, $27
     db $FC, $4F
-if !version == 2
+if !version == !EU
     db $FC, $4F
 endif
 
@@ -390,7 +390,7 @@ endif
     db $FE, $03
     db $18, $17, $15, $22, $45, $11, $18, $19, $0E, $27, $27, $27
     db $FC, $4F
-if !version == 2
+if !version == !EU
     db $FC, $4F
 endif
 

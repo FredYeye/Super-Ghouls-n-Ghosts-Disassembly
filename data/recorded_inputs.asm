@@ -145,7 +145,7 @@ recorded_inputs:
 ;-----
 
     ;F200: demo 2
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db $00, $5A
     db $01, $48
     db $81, $18
@@ -224,7 +224,7 @@ if !version == 0 || !version == 1
     db $00, $55
 
     fillbyte $00 : fill 120
-elseif !version == 2
+elseif !version == !EU
     db $00, $A7
     db $01, $38
     db $81, $13

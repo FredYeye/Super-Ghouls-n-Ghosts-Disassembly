@@ -8,9 +8,9 @@ _00ED00: ;sprite related. sprite sets to load?
     dw .cockatrice_head, .cockatrice_legs, .cockatrice_body, .F917, .gate, .mimic, .mimic_ghost, .hydra
     dw .FCAC, .gate2, .FCED, .FCF5, .FD7C, .FD98, .tiny_goblin, .princess_dialogue
     dw .arremer, .astaroth, .nebiroth, .nebiroth_flame_laser, .cockatrice_neck_base
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $FFFF
-elseif !version == 2
+elseif !version == !EU
     dw .F1BF ;bracelet sparkle related
 endif
     dw .veil_allocen_claws, .veil_allocen_projectile
@@ -383,7 +383,7 @@ endif
 
 ;-----
 
-if !version == 2
+if !version == !EU
 .F1BF:
     dw .F1C1
 

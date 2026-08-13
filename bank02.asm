@@ -2795,10 +2795,10 @@ enemy_spawner: ;a8 x8
 
     lda $32
     and #$07
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     tax
     inc $32
-elseif !version == 2
+elseif !version == !EU
     ;oversight? "inc $32" is removed! so there is only one zombie delay timer per difficulty
     ldx.w difficulty
     clc
@@ -3752,11 +3752,11 @@ collision_check_shield: ;a8 x-
 }
 
 { ;FFA5 - FFFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 91
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank02a.bin"
-elseif !version == 2
+elseif !version == !EU
     incbin "fill_bytes/eng/bank02a.bin":5..0
 endif
 }

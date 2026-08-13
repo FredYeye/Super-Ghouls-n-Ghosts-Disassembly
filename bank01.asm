@@ -2890,7 +2890,7 @@ _0196EF: ;a8 x8
 }
 
 {
-if !version == 2
+if !version == !EU
     incsrc "task_fns/_019735_eu.asm" ;9735 - 975F
 endif
     incsrc "task_fns/_019735.asm" ;9735 - 9756
@@ -3665,9 +3665,9 @@ _01A74A:
     stx $1FC1
 -:
     jsr .A7BF
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda.w p1_button_hold+1
-elseif !version == 2
+elseif !version == !EU
     lda.w p2_button_hold+1
 endif
     bit #!down
@@ -3677,7 +3677,7 @@ endif
     rts
 }
 
-if !version == 2
+if !version == !EU
 { ;A8CD - A8EB
 _01A8CD:
     asl #5
@@ -4036,7 +4036,7 @@ hud_flicker: ;a8 x8
     dec.w hud_flicker_timer
     and #$01
     sta.w hud_visible
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     tax
     lda.w snes_reg.hdmaen   : and #$FD : ora.w _00B5BC+0,X : sta.w snes_reg.hdmaen
     lda.w snes_reg.nmitimen : and #$CF : ora.w _00B5BC+2,X : sta.w snes_reg.nmitimen
@@ -8900,14 +8900,14 @@ _01F722: ;a8 x8
     rts
 }
 
-if !version == 0
+if !version == !JP
 { ;F783 - FEFF
     incbin "fill_bytes/jp/bank01a.bin" ;unused duplicate code
     fillbyte $FF : fill 1398
 }
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank01a.bin"
-elseif !version == 2
+elseif !version == !EU
     incbin "fill_bytes/eng/bank01a.bin":121..0
 endif
 
@@ -8919,9 +8919,9 @@ task_list: ;a- x-
     .0C: jml _019757
     .earthquake: jml task_earthquake
     .14: jml _048EAD ;never called from here?
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     .18: jml _03EE1D ;talking time
-elseif !version == 2
+elseif !version == !EU
     .18: jml _0484B9
 endif
     .1C: jml _019776
@@ -8946,7 +8946,7 @@ endif
     .68: jml _039DDA ;ending slides related
     .6C: jml _019776_9792 ;ending slides related
     .70: jml _01A1F5
-if !version == 2
+if !version == !EU
     .74: jml _019735_eu
 endif
 }
@@ -8957,11 +8957,11 @@ _01FF74:
 }
 
 { ;FF77 - FFFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 137
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank01b.bin"
-elseif !version == 2
+elseif !version == !EU
     incbin "fill_bytes/eng/bank01b.bin":4..0
 endif
 }

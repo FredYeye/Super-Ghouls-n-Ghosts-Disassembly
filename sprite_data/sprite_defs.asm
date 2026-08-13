@@ -1009,14 +1009,14 @@ _08E400:
 	dw $0000
 
 .FC4B:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
 	db $01 : dw $0500, $061D, $0003
 	db $01 : dw $0500, $061E, $0003
 	db $01 : dw $0500, $061F, $0003
 	db $01 : dw $0500, $061E, $0003
 	db $01 : dw $0500, $061D, $00F3
 	dw $0000
-elseif !version == 2
+elseif !version == !EU
 	db $01 : dw $0500, $0600, $0003
 	db $01 : dw $0500, $0601, $0003
 	db $01 : dw $0500, $0602, $0003

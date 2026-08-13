@@ -129,11 +129,11 @@
     %note($09, 7)
     %lfo($00, $00)
     %instrument($0E)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($55)
     %octave($03)
     %tuning($32)
-elseif !version == 2
+elseif !version == !EU
     %volume($3D)
     %octave($04)
     %tuning($0A)
@@ -220,7 +220,7 @@ endif
     %toggle_triplet_portamento_2_octave_up($00)
     %octave($02)
     %instrument($09)
-if !version == 2
+if !version == !EU
     %tuning($0A)
 endif
     %note($16, 7)
@@ -249,11 +249,11 @@ endif
 ..ch3:
     %pan($CE)
     %duration($FF)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($37)
     %instrument($0E)
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %volume($32)
     %instrument($0E)
     %octave($04)

@@ -68,11 +68,11 @@
     %tuning($32)
     %duration($F0)
     %release($14)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($34)
     %instrument($0E)
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %volume($2A)
     %instrument($0E)
     %octave($04)

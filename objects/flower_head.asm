@@ -9,9 +9,9 @@ create:
     bne .EFE7
 
     clc
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda #$0C : adc.b obj.hp : sta.b obj.hp
-elseif !version == 2
+elseif !version == !EU
     lda #$04 : adc.b obj.hp : sta.b obj.hp
 endif
 .EFE7:

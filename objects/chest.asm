@@ -134,9 +134,9 @@ destroy:
     jml object_handling_827A
 
 .chest_order: ;indexes into B827
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db 3, 1, 3, 0, 3, 0, 4, 3, 0, 4, 3, 0, 4, 0, 3, 0 ;underwear
-elseif !version == 2
+elseif !version == !EU
     db 0, 0, 3, 0, 1, 0, 0, 3, 0, 4, 3, 0, 4, 0, 3, 0 ;underwear
 endif
     db 1, 0, 1, 4, 3, 0, 4, 1, 3, 0, 1, 4, 3, 0, 4, 1 ;steel armor

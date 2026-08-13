@@ -95,9 +95,9 @@ gfx_arthur_bee:          incbin "graphics/arthur_bee.bin"
 gfx_item_armor_steel:    incbin "graphics/item_armor_steel.bin"
 gfx_item_armor_gold:     incbin "graphics/item_armor_gold.bin"
 gfx_item_armor_bronze:   incbin "graphics/item_armor_bronze.bin"
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 320
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank0Ea.bin"
 endif
 
@@ -186,9 +186,9 @@ gfx_magic_lightning:   incbin "graphics/magic_lightning.bin"
 gfx_magic_nuclear:     incbin "graphics/magic_nuclear.bin"
 
 { ;FDC0 - FFFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 576
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank0Fa.bin"
 endif
 }

@@ -24,9 +24,9 @@ create:
     bcs .EA89
 
     lda #!id_bat : jsl prepare_object
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda #$7F : cop #$00
-elseif !version == 2
+elseif !version == !EU
     lda #$C0 : cop #$00
 endif
 

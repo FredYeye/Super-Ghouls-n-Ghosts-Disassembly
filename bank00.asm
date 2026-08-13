@@ -1,9 +1,9 @@
 org $008000 : bank00:
 
 { ;8000 - 80FF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 256
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank00a.bin"
 endif
 }
@@ -710,7 +710,7 @@ _008807: ;a8 x8
     db offset(.8871, .88FD), offset(.8871, .8904), offset(.8871, .890B), offset(.8871, .8912)
     db offset(.8871, .8919), offset(.8871, .8920), offset(.8871, .8927), offset(.8871, .892E)
     db offset(.8871, .8935)
-if !version == 1 || !version == 2
+if !version == !US || !version == !EU
     db offset(.8871, .893D)
 endif
 
@@ -742,7 +742,7 @@ endif
 .8927: dw $0C00 : dl tile_array+$2800 : dw $0800
 .892E: dw $0000 : dl $7F9800          : dw $0500
 .8935: dw $7000 : dl $7F2720          : dw $1000
-if !version == 1 || !version == 2
+if !version == !US || !version == !EU
 .893D: dw $5C00 : dl $7F9800          : dw $06A0
 endif
 }
@@ -1044,9 +1044,9 @@ _008B05:
 }
 
 { ;8C90 - A2FF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 5744
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank00b.bin"
 endif
 }
@@ -1102,9 +1102,9 @@ ram_to_vram_offsets:
     dl $7F0000 : dw $7200, $0400
     dl $7F0000 : dw $7590, $01F0
     dl $7F0000 : dw $7400, $0500
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dl $7F0000 : dw $0280, $00D0
-elseif !version == 2
+elseif !version == !EU
     dl _04E800 : dw $2000, $0250
 endif
     dl $7F0000 : dw $2000, $0800
@@ -1132,7 +1132,7 @@ endif
     dl $7F2000 : dw $7800, $0800 ;13B
     dl $7FD000 : dw $5C00, $0400 ;142
     dl $7F0000 : dw $5280, $00D0 ;149
-if !version == 2
+if !version == !EU
     dl _04E000 : dw $0000, $0400
 endif
 }
@@ -1830,7 +1830,7 @@ compressed_data:
     dw $2000 : dl gfx_unk36             : dw $1800 ;11F
     dw $0000 : dl gfx_unk13             : dw $3800 ;126
     dw $9980 : dl gfx_font_hud          : dw $0500 ;12D
-if !version == 1 || !version == 2
+if !version == !US || !version == !EU
     dw $9D00 : dl gfx_us_font_extra : dw $01A0
 endif
 }
@@ -2250,9 +2250,9 @@ _00B984:
     db $08, $06,  $0A, $06 ;torch
     db $06, $06,  $06, $06 ;axe
     db $06, $06,  $06, $06 ;triblade
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db $08, $08,  $08, $08 ;bracelet
-elseif !version == 2
+elseif !version == !EU
     db $0C, $08,  $0C, $08 ;bracelet projectile is 4px taller
 endif
 
@@ -2509,9 +2509,9 @@ bracelet_data:
 .speed: db $7B, $7E, $81, $81, $84
 
 .decay_rate:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db $06, $07, $07, $07, $08
-elseif !version == 2
+elseif !version == !EU
     db $08, $09, $09, $09, $0A
 endif
 }
@@ -2941,9 +2941,9 @@ storm_cesaris_data:
 .C009: db $10, $10, $10, $10, $20, $20, $20, $20, $20, $40, $40, $40, $40, $40, $40 ;mistake: should be 16 values? can read from following data
 
 .C018:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db $14, $0A, $FC, $FB
-elseif !version == 2
+elseif !version == !EU
     db $28, $14, $0A, $00
 endif
 }
@@ -2975,9 +2975,9 @@ storm_cesaris_parts_data:
 storm_cesaris_projectile_data:
 
 .C07E:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $FF40, $FF60, $FF80, $0000
-elseif !version == 2
+elseif !version == !EU
     dw $FF20, $FF40, $FF80, $0000
 endif
 }
@@ -3319,9 +3319,9 @@ skulls_data:
 
 .cooldown2: db 16, 16, 32, 32, 32, 32, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48
 .cooldown2_difficulty:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db 30, 15, 0, -8
-elseif !version == 2
+elseif !version == !EU
     db 40, 30, 10, 0
 endif
 
@@ -3571,9 +3571,9 @@ ghost_data: ;data for both ghost and ghost_unformed
 .spawn_offset_y: db $20, $20, $20, $20, $40, $40, $40, $40, $60, $60, $60, $60, $80, $80, $80, $80
 
 .CD5C:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db 2, 3, 3, 3
-elseif !version == 2
+elseif !version == !EU
     db 1, 1, 2, 3
 endif
 
@@ -3587,23 +3587,23 @@ endif
 
 .wait_timer:
 ..forming:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db 126, 106, 96, 76
-elseif !version == 2
+elseif !version == !EU
     db 136, 126, 96, 76
 endif
 
 ..begin: ;wait timer right after ghost has formed
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db 32, 16, 16, 16
-elseif !version == 2
+elseif !version == !EU
     db 32, 32, 16, 16
 endif
 
 ..next: ;wait timer between each action
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db 94, 74, 64, 54
-elseif !version == 2
+elseif !version == !EU
     db 104, 94, 64, 54
 endif
 
@@ -4303,7 +4303,7 @@ samael_platform_data:
     db $08, $FF
 }
 
-if !version == 0
+if !version == !JP
 { ;D6E6 - DA6D
     incsrc "data/text.asm"
 }
@@ -4313,7 +4313,7 @@ endif
 zombie_spawner_data:
 
 .delay:
-if !version == 2
+if !version == !EU
     db $04, $0C, $14, $1C ;difficulty offsets
 
     ;oversight: only the first value here gets used (increment removed)
@@ -4900,11 +4900,11 @@ _00EC3F:
 }
 
 { ;EC4B - ECFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 181
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank00c.bin"
-elseif !version == 2
+elseif !version == !EU
     incbin "fill_bytes/eng/bank00c.bin":83..0
 endif
 }
@@ -4914,19 +4914,19 @@ endif
 }
 
 { ;FF44 - FFBF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 124
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank00d.bin"
-elseif !version == 2
+elseif !version == !EU
     incbin "fill_bytes/eng/bank00d.bin":8..0
 endif
 }
 
 { ;snes header
-if !version == 0
+if !version == !JP
     db "CHOHMAKAIMURA        " ;title
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     db "SUPER GHOULS'N GHOSTS"
 endif
     db $20                     ;rom mode (LoROM)
@@ -4934,9 +4934,9 @@ endif
     db $0A                     ;rom size
     db $00                     ;sram size
     db !version                ;country
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db $08                     ;developer ID
-elseif !version == 2
+elseif !version == !EU
     db $01
 endif
     db $00                     ;version number
@@ -4944,16 +4944,16 @@ endif
 }
 
 { ;interrupt vectors
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $285C, $01A7 ;unused? not sure what this is
-elseif !version == 2
+elseif !version == !EU
     dw $795C, $01A7
 endif
-if !version == 0
+if !version == !JP
     dw cop, brk, $FFFF, nmi, $FFFF, irq ;native mode vectors
     dw $FFFF, $FFFF ;unused?
     dw $FFFF, $FFFF, $FFFF, $FFFF, entry, $FFFF ;emulation mode vectors
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     dw cop, brk, $0000, nmi, $0000, irq ;native mode vectors
     dw $0000, $0000 ;unused?
     dw $0000, $0000, $0000, $0000, entry, $0000 ;emulation mode vectors

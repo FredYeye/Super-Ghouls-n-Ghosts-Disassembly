@@ -41,7 +41,7 @@ _0197D1: ;a8 x8
     clc
     adc #$06
     sta $031E
-if !version == 2
+if !version == !EU
     lda.b #1 : jsl current_task_suspend
 endif
     pla

@@ -17,7 +17,7 @@
     %end_track()
 
 ..ch3:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tempo($01EB)
 ..48AA:
     %toggle_triplet_portamento_2_octave_up($08)
@@ -38,10 +38,10 @@ endif
     %end_track()
 
 ..ch2:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %note($00, 6)
     %note($00, 3)
-elseif !version == 2
+elseif !version == !EU
     %tempo($01EB)
 ..48AA:
     %toggle_triplet_portamento_2_octave_up($08)

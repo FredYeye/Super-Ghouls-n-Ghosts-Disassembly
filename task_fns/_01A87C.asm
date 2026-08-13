@@ -5,13 +5,13 @@ _01A87C: ;a8 x8
     jsl _018366
     lda #$0F : sta.w snes_reg.inidisp
     jsl clear_oam_sprite_data
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     ldy.b #$19*7 : jsl decompress_precalc
     ldx.b #$18*7 : jsl copy_ram_to_vram_precalc
     ldy.b #$18*7 : jsl decompress_precalc
     ldx.b #$16*7 : jsl copy_ram_to_vram_precalc
     lda #$04     : jsl _048E68
-elseif !version == 2
+elseif !version == !EU
     ldx #$30     : jsl copy_ram_to_vram
     ldx.b #$16*7 : jsl copy_ram_to_vram_precalc
     lda #$01     : jsl _048E68
@@ -21,12 +21,12 @@ endif
     lda #$1800 : sta $0318
     lda #$0800 : sta $031A
     !A8
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda #$08 : jsl _0183D4_83DB
     lda #$0B : jsl _0190B9_palette_to_ram
     ldx #$04 : ldy #$18 : lda.b #task_list_1C : jsl add_task
     jsl enable_nmi
-elseif !version == 2
+elseif !version == !EU
     lda #$00 : jsl _01A8CD
     lda #$8F : sta.w snes_reg.inidisp
     jsl enable_nmi
@@ -39,10 +39,10 @@ endif
     lda $0066
     bne .A8DC
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda.b #!sfx_capcom_logo : jsl _018049_8053
     lda #$3F : sta $0055
-elseif !version == 2
+elseif !version == !EU
     lda.b #18 : jsl current_task_suspend
     ldy #$30 : lda.b #task_list_74 : jsl add_task
 .A964:
@@ -67,9 +67,9 @@ endif
     lda $0066
     bne .A90E
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda #$00 : sta.w game_state
-elseif !version == 2
+elseif !version == !EU
     stz.w game_state
 endif
 .A91E:
@@ -125,7 +125,7 @@ endif
     stz $1FD6
     !A8
     jsr .ABB3
-if !version == 2
+if !version == !EU
     ldx #$02 : jsr .AC7D_eu
 endif
     lda $1FC7
@@ -267,7 +267,7 @@ endif
     lda $1FC7 : sta.w stage
     lda #$00  : sta.w checkpoint
     jsr .ABB3
-if !version == 2
+if !version == !EU
     ldx #$02 : jsr .AC7D_eu
 endif
     lda $1FC7 : eor #$01 : sta $1FC7
@@ -356,12 +356,12 @@ endif
     lda #$0200 : sta $031A
     !A8
     ldx.w options.controls
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda.w _00B55C_shot_buttons+0,X : sta.w shot_buttons
     lda.w _00B55C_shot_buttons+1,X : sta.w shot_buttons+1
     lda.w _00B55C_jump_buttons+0,X : sta.w jump_buttons
     lda.w _00B55C_jump_buttons+1,X : sta.w jump_buttons+1
-elseif !version == 2
+elseif !version == !EU
     jsr .AC7D_eu
 endif
     lda.w options.extra_lives : lsr : sta.w extra_lives
@@ -374,7 +374,7 @@ endif
 
 ;-----
 
-if !version == 2
+if !version == !EU
 .AC7D_eu:
     lda.w _00B55C_shot_buttons+0,X : sta.w shot_buttons
     lda.w _00B55C_shot_buttons+1,X : sta.w shot_buttons+1
@@ -462,7 +462,7 @@ endif
     ldy $1FB9
     beq .ACC4
 
-if !version == 2
+if !version == !EU
     lda #$01
 endif
 .ACC4:

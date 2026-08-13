@@ -117,9 +117,9 @@ stage_layouts:
 .815A:
     db $1A, $08
     db screen(screen_layouts2_s3_A200), screen(screen_layouts2_s3_A280)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db screen(screen_layouts2_s3_AD00)
-elseif !version == 2
+elseif !version == !EU
     db screen(screen_layouts2_s3_A000)
 endif
     db screen(screen_layouts2_s3_A000)
@@ -131,9 +131,9 @@ endif
     db screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000), screen(screen_layouts2_s3_A000)
 
     db screen(screen_layouts2_s3_A300), screen(screen_layouts2_s3_A380)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db screen(screen_layouts2_s3_AD00)
-elseif !version == 2
+elseif !version == !EU
     db screen(screen_layouts2_s3_A000)
 endif
     db screen(screen_layouts2_s3_A000)

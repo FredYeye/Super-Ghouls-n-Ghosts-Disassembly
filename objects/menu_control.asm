@@ -11,10 +11,10 @@ create: ;a8 x8
     sta $2D
     tay
     !AX16
-if !version == 0
+if !version == !JP
     lda.w _00C919+0,Y : ldx #$0412 : jsr .BB85
     lda.w _00C919+2,Y : ldx #$0492 : jsr .BB85
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     lda.w _00C919+0,Y : ldx #$0450 : jsr .BB85
     lda.w _00C919+2,Y : ldx #$04D0 : jsr .BB85
 endif

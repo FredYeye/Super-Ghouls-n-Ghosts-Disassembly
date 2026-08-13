@@ -9,9 +9,9 @@ arch spc700
 spc_code_start:
 
 {
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $0933, $0300 ;bytes to copy | apuram destination address
-elseif !version == 2
+elseif !version == !EU
     dw $092B, $0300
 endif
 }
@@ -193,9 +193,9 @@ spc_03CB:
     mov  a, #$99
     movw $D4, ya
     mov  $D2, #$00
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     mov  $D7, #$E8
-elseif !version == 2
+elseif !version == !EU
     mov  $D7, #$00
 endif
     mov  a, $0E01
@@ -576,7 +576,7 @@ spc_0609:
     ret
 }
 
-if !version == 2
+if !version == !EU
     incsrc "various/spc_code.asm"
 endif
 
@@ -683,7 +683,7 @@ spc_06D8:
     pop  a
     clrc
     adc  a, spc_07C2+y
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     bbc7 $C9, spc_06EB
 
     clrc
@@ -691,7 +691,7 @@ if !version == 0 || !version == 1
     bra  spc_06EE
 
 spc_06EB:
-elseif !version == 2
+elseif !version == !EU
     bbs7 $C9, spc_06EE
 endif
     clrc
@@ -708,12 +708,12 @@ spc_06EE:
     dec  y
 +:
     addw ya, $C0
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     cmp  y, #$55
     bcc  +
 
     mov  y, #$54
-elseif !version == 2
+elseif !version == !EU
     cmp  y, #$61
     bcc  +
 
@@ -977,7 +977,7 @@ spc_08B6: ;08B6 - 08C0
 spc_08C1: ;08C1 - 08C9
     bbs7 $C9, .ret
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     clrc
     adc  a, #$E8
 endif
@@ -1422,7 +1422,7 @@ spc_0ADA:
 spc_0B0E:
     jmp  spc_0B4B
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     incsrc "various/spc_code.asm"
 endif
 
@@ -1430,9 +1430,9 @@ base off
 
 ;-----
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $49CE, $0E00
-elseif !version == 2
+elseif !version == !EU
     dw $4A9F, $0E00
 endif
 
@@ -1573,7 +1573,7 @@ base off
 
 ;-----
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $0060, $5800
 
     ;looks like offsets, not sure when these are being used?
@@ -1583,7 +1583,7 @@ if !version == 0 || !version == 1
     dw $AAB5, $AE39, $AE8A, $B199, $B1BD, $B54A, $C2AF, $CA98
     dw $D398, $DD94, $DDE5, $E397, $EFA6, $EFC1, $F012, $F0D8
     dw $F0FC, $F0FC, $FCD5, $FF27, $FFFF, $FFFF, $FFFF, $FFFF
-elseif !version == 2
+elseif !version == !EU
     dw $9CD0, $6300 : base $6300
 
     dw $63DC, $6412, $6424, $643F, $6784, $6784, $6E20, $6E68
@@ -1596,7 +1596,7 @@ endif
 
 ;-----
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $0090, $5880 : base $5880
 endif
 
@@ -1607,13 +1607,13 @@ spc_5880:
     db $08, $FF, $E0, $B8, $14, $40, $09, $FF, $E0, $B8, $09, $00, $0A, $FF, $F1, $B8
     db $04, $00, $0B, $FF, $E0, $B8, $04, $00, $0C, $FF, $E0, $B8, $09, $00, $0D, $FF
     db $E0, $B8, $04, $00, $0E, $FF
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     db $E0, $B8, $03, $C0, $0F, $FF, $E0, $B8, $02, $80, $10, $FF, $E0, $B8, $09, $00
     db $11, $FF, $E0, $B8, $03, $C0, $12, $FF, $EF, $B8, $09, $00, $13, $FF, $EE, $B8
     db $04, $00, $14, $FF, $E0, $B8, $05, $59, $15, $FF, $EC, $B8, $07, $00
 
     db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-elseif !version == 2
+elseif !version == !EU
     db $E0, $B8, $01, $80, $0F, $FF, $E0, $B8, $02, $80, $10, $FF, $E0, $B8, $09, $00
     db $11, $FF, $E0, $B8, $03, $C0, $12, $FF, $F0, $B8, $04, $00, $13, $FF, $EE, $B8
     db $04, $00, $14, $FF, $E0, $B8, $04, $F7, $15, $FF, $F1, $B8, $09, $00
@@ -1625,11 +1625,11 @@ base off
 
 check bankcross off
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $A630, $5940
 
     incbin "audio/06D405.bin" ;passes over into next bank. possibly samples
-elseif !version == 2
+elseif !version == !EU
     incbin "audio/06D405.bin":$0000..$5886
     incbin "audio/spc_eu1.bin"
     incbin "audio/06D405.bin":$696F..$9671
@@ -1649,9 +1649,9 @@ endif
     dw $0000, $0300
 
 { ;FA39 - FFFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 1479
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank07a.bin"
 endif
 }

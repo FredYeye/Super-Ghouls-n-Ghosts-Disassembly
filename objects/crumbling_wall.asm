@@ -23,11 +23,11 @@ create:
     !A16
     stz $31
     stz $33
-if !version == 0 ;crumbling wall becomes non-solid immediately in JP version
+if !version == !JP ;crumbling wall becomes non-solid immediately in JP version
     lda #$E580 : sta $7EF7C2
 endif
     !A8
-if !version == 0
+if !version == !JP
     lda #$00 : sta.l tile_type+$90 : sta.l tile_type+$91 : sta.l tile_type+$92 : sta.l tile_type+$93
 endif
 .C3CB:
@@ -65,7 +65,7 @@ endif
     lda #$E580 : sta $7EF7C2
     !A8
     lda #$00 : sta.l tile_type+$90 : sta.l tile_type+$91 : sta.l tile_type+$92 : sta.l tile_type+$93
-if !version == 1 || !version == 2
+if !version == !US || !version == !EU
 .C411:
     brk #$00
 

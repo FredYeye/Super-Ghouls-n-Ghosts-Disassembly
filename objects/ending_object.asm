@@ -19,9 +19,9 @@ create:
 
     jsl update_animation_normal
     lda $1EC5
-if !version == 0
+if !version == !JP
     cmp #$03
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     cmp #$02
 endif
     bne .FC62

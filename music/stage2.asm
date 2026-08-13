@@ -620,16 +620,16 @@
     %note($0C, 2)
     %set_dotted_note()
     %note($0A, 4)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %octave($04)
 endif
     %tuning($19)
     %instrument($0E)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($6E)
-elseif !version == 2
+elseif !version == !EU
     %volume($50)
 endif
 ..166E:
@@ -667,7 +667,7 @@ endif
     %note($02, 3)
     %note($01, 2)
     %note($00, 2)
-if !version == 2
+if !version == !EU
     %octave($03)
 endif
     %instrument($0C)
@@ -687,13 +687,13 @@ endif
     %note($04, 3)
     %note($03, 2)
     %note($00, 2)
-if !version == 2
+if !version == !EU
     %octave($04)
 endif
     %instrument($0E)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($6E)
-elseif !version == 2
+elseif !version == !EU
     %volume($50)
 endif
     %tuning($19)

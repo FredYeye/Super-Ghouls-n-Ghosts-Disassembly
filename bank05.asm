@@ -214,9 +214,9 @@ meta_sprite_part_to_ram:
 }
 
 { ;8191 - 81FF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 111
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank05a.bin"
 endif
 }
@@ -260,9 +260,9 @@ _05826F:
 }
 
 { ;FAFE - FFFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 1282
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank05b.bin"
 endif
 }

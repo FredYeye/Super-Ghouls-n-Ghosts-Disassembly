@@ -305,11 +305,11 @@
 ..ch4:
     %pan($55)
     %duration($F5)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($60)
     %instrument($0E)
     %octave($02)
-elseif !version == 2
+elseif !version == !EU
     %volume($4B)
     %instrument($0E)
     %octave($03)

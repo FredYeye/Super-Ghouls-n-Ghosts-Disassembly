@@ -30,14 +30,14 @@
     %note($00, 3)
 ..1B91:
     %toggle_triplet_portamento_2_octave_up($08)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tuning($14)
     %duration($F0)
     %octave($02)
     %instrument($0E)
     %release($12)
     %volume($66)
-elseif !version == 2
+elseif !version == !EU
     %duration($F0)
     %octave($03)
     %instrument($0E)
@@ -63,9 +63,9 @@ endif
     %set_dotted_note()
     %note($13, 5)
     %note($14, 4)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %octave($04)
 endif
     %set_dotted_note()
@@ -87,7 +87,7 @@ endif
     %toggle_triplet_portamento_2_octave_up($08)
     %instrument($0F)
     %octave($02)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($53)
 endif
     %tuning($0A)
@@ -111,17 +111,17 @@ endif
 ..1BE4:
     %toggle_triplet_portamento_2_octave_up($08)
     %tuning($00)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %octave($04)
 endif
     %release($16)
     %duration($64)
     %instrument($0E)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($50)
-elseif !version == 2
+elseif !version == !EU
     %volume($46)
 endif
     %note($0B, 5)
@@ -458,9 +458,9 @@ endif
 
 ..ch5:
     %duration($F0)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($55)
-elseif !version == 2
+elseif !version == !EU
     %volume($4E)
 endif
     %instrument($09)
@@ -494,9 +494,9 @@ endif
     %note($11, 7)
 ..1DB2:
     %toggle_triplet_portamento_2_octave_up($00)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($4B)
-elseif !version == 2
+elseif !version == !EU
     %volume($46)
 endif
     %release($16)
@@ -547,9 +547,9 @@ endif
     %note($00, 4)
     %duration($F0)
     %release($14)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($46)
-elseif !version == 2
+elseif !version == !EU
     %volume($41)
 endif
     %tuning($28)

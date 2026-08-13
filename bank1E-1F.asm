@@ -5,9 +5,9 @@ org $1E8000
 }
 
 { ;F3D8 - FFFF
-if !version == 0
+if !version == !JP
 	incbin "fill_bytes/jp/bank1Ea.bin"
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
 	incbin "fill_bytes/eng/bank1Ea.bin"
 endif
 }
@@ -21,9 +21,9 @@ org $1F8000
 }
 
 { ;D5E0 - DFFF
-if !version == 0
+if !version == !JP
 	incbin "fill_bytes/jp/bank1Fa.bin"
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
 	incbin "fill_bytes/eng/bank1Fa.bin"
 endif
 }
@@ -33,9 +33,9 @@ endif
 }
 
 { ;F4BE - FFFF
-if !version == 0
+if !version == !JP
 	incbin "fill_bytes/jp/bank1Fb.bin"
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
 	incbin "fill_bytes/eng/bank1Fb.bin"
 endif
 }

@@ -342,9 +342,9 @@
     %lfo($03, $01)
     %instrument($11)
     %duration($E6)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($36)
-elseif !version == 2
+elseif !version == !EU
     %volume($34)
 endif
     %octave($03)

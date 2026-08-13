@@ -41,13 +41,13 @@ create:
 
 ;----- DB1D
 
-if !version == 0
+if !version == !JP
     jsr _DB35
 endif
     dec.b obj.pos_y+1
     inc $36
     dec $33
-if !version == 1 || !version == 2
+if !version == !US || !version == !EU
     jsr _DB35
 endif
     lda $33

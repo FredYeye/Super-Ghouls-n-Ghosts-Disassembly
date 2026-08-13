@@ -4,19 +4,19 @@ org $108000
 
 check bankcross off
 
-if !version == 0
+if !version == !JP
     gfx_unk01:         incbin "graphics/unknown01.bin"
     gfx_unk02:         incbin "graphics/unknown02.bin"
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     gfx_unk01:         incbin "graphics/unknown01_us.bin"
     gfx_unk02:         incbin "graphics/unknown02_us.bin"
 endif
     gfx_unk15:         incbin "graphics/unknown15.bin"
     gfx_unk17:         incbin "graphics/unknown17.bin"
     gfx_unk18:         incbin "graphics/unknown18.bin"
-if !version == 0
+if !version == !JP
     gfx_logo:          incbin "graphics/logo.bin" ;also has other stuff in it
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     gfx_logo:          incbin "graphics/logo_us.bin"
 endif
     gfx_map:           incbin "graphics/map.bin"
@@ -43,7 +43,7 @@ endif
     gfx_intro_castle:  incbin "graphics/game_start_cutscene_castle.bin"
     gfx_unk06:         incbin "graphics/unknown06.bin"
 
-if !version == 0
+if !version == !JP
 { ;BBE6 - BC47
     incbin "fill_bytes/jp/bank18a.bin" ;leftover copies of above data?
 }
@@ -52,13 +52,13 @@ if !version == 0
     ;compressed data? had problems decompressing it
     incbin "fill_bytes/jp/bank18b.bin"
 }
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank18a.bin"
 endif
 
-if !version == 0
+if !version == !JP
     gfx_stage1_objects: incbin "graphics/stage1_objects.bin"
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     gfx_stage1_objects: incbin "graphics/stage1_objects_us.bin"
 endif
 
@@ -92,12 +92,12 @@ endif
     gfx_veil_allocen:      incbin "graphics/veil_allocen.bin"
     gfx_rosebud:           incbin "graphics/rosebud.bin"
 
-if !version == 0
+if !version == !JP
 { ;F642 - FFFF
     ;not sure if this is compressed data, i wasn't able to decompress/recompress it properly
     incbin "fill_bytes/jp/bank1Da.bin" ;unused data
 }
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     gfx_us_font_extra: incbin "graphics/us_font_extra.bin" ;question mark, apostrophe, opening and closing quotation marks
     incbin "fill_bytes/eng/bank1Da.bin"
 endif

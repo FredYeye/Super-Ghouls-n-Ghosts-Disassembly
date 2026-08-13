@@ -30,9 +30,9 @@
     %toggle_portamento()
     %note($1D, 3)
     %instrument($15)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %octave($05)
-elseif !version == 2
+elseif !version == !EU
     %per_voice_transpose($05)
     %octave($00)
 endif

@@ -25,9 +25,9 @@
 ..550A:
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($FF)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %octave($02)
 endif
     %instrument($15)

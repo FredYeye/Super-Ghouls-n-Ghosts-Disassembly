@@ -378,11 +378,11 @@
     %note($00, 5)
     %pan($CE)
     %duration($FA)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($5C)
     %instrument($0E)
     %octave($03)
-elseif !version == 2
+elseif !version == !EU
     %volume($46)
     %instrument($0E)
     %octave($04)

@@ -20,20 +20,20 @@
     %end_track()
 
 ..ch2:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tempo($0333)
-elseif !version == 2
+elseif !version == !EU
     %tempo($036D)
     %per_voice_transpose($08)
 endif
     %duration($FF)
     %volume($75)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %instrument($01)
     %octave($01)
     %lfo($00, $46)
     %lfo($02, $46)
-elseif !version == 2
+elseif !version == !EU
     %instrument($02)
     %octave($04)
     %note($0D, 1)
@@ -45,9 +45,9 @@ endif
     %set_dotted_note()
     %toggle_portamento()
     %note($0B, 4)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %portamento_time($32)
-elseif !version == 2
+elseif !version == !EU
     %portamento_time($5A)
 endif
     %set_dotted_note()

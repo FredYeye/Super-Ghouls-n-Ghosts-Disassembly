@@ -333,18 +333,18 @@ create: ;a8 x8
     bcs .CFAA
 
     sta.b obj.pos_y+1
-if !version == 0
+if !version == !JP
     lda #$BF : cop #$00
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     lda #$3F : cop #$00
 endif
 
 ;----- CFC1
 
     ldy #$E0 : ldx #$21 : jsl set_sprite
-if !version == 0
+if !version == !JP
     lda #$7F : cop #$00
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     lda #$28 : cop #$00
 endif
 
@@ -377,7 +377,7 @@ endif
     sec : lda.b obj.pos_x+1 : sbc #$0003 : sta.b obj.pos_x+1
     !A8
     ldy #$E8 : ldx #$21 : jsl set_sprite
-if !version == 0
+if !version == !JP
     lda #$7F : cop #$00
 
 ;----- D012
@@ -386,9 +386,9 @@ endif
     !A8
     stz $032E
     stz.w snes_reg.hdmaen
-if !version == 0
+if !version == !JP
     ldy #$27 : jsl decompress
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     ldy.b #$19*7 : jsl decompress_precalc
     ldy #$2C     : jsl decompress
     lda #$1A     : sta $031E
@@ -400,9 +400,9 @@ endif
     lda #$0800 : sta $031A
     !X16
     ldx #$001C : lda #$0010 : ldy #$0000 : jsl _019136_9187
-if !version == 0
+if !version == !JP
     lda #$21BF
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     lda #$21C5
 endif
     !AX8
@@ -412,7 +412,7 @@ endif
 
 ;----- D051
 
-if !version == 0
+if !version == !JP
     lda #$15 : sta $031E
 endif
     lda #$05 : sta.w snes_reg.bg34nba

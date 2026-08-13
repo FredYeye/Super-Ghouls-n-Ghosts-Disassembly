@@ -2,7 +2,7 @@
     dw be(..ch8), be(..ch7), be(..ch6), be(..ch5), be(..ch4), be(..ch3), be(..ch2), be(..ch1)
 
 ..ch8:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tempo($00FA)
     %volume($44)
     %duration($BE)
@@ -32,7 +32,7 @@ if !version == 0 || !version == 1
     %toggle_triplet()
     %note($14, 6)
     %note($00, 6)
-elseif !version == 2
+elseif !version == !EU
     %tempo($0333)
     %pan($B0)
     %master_volume($46)
@@ -93,7 +93,7 @@ endif
     %end_track()
 
 ..ch7:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %pan($92)
     %duration($BE)
     %release($10)
@@ -110,7 +110,7 @@ if !version == 0 || !version == 1
     %toggle_portamento()
     %note($14, 3)
     %note($00, 6)
-elseif !version == 2
+elseif !version == !EU
     %duration($96)
     %instrument($12)
     %octave($03)
@@ -166,7 +166,7 @@ endif
     %end_track()
 
 ..ch6:
-if !version == 2
+if !version == !EU
     %duration($96)
     %pan($50)
     %instrument($12)
@@ -221,7 +221,7 @@ endif
     %end_track()
 
 ..ch5:
-if !version == 2
+if !version == !EU
     %duration($64)
     %volume($78)
     %instrument($12)
@@ -239,7 +239,7 @@ endif
     %end_track()
 
 ..ch4:
-if !version == 2
+if !version == !EU
     %duration($64)
     %volume($78)
     %instrument($12)
@@ -258,7 +258,7 @@ endif
     %end_track()
 
 ..ch3:
-if !version == 2
+if !version == !EU
     %duration($96)
     %instrument($12)
     %octave($04)

@@ -212,11 +212,11 @@ _03E7FE: ;a8 x8
     incsrc "objects/princess.asm"        ;EDE2 - EE1C
 }
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
 { ;EE1D - EF85
 _03EE1D: ;a8 ;x8
     ;printing text on screen
-if !version == 1
+if !version == !US
     phb
     lda.b #bank04>>16 : pha : plb
 endif
@@ -237,7 +237,7 @@ endif
     cmp #$FF
     bne .EE46
 
-if !version == 1
+if !version == !US
     plb
 endif
     jml current_task_remove ;FF: exit
@@ -261,9 +261,9 @@ endif
     cmp #$F8
     beq .EE71
 
-if !version == 0
+if !version == !JP
     jsr .EF10
-elseif !version == 1
+elseif !version == !US
     jsr .EF18
 endif
     bra .EE33
@@ -331,9 +331,9 @@ endif
     !A16
     ldx #$0000
     lda #$0400 : sta $1EBF
-if !version == 0
+if !version == !JP
     lda #$21BF
-elseif !version == 1
+elseif !version == !US
     lda #$21C5
 endif
     ora $1EC3
@@ -351,7 +351,7 @@ endif
 
 ;-----
 
-if !version == 0
+if !version == !JP
 .handakuten:
     pha
     phx
@@ -416,7 +416,7 @@ endif
 
 ;-----
 
-if !version == 0
+if !version == !JP
 .EF31:
     db $05, $06, $07, $08, $09, $0A, $0B, $0C, $0D, $0E, $0F, $10, $11, $12, $13, $19
     db $1A, $1B, $1C, $1D, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F, $3F
@@ -723,9 +723,9 @@ credits:
     stz $1EC3
     stz $1EC5
     !A8
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda #$03 : sta $1EBB
-elseif !version == 2
+elseif !version == !EU
     lda #$02 : sta $1EBB
 endif
     lda #$04 : sta $1EBD
@@ -740,9 +740,9 @@ endif
     jsl _018021
     !A16
     lda $1EC3
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     and #$01FF
-elseif !version == 2
+elseif !version == !EU
     and #$00FF
 endif
     bne .FA42
@@ -752,11 +752,11 @@ endif
     inc $1EC3
     lda $1EB9
     and #$0001
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     bne .FA7D
 
     lda $1EB9 ;unused lda (used in EU ver though?)
-elseif !version == 2
+elseif !version == !EU
     bne .FA6E
 endif
     lda.w hdma_data+$04 : sec : sbc #$0001 : sta.w hdma_data+$04
@@ -772,10 +772,10 @@ endif
     !AX8
     inc $1EB9
     lda $1EB9
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     and #$7F
     bne .FA2B
-elseif !version == 2
+elseif !version == !EU
     cmp #$60
     bne .FA2B
 
@@ -784,17 +784,17 @@ endif
     jsr .FB60
     inc $1EC1
     lda $1EC1
-if !version == 0
+if !version == !JP
     cmp #$2B
     beq .FAA7
 
     cmp #$2C
-elseif !version == 1
+elseif !version == !US
     cmp #$26
     beq .FAA7
 
     cmp #$27
-elseif !version == 2
+elseif !version == !EU
     cmp #$1D
     beq .FAA7
 
@@ -842,7 +842,7 @@ endif
     dec $1EB7
     bne .FB31
 
-if !version == 2
+if !version == !EU
     lda #$F6 : jsl _018049_8053
     lda #$60 : jsl _018049_8053 ;volume fade speed
 endif
@@ -949,13 +949,13 @@ endif
     incsrc "objects/ending_object.asm" ;FC40 - FC87
 }
 
-if !version == 0
+if !version == !JP
 { ;FC88 - FFFF
     incbin "fill_bytes/jp/bank03a.bin" ;unused duplicate code
     fillbyte $FF : fill 793
 }
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank03a.bin":206..0
-elseif !version == 2
+elseif !version == !EU
     incbin "fill_bytes/eng/bank03a.bin"
 endif

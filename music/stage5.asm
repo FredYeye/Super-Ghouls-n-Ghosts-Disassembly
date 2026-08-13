@@ -116,12 +116,12 @@
     %toggle_triplet_portamento_2_octave_up($40)
     %pan($32)
     %duration($FF)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($58)
     %instrument($0E)
     %octave($03)
     %tuning($19)
-elseif !version == 2
+elseif !version == !EU
     %volume($3C)
     %instrument($0E)
     %octave($04)
@@ -133,9 +133,9 @@ endif
     %note($02, 3)
     %note($07, 3)
     %note($0C, 3)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($16)
-elseif !version == 2
+elseif !version == !EU
     %volume($14)
 endif
     %note($09, 3)
@@ -147,9 +147,9 @@ endif
     %note($00, 4)
     %note($00, 7)
     %note($00, 4)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($58)
-elseif !version == 2
+elseif !version == !EU
     %volume($3C)
 endif
     %note($09, 4)
@@ -162,9 +162,9 @@ endif
     %note($07, 3)
     %note($09, 3)
     %note($0E, 3)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($16)
-elseif !version == 2
+elseif !version == !EU
     %volume($14)
 endif
     %note($0E, 3)
@@ -187,9 +187,9 @@ endif
     %note($1E, 4)
     %toggle_2_octaves_up()
     %note($08, 4)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($69)
-elseif !version == 2
+elseif !version == !EU
     %volume($4B)
 endif
     %loop(0, 9, ..18A9)
@@ -235,15 +235,15 @@ endif
     %note($12, 4)
     %note($10, 4)
     %note($13, 5)
-if !version == 2
+if !version == !EU
     %octave($04)
 endif
     %tuning($00)
     %instrument($0D)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($2C)
     %octave($04)
-elseif !version == 2
+elseif !version == !EU
     %volume($2E)
 endif
     %toggle_2_octaves_up()
@@ -293,11 +293,11 @@ endif
     %volume($41)
     %loop(1, 1, ..18B5)
 ..1926:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tuning($14)
     %instrument($0E)
     %volume($69)
-elseif !version == 2
+elseif !version == !EU
     %octave($04)
     %tuning($0F)
     %instrument($0E)

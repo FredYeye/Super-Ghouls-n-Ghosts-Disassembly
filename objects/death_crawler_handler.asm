@@ -26,9 +26,9 @@ create:
 ;----- B1C6
 
     lda.w !obj_arthur.pos_x+1
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     cmp #$1A30
-elseif !version == 2
+elseif !version == !EU
     cmp #$1AA0 ;death crawler triggers farther to the right
 endif
     bcc .B1C4

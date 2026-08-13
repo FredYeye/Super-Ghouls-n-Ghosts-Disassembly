@@ -52,7 +52,7 @@ text_tilemaps:
     db $00
 
 .A272:
-if !version == 0
+if !version == !JP
     ;unused? press start, capcom, licensed by noa text
     db $0B : dw $0454
     dw $0019, $001B, $000E, $001C, $001C, $0045, $001C, $001D, $000A, $001B, $001D
@@ -65,7 +65,7 @@ if !version == 0
     db $18 : dw $0688
     dw $0017, $0012, $0017, $001D, $000E, $0017, $000D, $0018, $0045, $0018, $000F, $0045, $000A, $0016, $000E, $001B, $0012, $000C, $000A, $0027, $0012, $0017, $000C, $0027
     db $00
-elseif !version == 1
+elseif !version == !US
     db $02 : dw $0432
     dw $0447, $0448
     db $0A : dw $0456
@@ -79,7 +79,7 @@ elseif !version == 1
     db $14 : dw $068C
     dw $0015, $0012, $000C, $000E, $0017, $001C, $000E, $000D, $0045, $000B, $0022, $0045, $0017, $0012, $0017, $001D, $000E, $0017, $000D, $0018
     db $00
-elseif !version == 2
+elseif !version == !EU
     db $02 : dw $0432
     dw $0447, $0448
     db $0A : dw $0456
@@ -126,9 +126,9 @@ endif
     db $0C : dw $0B14
     dw $2811, $2822, $2819, $280E, $281B, $2845, $280B, $280E, $2817, $2810, $2812, $280E
     db $15 : dw $0D4A
-if !version == 0
+if !version == !JP
     dw $2424, $240B, $240A, $240C, $2414, $2410, $241B, $240A, $241E, $2417, $240D, $2445, $240D, $240E, $241C, $2412, $2410, $2417, $240E, $241B, $2424
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     dw $2424, $240B, $240A, $240C, $2414, $2410, $241B, $2418, $241E, $2417, $240D, $2445, $240D, $240E, $241C, $2412, $2410, $2417, $240E, $241B, $2424
 endif
     db $07 : dw $0E58
@@ -239,11 +239,11 @@ endif
     db $00
 
 .A747: ;"samael"
-if !version == 0
+if !version == !JP
     db $06 : dw $0618
     dw $201C, $200A, $2016, $200A, $200E, $2015
     db $00
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     db $07 : dw $0616
     dw $201C, $200A, $201B, $200D, $2012, $201E, $001C ;sardius
     db $00

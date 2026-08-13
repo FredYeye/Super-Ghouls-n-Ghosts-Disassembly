@@ -22,7 +22,7 @@ _0198A4: ;a- x8
     stz $74
     lda #$0C : sta.w snes_reg.bg3sc
     lda #$04 : sta $031E
-if !version == 2
+if !version == !EU
     lda.b #1 : jsl current_task_suspend
 endif
     lda #$4F : sta.w hud_flicker_timer
@@ -45,7 +45,7 @@ endif
     cmp #$FE
     bne .9934
 
-if !version == 2
+if !version == !EU
     lda #$11 : sta $02D7
 .9981:
     lda #$01 : jsr _019A88
@@ -59,7 +59,7 @@ endif
     stz $19E4
     !A8
     jsl _01B90E
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda #$17 : sta.w snes_reg.tm : sta $02D7
 endif
     lda #$01 : sta.w snes_reg.bgmode
@@ -68,7 +68,7 @@ endif
     ldx #$00 : lda #$04 : jsl _01F6C9
     stz $1554
     !AX8
-if !version == 2
+if !version == !EU
     lda #$03 : jsr _019A88
     lda #$17 : sta.w snes_reg.tm : sta $02D7
 endif
@@ -124,7 +124,7 @@ endif
 
     inc $75
     lda #$03 : sta $031E
-if !version == 2
+if !version == !EU
     lda.b #1 : jsl current_task_suspend
 endif
     lda #$17 : sta.w snes_reg.tm : sta $02D7

@@ -2,9 +2,9 @@
     dw be(..ch8), be(..ch7), be(..ch6), be(..ch5), be(..ch4), be(..ch3), be(..ch2), be(..ch1)
 
 ..ch8:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tempo($00CC)
-elseif !version == 2
+elseif !version == !EU
     %tempo($00C6)
     %note($00, 7)
 endif
@@ -36,7 +36,7 @@ endif
     %end_track()
 
 ..ch7:
-if !version == 2
+if !version == !EU
     %note($00, 7)
 endif
     %note($00, 7)
@@ -49,9 +49,9 @@ endif
     %duration($FF)
     %release($14)
     %instrument($09)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($2A)
-elseif !version == 2
+elseif !version == !EU
     %volume($2E)
 endif
     %octave($03)
@@ -76,9 +76,9 @@ endif
     %note($07, 5)
     %note($04, 4)
     %octave($02)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($40)
-elseif !version == 2
+elseif !version == !EU
     %volume($44)
 endif
 ..3A3C:
@@ -111,9 +111,9 @@ endif
     %end_track()
 
 ..ch6:
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %tuning($14)
-elseif !version == 2
+elseif !version == !EU
     %tuning($0F)
 endif
     %pan($B5)
@@ -128,9 +128,9 @@ endif
     %note($06, 6)
     %note($0E, 6)
     %note($0A, 7)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %note($06, 7)
-elseif !version == 2
+elseif !version == !EU
     %note($06, 6)
     %note($0E, 6)
     %note($0A, 7)
@@ -178,7 +178,7 @@ endif
     %end_track()
 
 ..ch5:
-if !version == 2
+if !version == !EU
     %note($00, 7)
 endif
     %note($00, 7)
@@ -250,19 +250,19 @@ endif
     %note($18, 3)
     %note($16, 3)
     %note($06, 3)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %loop(0, 9, ..3AE9)
-elseif !version == 2
+elseif !version == !EU
     %loop(0, 11, ..3AE9)
 endif
-if !version == 2
+if !version == !EU
     %octave($04)
 endif
     %duration($FF)
     %instrument($0E)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($5A)
-elseif !version == 2
+elseif !version == !EU
     %volume($46)
 endif
 ..3AFE:
@@ -282,7 +282,7 @@ endif
     %toggle_triplet()
     %note($00, 6)
     %note($00, 4)
-if !version == 2
+if !version == !EU
     %octave($03)
 endif
 
@@ -303,9 +303,9 @@ endif
     %note($10, 3)
     %note($0F, 3)
     %instrument($0E)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($5A)
-elseif !version == 2
+elseif !version == !EU
     %volume($50)
 endif
 ..3B2E:
@@ -317,9 +317,9 @@ endif
 
 ..ch3:
     %pan($81)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %volume($0A)
-elseif !version == 2
+elseif !version == !EU
     %volume($0F)
 endif
     %duration($6E)
@@ -337,15 +337,15 @@ endif
     %note($18, 3)
     %note($16, 3)
     %note($06, 3)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %loop(0, 9, ..3B42)
-elseif !version == 2
+elseif !version == !EU
     %loop(0, 11, ..3B42)
 endif
     %end_track()
 
 ..ch2:
-if !version == 2
+if !version == !EU
     %note($00, 7)
 endif
     %note($00, 7)

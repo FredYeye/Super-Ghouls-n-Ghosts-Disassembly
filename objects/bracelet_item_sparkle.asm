@@ -5,10 +5,10 @@ create:
     ldy #$38 : ldx #$20 : jsl set_sprite
     lda $09 : ora #$80 : sta $09
     !A16
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     lda.w _00ED00+$0C : sta $27
     lda #$0100 : sta $29
-elseif !version == 2
+elseif !version == !EU
     lda.w _00ED00+$6A : sta $27
     lda #$011D : sta $29
 endif

@@ -414,7 +414,7 @@
     %note($00, 3)
     %instrument($0E)
     %volume($48)
-if !version == 2
+if !version == !EU
     %octave($03)
 endif
     %note($11, 3)
@@ -424,7 +424,7 @@ endif
     %note($00, 3)
     %instrument($09)
     %volume($32)
-if !version == 2
+if !version == !EU
     %octave($02)
 endif
     %note($0F, 3)
@@ -924,7 +924,7 @@ endif
     %duration($FF)
     %volume($3D)
     %tuning($19)
-if !version == 2
+if !version == !EU
     %octave($03)
 endif
     %toggle_portamento()
@@ -941,7 +941,7 @@ endif
     %duration($FA)
     %volume($1E)
     %tuning($F8)
-if !version == 2
+if !version == !EU
     %octave($02)
 endif
     %note($04, 3)

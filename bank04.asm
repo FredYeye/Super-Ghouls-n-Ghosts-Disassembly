@@ -1,12 +1,12 @@
 org $048000 : bank04:
 
-if !version == 1 || !version == 2
+if !version == !US || !version == !EU
 { ;8000 - 84B2
     incsrc "data/text.asm"
 }
 endif
 
-if !version == 2
+if !version == !EU
 { ;84B9 - 8592
 _0484B9:
     phb
@@ -448,11 +448,11 @@ _048C43: ;a8 x8
     lda.b #62 : jsl current_task_suspend
     jsl _048DF9
     jsr _049219_9228
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     jsl set_max_brightness
     jsl enable_nmi
     stz.w snes_reg.inidisp
-elseif !version == 2
+elseif !version == !EU
     stz.w snes_reg.inidisp
     jsl enable_nmi
 endif
@@ -612,9 +612,9 @@ _048EAD: ;a8 x8
     ldy.b #$19*7 : jsl decompress_precalc
     ldx.b #$0E*7 : jsl copy_ram_to_vram_precalc
     lda #$05     : jsr _048E68_local
-if !version == 0
+if !version == !JP
     lda #$02 : jsl _0183D4_83DB
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     lda #$06 : jsl _0183D4_83DB
 endif
     lda #$0B : jsl _0190B9_palette_to_ram
@@ -1250,9 +1250,9 @@ _04984F:
     dw $431E, $429A, $29D4, $0150, $190C, $499E, $6292, $7316, $7BDE, $7B0E, $6A4C, $61C8, $5140, $40C0, $0842
     dw $004E, $00D4, $0158, $01DA, $739C, $56B5, $3DEF, $2108, $021E, $1A9C, $7ACC, $6A4A, $61C6, $4142, $0421
     dw $000B, $0012, $0018, $0159, $01FB, $2ADC, $3B5D, $7BDE, $0000, $0000, $0000, $0000, $0000, $0000, $0000
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     dw $000E, $0054, $017D, $00CE, $0171, $1697, $377E, $7FFF, $6739, $4210, $2D6B, $40E3, $55A9, $7690, $0421
-elseif !version == 2
+elseif !version == !EU
     dw $000E, $0054, $017D, $004A, $010E, $0276, $377E, $7FFF, $6739, $4210, $2D6B, $40C2, $5588, $766F, $0421
 endif
 
@@ -1328,14 +1328,14 @@ endif
     incsrc "data/text_tilemaps.asm" ;A122 - A7DB
 }
 
-if !version == 0
+if !version == !JP
 { ;A7DC - EFFF
     incbin "fill_bytes/jp/bank04a.bin" ;partially duplicated tilemap data
     fillbyte $FF : fill 17865
 }
-elseif !version == 1
+elseif !version == !US
     incbin "fill_bytes/eng/bank04a.bin"
-elseif !version == 2
+elseif !version == !EU
 { ;? - DFFF
     db $00, $00, $00, $00
     incbin "fill_bytes/eng/bank04a.bin":0..13158
@@ -2475,9 +2475,9 @@ _04F0E0:
 }
 
 { ;FE8E - FFFF
-if !version == 0
+if !version == !JP
     fillbyte $FF : fill 370
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank04b.bin"
 endif
 }

@@ -28,9 +28,9 @@ create:
     stz $1889
     stz $188D
     !X16
-if !version == 0
+if !version == !JP
     lda #$21BF
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     lda #$21C5
 endif
     !AX8
@@ -40,10 +40,10 @@ endif
 
 ;----- 9C65
 
-if !version == 0
+if !version == !JP
     ldy #$27 : jsl decompress
     lda #$15 : sta $031E
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
     ldy.b #$19*7 : jsl decompress_precalc
     ldy #$2C     : jsl decompress
     lda #$1A     : sta $031E

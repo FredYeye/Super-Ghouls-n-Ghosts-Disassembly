@@ -3,11 +3,10 @@
     lorom
 
 { ;rom version to assemble
-    ;todo: create defines for regions
-    ;0 = JP
-    ;1 = US
-    ;2 = EU
-    !version = 0
+    !JP = 0
+    !US = 1
+    !EU = 2
+    !version = !EU
 }
 
 { ;asar functions

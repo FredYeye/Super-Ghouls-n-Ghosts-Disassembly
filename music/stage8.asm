@@ -114,9 +114,9 @@
 ..26D2:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($AA)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %release($16)
-elseif !version == 2
+elseif !version == !EU
     %release($15)
 endif
     %volume($2A)
@@ -218,9 +218,9 @@ endif
 ..274C:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($AA)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %release($16)
-elseif !version == 2
+elseif !version == !EU
     %release($15)
 endif
     %volume($24)
@@ -327,9 +327,9 @@ endif
 ..27D3:
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($AA)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %release($16)
-elseif !version == 2
+elseif !version == !EU
     %release($15)
 endif
     %volume($24)
@@ -405,9 +405,9 @@ endif
 ..282D:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($FA)
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
     %release($16)
-elseif !version == 2
+elseif !version == !EU
     %release($15)
 endif
     %volume($2D)
@@ -532,7 +532,7 @@ endif
     %note($1E, 5)
     %note($1E, 5)
     %note($1E, 3)
-if !version == 2
+if !version == !EU
     %loop_break(0, 0, $28DC)
 endif
     %note($18, 3)
@@ -543,7 +543,7 @@ endif
     %per_voice_transpose($07)
     %loop(0, 1, ..28B6)
     %per_voice_transpose($00)
-if !version == 2
+if !version == !EU
     %note($1C, 3)
     %toggle_triplet()
     %note($1D, 3)

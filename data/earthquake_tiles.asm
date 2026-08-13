@@ -1536,9 +1536,9 @@ stage1_earthquake_tiles:
 ;-----
 
 	;CD73 - CFFF
-if !version == 0
+if !version == !JP
 	incbin "fill_bytes/jp/earthquake_tiles.bin" ;unused data?
-elseif !version == 1 || !version == 2
+elseif !version == !US || !version == !EU
 	;this could be data that meant something at some point. seems unused now though.
 	;store as fill bytes to not clutter up this file, unless it's found out that the data means something.
 	incbin "fill_bytes/eng/earthquake_tiles.bin"

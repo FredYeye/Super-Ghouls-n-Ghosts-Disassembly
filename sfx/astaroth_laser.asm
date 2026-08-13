@@ -20,7 +20,7 @@
     %end_track()
 
 ..ch2:
-if !version == 2
+if !version == !EU
     %end_track()
 
 ..ch1:
@@ -69,7 +69,7 @@ endif
     %note($15, 2)
     %end_track()
 
-if !version == 0 || !version == 1
+if !version == !JP || !version == !US
 ..ch1:
     %end_track()
 endif
