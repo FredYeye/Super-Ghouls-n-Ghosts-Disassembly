@@ -21,15 +21,15 @@ elseif !version == !US || !version == !EU
 endif
     gfx_map:             incbin "graphics/map.bin"
     gfx_unk19:           incbin "graphics/unknown19.bin"
-    gfx_unk29:           incbin "graphics/unknown29.bin"
+    gfx_stage_4c_tiles:  incbin "graphics/stage_4c_tiles.bin"
     gfx_unk23:           incbin "graphics/unknown23.bin"
     gfx_unk03:           incbin "graphics/unknown03.bin"
                          incbin "graphics/unknown38.bin"
     gfx_unk27:           incbin "graphics/unknown27.bin"
     gfx_continue:        incbin "graphics/continue.bin"
     gfx_continue2:       incbin "graphics/continue2.bin"
-    gfx_unk32:           incbin "graphics/unknown32.bin"
-    gfx_unk33:           incbin "graphics/unknown33.bin"
+    gfx_stage_5_tiles:   incbin "graphics/stage_5_tiles.bin"
+    gfx_stage_5_tiles_2: incbin "graphics/stage_5_tiles_2.bin" ;also contains a tilemap in the middle, consider splitting
     gfx_options:         incbin "graphics/options.bin"
     gfx_unk04:           incbin "graphics/unknown04.bin"
                          incbin "graphics/unknown39.bin" ;temp / debug gfx

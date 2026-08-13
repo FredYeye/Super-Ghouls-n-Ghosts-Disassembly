@@ -1800,7 +1800,7 @@ compressed_data:
     dw $0000 : dl gfx_game_over         : dw $0C00 ;4D
     dw $A000 : dl gfx_unk19             : dw $2600 ;54
     dw $0000 : dl gfx_stage5_objects    : dw $1D00 ;5B
-    dw $0000 : dl gfx_unk29             : dw $1B00 ;62
+    dw $0000 : dl gfx_stage_4c_tiles    : dw $1B00 ;62
     dw $0000 : dl gfx_eagler_tail       : dw $0100 ;69
     dw $0000 : dl gfx_unk23             : dw $3800 ;70
     dw $A000 : dl gfx_unk31             : dw $0180 ;77
@@ -1814,9 +1814,9 @@ compressed_data:
     dw $9800 : dl gfx_font_hud          : dw $0500 ;AF
     dw $0000 : dl gfx_options           : dw $1000 ;B6
     dw $0000 : dl gfx_unk04             : dw $0800 ;BD
-    dw $0000 : dl gfx_unk32             : dw $7800 ;C4
+    dw $0000 : dl gfx_stage_5_tiles     : dw $7800 ;C4
     dw $0000 : dl gfx_skull_flower      : dw $0720 ;CB
-    dw $A000 : dl gfx_unk33             : dw $3280 ;D2
+    dw $A000 : dl gfx_stage_5_tiles_2   : dw $3280 ;D2
     dw $0000 : dl gfx_unk35             : dw $7000 ;D9
     dw $9000 : dl gfx_unk34             : dw $0200 ;E0
     dw $0000 : dl gfx_wolf              : dw $1260 ;E7
