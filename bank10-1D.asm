@@ -64,7 +64,7 @@ endif
 
     gfx_stage2_objects:    incbin "graphics/stage2_objects.bin"
     gfx_stage3_objects:    incbin "graphics/stage3_objects.bin"
-    gfx_unk25:             incbin "graphics/unknown25.bin" ;stage 4 objects, but also intro demons?
+    gfx_stage_4_objects:   incbin "graphics/stage_4_objects.bin"
     gfx_geyser_platform:   incbin "graphics/geyser_platform.bin"
     gfx_hydra:             incbin "graphics/hydra.bin"
     gfx_stage5_objects:    incbin "graphics/stage5_objects.bin"

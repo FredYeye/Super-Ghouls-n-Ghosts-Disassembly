@@ -1732,9 +1732,9 @@ compressed_stage_data:
 
 .stage4:
     db $03 : dw $0000
-    dl gfx_unk25        : dw $0BA0
-    dl gfx_skull_flower : dw $0720
-    dl gfx_eagler       : dw $1A00
+    dl gfx_stage_4_objects : dw $0BA0
+    dl gfx_skull_flower    : dw $0720
+    dl gfx_eagler          : dw $1A00
 
 ..b:
     db $03 : dw $0000
