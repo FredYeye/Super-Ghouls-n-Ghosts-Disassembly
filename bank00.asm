@@ -1788,10 +1788,10 @@ compressed_data:
     ;layout: destination in extended RAM | source | count / uncompressed size
     dw $0000 : dl gfx_logo              : dw $3000 ;00
     dw $0000 : dl gfx_map               : dw $2200 ;07
-    dw $0000 : dl gfx_unk01             : dw $7800 ;0E
-    dw $A000 : dl gfx_unk02             : dw $5940 ;15
-    dw $0000 : dl gfx_unk15             : dw $7800 ;1C
-    dw $A000 : dl gfx_unk17             : dw $5000 ;23
+    dw $0000 : dl gfx_stage_1_tiles     : dw $7800 ;0E
+    dw $A000 : dl gfx_stage_1_tiles_2   : dw $5940 ;15
+    dw $0000 : dl gfx_stage_2_tiles     : dw $7800 ;1C
+    dw $A000 : dl gfx_stage_2_tiles_2   : dw $5000 ;23
     dw $0000 : dl gfx_unk18             : dw $7800 ;2A
     dw $0000 : dl gfx_stage1_objects    : dw $3860 ;31
     dw $0000 : dl gfx_stage2_objects    : dw $6DC0 ;38

@@ -5,43 +5,43 @@ org $108000
 check bankcross off
 
 if !version == !JP
-    gfx_unk01:         incbin "graphics/unknown01.bin"
-    gfx_unk02:         incbin "graphics/unknown02.bin"
+    gfx_stage_1_tiles:   incbin "graphics/stage_1_tiles.bin"
+    gfx_stage_1_tiles_2: incbin "graphics/stage_1_tiles_2.bin"
 elseif !version == !US || !version == !EU
-    gfx_unk01:         incbin "graphics/unknown01_us.bin"
-    gfx_unk02:         incbin "graphics/unknown02_us.bin"
+    gfx_stage_1_tiles:   incbin "graphics/stage_1_tiles_us.bin"
+    gfx_stage_1_tiles_2: incbin "graphics/stage_1_tiles_2_us.bin"
 endif
-    gfx_unk15:         incbin "graphics/unknown15.bin"
-    gfx_unk17:         incbin "graphics/unknown17.bin"
-    gfx_unk18:         incbin "graphics/unknown18.bin"
+    gfx_stage_2_tiles:   incbin "graphics/stage_2_tiles.bin"
+    gfx_stage_2_tiles_2: incbin "graphics/stage_2_tiles_2.bin"
+    gfx_unk18:           incbin "graphics/unknown18.bin"
 if !version == !JP
-    gfx_logo:          incbin "graphics/logo.bin" ;also has other stuff in it
+    gfx_logo:            incbin "graphics/logo.bin" ;also has other stuff in it
 elseif !version == !US || !version == !EU
-    gfx_logo:          incbin "graphics/logo_us.bin"
+    gfx_logo:            incbin "graphics/logo_us.bin"
 endif
-    gfx_map:           incbin "graphics/map.bin"
-    gfx_unk19:         incbin "graphics/unknown19.bin"
-    gfx_unk29:         incbin "graphics/unknown29.bin"
-    gfx_unk23:         incbin "graphics/unknown23.bin"
-    gfx_unk03:         incbin "graphics/unknown03.bin"
-                       incbin "graphics/unknown38.bin"
-    gfx_unk27:         incbin "graphics/unknown27.bin"
-    gfx_continue:      incbin "graphics/continue.bin"
-    gfx_continue2:     incbin "graphics/continue2.bin"
-    gfx_unk32:         incbin "graphics/unknown32.bin"
-    gfx_unk33:         incbin "graphics/unknown33.bin"
-    gfx_options:       incbin "graphics/options.bin"
-    gfx_unk04:         incbin "graphics/unknown04.bin"
-                       incbin "graphics/unknown39.bin" ;temp / debug gfx
-    gfx_unk35:         incbin "graphics/unknown35.bin"
-    gfx_unk34:         incbin "graphics/unknown34.bin"
-    gfx_unk31:         incbin "graphics/unknown31.bin"
-    gfx_death_crawler: incbin "graphics/death_crawler.bin"
-    gfx_unk21:         incbin "graphics/unknown21.bin" ;related to death crawler, tile map or really graphics?
-    gfx_unk24:         incbin "graphics/unknown24.bin"
-    gfx_unk05:         incbin "graphics/unknown05.bin" ;graphics + tilemaps?
-    gfx_intro_castle:  incbin "graphics/game_start_cutscene_castle.bin"
-    gfx_unk06:         incbin "graphics/unknown06.bin"
+    gfx_map:             incbin "graphics/map.bin"
+    gfx_unk19:           incbin "graphics/unknown19.bin"
+    gfx_unk29:           incbin "graphics/unknown29.bin"
+    gfx_unk23:           incbin "graphics/unknown23.bin"
+    gfx_unk03:           incbin "graphics/unknown03.bin"
+                         incbin "graphics/unknown38.bin"
+    gfx_unk27:           incbin "graphics/unknown27.bin"
+    gfx_continue:        incbin "graphics/continue.bin"
+    gfx_continue2:       incbin "graphics/continue2.bin"
+    gfx_unk32:           incbin "graphics/unknown32.bin"
+    gfx_unk33:           incbin "graphics/unknown33.bin"
+    gfx_options:         incbin "graphics/options.bin"
+    gfx_unk04:           incbin "graphics/unknown04.bin"
+                         incbin "graphics/unknown39.bin" ;temp / debug gfx
+    gfx_unk35:           incbin "graphics/unknown35.bin"
+    gfx_unk34:           incbin "graphics/unknown34.bin"
+    gfx_unk31:           incbin "graphics/unknown31.bin"
+    gfx_death_crawler:   incbin "graphics/death_crawler.bin"
+    gfx_unk21:           incbin "graphics/unknown21.bin" ;related to death crawler, tile map or really graphics?
+    gfx_unk24:           incbin "graphics/unknown24.bin"
+    gfx_unk05:           incbin "graphics/unknown05.bin" ;graphics + tilemaps?
+    gfx_intro_castle:    incbin "graphics/game_start_cutscene_castle.bin"
+    gfx_unk06:           incbin "graphics/unknown06.bin"
 
 if !version == !JP
 { ;BBE6 - BC47

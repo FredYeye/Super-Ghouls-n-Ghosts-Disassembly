@@ -6,7 +6,7 @@
     !JP = 0
     !US = 1
     !EU = 2
-    !version = !EU
+    !version = !JP
 }
 
 { ;asar functions
