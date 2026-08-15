@@ -1805,7 +1805,7 @@ compressed_data:
     dw $0000 : dl gfx_unk23             : dw $3800 ;70
     dw $A000 : dl gfx_unk31             : dw $0180 ;77
     dw $0000 : dl gfx_unk27             : dw $2000 ;7E
-    dw $0000 : dl gfx_unk03             : dw $1000 ;85
+    dw $0000 : dl tilemap_map           : dw $1000 ;85
     dw $0000 : dl gfx_stage5_objects    : dw $1D00 ;8C
     dw $0000 : dl gfx_continue          : dw $0800 ;93
     dw $0000 : dl gfx_continue2         : dw $0800 ;9A
@@ -1813,7 +1813,7 @@ compressed_data:
     dw $0000 : dl gfx_capcom            : dw $01A0 ;A8
     dw $9800 : dl gfx_font_hud          : dw $0500 ;AF
     dw $0000 : dl gfx_options           : dw $1000 ;B6
-    dw $0000 : dl gfx_unk04             : dw $0800 ;BD
+    dw $0000 : dl tilemap_options       : dw $0800 ;BD
     dw $0000 : dl gfx_stage_5_tiles     : dw $7800 ;C4
     dw $0000 : dl gfx_skull_flower      : dw $0720 ;CB
     dw $A000 : dl gfx_stage_5_tiles_2   : dw $3280 ;D2
@@ -1824,7 +1824,7 @@ compressed_data:
     dw $0000 : dl gfx_unk05             : dw $7F00 ;F5
     dw $A000 : dl gfx_unk13             : dw $3800 ;FC
     dw $0000 : dl gfx_intro_castle      : dw $1700 ;103
-    dw $0000 : dl gfx_unk06             : dw $0800 ;10A
+    dw $0000 : dl tilemap_game_start_broken_window : dw $0800 ;10A
     dw $A000 : dl gfx_unk13             : dw $3800 ;111
     dw $0000 : dl gfx_the_end           : dw $2000 ;118
     dw $2000 : dl gfx_unk36             : dw $1800 ;11F

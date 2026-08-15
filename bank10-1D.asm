@@ -23,7 +23,7 @@ endif
     gfx_unk19:           incbin "graphics/unknown19.bin"
     gfx_stage_4c_tiles:  incbin "graphics/stage_4c_tiles.bin"
     gfx_unk23:           incbin "graphics/unknown23.bin"
-    gfx_unk03:           incbin "graphics/unknown03.bin"
+    tilemap_map:         incbin "graphics/tilemap_map.bin"
                          incbin "graphics/unknown38.bin"
     gfx_unk27:           incbin "graphics/unknown27.bin"
     gfx_continue:        incbin "graphics/continue.bin"
@@ -31,7 +31,7 @@ endif
     gfx_stage_5_tiles:   incbin "graphics/stage_5_tiles.bin"
     gfx_stage_5_tiles_2: incbin "graphics/stage_5_tiles_2.bin" ;also contains a tilemap in the middle, consider splitting
     gfx_options:         incbin "graphics/options.bin"
-    gfx_unk04:           incbin "graphics/unknown04.bin"
+    tilemap_options:     incbin "graphics/tilemap_options.bin"
                          incbin "graphics/unknown39.bin" ;temp / debug gfx
     gfx_unk35:           incbin "graphics/unknown35.bin"
     gfx_unk34:           incbin "graphics/unknown34.bin"
@@ -41,7 +41,7 @@ endif
     gfx_unk24:           incbin "graphics/unknown24.bin"
     gfx_unk05:           incbin "graphics/unknown05.bin" ;graphics + tilemaps?
     gfx_intro_castle:    incbin "graphics/game_start_cutscene_castle.bin"
-    gfx_unk06:           incbin "graphics/unknown06.bin"
+    tilemap_game_start_broken_window: incbin "graphics/tilemap_game_start_broken_window.bin"
 
 if !version == !JP
 { ;BBE6 - BC47
