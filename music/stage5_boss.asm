@@ -70,7 +70,7 @@
     %pan($BF)
     %duration($FF)
     %volume($2A)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
     %set_dotted_note()
     %note($00, 4)

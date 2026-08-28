@@ -21,7 +21,7 @@
 
 ..ch2:
     %tempo($01A7)
-    %instrument($0A)
+    %instrument(!sample_pizzicato)
     %duration($96)
     %release($1C)
     %octave($04)

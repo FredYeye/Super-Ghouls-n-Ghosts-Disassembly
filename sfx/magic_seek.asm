@@ -24,7 +24,7 @@
     %toggle_triplet_portamento_2_octave_up($40)
     %octave($02)
     %tempo($0111)
-    %instrument($09)
+    %instrument(!sample_strings)
     %duration($FF)
     %volume($1E)
     %portamento_time($7F)

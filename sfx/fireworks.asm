@@ -3,7 +3,7 @@
 
 ..ch8:
     %tempo($00CC)
-    %instrument($06)
+    %instrument(!sample_snare)
     %tuning($E0)
 ..4E7E:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -16,7 +16,7 @@
 ..ch7:
     %tempo($00CC)
     %tuning($B3)
-    %instrument($06)
+    %instrument(!sample_snare)
     %goto(..4E7E)
     %end_track()
 
@@ -26,7 +26,7 @@
     %toggle_triplet_portamento_2_octave_up($00)
     %volume($1E)
     %duration($FF)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %octave($00)
     %note($1B, 5)
     %end_track()

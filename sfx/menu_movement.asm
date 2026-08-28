@@ -27,7 +27,7 @@
     %octave($07)
     %lfo($01, $7F)
     %lfo($02, $7F)
-    %instrument($03)
+    %instrument(!sample_square)
     %toggle_2_octaves_up()
     %note($19, 3)
     %volume($19)

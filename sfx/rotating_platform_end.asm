@@ -18,7 +18,7 @@
 
 ..ch3:
     %tempo($02D2)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %duration($FF)
     %octave($01)
     %volume($7F)
@@ -57,7 +57,7 @@
     %note($1B, 2)
     %toggle_portamento()
     %note($0F, 2)
-    %instrument($03)
+    %instrument(!sample_square)
     %lfo($00, $14)
     %lfo($01, $60)
     %lfo($02, $7F)

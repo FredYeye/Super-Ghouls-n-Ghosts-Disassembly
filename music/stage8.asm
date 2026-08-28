@@ -267,7 +267,7 @@ endif
     %per_voice_transpose($FB)
     %loop(0, 1, ..276C)
     %per_voice_transpose($00)
-    %instrument($11)
+    %instrument(!sample_organ)
     %duration($FF)
     %volume($2A)
     %octave($04)
@@ -411,7 +411,7 @@ elseif !version == !EU
     %release($15)
 endif
     %volume($2D)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
     %note($0D, 7)
     %note($0D, 7)

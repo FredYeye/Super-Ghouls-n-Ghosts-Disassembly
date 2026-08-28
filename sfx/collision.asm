@@ -31,7 +31,7 @@
     %volume($3C)
     %duration($1E)
     %octave($07)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %toggle_2_octaves_up()
     %note($19, 1)
     %instrument($00)

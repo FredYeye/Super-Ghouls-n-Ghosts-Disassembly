@@ -24,7 +24,7 @@
 
 ..ch1:
     %tempo($014C)
-    %instrument($02)
+    %instrument(!sample_hat)
     %octave($00)
     %duration($FF)
     %lfo($00, $66)

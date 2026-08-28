@@ -48,7 +48,7 @@ endif
     %pan($E2)
     %duration($FF)
     %release($14)
-    %instrument($09)
+    %instrument(!sample_strings)
 if !version == !JP || !version == !US
     %volume($2A)
 elseif !version == !EU
@@ -84,7 +84,7 @@ endif
 ..3A3C:
     %toggle_triplet_portamento_2_octave_up($00)
     %note($00, 4)
-    %instrument($09)
+    %instrument(!sample_strings)
     %duration($C0)
     %note($19, 4)
     %note($1A, 4)
@@ -120,7 +120,7 @@ endif
     %release($14)
     %duration($FF)
     %volume($35)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
     %note($06, 6)
     %note($0E, 6)
@@ -190,7 +190,7 @@ endif
     %release($14)
     %duration($FF)
     %volume($28)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
     %set_dotted_note()
     %toggle_2_octaves_up()
@@ -237,7 +237,7 @@ endif
     %volume($2B)
     %release($15)
     %duration($6E)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %octave($03)
 ..3AE9:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -286,7 +286,7 @@ if !version == !EU
     %octave($03)
 endif
 
-    %instrument($05)
+    %instrument(!sample_timpani)
     %volume($25)
     %toggle_triplet()
     %note($1E, 3)
@@ -323,7 +323,7 @@ elseif !version == !EU
     %volume($0F)
 endif
     %duration($6E)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %octave($03)
     %note($00, 2)
 ..3B42:

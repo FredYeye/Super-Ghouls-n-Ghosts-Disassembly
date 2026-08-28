@@ -13,7 +13,7 @@
     %note($00, 6)
     %duration($FF)
     %release($14)
-    %instrument($09)
+    %instrument(!sample_strings)
     %volume($35)
     %octave($01)
     %tuning($32)
@@ -289,7 +289,7 @@ endif
     %loop_break(1, 8, ..1926)
     %note($00, 4)
     %octave($02)
-    %instrument($09)
+    %instrument(!sample_strings)
     %volume($41)
     %loop(1, 1, ..18B5)
 ..1926:
@@ -353,7 +353,7 @@ endif
     %duration($55)
     %release($16)
     %volume($37)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %octave($04)
 ..196F:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -446,7 +446,7 @@ endif
     %duration($55)
     %release($16)
     %volume($26)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %octave($03)
 ..19E1:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -539,7 +539,7 @@ endif
 
 ..ch4:
     %pan($CE)
-    %instrument($09)
+    %instrument(!sample_strings)
 ..1A48:
     %toggle_triplet_portamento_2_octave_up($48)
     %duration($DC)
@@ -600,7 +600,7 @@ endif
     %toggle_triplet_portamento_2_octave_up($00)
     %note($00, 4)
     %lfo($00, $00)
-    %instrument($09)
+    %instrument(!sample_strings)
     %volume($2D)
     %octave($02)
     %toggle_2_octaves_up()
@@ -651,7 +651,7 @@ endif
 
 ..ch3:
     %pan($32)
-    %instrument($09)
+    %instrument(!sample_strings)
 ..1AE2:
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($DC)

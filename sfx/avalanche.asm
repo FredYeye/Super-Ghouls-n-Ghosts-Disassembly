@@ -27,7 +27,7 @@
     %duration($FF)
     %volume($7F)
     %octave($02)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %lfo($00, $60)
     %lfo($01, $15)
     %lfo($02, $7F)

@@ -170,7 +170,7 @@ endif
     %toggle_triplet_portamento_2_octave_up($08)
     %tuning($EC)
     %volume($32)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
     %duration($3C)
     %release($11)
@@ -241,7 +241,7 @@ endif
 ..ch5:
     %tuning($EC)
     %volume($32)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
 ..2E4E:
     %toggle_triplet_portamento_2_octave_up($08)
@@ -335,7 +335,7 @@ endif
 ..ch4:
     %pan($B4)
     %volume($37)
-    %instrument($11)
+    %instrument(!sample_organ)
 ..2EC0:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($3C)

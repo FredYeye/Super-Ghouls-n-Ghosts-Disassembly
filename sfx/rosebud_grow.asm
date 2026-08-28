@@ -26,7 +26,7 @@
     %tempo($0266)
     %duration($FF)
     %volume($7D)
-    %instrument($03)
+    %instrument(!sample_square)
     %octave($01)
     %lfo($00, $5A)
     %lfo($01, $46)

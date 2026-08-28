@@ -26,7 +26,7 @@
     %tempo($01EB)
     %duration($FF)
     %volume($7F)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %per_voice_transpose($03)
     %octave($01)
     %portamento_time($7F)

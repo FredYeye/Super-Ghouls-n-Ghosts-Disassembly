@@ -24,7 +24,7 @@
 
 ..ch1:
     %tempo($0249)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %octave($01)
     %duration($FF)
     %volume($6E)

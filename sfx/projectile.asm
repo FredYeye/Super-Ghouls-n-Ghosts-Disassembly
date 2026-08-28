@@ -25,7 +25,7 @@
 ..ch1:
     %tempo($0333)
     %duration($DC)
-    %instrument($02)
+    %instrument(!sample_hat)
     %octave($01)
     %volume($6E)
     %release($1F)

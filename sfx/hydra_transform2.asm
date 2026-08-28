@@ -22,7 +22,7 @@
 ..ch2:
     %tempo($036D)
     %per_voice_transpose($03)
-    %instrument($03)
+    %instrument(!sample_square)
 ..56D7:
     %toggle_triplet_portamento_2_octave_up($48)
     %duration($FF)
@@ -46,6 +46,6 @@
 ..ch1:
     %tempo($036D)
     %tuning($5A)
-    %instrument($04)
+    %instrument(!sample_saw)
     %goto(..56D7)
     %end_track()

@@ -23,7 +23,7 @@
     %tempo($036D)
 ..567F:
     %toggle_triplet_portamento_2_octave_up($40)
-    %instrument($04)
+    %instrument(!sample_saw)
     %duration($7F)
     %octave($03)
     %volume($48)

@@ -69,7 +69,7 @@
     %note($00, 6)
     %per_voice_transpose($FA)
     %octave($03)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %volume($5A)
     %toggle_2_octaves_up()
     %note($15, 1)

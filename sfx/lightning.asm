@@ -38,7 +38,7 @@
     %lfo($02, $7F)
     %release($15)
     %duration($7F)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %volume($7F)
     %per_voice_transpose($FF)
     %toggle_portamento()

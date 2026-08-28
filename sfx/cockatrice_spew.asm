@@ -37,7 +37,7 @@
     %toggle_portamento()
     %note($11, 3)
     %portamento_time($00)
-    %instrument($03)
+    %instrument(!sample_square)
     %duration($64)
     %release($0E)
     %toggle_portamento()

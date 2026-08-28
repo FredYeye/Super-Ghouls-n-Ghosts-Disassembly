@@ -23,7 +23,7 @@
     %tempo($0266)
     %duration($FF)
     %volume($7F)
-    %instrument($11)
+    %instrument(!sample_organ)
     %octave($03)
     %note($11, 2)
     %note($1D, 1)

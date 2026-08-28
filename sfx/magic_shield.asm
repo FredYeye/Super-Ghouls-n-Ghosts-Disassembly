@@ -48,7 +48,7 @@
     %toggle_portamento()
     %note($09, 2)
     %lfo($00, $00)
-    %instrument($11)
+    %instrument(!sample_organ)
     %octave($01)
     %portamento_time($7F)
     %toggle_portamento()

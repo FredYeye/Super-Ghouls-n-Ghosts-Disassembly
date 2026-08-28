@@ -62,7 +62,7 @@
     %duration($28)
     %release($1A)
     %volume($2C)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($01)
 ..2B5B:
     %toggle_triplet_portamento_2_octave_up($08)
@@ -118,7 +118,7 @@
     %duration($28)
     %release($1A)
     %volume($2C)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($01)
 ..2BA3:
     %toggle_triplet_portamento_2_octave_up($08)
@@ -214,7 +214,7 @@
     %lfo($00, $00)
     %duration($E1)
     %volume($4C)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($02)
 ..2C25:
     %toggle_triplet_portamento_2_octave_up($28)

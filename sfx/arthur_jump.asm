@@ -23,7 +23,7 @@
     %tempo($0300)
     %duration($DC)
     %release($1E)
-    %instrument($14)
+    %instrument(!sample_hat_closed)
     %octave($07)
     %lfo($00, $7F)
     %lfo($02, $7F)

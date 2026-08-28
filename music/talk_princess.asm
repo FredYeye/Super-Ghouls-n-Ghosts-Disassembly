@@ -9,7 +9,7 @@
     %tempo($015F)
     %duration($AA)
     %release($12)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %octave($04)
     %set_dotted_note()
     %note($00, 5)
@@ -189,7 +189,7 @@ endif
 ..3975:
     %toggle_triplet_portamento_2_octave_up($48)
     %octave($02)
-    %instrument($09)
+    %instrument(!sample_strings)
     %volume($1A)
     %note($11, 7)
     %note($11, 7)
@@ -219,7 +219,7 @@ endif
 ..399C:
     %toggle_triplet_portamento_2_octave_up($00)
     %octave($02)
-    %instrument($09)
+    %instrument(!sample_strings)
 if !version == !EU
     %tuning($0A)
 endif

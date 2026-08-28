@@ -22,7 +22,7 @@
     %lfo($01, $7F)
     %lfo($02, $7F)
     %lfo($03, $01)
-    %instrument($02)
+    %instrument(!sample_hat)
     %octave($01)
     %volume($5A)
     %tempo($00F0)

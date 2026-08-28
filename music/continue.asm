@@ -11,7 +11,7 @@
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($3C)
     %release($12)
-    %instrument($0B)
+    %instrument(!sample_harp)
     %octave($04)
     %toggle_triplet_portamento_2_octave_up($00)
 ..37F3:

@@ -37,7 +37,7 @@
     %lfo($01, $00)
     %duration($FF)
     %release($00)
-    %instrument($02)
+    %instrument(!sample_hat)
     %toggle_2_octaves_up()
     %note($11, 3)
     %volume($46)

@@ -31,7 +31,7 @@
     %note($19, 1)
     %toggle_2_octaves_up()
     %note($0D, 1)
-    %instrument($04)
+    %instrument(!sample_saw)
     %lfo($00, $1E)
     %lfo($01, $64)
     %lfo($02, $64)

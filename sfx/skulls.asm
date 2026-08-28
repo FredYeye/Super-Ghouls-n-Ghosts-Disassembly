@@ -26,7 +26,7 @@
     %tempo($01C7)
     %duration($3C)
     %release($1F)
-    %instrument($02)
+    %instrument(!sample_hat)
     %octave($01)
     %volume($64)
     %note($1E, 2)

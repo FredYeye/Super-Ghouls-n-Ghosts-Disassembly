@@ -1576,18 +1576,19 @@ elseif !version == !EU
     dw $9CD0, $6300 : base $6300
 endif
 
+    ;sample offsets, second offset is maybe loop point?
     dw sample00, sample00+6*9
     dw sample01, sample01+3*9
-    dw sample02, sample02
+    dw sample_hat, sample_hat
     dw sample03, sample03+8*9
     dw sample04, sample04+8*9
-    dw sample05, sample05
-    dw sample06, sample06
+    dw sample_timpani, sample_timpani
+    dw sample_snare, sample_snare
     dw sample07, sample07+11*9
     dw sample08, sample08+305*9
-    dw sample09, sample09+38*9
-    dw sample10, sample10+121*9
-    dw sample11, sample11+140*9
+    dw sample_strings, sample_strings+38*9
+    dw sample_pizzicato, sample_pizzicato+121*9
+    dw sample_harp, sample_harp+140*9
     dw sample12, sample12+100*9
     dw sample13, sample13+87*9
 if !version == !JP || !version == !US
@@ -1597,7 +1598,7 @@ elseif !version == !EU
 endif
     dw sample15, sample15+225*9
     dw sample16, sample16+284*9
-    dw sample17, sample17+162*9
+    dw sample_organ, sample_organ+162*9
 if !version == !JP || !version == !US
     dw sample18, sample18+3*9
 elseif !version == !EU
@@ -1605,13 +1606,13 @@ elseif !version == !EU
 endif
     dw sample19, sample19+22*9
 if !version == !JP || !version == !US
-    dw sample20, sample20
+    dw sample_hat_closed, sample_hat_closed
     dw sample21, sample21+66*9
 
     dw $FFFF, $FFFF
     dw $FFFF, $FFFF
 elseif !version == !EU
-    dw sample20, sample20
+    dw sample_hat_closed, sample_hat_closed
     dw sample21, sample21+3*9
 endif
 
@@ -1650,16 +1651,16 @@ endif
 
     sample00: incbin "audio/sample00.brr"
     sample01: incbin "audio/sample01.brr"
-    sample02: incbin "audio/sample02.brr"
+    sample_hat: incbin "audio/sample_hat.brr"
     sample03: incbin "audio/sample03.brr"
     sample04: incbin "audio/sample04.brr"
-    sample05: incbin "audio/sample05.brr"
-    sample06: incbin "audio/sample06.brr"
+    sample_timpani: incbin "audio/sample_timpani.brr"
+    sample_snare: incbin "audio/sample_snare.brr"
     sample07: incbin "audio/sample07.brr"
     sample08: incbin "audio/sample08.brr"
-    sample09: incbin "audio/sample09.brr"
-    sample10: incbin "audio/sample10.brr"
-    sample11: incbin "audio/sample11.brr"
+    sample_strings: incbin "audio/sample_strings.brr"
+    sample_pizzicato: incbin "audio/sample_pizzicato.brr"
+    sample_harp: incbin "audio/sample_harp.brr"
     sample12: incbin "audio/sample12.brr"
     sample13: incbin "audio/sample13.brr"
 if !version == !JP || !version == !US
@@ -1669,7 +1670,7 @@ elseif !version == !EU
 endif
     sample15: incbin "audio/sample15.brr"
     sample16: incbin "audio/sample16.brr"
-    sample17: incbin "audio/sample17.brr"
+    sample_organ: incbin "audio/sample_organ.brr"
 if !version == !JP || !version == !US
     sample18: incbin "audio/sample18.brr"
 elseif !version == !EU
@@ -1677,11 +1678,11 @@ elseif !version == !EU
 endif
     sample19: incbin "audio/sample19.brr"
 if !version == !JP || !version == !US
-    sample20: incbin "audio/sample20.brr"
+    sample_hat_closed: incbin "audio/sample_hat_closed.brr"
     sample21: incbin "audio/sample21.brr"
     fillbyte $FF : fill 10
 elseif !version == !EU
-    sample20: incbin "audio/sample20_eu.brr"
+    sample_hat_closed: incbin "audio/sample_hat_closed_eu.brr"
     sample21: incbin "audio/sample21_eu.brr"
     incbin "audio/unk.bin" ;todo: inspect. maybe just leftover (US) data?
 endif

@@ -7,7 +7,7 @@
     %volume($7F)
 ..473E:
     %toggle_triplet_portamento_2_octave_up($08)
-    %instrument($11)
+    %instrument(!sample_organ)
     %duration($FF)
     %note($0C, 3)
     %note($06, 3)

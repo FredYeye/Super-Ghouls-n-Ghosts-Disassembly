@@ -37,7 +37,7 @@
     %toggle_portamento()
     %note($09, 1)
     %portamento_time($00)
-    %instrument($02)
+    %instrument(!sample_hat)
     %volume($50)
     %toggle_2_octaves_up()
     %note($11, 1)

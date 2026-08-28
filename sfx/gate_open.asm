@@ -18,7 +18,7 @@
 
 ..ch3:
     %tempo($0180)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %volume($64)
 ..4D9A:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -45,7 +45,7 @@
 
 ..ch1:
     %tempo($0180)
-    %instrument($03)
+    %instrument(!sample_square)
     %per_voice_transpose($FF)
     %volume($6B)
     %goto(..4D9A)

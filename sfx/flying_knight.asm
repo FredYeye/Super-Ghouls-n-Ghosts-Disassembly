@@ -24,7 +24,7 @@
 
 ..ch1:
     %tempo($0266)
-    %instrument($09)
+    %instrument(!sample_strings)
     %octave($01)
     %duration($64)
     %release($10)

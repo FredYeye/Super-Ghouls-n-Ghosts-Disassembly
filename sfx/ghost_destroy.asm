@@ -29,7 +29,7 @@
     %lfo($01, $32)
     %lfo($02, $6E)
     %lfo($03, $01)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %volume($64)
     %octave($01)
     %note($19, 1)

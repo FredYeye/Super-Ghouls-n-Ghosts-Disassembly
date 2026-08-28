@@ -34,7 +34,7 @@ if !version == !JP || !version == !US
     %lfo($00, $46)
     %lfo($02, $46)
 elseif !version == !EU
-    %instrument($02)
+    %instrument(!sample_hat)
     %octave($04)
     %note($0D, 1)
     %instrument($01)

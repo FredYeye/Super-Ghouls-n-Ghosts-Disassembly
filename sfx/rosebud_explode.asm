@@ -32,7 +32,7 @@
     %note($13, 2)
     %note($11, 2)
     %volume($78)
-    %instrument($04)
+    %instrument(!sample_saw)
     %lfo($00, $32)
     %lfo($01, $7F)
     %lfo($02, $46)

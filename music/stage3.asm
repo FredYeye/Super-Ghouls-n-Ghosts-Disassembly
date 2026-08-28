@@ -3,7 +3,7 @@
 
 ..ch8:
     %tempo($00E3)
-    %instrument($09)
+    %instrument(!sample_strings)
 ..1EC4:
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($F0)
@@ -105,7 +105,7 @@
     %toggle_triplet_portamento_2_octave_up($00)
     %note($0C, 3)
     %loop(0, 23, ..1F3C)
-    %instrument($09)
+    %instrument(!sample_strings)
     %volume($24)
     %note($18, 5)
     %note($1A, 3)
@@ -357,7 +357,7 @@ endif
     %note($11, 4)
     %note($0F, 6)
     %octave($03)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %pan($A6)
     %toggle_2_octaves_up()
     %note($14, 6)
@@ -421,7 +421,7 @@ endif
     %end_track()
 
 ..ch5:
-    %instrument($09)
+    %instrument(!sample_strings)
 ..209E:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($F0)
@@ -562,7 +562,7 @@ endif
     %set_dotted_note()
     %note($00, 6)
     %pan($A6)
-    %instrument($05)
+    %instrument(!sample_timpani)
     %volume($30)
     %toggle_2_octaves_up()
     %note($14, 5)
@@ -665,7 +665,7 @@ endif
     %end_track()
 
 ..ch3:
-    %instrument($09)
+    %instrument(!sample_strings)
 ..21C8:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($F0)
@@ -783,7 +783,7 @@ endif
     %pan($00)
     %tuning($00)
     %duration($DC)
-    %instrument($09)
+    %instrument(!sample_strings)
     %volume($24)
     %octave($02)
     %note($1B, 5)

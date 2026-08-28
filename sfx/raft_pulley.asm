@@ -26,7 +26,7 @@
     %tempo($0249)
     %duration($B1)
     %volume($55)
-    %instrument($02)
+    %instrument(!sample_hat)
     %octave($04)
     %lfo($00, $05)
     %lfo($01, $1E)
