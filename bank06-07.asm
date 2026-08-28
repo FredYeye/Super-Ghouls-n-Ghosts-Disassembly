@@ -850,37 +850,36 @@ spc_07D2: ;07D2 - 0825
     ret
 
 spc_07E6:
-    dw spc_0826, spc_082A, spc_082E, spc_0834, spc_092D, spc_083B, spc_085B, spc_085E
+    dw toggle_triplet, toggle_portamento, set_dotted_note, toggle_2_octaves_up, spc_092D, tempo, spc_085B, spc_085E
     dw spc_086E, spc_08B6, spc_08C1, spc_08CA, spc_08CD, spc_08D0, spc_08D5, spc_08D9
     dw spc_08DD, spc_08E1, spc_08D5, spc_08D9, spc_08DD, spc_08E1, spc_0917, spc_0938
     dw spc_0959, spc_0981, spc_0998, spc_09BE, spc_09C2, spc_09C3, spc_09D6, spc_09DA
 
-
-spc_0826: ;0826 - 083A
-    ;00 - toggle triplet
+{ ;0826 - 083A
+toggle_triplet:
     mov  a, #$20
-    bra  +
+    bra  spc_0836
 
-spc_082A:
+toggle_portamento:
     mov  a, #$40
-    bra  +
+    bra  spc_0836
 
-spc_082E:
+set_dotted_note:
     mov  a, #$10
     or   a, $20+x
-    bra  ++
+    bra  spc_0838
 
-spc_0834:
-    ;03 - toggle 2 octave up
+toggle_2_octaves_up:
     mov  a, #$08
-+:
+spc_0836:
     eor  a, $20+x
-++:
+spc_0838:
     mov  $20+x, a
     ret
+}
 
-
-spc_083B: ;083B - 085A
+{ ;083B - 085A
+tempo:
     push a
     call spc_09E9
     pop  y
@@ -901,7 +900,7 @@ spc_083B: ;083B - 085A
     movw $D4, ya
     mov  $D2, #$00
     ret
-
+}
 
 spc_085B: ;085B - 085D
     mov  $40+x, a
@@ -1426,8 +1425,6 @@ if !version == !JP || !version == !US
     incsrc "various/spc_code.asm"
 endif
 
-base off
-
 ;-----
 
 if !version == !JP || !version == !US
@@ -1436,7 +1433,9 @@ elseif !version == !EU
     dw $4A9F, $0E00
 endif
 
-base $0E00 : spc_0E00:
+base $0E00
+
+spc_0E00:
     db $6A, $4C
 
 .0E02:
@@ -1569,29 +1568,51 @@ base $0E00 : spc_0E00:
 .avalanche:             incsrc "sfx/avalanche.asm"
 .collision:             incsrc "sfx/collision.asm"
 
-base off
-
 ;-----
 
 if !version == !JP || !version == !US
     dw $0060, $5800
-
-    ;looks like offsets, not sure when these are being used?
-    dw $5940, $5976, $5988, $59A3, $5CE8, $5CE8, $6384, $63CC
-    dw $63F0, $6438, $645C, $645C, $73C2, $73C2, $7DAC, $7E0F
-    dw $7E21, $88DA, $8FFD, $9153, $A140, $A581, $A5A5, $AA91
-    dw $AAB5, $AE39, $AE8A, $B199, $B1BD, $B54A, $C2AF, $CA98
-    dw $D398, $DD94, $DDE5, $E397, $EFA6, $EFC1, $F012, $F0D8
-    dw $F0FC, $F0FC, $FCD5, $FF27, $FFFF, $FFFF, $FFFF, $FFFF
 elseif !version == !EU
     dw $9CD0, $6300 : base $6300
+endif
 
-    dw $63DC, $6412, $6424, $643F, $6784, $6784, $6E20, $6E68
-    dw $6E8C, $6ED4, $6EF8, $6EF8, $7E5E, $7E5E, $8848, $88AB
-    dw $88BD, $9376, $9A99, $9BEF, $ABDC, $B01D, $B041, $B52D
-    dw $B551, $B8D5, $B926, $BC35, $BC59, $C0FD, $C643, $CE2C
-    dw $D72C, $E128, $E179, $E72B, $F33A, $F355, $F379, $F43F
-    dw $F463, $F463, $FF64, $FF7F
+    dw sample00, sample00+6*9
+    dw sample01, sample01+3*9
+    dw sample02, sample02
+    dw sample03, sample03+8*9
+    dw sample04, sample04+8*9
+    dw sample05, sample05
+    dw sample06, sample06
+    dw sample07, sample07+11*9
+    dw sample08, sample08+305*9
+    dw sample09, sample09+38*9
+    dw sample10, sample10+121*9
+    dw sample11, sample11+140*9
+    dw sample12, sample12+100*9
+    dw sample13, sample13+87*9
+if !version == !JP || !version == !US
+    dw sample14, sample14+101*9
+elseif !version == !EU
+    dw sample14, sample14+132*9
+endif
+    dw sample15, sample15+225*9
+    dw sample16, sample16+284*9
+    dw sample17, sample17+162*9
+if !version == !JP || !version == !US
+    dw sample18, sample18+3*9
+elseif !version == !EU
+    dw sample18, sample18+3*9
+endif
+    dw sample19, sample19+22*9
+if !version == !JP || !version == !US
+    dw sample20, sample20
+    dw sample21, sample21+66*9
+
+    dw $FFFF, $FFFF
+    dw $FFFF, $FFFF
+elseif !version == !EU
+    dw sample20, sample20
+    dw sample21, sample21+3*9
 endif
 
 ;-----
@@ -1619,29 +1640,50 @@ elseif !version == !EU
     db $04, $00, $14, $FF, $E0, $B8, $04, $F7, $15, $FF, $F1, $B8, $09, $00
 endif
 
-base off
-
 ;-----
 
 check bankcross off
 
 if !version == !JP || !version == !US
-    dw $A630, $5940
+    dw $A630, $5940 : base $5940
+endif
 
-    incbin "audio/06D405.bin" ;passes over into next bank. possibly samples
+    sample00: incbin "audio/sample00.brr"
+    sample01: incbin "audio/sample01.brr"
+    sample02: incbin "audio/sample02.brr"
+    sample03: incbin "audio/sample03.brr"
+    sample04: incbin "audio/sample04.brr"
+    sample05: incbin "audio/sample05.brr"
+    sample06: incbin "audio/sample06.brr"
+    sample07: incbin "audio/sample07.brr"
+    sample08: incbin "audio/sample08.brr"
+    sample09: incbin "audio/sample09.brr"
+    sample10: incbin "audio/sample10.brr"
+    sample11: incbin "audio/sample11.brr"
+    sample12: incbin "audio/sample12.brr"
+    sample13: incbin "audio/sample13.brr"
+if !version == !JP || !version == !US
+    sample14: incbin "audio/sample14.brr"
 elseif !version == !EU
-    incbin "audio/06D405.bin":$0000..$5886
-    incbin "audio/spc_eu1.bin"
-    incbin "audio/06D405.bin":$696F..$9671
-
-    db $45, $54, $33, $32, $00, $11, $00, $8A, $42, $11, $33, $0E, $E2, $42, $01, $21
-    db $7A, $EE, $1F, $EB, $D2, $63, $DB, $AB, $BC, $8A, $E0, $FC, $CF, $1F, $ED, $F0
-    db $01, $34, $8A, $20, $F1, $11, $11, $FF, $F2, $43, $11, $8B, $32, $21, $33, $0E
-    db $E2, $42, $01, $21, $02
-
-    incbin "audio/06D405.bin":$96D3..$97C5
-    incbin "audio/spc_eu2.bin"
-    incbin "audio/06D405.bin":$9CA5..0
+    sample14: incbin "audio/sample14_eu.brr"
+endif
+    sample15: incbin "audio/sample15.brr"
+    sample16: incbin "audio/sample16.brr"
+    sample17: incbin "audio/sample17.brr"
+if !version == !JP || !version == !US
+    sample18: incbin "audio/sample18.brr"
+elseif !version == !EU
+    sample18: incbin "audio/sample18_eu.brr"
+endif
+    sample19: incbin "audio/sample19.brr"
+if !version == !JP || !version == !US
+    sample20: incbin "audio/sample20.brr"
+    sample21: incbin "audio/sample21.brr"
+    fillbyte $FF : fill 10
+elseif !version == !EU
+    sample20: incbin "audio/sample20_eu.brr"
+    sample21: incbin "audio/sample21_eu.brr"
+    incbin "audio/unk.bin" ;todo: inspect. maybe just leftover (US) data?
 endif
 
 ;-----
@@ -1655,6 +1697,8 @@ elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank07a.bin"
 endif
 }
+
+base off
 
 arch 65816
 
