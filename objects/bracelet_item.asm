@@ -93,7 +93,7 @@ create:
 
 .C00A:
     lda #$F1 : jsl _018049_8053
-    lda #$30 : jsl _018049_8053
+    lda #!sfx_item_get : jsl _018049_8053
     brk #$00
 
 ;----- C018

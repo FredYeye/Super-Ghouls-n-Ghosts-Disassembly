@@ -1802,7 +1802,7 @@ compressed_data:
     dw $0000 : dl gfx_stage5_objects    : dw $1D00 ;5B
     dw $0000 : dl gfx_stage_4c_tiles    : dw $1B00 ;62
     dw $0000 : dl gfx_eagler_tail       : dw $0100 ;69
-    dw $0000 : dl gfx_unk23             : dw $3800 ;70
+    dw $0000 : dl gfx_stage_4a_tiles    : dw $3800 ;70
     dw $A000 : dl gfx_unk31             : dw $0180 ;77
     dw $0000 : dl gfx_unk27             : dw $2000 ;7E
     dw $0000 : dl tilemap_map           : dw $1000 ;85

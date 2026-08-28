@@ -21,15 +21,22 @@
     !mus_ending                    = $16
 
     !sfx_lance                     = $20
+    !sfx_bowgun                    = $21
     !sfx_knife                     = $22
     !sfx_scythe                    = $23
+    !sfx_torch                     = $24
+                                    ;$25 unused torch sound?
+    !sfx_hydra_fireball            = $26 ;prototype torch sound, reused for the hydra fireball
     !sfx_lance2                    = $27
+    !sfx_bowgun2                   = $28
     !sfx_laser                     = $29 ;knife2, knife2_shimmer, magician_orb, samael_laser
+                                    ;$2A
     !sfx_jump                      = $2B
     !sfx_land                      = $2C
     !sfx_armor_1                   = $2D
     !sfx_armor_2                   = $2E
     !sfx_armor_shatter             = $2F
+    !sfx_item_get                  = $30
     !sfx_arthur_death              = $31
     !sfx_wave_rise                 = $32
     !sfx_wave_crash                = $33

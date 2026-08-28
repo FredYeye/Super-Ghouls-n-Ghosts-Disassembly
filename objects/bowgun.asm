@@ -2,7 +2,7 @@ namespace bowgun
 
 {
 create:
-    lda #$21 : jsl _018049_8053 ;bowgun sfx
+    lda #!sfx_bowgun : jsl _018049_8053 ;bowgun sfx
     lda $07 : sta.b obj.direction
     cmp #$01
     beq .E56E ;remove second bolt
@@ -33,7 +33,7 @@ create:
 upgraded_create:
     lda #$C0 : ora $09 : sta $09
     lda #$80 : sta $35
-    lda #$28 : jsl _018049_8053
+    lda #!sfx_bowgun2 : jsl _018049_8053
     ldx $07
     phx
     stz.b obj.facing

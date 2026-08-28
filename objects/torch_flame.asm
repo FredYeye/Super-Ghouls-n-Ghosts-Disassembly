@@ -65,7 +65,7 @@ create:
     jsl set_spawn_offset
     !X8
 .E7D3:
-    lda #$24 : jsl _018049_8053 ;torch sfx
+    lda #!sfx_torch : jsl _018049_8053
     lda $08 : and #$7F : sta $08
     lda #$82 : ora $09 : sta $09
     stz $40
@@ -177,7 +177,7 @@ upgraded_create:
     jsl set_spawn_offset
     !X8
 .E8AB:
-    lda #$24 : jsl _018049_8053
+    lda #!sfx_torch : jsl _018049_8053
     lda $08 : and #$7F : sta $08
     lda #$82 : ora $09 : sta $09
     stz $40

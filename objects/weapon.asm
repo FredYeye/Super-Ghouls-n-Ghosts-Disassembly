@@ -281,7 +281,7 @@ create:
 
 .BD7A:
     lda #$F1 : jsl _018049_8053 ;F1: cancel other sounds maybe?
-    lda #$30 : jsl _018049_8053 ;pickup sfx
+    lda #!sfx_item_get : jsl _018049_8053
     lda $37
     cmp #$09
     bne +

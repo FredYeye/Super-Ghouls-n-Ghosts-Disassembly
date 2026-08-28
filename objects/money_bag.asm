@@ -57,7 +57,7 @@ create:
     ldy #$72 : ldx #$20
 .CBDD:
     jsl set_sprite
-    lda #$30 : jsl _018049_8053 ;pickup sfx
+    lda #!sfx_item_get : jsl _018049_8053
     sed
     lda.w money_bag_count
     clc

@@ -32,7 +32,7 @@ create:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .F395
 
-    lda #$30 : jsl _018049_8053 ;pickup sfx
+    lda #!sfx_item_get : jsl _018049_8053
     lda $08 : and #$F8 : sta $08
     lda $07 : asl : tax
     jmp (.F3C5-2,X) : .F3C5: dw .F3CB, .F3E3, .F3FB

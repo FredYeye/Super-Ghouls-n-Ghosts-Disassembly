@@ -1885,7 +1885,7 @@ create:
     ldy #$B8 : ldx #$21 : jsl set_sprite
     lda $08 : ora $1ED6 : sta $08
     lda $09 : ora #$80 : sta $09
-    lda #$26 : jsl _018049_8053
+    lda #!sfx_hydra_fireball : jsl _018049_8053
     lda #$24 : sta $31
 .AEDC:
     brk #$00
