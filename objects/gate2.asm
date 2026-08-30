@@ -17,9 +17,9 @@ create:
     txa
     asl
     tax
-    lda.w gate2_data_D563+0,X : sta.w snes_reg.w12sel
-    lda.w gate2_data_D563+1,X : sta.w snes_reg.w34sel
-    stz.w snes_reg.wobjsel
+    lda.w gate2_data_D563+0,X : sta.w ppu_vars.w12sel
+    lda.w gate2_data_D563+1,X : sta.w ppu_vars.w34sel
+    stz.w ppu_vars.wobjsel
     lda.w gate2_data_D563+2,X : sta $2F
     stz $31
     stz $32
@@ -73,7 +73,7 @@ _DB35:
     stz.w A1B7
     lda #$01   : sta !DMAP7
     lda.b #WH0 : sta !BBAD7
-    lda.w snes_reg.hdmaen : ora #$80 : sta.w snes_reg.hdmaen
+    lda.w ppu_vars.hdmaen : ora #$80 : sta.w ppu_vars.hdmaen
     rts
 }
 

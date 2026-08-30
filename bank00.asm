@@ -96,7 +96,7 @@ entry: ;emulated mode (code entry)
     sta $02F5
 .81D7:
     !A8
-    lda #$01 : sta.w snes_reg.nmitimen
+    lda #$01 : sta.w ppu_vars.nmitimen
     jsl enable_nmi
     cli
     lda.b #task_list>>8 : sta.b task_function_pointer+1
@@ -148,40 +148,40 @@ nmi: ;a- x-
     jsr _008AB3
     jsr _0089B0
 
-    lda.w snes_reg.wh0     : sta.w WH0
-    lda.w snes_reg.wh1     : sta.w WH1
-    lda.w snes_reg.wh2     : sta.w WH2
-    lda.w snes_reg.wh3     : sta.w WH3
-    lda.w snes_reg.bg1sc   : sta !BG1SC
-    lda.w snes_reg.bg2sc   : sta !BG2SC
-    lda.w snes_reg.bg3sc   : sta !BG3SC
-    lda.w snes_reg.w12sel  : sta !W12SEL
-    lda.w snes_reg.w34sel  : sta !W34SEL
-    lda.w snes_reg.wobjsel : sta !WOBJSEL
-    lda.w snes_reg.wbglog  : sta.w WBGLOG
-    lda.w snes_reg.wobjlog : sta.w WOBJLOG
-    lda.w snes_reg.cgwsel  : sta.w CGWSEL
-    lda.w snes_reg.cgadsub : sta !CGADSUB
-    lda.w snes_reg.coldata : sta.w COLDATA
-    lda.w snes_reg.tm : ldx.w snes_reg.ts : sta.w TM : stx.w TS
-    lda.w snes_reg.tmw     : sta.w TMW
-    lda.w snes_reg.tsw     : sta.w TSW
-    lda.w snes_reg.bg12nba : sta !BG12NBA
-    lda.w snes_reg.bg34nba : sta.w BG34NBA
+    lda.w ppu_vars.wh0     : sta.w WH0
+    lda.w ppu_vars.wh1     : sta.w WH1
+    lda.w ppu_vars.wh2     : sta.w WH2
+    lda.w ppu_vars.wh3     : sta.w WH3
+    lda.w ppu_vars.bg1sc   : sta !BG1SC
+    lda.w ppu_vars.bg2sc   : sta !BG2SC
+    lda.w ppu_vars.bg3sc   : sta !BG3SC
+    lda.w ppu_vars.w12sel  : sta !W12SEL
+    lda.w ppu_vars.w34sel  : sta !W34SEL
+    lda.w ppu_vars.wobjsel : sta !WOBJSEL
+    lda.w ppu_vars.wbglog  : sta.w WBGLOG
+    lda.w ppu_vars.wobjlog : sta.w WOBJLOG
+    lda.w ppu_vars.cgwsel  : sta.w CGWSEL
+    lda.w ppu_vars.cgadsub : sta !CGADSUB
+    lda.w ppu_vars.coldata : sta.w COLDATA
+    lda.w ppu_vars.tm : ldx.w ppu_vars.ts : sta.w TM : stx.w TS
+    lda.w ppu_vars.tmw     : sta.w TMW
+    lda.w ppu_vars.tsw     : sta.w TSW
+    lda.w ppu_vars.bg12nba : sta !BG12NBA
+    lda.w ppu_vars.bg34nba : sta.w BG34NBA
 
     jsr _008700
-    lda.w snes_reg.bgmode : sta !BGMODE
+    lda.w ppu_vars.bgmode : sta !BGMODE
     lda $032E
     beq +
 
-    lda.w snes_reg.bgmode : and #$39 : ora #$08 : sta !BGMODE
+    lda.w ppu_vars.bgmode : and #$39 : ora #$08 : sta !BGMODE
     lda #$5C : sta !BG3SC
     lda #$05 : sta.w BG34NBA
 +:
     lda $1FAE
     beq +
 
-    lda.w snes_reg.hdmaen : sta.w HDMAEN
+    lda.w ppu_vars.hdmaen : sta.w HDMAEN
     bra .835F
 
 +:
@@ -198,7 +198,7 @@ nmi: ;a- x-
     sta.w NTRL1 : sta.w NTRL2 : sta.w NTRL3 : sta.w NTRL4
     sta.w NTRL5 : sta.w NTRL6 : sta.w NTRL7
 .835F:
-    lda.w snes_reg.inidisp : sta.w INIDISP
+    lda.w ppu_vars.inidisp : sta.w INIDISP
     jsr _0083C2_83C3
     jsr _00847F
     lda #$98 : sta.w HTIMEL : stz.w HTIMEH
@@ -242,7 +242,7 @@ irq: ;a- x-
     bit.w HVBJOY
     bvc -
 
-    lda.w snes_reg.hdmaen : sta.w HDMAEN
+    lda.w ppu_vars.hdmaen : sta.w HDMAEN
     lda #$81 : sta !NMITIMEN
     plb
     pla
@@ -342,7 +342,7 @@ _0083C2:
 
 { ;847F - 851C
 _00847F: ;a8 x8
-    lda.w snes_reg.bgmode
+    lda.w ppu_vars.bgmode
     and #$07
     cmp #$07
     bne .ret
@@ -350,14 +350,14 @@ _00847F: ;a8 x8
     lda $1FB0
     bne .84C0
 
-    lda.w snes_reg.m7a+0 : sta !M7A
-    lda.w snes_reg.m7a+1 : sta !M7A
-    lda.w snes_reg.m7b+0 : sta !M7B
-    lda.w snes_reg.m7b+1 : sta !M7B
-    lda.w snes_reg.m7c+0 : sta !M7C
-    lda.w snes_reg.m7c+1 : sta !M7C
-    lda.w snes_reg.m7d+0 : sta !M7D
-    lda.w snes_reg.m7d+1 : sta !M7D
+    lda.w ppu_vars.m7a+0 : sta !M7A
+    lda.w ppu_vars.m7a+1 : sta !M7A
+    lda.w ppu_vars.m7b+0 : sta !M7B
+    lda.w ppu_vars.m7b+1 : sta !M7B
+    lda.w ppu_vars.m7c+0 : sta !M7C
+    lda.w ppu_vars.m7c+1 : sta !M7C
+    lda.w ppu_vars.m7d+0 : sta !M7D
+    lda.w ppu_vars.m7d+1 : sta !M7D
     bra .8502
 
 .ret:
@@ -365,17 +365,17 @@ _00847F: ;a8 x8
 
 .84C0:
     !A16
-    lda.w snes_reg.m7d : ldx $1FA3 : jsr neg_imul : sty !M7D : stx !M7D
-    lda.w snes_reg.m7c : ldx $1FA2 : jsr neg_imul : sty !M7C : stx !M7C
-    lda.w snes_reg.m7b : ldx $1FA1 : jsr neg_imul : phy      : phx
-    lda.w snes_reg.m7a : ldx $1FA0 : jsr neg_imul : sty !M7A : stx !M7A
+    lda.w ppu_vars.m7d : ldx $1FA3 : jsr neg_imul : sty !M7D : stx !M7D
+    lda.w ppu_vars.m7c : ldx $1FA2 : jsr neg_imul : sty !M7C : stx !M7C
+    lda.w ppu_vars.m7b : ldx $1FA1 : jsr neg_imul : phy      : phx
+    lda.w ppu_vars.m7a : ldx $1FA0 : jsr neg_imul : sty !M7A : stx !M7A
     plx : ply                                     : sty !M7B : stx !M7B
 .8502:
     !A8
-    lda.w snes_reg.m7x+0 : sta !M7X
-    lda.w snes_reg.m7x+1 : sta !M7X
-    lda.w snes_reg.m7y+0 : sta !M7Y
-    lda.w snes_reg.m7y+1 : sta !M7Y
+    lda.w ppu_vars.m7x+0 : sta !M7X
+    lda.w ppu_vars.m7x+1 : sta !M7X
+    lda.w ppu_vars.m7y+0 : sta !M7Y
+    lda.w ppu_vars.m7y+1 : sta !M7Y
     rts
 }
 
@@ -749,6 +749,8 @@ endif
 
 { ;893C - 898B
 _00893C: ;a8 x8
+    ;death crawler related, transfer something once
+
     ldx $1F30
     beq .ret
 

@@ -7,8 +7,8 @@ _019F43: ;a8 x8
     adc #$4E
     tcd
     ldx $07
-    stz.w snes_reg.wh0
-    lda #$FF : sta.w snes_reg.wh1
+    stz.w ppu_vars.wh0
+    lda #$FF : sta.w ppu_vars.wh1
     !A16
 .9F57:
     lda.w stage3_data_AAE4,X : sta $0B
@@ -69,7 +69,7 @@ _019F43: ;a8 x8
     lda #$0000
 .9FDE:
     tay
-    sty.w snes_reg.wh0
+    sty.w ppu_vars.wh0
     clc : lda $0B : adc #$00D8 : sta $0000
     sec
     sbc.w stage3_data_AB2A,X
@@ -86,6 +86,6 @@ _019F43: ;a8 x8
     lda #$FFFF
 .A003:
     tay
-    sty.w snes_reg.wh1
+    sty.w ppu_vars.wh1
     jmp .9F68
 }

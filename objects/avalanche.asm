@@ -75,7 +75,7 @@ create:
 
 ;----- DFC0
 
-    lda #$17 : sta.w snes_reg.tm : sta.w snes_reg.ts : sta $02D7 : sta $02D8
+    lda #$17 : sta.w ppu_vars.tm : sta.w ppu_vars.ts : sta $02D7 : sta $02D8
 .DFCE:
     brk #$00
 
@@ -125,7 +125,7 @@ create:
     stz $19C9
     !A8
 .E01E:
-    lda #$15 : sta.w snes_reg.tm : sta.w snes_reg.ts : sta $02D7 : sta $02D8
+    lda #$15 : sta.w ppu_vars.tm : sta.w ppu_vars.ts : sta $02D7 : sta $02D8
     stz.w avalanche_ongoing
     stz $14EF
     jml _0281A8_81B5

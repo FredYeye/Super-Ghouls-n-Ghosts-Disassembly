@@ -93,7 +93,7 @@
     object_loop_dec = $02C5
     object_loop_inc = $02C6 ;used to skip running certain objs every frame
     
-    struct snes_reg $02C7;02F2
+    struct ppu_vars $02C7;02F2
         .base:     skip 0
 
         .tmw:      skip 1
@@ -158,6 +158,9 @@
     timer_demo               = $0333;0334 ;timer until demo starts, also used for intro cutscene timer
     ;$0335;0336 unused?
     chest_counter            = $0337
+    sprite_slots_available   = $0344;0345
+    ;unused                    $0346;0347 ;cleared but not used
+    ;unused                    $0348;036C
     hud_update_lives         = $036D
     ;unused                  = $036E ;gets inc'd but never read. most likely a hud_update bool
     hud_update_score         = $036F
@@ -167,6 +170,7 @@
     oam_offset               = $0374;0375
     oam_high_offset          = $0376;0377
     ;$0378 loop counter, sprite prio related
+    ;$0379 bool, if should upload new gfx data to vram?
 
     ;dma struct?
     ;$037A bool
@@ -320,6 +324,7 @@
     endstruct
 
     stage4_rotation_active = $1F2F
+    ;$1F30 death crawler bool
 
     hdma_data = $1F57 ;hdma data struct: [line counter byte, bytes to transfer], end byte (00)
     ;goes to at least 1F7E

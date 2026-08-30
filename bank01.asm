@@ -426,13 +426,13 @@ _01826E: ;a8 x8
 
 { ;833A - 8342
 enable_nmi: ;a8 x-
-    lda.w snes_reg.nmitimen : ora #$80 : sta !NMITIMEN
+    lda.w ppu_vars.nmitimen : ora #$80 : sta !NMITIMEN
     rtl
 }
 
 { ;8343 - 834B
 disable_nmi: ;a8 x-
-    lda.w snes_reg.nmitimen : and #$01 : sta !NMITIMEN
+    lda.w ppu_vars.nmitimen : and #$01 : sta !NMITIMEN
     rtl
 }
 
@@ -443,13 +443,13 @@ enable_forced_blanking: ;a8 x8
 
     lda.w RDNMI
 +:
-    lda.w snes_reg.inidisp : ora.b #!inidisp_forced_blanking : sta.w INIDISP : sta.w snes_reg.inidisp
+    lda.w ppu_vars.inidisp : ora.b #!inidisp_forced_blanking : sta.w INIDISP : sta.w ppu_vars.inidisp
     rtl
 }
 
 { ;8360 - 8365
 set_max_brightness: ;a8 x8
-    lda #$0F : sta.w snes_reg.inidisp
+    lda #$0F : sta.w ppu_vars.inidisp
     rtl
 }
 
@@ -731,6 +731,9 @@ fill_sprite_queue: ;a- x-
 
 { ;8593 - 85BA
 _018593: ;a- x8
+; set up oam variables
+; clear oam high table
+
     !A16
     stz $0379
     stz.w oam_offset
@@ -744,7 +747,7 @@ _018593: ;a- x8
     dex #2
     bpl -
 
-    lda.w #$0080 : sta $0344
+    lda.w #$0080 : sta.w sprite_slots_available
     !A8
     rtl
 }
@@ -895,14 +898,14 @@ _01868B:
     !A16
     clc : lda $0C : adc $0A : tay
     lda $0000,Y
-    cmp $0344
+    cmp.w sprite_slots_available
     bcs _01868B
 
     sta $0000
     eor #$FFFF
     sec
-    adc $0344
-    sta $0344
+    adc.w sprite_slots_available
+    sta.w sprite_slots_available
     iny #2
     sec : lda.b obj.pos_x+1 : sbc.w camera_x+1 : sta $0002
     sec : lda.b obj.pos_y+1 : sbc.w camera_y+1 : sta $0004
@@ -2572,10 +2575,10 @@ _0194CF: ;a8 x-
 }
 
 { ;951E - 9538
-_01951E: ;a8 x8
+clear_ppu_vars: ;a8 x8
     ldx #$29
 -:
-    stz.w snes_reg.base,X ;clear snes_reg, except for .nmitimen and .inidisp
+    stz.w ppu_vars.base,X ;clear ppu_vars, except for .nmitimen and .inidisp
     dex : bpl -
 
     stz.w WH0
@@ -2590,24 +2593,24 @@ _01951E: ;a8 x8
 { ;9539 - 957F
 _019539: ;a8 x8
     lda #$03 : sta.w OBSEL
-    lda #$30 : sta.w snes_reg.cgwsel
-    lda #$01 : sta.w snes_reg.bgmode
-    lda #$03 : sta.w snes_reg.bg1sc
-    lda #$11 : sta.w snes_reg.bg2sc
+    lda #$30 : sta.w ppu_vars.cgwsel
+    lda #$01 : sta.w ppu_vars.bgmode
+    lda #$03 : sta.w ppu_vars.bg1sc
+    lda #$11 : sta.w ppu_vars.bg2sc
     ldx.w stage
     cpx.b #!stage_3
     bne +
 
-    lda #$10 : sta.w snes_reg.bg2sc
+    lda #$10 : sta.w ppu_vars.bg2sc
 +:
-    lda #$19 : sta.w snes_reg.bg3sc
-    lda #$22 : sta.w snes_reg.bg12nba
-    lda #$04 : sta.w snes_reg.bg34nba
-    stz.w snes_reg.w12sel
-    stz.w snes_reg.w34sel
-    stz.w snes_reg.wbglog
+    lda #$19 : sta.w ppu_vars.bg3sc
+    lda #$22 : sta.w ppu_vars.bg12nba
+    lda #$04 : sta.w ppu_vars.bg34nba
+    stz.w ppu_vars.w12sel
+    stz.w ppu_vars.w34sel
+    stz.w ppu_vars.wbglog
     stz $02ED
-    stz.w snes_reg.coldata
+    stz.w ppu_vars.coldata
     stz.w SETINI
     rtl
 }
@@ -3768,9 +3771,9 @@ _01AF04: ;a8 x8
 ;-----
 
 .stage2:
-    lda #$07 : sta.w snes_reg.cgadsub
-    lda #$02 : sta.w snes_reg.cgwsel
-    lda #$E0 : sta.w snes_reg.coldata
+    lda #$07 : sta.w ppu_vars.cgadsub
+    lda #$02 : sta.w ppu_vars.cgwsel
+    lda #$E0 : sta.w ppu_vars.coldata
     ldy.b #task[1].base : lda.b #task_list_3C : jsl add_task
     ldy.b #task[2].base : lda.b #task_list_40 : jsl add_task
     ldy.b #task[3].base : lda.b #task_list_04 : ldx #$00 : jsl add_task
@@ -3804,7 +3807,7 @@ _01AF04: ;a8 x8
     lda #$43 : sta $1F05 : sta $1F07 ;todo: hdma data?
     lda #$53 : sta $1F09 : sta $1F0B
     stz $1F0C
-    lda #$C0 : sta.w snes_reg.hdmaen
+    lda #$C0 : sta.w ppu_vars.hdmaen
     rts
 
 ;-----
@@ -3816,8 +3819,8 @@ _01AF04: ;a8 x8
     ldy.b #task[2].base : lda.b #task_list_4C : ldx #$00 : jsl add_task
     ldy.b #task[3].base : lda.b #task_list_4C : ldx #$02 : jsl add_task
     ldy.b #task[5].base : lda.b #task_list_64 : jsl add_task
-    lda #$E0 : sta.w snes_reg.coldata
-    lda #$03 : sta.w snes_reg.w12sel
+    lda #$E0 : sta.w ppu_vars.coldata
+    lda #$03 : sta.w ppu_vars.w12sel
     lda #$FF : sta $19DF
     rts
 
@@ -3842,15 +3845,15 @@ _01AF04: ;a8 x8
     !A16
     clc
     lda.w camera_x+1 : sta $19BD : sta $1F89
-    adc #$0080       : sta.w snes_reg.m7x
+    adc #$0080       : sta.w ppu_vars.m7x
     clc
     lda.w camera_y+1 : sta $19C1 : sta $1F8B
-    adc #$0080       : sta.w snes_reg.m7y
+    adc #$0080       : sta.w ppu_vars.m7y
     lda #$0100
-    sta.w snes_reg.m7a
-    stz.w snes_reg.m7b
-    stz.w snes_reg.m7c
-    sta.w snes_reg.m7d
+    sta.w ppu_vars.m7a
+    stz.w ppu_vars.m7b
+    stz.w ppu_vars.m7c
+    sta.w ppu_vars.m7d
     !A8
     stz $19E6
     stz $19E8
@@ -3872,7 +3875,7 @@ _01AF04: ;a8 x8
     ldy #$15     : jsl _01819D
     ldy #$30     : lda.b #task_list_60 : jsl add_task
     ldy #$78     : lda.b #task_list_54 : jsl add_task
-    lda #$10     : sta.w snes_reg.bg2sc
+    lda #$10     : sta.w ppu_vars.bg2sc
     rts
 
 ;-----
@@ -4018,11 +4021,11 @@ _01B26D: ;a8 x-
     rtl
 
 .B271: ;a8 x-
-    lda.w snes_reg.bg3sc   : sta.w hdma_data+$0C : sta.w hdma_data+$11
+    lda.w ppu_vars.bg3sc   : sta.w hdma_data+$0C : sta.w hdma_data+$11
     lda $02DF              : sta.w hdma_data+$0D : sta.w hdma_data+$12
-    lda.w snes_reg.bg12nba : sta.w hdma_data+$0E : sta.w hdma_data+$13
-    lda.w snes_reg.bg34nba : sta.w hdma_data+$0F : sta.w hdma_data+$14
-    lda.w snes_reg.bgmode  : sta.w hdma_data+$17 : sta.w hdma_data+$19
+    lda.w ppu_vars.bg12nba : sta.w hdma_data+$0E : sta.w hdma_data+$13
+    lda.w ppu_vars.bg34nba : sta.w hdma_data+$0F : sta.w hdma_data+$14
+    lda.w ppu_vars.bgmode  : sta.w hdma_data+$17 : sta.w hdma_data+$19
     lda $02D7              : sta.w hdma_data+$22 : sta.w hdma_data+$25
     lda $02D8              : sta.w hdma_data+$23 : sta.w hdma_data+$26
     rts
@@ -4038,8 +4041,8 @@ hud_flicker: ;a8 x8
     sta.w hud_visible
 if !version == !JP || !version == !US
     tax
-    lda.w snes_reg.hdmaen   : and #$FD : ora.w _00B5BC+0,X : sta.w snes_reg.hdmaen
-    lda.w snes_reg.nmitimen : and #$CF : ora.w _00B5BC+2,X : sta.w snes_reg.nmitimen
+    lda.w ppu_vars.hdmaen   : and #$FD : ora.w _00B5BC+0,X : sta.w ppu_vars.hdmaen
+    lda.w ppu_vars.nmitimen : and #$CF : ora.w _00B5BC+2,X : sta.w ppu_vars.nmitimen
 endif
 .ret:
     rts
@@ -4721,7 +4724,7 @@ _01B90E: ;a8 x8
     lda.w stage
     cmp.b #!stage_4b : beq +
 
-    lda.w snes_reg.bgmode
+    lda.w ppu_vars.bgmode
     and #$07
     cmp #$07 : beq .ret
 
@@ -4886,8 +4889,8 @@ _01B9A8: ;a8 x?
     asl #2
     and #$01FF
     tax
-    lda.l rotation_parameters+0,X : sta.w snes_reg.m7a                     : sta.w snes_reg.m7d
-    lda.l rotation_parameters+2,X : sta.w snes_reg.m7b : eor #$FFFF : inc  : sta.w snes_reg.m7c
+    lda.l rotation_parameters+0,X : sta.w ppu_vars.m7a                     : sta.w ppu_vars.m7d
+    lda.l rotation_parameters+2,X : sta.w ppu_vars.m7b : eor #$FFFF : inc  : sta.w ppu_vars.m7c
     !AX8
     rts
 
@@ -5056,9 +5059,9 @@ _01B9A8: ;a8 x?
 ;-----
 
 .BC6C:
-    clc : lda $1F83 : adc.w snes_reg.m7x : sta.w snes_reg.m7x
+    clc : lda $1F83 : adc.w ppu_vars.m7x : sta.w ppu_vars.m7x
     sec             : sbc #$0080         : sta $19BD
-    clc : lda $1F85 : adc.w snes_reg.m7y : sta.w snes_reg.m7y
+    clc : lda $1F85 : adc.w ppu_vars.m7y : sta.w ppu_vars.m7y
     sec             : sbc #$0080         : sta $19C1
     stz $1F8D
     rts
@@ -5067,10 +5070,10 @@ _01B9A8: ;a8 x?
 
 .BC92:
     lda $1F85
-    clc : adc.w snes_reg.m7x : sta.w snes_reg.m7x
+    clc : adc.w ppu_vars.m7x : sta.w ppu_vars.m7x
     sec : sbc #$0080         : sta $19BD
     lda $1F83 : eor #$FFFF : inc
-    clc : adc.w snes_reg.m7y : sta.w snes_reg.m7y
+    clc : adc.w ppu_vars.m7y : sta.w ppu_vars.m7y
     sec : sbc #$0080         : sta $19C1
     lda #$3000 : sta $1F8D
     rts
@@ -5082,8 +5085,8 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc.w snes_reg.m7x
-    sta.w snes_reg.m7x
+    adc.w ppu_vars.m7x
+    sta.w ppu_vars.m7x
     sec
     sbc #$0080
     sta $19BD
@@ -5091,8 +5094,8 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc.w snes_reg.m7y
-    sta.w snes_reg.m7y
+    adc.w ppu_vars.m7y
+    sta.w ppu_vars.m7y
     sec
     sbc #$0080
     sta $19C1
@@ -5106,15 +5109,15 @@ _01B9A8: ;a8 x?
     eor #$FFFF
     inc
     clc
-    adc.w snes_reg.m7x
-    sta.w snes_reg.m7x
+    adc.w ppu_vars.m7x
+    sta.w ppu_vars.m7x
     sec
     sbc #$0080
     sta $19BD
     lda $1F83
     clc
-    adc.w snes_reg.m7y
-    sta.w snes_reg.m7y
+    adc.w ppu_vars.m7y
+    sta.w ppu_vars.m7y
     sec
     sbc #$0080
     sta $19C1
@@ -7148,14 +7151,14 @@ _01D97E: ;a8 x?
     lda #$00
     rts
 
-.D985:
+.D985: ;skip "is moving up" check entry
     !A16
     clc
     lda $19E8
     adc #$00E0
     cmp.b obj.pos_y+1
     !A8
-    bcc .D9C0
+    bcc .D9C0 ;branch if arthur is below the bottom of the screen?
 
     lda $14C3
     bne .D9BF
@@ -7701,16 +7704,16 @@ _01DD90: ;a8 x16
 }
 
 { ;DDAE - DDCD
-_01DDAE: ;a9 x-
+setup_arthur_key_state: ;a8 x-
     lda.b #arthur_grab_key    : sta.w !obj_arthur.state+1
     lda.b #arthur_grab_key>>8 : sta.w !obj_arthur.state+2
     stz.w !obj_arthur._0F
     !AX16
-    ldx #$01C7
-.DDC0:
-    stz $0707,X
-    sec : txa : sbc #$0041 : tax
-    bpl .DDC0
+    ldx.w #obj.ext.len*7
+.clear_magic_slots:
+    stz.w !obj_magic.active,X
+    sec : txa : sbc.w #obj.ext.len : tax
+    bpl .clear_magic_slots
 
     !AX8
     rtl
@@ -7774,26 +7777,26 @@ _01DE0B: ;a8 x8
     bne .DE4D
 
 .DE17:
-    lda.w _00BAE6+00,X : sta.w snes_reg.tm : sta.w snes_reg.tmw
-    lda.w _00BAE6+10,X : sta.w snes_reg.ts : sta.w snes_reg.tsw
+    lda.w _00BAE6+00,X : sta.w ppu_vars.tm : sta.w ppu_vars.tmw
+    lda.w _00BAE6+10,X : sta.w ppu_vars.ts : sta.w ppu_vars.tsw
     lda.w _00BAE6+20,X : sta $02D7
     lda.w _00BAE6+30,X : sta $02D8
     lda $0292
     beq .DE4C
 
-    lda $02D7 : sta.w snes_reg.tm : sta.w snes_reg.tmw
-    lda $02D8 : sta.w snes_reg.ts : sta.w snes_reg.tsw
+    lda $02D7 : sta.w ppu_vars.tm : sta.w ppu_vars.tmw
+    lda $02D8 : sta.w ppu_vars.ts : sta.w ppu_vars.tsw
 .DE4C:
     rtl
 
 .DE4D:
     lda #$15
-    sta.w snes_reg.tm
-    sta.w snes_reg.ts
+    sta.w ppu_vars.tm
+    sta.w ppu_vars.ts
     sta $02D7
     sta $02D8
-    sta.w snes_reg.tmw
-    sta.w snes_reg.tsw
+    sta.w ppu_vars.tmw
+    sta.w ppu_vars.tsw
     rtl
 }
 

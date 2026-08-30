@@ -1,6 +1,6 @@
 {
 _019757: ;a8 x8
-    lda #$0F : sta.w snes_reg.inidisp
+    lda #$0F : sta.w ppu_vars.inidisp
     lda $0055,Y
     lsr
     bne .9763
@@ -10,7 +10,7 @@ _019757: ;a8 x8
     sta $0055,Y
 .9766:
     lda $0055,Y : jsl current_task_suspend
-    dec.w snes_reg.inidisp
+    dec.w ppu_vars.inidisp
     bne .9766
 
     jml current_task_remove

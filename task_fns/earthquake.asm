@@ -35,7 +35,7 @@ task_earthquake: ;a- x8
     lsr
     sta $007B
     lda.b #31 : jsl current_task_suspend
-    lda #$0C : sta.w snes_reg.bg2sc
+    lda #$0C : sta.w ppu_vars.bg2sc
     !A16
     lda #$0272 : sta $19DE
     lda #$0272 : sta $19E2

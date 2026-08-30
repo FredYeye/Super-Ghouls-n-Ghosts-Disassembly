@@ -31,9 +31,9 @@ create:
     adc #$0033
     sta.b obj.speed_x+2
     !A8
-    stz.w snes_reg.w12sel
-    lda #$02 : sta.w snes_reg.w34sel
-    stz.w snes_reg.wobjsel
+    stz.w ppu_vars.w12sel
+    lda #$02 : sta.w ppu_vars.w34sel
+    stz.w ppu_vars.wobjsel
     lda #$48 : sta $33
     stz $34
     stz $35
@@ -57,7 +57,7 @@ create:
     lda $07
     beq .C61B
 
-    stz.w snes_reg.w34sel
+    stz.w ppu_vars.w34sel
 .C61B:
     jmp _0281A8_81B5
 
@@ -176,7 +176,7 @@ create:
     stz.w A1B2
     lda #$01   : sta !DMAP2
     lda.b #WH0 : sta !BBAD2
-    lda.w snes_reg.hdmaen : ora #$04 : sta.w snes_reg.hdmaen
+    lda.w ppu_vars.hdmaen : ora #$04 : sta.w ppu_vars.hdmaen
     sta.b obj.facing
     rts
 
@@ -185,7 +185,7 @@ create:
     lda.b obj.facing
     beq .C6FB
 
-    lda.w snes_reg.hdmaen : and #$FB : sta.w snes_reg.hdmaen
+    lda.w ppu_vars.hdmaen : and #$FB : sta.w ppu_vars.hdmaen
     stz.b obj.facing
 .C6FB:
     rts

@@ -8,7 +8,7 @@ create:
 
     lda #$F1 : jsl _018049_8053
     lda.b #!mus_talk_princess : jsl _018049_8053
-    lda.w snes_reg.tm : and #$FB : sta.w snes_reg.tm
+    lda.w ppu_vars.tm : and #$FB : sta.w ppu_vars.tm
     !AX16
     lda.w stage : pha
     lda #$0011 : sta.w stage
@@ -21,7 +21,7 @@ create:
 ;----- 9C3B
 
     stz $032E
-    stz.w snes_reg.hdmaen
+    stz.w ppu_vars.hdmaen
     !A16
     lda #$1800 : sta $0318
     lda #$0800 : sta $031A
@@ -48,8 +48,8 @@ elseif !version == !US || !version == !EU
     ldy #$2C     : jsl decompress
     lda #$1A     : sta $031E
 endif
-    lda #$05 : sta.w snes_reg.bg34nba
-    lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
+    lda #$05 : sta.w ppu_vars.bg34nba
+    lda.w ppu_vars.bgmode : ora #$08 : sta.w ppu_vars.bgmode
     lda #$04 : cop #$00
 
 ;----- 9C81
@@ -91,7 +91,7 @@ _9CF2:
 
 _9CF6:
     !AX8
-    lda.w snes_reg.tm : ora #$04 : sta.w snes_reg.tm
+    lda.w ppu_vars.tm : ora #$04 : sta.w ppu_vars.tm
     ldx #$2A : ldy #$90 : lda.b #task_list_decompress : jsl add_task
 .9D0A:
     brk #$00
@@ -114,9 +114,9 @@ _9CF6:
     !A8
     lda #$1D : sta $31
 .9D3F:
-    lda #$00 : sta.w snes_reg.cgwsel
-    lda #$90 : sta.w snes_reg.cgadsub
-    lda $31 : ora #$E0 : sta.w snes_reg.coldata
+    lda #$00 : sta.w ppu_vars.cgwsel
+    lda #$90 : sta.w ppu_vars.cgadsub
+    lda $31 : ora #$E0 : sta.w ppu_vars.coldata
     dec $31
     beq .9D62
 

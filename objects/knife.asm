@@ -128,7 +128,7 @@ _E449:
     lda $33 : sta.l oam_sprite_data+5,X
     lda #$222E : eor $37 : sta.l oam_sprite_data+6,X
     clc : txa : adc #$0008 : tax
-    dec $0344 : dec $0344
+    dec.w sprite_slots_available : dec.w sprite_slots_available
     sec
     lda.b obj.pos_x+1
     sbc $31
@@ -147,7 +147,7 @@ _E449:
     lda $33 : sta.l oam_sprite_data+1,X
     lda #$262E : eor $37 : sta.l oam_sprite_data+2,X
     inx #4
-    dec $0344
+    dec.w sprite_slots_available
     dec $2D
     bne .E4D1
 

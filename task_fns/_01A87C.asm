@@ -3,7 +3,7 @@ _01A87C: ;a8 x8
     jsl disable_nmi
     jsl enable_forced_blanking
     jsl _018366
-    lda #$0F : sta.w snes_reg.inidisp
+    lda #$0F : sta.w ppu_vars.inidisp
     jsl clear_oam_sprite_data
 if !version == !JP || !version == !US
     ldy.b #$19*7 : jsl decompress_precalc
@@ -16,7 +16,7 @@ elseif !version == !EU
     ldx.b #$16*7 : jsl copy_ram_to_vram_precalc
     lda #$01     : jsl _048E68
 endif
-    stz.w snes_reg.bg34nba
+    stz.w ppu_vars.bg34nba
     !A16
     lda #$1800 : sta $0318
     lda #$0800 : sta $031A
@@ -28,7 +28,7 @@ if !version == !JP || !version == !US
     jsl enable_nmi
 elseif !version == !EU
     lda #$00 : jsl _01A8CD
-    lda #$8F : sta.w snes_reg.inidisp
+    lda #$8F : sta.w ppu_vars.inidisp
     jsl enable_nmi
     lda.b #!sfx_capcom_logo : jsl _018049_8053
     lda.b #25 : jsl current_task_suspend
@@ -153,7 +153,7 @@ endif
     bne .A9E6
 
     ldy.b #$19*7 : jsl decompress_precalc
-    ldy $1FC7 : lda.w _00B52E_B546,Y : sta.w snes_reg.tm
+    ldy $1FC7 : lda.w _00B52E_B546,Y : sta.w ppu_vars.tm
     lda #$18 : sta $031E
     lda.b #1 : jsl current_task_suspend
     !AX16
@@ -163,8 +163,8 @@ endif
     stz $19CD
     stz $19D1
     !AX8
-    stz.w snes_reg.hdmaen
-    stz.w snes_reg.bg34nba
+    stz.w ppu_vars.hdmaen
+    stz.w ppu_vars.bg34nba
     lda.b #3 : jsl current_task_suspend
     lda #$00
     xba
@@ -172,7 +172,7 @@ endif
     ldx $1FC7
     lda.w _00B52E_B53A,X : jsl _0183D4_83DB
     lda.b #1 : jsl current_task_suspend
-    lda #$84 : sta.w snes_reg.cgadsub
+    lda #$84 : sta.w ppu_vars.cgadsub
     ldx #$08 : ldy #$90 : lda.b #task_list_6C : jsl add_task
     !A16
     ldx #$1C : lda #$0010 : ldy #$00 : jsl _019136_9187
@@ -421,7 +421,7 @@ endif
 .AC50:
     sta.w checkpoint
     jsl _01DE0B
-    lda.w snes_reg.tm : and #$0F : sta.w snes_reg.tm : sta.w snes_reg.tm ;double stores here for some reason
+    lda.w ppu_vars.tm : and #$0F : sta.w ppu_vars.tm : sta.w ppu_vars.tm ;double stores here for some reason
     lda $02D7         : and #$0F : sta $02D7 : sta $02D7 ;^
     inc $0379
     jsr _01B26D_B271
@@ -506,7 +506,7 @@ endif
     sta.w !obj_upgrade.type
     lda #$0C : sta.w !obj_upgrade.active
 +:
-    lda #$30 : ora.w snes_reg.nmitimen : sta.w snes_reg.nmitimen
+    lda #$30 : ora.w ppu_vars.nmitimen : sta.w ppu_vars.nmitimen
     !X16
     ldx #$1000 : jsl _018091
     jsl clear_oam_sprite_data
@@ -517,7 +517,7 @@ endif
     cmp.b #!stage_3
     bne +
 
-    lda #$19 : sta.w snes_reg.bg3sc
+    lda #$19 : sta.w ppu_vars.bg3sc
 +:
     jsl _018DC0
     lda.w stage
@@ -529,7 +529,7 @@ endif
     ldx #$16 : jsl _018DC0_8E0E
 +:
     ldx.w stage
-    lda.w _00B56C,X : sta.w snes_reg.bgmode
+    lda.w _00B56C,X : sta.w ppu_vars.bgmode
     and #$07 : dec  : sta $02DA
     stz $1F8F
     stz $1F90
@@ -549,8 +549,8 @@ endif
     jsr _01BF31
     jsr _01BEBC
     jsl _048A6B
-    stz.w snes_reg.tm
-    stz.w snes_reg.ts
+    stz.w ppu_vars.tm
+    stz.w ppu_vars.ts
     jsl disable_nmi
     jsr _01AF04_local
     jsr .AE55
@@ -561,7 +561,7 @@ endif
     lda #$0A : sta.w pot.armor_statue_req
     lda #$20 : sta.w pot.extend_req
     lda #$00 : jsl _0183D4_83DB
-    lda #$43 : sta.w snes_reg.cgadsub
+    lda #$43 : sta.w ppu_vars.cgadsub
     lda #$05 : sta.w timer_minutes
     lda #$00 : sta.w timer_tens
     lda #$00 : sta.w timer_seconds
@@ -581,7 +581,7 @@ endif
     ldx #$00 : jsl water_crash_to_ram
     ldx #$02 : jsl water_crash_to_ram
 .AE2C:
-    lda #$31 : sta.w snes_reg.nmitimen
+    lda #$31 : sta.w ppu_vars.nmitimen
     jsl enable_nmi
     lda $02DA
     bne .ret
@@ -640,9 +640,9 @@ endif
     bne +
 
     lda #$3A
-    ora.w snes_reg.hdmaen
+    ora.w ppu_vars.hdmaen
 +:
-    sta.w snes_reg.hdmaen
+    sta.w ppu_vars.hdmaen
     jsr _01B26D_B271
     rts
 }

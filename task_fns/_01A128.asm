@@ -24,12 +24,12 @@ _01A128:
     bne .A145
 
 .A155:
-    lda #$15 : sta.w snes_reg.tm : sta.w snes_reg.ts : sta $02D7 : sta $02D8
+    lda #$15 : sta.w ppu_vars.tm : sta.w ppu_vars.ts : sta $02D7 : sta $02D8
     lda #$FF : sta $19DF : sta $19E3
     lda #$94 : sta $031E
     lda.b #1 : jsl current_task_suspend
     lda #$13 : sta $031E
-    lda.w snes_reg.bg2sc : and #$FC : ora #$01 : sta.w snes_reg.bg2sc
-    lda.w snes_reg.bgmode : ora #$20 : sta.w snes_reg.bgmode
+    lda.w ppu_vars.bg2sc : and #$FC : ora #$01 : sta.w ppu_vars.bg2sc
+    lda.w ppu_vars.bgmode : ora #$20 : sta.w ppu_vars.bgmode
     jml current_task_remove
 }

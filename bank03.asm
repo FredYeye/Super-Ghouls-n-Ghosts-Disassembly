@@ -531,11 +531,11 @@ _03F526:
     stx $005D
     jsl disable_nmi
     jsl enable_forced_blanking
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _019539
     lda #$C0 : sta.w M7SEL
     jsl _018366
-    lda #$07 : sta.w snes_reg.bgmode
+    lda #$07 : sta.w ppu_vars.bgmode
     lda #$11 : jsl _0190B9_palette_to_ram
     ldy #$25 : jsl decompress
     stz !VMAIN
@@ -588,11 +588,11 @@ _03F526:
     lda #$68 : sta $1FA3
     !A16
     ldx $005D
-    lda.w _00EC3F,X : sta.w snes_reg.m7a : sta.w snes_reg.m7b : sta.w snes_reg.m7c : sta.w snes_reg.m7d
-    lda #$0068 : sta.w snes_reg.m7x
-    lda #$0080 : sta.w snes_reg.m7y
+    lda.w _00EC3F,X : sta.w ppu_vars.m7a : sta.w ppu_vars.m7b : sta.w ppu_vars.m7c : sta.w ppu_vars.m7d
+    lda #$0068 : sta.w ppu_vars.m7x
+    lda #$0080 : sta.w ppu_vars.m7y
     !A8
-    lda #$01 : sta.w snes_reg.tm : sta.w snes_reg.ts
+    lda #$01 : sta.w ppu_vars.tm : sta.w ppu_vars.ts
     jsl set_max_brightness
     jsl enable_nmi
     ldx $005D
@@ -600,7 +600,7 @@ _03F526:
 .F721:
     lda #$01 : jsr .F749
     !A16
-    sec : lda.w snes_reg.m7a : sbc.w _00EC3F+6,X : sta.w snes_reg.m7a : sta.w snes_reg.m7b : sta.w snes_reg.m7c : sta.w snes_reg.m7d
+    sec : lda.w ppu_vars.m7a : sbc.w _00EC3F+6,X : sta.w ppu_vars.m7a : sta.w ppu_vars.m7b : sta.w ppu_vars.m7c : sta.w ppu_vars.m7d
     !A8
     dey
     bne .F721
@@ -664,11 +664,11 @@ credits:
     ldy #$2A     : jsl decompress
     ldx #$2D     : jsl copy_ram_to_vram
     !AX8
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _019539
-    lda.w snes_reg.bg1sc : and #$FC :            sta.w snes_reg.bg1sc
-    lda.w snes_reg.bg2sc : and #$FC :            sta.w snes_reg.bg2sc
-    lda.w snes_reg.bg3sc : and #$FC : ora #$02 : sta.w snes_reg.bg3sc
+    lda.w ppu_vars.bg1sc : and #$FC :            sta.w ppu_vars.bg1sc
+    lda.w ppu_vars.bg2sc : and #$FC :            sta.w ppu_vars.bg2sc
+    lda.w ppu_vars.bg3sc : and #$FC : ora #$02 : sta.w ppu_vars.bg3sc
     lda #$13 : jsl _0190B9_palette_to_ram
     lda #$12 : sta.w stage
     jsl _019136
@@ -695,8 +695,8 @@ credits:
     bne .F976
 
     !AX8
-    lda #$05 : sta.w snes_reg.bg34nba
-    lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
+    lda #$05 : sta.w ppu_vars.bg34nba
+    lda.w ppu_vars.bgmode : ora #$08 : sta.w ppu_vars.bgmode
     lda $02D7 : ora #$04 : sta $02D7
     lda.b #!dmap_mode_2     : sta   !DMAP1
     lda.b #!BG1HOFS         : sta   !BBAD1
@@ -705,7 +705,7 @@ credits:
     lda #$00                : sta.w A1B1
     stz.w DAS1B
     inc $1FAE
-    lda #$02 : sta.w snes_reg.hdmaen
+    lda #$02 : sta.w ppu_vars.hdmaen
     lda #$50 : sta.w hdma_data+$00 ;line counters + hdma data (3 entries)
     stz.w hdma_data+$01 : stz.w hdma_data+$02
     lda #$50 : sta.w hdma_data+$03
@@ -713,9 +713,9 @@ credits:
     lda #$60 : sta.w hdma_data+$06
     stz.w hdma_data+$07 : stz.w hdma_data+$08
     stz.w hdma_data+$09            ;end byte
-    lda #$00 : sta.w snes_reg.cgwsel
-    lda #$17 : sta.w snes_reg.cgadsub
-    lda #$E0 : sta.w snes_reg.coldata
+    lda #$00 : sta.w ppu_vars.cgwsel
+    lda #$17 : sta.w ppu_vars.cgadsub
+    lda #$E0 : sta.w ppu_vars.coldata
     !A16
     stz $1EB7
     stz $1EB9
@@ -730,7 +730,7 @@ elseif !version == !EU
 endif
     lda #$04 : sta $1EBD
     inc.w layer3_needs_update
-    lda #$17 : sta.w snes_reg.tm : sta.w snes_reg.ts
+    lda #$17 : sta.w ppu_vars.tm : sta.w ppu_vars.ts
     ldx #$17
     jsl _03F526_F61C
     jsl set_max_brightness
@@ -821,15 +821,15 @@ endif
     ldx #$29 : jsl copy_ram_to_vram
     ldy #$29 : jsl decompress
     ldx #$2C : jsl copy_ram_to_vram
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _019539
-    lda.w snes_reg.bg1sc : and #$FC : sta.w snes_reg.bg1sc
+    lda.w ppu_vars.bg1sc : and #$FC : sta.w ppu_vars.bg1sc
     lda #$13 : jsl _0190B9_palette_to_ram
     jsl set_max_brightness
     jsl enable_nmi
     jsl _018366
     !A8
-    lda #$01 : sta.w snes_reg.tm : sta.w snes_reg.ts : sta $02D7 : sta $02D8
+    lda #$01 : sta.w ppu_vars.tm : sta.w ppu_vars.ts : sta $02D7 : sta $02D8
     ldx #$12 : ldy.b #task[5].base : lda.b #task_list_08 : jsl add_task
 .FB21:
     lda.b #1 : jsl current_task_suspend
@@ -873,16 +873,16 @@ endif
     cmp #$09
     bcs .FB87
 
-    lda #$00 : sta.w snes_reg.cgwsel
-    lda #$13 : sta.w snes_reg.cgadsub
-    lda $1EB7 : ora #$80 : sta.w snes_reg.coldata
+    lda #$00 : sta.w ppu_vars.cgwsel
+    lda #$13 : sta.w ppu_vars.cgadsub
+    lda $1EB7 : ora #$80 : sta.w ppu_vars.coldata
     inc $1EB7
     rts
 
 .FB87:
-    lda #$00 : sta.w snes_reg.cgwsel
-    lda #$13 : sta.w snes_reg.cgadsub
-    lda $1EB7 : sec : sbc #$08 : ora #$60 : sta.w snes_reg.coldata
+    lda #$00 : sta.w ppu_vars.cgwsel
+    lda #$13 : sta.w ppu_vars.cgadsub
+    lda $1EB7 : sec : sbc #$08 : ora #$60 : sta.w ppu_vars.coldata
     lda $1EB7
     cmp #$0F
     beq .FBA6

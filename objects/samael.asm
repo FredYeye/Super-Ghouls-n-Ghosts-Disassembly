@@ -411,8 +411,8 @@ destroy:
 ;-----
 
 .EBA8:
-    stx.w snes_reg.tm
-    stx.w snes_reg.ts
+    stx.w ppu_vars.tm
+    stx.w ppu_vars.ts
     stx $02D7
     stx $02D8
     rts

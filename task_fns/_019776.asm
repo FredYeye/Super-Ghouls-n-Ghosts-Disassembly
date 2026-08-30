@@ -29,15 +29,15 @@ _019776: ;a8 x8
     bne -
 
 .97A4:
-    stz.w snes_reg.wobjsel
+    stz.w ppu_vars.wobjsel
     jml current_task_remove
 
 .97AB:
-    lda #$9F : sta.w snes_reg.cgadsub
+    lda #$9F : sta.w ppu_vars.cgadsub
 
 .97B0:
-    stz.w snes_reg.cgwsel
-    lda #$80 : sta.w snes_reg.wobjsel
+    stz.w ppu_vars.cgwsel
+    lda #$80 : sta.w ppu_vars.wobjsel
     lda $0055,Y
     lsr
     bne +
@@ -52,7 +52,7 @@ _019776: ;a8 x8
 .97C3:
     txa
     ora #$E0
-    sta.w snes_reg.coldata
+    sta.w ppu_vars.coldata
     lda $0055,Y : jsl current_task_suspend
     rts
 }

@@ -67,7 +67,7 @@ create: ;a8 x8
     lda $0292
     bpl .CD87
 
-    lda #$12 : sta.w snes_reg.tm : sta $02D7
+    lda #$12 : sta.w ppu_vars.tm : sta $02D7
     bra .CD8B
 
 .CD87:

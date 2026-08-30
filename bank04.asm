@@ -401,10 +401,10 @@ _048BB8: ;a8 x-
 _048C43: ;a8 x8
     ;setup intro cutscenes
 
-    stz.w snes_reg.inidisp
+    stz.w ppu_vars.inidisp
     jsl _0180B9
     jsl remove_tasks
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _018049_804D
     lda #$15 ;unused lda
     jsl enable_forced_blanking
@@ -451,9 +451,9 @@ _048C43: ;a8 x8
 if !version == !JP || !version == !US
     jsl set_max_brightness
     jsl enable_nmi
-    stz.w snes_reg.inidisp
+    stz.w ppu_vars.inidisp
 elseif !version == !EU
-    stz.w snes_reg.inidisp
+    stz.w ppu_vars.inidisp
     jsl enable_nmi
 endif
     stz.w stage
@@ -506,7 +506,7 @@ endif
     jsr _049219_922E
     lda.b #62 : jsl current_task_suspend
     stz $1FB3
-    lda #$0F : sta.w snes_reg.inidisp
+    lda #$0F : sta.w ppu_vars.inidisp
 .8DE4:
     jsl _018021
     jsr _048E47
@@ -570,15 +570,15 @@ _048E68: ;a8 x-
     rtl
 
 .local:
-    sta.w snes_reg.tm
-    sta.w snes_reg.ts
-    lda #$01 : sta.w snes_reg.nmitimen
-    ora #$08 : sta.w snes_reg.bgmode
+    sta.w ppu_vars.tm
+    sta.w ppu_vars.ts
+    lda #$01 : sta.w ppu_vars.nmitimen
+    ora #$08 : sta.w ppu_vars.bgmode
     lda #$01
-    stz.w snes_reg.bg1sc
-    lda #$02 : sta.w snes_reg.bg12nba
-    lda #$18 : sta.w snes_reg.bg3sc
-    lda #$05 : sta.w snes_reg.bg34nba
+    stz.w ppu_vars.bg1sc
+    lda #$02 : sta.w ppu_vars.bg12nba
+    lda #$18 : sta.w ppu_vars.bg3sc
+    lda #$05 : sta.w ppu_vars.bg34nba
     stz $032E
     !AX16
     lda #$1800 : sta $0318
@@ -599,7 +599,7 @@ _048EAD: ;a8 x8
     stz.w stage
     stz $028E
     stz.w checkpoint
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _018049_804D
     jsl enable_forced_blanking
     lda.b #15 : jsl current_task_suspend
@@ -657,7 +657,7 @@ endif
     jsr _049219_921D
     lda.b #!sfx_ice : jsl _018049_8053
     lda.b #62 : jsl current_task_suspend
-    lda #$30 : sta.w snes_reg.cgwsel
+    lda #$30 : sta.w ppu_vars.cgwsel
     lda.b #!sub_state_game_start : sta.w game_sub_state
     rtl
 
@@ -698,14 +698,14 @@ time_over:
     jsl remove_tasks
     stz $1FB5
     jsl _018366
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _018049_804D
-    lda #$01 : sta.w snes_reg.nmitimen
-    stz.w snes_reg.tm
-    stz.w snes_reg.ts
+    lda #$01 : sta.w ppu_vars.nmitimen
+    stz.w ppu_vars.tm
+    stz.w ppu_vars.ts
     jsl clear_oam_sprite_data
     jsl _018366
-    lda #$10 : sta.w snes_reg.tm : sta.w snes_reg.ts
+    lda #$10 : sta.w ppu_vars.tm : sta.w ppu_vars.ts
     stz.w hud_visible
     jsl _018CE2
     jsr _049234
@@ -733,7 +733,7 @@ time_over:
 
     jsr _049219_921D
     lda.b #62 : jsl current_task_suspend
-    lda #$30 : sta.w snes_reg.cgwsel
+    lda #$30 : sta.w ppu_vars.cgwsel
     rtl
 }
 
@@ -758,14 +758,14 @@ game_over: ;a8 x8
     jsl remove_tasks
     stz $1FB5
     jsl _018366
-    jsl _01951E
+    jsl clear_ppu_vars
     jsl _018049_804D
-    lda #$01 : sta.w snes_reg.nmitimen
-    stz.w snes_reg.tm
-    stz.w snes_reg.ts
+    lda #$01 : sta.w ppu_vars.nmitimen
+    stz.w ppu_vars.tm
+    stz.w ppu_vars.ts
     jsl clear_oam_sprite_data
     jsl _018366
-    lda #$10 : sta.w snes_reg.tm : sta.w snes_reg.ts
+    lda #$10 : sta.w ppu_vars.tm : sta.w ppu_vars.ts
     stz $032E
     jsl _018CE2
     jsr _049234
@@ -797,7 +797,7 @@ game_over: ;a8 x8
 
     jsr _049219_921D
     lda.b #62 : jsl current_task_suspend
-    lda #$30 : sta.w snes_reg.cgwsel
+    lda #$30 : sta.w ppu_vars.cgwsel
     rtl
 }
 
@@ -973,8 +973,8 @@ _049310: ;a8 x8
     jsl _018049_804D
     jsl enable_forced_blanking
     jsl _0180B9
-    jsl _01951E
-    lda #$01 : sta.w snes_reg.nmitimen
+    jsl clear_ppu_vars
+    lda #$01 : sta.w ppu_vars.nmitimen
     jsl remove_tasks
     jsl disable_nmi
     jsl _018CE2
@@ -984,7 +984,7 @@ _049310: ;a8 x8
     ldy.b #$13*7 : jsl decompress_precalc
     ldx.b #$10*7 : jsl copy_ram_to_vram_precalc
     jsl _019539
-    lda #$11 : sta.w snes_reg.tm
+    lda #$11 : sta.w ppu_vars.tm
     jsl _018366
     ldx #$00
 .935C:
@@ -1034,7 +1034,7 @@ _049310: ;a8 x8
 
     lda.b #60 : jsl current_task_suspend
 .93D5:
-    lda #$01 : sta.w snes_reg.tm
+    lda #$01 : sta.w ppu_vars.tm
     lda #$00
 .93DC:
     pha

@@ -156,10 +156,10 @@ create: ;a8 x8
     lda $1FB3
     bne .CE4C
 
-    stz.w snes_reg.cgwsel
-    stz.w snes_reg.cgadsub
-    stz.w snes_reg.coldata
-    stz.w snes_reg.tm
+    stz.w ppu_vars.cgwsel
+    stz.w ppu_vars.cgadsub
+    stz.w ppu_vars.coldata
+    stz.w ppu_vars.tm
     lda #$12 : jsl _0190B9_palette_to_ram
     jsr _D0C1
     ldx #$01 : ldy #$0E : jsl _D0BB
@@ -229,12 +229,12 @@ create: ;a8 x8
 
 .CEF1:
     lda #$5D : jsl _018049_8053 ;lightning sfx
-    lda #$17 : sta.w snes_reg.tm
+    lda #$17 : sta.w ppu_vars.tm
     rts
 
 .CEFD:
     lda $08 : and #$F7 : sta $08
-    stz.w snes_reg.tm
+    stz.w ppu_vars.tm
     rts
 
 .CF07: ;1st & 3rd demon in 3rd scene
@@ -385,7 +385,7 @@ endif
 
     !A8
     stz $032E
-    stz.w snes_reg.hdmaen
+    stz.w ppu_vars.hdmaen
 if !version == !JP
     ldy #$27 : jsl decompress
 elseif !version == !US || !version == !EU
@@ -415,9 +415,9 @@ endif
 if !version == !JP
     lda #$15 : sta $031E
 endif
-    lda #$05 : sta.w snes_reg.bg34nba
-    lda #$16 : sta.w snes_reg.tm : sta $02D7
-    lda.w snes_reg.bgmode : ora #$08 : sta.w snes_reg.bgmode
+    lda #$05 : sta.w ppu_vars.bg34nba
+    lda #$16 : sta.w ppu_vars.tm : sta $02D7
+    lda.w ppu_vars.bgmode : ora #$08 : sta.w ppu_vars.bgmode
     ldx #$02 : ldy #$90 : lda.b #task_list_18 : jsl add_task
 .D075:
     brk #$00

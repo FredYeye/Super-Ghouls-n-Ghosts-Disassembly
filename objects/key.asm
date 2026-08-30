@@ -176,7 +176,7 @@ thing:
     bmi .ED8A
 
     inc $1F9E
-    jsl _01DDAE
+    jsl setup_arthur_key_state
     lda.w stage : asl : tax
     jsr (.ED8B,X)
     lda #$8C : sta.b obj.active

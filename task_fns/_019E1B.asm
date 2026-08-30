@@ -32,14 +32,14 @@ _019E1B: ;a8 x?
     adc #$40
     sta $7F9802
     lda #$01 : sta $7F9803 : sta $7F9806 : sta $7F9809
-    lda #$02   : sta.w snes_reg.w12sel
+    lda #$02   : sta.w ppu_vars.w12sel
     lda #$01   : sta   !DMAP5
     lda.b #WH0 : sta   !BBAD5
     lda #$00   : sta.w A1T5L
     lda #$98   : sta.w A1T5H
     lda #$7F   : sta.w A1B5
     stz.w DAS5B
-    lda #$20 : ora.w snes_reg.hdmaen : sta.w snes_reg.hdmaen
+    lda #$20 : ora.w ppu_vars.hdmaen : sta.w ppu_vars.hdmaen
 .9EA9:
     lda.b #1 : jsl current_task_suspend
     lda $CE
