@@ -3485,7 +3485,7 @@ _02FDB3: ;a8 x-
 .FDB7: ;a8 x-
     lda #$8C : sta.w !obj_arthur.active
     lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
-    lda $0276 : ora #$02 : sta $0276
+    lda.w invuln_flags : ora #$02 : sta.w invuln_flags
     rts
 }
 

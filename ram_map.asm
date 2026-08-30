@@ -39,7 +39,8 @@
         .top:    skip 1
     endstruct
 
-    ;                   $0276 flags?
+    invuln_flags      = $0276
+    ;$0277 ready go / mosaic transition related
     game_state        = $0278
     game_sub_state    = $0279 ;sub game state, used by 2 game states (0 & 11)
     money_bag_count   = $027A

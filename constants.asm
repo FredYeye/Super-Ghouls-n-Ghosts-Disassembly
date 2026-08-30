@@ -47,8 +47,12 @@
     !obj_destroy = $8C
 }
 
-{
-    ;$0278
+{ ;$0276 flags
+    ;!invuln_hit           = $02 ?
+    !invuln_rotating_cage = $04
+}
+
+{ ;game_state
     ;!game_state_? = 0 ;intro cutscene / menu / demo
     !game_state_time_over         = 6
     !game_state_mosaic_transition = 7

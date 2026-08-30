@@ -7737,8 +7737,7 @@ _01DDCE: ;a8 x-
 _01DDE6: ;a8 x-
     lda #$01
 .DDE8:
-    ora $0276
-    sta $0276
+    ora.w invuln_flags : sta.w invuln_flags
     rts
 }
 
@@ -7749,7 +7748,7 @@ _01DDEF:
     rtl
 
 .local: ;a8 x-
-    lda $0276 : and #$FE : sta $0276
+    lda.w invuln_flags : and #$FE : sta.w invuln_flags
     rts
 }
 

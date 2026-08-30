@@ -44,7 +44,7 @@ create:
     lda.b #_01DDFC    : sta.w !obj_arthur.state+1
     lda.b #_01DDFC>>8 : sta.w !obj_arthur.state+2
     inc $14F5
-    lda $0276 : ora #$04 : sta $0276
+    lda.w invuln_flags : ora.b #!invuln_rotating_cage : sta.w invuln_flags
     lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
     ldy #$C6 : ldx #$21 : jsl set_sprite
     !A16
@@ -94,7 +94,7 @@ create:
     lda.w rotating_platform_data_CED8+0,X : sta.w !obj_arthur.state+1
     lda.w rotating_platform_data_CED8+1,X : sta.w !obj_arthur.state+2
 .F6A1:
-    lda $0276 : and #$FB : sta $0276
+    lda.w invuln_flags : and.b #~!invuln_rotating_cage : sta.w invuln_flags
     stz $14F5
     jmp .F5CE
 

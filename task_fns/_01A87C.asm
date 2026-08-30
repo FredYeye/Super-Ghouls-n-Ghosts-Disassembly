@@ -94,7 +94,7 @@ endif
     jmp (+,X) : +: dw .A955, .A96A, .A9CE, .AA8E
 
 .A955:
-    lda #$80 : sta $0276
+    lda #$80 : sta.w invuln_flags
     lda #$01 : sta.w difficulty_base : sta.w difficulty
     stz.w loop
     lda #$00 : sta $1FC7
@@ -245,7 +245,7 @@ endif
     stz.w stage
     stz.w checkpoint
     stz $1FB9
-    stz $0276
+    stz.w invuln_flags
     stz.w loop
     stz $0292
     stz.w money_bag_count

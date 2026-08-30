@@ -165,7 +165,7 @@ endif
     lda.b #_01DC56    : sta.w !obj_arthur.state+1
     lda.b #_01DC56>>8 : sta.w !obj_arthur.state+2
     lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
-    lda $0276 : ora #$02 : sta $0276
+    lda.w invuln_flags : ora #$02 : sta.w invuln_flags
     lda #$FF : sta.w !obj_arthur.hp
     inc $14D1
 .9A51:

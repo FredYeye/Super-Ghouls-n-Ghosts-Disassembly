@@ -4,7 +4,7 @@ namespace arthur
 
 {
 create: ;a8 x8
-    lda $0276 : and #$F8 : sta $0276
+    lda.w invuln_flags : and #$F8 : sta.w invuln_flags
     lda.w armor_state
     beq .CCCC
 
@@ -584,7 +584,7 @@ thing: ;a8 x8
     jsr _01D1E1
     lda $08
     and #$7F
-    ldx $0276
+    ldx.w invuln_flags
     beq +
 
     ora #$80
@@ -605,7 +605,7 @@ thing: ;a8 x8
     bne .D113
 
     lda $08   : and #$EF : sta $08
-    lda $0276 : and #$FD : sta $0276
+    lda.w invuln_flags : and #$FD : sta.w invuln_flags
 .D113:
     rtl
 
@@ -1232,7 +1232,7 @@ _01D565: ;a8 x?
 .D584:
     stz $0F
     jsr _01DDEF_local
-    lda $0276 : ora #$02 : sta $0276
+    lda.w invuln_flags : ora #$02 : sta.w invuln_flags
     lda $08 : ora #$90 : sta $08
     lda #$2D : sta $2E
     jmp create_CDC4

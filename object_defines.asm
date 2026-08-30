@@ -261,7 +261,7 @@ endstruct
     !obj_flags1_flicker = $10 ;bit 4
     !obj_flags1_shimmer = $20 ;bit 5
     ;bit 6: unused?
-    ;bit 7: unused?
+    ;bit 7: unused? ;arthur invuln bit
 
     ;flags2
     ;bit 0: ?
