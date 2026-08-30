@@ -386,7 +386,7 @@ _0281FF: ;a8 x8
 object_handling: ;a8 x8
     phd
     lda.b #53 : sta.w object_loop_dec
-    stz object_loop_inc
+    stz.w object_loop_inc
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
 .822A:
     lda.w ready_go_active
@@ -462,7 +462,7 @@ object_handling: ;a8 x8
     clc : tdc : adc.w #obj.ext.len : tcd
     clc : lda.w !obj_arthur.pos_y+1 : adc.w arthur_hitbox.offset_from_ground : sta.w arthur_hitbox.pos_with_offset
     !A8
-    inc object_loop_inc
+    inc.w object_loop_inc
     dec.w object_loop_dec
     bne .822A
 
@@ -1807,7 +1807,7 @@ _0296E9: ;only used by eagler
     jsr _02FA37_FA6D
     lda.w frame_counter
     clc
-    adc object_loop_inc
+    adc.w object_loop_inc
     and #$03
     bne .96FD
 
@@ -1822,7 +1822,7 @@ _0296FE: ;a8 x-
     jsr _02F9FA_local
     lda.w frame_counter
     clc
-    adc object_loop_inc
+    adc.w object_loop_inc
     and #$03
     bne .9712
 
@@ -3086,7 +3086,7 @@ _02FAD4: ;a- x-
 _02FB2B: ;a8 x?
     lda.w frame_counter
     clc
-    adc object_loop_inc
+    adc.w object_loop_inc
     and #$03
     bne .FB5F
 
@@ -3425,7 +3425,7 @@ _02FD62:
 .FD6A: ;a8 x?
     lda.w frame_counter
     clc
-    adc object_loop_inc
+    adc.w object_loop_inc
     and #$03
     bne .FDB1
 
@@ -3438,7 +3438,7 @@ _02FD62:
 .FD7C: ;a8 x-
     lda.w frame_counter
     clc
-    adc object_loop_inc
+    adc.w object_loop_inc
     and #$03
     bne .FDB1
 
@@ -3694,7 +3694,7 @@ collision_check_arthur: ;a8 x-
 collision_check_shield: ;a8 x-
     lda.w frame_counter
     clc
-    adc object_loop_inc
+    adc.w object_loop_inc
     and #$03
     bne .ret
 
