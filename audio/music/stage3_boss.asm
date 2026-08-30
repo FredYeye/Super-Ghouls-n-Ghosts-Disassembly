@@ -5,7 +5,7 @@
     %tempo($0286)
     %release($16)
     %volume($7A)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %octave($02)
 ..2D27:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -71,7 +71,7 @@ if !version == !JP || !version == !US
 elseif !version == !EU
     %volume($55)
 endif
-    %instrument($0E)
+    %instrument(!sample_flute)
 ..2D7B:
     %toggle_triplet_portamento_2_octave_up($00)
     %note($00, 5)
@@ -129,7 +129,7 @@ if !version == !JP || !version == !US
 elseif !version == !EU
     %volume($64)
 endif
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($04)
     %tuning($10)
     %note($07, 4)

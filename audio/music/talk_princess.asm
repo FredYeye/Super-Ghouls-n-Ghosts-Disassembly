@@ -128,7 +128,7 @@
     %toggle_portamento()
     %note($09, 7)
     %lfo($00, $00)
-    %instrument($0E)
+    %instrument(!sample_flute)
 if !version == !JP || !version == !US
     %volume($55)
     %octave($03)
@@ -175,7 +175,7 @@ endif
     %duration($F5)
     %release($15)
     %volume($1E)
-    %instrument($0D)
+    %instrument(!sample_clarinet)
     %octave($03)
     %toggle_2_octaves_up()
     %note($0E, 5)
@@ -205,7 +205,7 @@ endif
     %duration($F5)
     %release($15)
     %volume($1E)
-    %instrument($0D)
+    %instrument(!sample_clarinet)
     %octave($03)
     %toggle_2_octaves_up()
     %note($0B, 5)
@@ -234,7 +234,7 @@ endif
 ..ch4:
     %duration($F5)
     %volume($1E)
-    %instrument($0D)
+    %instrument(!sample_clarinet)
     %octave($03)
     %note($1F, 5)
     %set_dotted_note()
@@ -251,11 +251,11 @@ endif
     %duration($FF)
 if !version == !JP || !version == !US
     %volume($37)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($03)
 elseif !version == !EU
     %volume($32)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($04)
 endif
     %tuning($1E)

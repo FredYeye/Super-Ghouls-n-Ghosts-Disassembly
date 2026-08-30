@@ -8,7 +8,7 @@
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($FA)
     %volume($7F)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %octave($02)
 ..33F4:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -439,7 +439,7 @@
     %tuning($0A)
     %duration($FF)
     %volume($3F)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($03)
     %note($1B, 6)
     %note($1D, 5)

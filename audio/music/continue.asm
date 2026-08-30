@@ -70,11 +70,11 @@
     %release($14)
 if !version == !JP || !version == !US
     %volume($34)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($03)
 elseif !version == !EU
     %volume($2A)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($04)
 endif
 

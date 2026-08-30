@@ -577,7 +577,7 @@ spc_0609:
 }
 
 if !version == !EU
-    incsrc "various/spc_code.asm"
+    incsrc "audio/spc_code.asm"
 endif
 
 spc_0656: ;0656 - 07D1
@@ -1422,7 +1422,7 @@ spc_0B0E:
     jmp  spc_0B4B
 
 if !version == !JP || !version == !US
-    incsrc "various/spc_code.asm"
+    incsrc "audio/spc_code.asm"
 endif
 
 ;-----
@@ -1468,105 +1468,105 @@ spc_0E00:
 
 ;-----
 
-.stage1: incsrc "music/stage1.asm"
-.stage2: incsrc "music/stage2.asm"
-.stage5: incsrc "music/stage5.asm"
-.stage4: incsrc "music/stage4.asm"
-.stage3: incsrc "music/stage3.asm"
-.stage6: incsrc "music/stage6.asm"
-.stage8: incsrc "music/stage8.asm"
-.stage1_boss: incsrc "music/stage1_boss.asm"
-.stage2_boss: incsrc "music/stage2_boss.asm"
-.stage3_boss: incsrc "music/stage3_boss.asm"
-.stage4_boss: incsrc "music/stage4_boss.asm"
-.stage5_boss: incsrc "music/stage5_boss.asm"
-.stage6_boss: incsrc "music/stage6_boss.asm"
-.stage_clear: incsrc "music/stage_clear.asm"
-.game_over: incsrc "music/game_over.asm"
-.map: incsrc "music/map.asm"
-.continue: incsrc "music/continue.asm"
-.talk_princess: incsrc "music/talk_princess.asm"
-.game_start: incsrc "music/game_start.asm"
-.ending: incsrc "music/ending.asm"
+.stage1: incsrc "audio/music/stage1.asm"
+.stage2: incsrc "audio/music/stage2.asm"
+.stage5: incsrc "audio/music/stage5.asm"
+.stage4: incsrc "audio/music/stage4.asm"
+.stage3: incsrc "audio/music/stage3.asm"
+.stage6: incsrc "audio/music/stage6.asm"
+.stage8: incsrc "audio/music/stage8.asm"
+.stage1_boss: incsrc "audio/music/stage1_boss.asm"
+.stage2_boss: incsrc "audio/music/stage2_boss.asm"
+.stage3_boss: incsrc "audio/music/stage3_boss.asm"
+.stage4_boss: incsrc "audio/music/stage4_boss.asm"
+.stage5_boss: incsrc "audio/music/stage5_boss.asm"
+.stage6_boss: incsrc "audio/music/stage6_boss.asm"
+.stage_clear: incsrc "audio/music/stage_clear.asm"
+.game_over: incsrc "audio/music/game_over.asm"
+.map: incsrc "audio/music/map.asm"
+.continue: incsrc "audio/music/continue.asm"
+.talk_princess: incsrc "audio/music/talk_princess.asm"
+.game_start: incsrc "audio/music/game_start.asm"
+.ending: incsrc "audio/music/ending.asm"
 
 ;-----
 
 ;todo: maybe match names with "music / sfx IDs" section in chou.asm
 
-.lance:                 incsrc "sfx/lance.asm"
-.bowgun:                incsrc "sfx/bowgun.asm"
-.knife:                 incsrc "sfx/knife.asm"
-.scythe:                incsrc "sfx/scythe.asm"
-.torch:                 incsrc "sfx/torch.asm"
-.unk25:                 incsrc "sfx/unk25.asm"
-.hydra_fireball:        incsrc "sfx/hydra_fireball.asm" ;torch2 sfx in prototype
-.lance2:                incsrc "sfx/lance2.asm"
-.bowgun2:               incsrc "sfx/bowgun2.asm"
-.knife2:                incsrc "sfx/knife2.asm"
-.unk2A:                 incsrc "sfx/unk2A.asm" ;another proto sound?
-.arthur_jump:           incsrc "sfx/arthur_jump.asm"
-.arthur_land:           incsrc "sfx/arthur_land.asm"
-.arthur_steel_armor:    incsrc "sfx/arthur_steel_armor.asm"
-.arthur_upgraded_armor: incsrc "sfx/arthur_upgraded_armor.asm"
-.arthur_break_armor:    incsrc "sfx/arthur_break_armor.asm"
-.item_pickup:           incsrc "sfx/item_pickup.asm"
-.arthur_death:          incsrc "sfx/arthur_death.asm"
-.water_crash_begin:     incsrc "sfx/water_crash_begin.asm"
-.water_crash_end:       incsrc "sfx/water_crash_end.asm"
-.earthquake:            incsrc "sfx/earthquake.asm"
-.projectile:            incsrc "sfx/projectile.asm" ;siren, storm cesaris, death crawler
-.pause:                 incsrc "sfx/pause.asm"
-.menu_movement:         incsrc "sfx/menu_movement.asm"
-.hit:                   incsrc "sfx/hit.asm"
-.impact:                incsrc "sfx/impact.asm" ;stomp / shake
-.bracelet:              incsrc "sfx/bracelet.asm"
-.enemy_death:           incsrc "sfx/enemy_death.asm"
-.empty3C:               incsrc "sfx/empty3C.asm"
-.raft_pulley:           incsrc "sfx/raft_pulley.asm"
-.vortex:                incsrc "sfx/vortex.asm"
-.ghost_spawn:           incsrc "sfx/ghost_spawn.asm"
-.guillotine:            incsrc "sfx/guillotine.asm"
-.unk41:                 incsrc "sfx/unk41.asm"
-.unk42:                 incsrc "sfx/unk42.asm"
-.ice:                   incsrc "sfx/ice.asm"
-.bars:                  incsrc "sfx/bars.asm"
-.grow:                  incsrc "sfx/grow.asm"
-.flying_knight:         incsrc "sfx/flying_knight.asm"
-.shatter:               incsrc "sfx/shatter.asm"
-.gate_open:             incsrc "sfx/gate_open.asm"
-.rosebud_grow:          incsrc "sfx/rosebud_grow.asm"
-.ship_creak:            incsrc "sfx/ship_creak.asm"
-.fireworks:             incsrc "sfx/fireworks.asm"
-.cockatrice_spew:       incsrc "sfx/cockatrice_spew.asm"
-.skulls:                incsrc "sfx/skulls.asm"
-.rosebud_explode:       incsrc "sfx/rosebud_explode.asm"
-.ghost_destroy:         incsrc "sfx/ghost_destroy.asm"
-.mimic_shake:           incsrc "sfx/mimic_shake.asm"
-.mimic_jump:            incsrc "sfx/mimic_jump.asm"
-.magic_charge:          incsrc "sfx/magic_charge.asm"
-.magic_release:         incsrc "sfx/magic_release.asm"
-.magic_seek:            incsrc "sfx/magic_seek.asm"
-.magic_tornado:         incsrc "sfx/magic_tornado.asm"
-.magic_shield:          incsrc "sfx/magic_shield.asm"
-.magic_lightning:       incsrc "sfx/magic_lightning.asm"
-.astaroth_laser:        incsrc "sfx/astaroth_laser.asm" ;also used by nebiroth
-.astaroth_flame:        incsrc "sfx/astaroth_flame.asm" ;also used by nebiroth
-.transform:             incsrc "sfx/transform.asm"
-.rotating_platform:     incsrc "sfx/rotating_platform.asm"
-.rotating_platform_end: incsrc "sfx/rotating_platform_end.asm"
-.lightning:             incsrc "sfx/lightning.asm"
-.unk5E:                 incsrc "sfx/unk5E.asm"
-.axe2_triblade2:        incsrc "sfx/axe2_triblade2.asm"
-.projectile2:           incsrc "sfx/projectile2.asm" ;arremer, veil allocen projectile, samael platform, some weird menu thing
-.1up:                   incsrc "sfx/1up.asm"
-.capcom_jingle:         incsrc "sfx/capcom_jingle.asm"
-.menu_select:           incsrc "sfx/menu_select.asm"
-.death_crawler_spin:    incsrc "sfx/death_crawler_spin.asm"
-.hydra_transform:       incsrc "sfx/hydra_transform.asm"
-.hydra_transform2:      incsrc "sfx/hydra_transform2.asm"
-.axe_triblade_claw:     incsrc "sfx/axe_triblade_claw.asm"
-.avalanche:             incsrc "sfx/avalanche.asm"
-.collision:             incsrc "sfx/collision.asm"
+.lance:                 incsrc "audio/sfx/lance.asm"
+.bowgun:                incsrc "audio/sfx/bowgun.asm"
+.knife:                 incsrc "audio/sfx/knife.asm"
+.scythe:                incsrc "audio/sfx/scythe.asm"
+.torch:                 incsrc "audio/sfx/torch.asm"
+.unk25:                 incsrc "audio/sfx/unk25.asm"
+.hydra_fireball:        incsrc "audio/sfx/hydra_fireball.asm" ;torch2 sfx in prototype
+.lance2:                incsrc "audio/sfx/lance2.asm"
+.bowgun2:               incsrc "audio/sfx/bowgun2.asm"
+.knife2:                incsrc "audio/sfx/knife2.asm"
+.unk2A:                 incsrc "audio/sfx/unk2A.asm" ;another proto sound?
+.arthur_jump:           incsrc "audio/sfx/arthur_jump.asm"
+.arthur_land:           incsrc "audio/sfx/arthur_land.asm"
+.arthur_steel_armor:    incsrc "audio/sfx/arthur_steel_armor.asm"
+.arthur_upgraded_armor: incsrc "audio/sfx/arthur_upgraded_armor.asm"
+.arthur_break_armor:    incsrc "audio/sfx/arthur_break_armor.asm"
+.item_pickup:           incsrc "audio/sfx/item_pickup.asm"
+.arthur_death:          incsrc "audio/sfx/arthur_death.asm"
+.water_crash_begin:     incsrc "audio/sfx/water_crash_begin.asm"
+.water_crash_end:       incsrc "audio/sfx/water_crash_end.asm"
+.earthquake:            incsrc "audio/sfx/earthquake.asm"
+.projectile:            incsrc "audio/sfx/projectile.asm" ;siren, storm cesaris, death crawler
+.pause:                 incsrc "audio/sfx/pause.asm"
+.menu_movement:         incsrc "audio/sfx/menu_movement.asm"
+.hit:                   incsrc "audio/sfx/hit.asm"
+.impact:                incsrc "audio/sfx/impact.asm" ;stomp / shake
+.bracelet:              incsrc "audio/sfx/bracelet.asm"
+.enemy_death:           incsrc "audio/sfx/enemy_death.asm"
+.empty3C:               incsrc "audio/sfx/empty3C.asm"
+.raft_pulley:           incsrc "audio/sfx/raft_pulley.asm"
+.vortex:                incsrc "audio/sfx/vortex.asm"
+.ghost_spawn:           incsrc "audio/sfx/ghost_spawn.asm"
+.guillotine:            incsrc "audio/sfx/guillotine.asm"
+.unk41:                 incsrc "audio/sfx/unk41.asm"
+.unk42:                 incsrc "audio/sfx/unk42.asm"
+.ice:                   incsrc "audio/sfx/ice.asm"
+.bars:                  incsrc "audio/sfx/bars.asm"
+.grow:                  incsrc "audio/sfx/grow.asm"
+.flying_knight:         incsrc "audio/sfx/flying_knight.asm"
+.shatter:               incsrc "audio/sfx/shatter.asm"
+.gate_open:             incsrc "audio/sfx/gate_open.asm"
+.rosebud_grow:          incsrc "audio/sfx/rosebud_grow.asm"
+.ship_creak:            incsrc "audio/sfx/ship_creak.asm"
+.fireworks:             incsrc "audio/sfx/fireworks.asm"
+.cockatrice_spew:       incsrc "audio/sfx/cockatrice_spew.asm"
+.skulls:                incsrc "audio/sfx/skulls.asm"
+.rosebud_explode:       incsrc "audio/sfx/rosebud_explode.asm"
+.ghost_destroy:         incsrc "audio/sfx/ghost_destroy.asm"
+.mimic_shake:           incsrc "audio/sfx/mimic_shake.asm"
+.mimic_jump:            incsrc "audio/sfx/mimic_jump.asm"
+.magic_charge:          incsrc "audio/sfx/magic_charge.asm"
+.magic_release:         incsrc "audio/sfx/magic_release.asm"
+.magic_seek:            incsrc "audio/sfx/magic_seek.asm"
+.magic_tornado:         incsrc "audio/sfx/magic_tornado.asm"
+.magic_shield:          incsrc "audio/sfx/magic_shield.asm"
+.magic_lightning:       incsrc "audio/sfx/magic_lightning.asm"
+.astaroth_laser:        incsrc "audio/sfx/astaroth_laser.asm" ;also used by nebiroth
+.astaroth_flame:        incsrc "audio/sfx/astaroth_flame.asm" ;also used by nebiroth
+.transform:             incsrc "audio/sfx/transform.asm"
+.rotating_platform:     incsrc "audio/sfx/rotating_platform.asm"
+.rotating_platform_end: incsrc "audio/sfx/rotating_platform_end.asm"
+.lightning:             incsrc "audio/sfx/lightning.asm"
+.unk5E:                 incsrc "audio/sfx/unk5E.asm"
+.axe2_triblade2:        incsrc "audio/sfx/axe2_triblade2.asm"
+.projectile2:           incsrc "audio/sfx/projectile2.asm" ;arremer, veil allocen projectile, samael platform, some weird menu thing
+.1up:                   incsrc "audio/sfx/1up.asm"
+.capcom_jingle:         incsrc "audio/sfx/capcom_jingle.asm"
+.menu_select:           incsrc "audio/sfx/menu_select.asm"
+.death_crawler_spin:    incsrc "audio/sfx/death_crawler_spin.asm"
+.hydra_transform:       incsrc "audio/sfx/hydra_transform.asm"
+.hydra_transform2:      incsrc "audio/sfx/hydra_transform2.asm"
+.axe_triblade_claw:     incsrc "audio/sfx/axe_triblade_claw.asm"
+.avalanche:             incsrc "audio/sfx/avalanche.asm"
+.collision:             incsrc "audio/sfx/collision.asm"
 
 ;-----
 
@@ -1585,19 +1585,19 @@ endif
     dw sample_timpani, sample_timpani
     dw sample_snare, sample_snare
     dw sample07, sample07+11*9
-    dw sample08, sample08+305*9
+    dw sample_tuba, sample_tuba+305*9
     dw sample_strings, sample_strings+38*9
     dw sample_pizzicato, sample_pizzicato+121*9
     dw sample_harp, sample_harp+140*9
-    dw sample12, sample12+100*9
-    dw sample13, sample13+87*9
+    dw sample_oboe, sample_oboe+100*9
+    dw sample_clarinet, sample_clarinet+87*9
 if !version == !JP || !version == !US
-    dw sample14, sample14+101*9
+    dw sample_flute, sample_flute+101*9
 elseif !version == !EU
-    dw sample14, sample14+132*9
+    dw sample_flute, sample_flute+132*9
 endif
-    dw sample15, sample15+225*9
-    dw sample16, sample16+284*9
+    dw sample_french_horn, sample_french_horn+225*9
+    dw sample_trumpet, sample_trumpet+284*9
     dw sample_organ, sample_organ+162*9
 if !version == !JP || !version == !US
     dw sample18, sample18+3*9
@@ -1649,41 +1649,41 @@ if !version == !JP || !version == !US
     dw $A630, $5940 : base $5940
 endif
 
-    sample00: incbin "audio/sample00.brr"
-    sample01: incbin "audio/sample01.brr"
-    sample_hat: incbin "audio/sample_hat.brr"
-    sample_square: incbin "audio/sample_square.brr"
-    sample_saw: incbin "audio/sample_saw.brr"
-    sample_timpani: incbin "audio/sample_timpani.brr"
-    sample_snare: incbin "audio/sample_snare.brr"
-    sample07: incbin "audio/sample07.brr"
-    sample08: incbin "audio/sample08.brr"
-    sample_strings: incbin "audio/sample_strings.brr"
-    sample_pizzicato: incbin "audio/sample_pizzicato.brr"
-    sample_harp: incbin "audio/sample_harp.brr"
-    sample12: incbin "audio/sample12.brr"
-    sample13: incbin "audio/sample13.brr"
+    sample00: incbin "audio/samples/sample00.brr"
+    sample01: incbin "audio/samples/sample01.brr"
+    sample_hat: incbin "audio/samples/sample_hat.brr"
+    sample_square: incbin "audio/samples/sample_square.brr"
+    sample_saw: incbin "audio/samples/sample_saw.brr"
+    sample_timpani: incbin "audio/samples/sample_timpani.brr"
+    sample_snare: incbin "audio/samples/sample_snare.brr"
+    sample07: incbin "audio/samples/sample07.brr"
+    sample_tuba: incbin "audio/samples/sample_tuba.brr"
+    sample_strings: incbin "audio/samples/sample_strings.brr"
+    sample_pizzicato: incbin "audio/samples/sample_pizzicato.brr"
+    sample_harp: incbin "audio/samples/sample_harp.brr"
+    sample_oboe: incbin "audio/samples/sample_oboe.brr"
+    sample_clarinet: incbin "audio/samples/sample_clarinet.brr"
 if !version == !JP || !version == !US
-    sample14: incbin "audio/sample14.brr"
+    sample_flute: incbin "audio/samples/sample_flute.brr"
 elseif !version == !EU
-    sample14: incbin "audio/sample14_eu.brr"
+    sample_flute: incbin "audio/samples/sample14_eu.brr"
 endif
-    sample15: incbin "audio/sample15.brr"
-    sample16: incbin "audio/sample16.brr"
-    sample_organ: incbin "audio/sample_organ.brr"
+    sample_french_horn: incbin "audio/samples/sample_french_horn.brr"
+    sample_trumpet: incbin "audio/samples/sample_trumpet.brr"
+    sample_organ: incbin "audio/samples/sample_organ.brr"
 if !version == !JP || !version == !US
-    sample18: incbin "audio/sample18.brr"
+    sample18: incbin "audio/samples/sample18.brr"
 elseif !version == !EU
-    sample18: incbin "audio/sample18_eu.brr"
+    sample18: incbin "audio/samples/sample18_eu.brr"
 endif
-    sample19: incbin "audio/sample19.brr"
+    sample19: incbin "audio/samples/sample19.brr"
 if !version == !JP || !version == !US
-    sample_hat_closed: incbin "audio/sample_hat_closed.brr"
-    sample21: incbin "audio/sample21.brr"
+    sample_hat_closed: incbin "audio/samples/sample_hat_closed.brr"
+    sample21: incbin "audio/samples/sample21.brr"
     fillbyte $FF : fill 10
 elseif !version == !EU
-    sample_hat_closed: incbin "audio/sample_hat_closed_eu.brr"
-    sample21: incbin "audio/sample21_eu.brr"
+    sample_hat_closed: incbin "audio/samples/sample_hat_closed_eu.brr"
+    sample21: incbin "audio/samples/sample21_eu.brr"
     incbin "audio/unk.bin" ;todo: inspect. maybe just leftover (US) data?
 endif
 

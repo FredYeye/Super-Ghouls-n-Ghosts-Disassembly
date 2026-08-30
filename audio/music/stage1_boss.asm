@@ -5,7 +5,7 @@
     %tempo($01C7)
     %duration($E6)
     %volume($7C)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %octave($02)
     %toggle_portamento()
     %note($05, 7)
@@ -296,7 +296,7 @@
     %note($0A, 4)
     %duration($23)
     %volume($64)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %note($0A, 3)
     %note($0A, 3)
     %loop(0, 9, ..2A6D)
@@ -311,7 +311,7 @@
 ..2A89:
     %duration($26)
     %volume($3C)
-    %instrument($10)
+    %instrument(!sample_trumpet)
 ..2A8F:
     %toggle_triplet_portamento_2_octave_up($00)
     %note($05, 4)

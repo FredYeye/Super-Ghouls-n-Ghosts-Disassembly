@@ -51,7 +51,7 @@
     %duration($FF)
     %release($14)
     %volume($48)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($03)
     %set_dotted_note()
     %note($00, 6)

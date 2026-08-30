@@ -34,13 +34,13 @@ if !version == !JP || !version == !US
     %tuning($14)
     %duration($F0)
     %octave($02)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %release($12)
     %volume($66)
 elseif !version == !EU
     %duration($F0)
     %octave($03)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %release($12)
     %volume($55)
 endif
@@ -85,7 +85,7 @@ endif
     %note($11, 6)
 ..1BC6:
     %toggle_triplet_portamento_2_octave_up($08)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($02)
 if !version == !JP || !version == !US
     %volume($53)
@@ -118,7 +118,7 @@ elseif !version == !EU
 endif
     %release($16)
     %duration($64)
-    %instrument($0E)
+    %instrument(!sample_flute)
 if !version == !JP || !version == !US
     %volume($50)
 elseif !version == !EU

@@ -27,7 +27,7 @@
     %note($00, 3)
     %note($18, 5)
     %duration($C8)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %volume($76)
 ..1EE4:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -126,7 +126,7 @@
 
 ..ch7:
     %pan($3C)
-    %instrument($0E)
+    %instrument(!sample_flute)
 ..1F5D:
     %toggle_triplet_portamento_2_octave_up($08)
 if !version == !JP || !version == !US
@@ -531,7 +531,7 @@ endif
     %note($00, 6)
     %tuning($F4)
     %duration($C8)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %volume($27)
     %octave($03)
     %lfo($00, $01)
@@ -573,7 +573,7 @@ endif
     %note($19, 6)
     %lfo($00, $00)
     %pan($CE)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %volume($34)
     %duration($8C)
     %note($1C, 4)
@@ -690,7 +690,7 @@ endif
     %note($03, 5)
     %pan($55)
     %duration($F0)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %volume($36)
     %octave($03)
     %tuning($28)
@@ -714,7 +714,7 @@ endif
     %pan($CE)
     %tuning($00)
     %duration($8C)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %volume($34)
     %note($19, 4)
     %note($1B, 4)
@@ -753,7 +753,7 @@ endif
     %loop(0, 1, ..220B)
 ..2237:
     %per_voice_transpose($00)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %pan($3C)
     %tuning($32)
     %note($14, 5)

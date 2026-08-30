@@ -20,7 +20,7 @@
     %end_track()
 
 ..ch2:
-    %instrument($0D)
+    %instrument(!sample_clarinet)
     %tempo($0090)
     %lfo($01, $2D)
     %lfo($02, $64)

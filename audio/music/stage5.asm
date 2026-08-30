@@ -48,7 +48,7 @@
     %note($16, 5)
     %note($18, 5)
     %tuning($00)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %volume($74)
     %duration($50)
     %octave($02)
@@ -118,12 +118,12 @@
     %duration($FF)
 if !version == !JP || !version == !US
     %volume($58)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($03)
     %tuning($19)
 elseif !version == !EU
     %volume($3C)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($04)
     %tuning($0F)
 endif
@@ -239,7 +239,7 @@ if !version == !EU
     %octave($04)
 endif
     %tuning($00)
-    %instrument($0D)
+    %instrument(!sample_clarinet)
 if !version == !JP || !version == !US
     %volume($2C)
     %octave($04)
@@ -295,12 +295,12 @@ endif
 ..1926:
 if !version == !JP || !version == !US
     %tuning($14)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %volume($69)
 elseif !version == !EU
     %octave($04)
     %tuning($0F)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %volume($4B)
 endif
 ..192C:

@@ -4,7 +4,7 @@
 ..ch8:
     %global_transpose($01)
     %tempo($010B)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %duration($C8)
     %release($15)
     %volume($7F)
@@ -140,7 +140,7 @@
     %duration($73)
     %release($15)
     %volume($2A)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %octave($03)
     %toggle_2_octaves_up()
     %note($12, 3)
@@ -230,7 +230,7 @@
     %duration($73)
     %release($15)
     %volume($2A)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %octave($03)
     %toggle_2_octaves_up()
     %note($0F, 3)
@@ -307,11 +307,11 @@
     %duration($F5)
 if !version == !JP || !version == !US
     %volume($60)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($02)
 elseif !version == !EU
     %volume($4B)
-    %instrument($0E)
+    %instrument(!sample_flute)
     %octave($03)
 endif
     %set_dotted_note()
@@ -393,7 +393,7 @@ endif
 ..ch3:
     %duration($F0)
     %volume($48)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($03)
     %set_dotted_note()
     %note($00, 4)

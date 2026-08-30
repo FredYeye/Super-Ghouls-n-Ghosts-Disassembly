@@ -16,7 +16,7 @@ endif
     %note($00, 7)
     %duration($FF)
     %release($14)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %volume($72)
     %octave($02)
     %note($0D, 6)
@@ -151,7 +151,7 @@ endif
     %note($0B, 4)
     %note($00, 4)
     %octave($03)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %volume($20)
     %duration($C0)
     %note($08, 4)
@@ -206,7 +206,7 @@ endif
     %note($05, 4)
     %note($00, 4)
     %octave($03)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %volume($20)
     %duration($C0)
     %note($01, 4)
@@ -259,7 +259,7 @@ if !version == !EU
     %octave($04)
 endif
     %duration($FF)
-    %instrument($0E)
+    %instrument(!sample_flute)
 if !version == !JP || !version == !US
     %volume($5A)
 elseif !version == !EU
@@ -302,7 +302,7 @@ endif
     %note($00, 3)
     %note($10, 3)
     %note($0F, 3)
-    %instrument($0E)
+    %instrument(!sample_flute)
 if !version == !JP || !version == !US
     %volume($5A)
 elseif !version == !EU

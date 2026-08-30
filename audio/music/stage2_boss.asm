@@ -4,7 +4,7 @@
 ..ch8:
     %tempo($00F5)
     %volume($7B)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %octave($02)
     %note($00, 7)
 ..2B14:
@@ -306,7 +306,7 @@
     %tuning($E2)
     %duration($3A)
     %volume($41)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %octave($04)
 ..2C99:
     %toggle_triplet_portamento_2_octave_up($00)

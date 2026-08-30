@@ -182,16 +182,32 @@
 }
 
 { ;sample IDs
-    !sample_hat        = 02
-    !sample_square     = 03
-    !sample_saw        = 04
-    !sample_timpani    = 05
-    !sample_snare      = 06
-    !sample_strings    = 09
-    !sample_pizzicato  = 10
-    !sample_harp       = 11
-    !sample_organ      = 17
-    ; 18 vibraphone?
-    !sample_hat_closed = 20
-    ; 21 vibraphone2?
+    ;                     00
+    ;                     01 ;noise
+    !sample_hat         = 02
+    !sample_square      = 03
+    !sample_saw         = 04
+    !sample_timpani     = 05
+    !sample_snare       = 06
+    ;                     07 ;organ?
+    !sample_tuba        = 08
+    !sample_strings     = 09
+    !sample_pizzicato   = 10
+    !sample_harp        = 11
+    !sample_oboe        = 12
+    !sample_clarinet    = 13
+    !sample_flute       = 14
+    !sample_french_horn = 15
+    !sample_trumpet     = 16
+    !sample_organ       = 17
+    ;                     18 vibraphone?
+    ;                     19
+    !sample_hat_closed  = 20
+    ;                     21 vibraphone2?
+
+    ;possible sample sources
+    ;12 S50_Oboe-C
+    ;13 S50_Cla-C
+    ;14 S50_Flute-f7
+    ;15 S50_F.Horn-D
 }

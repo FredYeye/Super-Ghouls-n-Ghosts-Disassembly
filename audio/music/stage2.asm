@@ -9,7 +9,7 @@
     %duration($73)
     %release($16)
     %volume($76)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %octave($02)
     %note($08, 4)
     %set_dotted_note()
@@ -499,7 +499,7 @@
     %pan($19)
     %lfo($00, $00)
     %volume($42)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %tuning($0E)
     %note($0D, 4)
     %note($0C, 4)
@@ -626,7 +626,7 @@ elseif !version == !EU
     %octave($04)
 endif
     %tuning($19)
-    %instrument($0E)
+    %instrument(!sample_flute)
 if !version == !JP || !version == !US
     %volume($6E)
 elseif !version == !EU
@@ -690,7 +690,7 @@ endif
 if !version == !EU
     %octave($04)
 endif
-    %instrument($0E)
+    %instrument(!sample_flute)
 if !version == !JP || !version == !US
     %volume($6E)
 elseif !version == !EU
@@ -864,7 +864,7 @@ endif
     %tuning($05)
     %duration($F0)
     %volume($48)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($04)
     %toggle_2_octaves_up()
     %note($10, 5)

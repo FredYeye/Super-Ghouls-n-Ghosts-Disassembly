@@ -3,7 +3,7 @@
 
 ..ch8:
     %tempo($00D0)
-    %instrument($08)
+    %instrument(!sample_tuba)
 ..2651:
     %toggle_triplet_portamento_2_octave_up($00)
     %duration($D2)
@@ -110,7 +110,7 @@
 ..ch7:
     %tuning($C9)
     %pan($BA)
-    %instrument($10)
+    %instrument(!sample_trumpet)
 ..26D2:
     %toggle_triplet_portamento_2_octave_up($08)
     %duration($AA)
@@ -224,7 +224,7 @@ elseif !version == !EU
     %release($15)
 endif
     %volume($24)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %octave($03)
 ..2758:
     %toggle_triplet_portamento_2_octave_up($08)
@@ -333,7 +333,7 @@ elseif !version == !EU
     %release($15)
 endif
     %volume($24)
-    %instrument($10)
+    %instrument(!sample_trumpet)
     %octave($03)
 ..27DF:
     %toggle_triplet_portamento_2_octave_up($00)
@@ -501,7 +501,7 @@ endif
     %tuning($1E)
     %duration($F0)
     %volume($32)
-    %instrument($0F)
+    %instrument(!sample_french_horn)
     %octave($03)
 ..28A4:
     %toggle_triplet_portamento_2_octave_up($00)

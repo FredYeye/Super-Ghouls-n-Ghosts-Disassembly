@@ -3,7 +3,7 @@
 
 ..ch8:
     %tempo($01B6)
-    %instrument($08)
+    %instrument(!sample_tuba)
     %volume($64)
     %duration($EB)
     %release($15)
