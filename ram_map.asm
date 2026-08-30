@@ -56,7 +56,7 @@
     loop              = $0291
     ;                   $0292 ;related to "ready go"?
     score             = $0293;029A
-    extend_threshhold = $029B;029E
+    extend_threshhold = $029B;02A2 ;last 4 bytes unused
     extend_counter    = $02A3
     extra_lives       = $02A4
     checkpoint_x_pos  = $02A5;02A6
@@ -71,6 +71,7 @@
     upgrade_state_stored   = $02AF ;arthur face or plume
     shield_state_stored    = $02B0 ;stores shield status for stage transitions and transformations
     shield_type_stored     = $02B1
+    is_playing_game_start_cutscene = $02B2
     existing_weapon_type   = $02B3
 
     current_task_offset = $02B4 
@@ -88,8 +89,10 @@
 
     frame_counter       = $02C3 ;updated when a frame's worth of work is done? i.e. not on lag frames
     video_frame_counter = $02C4 ;incremented in NMI handler, not used for anything
-    object_loop_counter = $02C5
-
+    
+    object_loop_dec = $02C5
+    object_loop_inc = $02C6 ;used to skip running certain objs every frame
+    
     struct snes_reg $02C7;02F2
         .base:     skip 0
 
@@ -147,7 +150,7 @@
     layer3_needs_update = $0323
     ;$0324;$0329 tile related
     ; $032A ;debugging? dpad moves the camera
-    ; $032B ;pointer, 2 bytes
+    ; $032B;032C ;pointer
     hud_visible              = $032E
     stage1_earthquake_active = $032F
     ; = $0331 some kind of update palette bool (uses 0332)

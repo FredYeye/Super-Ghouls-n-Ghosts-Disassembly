@@ -1580,8 +1580,8 @@ endif
     dw sample00, sample00+6*9
     dw sample01, sample01+3*9
     dw sample_hat, sample_hat
-    dw sample03, sample03+8*9
-    dw sample04, sample04+8*9
+    dw sample_square, sample_square+8*9
+    dw sample_saw, sample_saw+8*9
     dw sample_timpani, sample_timpani
     dw sample_snare, sample_snare
     dw sample07, sample07+11*9
@@ -1652,8 +1652,8 @@ endif
     sample00: incbin "audio/sample00.brr"
     sample01: incbin "audio/sample01.brr"
     sample_hat: incbin "audio/sample_hat.brr"
-    sample03: incbin "audio/sample03.brr"
-    sample04: incbin "audio/sample04.brr"
+    sample_square: incbin "audio/sample_square.brr"
+    sample_saw: incbin "audio/sample_saw.brr"
     sample_timpani: incbin "audio/sample_timpani.brr"
     sample_snare: incbin "audio/sample_snare.brr"
     sample07: incbin "audio/sample07.brr"

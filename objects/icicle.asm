@@ -37,8 +37,7 @@ create:
     bne .9C4C
 
     jsl set_hp
-    clc
-    lda #$16 : adc $33 : jsl _019662 : sta $30
+    clc : lda #$16 : adc $33 : jsl _019662 : sta $30
 .9C4C:
     !X16
     ldx $31

@@ -367,7 +367,7 @@ endif
     lda.w options.extra_lives : lsr : sta.w extra_lives
     lda #$C3 : sta.w rng_state
     lda #$01 : sta.w rng_state+1
-    lda #$02 : sta $029E
+    lda #$02 : sta.w extend_threshhold+3
     stz.w frame_counter
     inc.w game_state
     rts

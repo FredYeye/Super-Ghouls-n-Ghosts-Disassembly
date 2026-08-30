@@ -439,10 +439,10 @@ _03F526:
     rtl
 
 .F527: ;a8 x8
-    lda $02B2
+    lda.w is_playing_game_start_cutscene
     bne _03F526
 
-    inc $02B2
+    inc.w is_playing_game_start_cutscene
     jsl enable_forced_blanking
     jsl _018049_804D
     lda.b #!mus_intro : jsl _018049_8053

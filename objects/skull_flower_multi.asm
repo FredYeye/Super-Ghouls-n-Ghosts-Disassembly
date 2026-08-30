@@ -427,7 +427,7 @@ thing:
 .B07A:
     lda.w frame_counter
     clc
-    adc $02C6
+    adc object_loop_inc
     and #$03
     bne .B08D
 

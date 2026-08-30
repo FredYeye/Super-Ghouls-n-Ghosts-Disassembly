@@ -50,7 +50,7 @@ create:
 
     lda.b #_01DD01    : sta.w !obj_arthur.state+1
     lda.b #_01DD01>>8 : sta.w !obj_arthur.state+2
-    lda.b #!sfx_bars : jsl _018049_8053 ;bars sfx
+    lda.b #!sfx_bars : jsl _018049_8053
 .B55C:
     jmp .B5DE
 

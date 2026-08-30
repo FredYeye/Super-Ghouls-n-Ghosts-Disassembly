@@ -25,6 +25,7 @@
     ; $02 is unused
     !arthur_state_bronze    = $03
     !arthur_state_gold      = $04
+
     !arthur_state_baby      = $05
     !arthur_state_seal      = $06
     !arthur_state_bee       = $07
