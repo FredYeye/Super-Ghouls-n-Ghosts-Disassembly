@@ -264,7 +264,25 @@
 
     palette_cycle_start = $1500;1561 ;7 * 14 bytes
 
-    ;$1562;15A1 ;4 * 16 bytes
+    struct _1562 0 ;16 bytes
+        .base:    skip 0
+
+        .unk00:    skip 1
+        .unk01:    skip 1 ;offset
+        .unk02:    skip 1
+        .unk03:    skip 1
+        .unk04:    skip 1
+        .unk05:    skip 1
+        .unk06_07: skip 2 ;offset
+        .unk08_09: skip 2
+        .unk0A_0B: skip 2
+        .unk0C:    skip 1
+        .unk0D_0F: skip 3
+
+        .len: skip 0
+    endstruct
+
+    !_1562_start = $1562+_1562 ;$1562;15A1 ;4 * 16 bytes
 
     struct tile_handling 0 ;name? $156 bytes
         .base:     skip 0

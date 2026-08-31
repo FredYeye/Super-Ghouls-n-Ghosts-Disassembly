@@ -102,7 +102,7 @@ create:
 ;-----
 
 thing:
-    jsl _028156
+    jsl _028144_far
     rtl
 }
 

@@ -109,7 +109,7 @@ create:
 thing:
     jsl update_animation_normal
     jsl _02FD62_FD66
-    jml _028156
+    jml _028144_far
 
 ;-----
 

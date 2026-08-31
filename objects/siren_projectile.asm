@@ -4,7 +4,7 @@ namespace siren_projectile
 create:
     ldy #$AE : ldx #$21 : jsl set_sprite
     jsl _02F9DA
-    lda $3C : ldx #$18 : jsl _018BBF
+    lda $3C : ldx #$18 : jsl set_speed_xy
 .E627:
     brk #$00
 

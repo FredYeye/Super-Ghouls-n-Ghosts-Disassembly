@@ -104,7 +104,7 @@ create:
     lda.w obj.active,Y
     beq .C68B
 
-    lda.w obj.type,Y
+    lda.w obj.type,Y ;leftover lda
     !A16
     lda $2D
     sbc.w obj.pos_x+1,Y

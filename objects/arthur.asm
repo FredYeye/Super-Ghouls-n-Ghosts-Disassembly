@@ -33,9 +33,9 @@ create: ;a8 x8
     stx $14
     lda #$FF : sta $26 : sta $14B8
     !A16
-    lda.w _00ED00+$04 : sta $0313+$27 ;todo: what is 313? edit: mistaken assumption most likely, should be 33A & 33C?
+    lda.w _00ED00+$04 : sta $033A
     lda.w _00ED00+$34 : sta $0340
-    lda #$0020 : sta $0313+$29
+    lda #$0020 : sta $033C
     lda #$0050 : sta $0342
     !A8
     lda.w stage
@@ -57,8 +57,8 @@ create: ;a8 x8
 
 ;----- CD67
 
-    lda #$0C : sta.w !obj_weapons.active ;0C = "create" enum
-    lda #!id_ready_go : sta.w !obj_weapons.type
+    lda.b #!obj_create  : sta.w !obj_weapons.active
+    lda.b #!id_ready_go : sta.w !obj_weapons.type
     lda #$01 : sta.w ready_go_active
     brk #$00
 
@@ -923,7 +923,7 @@ _01D30F:
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
     stz.w can_pause
-    jsr _01DDE6
+    jsr set_invuln_flag
     rts
 
 .D343:
@@ -942,7 +942,7 @@ _01D30F:
     stz $1170
     stz.w can_charge_magic
     stz.w can_pause
-    jsr _01DDE6
+    jsr set_invuln_flag
     inc $14D2
     inc $14D1
 .D370:
@@ -1224,14 +1224,14 @@ _01D565: ;a8 x?
 
     pla : pla
     jsl _019697
-    jsr _01DDE6
+    jsr set_invuln_flag
     lda #$FF : sta $0F
     stz.w is_shooting
     jmp .D59F
 
 .D584:
     stz $0F
-    jsr _01DDEF_local
+    jsr clear_invuln_flag_local
     lda.w invuln_flags : ora #$02 : sta.w invuln_flags
     lda $08 : ora #$90 : sta $08
     lda #$2D : sta $2E
@@ -1309,7 +1309,7 @@ _01D565: ;a8 x?
     !X8
     lda #$FF : sta $0F
     stz $14B1
-    jsr _01DDE6
+    jsr set_invuln_flag
     lda #$13 : sta $3C
 .D622:
     brk #$00
@@ -1661,7 +1661,7 @@ _01D8BF: ;a8 x-?
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
     stz.w can_pause
-    jsr _01DDE6
+    jsr set_invuln_flag
     jmp _01DD5C
 }
 

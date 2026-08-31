@@ -140,7 +140,7 @@ thing:
     bit $09
     bvs .B864
 
-    jml _0281DD
+    jml _0281BB_far
 
 .B864:
     lda $2D

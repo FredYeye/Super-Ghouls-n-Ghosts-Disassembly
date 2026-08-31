@@ -47,9 +47,11 @@
     !obj_destroy = $8C
 }
 
-{ ;$0276 flags
+{ ;invuln_flags
+    !invuln_generic       = $01
     ;!invuln_hit           = $02 ?
     !invuln_rotating_cage = $04
+    !invuln_credits       = $80
 }
 
 { ;game_state

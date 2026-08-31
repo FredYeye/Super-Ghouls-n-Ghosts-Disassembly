@@ -42,7 +42,7 @@ projectile_thing:
     jml _02F9B2
 
 .BE79:
-    jml _0281DD
+    jml _0281BB_far
 
 _BE7D:
     jml _0281A8_81B5
@@ -162,7 +162,7 @@ killers_thing:
     jml _02F9B2
 
 .BF58:
-    jml _0281DD
+    jml _0281BB_far
 
 ;-----
 

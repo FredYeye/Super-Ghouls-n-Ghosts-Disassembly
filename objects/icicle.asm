@@ -46,8 +46,9 @@ create:
     clc
     adc $07
     tax
-    lda.w enemy_spawner_data_C0FD,X : sta.b obj.direction
-    ldx #$08 : jsl _018BBF
+    lda.w enemy_spawner_data_C0FD,X
+    sta.b obj.direction
+    ldx #$08 : jsl set_speed_xy
     jsr .9CB0
     lda $07
     beq .9C7C

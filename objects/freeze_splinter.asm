@@ -26,7 +26,7 @@ thing:
     lda #$04 : sta.w frozen_counter
     stz.w magic_bar_state
     stz.w !obj_upgrade2.active
-    jsl _0281DD
+    jsl _0281BB_far
 .E7FD:
     rtl
 }

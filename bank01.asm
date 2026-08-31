@@ -1333,7 +1333,10 @@ _018B25: ;a8 x-
 }
 
 { ;8BBF - 8BF1
-_018BBF: ;a- x-
+set_speed_xy: ;a- x-
+;x: base offset into speed_xy_offsets
+;a: index from x
+
     !AX16
     clc : and #$00FF : adc.w speed_xy_offsets,X : tax
     !A8
@@ -7242,7 +7245,7 @@ _01D9FA: ;arthur armor up code
     sty $3E
     stx $3F
     jsr _01DA88
-    jsr _01DDE6
+    jsr set_invuln_flag
     lda #$FF : sta $0F
     stz.w is_shooting
     lda #$12 : sta $3C
@@ -7276,7 +7279,7 @@ _01D9FA: ;arthur armor up code
     dec $39
     bne .DA61
 
-    jsr _01DDEF_local
+    jsr clear_invuln_flag_local
     stz.w in_armor_up_anim
     stz $0F
     ldx.b #task[6].base
@@ -7319,7 +7322,7 @@ _01DAA4:
 
     stx.w !obj_arthur.state+1
     sty.w !obj_arthur.state+2
-    jsr _01DDE6
+    jsr set_invuln_flag
     lda #$FF : sta.w !obj_arthur._0F
 .DAB7:
     rtl
@@ -7721,34 +7724,34 @@ setup_arthur_key_state: ;a8 x-
 
 { ;DDCE - DDD9
 _01DDCE: ;a8 x-
-    jsr _01DDE6_DDE8
+    jsr set_invuln_flag_custom_flags
     lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
     rts
 }
 
 { ;DDDA - DDE5
     ;unused
-    jsr _01DDE6
+    jsr set_invuln_flag
     lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
     rtl
 }
 
 { ;DDE6 - DDEE
-_01DDE6: ;a8 x-
-    lda #$01
-.DDE8:
+set_invuln_flag: ;a8 x-
+    lda.b #!invuln_generic
+.custom_flags:
     ora.w invuln_flags : sta.w invuln_flags
     rts
 }
 
 { ;DDEF - DDFB
-_01DDEF:
+clear_invuln_flag:
     ;unused far call
     jsr .local
     rtl
 
 .local: ;a8 x-
-    lda.w invuln_flags : and #$FE : sta.w invuln_flags
+    lda.w invuln_flags : and.b #~!invuln_generic : sta.w invuln_flags
     rts
 }
 
@@ -8850,7 +8853,7 @@ _01F6E9: ;a- x-
 { ;F722 - F782
 _01F722: ;a8 x8
     phd
-    lda #$15 : xba : lda #$62 : tcd ;todo: label
+    lda.b #!_1562_start.base>>8 : xba : lda.b #!_1562_start.base : tcd
 .F729:
     lda $00
     beq .F757
@@ -8881,8 +8884,8 @@ _01F722: ;a8 x8
     lda #$02 : sta $04
 .F757:
     !A16
-    tdc : clc : adc #$0010 : tcd
-    cmp #$15A2
+    tdc : clc : adc.w #_1562.len : tcd
+    cmp.w #!_1562_start[4].base
     !A8
     bne .F729
 

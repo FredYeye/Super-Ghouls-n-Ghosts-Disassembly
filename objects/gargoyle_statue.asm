@@ -406,7 +406,7 @@ thing:
     jsl _02F9B6
     jsl _02F9BA
 .A2BC:
-    jsl _028156
+    jsl _028144_far
     rtl
 
 ;-----

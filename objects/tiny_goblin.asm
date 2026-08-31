@@ -185,7 +185,7 @@ thing:
 
 .BE1E:
     jsl _028D09
-    jml _0281DD
+    jml _0281BB_far
 }
 
 namespace off
