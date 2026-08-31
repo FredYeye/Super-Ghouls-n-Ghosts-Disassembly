@@ -77,7 +77,7 @@ _03B711:
 }
 
 { ;BC15 - BC84
-_03BC15:
+spawner_tiny_goblin:
     lda #$04 : sta $1D
 .BC19:
     !A8

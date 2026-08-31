@@ -2012,7 +2012,7 @@ _029713: ;eagler spawner
 }
 
 { ;9AAF - 9BFA
-_029AAF: ;icicle spawner
+spawner_icicle:
     stz $1FAF
     !A16
     stz $2D
@@ -2152,8 +2152,7 @@ _029AAF: ;icicle spawner
 }
 
 { ;9D5A -
-_029D5A:
-    ;flying knight spawner
+spawner_flying_knight:
     inc.b obj.facing
     lda #$20 : cop #$00
 
@@ -2659,13 +2658,13 @@ enemy_spawner: ;a8 x8
     jmp (+,X)
 
 +:
-    dw .F8B6, _02F9B2, _02F9B2, _02F9B2, _02F9B2, _02F9B2, _029AAF, .F8AE
-    dw _029713, _02E650, _029D5A, $97AA, $97AA, $97AA, _029713_97AA, .F8B2
+    dw .F8B6, _02F9B2, _02F9B2, _02F9B2, _02F9B2, _02F9B2, spawner_icicle, .thunk_spawner_tiny_goblin
+    dw _029713, _02E650, spawner_flying_knight, _029713_97AA, _029713_97AA, _029713_97AA, _029713_97AA, .F8B2
 
 ;-----
 
-.F8AE:
-    jml _03BC15
+.thunk_spawner_tiny_goblin:
+    jml spawner_tiny_goblin
 
 ;-----
 

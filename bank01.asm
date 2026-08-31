@@ -7756,8 +7756,7 @@ clear_invuln_flag:
 }
 
 { ;DDFC - DE0A
-_01DDFC:
-    ;in rotating platform
+arthur_state_in_rotating_platform:
     ldx.w armor_state
     lda.w _00BADD,X : sta $3C
 .DE04:

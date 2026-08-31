@@ -41,8 +41,8 @@ create:
     bcs .F5D6
 
     inc $2D
-    lda.b #_01DDFC    : sta.w !obj_arthur.state+1
-    lda.b #_01DDFC>>8 : sta.w !obj_arthur.state+2
+    lda.b #arthur_state_in_rotating_platform    : sta.w !obj_arthur.state+1
+    lda.b #arthur_state_in_rotating_platform>>8 : sta.w !obj_arthur.state+2
     inc $14F5
     lda.w invuln_flags : ora.b #!invuln_rotating_cage : sta.w invuln_flags
     lda.w !obj_arthur.flags1 : ora #$80 : sta.w !obj_arthur.flags1
