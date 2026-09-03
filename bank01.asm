@@ -718,7 +718,6 @@ fill_sprite_queue: ;a- x-
 
 .8580:
     lda $08 : and #$BFFF : sta $08 ;clear "in range / playfield"(?) flag?
-
 .8587:
     clc : tdc : adc.w #obj.ext.len : tcd
     dey
@@ -1017,7 +1016,7 @@ set_speed_y: ;a8 x8
 }
 
 { ;8836 - 884A
-_018836:
+apply_grav_x_update_pos:
     sec
     lda.b obj.speed_x+0 : sbc.b obj.gravity : sta.b obj.speed_x+0
     lda.b obj.speed_x+1 : sbc #$00          : sta.b obj.speed_x+1
@@ -1203,7 +1202,10 @@ limit_fall_speed: ;a- x-
 }
 
 { ;89D9 - 8A72
-_0189D9: ;a8 x-
+mul_speed_update_pos: ;a8 x-
+;a: multiplier
+;x: speed list offset
+
     pha
     !AX16
     clc : lda.b obj.direction : and.w #$00FF : adc.w speed_xy_offsets,X : tax
@@ -1214,15 +1216,21 @@ _0189D9: ;a8 x-
     lda.l speed_xy_y1,X : sta $0004
     lda.l speed_xy_y2,X : sta $0005
     lda.l speed_xy_y3,X : sta $0006
-    pla : sta.w WRMPYA
+    pla : sta.w WRMPYA ;set multiplier
+
+    ;x speed * multiplier
     lda $0000 : jsr mulu_multiplicand_set
     lda $0001
     sty $0000
     jsr mulu_multiplicand_set : tya : clc : adc $0001 : sta $0001
+
+    ;y speed * multiplier
     lda $0004 : jsr mulu_multiplicand_set
     lda $0005
     sty $0004
     jsr mulu_multiplicand_set : tya : clc : adc $0005 : sta $0005
+
+    ;update pos with multiplied speeds
     clc
     lda.b obj.pos_x+0 : adc $0000 : sta.b obj.pos_x+0
     lda.b obj.pos_x+1 : adc $0001 : sta.b obj.pos_x+1

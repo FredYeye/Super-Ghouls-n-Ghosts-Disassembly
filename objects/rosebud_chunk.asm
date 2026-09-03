@@ -25,7 +25,7 @@ create:
 
     asl
     sta.b obj.direction
-    lda #$0C : ldx #$30 : jsl _0189D9
+    lda #$0C : ldx #$30 : jsl mul_speed_update_pos
 .C0C6:
     jsl _02F9DA
     lda #$19 : sta $3C

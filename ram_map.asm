@@ -329,6 +329,8 @@
     ;1D9A;1E99 ;obj spawn param list?
 
     bat_count = $1EBE ;todo: also used by samael
+    ;$1EBF;1EC1 ;cockatrice x/y pos sharing vars
+    ;$1EC2;1EC4
     skip_tick_timer = $1ED7 ;boss defeated
     zombie_previous_x_spawn = $1ED8;1ED9
     ;$1EDA unused

@@ -2308,7 +2308,7 @@ _02B102:
     ldy #$A4 : ldx #$21 : jsl set_sprite
     lda #$0B : sta $3B
     jsl call_rng : and #$0F : sta.b obj.direction
-    lda #$10 : ldx #$10 : jsl _0189D9
+    lda #$10 : ldx #$10 : jsl mul_speed_update_pos
 .C429:
     brk #$00
 

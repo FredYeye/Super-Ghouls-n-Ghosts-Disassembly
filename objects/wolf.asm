@@ -168,7 +168,7 @@ create:
 ;-----
 
 destroy:
-    lda $0E
+    lda.b obj.hp
     bne .E3DB
 
     jmp _028BEC

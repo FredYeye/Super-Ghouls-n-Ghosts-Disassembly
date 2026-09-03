@@ -41,7 +41,7 @@ create:
     inx #2
     stx $0F
 .F2C2:
-    lda $2E : ldx #$12 : jsl _0189D9
+    lda $2E : ldx #$12 : jsl mul_speed_update_pos
     bra .F29B
 
 .F2CC:
@@ -50,7 +50,7 @@ create:
 ;----- F2CE
 
 .F2CE:
-    lda $2E : ldx #$12 : jsl _0189D9
+    lda $2E : ldx #$12 : jsl mul_speed_update_pos
     bra .F2CC
 
 ;-----

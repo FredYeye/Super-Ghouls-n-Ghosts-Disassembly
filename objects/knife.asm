@@ -34,7 +34,7 @@ upgraded_create:
 
 ;----- E3A6
 
-    jsl _018836
+    jsl apply_grav_x_update_pos
     lda.b obj.speed_x+2
     bpl .E3A4
 

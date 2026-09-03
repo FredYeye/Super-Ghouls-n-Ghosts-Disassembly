@@ -152,7 +152,7 @@ create:
     lda.b obj.pos_y+1 : sta.b obj.speed_y+1
     !A8
     lda #$14 : sta $35
-    ldx #$1C : jsl _0189D9
+    ldx #$1C : jsl mul_speed_update_pos
     jsr _CA00_CA05
     !AX16
     lda.b obj.pos_x+1

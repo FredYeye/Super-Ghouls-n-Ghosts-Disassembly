@@ -191,7 +191,7 @@ _D783:
     lda.w obj.pos_x+2,X : sta.b obj.pos_x+2
     lda.w obj.pos_y+1,X : sta.b obj.pos_y+1
     !AX8
-    lda #$04 : ldx #$3C : jsl _0189D9
+    lda #$04 : ldx #$3C : jsl mul_speed_update_pos
     brk #$00
 
 ;----- D7B6

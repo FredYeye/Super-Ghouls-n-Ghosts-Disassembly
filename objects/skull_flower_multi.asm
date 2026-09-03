@@ -502,7 +502,7 @@ _B0EB:
     stz $1E
     stz $21
     lda.b obj.direction : inc : and #$1F : sta.b obj.direction
-    lda $15 : ldx #$16 : jsl _0189D9
+    lda $15 : ldx #$16 : jsl mul_speed_update_pos
     jsl update_animation_normal
     rts
 }

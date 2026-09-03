@@ -126,8 +126,7 @@ _F0B1:
     lda $3C : adc $3D : sta $3C
     inc.b obj.direction
     lda.b obj.direction : and #$1F : sta.b obj.direction
-    ldx #$16
-    lda $3C : jsl _0189D9 ;3C = multiplicand
+    ldx #$16 : lda $3C : jsl mul_speed_update_pos
     rts
 
 ;-----
