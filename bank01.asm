@@ -5369,12 +5369,9 @@ _01BEBC: ;a8 x8
 
 { ;BF31 - BF77
 _01BF31: ;a8 x8
-    lda.w stage
-    tax
+    lda.w stage : tax
     lda.w _00B8FE,X : sta $1A7F
-    txa
-    asl #2
-    tax
+    txa : asl #2 : tax
     lda.w _00B7D5+0,X : sta $1EE8
     stz $1EE9
     lda.w _00B7D5+1,X : sta $1EEA

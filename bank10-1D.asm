@@ -13,7 +13,7 @@ elseif !version == !US || !version == !EU
 endif
     gfx_stage_2_tiles:   incbin "graphics/stage_2_tiles.bin"
     gfx_stage_2_tiles_2: incbin "graphics/stage_2_tiles_2.bin"
-    gfx_unk18:           incbin "graphics/unknown18.bin"
+    gfx_stage_3_tiles:   incbin "graphics/stage_3_tiles.bin"
 if !version == !JP
     gfx_logo:            incbin "graphics/logo.bin" ;also has other stuff in it
 elseif !version == !US || !version == !EU

@@ -1795,7 +1795,7 @@ compressed_data:
     dw $A000 : dl gfx_stage_1_tiles_2   : dw $5940 ;15
     dw $0000 : dl gfx_stage_2_tiles     : dw $7800 ;1C
     dw $A000 : dl gfx_stage_2_tiles_2   : dw $5000 ;23
-    dw $0000 : dl gfx_unk18             : dw $7800 ;2A
+    dw $0000 : dl gfx_stage_3_tiles     : dw $7800 ;2A
     dw $0000 : dl gfx_stage1_objects    : dw $3860 ;31
     dw $0000 : dl gfx_stage2_objects    : dw $6DC0 ;38
     dw $0000 : dl gfx_stage3_objects    : dw $3EA0 ;3F

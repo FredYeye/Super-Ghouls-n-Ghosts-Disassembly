@@ -16,7 +16,7 @@ create:
 ;----- B97E
 
     jsr arthur_overlap_check_8bit_local
-    bcc .B98C
+    bcc .on_hit
 
     lda $09
     and #$40
@@ -24,20 +24,20 @@ create:
 
     jmp _0281A8_81B5
 
-.B98C:
+.on_hit:
     stz.w shield_state_stored
     lda.w !obj_shield.active
-    beq .B9A3
+    beq .no_shield
 
     stz.w !obj_shield.active
     lda.w !obj_shield.type       : sta.w shield_state_stored
     lda.w !obj_shield.init_param : sta.w shield_type_stored
-.B9A3:
+.no_shield:
     lda.w armor_state
     sta.w transform_armor_state_stored
     asl
     tax
-    jsr (.B9E8,X) : sta.w armor_state
+    jsr (.armor_states,X) : sta.w armor_state
     lda #$7E : sta.w transform_timer
     lda #$01 : sta.w transform_timer+1
     lda #!sfx_transform : jsl _018049_8053
@@ -60,7 +60,7 @@ create:
 
 ;-----
 
-.B9E8: dw .underwear, .steel, .bronze, .bronze, .gold
+.armor_states: dw .underwear, .steel, .bronze, .bronze, .gold
 
 ;-----
 

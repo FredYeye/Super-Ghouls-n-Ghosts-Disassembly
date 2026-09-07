@@ -1553,7 +1553,7 @@ pot_creation: ;a8 x8
     jsr .local
     rtl
 
-.local: ;8C6E
+.local:
     stz $3A
     inc.w pot.enemy_counter
     lda.w pot.enemy_counter
