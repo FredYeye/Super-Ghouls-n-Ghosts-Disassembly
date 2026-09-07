@@ -7215,11 +7215,11 @@ get_weapon_slot: ;a8 x-
 set_arthur_palette: ;a- x8
     ldy.w armor_state
 .D9DB: ;a- x8
-    ldx.w _00B440,Y
+    ldx.w arthur_palettes,Y
     ldy #$02
     !A16
 .D9E2:
-    lda.w _00B440,X
+    lda.w arthur_palettes,X
     phx
     tyx
     sta $7EF500,X

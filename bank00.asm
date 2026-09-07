@@ -1843,27 +1843,30 @@ endif
 }
 
 { ;B440 - B4FD
-_00B440:
-    db offset(_00B440, .B44A), offset(_00B440, .B44A), offset(_00B440, .B468), offset(_00B440, .B468)
-    db offset(_00B440, .B486), offset(_00B440, .B44A), offset(_00B440, .B4A4), offset(_00B440, .B4A4)
-    db offset(_00B440, .B4C2), offset(_00B440, .B4E0)
+arthur_palettes:
+    db offset(arthur_palettes, .underwear), offset(arthur_palettes, .steel), offset(arthur_palettes, .bronze), offset(arthur_palettes, .bronze)
+    db offset(arthur_palettes, .gold), offset(arthur_palettes, .baby), offset(arthur_palettes, .seal), offset(arthur_palettes, .bee)
+    db offset(arthur_palettes, .maiden), offset(arthur_palettes, .frozen)
 
-.B44A:
+.underwear:
+.steel:
+.baby:
     dw $418A, $520E, $6292, $6AD4, $7BDE, $4B18, $3A94, $014E, $0190, $3A56, $531C, $5980, $0198, $0010, $0842
 
-.B468:
+.bronze:
     dw $1920, $2200, $22C0, $4BA8, $7FFD, $0013, $001F, $010E, $1590, $3A56, $531C, $5140, $6609, $01DF, $0842
 
-.B486: ;gold
+.gold:
     dw $00C9, $01AF, $0236, $035D, $77FF, $0013, $001D, $010E, $2190, $3A56, $531C, $5180, $5E48, $01DF, $0842
 
-.B4A4:
+.seal:
+.bee:
     dw $4100, $5940, $69C0, $7646, $7F10, $7F7B, $62D6, $4A10, $398C, $114E, $21D2, $0218, $22DA, $0000, $0421
 
-.B4C2:
+.maiden:
     dw $418A, $021C, $5A4E, $6AD4, $7FFF, $435A, $2252, $014E, $0190, $3A56, $531C, $5980, $0198, $0010, $0421
 
-.B4E0: ;frozen
+.frozen:
     dw $28C6, $4108, $594A, $69CE, $7F18, $735A, $5252, $514A, $598C, $6252, $7318, $598C, $598C, $598C, $4908
 }
 
