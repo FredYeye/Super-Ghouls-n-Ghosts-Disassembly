@@ -303,7 +303,7 @@ thing:
     bcc .E13E
 
     jsr _02FB62_FB69
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     rts
 
 .E13E:

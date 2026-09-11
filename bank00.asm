@@ -1391,7 +1391,7 @@ direction16:
     db $08, $07, $06,  $00 ;      left,  upper
     db $04, $05, $06,  $00 ;             lower
     db $00, $0F, $0E,  $00 ;up,   right, lower
-    db $0D, $0D, $0E,  $00 ;             upper | oversight: first $0D should be $0C?!
+    db $0D, $0D, $0E,  $00 ;             upper | oversight: first $0D should be $0C!
     db $08, $09, $0A,  $00 ;      left,  lower
     db $0C, $0B, $0A,  $00 ;             upper
 

@@ -86,7 +86,7 @@ thing:
     bne .C138
 
     ldy #$22 : jsr collision_check_shield
-    jsr _02FA37_FA65
+    jsr _02FA37_entry1
     jmp _02FD62_FD6A
 
 .C138:
@@ -94,7 +94,7 @@ thing:
 
 .C139:
     ldy #$02 : jsr collision_check_shield
-    jsr _02FA37_FA65
+    jsr _02FA37_entry1
     jsr _02FD62_FD7C
     jmp _028074_8087
 }

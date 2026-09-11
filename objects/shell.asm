@@ -169,7 +169,7 @@ thing:
     lda $2E
     beq .D31E
 
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     jsr _02FB62_FB69
     bra .D321
 

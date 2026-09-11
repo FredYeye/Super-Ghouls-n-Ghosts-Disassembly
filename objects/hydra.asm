@@ -1828,7 +1828,7 @@ thing:
 
     lda $1ECA : sta.b obj.facing
     jsr _02FB62_FB69
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     jsr _02FD62_FD7C
     jsl update_animation_normal
     jsl _018E32_8E73
@@ -1913,7 +1913,7 @@ create:
 ;-----
 
 thing:
-    jsr _02FA37_FA65
+    jsr _02FA37_entry1
     ldy #$14 : jsr collision_check_shield
     jsr _02FD62_FD7C
     jsl update_animation_normal

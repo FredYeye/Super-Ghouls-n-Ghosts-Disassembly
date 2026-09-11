@@ -1805,7 +1805,7 @@ _029139:
 
 { ;96E9 - 96FD
 _0296E9: ;only used by eagler
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     lda.w frame_counter
     clc
     adc.w object_loop_inc
@@ -2840,13 +2840,13 @@ _02F9B6: ;a8 x-
 
 { ;F9BA - F9BD
 _02F9BA: ;a8 x?
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     rtl
 }
 
 { ;F9BE - F9C1
 _02F9BE: ;a8 x?
-    jsr _02FA37_FA65
+    jsr _02FA37_entry1
     rtl
 }
 
@@ -2938,7 +2938,9 @@ _02F9FA: ;a8 x-
 }
 
 { ;FA37 - FAA0
-_02FA37: ;a8 x?
+_02FA37:
+
+.FA37: ;a8 x?
     lda.w armor_state
     cmp #!arthur_state_gold
     bne .FA62
@@ -2948,7 +2950,7 @@ _02FA37: ;a8 x?
     cmp #!weapon_bracelet
     bne .FA62
 
-    jsr _02FCD4_FCE7
+    jsr collision_check_with_weapons_entry
     bcs .FA62
 
     ;bracelet and projectile are overlapping
@@ -2963,12 +2965,12 @@ _02FA37: ;a8 x?
 
 ;-----
 
-.FA65: ;a8 x?
-    jsr _02FA37
+.entry1: ;a8 x?
+    jsr _02FA37_FA37
     lda $14E7
     beq .FAA0
 
-.FA6D: ;a8 x-
+.entry2: ;a8 x-
     lda.w open_magic_slots
     cmp #$08
     beq .FAA0
@@ -3059,7 +3061,7 @@ _02FAD4: ;a- x-
     !A16
     ldx #$0008
     ldy.w #!obj_magic.base
-    jmp _02FCD4_FD15
+    jmp collision_check_with_weapons_FD15
 }
 
 { ;FB16 - FB2A
@@ -3090,7 +3092,7 @@ _02FB2B: ;a8 x?
     and #$03
     bne .FB5F
 
-    jsr _02FCD4_FCE7
+    jsr collision_check_with_weapons_entry
     !A8
     bcs .FB5F
 
@@ -3119,13 +3121,13 @@ _02FB2B: ;a8 x?
 
 { ;FB62 - FB9B
 _02FB62: ;a? x?
-    jsr _02FCD4_FCD6
+    jsr collision_check_with_weapons_custom_hitbox
     bcs .FB99
 
     bra .FB6E
 
 .FB69: ;a8 x-
-    jsr _02FCD4_FCE7
+    jsr collision_check_with_weapons_entry
     bcs .FB99
 
 .FB6E:
@@ -3155,7 +3157,7 @@ _02FB9C: ;a- x-
     asl
     clc
     adc.w #offset(_00DC1E-$40, _00DC1E_DD66)
-    jsr _02FCD4_FCF3
+    jsr collision_check_with_weapons_precalc_index
     bcs .FBE1
 
     bra .FBC5
@@ -3166,13 +3168,13 @@ _02FB9C: ;a- x-
     asl
     clc
     adc #$01A0 ;what is this offset? DD66+C*2
-    jsr _02FCD4_FCF3
+    jsr collision_check_with_weapons_precalc_index
     bcs .FBE1
 
     bra .FBC5
 
 .FBC0: ;a8 x-
-    jsr _02FCD4_FCE7
+    jsr collision_check_with_weapons_entry
     bcs .FBE1
 
 .FBC5:
@@ -3196,7 +3198,7 @@ _02FBE4:
     and #$00FF
     asl
     adc #$0188
-    jsr _02FCD4_FCF3
+    jsr collision_check_with_weapons_precalc_index
     bcs _02FBE4
 
     jsr _02FC0E_FC13
@@ -3206,7 +3208,7 @@ _02FBE4:
 { ;FBF9 - FC0B
 _02FBF9:
     ;todo: link all these functions probably
-    jsr _02FCD4_FCE7
+    jsr collision_check_with_weapons_entry
     bcs _02FB62_FB99
 
     !A8
@@ -3222,7 +3224,7 @@ _02FBF9:
 
 { ;FC0E - FC40
 _02FC0E: ;a8 x-
-    jsr _02FCD4_FCE7
+    jsr collision_check_with_weapons_entry
     bcs _02FB62_FB99 ;odd choice to return on, unless these functions are linked (which is likely)
 
 .FC13:
@@ -3333,23 +3335,24 @@ _02FCA7: ;a8 x16
 }
 
 { ;FCD4 - FD61
-;get overlapping weapon
-_02FCD4:
+collision_check_with_weapons:
+
+.ret:
     sec
     rts
 
-.FCD6: ;a8 x-
+.custom_hitbox: ;a8 x-
     bit $09
-    bvc _02FCD4
+    bvc .ret
 
     lda $3C
     !AX16
     and #$00FF
     asl
     adc #$0188
-    bra .FCF3
+    bra .precalc_index
 
-.FCE7: ;a8 x-
+.entry: ;a8 x-
     bit $09
     bvc .FD60
 
@@ -3357,7 +3360,7 @@ _02FCD4:
     !AX16
     and #$00FF
     asl
-.FCF3: ;a8 x8
+.precalc_index:
     tay
     !A8
     lda.w _00DC1E-$40+0,Y : sta $1F29

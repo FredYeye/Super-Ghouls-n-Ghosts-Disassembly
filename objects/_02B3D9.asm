@@ -131,7 +131,7 @@ thing:
     bne .B4E3
 
     jsr _02FB62_FB69
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     jmp _02FD62_FD7C
 
 .B4E3:

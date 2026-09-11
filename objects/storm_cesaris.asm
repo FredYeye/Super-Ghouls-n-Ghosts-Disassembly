@@ -260,7 +260,7 @@ thing:
     !A8
     jsr _947F
     jsr _02FB62_FB69
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
 .94B4:
     jmp _02FD62_FD7C
 }

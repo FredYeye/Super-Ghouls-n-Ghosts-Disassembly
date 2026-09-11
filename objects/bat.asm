@@ -25,7 +25,7 @@ create:
     sta.b obj.pos_y+1
     lda #$00 : adc.w camera_y+2 : sta.b obj.pos_y+2
     ldy #$EE : ldx #$21 : jsl set_sprite
-    sta $09 ;todo: what gets stored here?
+    sta $09 ;leftover sta
     lda #$80 : sta $09
     jsl set_direction32_to_arthur : sta.b obj.direction
     jsl set_hp
@@ -51,7 +51,7 @@ create:
 thing:
     ldy #$86 : jsr pot_update_position_local
     jsl update_animation_normal
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     jsr _02FB62_FB69
     jsr _02FD62_FD7C
     rts

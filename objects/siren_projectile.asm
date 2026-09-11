@@ -21,7 +21,7 @@ create:
 
 thing:
     jsr _02FB62_FB69
-    jsr _02FA37_FA6D
+    jsr _02FA37_entry2
     ldy #$06 : jsr collision_check_shield
     jsr _02FD62_FD7C
     jmp _028074_8087
