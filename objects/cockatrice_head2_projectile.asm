@@ -21,7 +21,7 @@ create:
 
 thing:
     jsl update_animation_normal
-    jsl _02F9BE
+    jsl collision_check_magic2_bracelet_shield_magic_far
     ldy #$16 : jsl collision_check_shield_far
     jsl _02F9B2
     rtl

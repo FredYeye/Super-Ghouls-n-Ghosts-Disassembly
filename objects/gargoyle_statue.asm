@@ -404,7 +404,7 @@ thing:
 
     jsl _02F9B2
     jsl _02F9B6
-    jsl _02F9BA
+    jsl collision_check_magic2_far
 .A2BC:
     jsl _028144_far
     rtl

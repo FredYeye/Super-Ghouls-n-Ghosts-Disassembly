@@ -152,7 +152,7 @@ thing:
     ldy #$84 : jsr pot_update_position_local
     jsl update_animation_normal
     jsr _02FBF9
-    jsr _02F9FA_local
+    jsr collision_check_magic_local
     jmp _02FD62_FD7C
 
 .9EBB:

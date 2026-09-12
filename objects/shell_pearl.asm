@@ -33,7 +33,7 @@ create:
 thing:
     jsl update_animation_normal
     ldy #$04 : jsr collision_check_shield
-    jsr _02FA37_entry1
+    jsr collision_check_magic2_bracelet_shield_magic
     jml _02FD62_FD7C
 
 ;-----

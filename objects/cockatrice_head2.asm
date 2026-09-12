@@ -549,7 +549,7 @@ thing:
     ldx.w cockatrice_head2_data2_D375,Y : jsl _018E32
 .CB0B:
     jsl _02F9B6
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     rtl
 
 .CB14:

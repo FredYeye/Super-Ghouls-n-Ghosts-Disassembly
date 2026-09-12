@@ -180,7 +180,7 @@ thing:
     bne .9D4A
 
     jsr _02FB2B
-    jsr _02FAC0
+    jsr collision_check_magic2_FAC0
     lda $34
     beq .9D49
 

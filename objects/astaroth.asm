@@ -232,7 +232,7 @@ thing:
     jsl get_arthur_relative_side : sta.b obj.facing
 .D2C6:
     jsl update_animation_normal
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     jsl _02F9B6
     jsl _02F9B2
     ldx $3B : jml _018E32

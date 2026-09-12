@@ -186,7 +186,7 @@ thing:
 
 .F137:
     jsr _02FC0E
-    jsr _02F9FA_local
+    jsr collision_check_magic_local
     rts
 }
 

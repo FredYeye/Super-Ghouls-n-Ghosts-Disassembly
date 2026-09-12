@@ -101,7 +101,7 @@ thing:
     bne .DE6A
 
     jsr _02FB62_FB69
-    jsr _02FA37_entry2
+    jsr collision_check_magic2_entry
     jsr _02FD62_FD7C
 .DE6A:
     rts

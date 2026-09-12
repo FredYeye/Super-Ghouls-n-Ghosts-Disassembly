@@ -17,7 +17,7 @@ create: ;a8 x8
 thing:
     jsl _02F9CA
     jsl _02F9B2
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     jsl _028074_80A3
     rtl
 }

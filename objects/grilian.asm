@@ -196,7 +196,7 @@ thing:
 .DEEB:
     ldx $3B : jsl _018E32
     jsl _02F9B6
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     jsl _02F9B2
     lda $07
     !A16

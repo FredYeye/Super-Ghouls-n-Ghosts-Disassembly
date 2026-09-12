@@ -268,7 +268,7 @@ thing:
     lda.b obj.pos_y+1 : sta $1EBD
     !A8
     jsl update_animation_normal
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     jsl _02F9B6
     jsl _02F9B2
     ldx #$1E : jml _018E32

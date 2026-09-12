@@ -37,7 +37,7 @@ projectile_thing:
     !A8
     bcs .BE79
 
-    jsl _02F9BE
+    jsl collision_check_magic2_bracelet_shield_magic_far
     ldy #$0A : jsl collision_check_shield_far
     jml _02F9B2
 
@@ -156,7 +156,7 @@ killers_thing:
     bcs .BF58
 
     jsl update_animation_normal
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     jsl _02F9B6
     ldy #$0A : jsl collision_check_shield_far
     jml _02F9B2

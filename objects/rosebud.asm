@@ -302,7 +302,7 @@ thing:
 
     jsr .C389
     jsr _02FB62
-    jsr _02FAA1
+    jsr collision_check_magic2_custom_hitbox
     jmp _02FD62_FD6A
 
 .C383:

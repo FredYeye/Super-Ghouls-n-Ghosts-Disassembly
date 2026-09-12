@@ -1677,7 +1677,7 @@ _029139:
     stz $31
     ldy #$EA : ldx #$21 : jsl set_sprite
     !A16
-    lda.w #_00BFE5 : sta $13 ;todo
+    lda.w #_00BFE5 : sta $13
     !A8
     stz $15
     jsl _01A593
@@ -1805,7 +1805,7 @@ _029139:
 
 { ;96E9 - 96FD
 _0296E9: ;only used by eagler
-    jsr _02FA37_entry2
+    jsr collision_check_magic2_entry
     lda.w frame_counter
     clc
     adc.w object_loop_inc
@@ -1820,7 +1820,7 @@ _0296E9: ;only used by eagler
 
 { ;96FE - 9712
 _0296FE: ;a8 x-
-    jsr _02F9FA_local
+    jsr collision_check_magic_local
     lda.w frame_counter
     clc
     adc.w object_loop_inc
@@ -2839,15 +2839,13 @@ _02F9B6: ;a8 x-
 }
 
 { ;F9BA - F9BD
-_02F9BA: ;a8 x?
-    jsr _02FA37_entry2
-    rtl
+collision_check_magic2_far: ;a8 x?
+    jsr collision_check_magic2_entry : rtl
 }
 
 { ;F9BE - F9C1
-_02F9BE: ;a8 x?
-    jsr _02FA37_entry1
-    rtl
+collision_check_magic2_bracelet_shield_magic_far: ;a8 x?
+    jsr collision_check_magic2_bracelet_shield_magic : rtl
 }
 
 { ;F9C2 - F9C5
@@ -2870,8 +2868,7 @@ _02F9CA: ;a8 x-
 
 { ;F9CE - F9D1
 collision_check_shield_far: ;a8 x8
-    jsr collision_check_shield
-    rtl
+    jsr collision_check_shield : rtl
 }
 
 { ;F9D2 - F9D5
@@ -2903,9 +2900,10 @@ _02F9ED: ;a8 x-
 }
 
 { ;F9FA - FA36
-_02F9FA: ;a8 x-
-    jsr .local
-    rtl
+collision_check_magic: ;a8 x-
+
+.far:
+    jsr .local : rtl
 
 .local:
     lda.w open_magic_slots
@@ -2915,7 +2913,7 @@ _02F9FA: ;a8 x-
     bit $09
     bvc .ret2
 
-    jsr collision_check_with_magic
+    jsr magic_overlap_check
     !A8
     bcs .ret
 
@@ -2936,10 +2934,8 @@ _02F9FA: ;a8 x-
     rts
 }
 
-{ ;FA37 - FAA0
-_02FA37:
-
-.bracelet_collision_check: ;a8 x?
+{ ;FA37 - FA64
+bracelet_collision_check: ;a8 x?
     lda.w armor_state
     cmp #!arthur_state_gold
     bne .FA62
@@ -2949,27 +2945,29 @@ _02FA37:
     cmp #!weapon_bracelet
     bne .FA62
 
-    jsr collision_check_with_weapons_entry
+    jsr weapon_overlap_check_entry
     bcs .FA62
 
     ;bracelet and projectile are overlapping
     !AX8
-    lda #$8C : sta $00
+    lda.b #!obj_destroy : sta.b obj.active
     lda $08 : ora #$80 : sta $08
     lda $09 : and #$7F : sta $09
     lda #$EE : sta $0F
 .FA62:
     !AX8
     rts
+}
 
-;-----
+{ ;FA65 - FAD3
+collision_check_magic2:
 
-.entry1: ;a8 x?
-    jsr .bracelet_collision_check
+.bracelet_shield_magic: ;a8 x?
+    jsr bracelet_collision_check
     lda.w shield_magic_active
     beq .ret2
 
-.entry2: ;a8 x-
+.entry: ;a8 x-
     lda.w open_magic_slots
     cmp #$08
     beq .ret2
@@ -2977,7 +2975,7 @@ _02FA37:
     bit $09
     bvc .ret2
 
-    jsr collision_check_with_magic
+    jsr magic_overlap_check
     !A8
     bcs .ret
 
@@ -2996,47 +2994,47 @@ _02FA37:
     !AX8
 .ret2:
     rts
-}
 
-{ ;FAA1 - FABF
-_02FAA1: ;a8 x?
+;-----
+
+.custom_hitbox: ;a8 x?
     lda.w open_magic_slots
     cmp #$08
-    beq _02FA37_ret2
+    beq .ret2
 
     bit $09
-    bvc _02FA37_ret2
+    bvc .ret2
 
     lda $3C
     !AX16
     and #$00FF
     asl
-    adc #$0188
-    jsr collision_check_with_magic_custom_hitbox_index
+    adc.w #offset(weapon_collision_boxes, weapon_collision_boxes_DD66)
+    jsr magic_overlap_check_custom_hitbox_index
     !A8
-    bcs _02FA37_ret
+    bcs .ret
 
-    bra _02FA37_FA84
-}
+    bra .FA84
 
-{ ;FAC0 - FAD3
-_02FAC0: ;a8 x-
+;-----
+
+.FAC0: ;a8 x-
     lda.w open_magic_slots
     cmp #$08
-    beq _02FA37_ret2
+    beq .ret2
 
     bit $09
-    bvc _02FA37_ret2
+    bvc .ret2
 
-    jsr collision_check_with_magic
+    jsr magic_overlap_check
     !A8
-    bcs _02FA37_ret
+    bcs .ret
 
     bra _02FB2B_FB42
 }
 
 { ;FAD4 - FB15
-collision_check_with_magic: ;a- x-
+magic_overlap_check: ;a- x-
     lda.b obj.type
     !AX16
     and #$00FF
@@ -3061,7 +3059,7 @@ collision_check_with_magic: ;a- x-
     !A16
     ldx #$0008
     ldy.w #!obj_magic.base
-    jmp collision_check_with_weapons_loop ;custom count and offset to weapon check loop
+    jmp weapon_overlap_check_loop ;custom count and offset to weapon check loop
 }
 
 { ;FB16 - FB2A
@@ -3073,7 +3071,7 @@ collision_check_with_magic: ;a- x-
     bit $09
     bvc .FB29
 
-    jsr collision_check_with_magic
+    jsr magic_overlap_check
     !AX8
     bcs .FB29
 
@@ -3092,7 +3090,7 @@ _02FB2B: ;a8 x?
     and #$03
     bne .FB5F
 
-    jsr collision_check_with_weapons_entry
+    jsr weapon_overlap_check_entry
     !A8
     bcs .FB5F
 
@@ -3121,13 +3119,13 @@ _02FB2B: ;a8 x?
 
 { ;FB62 - FB9B
 _02FB62: ;a? x?
-    jsr collision_check_with_weapons_custom_hitbox
+    jsr weapon_overlap_check_custom_hitbox
     bcs .FB99
 
     bra .FB6E
 
 .FB69: ;a8 x-
-    jsr collision_check_with_weapons_entry
+    jsr weapon_overlap_check_entry
     bcs .FB99
 
 .FB6E:
@@ -3157,7 +3155,7 @@ _02FB9C: ;a- x-
     asl
     clc
     adc.w #offset(weapon_collision_boxes-$40, weapon_collision_boxes_DD66)
-    jsr collision_check_with_weapons_custom_hitbox_index
+    jsr weapon_overlap_check_custom_hitbox_index
     bcs .FBE1
 
     bra .FBC5
@@ -3168,13 +3166,13 @@ _02FB9C: ;a- x-
     asl
     clc
     adc #$01A0 ;what is this offset? DD66+C*2
-    jsr collision_check_with_weapons_custom_hitbox_index
+    jsr weapon_overlap_check_custom_hitbox_index
     bcs .FBE1
 
     bra .FBC5
 
 .FBC0: ;a8 x-
-    jsr collision_check_with_weapons_entry
+    jsr weapon_overlap_check_entry
     bcs .FBE1
 
 .FBC5:
@@ -3198,7 +3196,7 @@ _02FBE4:
     and #$00FF
     asl
     adc #$0188
-    jsr collision_check_with_weapons_custom_hitbox_index
+    jsr weapon_overlap_check_custom_hitbox_index
     bcs _02FBE4
 
     jsr _02FC0E_FC13
@@ -3208,7 +3206,7 @@ _02FBE4:
 { ;FBF9 - FC0B
 _02FBF9:
     ;todo: link all these functions probably
-    jsr collision_check_with_weapons_entry
+    jsr weapon_overlap_check_entry
     bcs _02FB62_FB99
 
     !A8
@@ -3224,7 +3222,7 @@ _02FBF9:
 
 { ;FC0E - FC40
 _02FC0E: ;a8 x-
-    jsr collision_check_with_weapons_entry
+    jsr weapon_overlap_check_entry
     bcs _02FB62_FB99 ;odd choice to return on, unless these functions are linked (which is likely)
 
 .FC13:
@@ -3335,7 +3333,7 @@ _02FCA7: ;a8 x16
 }
 
 { ;FCD4 - FD61
-collision_check_with_weapons:
+weapon_overlap_check:
 
 .ret:
     sec

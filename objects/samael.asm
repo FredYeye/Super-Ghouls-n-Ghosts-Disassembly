@@ -463,7 +463,7 @@ thing:
     bne _EC3B_EC55
 
     jsl _02F9B6
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     lda $1EB8
     ora $35
     bne .EC0E

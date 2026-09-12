@@ -416,7 +416,7 @@ thing:
     lda $0F
     beq .B07A
 
-    jsl _02F9FA
+    jsl collision_check_magic_far
     jsl _02F9CA
     jml _02F9B2
 

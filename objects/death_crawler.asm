@@ -17,7 +17,7 @@ thing:
 
     jsl _02F9B2
     jsl _02F9CA
-    jsl _02F9FA
+    jsl collision_check_magic_far
 .B620:
     lda.b obj.hp
     cmp $3C

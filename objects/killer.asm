@@ -215,7 +215,7 @@ thing:
 .C0FA:
     ldy #$80 : jsl pot_update_position
     jsl update_animation_normal
-    jsl _02F9FA
+    jsl collision_check_magic_far
     jsl _02F9CA
     ldy #$0A : jsl collision_check_shield_far
     jml _02F9B2

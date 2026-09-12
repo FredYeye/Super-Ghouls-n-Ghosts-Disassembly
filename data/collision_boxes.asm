@@ -179,7 +179,7 @@ _00DAA2:
 
 { ;DC1E - DD93
 weapon_collision_boxes:
-    ;object hitboxes for weapon collision checking, starts on obj id $20
+    ;object hitboxes for weapon/magic collision checking, starts on obj id $20
     db $30, $30
     db $08, $1C
     db $08, $08

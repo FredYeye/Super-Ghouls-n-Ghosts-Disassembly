@@ -315,7 +315,7 @@ thing:
     sbc #$0010
     sta.b obj.pos_y+1
     !A8
-    jsl _02F9FA
+    jsl collision_check_magic_far
     lda #$0B : jsl _02FBE4_FBE7
     !A16
     clc : lda.b obj.pos_y+1 : adc #$0020 : sta.b obj.pos_y+1

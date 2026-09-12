@@ -17,7 +17,7 @@ create:
 
 thing:
     jsl update_animation_normal
-    jsl _02F9BE
+    jsl collision_check_magic2_bracelet_shield_magic_far
     ldy #$12 : jsl collision_check_shield_far
     jsl arthur_overlap_check_8bit
     bcs .E7FD

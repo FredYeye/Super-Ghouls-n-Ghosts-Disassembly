@@ -589,7 +589,7 @@ thing:
     jsl update_animation_normal
     ldx $32
     jsl _018E32
-    jsl _02F9BA
+    jsl collision_check_magic2_far
     jsl _02F9B6
     jml _02F9B2
 

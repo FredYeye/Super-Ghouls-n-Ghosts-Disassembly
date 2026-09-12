@@ -48,7 +48,7 @@ create:
 
 thing:
     ldy #$00 : jsr collision_check_shield
-    jsr _02FA37_entry1
+    jsr collision_check_magic2_bracelet_shield_magic
     jsr _02FD62_FD7C
     jmp _028074_8087
 }

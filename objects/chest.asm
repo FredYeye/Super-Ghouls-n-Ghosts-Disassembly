@@ -61,7 +61,7 @@ create:
 thing:
     lda #$03
     jsr _02FE1E_local
-    jsr _02FA37_entry2
+    jsr collision_check_magic2_entry
     jsr _02FB62_FB69
     jsr _028144
     rts
