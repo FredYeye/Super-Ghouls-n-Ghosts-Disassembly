@@ -1371,7 +1371,7 @@ _01D565: ;a8 x?
 ;-----
 
 .shield:
-    lda $14E7
+    lda.w shield_magic_active
     bne .D6B5
 
     lda.w open_magic_slots
@@ -1389,7 +1389,7 @@ _01D565: ;a8 x?
     dec $30
     bne .D684
 
-    inc $14E7
+    inc.w shield_magic_active
     lda.b #!sfx_magic_shield : jsl _018049_8053
     lda #$02 : sta $0000
 .D69B:

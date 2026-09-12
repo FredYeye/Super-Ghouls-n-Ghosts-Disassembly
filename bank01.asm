@@ -2848,7 +2848,7 @@ _019697: ;a8 x8
 .96CA:
     phd
     ldx #$08 : stx.w open_magic_slots
-    stz $14E7 ;torch magic active bool?
+    stz.w shield_magic_active
     !X16
     ldy.w #!obj_magic.base
 .96D8:

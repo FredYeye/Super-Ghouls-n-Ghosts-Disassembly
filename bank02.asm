@@ -2915,15 +2915,14 @@ _02F9FA: ;a8 x-
     bit $09
     bvc .ret2
 
-    jsr _02FAD4
+    jsr collision_check_with_magic
     !A8
     bcs .ret
 
     jsr _02FC41
     bcs .ret
 
-    sec
-    lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp
+    sec : lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp
     bcs .ret
 
     stz.b obj.hp
@@ -2940,7 +2939,7 @@ _02F9FA: ;a8 x-
 { ;FA37 - FAA0
 _02FA37:
 
-.FA37: ;a8 x?
+.bracelet_collision_check: ;a8 x?
     lda.w armor_state
     cmp #!arthur_state_gold
     bne .FA62
@@ -2966,36 +2965,36 @@ _02FA37:
 ;-----
 
 .entry1: ;a8 x?
-    jsr _02FA37_FA37
-    lda $14E7
-    beq .FAA0
+    jsr .bracelet_collision_check
+    lda.w shield_magic_active
+    beq .ret2
 
 .entry2: ;a8 x-
     lda.w open_magic_slots
     cmp #$08
-    beq .FAA0
+    beq .ret2
 
     bit $09
-    bvc .FAA0
+    bvc .ret2
 
-    jsr _02FAD4
+    jsr collision_check_with_magic
     !A8
-    bcs .FA9E
+    bcs .ret
 
     jsr _02FC41
-    bcs .FA9E
+    bcs .ret
 
 .FA84:
     lda #$8C : sta $00
     lda $08 : ora #$80 : sta $08
     asl $09 : lsr $09
     sec : lda.b obj.hp : sbc.w obj.hp,Y : sta.b obj.hp
-    bcs .FA9E
+    bcs .ret
 
     stz.b obj.hp
-.FA9E:
+.ret:
     !AX8
-.FAA0:
+.ret2:
     rts
 }
 
@@ -3003,19 +3002,19 @@ _02FA37:
 _02FAA1: ;a8 x?
     lda.w open_magic_slots
     cmp #$08
-    beq _02FA37_FAA0
+    beq _02FA37_ret2
 
     bit $09
-    bvc _02FA37_FAA0
+    bvc _02FA37_ret2
 
     lda $3C
     !AX16
     and #$00FF
     asl
     adc #$0188
-    jsr _02FAD4_FADC
+    jsr collision_check_with_magic_custom_hitbox_index
     !A8
-    bcs _02FA37_FA9E
+    bcs _02FA37_ret
 
     bra _02FA37_FA84
 }
@@ -3024,44 +3023,45 @@ _02FAA1: ;a8 x?
 _02FAC0: ;a8 x-
     lda.w open_magic_slots
     cmp #$08
-    beq _02FA37_FAA0
+    beq _02FA37_ret2
 
     bit $09
-    bvc _02FA37_FAA0
+    bvc _02FA37_ret2
 
-    jsr _02FAD4
+    jsr collision_check_with_magic
     !A8
-    bcs _02FA37_FA9E
+    bcs _02FA37_ret
 
     bra _02FB2B_FB42
 }
 
 { ;FAD4 - FB15
-_02FAD4: ;a- x-
+collision_check_with_magic: ;a- x-
     lda.b obj.type
     !AX16
     and #$00FF
     asl
-.FADC:
+.custom_hitbox_index:
     tay
     !A8
     lda.w magic_current
     cmp.b #!magic_nuclear
     bne .FAF4
 
+    ;force hitbox size for object if nuclear magic was used
     lda #$7E : sta $1F29 : sta.w hitbox.width
     asl                  : sta.w hitbox.width2
     bra .FB0B
 
 .FAF4:
-    lda.w _00DC1E-$40,Y : clc : adc $1F28 : sta.w hitbox.width
+    lda.w weapon_collision_boxes-$40,Y : clc : adc $1F28 : sta.w hitbox.width
     asl : sta.w hitbox.width2
-    lda.w _00DC1E-$40+1,Y     : adc $1F27 : sta $1F29
+    lda.w weapon_collision_boxes-$40+1,Y     : adc $1F27 : sta $1F29
 .FB0B:
     !A16
     ldx #$0008
     ldy.w #!obj_magic.base
-    jmp collision_check_with_weapons_FD15
+    jmp collision_check_with_weapons_loop ;custom count and offset to weapon check loop
 }
 
 { ;FB16 - FB2A
@@ -3073,7 +3073,7 @@ _02FAD4: ;a- x-
     bit $09
     bvc .FB29
 
-    jsr _02FAD4
+    jsr collision_check_with_magic
     !AX8
     bcs .FB29
 
@@ -3156,8 +3156,8 @@ _02FB9C: ;a- x-
     and #$00FF
     asl
     clc
-    adc.w #offset(_00DC1E-$40, _00DC1E_DD66)
-    jsr collision_check_with_weapons_precalc_index
+    adc.w #offset(weapon_collision_boxes-$40, weapon_collision_boxes_DD66)
+    jsr collision_check_with_weapons_custom_hitbox_index
     bcs .FBE1
 
     bra .FBC5
@@ -3168,7 +3168,7 @@ _02FB9C: ;a- x-
     asl
     clc
     adc #$01A0 ;what is this offset? DD66+C*2
-    jsr collision_check_with_weapons_precalc_index
+    jsr collision_check_with_weapons_custom_hitbox_index
     bcs .FBE1
 
     bra .FBC5
@@ -3198,7 +3198,7 @@ _02FBE4:
     and #$00FF
     asl
     adc #$0188
-    jsr collision_check_with_weapons_precalc_index
+    jsr collision_check_with_weapons_custom_hitbox_index
     bcs _02FBE4
 
     jsr _02FC0E_FC13
@@ -3350,7 +3350,7 @@ collision_check_with_weapons:
     and #$00FF
     asl
     adc #$0188
-    bra .precalc_index
+    bra .custom_hitbox_index
 
 .entry: ;a8 x-
     bit $09
@@ -3360,17 +3360,17 @@ collision_check_with_weapons:
     !AX16
     and #$00FF
     asl
-.precalc_index:
+.custom_hitbox_index:
     tay
     !A8
-    lda.w _00DC1E-$40+0,Y : sta $1F29
-    clc : adc $1F26       : sta.w hitbox.width
-    asl                   : sta.w hitbox.width2
-    lda.w _00DC1E-$40+1,Y : sta $1F29
+    lda.w weapon_collision_boxes-$40+0,Y : sta $1F29
+    clc : adc $1F26                      : sta.w hitbox.width
+    asl                                  : sta.w hitbox.width2
+    lda.w weapon_collision_boxes-$40+1,Y : sta $1F29
     !A16
     ldx #$000A
     ldy.w #!obj_weapons.base
-.FD15:
+.loop:
     lda.w obj.active,Y
     and #$000D
     beq .FD57
@@ -3405,7 +3405,7 @@ collision_check_with_weapons:
 .FD57:
     tya : clc : adc.w #obj.ext.len : tay
     dex
-    bne .FD15
+    bne .loop
 
 .FD60:
     sec

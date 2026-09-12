@@ -244,6 +244,7 @@
     ;$14E2 unused?
     ;is_casting_magic             = $14E3
     ;is_casting_magic2            = $14E4 ;what is this? magic sound related...?
+    shield_magic_active          = $14E7
     weapon_cooldown              = $14EC
     weapon_double_jump_boost     = $14F1
     is_frozen                    = $14F2

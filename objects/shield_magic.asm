@@ -48,7 +48,7 @@ create:
     cmp #$7A
     bne .F555
 
-    stz $14E7
+    stz.w shield_magic_active
     stz $14E3
     jml _028B0E
 
@@ -77,7 +77,7 @@ thing:
      rtl
 
 .F59F: ;not sure if this can be reached?
-    stz $14E7
+    stz.w shield_magic_active
     stz $14E3
     jml _028B17
 }
