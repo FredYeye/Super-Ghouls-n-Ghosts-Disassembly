@@ -3009,7 +3009,7 @@ collision_check_magic2:
     !AX16
     and #$00FF
     asl
-    adc.w #offset(weapon_collision_boxes, weapon_collision_boxes_DD66)
+    adc.w #offset(weapon_collision_boxes-$40, weapon_collision_boxes_DD66)
     jsr magic_overlap_check_custom_hitbox_index
     !A8
     bcs .ret

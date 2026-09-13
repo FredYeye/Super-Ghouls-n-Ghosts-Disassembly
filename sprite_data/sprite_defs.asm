@@ -36,10 +36,13 @@ _08E400:
 	;tile count
 
 	;bits 0-13: offset into sprite_offsets. bits 14-15: mode (0-2, 3 is invalid)
-		;mode 0: a list of tiles comes after this word, then goes to the animation timer.
+		;mode 0: a list of tile offsets comes after this word, then goes to the animation timer.
 		;$01FF doesn't count towards the total. i think this is for skipping over tile offsets
 
-		;mode 2: one dummy vram tile follows this word, probably for the flags?
+		;mode 1: ?
+
+		;mode 2: single tile offset, then steps forward one tile to load the next.
+		;one extra vram tile follows this offset, probably for the flags?
 
 	;vram tile + h/v flip, also sprite centerpoint (bits 12-13)?
 
@@ -236,26 +239,26 @@ _08E400:
 	dw $0000
 
 .E839:
-	db $0A : dw $8B4A, $0000, $00FF
+	db $0A : dw meta(sprite_offsets_arthur_maiden_idle, 2), $0000, $00FF
 	dw $0000
 
 .E842:
-	db $0C : dw $8B5E, $0000, $0108
-	db $09 : dw $8B76, $0000, $0208
-	db $0A : dw $8B88, $0000, $0308
-	db $09 : dw $8B76, $0000, $0288
+	db $0C : dw meta(sprite_offsets_arthur_maiden_walk_1, 2), $0000, $0108
+	db $09 : dw meta(sprite_offsets_arthur_maiden_walk_2, 2), $0000, $0208
+	db $0A : dw meta(sprite_offsets_arthur_maiden_walk_3, 2), $0000, $0308
+	db $09 : dw meta(sprite_offsets_arthur_maiden_walk_2, 2), $0000, $0288
 	dw $0000
 
 .E860:
-	db $08 : dw $8B9C, $0000, $04FF
+	db $08 : dw meta(sprite_offsets_arthur_maiden_crouch, 2), $0000, $04FF
 	dw $0000
 
 .E869:
-	db $0B : dw $8BAC, $0000, $05FF
+	db $0B : dw meta(sprite_offsets_arthur_maiden_jump, 2), $0000, $05FF
 	dw $0000
 
 .E872:
-	db $0B : dw $8BAC, $0000, $06FF
+	db $0B : dw meta(sprite_offsets_arthur_maiden_jump, 2), $0000, $06FF
 	dw $0000
 
 .E87B:
@@ -279,7 +282,7 @@ _08E400:
 	dw $0000
 
 .E8BB: ;lance
-	db $04 : dw $8766, $0220, $00FF
+	db $04 : dw meta(sprite_offsets_lance, 2), $0220, $00FF
 	dw $0000
 
 .E8C4:

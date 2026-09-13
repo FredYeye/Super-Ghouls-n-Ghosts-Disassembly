@@ -692,9 +692,9 @@ _05A812:
     db $05, $6C, $1F, $6C, $5F, $FF, $00, $00, $00
 
     ;bat
-    db $08, $64, $96, $C0, $0F : dw $0008
-    db $08, $74, $16, $C8, $0F, $C9, $0F, $CA, $0F, $CB, $0F, $D8, $0F, $D9, $0F, $DA, $0F, $DB, $0F : dw $0008
-    db $08, $84, $96, $D0, $0F : dw $0088
+    db $08 : dw meta(sprite_offsets_bat_anim1, 2), $0FC0, $0008
+    db $08 : dw meta(sprite_offsets_bat_anim2, 0), $0FC8, $0FC9, $0FCA, $0FCB, $0FD8, $0FD9, $0FDA, $0FDB, $0008
+    db $08 : dw meta(sprite_offsets_bat_anim3, 2), $0FD0, $0088
     dw $0000
 
     db $10, $DC
