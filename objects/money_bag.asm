@@ -57,7 +57,7 @@ create:
     ldy #$72 : ldx #$20
 .CBDD:
     jsl set_sprite
-    lda #!sfx_item_get : jsl _018049_8053
+    lda #!sfx_item_get : jsl queue_sound_id
     sed
     lda.w money_bag_count
     clc
@@ -125,7 +125,7 @@ create:
     !A8
     bcc .CC36
 
-    lda #!sfx_vortex : jsl _018049_8053
+    lda #!sfx_vortex : jsl queue_sound_id
 .CC51:
     brk #$00
 
@@ -137,7 +137,7 @@ create:
     !A8
     bcc .CC51
 
-    lda #$3C : jsl _018049_8053
+    lda #$3C : jsl queue_sound_id
     jmp _0281A8_81B5
 
 ;-----
@@ -166,7 +166,7 @@ create:
 
     stz $08
     stz $09
-    lda #!sfx_lightning : jsl _018049_8053
+    lda #!sfx_lightning : jsl queue_sound_id
     lda #$03 : sta $0332 ;white screen
     inc $0331
     lda #$04 : cop #$00

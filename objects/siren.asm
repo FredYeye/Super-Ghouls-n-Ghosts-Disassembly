@@ -129,7 +129,7 @@ create:
 
     ldx #$5E : jsl _0196EF : sta $39
     lda #$0C : sta $1D
-    lda #$35 : jsl _018049_8053
+    lda #$35 : jsl queue_sound_id
     lda #$03
 .E54D:
     pha

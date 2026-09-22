@@ -280,8 +280,8 @@ create:
     jmp .BD31
 
 .BD7A:
-    lda #$F1 : jsl _018049_8053 ;F1: cancel other sounds maybe?
-    lda #!sfx_item_get : jsl _018049_8053
+    lda #$F1 : jsl queue_sound_id ;F1: cancel other sounds maybe?
+    lda #!sfx_item_get : jsl queue_sound_id
     lda $37
     cmp #$09
     bne +

@@ -2,7 +2,7 @@ namespace nuclear_projectile
 
 {
 create:
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     lda #$80 : ora $08 : sta $08
     lda #$80 : ora $09 : sta $09
     ldy #$7C : ldx #$21 : jsl set_sprite

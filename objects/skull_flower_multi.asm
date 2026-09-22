@@ -94,7 +94,7 @@ create:
     jmp .AF09
 
 .AE38:
-    lda #!sfx_grow : jsl _018049_8053
+    lda #!sfx_grow : jsl queue_sound_id
     inc $34
     lda #$48 : sta $37
     lda $09 : and #$FB : sta $09

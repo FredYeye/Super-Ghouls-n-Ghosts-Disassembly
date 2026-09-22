@@ -62,8 +62,8 @@ entry: ;emulated mode (code entry)
     sty $02F3
     plb
     !AX8
-    lda #$F4 : jsl _018049_8053
-    lda #$F0 : jsl _018049_8053
+    lda #$F4 : jsl queue_sound_id
+    lda #$F0 : jsl queue_sound_id
 
     ldy #$90
     ldx #$0C
@@ -146,7 +146,7 @@ nmi: ;a- x-
     jsr _00898C
     jsr _008A56
     jsr _008AB3
-    jsr _0089B0
+    jsr palette_to_cgram
 
     lda.w ppu_vars.wh0     : sta.w WH0
     lda.w ppu_vars.wh1     : sta.w WH1
@@ -169,9 +169,9 @@ nmi: ;a- x-
     lda.w ppu_vars.bg12nba : sta !BG12NBA
     lda.w ppu_vars.bg34nba : sta.w BG34NBA
 
-    jsr _008700
+    jsr update_layer_3
     lda.w ppu_vars.bgmode : sta !BGMODE
-    lda $032E
+    lda.w hud_visible
     beq +
 
     lda.w ppu_vars.bgmode : and #$39 : ora #$08 : sta !BGMODE
@@ -199,7 +199,7 @@ nmi: ;a- x-
     sta.w NTRL5 : sta.w NTRL6 : sta.w NTRL7
 .835F:
     lda.w ppu_vars.inidisp : sta.w INIDISP
-    jsr _0083C2_83C3
+    jsr _0083C2_entry
     jsr _00847F
     lda #$98 : sta.w HTIMEL : stz.w HTIMEH
     lda #$26 : sta.w VTIMEL : stz.w VTIMEH
@@ -253,12 +253,12 @@ irq: ;a- x-
 _0083C2:
     rts
 
-.83C3: ;a8 x8
+.entry: ;a8 x8
     lda.w stage4_rotation_active
     beq _0083C2
 
     phb
-    lda.b #bank09>>16 : pha : plb
+    lda.b #_09FD00>>16 : pha : plb
     phd
     !A16 : lda.w #!obj_objects.base : tcd : !A8
     lda.b #31 : sta $0036 ;obj_object count
@@ -333,6 +333,7 @@ _0083C2:
     beq +
 
     jmp .83DE
+
 +:
     !AX8
     pld
@@ -399,8 +400,8 @@ neg_imul: ;a16 x8
 
 { ;853D - 8576
 _00853D: ;a8 x8
-    ldx $02F6
-    cpx $02F7
+    ldx.w sound_queue_read_idx
+    cpx.w sound_queue_write_idx
     beq .ret
 
     lda !APUI00
@@ -408,7 +409,7 @@ _00853D: ;a8 x8
     bne .ret
 
     inc $02F5
-    lda $02F8,X
+    lda.w sound_queue,X
     cmp #$F5
     beq +
 
@@ -420,16 +421,13 @@ _00853D: ;a8 x8
     txa
     inc
     and #$1F
-    sta $02F6
+    sta.w sound_queue_read_idx
     tax
-    lda $02F8,X : sta !APUI01
+    lda.w sound_queue,X : sta !APUI01
     pla
 .856B:
     sta !APUI00
-    txa
-    inc
-    and #$1F
-    sta $02F6
+    txa : inc : and #$1F : sta.w sound_queue_read_idx
 .ret:
     rts
 
@@ -554,18 +552,18 @@ _0086FC: ;a8 x8
 }
 
 { ;8700 - 8734
-_008700: ;a8 x-
-    lda.w layer3_needs_update
+update_layer_3: ;a8 x-
+    lda.w layer_3_needs_update
     beq .ret
 
     lda #$80   : sta !VMAIN
-    stz.w layer3_needs_update
+    stz.w layer_3_needs_update
     !A16
-    lda $0318  : sta !VMADDL
+    lda.w layer_3_vram_offset : sta !VMADDL
     lda #$1801 : sta !DMAP0
     lda.w #_7F9000     : sta !A1T0L
     lda.w #_7F9000>>16 : sta.w A1B0
-    lda $031A  : sta !DAS0L
+    lda.w layer_3_size : sta !DAS0L
     !A8
     lda #$01   : sta !MDMAEN
 .ret:
@@ -582,11 +580,11 @@ _008735: ;a8 x8
 .ret:
     rts
 
-.8741: dw .874D, .8790, .8790, .8790, .87CE, .8790
+.8741: dw .destroyed_head_to_vram, .8790, .8790, .8790, .87CE, .8790
 
 ;-----
 
-.874D:
+.destroyed_head_to_vram:
     ldy #$00
     lda #$05 : sta $0034
     stz !VMAIN
@@ -800,7 +798,7 @@ _00898C: ;a8 x8
 }
 
 { ;89B0 - 89F3
-_0089B0: ;a8 x8
+palette_to_cgram: ;a8 x8
     lda $0331
     beq .ret
 
@@ -845,7 +843,7 @@ _0089F4: ;a8 x8
     lda $19C9 : sta !BG2VOFS
     lda $19CA : sta !BG2VOFS
 
-    lda $032E
+    lda.w hud_visible
     bne +
 
     lda $19CD : sta !BG3HOFS
@@ -1488,15 +1486,15 @@ prepare_search_solid_tile_vertical_data:
 rng_bool_data: db 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0 ;rng 50/50
 }
 
-{ ;A8E2 - A8E9
-_00A8E2: db $01, $02, $04, $08, $10, $20, $40, $80
-}
+{ ;A8E2 - A909
+rng_bit_mask:
 
-{ ;A8EA - A909
-_00A8EA: ;select value by rng and compare against mask
-    ;only the first 17 bytes are used; this array is indexed with 0-F.
-    ;someone probably realized this accomplishes the same thing as 0-F * 2.
-    ;they didn't delete the unused entries, though.
+.8b: db $01, $02, $04, $08, $10, $20, $40, $80
+
+    ;only the first 17 bytes are used of the 16b version; this array is indexed with 0-F.
+    ;this is either an oversight (forgotten asl)...
+    ;...or someone thought it accomplishes the same thing (it does, except 0100 is replaced with 0000)
+.16b:
     dw $0001, $0002, $0004, $0008, $0010, $0020, $0040, $0080
     dw $0100, $0200, $0400, $0800, $1000, $2000, $4000, $8000
 }
@@ -2247,22 +2245,31 @@ arthur_hitbox_data:
 }
 
 { ;B984 - B9C3
-_00B984:
-    ;weapon heights?
-    db $06, $06,  $06, $06 ;lance
-    db $06, $06,  $06, $06 ;knife
-    db $06, $06,  $06, $06 ;bowgun
-    db $06, $06,  $04, $06 ;scythe
-    db $08, $06,  $0A, $06 ;torch
-    db $06, $06,  $06, $06 ;axe
-    db $06, $06,  $06, $06 ;triblade
+weapon_hitbox:
+    ;weapon height/width
+    db $06, $06 ;lance
+    db $06, $06 ;lance 2
+    db $06, $06 ;knife
+    db $06, $06 ;knife 2
+    db $06, $06 ;bowgun
+    db $06, $06 ;bowgun 2
+    db $06, $06 ;scythe
+    db $04, $06 ;scythe 2
+    db $08, $06 ;torch
+    db $0A, $06 ;torch 2
+    db $06, $06 ;axe
+    db $06, $06 ;axe 2
+    db $06, $06 ;triblade
+    db $06, $06 ;triblade 2
 if !version == !JP || !version == !US
-    db $08, $08,  $08, $08 ;bracelet
+    db $08, $08 ;bracelet
+    db $08, $08
 elseif !version == !EU
-    db $0C, $08,  $0C, $08 ;bracelet projectile is 4px taller
+    db $0C, $08 ;bracelet projectile is 4px taller
+    db $0C, $08
 endif
 
-    ;widths?
+.magic: ;magic height/width (first 2 values per row does nothing?)
     db $14, $14,  $14, $14 ;lance
     db $08, $08,  $08, $08 ;knife
     db $08, $08,  $08, $08 ;bowgun

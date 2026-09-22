@@ -31,7 +31,7 @@ create:
     lda $0292
     bne .D10F
 
-    lda #!mus_stage_6_7_boss : jsl _018049_8053
+    lda #!mus_stage_6_7_boss : jsl queue_sound_id
 .D10F:
     brk #$00
 
@@ -105,7 +105,7 @@ create:
     and #$1F
     bne .D1D0
 
-    lda #$39 : jsl _018049_8053
+    lda #$39 : jsl queue_sound_id
 .D1D0:
     !A16
     lda $35
@@ -199,8 +199,8 @@ destroy:
 ;----- D27E
 
     lda #!id_key : jsl prepare_object
-    jsl _018049
-    lda #$10 : jsl _018049_8053
+    jsl queue_sound_F2
+    lda #$10 : jsl queue_sound_id
     bra .D2A5
 
 .D290:

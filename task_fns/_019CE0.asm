@@ -32,7 +32,7 @@ _019CE0: ;a8 x8
 
 .9D31:
     phx
-    lda #!sfx_ship_creak : jsl _018049_8053
+    lda #!sfx_ship_creak : jsl queue_sound_id
     stz $1A84
     lda #$02 : sta $1A80
     plx

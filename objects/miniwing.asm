@@ -3,7 +3,7 @@ namespace miniwing
 {
 create:
     ldx #$03 : jsl _018D5B
-    lda #!sfx_cockatrice_spew : jsl _018049_8053
+    lda #!sfx_cockatrice_spew : jsl queue_sound_id
     ldy #$EE : ldx #$21 : jsl set_sprite
     !A16
     lda.w #cockatrice_body_data_CA21 : sta $13
@@ -42,7 +42,7 @@ create:
     lda $1EC8
     beq .DF20
 
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     jmp _028BEC
 
 .DF20:
@@ -339,7 +339,7 @@ destroy:
     jmp create_DF10
 
 .E186:
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     dec $1EC7
     jmp _028BEC
 

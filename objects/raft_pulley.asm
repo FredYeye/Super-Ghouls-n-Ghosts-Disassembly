@@ -80,7 +80,7 @@ thing:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .CFF6
 
-    lda.b #!sfx_raft_pulley : jsl _018049_8053
+    lda.b #!sfx_raft_pulley : jsl queue_sound_id
     inc $0F
     stz $30
     inc $14C3
@@ -217,7 +217,7 @@ thing:
     stz.b obj.speed_y+2
     inc $0F
     lda #$18 : sta $3C
-    lda #$F1 : jsl _018049_8053
+    lda #$F1 : jsl queue_sound_id
     rts
 
 ;-----
@@ -255,7 +255,7 @@ thing:
     jsr arthur_overlap_check_FED8_8bit_local
     bcs .D159
 
-    lda.b #!sfx_raft_pulley : jsl _018049_8053
+    lda.b #!sfx_raft_pulley : jsl queue_sound_id
     lda #$01 : sta $0F
     inc $14C3
     lda.b obj.pos_y+1 : sec : sbc #$10 : sta.w !obj_arthur.pos_y+1
@@ -326,7 +326,7 @@ thing:
     !AX8
     jsl update_animation_normal
     jsl _018E32_8E73
-    lda #$F1 : jsl _018049_8053
+    lda #$F1 : jsl queue_sound_id
     lda $09
     and #$40
     bne + : +: ;useless branch

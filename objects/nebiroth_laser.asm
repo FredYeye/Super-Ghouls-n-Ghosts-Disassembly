@@ -24,7 +24,7 @@ create:
     jsl _02F9DA_F9E0
     ldy #$08 : ldx #$22 : jsl set_sprite
     ldy #$75 : jsl set_speed_x
-    lda.b #!sfx_astaroth_nebiroth_laser : jsl _018049_8053
+    lda.b #!sfx_astaroth_nebiroth_laser : jsl queue_sound_id
 .D871:
     brk #$00
 

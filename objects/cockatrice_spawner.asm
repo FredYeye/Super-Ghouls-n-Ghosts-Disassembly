@@ -5,7 +5,7 @@ create:
     lda $0292
     bne .D548
 
-    lda #!mus_stage_1_boss : jsl _018049_8053
+    lda #!mus_stage_1_boss : jsl queue_sound_id
 .D548:
     ldx #$00 : ldy #$90 : lda.b #task_list_decompress : jsl add_task
 .D552:

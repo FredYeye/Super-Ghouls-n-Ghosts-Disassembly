@@ -5,7 +5,7 @@ create:
     lda.w ppu_vars.tm : and #$0F : sta.w ppu_vars.tm
     lda #$20 : sta $09
     lda #$FF : sta $19EC
-    lda #$48 : jsl _018049_8053
+    lda #$48 : jsl queue_sound_id
     ldx #$00
     !X16
     ldy.w _00ED00+$48 ;stage 1 gate

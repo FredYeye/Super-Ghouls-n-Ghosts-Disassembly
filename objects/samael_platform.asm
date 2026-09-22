@@ -54,7 +54,7 @@ create:
     bne .ECA7
 
     ldy #$BE : ldx #$21 : jsl set_sprite
-    lda #$47 : jsl _018049_8053
+    lda #$47 : jsl queue_sound_id
 .ECEA:
     brk #$00
 

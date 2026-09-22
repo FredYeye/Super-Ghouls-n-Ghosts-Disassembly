@@ -334,7 +334,7 @@ thing:
 
     sta $3C
     ldx #$06 : jsl _028048
-    lda #$38 : jsl _018049_8053
+    lda #$38 : jsl queue_sound_id
 .E487:
     rtl
 
@@ -372,9 +372,9 @@ thing:
 destroy:
     inc.w skip_tick_timer
     ldy #$30 : ldx #$22 : jsl set_sprite
-    jsl _018049_8051
+    jsl queue_sound_F1
     lda #$04 : sta $1D
-    lda #$10 : jsl _018049_8053
+    lda #$10 : jsl queue_sound_id
     lda #!id_boss_explosion_spawner : jsl prepare_object
     lda $08 : ora #$10 : sta $08
     lda #$7E : cop #$00

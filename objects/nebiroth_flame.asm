@@ -18,7 +18,7 @@ create:
     bne .D7D4
 
     jsl _02F9DA_F9E0
-    lda #$59 : jsl _018049_8053
+    lda #$59 : jsl queue_sound_id
 .D7E8:
     brk #$00
 

@@ -23,7 +23,7 @@ _CCE7: ;game over
     lda.w _00C919+0,Y : ldx #$0394 : jsr .CD4A
     lda.w _00C919+2,Y : ldx #$0414 : jsr .CD4A
     !AX8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
 .CD1B:
     brk #$00
 
@@ -36,7 +36,7 @@ _CCE7: ;game over
     bit.b #!down|!up|!select
     beq .CD1B
 
-    lda.b #!sfx_menu_move : jsl _018049_8053
+    lda.b #!sfx_menu_move : jsl queue_sound_id
     lda $2D
     clc
     adc #$04
@@ -47,7 +47,7 @@ _CCE7: ;game over
     lda $2D : sta $1FB3
     beq .CD44
 
-    lda #$63 : jsl _018049_8053
+    lda #$63 : jsl queue_sound_id
 .CD44:
     inc $1FB4
     jmp _0281A8_81B5

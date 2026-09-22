@@ -101,7 +101,7 @@ destroy:
 ;----- 96A3
 
     lda $1D : clc : adc #$02 : sta $1D
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     dec $2D
     bne .9699
 
@@ -115,7 +115,7 @@ destroy:
 ;----- 96CC
 
     lda $1D : clc : adc #$02 : sta $1D
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     dec $2D
     bne .96C2
     jmp _0281A8_81B5

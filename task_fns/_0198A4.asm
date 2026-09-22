@@ -36,7 +36,7 @@ endif
     !A8
     lda #$15 : sta.w ppu_vars.tm : sta $02D7
     ldx #$00 : lda #$02 : jsl _01F6C9
-    lda #!sfx_wave_rise : jsl _018049_8053
+    lda #!sfx_wave_rise : jsl queue_sound_id
 .9934:
     lda #$01 : jsr _019A88
     jsr .9992
@@ -131,7 +131,7 @@ endif
     ldx #$54 : lda #$01 : jsl _01F6C9
     lda #$10 : jsr _019A88
     lda #$28 : sta $79
-    lda #!sfx_wave_crash : jsl _018049_8053
+    lda #!sfx_wave_crash : jsl queue_sound_id
 .9A04:
     rts
 

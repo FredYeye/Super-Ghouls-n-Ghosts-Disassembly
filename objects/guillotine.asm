@@ -45,7 +45,7 @@ create:
     cmp #$08
     bne .D46A
 
-    lda #!sfx_guillotine : jsl _018049_8053
+    lda #!sfx_guillotine : jsl queue_sound_id
     bra .D46A
 
 ;-----

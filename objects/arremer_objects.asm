@@ -122,7 +122,7 @@ killers_destroy:
 
     ldy #$E6 : ldx #$21 : jsl set_sprite
     ldy #$07 : jsl update_score
-    lda #!sfx_death : jsl _018049_8053
+    lda #!sfx_death : jsl queue_sound_id
 .BF18:
     brk #$00
 

@@ -100,7 +100,7 @@ thing:
 ;-----
 
 destroy:
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     jsr drop_pot_local
     jmp _028BEC
 

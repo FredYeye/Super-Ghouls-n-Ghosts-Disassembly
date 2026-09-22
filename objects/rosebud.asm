@@ -60,7 +60,7 @@ create:
     inc $1AF8
     ldy #$CC : ldx #$21 : jsl set_sprite
 .C1C6:
-    lda #!sfx_rosebud_grow : jsl _018049_8053
+    lda #!sfx_rosebud_grow : jsl queue_sound_id
     jsl _02F9DA_F9E0
     lda $07 : sta $31
     cmp #$02
@@ -168,7 +168,7 @@ create:
     stz $07
     lda #$04 : sta $1D
     stz.b obj.facing
-    lda #!sfx_rosebud_explode : jsl _018049_8053
+    lda #!sfx_rosebud_explode : jsl queue_sound_id
 .C289:
     lda #!id_rosebud_chunk : jsl prepare_object
     inc.b obj.facing
@@ -230,7 +230,7 @@ destroy:
 
 .C2E3:
     ldy #$17 : jsl update_score
-    lda #!sfx_death : jsl _018049_8053
+    lda #!sfx_death : jsl queue_sound_id
     lda.b obj.direction : sta.b obj.facing
     stz $29
     stz $2A
@@ -360,7 +360,7 @@ thing:
     !A8
     ldx #$2E : jsl update_pos_xy_2
     lda.b obj.direction : asl #2 : tay
-    jsl _01A4E2
+    jsl _01A4E2_A4E2
     bcc .C3F0
 
     !A16

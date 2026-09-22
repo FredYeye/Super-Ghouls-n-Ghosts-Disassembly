@@ -2,7 +2,7 @@ namespace veil_allocen_projectile
 
 {
 create:
-    lda #$60 : jsl _018049_8053
+    lda #$60 : jsl queue_sound_id
     jsl set_direction16_to_arthur : sta.b obj.direction
     lda #$80 : sta $09
     ldy #$32 : ldx #$22 : jsl set_sprite

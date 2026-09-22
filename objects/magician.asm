@@ -93,7 +93,7 @@ destroy:
 ;----- B8EE
 
     lda $1D : clc : adc #$02 : sta $1D
-    lda #$3B : jsl _018049_8053 ;explosion sfx
+    lda #$3B : jsl queue_sound_id ;explosion sfx
     dec $2D
     bne .B8E4
 
@@ -107,7 +107,7 @@ destroy:
 ;----- B917
 
     lda $1D : clc : adc #$02 : sta $1D
-    lda #$3B : jsl _018049_8053 ;explosion sfx
+    lda #$3B : jsl queue_sound_id ;explosion sfx
     dec $2D
     bne .B90D
 

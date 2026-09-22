@@ -8,7 +8,7 @@ create:
 ;----- F26B
 
     jsr seek__F653
-    lda.b #!sfx_magic_tornado : jsl _018049_8053
+    lda.b #!sfx_magic_tornado : jsl queue_sound_id
     lda.b obj.facing
     bne .F279
 

@@ -10,7 +10,7 @@ org $088000
 
 ;-----
 
-org $098000 : bank09:
+org $098000
 
 {
     incsrc "stage_layouts/meta_tiles.asm"      ;8000 - CEDF

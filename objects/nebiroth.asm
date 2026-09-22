@@ -110,7 +110,7 @@ create:
     and #$1F
     bne .D472
 
-    lda #$39 : jsl _018049_8053
+    lda #$39 : jsl queue_sound_id
 .D472:
     !A16
     lda $35
@@ -249,14 +249,14 @@ destroy:
     lda $1EBF
     bne .D581
 
-    jsl _018049
+    jsl queue_sound_F2
     lda #!id_key : jsl prepare_object
     lda.w weapon_current
     and #$0E
     cmp #!weapon_bracelet
     bne .D5A1
 
-    lda #$10 : jsl _018049_8053
+    lda #$10 : jsl queue_sound_id
 .D5A1:
     jml _0281A8_81B5
 

@@ -59,7 +59,7 @@ _E5B3:
     and #$0F
     bne .E5C0
 
-    lda #$67 : jsl _018049_8053
+    lda #$67 : jsl queue_sound_id
 .E5C0:
     rts
 
@@ -207,7 +207,7 @@ claw2_create:
     lda $1EC2
     beq .E69F
 
-    lda #$67 : jsl _018049_8053
+    lda #$67 : jsl queue_sound_id
     jsl set_direction32_to_arthur : sta.b obj.direction
     inc $1EC0
     ldy #$3A : ldx #$22

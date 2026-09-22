@@ -35,7 +35,7 @@ create:
 
 ;----- E263
 
-    lda #$34 : jsl _018049_8053
+    lda #$34 : jsl queue_sound_id
     dec $2D
     bne .E212
 

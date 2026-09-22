@@ -144,7 +144,7 @@ _CB35:
     ldy #$AC : ldx #$21 : jsl set_sprite
     ldy #$1E : jsl set_speed_xyg
     jsl _02F9DA
-    lda #!sfx_skulls : jsl _018049_8053
+    lda #!sfx_skulls : jsl queue_sound_id
 .CB4D:
     brk #$00
 

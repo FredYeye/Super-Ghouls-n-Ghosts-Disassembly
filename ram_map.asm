@@ -140,15 +140,15 @@
 
     ;sfx related
     ;02F5: counter to compare with apu's last played sound(?)
-    ;02F6: indexes into 2F8, reads
-    ;02F7: indexes into 2F8, writes. increased after sfx is added
-    ;02F8 - 317: sound queue of sorts
+    sound_queue_read_idx  = $02F6
+    sound_queue_write_idx = $02F7
+    sound_queue           = $02F8;317
 
-    ;$0318;0319 layer 3 VRAM offset?
-    ;$031A;031B layer 3 size
+    layer_3_vram_offset = $0318;0319
+    layer_3_size        = $031A;031B
     ;$031C ;bool
 
-    layer3_needs_update = $0323
+    layer_3_needs_update = $0323
     ;$0324;$0329 tile related
     ; $032A ;debugging? dpad moves the camera
     ; $032B;032C ;pointer
@@ -198,8 +198,8 @@
 
     slot_list_objects = $13F1;142E ;list of 16 bit indices for slot_objects
     slot_list_weapons = $142F;1442
-    open_object_slots = $1443;1444
-    open_weapon_slots = $1445;1446
+    open_object_slots = $1443;1444 ;open slots * 2
+    open_weapon_slots = $1445;1446 ;open slots * 2
     open_magic_slots  = $1447
     ;$1448 2 bytes
 

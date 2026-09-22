@@ -228,7 +228,7 @@ create: ;a8 x8
 ;-----
 
 .CEF1:
-    lda #$5D : jsl _018049_8053 ;lightning sfx
+    lda #$5D : jsl queue_sound_id ;lightning sfx
     lda #$17 : sta.w ppu_vars.tm
     rts
 
@@ -263,7 +263,7 @@ create: ;a8 x8
 
 .CF24:
     ldy #$A4 : ldx #$21 : jsl set_sprite
-    lda.b #!sfx_fireworks : jsl _018049_8053
+    lda.b #!sfx_fireworks : jsl queue_sound_id
 .CF32:
     brk #$00
 
@@ -384,7 +384,7 @@ if !version == !JP
 endif
 
     !A8
-    stz $032E
+    stz.w hud_visible
     stz.w ppu_vars.hdmaen
 if !version == !JP
     ldy #$27 : jsl decompress
@@ -396,8 +396,8 @@ endif
     !A16
     stz $1889
     stz $188D
-    lda #$1800 : sta $0318
-    lda #$0800 : sta $031A
+    lda #$1800 : sta.w layer_3_vram_offset
+    lda #$0800 : sta.w layer_3_size
     !X16
     ldx #$001C : lda #$0010 : ldy #$0000 : jsl _019136_9187
 if !version == !JP
@@ -407,7 +407,7 @@ elseif !version == !US || !version == !EU
 endif
     !AX8
     jsl _018061_8064
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     brk #$00
 
 ;----- D051

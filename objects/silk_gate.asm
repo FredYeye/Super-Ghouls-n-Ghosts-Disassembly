@@ -27,7 +27,7 @@ create:
     beq .9F68
 
     lda #$32 : sta $2D
-    lda #!sfx_gate_open : jsl _018049_8053
+    lda #!sfx_gate_open : jsl queue_sound_id
 .9F81:
     brk #$00
 

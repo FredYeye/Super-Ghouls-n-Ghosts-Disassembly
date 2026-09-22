@@ -35,7 +35,7 @@ endif
 
     lda #$1900 : sta.w screen_boundary_left
     !A8
-    lda #!mus_stage_5_boss : jsl _018049_8053 ;oversight: wrong boss music
+    lda #!mus_stage_5_boss : jsl queue_sound_id ;oversight: wrong boss music
     stz $1500
     stz $150E
     stz $151C
@@ -183,7 +183,7 @@ endif
     stz $32
     stz $33
     lda #$40 : sta $34
-    lda #!sfx_death_crawler_spin : jsl _018049_8053
+    lda #!sfx_death_crawler_spin : jsl queue_sound_id
 .B338:
     brk #$00
 
@@ -465,8 +465,8 @@ thing:
 ;-----
 
 destroy:
-    jsl _018049_8051
-    lda #!mus_defeat_boss : jsl _018049_8053
+    jsl queue_sound_F1
+    lda #!mus_defeat_boss : jsl queue_sound_id
     lda #$04 : sta $1D
     lda #!id_boss_explosion_spawner : jsl prepare_object
     lda #$7E : sta $2D

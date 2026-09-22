@@ -19,7 +19,7 @@ elseif !version == !US || !version == !EU
     lda.w _00C919+2,Y : ldx #$04D0 : jsr .BB85
 endif
     !AX8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
 .B8E4:
     brk #$00
 
@@ -32,7 +32,7 @@ endif
     bit.b #!select|!up|!down
     beq .B8E4
 
-    lda.b #!sfx_menu_move : jsl _018049_8053
+    lda.b #!sfx_menu_move : jsl queue_sound_id
     lda $2D
     clc
     adc #$04
@@ -44,7 +44,7 @@ endif
     lda $2D : sta $1FB3
     beq .B914
 
-    lda #$63 : jsl _018049_8053 ;menu select sfx
+    lda #$63 : jsl queue_sound_id ;menu select sfx
     jml _0281A8_81B5
 
 .B914:
@@ -90,7 +90,7 @@ endif
 
 .B948:
     sta $0F
-    lda.b #!sfx_menu_move : jsl _018049_8053
+    lda.b #!sfx_menu_move : jsl queue_sound_id
 .B950:
     lda $0F
     asl
@@ -293,8 +293,8 @@ endif
     lda #$00
 .BA96:
     sta $0F
-    jsl _018049_804D
-    lda.b #!sfx_menu_move : jsl _018049_8053
+    jsl queue_sound_F0
+    lda.b #!sfx_menu_move : jsl queue_sound_id
 .BAA2:
     lda $0F
     asl
@@ -393,12 +393,12 @@ endif
     cmp #$F0
     bcs .BB35
 
-    jsl _018049_8053 ;play music or sound effect
+    jsl queue_sound_id ;play music or sound effect
 .BB34:
     rts
 
 .BB35:
-    jsl _018049_804D
+    jsl queue_sound_F0
     rts
 
 ;-----
@@ -483,7 +483,7 @@ endif
     bne .BBCA
 
     !AX8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     rtl
 
 ;-----

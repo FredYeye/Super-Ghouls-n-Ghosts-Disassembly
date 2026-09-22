@@ -14,7 +14,7 @@ create:
 
 ;----- ED5E
 
-    lda.b #!sfx_magic_lightning : jsl _018049_8053
+    lda.b #!sfx_magic_lightning : jsl queue_sound_id
     lda #$06 : cop #$00
 
 ;----- ED68

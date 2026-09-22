@@ -12,7 +12,7 @@ create:
     sta $3C
     lda.w death_crawler_projectile_data_D14F,X : sta.b obj.facing : sta.b obj.direction
     ldy.w death_crawler_projectile_data_D137,X : jsl set_speed_xyg
-    lda #$35 : jsl _018049_8053
+    lda #$35 : jsl queue_sound_id
 .B668:
     brk #$00
 

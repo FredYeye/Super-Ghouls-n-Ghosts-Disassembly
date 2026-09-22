@@ -419,7 +419,7 @@ destroy:
     jmp create_9FC2
 
 .A2CC:
-    lda #!sfx_shatter : jsl _018049_8053
+    lda #!sfx_shatter : jsl queue_sound_id
     ldy #$AA : ldx #$21 : jsl set_sprite
     ldy #$0F : jsl update_score
     ldy #$1C : jsl set_speed_xyg

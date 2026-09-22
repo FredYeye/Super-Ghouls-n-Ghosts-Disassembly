@@ -59,7 +59,7 @@ create:
     lda.w !obj_arthur.hp
     bmi .BDF8
 
-    lda #$2E : jsl _018049_8053
+    lda #$2E : jsl queue_sound_id
     lda.w !obj_shield.active
     bne .BE8F
 

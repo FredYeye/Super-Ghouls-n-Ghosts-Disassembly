@@ -2,7 +2,7 @@ namespace axe
 
 {
 create:
-    lda #$67 : jsl _018049_8053
+    lda #$67 : jsl queue_sound_id
     jsl _02F9DA
     ldy #$4A : ldx #$21 : jsl set_sprite
     stz $32
@@ -47,7 +47,7 @@ create:
 ;-----
 
 upgraded_create:
-    lda.b #!sfx_axe2_triblade2 : jsl _018049_8053
+    lda.b #!sfx_axe2_triblade2 : jsl queue_sound_id
     lda #$0C : sta $2D
     lda #$06 : sta $2F
     lda $09 : ora #$C2 : sta $09

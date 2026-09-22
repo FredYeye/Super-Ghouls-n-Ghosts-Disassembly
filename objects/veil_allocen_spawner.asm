@@ -20,7 +20,7 @@ create:
     cmp #$06
     bcc .E171
 
-    lda #$03 : jsl _0195B2
+    lda #$03 : jsl sort_object_slots
     jsl get_object_slot
     lda #$0C : sta.w obj.active,X
     lda #!id_veil_allocen : sta.w obj.type,X

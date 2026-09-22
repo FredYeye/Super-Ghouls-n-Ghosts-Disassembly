@@ -3,7 +3,7 @@ namespace gate2
 {
 create:
     lda #$02 : sta $08
-    lda #$48 : jsl _018049_8053
+    lda #$48 : jsl queue_sound_id
     lda.w stage
     sec
     sbc #$06

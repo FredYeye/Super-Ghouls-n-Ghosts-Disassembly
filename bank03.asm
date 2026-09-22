@@ -344,7 +344,7 @@ endif
     bne .EEC3
 
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     plx
     iny
     jmp .EE3B
@@ -409,7 +409,7 @@ endif
     ora $1EC3
     sta $7F9000,X
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     iny
     inx #2
     rts
@@ -444,8 +444,8 @@ _03F526:
 
     inc.w is_playing_game_start_cutscene
     jsl enable_forced_blanking
-    jsl _018049_804D
-    lda.b #!mus_intro : jsl _018049_8053
+    jsl queue_sound_F0
+    lda.b #!mus_intro : jsl queue_sound_id
     jsl _0180B9
     jsr .F606
     jsl enable_nmi ;game start cutscene starts somewhere here
@@ -477,7 +477,7 @@ _03F526:
     ldx #$04 : jsr .F63D
     jsl enable_forced_blanking
     lda #$10 : jsr .F745
-    lda #!sfx_shatter : jsl _018049_8053
+    lda #!sfx_shatter : jsl queue_sound_id
     lda #$10 : jsr .F745
     ldx #$16 : jsr .F620
     jsr .F606
@@ -679,8 +679,8 @@ credits:
     jsl enable_nmi
     jsl _018366
     !A16
-    lda #$1800 : sta $0318
-    lda #$1000 : sta $031A : sta !VMADDL
+    lda #$1800 : sta.w layer_3_vram_offset
+    lda #$1000 : sta.w layer_3_size : sta !VMADDL
     stz $1889
     stz $188D
     !X16
@@ -729,7 +729,7 @@ elseif !version == !EU
     lda #$02 : sta $1EBB
 endif
     lda #$04 : sta $1EBD
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     lda #$17 : sta.w ppu_vars.tm : sta.w ppu_vars.ts
     ldx #$17
     jsl _03F526_F61C
@@ -843,8 +843,8 @@ endif
     bne .FB31
 
 if !version == !EU
-    lda #$F6 : jsl _018049_8053
-    lda #$60 : jsl _018049_8053 ;volume fade speed
+    lda #$F6 : jsl queue_sound_id
+    lda #$60 : jsl queue_sound_id ;volume fade speed
 endif
     ldx #$00 : lda #$3D : jsl _01F6C9
     lda #$48 : sta $1EB7

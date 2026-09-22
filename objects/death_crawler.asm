@@ -25,7 +25,7 @@ thing:
 
     sta $3C
     ldx #$03 : jsl _028048
-    lda #!sfx_hit : jsl _018049_8053
+    lda #!sfx_hit : jsl queue_sound_id
 .B634:
     rtl
 

@@ -20,7 +20,7 @@ _01EB18:
 ;-----
 
 create:
-    lda.b #!sfx_bracelet : jsl _018049_8053
+    lda.b #!sfx_bracelet : jsl queue_sound_id
     jsr _01DD90
     lda $09 : ora #$42 : sta $09
     stz $40
@@ -35,7 +35,8 @@ create:
     pha
     jsr _EC24
     jsr _EC30
-    lda #$02 : jsl _019580
+    lda #$02 ;unused lda, probably used by sort_weapon_slots at some point
+    jsl sort_weapon_slots
     lda #$D4 : sta $1D
     stz $07
     jsr _01EB18

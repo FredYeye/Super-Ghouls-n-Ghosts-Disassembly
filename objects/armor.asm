@@ -106,7 +106,7 @@ create:
     lda.w !obj_arthur.hp
     bmi .BAC8
 
-    lda $3A : jsl _018049_8053
+    lda $3A : jsl queue_sound_id
     ldx.w armor_state
     lda.w _00C2A4,X
     bmi .BB76

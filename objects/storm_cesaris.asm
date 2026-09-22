@@ -26,7 +26,7 @@ create:
     bne .92B3
 
     !X8
-    lda #!mus_stage_2_boss : jsl _018049_8053
+    lda #!mus_stage_2_boss : jsl queue_sound_id
     jmp _0281A8_81B5
 
 ;-----
@@ -117,7 +117,7 @@ create:
     dec $34
     bne .93A5
 
-    lda #$35 : jsl _018049_8053
+    lda #$35 : jsl queue_sound_id
     lda #$03 : sta $07
     lda.b #!id_storm_cesaris_projectile : jsl prepare_object
     jsr _946E
@@ -178,7 +178,7 @@ destroy:
     lda.b obj.hp : sta $1EBA
     bne .944A
 
-    lda #!sfx_death : jsl _018049_8053
+    lda #!sfx_death : jsl queue_sound_id
     ldy #$EC : ldx #$21 : jsl set_sprite
 .9420:
     brk #$00
@@ -198,8 +198,8 @@ destroy:
 
     inc.w skip_tick_timer
     lda.b #!id_key : jsl prepare_object
-    jsl _018049
-    lda.b #!mus_defeat_boss : jsl _018049_8053
+    jsl queue_sound_F2
+    lda.b #!mus_defeat_boss : jsl queue_sound_id
     jmp _0281A8_81B5
 
 .944A:

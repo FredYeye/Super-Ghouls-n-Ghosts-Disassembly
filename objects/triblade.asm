@@ -2,7 +2,7 @@ namespace triblade
 
 {
 upgraded_create:
-    lda.b #!sfx_axe2_triblade2 : jsl _018049_8053
+    lda.b #!sfx_axe2_triblade2 : jsl queue_sound_id
     lda #$10 : sta $2F
     lda $09 : ora #$02 : sta $09
     stz $40
@@ -12,7 +12,7 @@ upgraded_create:
 ;-----
 
 create:
-    lda #$67 : jsl _018049_8053
+    lda #$67 : jsl queue_sound_id
     stz $2F
     ldy #$C0 : ldx #$20
 .F420:

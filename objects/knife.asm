@@ -2,7 +2,7 @@ namespace knife
 
 {
 create:
-    lda #!sfx_knife : jsl _018049_8053
+    lda #!sfx_knife : jsl queue_sound_id
     ldy #$3C : ldx #$20 : jsl set_sprite
     lda #$18 : sta.w knife_rapid_timer
     inc.w knife_rapid_count
@@ -21,7 +21,7 @@ create:
 upgraded_create:
     lda.b obj.flags2 : ora #$42 : sta.b obj.flags2
     stz $40
-    lda.b #!sfx_laser : jsl _018049_8053
+    lda.b #!sfx_laser : jsl queue_sound_id
     ldy #$5E : ldx #$20 : jsl set_sprite
     lda #$18 : sta.w knife_rapid_timer
     inc.w knife_rapid_count

@@ -153,7 +153,7 @@ create:
 ;-----
 
 destroy:
-    lda #!sfx_death : jsl _018049_8053
+    lda #!sfx_death : jsl queue_sound_id
     jmp _028BEC
 
 ;-----

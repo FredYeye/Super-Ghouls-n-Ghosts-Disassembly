@@ -35,23 +35,22 @@ _018021: ;a8 x-
 }
 
 { ;8049 - 8060
-_018049: ;a8 x8
+queue_sound: ;a8 x8
+
+.F2:
     lda #$F2
-    bra .8053
+    bra .id
 
-.804D: ;a8 x8
+.F0: ;a8 x8
     lda #$F0
-    bra .8053
+    bra .id
 
-.8051: ;a8 x8
+.F1: ;a8 x8
     lda #$F1
-.8053: ;a8 x8
-    ;play sound
-    ldx $02F7 : sta $02F8,X
-    txa
-    inc
-    and #$1F
-    sta $02F7
+.id: ;a8 x8
+    ldx.w sound_queue_write_idx
+    sta.w sound_queue,X
+    txa : inc : and.b #$1F : sta.w sound_queue_write_idx
     rtl
 }
 
@@ -547,7 +546,7 @@ _0183D4: ;a8 x16
 
 .841B:
     !AX8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     plb
     rtl
 }
@@ -761,12 +760,12 @@ update_oam_table: ;a8 x-
     lda.w !sprite_prio_offset.count+0*2
     beq +
 
-    ldy.w #sprite_prio.queue_0 : jsr _018673
+    ldy.w #sprite_prio.queue_0 : jsr sprite_queue_to_oam
 +:
     lda.w !sprite_prio_offset.count+1*2
     beq +
 
-    ldy.w #sprite_prio.queue_1 : jsr _018673
+    ldy.w #sprite_prio.queue_1 : jsr sprite_queue_to_oam
 +:
     lda.w !obj_arthur.active
     beq .85EF
@@ -775,27 +774,27 @@ update_oam_table: ;a8 x-
     bne .85EF
 
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
-    jsr _01868B_entry
+    jsr meta_sprite_to_oam_entry
 .85EF:
     lda.w !sprite_prio_offset.count+2*2
     beq +
 
-    ldy.w #sprite_prio.queue_2 : jsr _018673
+    ldy.w #sprite_prio.queue_2 : jsr sprite_queue_to_oam
 +:
     lda.w !sprite_prio_offset.count+3*2
     beq +
 
-    ldy.w #sprite_prio.queue_3 : jsr _018673
+    ldy.w #sprite_prio.queue_3 : jsr sprite_queue_to_oam
 +:
     lda.w !sprite_prio_offset.count+4*2
     beq +
 
-    ldy.w #sprite_prio.queue_4 : jsr _018673
+    ldy.w #sprite_prio.queue_4 : jsr sprite_queue_to_oam
 +:
     lda.w !sprite_prio_offset.count+5*2
     beq +
 
-    ldy.w #sprite_prio.queue_5 : jsr _018673
+    ldy.w #sprite_prio.queue_5 : jsr sprite_queue_to_oam
 +:
     lda.w !obj_arthur.active
     beq .862E
@@ -804,17 +803,17 @@ update_oam_table: ;a8 x-
     beq .862E
 
     lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
-    jsr _01868B_entry
+    jsr meta_sprite_to_oam_entry
 .862E:
     lda.w !sprite_prio_offset.count+6*2
     beq +
 
-    ldy.w #sprite_prio.queue_6 : jsr _018673
+    ldy.w #sprite_prio.queue_6 : jsr sprite_queue_to_oam
 +:
     lda.w !sprite_prio_offset.count+7*2
     beq +
 
-    ldy.w #sprite_prio.queue_7 : jsr _018673
+    ldy.w #sprite_prio.queue_7 : jsr sprite_queue_to_oam
 +:
     stx.w oam_offset
     pld
@@ -847,12 +846,12 @@ update_oam_table: ;a8 x-
 }
 
 { ;8673 - 868A
-_018673: ;a8 x16
+sprite_queue_to_oam: ;a8 x16
     sta $0378
 .8676:
     lda.w !sprite_prio_offset.queues+1,Y : xba : lda.w !sprite_prio_offset.queues,Y : tcd
     phy
-    jsr _01868B_entry
+    jsr meta_sprite_to_oam_entry
     ply
     iny #2
     dec $0378
@@ -862,7 +861,7 @@ _018673: ;a8 x16
 }
 
 { ;868B - 87DA
-_01868B:
+meta_sprite_to_oam:
     !A8
 .flicker_odd_frame:
     rts
@@ -898,7 +897,7 @@ _01868B:
     clc : lda $0C : adc $0A : tay
     lda $0000,Y
     cmp.w sprite_slots_available
-    bcs _01868B
+    bcs meta_sprite_to_oam
 
     sta $0000
     eor #$FFFF
@@ -1818,7 +1817,7 @@ add_extra_life: ;a8 x-
     bcs .8F7C
 
     sta.w extra_lives
-    lda #!sfx_1up : jsl _018049_8053
+    lda #!sfx_1up : jsl queue_sound_id
 .8F7C:
     inc.w hud_update_lives
     rts
@@ -1849,7 +1848,7 @@ update_hud: ;a8 x8
     lda.w timer_tens    : and #$00FF : ora #$2580 : sta $7F90F8
     lda.w timer_seconds : and #$00FF : ora #$2580 : sta $7F90FA
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
 .8FCD:
     lda.w hud_update_lives
     beq .8FE9
@@ -1861,7 +1860,7 @@ update_hud: ;a8 x8
     ora #$2580
     sta $7F9106
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
 .8FE9:
     rtl
 
@@ -1893,13 +1892,13 @@ update_hud: ;a8 x8
     bpl .9009
 
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     rts
 }
 
 { ;9024 - 908A
 _019024: ;a8 x-
-    ;copy lots of data into ram. what is this for?
+    ;copy lots of data into ram that goes unused
 
     !X16
     lda.w stage
@@ -2627,7 +2626,9 @@ _019539: ;a8 x8
 }
 
 { ;9580 - 95B1
-_019580:
+sort_weapon_slots:
+;sorts the 3 top entries in ascending use order (for... rendering order purposes?)
+
     ldy.w open_weapon_slots
     bmi .95B1
 
@@ -2637,13 +2638,13 @@ _019580:
     phy
     ldx $0000
 .9591:
-    lda $142D,Y ;todo
-    cmp $142F,Y
+    lda.w slot_list_weapons-2,Y
+    cmp.w slot_list_weapons,Y
     bcs .95A4
 
     pha
-    lda $142F,Y : sta $142D,Y
-    pla : sta $142F,Y
+    lda.w slot_list_weapons,Y : sta.w slot_list_weapons-2,Y
+    pla : sta.w slot_list_weapons,Y
 .95A4:
     dey #2
     dex
@@ -2659,7 +2660,9 @@ _019580:
 }
 
 { ;95B2 - 95E3
-_0195B2:
+sort_object_slots:
+;sorts the top entries in ascending use order (A8: count)
+
     ldy.w open_object_slots
     bmi .95E3
 
@@ -2670,13 +2673,13 @@ _0195B2:
     phy
     ldx $0000
 .95C3:
-    lda $13EF,Y ;todo: labels
-    cmp $13F1,Y
+    lda.w slot_list_objects-2,Y
+    cmp.w slot_list_objects,Y
     bcs .95D6
 
     pha
-    lda $13F1,Y : sta $13EF,Y
-    pla : sta $13F1,Y
+    lda.w slot_list_objects,Y : sta.w slot_list_objects-2,Y
+    pla : sta.w slot_list_objects,Y
 .95D6:
     dey #2
     dex
@@ -2754,21 +2757,21 @@ get_rng_16: ;a8 x8
 }
 
 { ;963E - 9648
-_01963E: ;a8 x8
+get_rng_bitmask_8b: ;a8 x8
     jsl call_rng
-    and #$07
+    and.b #$07
     tax
-    lda.w _00A8E2,X
+    lda.w rng_bit_mask_8b,X
     rtl
 }
 
 { ;9649 - 9656
-_019649: ;a8 x8
+get_rng_bitmask_16b: ;a8 x8
     jsl call_rng
     !A16
-    and #$000F
+    and.w #$000F
     tax
-    lda.w _00A8EA,X
+    lda.w rng_bit_mask_16b,X
     rtl
 }
 
@@ -2797,11 +2800,11 @@ _019662: ;a- x-
 }
 
 { ;9681 - 9696
-_019681: ;a8 x8
+set_weapon_hitbox: ;a8 x8
     lda.w weapon_current : asl : tax
     !A16
-    lda.w _00B984+$00,X : sta $1F25
-    lda.w _00B984+$20,X : sta $1F27
+    lda.w weapon_hitbox,X       : sta $1F25
+    lda.w weapon_hitbox_magic,X : sta $1F27
     !A8
     rtl
 }
@@ -3008,428 +3011,8 @@ _019CBE: ;a16 x-
 }
 
 { ;A21D - A3EC
-    incsrc "various/decompress.asm"
-}
-
-{ ;A3ED - A4C8
-get_tile_type:
-
-.A3ED:
-    lda $0000 : lsr #4 : and #$003F : sta $0010
-    lda $0004
-    asl #2
-    and #$0FC0
-    ora $0010
-    clc
-    adc $1F8D
-    tax
-    lda.l tile_array,X
-    !AX8
-    tax
-    sec
-    sbc $0326
-    cmp $0327
-    bcs +
-
-    inc $14E9
-+:
-    lda.l tile_type,X
-    tax
-    rts
-
-.A423:
-    !AX8
-    lda #$00
-    rts
-
-.entry: ;a- x-
-    !AX16
-..2: ;a16 x16
-    lda $0002
-    bmi .A423
-
-    and #$FFF0
-    sta $0004
-    ldy $02DA
-    bne .A3ED
-
-    !A8
-    sta $0010
-    stz $0011
-    asl $0010 : rol $0011
-    asl $0010 : rol $0011
-    lda $0000 : and #$F0 : lsr #3 : ora $0010 : sta $0010
-    lda $0003 : sta $0007
-    lda $0001
-    asl #2
-    and #$0C
-    lsr $0007
-    bcc +
-
-    ora #$10
-+:
-    ora $0011
-    xba
-    lda $0010
-    !A16
-    asl
-    tax
-    stx $0007
-.precalc_index: ;a16 x16
-    lda.l tile_array+0,X
-    bit #$4000
-    beq +
-
-    lda.l tile_array+2,X
-+:
-    bit #$0011
-    beq +
-
-    lda #$0000
-+:
-    pha
-    and #$43F0
-    lsr #2
-    sta $0010
-    pla
-    lsr
-    and #$0007
-    ora $0010
-    !AX8
-    sta $001F
-    tax
-    sec
-    sbc $0324
-    cmp $0325
-    bcs +
-
-    inc $001E
-+:
-    sec
-    txa
-    sbc $0326
-    cmp $0327
-    bcs +
-
-    inc $14E9
-+:
-    lda.l tile_type,X
-    tax
-    rts
-}
-
-{ ;A4C9 - A4E1
-_01A4C9: ;a- x-
-    !A16
-    ldy $15
-    clc : lda ($13),Y : adc.b obj.pos_x+1 : sta $0000
-    iny #2
-    clc : lda ($13),Y : adc.b obj.pos_y+1 : sta $0002
-    !X16
-    rts
-}
-
-{ ;A4E2 - A507
-_01A4E2: ;a- x8
-    !A16
-    lda ($13),Y
-    bra .A4F4
-
-.A4E8: ;a- x8
-    !A16
-    lda ($13),Y
-    ldx.b obj.direction
-    beq .A4F4
-
-    eor #$FFFF
-    inc
-.A4F4:
-    clc
-    adc.b obj.pos_x+1 : sta $0000
-    iny #2
-    clc
-    lda ($13),Y
-    adc.b obj.pos_y+1 : sta $0002
-    !X16
-    bra .A537
-
-.A508: ;a- x8
-    !A16
-    lda ($13),Y
-    bra .A516
-
-.A50E: ;a- x8
-    !A16
-    lda ($13),Y : eor #$FFFF : inc
-.A516:
-    clc : adc $14BE : sta $0000
-    iny #2
-    clc : lda ($13),Y : adc.b obj.pos_y+1 : sta $0002
-    !X16
-    bra .A537
-
-.A52B: ;a- x-
-    ;weapon - tile collision check
-    !AX16
-    lda.b obj.pos_x+1 : sta $0000
-    lda.b obj.pos_y+1 : sta $0002
-
-.A537:
-    stz $001E
-    jsr get_tile_type_entry_2
-    beq .A551
-
-    cmp #$01
-    beq .A553
-
-    jsr _01A649_A673
-    !AX16
-    lda $0002
-    cmp $0004
-    !AX8
-    rtl
-
-.A551:
-    clc
-    rtl
-
-.A553:
-    sec
-    rtl
-}
-
-{ ;A555 - A558
-    ;unused
-    jsr _01A56B
-    rtl
-}
-
-{ ;A559 - A56A
-_01A559: ;a8 x8
-    stz $001E
-    jsr _01A4C9
-    jsr _01A56B
-    bne .ret
-
-    jsr update_coord_offset_x
-    jsr _01A56B
-.ret:
-    rtl
-}
-
-{ ;A56B - A592
-_01A56B: ;a- x-
-    jsr get_tile_type_entry
-    beq .ret
-
-    jsr _01A649
-    !AX16
-    lda $0002
-    cmp $0004
-    bcc .A58E
-
-    sec
-    lda $0004
-    sbc $0002
-    clc
-    adc.b obj.pos_y+1
-    sta.b obj.pos_y+1
-    !AX8
-    lda #$01
-    rts
-
-.A58E:
-    !AX8
-    lda #$00
-.ret:
-    rts
-}
-
-{ ;A593 - A59F
-_01A593: ;a8 x8
-    jsr _01A5F9
-    beq +
-
-    clc
-    adc.b obj.pos_y+1
-    sta.b obj.pos_y+1
-+:
-    !AX8
-    rtl
-}
-
-{ ;A5A0 - A5AE
-update_coord_offset_x: ;a- x-
-    !A16
-.2: ;a16 x-
-    ldy $15
-    sec : lda.b obj.pos_x+1 : sbc ($13),Y : sta $0000
-    !X16
-    rts
-}
-
-{ ;A5AF - A5F8
-_01A5AF: ;a8 x8
-    stz $0018
-    stz $001E
-    jsr _01A5F9
-    beq +
-
-    inc $0018
-+:
-    clc
-    adc.b obj.pos_y+1
-    sta $001A
-    asl $0018
-    jsr update_coord_offset_x_2
-    jsr _01A5F9_A5FC
-    beq +
-
-    inc $0018
-+:
-    clc
-    adc.b obj.pos_y+1
-    asl $0018
-    ldx $0018
-    phx
-    jsr (.offsets,X)
-    sta.b obj.pos_y+1
-    plx
-    !AX8
-    rtl
-
-.offsets: dw .A5EF, .A5EF, .A5EC, .A5F0
-
-.A5EC:
-    lda $001A
-.A5EF:
-    rts
-
-.A5F0:
-    cmp $001A
-    bcc +
-
-    lda $001A
-+:
-    rts
-}
-
-{ ;A5F9 - A648
-_01A5F9: ;a- x-
-    jsr _01A4C9
-.A5FC: ;a16 x16
-    jsr get_tile_type_entry_2
-    bne .A632
-
-    ldy $02DA
-    bne .A643
-
-    !AX16
-    clc : lda $0004 : adc #$0010 : sta $0004
-    lda $0007
-    tax
-    and #$0780
-    cmp #$0780
-    bne .A627
-
-    txa
-    eor #$2000
-    and #$387F
-    bra .A62C
-
-.A627:
-    clc
-    txa
-    adc #$0080
-.A62C:
-    tax
-    jsr get_tile_type_precalc_index
-    beq .A643
-
-.A632:
-    jsr _01A649
-    beq .A643
-
-    !A16
-    php
-    sec
-    lda $0004
-    sbc $0002
-    plp
-    rts
-
-.A643:
-    !A16
-    lda #$0000
-    rts
-}
-
-{ ;A649 - A6AA
-_01A649: ;a8 x8
-    cmp #$01
-    bne .A673
-
-    !AX16
-    sec : lda $0004 : sbc #$0010 : sta $0004
-    lda $0007
-    bit #$0780
-    beq .A667
-
-    sec
-    sbc #$0080
-    bra .A66D
-
-.A667:
-    eor #$2000
-    ora #$0780
-.A66D:
-    tax
-    jsr get_tile_type_precalc_index
-    beq .A684
-
-.A673: ;a8 x8
-    ;slope handling
-    and #$70
-    cmp #$70
-    bne .A685
-
-    txa
-    and #$0F
-.A67C:
-    ora $0004
-    sta $0004
-    lda #$01
-.A684:
-    rts
-
-.A685:
-    xba
-    php
-    txa
-    lsr #4
-    tay
-    lda $0000
-    and #$0F
-    plp
-    beq +
-
-    eor #$0F
-+:
-    cpy #$00
-    beq .A69F
-
--:
-    lsr
-    dey
-    bne -
-
-.A69F:
-    sta $000C
-    txa
-    and #$0F
-    sec
-    sbc $000C
-    bra .A67C
+    incsrc "various/decompress.asm" ;A21D - A3EC
+    incsrc "various/collision.asm"  ;A3ED - A6AA
 }
 
 { ;A6AB - A6FD
@@ -3918,8 +3501,8 @@ pause_handling: ;a8 x8
     bit #!start
     beq .ret
 
-    lda #!sfx_pause : jsl _018049_8053
-    lda #$F3 : jsl _018049_8053 ;F3 suspend sound?
+    lda #!sfx_pause : jsl queue_sound_id
+    lda #$F3 : jsl queue_sound_id ;F3 suspend sound?
     ldx.b #task[6].base
 .B16A:
     lda.w !task_offset.state,X : pha
@@ -3933,7 +3516,7 @@ pause_handling: ;a8 x8
     bit #!start
     beq .B17A
 
-    lda #$F4 : jsl _018049_8053 ;F4 resume sound?
+    lda #$F4 : jsl queue_sound_id ;F4 resume sound?
     ldx.b #task[1].base
 .B18F:
     pla : sta.w !task_offset.state,X
@@ -3970,7 +3553,7 @@ _01B19D: ;a8 x8
     jsr _01C062
     jsr _01B5AB_local
     jsr _01F722
-    jsr _01B26D_B271
+    jsr _01B26D_local
     jsr _01B46D
     lda $02DA
     bne .B1FF
@@ -4028,10 +3611,10 @@ _01B19D: ;a8 x8
 
 { ;B26D - B2B0
 _01B26D: ;a8 x-
-    jsr .B271
+    jsr .local
     rtl
 
-.B271: ;a8 x-
+.local: ;a8 x-
     lda.w ppu_vars.bg3sc   : sta.w hdma_data+$0C : sta.w hdma_data+$11
     lda $02DF              : sta.w hdma_data+$0D : sta.w hdma_data+$12
     lda.w ppu_vars.bg12nba : sta.w hdma_data+$0E : sta.w hdma_data+$13
@@ -4155,12 +3738,12 @@ _01B4C5: ;a x
     lda $0292
     bne .ret
 
-    jsl _018049_804D
+    jsl queue_sound_F0
     lda $1FB9
     bne .ret
 
     ldx.w stage
-    lda.w stage_music,X : jsl _018049_8053 ;play stage music
+    lda.w stage_music,X : jsl queue_sound_id ;play stage music
 .ret:
     rts
 }
@@ -4371,7 +3954,7 @@ _01B658: ;a8 x8
     stz.w !obj_upgrade2.active
     stz.w magic_bar_state
     jsl _019697
-    jsl _019681
+    jsl set_weapon_hitbox
     ldx.w weapon_current
     phd
     phx
@@ -6641,7 +6224,7 @@ magic_bar_handling: ;a x
     stz $14E3
     stz $14F0
     lda.w weapon_current : jsr .CBDA
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
 .C93E:
     rts
 
@@ -6702,7 +6285,7 @@ magic_bar_handling: ;a x
     lda #!id_magic_charge : sta.w !obj_upgrade2.type
     stz.w !obj_upgrade2.flags1
     inc $14E6
-    lda #!sfx_magic_charge : jsl _018049_8053
+    lda #!sfx_magic_charge : jsl queue_sound_id
 .C9B5:
     sec : lda $14B5 : sbc #$08 : sta $14B5 : sta $14B6
     lda $14B4
@@ -6759,7 +6342,7 @@ magic_bar_handling: ;a x
     ora #$8000
     sta $7F90E2,X
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     inc $14B4
     rts
 
@@ -6807,7 +6390,7 @@ magic_bar_handling: ;a x
     inc
     sta $7F90E0
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     rts
 
 ;-----
@@ -6827,7 +6410,7 @@ magic_bar_handling: ;a x
     bne .CAC3
 
     stz $14E6
-    jsl _018049_8051
+    jsl queue_sound_F1
 .CAC3:
     lda #$01 : sta $14B5
     lda $14B4 : asl : tax : sta $0000
@@ -6857,7 +6440,7 @@ magic_bar_handling: ;a x
                            ora #$8000 : sta $7F90E2,X
     !A8
 .CB2E:
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     dec $14B4
     bpl .CB55
 
@@ -6900,7 +6483,7 @@ magic_bar_handling: ;a x
     lda #$A1AE : sta $7F90DC : sta $7F90E2
     lda #$2DC7 : jsr .CA86
     lda.w weapon_current : jsr .CBDA
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     stz.w !obj_upgrade2.active
     stz.w !obj_upgrade2.flags1
     stz $14B5
@@ -7123,8 +6706,7 @@ _01D91C: ;a x8
     rts
 
 .D94E: ;a- x8
-    ldy #$04
-    jsl _01A4E2_A4E8
+    ldy #$04 : jsl _01A4E2_A4E8
     bcs .D943
 
     rts
@@ -7335,7 +6917,7 @@ _01DAA4:
 
 { ;DAB8 - DB66
 _01DAB8:
-    lda.b #!mus_ending : jsl _018049_8053
+    lda.b #!mus_ending : jsl queue_sound_id
     stz.w can_pause
     stz.w !obj_upgrade2.active
     stz.w can_charge_magic
@@ -7555,7 +7137,7 @@ _01DC56: ;a8 x8
     lda #!id_water_crash_splash : jsl prepare_object
 .DC77:
     lda #$3F : sta $2D
-    lda #!sfx_arthur_death : jsl _018049_8053
+    lda #!sfx_arthur_death : jsl queue_sound_id
 .DC81:
     clc
     lda.b obj.pos_y+0 : adc $006D : sta.b obj.pos_y+0
@@ -7672,7 +7254,7 @@ _01DD5C: ;a8 x?
     lda.b obj.hp
     bmi .DD6D
 
-    lda #!sfx_arthur_death : jsl _018049_8053
+    lda #!sfx_arthur_death : jsl queue_sound_id
 .DD6D:
     lda #$3F : sta $2F
 .DD71:
@@ -7826,7 +7408,7 @@ _01DE62:
 
     !A8
     inc $0331
-    lda.b #!sfx_ice : jsl _018049_8053
+    lda.b #!sfx_ice : jsl queue_sound_id
     lda #$FF : sta $0F
     lda.w jump_counter
     beq .DEAB
@@ -7976,7 +7558,7 @@ arthur_baby: ;a8 x8
 .jump: ;a8 x8
     lda #$02 : sta $3C
     inc.w jump_counter
-    lda #!sfx_jump : jsl _018049_8053
+    lda #!sfx_jump : jsl queue_sound_id
     jsr arthur_set_facing_get_pressed_direction
     ldy.w _00BA2A,X : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
@@ -8089,10 +7671,10 @@ arthur_maiden:
 ;-----
 
 .jump:
-    lda #$2B : jsl _018049_8053
+    lda #$2B : jsl queue_sound_id
     lda #$04 : sta $3C
     inc.w jump_counter
-    lda #$2B : jsl _018049_8053
+    lda #$2B : jsl queue_sound_id
     jsr arthur_set_facing_get_pressed_direction
     lda.w _00BB0E_BB0E,X : sta $3C
     ldy.w _00BB0E_BB12,X : jsl set_speed_xyg
@@ -8185,11 +7767,11 @@ arthur_seal: ;a? x8
 .jump:
     lda #$02 : sta $3C
     inc.w jump_counter
-    lda #$2B : jsl _018049_8053
+    lda #$2B : jsl queue_sound_id
     jsr arthur_set_facing_get_pressed_direction
     ldy.w _00BB16,X : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
-    lda #$2B : jsl _018049_8053
+    lda #$2B : jsl queue_sound_id
 .E11C:
     brk #$00
 
@@ -8200,7 +7782,7 @@ arthur_seal: ;a? x8
     bit.w p1_button_press+1
     beq .E11C
 
-    lda #$2B : jsl _018049_8053
+    lda #$2B : jsl queue_sound_id
     lda #$03 : sta $3C
     lda #$08 : sta $2F
 .E136:
@@ -8320,7 +7902,7 @@ arthur_bee:
 
 .jump:
     inc.w jump_counter
-    lda #$2B : jsl _018049_8053
+    lda #$2B : jsl queue_sound_id
     jsr arthur_set_facing_get_pressed_direction
     ldy #$33 : jsl set_speed_xyg
     lda.b obj.facing : sta.b obj.direction
@@ -8354,13 +7936,13 @@ _01E224:
     jmp (+,X) : +: dw .E234, .E240, .E262
 
 .E234:
-    lda #!sfx_hit : jsl _018049_8053
+    lda #!sfx_hit : jsl queue_sound_id
     ldy #$44 : ldx #$20 ;hit gfx
     bra .E24A
 
 .E240:
     ;convert to collision sprite
-    lda #$69 : jsl _018049_8053 ;weapon solid collision sfx
+    lda #$69 : jsl queue_sound_id ;weapon solid collision sfx
     ldy #$46 : ldx #$20 ;collision particle gfx
 .E24A:
     jsl set_sprite
@@ -8565,7 +8147,7 @@ _01EDAD:
     stz $14E6
     pla : sta $39
     pla : sta $3A
-    lda.b #!sfx_magic_thunder_fire_dragon : jsl _018049_8053
+    lda.b #!sfx_magic_thunder_fire_dragon : jsl queue_sound_id
 .EDBF:
     jsr get_magic_slot
     bpl .EDC7
@@ -8647,7 +8229,7 @@ _01EF44:
     stz $14E6
     pla : sta $39
     pla : sta $3A
-    lda.b #!sfx_magic_thunder_fire_dragon : jsl _018049_8053
+    lda.b #!sfx_magic_thunder_fire_dragon : jsl queue_sound_id
 .EF56:
     brk #$00
 

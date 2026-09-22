@@ -104,7 +104,7 @@ create:
 
 ;----- F20E
 
-    lda #!sfx_grow : jsl _018049_8053
+    lda #!sfx_grow : jsl queue_sound_id
     !X16
     lda $38 : sta $3B
     ldx $39
@@ -179,7 +179,7 @@ flower_head_destroy:
 destroy:
     lda $31 : cop #$00
 .F28A:
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     ldy #$76 : ldx #$20 : jsl set_sprite
     lda #$1F : sta $2D
 .F29C:

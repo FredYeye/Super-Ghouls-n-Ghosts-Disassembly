@@ -123,7 +123,7 @@ create:
     bne .A6C2
 
     lda $2D : inc : and #$03 : sta $2D
-    jsl _01963E
+    jsl get_rng_bitmask_8b
     ldx $2D
     and.w arremer_data_CF33,X
     beq .A6E0
@@ -131,7 +131,7 @@ create:
     jmp .A7EF
 .A6E0:
     lda $2E : inc : and #$01 : sta $2E
-    jsl _01963E
+    jsl get_rng_bitmask_8b
     ldx $2E
     and.w arremer_data_CF37,X
     beq .A710
@@ -596,7 +596,7 @@ thing:
 ;-----
 
 _AA87:
-    lda #$60 : jsl _018049_8053
+    lda #$60 : jsl queue_sound_id
     jsl get_rng_bool
     bne .AA9A
 

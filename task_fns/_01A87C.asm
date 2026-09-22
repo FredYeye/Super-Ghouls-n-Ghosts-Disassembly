@@ -18,8 +18,8 @@ elseif !version == !EU
 endif
     stz.w ppu_vars.bg34nba
     !A16
-    lda #$1800 : sta $0318
-    lda #$0800 : sta $031A
+    lda #$1800 : sta.w layer_3_vram_offset
+    lda #$0800 : sta.w layer_3_size
     !A8
 if !version == !JP || !version == !US
     lda #$08 : jsl _0183D4_83DB
@@ -30,7 +30,7 @@ elseif !version == !EU
     lda #$00 : jsl _01A8CD
     lda #$8F : sta.w ppu_vars.inidisp
     jsl enable_nmi
-    lda.b #!sfx_capcom_logo : jsl _018049_8053
+    lda.b #!sfx_capcom_logo : jsl queue_sound_id
     lda.b #25 : jsl current_task_suspend
     ldx #$02 : ldy #$18 : lda.b #task_list_1C : jsl add_task
 endif
@@ -40,7 +40,7 @@ endif
     bne .A8DC
 
 if !version == !JP || !version == !US
-    lda.b #!sfx_capcom_logo : jsl _018049_8053
+    lda.b #!sfx_capcom_logo : jsl queue_sound_id
     lda #$3F : sta $0055
 elseif !version == !EU
     lda.b #18 : jsl current_task_suspend
@@ -143,7 +143,7 @@ endif
 ;-----
 
 .A9CE:
-    jsl _018049_8051
+    jsl queue_sound_F1
     lda.b #63 : jsl current_task_suspend
     ldy $1FC7
     ldx.w _00B52E_B52E,Y : ldy #$90 : lda.b #task_list_68 : jsl add_task
@@ -158,8 +158,8 @@ endif
     lda.b #1 : jsl current_task_suspend
     !AX16
 
-    lda #$1800 : sta $0318
-    lda #$0800 : sta $031A
+    lda #$1800 : sta.w layer_3_vram_offset
+    lda #$0800 : sta.w layer_3_size
     stz $19CD
     stz $19D1
     !AX8
@@ -252,7 +252,7 @@ endif
     jsl _048EAD
     stz $1FEF
     lda.w options.sound : lsr : tax
-    lda.w _00B55A,X : jsl _018049_8053 ;sound related, stop sounds maybe?
+    lda.w _00B55A,X : jsl queue_sound_id ;sound related, stop sounds maybe?
     lda.w options.difficulty : lsr : sta.w difficulty_base
     rts
 
@@ -352,8 +352,8 @@ endif
 
     lda #!arthur_state_steel : sta.w arthur_state_stored
     !A16
-    lda #$5F00 : sta $0318
-    lda #$0200 : sta $031A
+    lda #$5F00 : sta.w layer_3_vram_offset
+    lda #$0200 : sta.w layer_3_size
     !A8
     ldx.w options.controls
 if !version == !JP || !version == !US
@@ -424,7 +424,7 @@ endif
     lda.w ppu_vars.tm : and #$0F : sta.w ppu_vars.tm : sta.w ppu_vars.tm ;double stores here for some reason
     lda $02D7         : and #$0F : sta $02D7 : sta $02D7 ;^
     inc $0379
-    jsr _01B26D_B271
+    jsr _01B26D_local
     jsr _01B90E_B912
     jsl set_max_brightness
     lda #$08
@@ -449,8 +449,8 @@ endif
     jsl disable_nmi
     jsl enable_forced_blanking
     !A16
-    lda #$5F00 : sta $0318
-    lda #$0200 : sta $031A
+    lda #$5F00 : sta.w layer_3_vram_offset
+    lda #$0200 : sta.w layer_3_size
     !A8
     lda.w difficulty_base : asl : tax
     lda.w loop
@@ -541,7 +541,7 @@ endif
 .AD8C:
     lda #$0C : sta.w !obj_arthur.active
     jsl _019024
-    lda $0292 : and #$01 : eor #$01 : sta $032E
+    lda $0292 : and #$01 : eor #$01 : sta.w hud_visible
     jsl _019136
     jsr load_stage_screen_layout
     jsr _01B526 ;set arthur spawn point and other things
@@ -643,6 +643,6 @@ endif
     ora.w ppu_vars.hdmaen
 +:
     sta.w ppu_vars.hdmaen
-    jsr _01B26D_B271
+    jsr _01B26D_local
     rts
 }

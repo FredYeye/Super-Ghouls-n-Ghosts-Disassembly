@@ -143,7 +143,7 @@ create:
     dec $34
     beq .C7E5
 
-    lda #!sfx_cockatrice_spew : jsl _018049_8053
+    lda #!sfx_cockatrice_spew : jsl queue_sound_id
     lda #!id_cockatrice_head2_projectile : jsl prepare_object
     lda #$30 : sta $35
     lda #$02 : sta $0F

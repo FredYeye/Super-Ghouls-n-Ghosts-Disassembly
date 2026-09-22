@@ -128,7 +128,7 @@ create: ;a8 x8
     ldy #$A2 : ldx #$21 : jsl set_sprite
     lda $2D : adc #$02 : and #$06 : sta $2D
     lda #$0C : jsl clear_speed_xy_set_gravity
-    jsl _019649
+    jsl get_rng_bitmask_16b
     ldx $2D
     and.w killer_data_D235,X
     !A8

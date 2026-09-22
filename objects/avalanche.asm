@@ -64,7 +64,7 @@ create:
     lda $1A80
     bne .DF96
 
-    lda #$68 : jsl _018049_8053
+    lda #$68 : jsl queue_sound_id
     lda $09 : ora #$80 : sta $09
     !A16
     clc : lda.b obj.pos_x+1 : adc #$0140 : sta.b obj.pos_x+1

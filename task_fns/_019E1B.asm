@@ -2,7 +2,7 @@
 _019E1B: ;a8 x?
     stz $CD
     lda #$01 : sta $CE
-    jsl _018049_8051
+    jsl queue_sound_F1
 .9E25:
     lda.b #1 : jsl current_task_suspend
     jsl get_object_slot

@@ -3,7 +3,7 @@ namespace magician_orb
 {
 create:
     !AX8
-    lda.b #!sfx_laser : jsl _018049_8053
+    lda.b #!sfx_laser : jsl queue_sound_id
     ldy #$F2 : ldx #$20 : jsl set_sprite
     lda #$FF : sta $26
     lda $09 : ora #$84 : sta $09
@@ -40,7 +40,7 @@ create:
     jsr (.armor_states,X) : sta.w armor_state
     lda #$7E : sta.w transform_timer
     lda #$01 : sta.w transform_timer+1
-    lda #!sfx_transform : jsl _018049_8053
+    lda #!sfx_transform : jsl queue_sound_id
     ldy #$5C : ldx #$20 : jsl set_sprite
     lda #$10 : sta $32
 .B9CD:

@@ -41,7 +41,7 @@ create:
 .C233:
     jsl set_sprite
     lda #$16 : sta $3B
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
 .C241:
     brk #$00
 

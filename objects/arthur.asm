@@ -93,7 +93,7 @@ create: ;a8 x8
     bra .CDC4
 
 .CDBE:
-    lda #!sfx_land : jsl _018049_8053
+    lda #!sfx_land : jsl queue_sound_id
 
 .CDC4:
     lda $09 : and #$FE : sta $09
@@ -293,7 +293,7 @@ create: ;a8 x8
 
 .arthur_jump:
     inc.w jump_counter
-    lda #!sfx_jump : jsl _018049_8053
+    lda #!sfx_jump : jsl queue_sound_id
     jsr arthur_set_facing_get_pressed_direction
     lda.w _00BA26,X : sta $14B0
     ldy.w _00BA2A,X
@@ -537,8 +537,7 @@ _01CFF3:
     jmp create_CFC8
 
 .D085:
-    ldy #$00
-    jsl _01A4E2_A4E8
+    ldy #$00 : jsl _01A4E2_A4E8
     bcc .D041
 
     jmp create_CDC4
@@ -916,7 +915,7 @@ _01D30F:
     bcs .D343
 
     ;falling into a pit
-    jsl _018049_8051
+    jsl queue_sound_F1
     inc $14D1
     lda.b #_01DD5C    : sta.b obj.state+1
     lda.b #_01DD5C>>8 : sta.b obj.state+2
@@ -1390,7 +1389,7 @@ _01D565: ;a8 x?
     bne .D684
 
     inc.w shield_magic_active
-    lda.b #!sfx_magic_shield : jsl _018049_8053
+    lda.b #!sfx_magic_shield : jsl queue_sound_id
     lda #$02 : sta $0000
 .D69B:
     jsr get_magic_slot
@@ -1492,7 +1491,7 @@ destroy: ;a8 x8
 .D791:
     lda.w transform_armor_state_stored : sta.w armor_state
     ldy #$01 : jsr set_arthur_palette_D9DB
-    lda #!sfx_armor_shatter : jsl _018049_8053
+    lda #!sfx_armor_shatter : jsl queue_sound_id
     lda #$05 : sta $0000 ;armor piece count
     jsr _019697_96CA
     stz $0332
@@ -1545,7 +1544,7 @@ destroy: ;a8 x8
 ;-----
 
 .D819:
-    lda.b #!sfx_arthur_death : jsl _018049_8053
+    lda.b #!sfx_arthur_death : jsl queue_sound_id
     lda #$1F : sta $30
 .D823:
     brk #$00

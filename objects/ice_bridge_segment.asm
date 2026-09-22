@@ -36,7 +36,7 @@ create:
 
 ;----- CC15
 
-    lda.b #!sfx_ice : jsl _018049_8053
+    lda.b #!sfx_ice : jsl queue_sound_id
     lda $09 : and #$7F : sta $09
     lda #$16 : sta $35
 .CC25:

@@ -73,7 +73,7 @@ create:
 ;-----
 
 .E8D5:
-    lda #$39 : jsl _018049_8053
+    lda #$39 : jsl queue_sound_id
 .E8DB:
     jsl update_pos_x
     rts
@@ -81,7 +81,7 @@ create:
 ;-----
 
 .E8E0:
-    lda #$39 : jsl _018049_8053
+    lda #$39 : jsl queue_sound_id
     !A16
     lda.b obj.pos_x+1
     sec
@@ -194,7 +194,7 @@ create:
     ldy #$A0 : ldx #$21 : jsl set_sprite
     lda #!id_samael_platform : ldx #$00 : ldy #$00 : jsl prepare_object2
     lda #!id_samael_platform : ldx #$00 : ldy #$02 : jsl prepare_object2
-    lda #$60 : jsl _018049_8053
+    lda #$60 : jsl queue_sound_id
 .E9EA:
     brk #$00
 
@@ -346,7 +346,7 @@ destroy:
     jmp (+,X) : +: dw create_E8AF, create_E91C, create_E94F, create_E989
 
 .EB1E:
-    jsl _018049
+    jsl queue_sound_F2
     stz $1500
     stz $150E
     stz $151C

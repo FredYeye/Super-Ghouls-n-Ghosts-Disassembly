@@ -54,7 +54,7 @@ task_earthquake: ;a- x8
     lda $0292
     bne .B395
 
-    lda #$34 : jsl _018049_8053 ;ground shake sfx
+    lda #$34 : jsl queue_sound_id ;ground shake sfx
 .B395:
     plx
     stz $1A84

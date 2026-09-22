@@ -124,7 +124,7 @@ _0484B9:
     bne .8565
 
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     plx
     iny
     jmp .84DC
@@ -139,7 +139,7 @@ _0484B9:
     ora $1EC3
     sta $7F9000,X
     !A8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     iny
     inx #2
     rts
@@ -405,7 +405,7 @@ _048C43: ;a8 x8
     jsl _0180B9
     jsl remove_tasks
     jsl clear_ppu_vars
-    jsl _018049_804D
+    jsl queue_sound_F0
     lda #$15 ;unused lda
     jsl enable_forced_blanking
     jsl disable_nmi
@@ -579,10 +579,10 @@ _048E68: ;a8 x-
     lda #$02 : sta.w ppu_vars.bg12nba
     lda #$18 : sta.w ppu_vars.bg3sc
     lda #$05 : sta.w ppu_vars.bg34nba
-    stz $032E
+    stz.w hud_visible
     !AX16
-    lda #$1800 : sta $0318
-    lda #$0800 : sta $031A
+    lda #$1800 : sta.w layer_3_vram_offset
+    lda #$0800 : sta.w layer_3_size
     !AX8
     lda #$00
     xba
@@ -600,7 +600,7 @@ _048EAD: ;a8 x8
     stz $028E
     stz.w checkpoint
     jsl clear_ppu_vars
-    jsl _018049_804D
+    jsl queue_sound_F0
     jsl enable_forced_blanking
     lda.b #15 : jsl current_task_suspend
     jsl disable_nmi
@@ -655,7 +655,7 @@ endif
 .8F60:
     jsl set_stage
     jsr _049219_921D
-    lda.b #!sfx_ice : jsl _018049_8053
+    lda.b #!sfx_ice : jsl queue_sound_id
     lda.b #62 : jsl current_task_suspend
     lda #$30 : sta.w ppu_vars.cgwsel
     lda.b #!sub_state_game_start : sta.w game_sub_state
@@ -699,7 +699,7 @@ time_over:
     stz $1FB5
     jsl _018366
     jsl clear_ppu_vars
-    jsl _018049_804D
+    jsl queue_sound_F0
     lda #$01 : sta.w ppu_vars.nmitimen
     stz.w ppu_vars.tm
     stz.w ppu_vars.ts
@@ -759,14 +759,14 @@ game_over: ;a8 x8
     stz $1FB5
     jsl _018366
     jsl clear_ppu_vars
-    jsl _018049_804D
+    jsl queue_sound_F0
     lda #$01 : sta.w ppu_vars.nmitimen
     stz.w ppu_vars.tm
     stz.w ppu_vars.ts
     jsl clear_oam_sprite_data
     jsl _018366
     lda #$10 : sta.w ppu_vars.tm : sta.w ppu_vars.ts
-    stz $032E
+    stz.w hud_visible
     jsl _018CE2
     jsr _049234
     lda.w stage
@@ -786,7 +786,7 @@ game_over: ;a8 x8
     pla : sta.w stage
     jsr _049219
     lda.b #62 : jsl current_task_suspend
-    lda.b #!mus_game_over : jsl _018049_8053
+    lda.b #!mus_game_over : jsl queue_sound_id
     lda #$F0
 .9109:
     pha
@@ -818,7 +818,7 @@ _049121: ;a? x?
     jsr .91DE
     jsl _018CE2
     jsl enable_nmi
-    lda.b #!mus_continue : jsl _018049_8053
+    lda.b #!mus_continue : jsl queue_sound_id
     ldx #$00 : lda #$33 : jsl _01F6C9
     ldx #$0E : lda #$34 : jsl _01F6C9
     ldx #$1C : lda #$35 : jsl _01F6C9
@@ -871,7 +871,7 @@ _049121: ;a? x?
     and #$0F
     jsr .920C
     !X8
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     rts
 
 ;-----
@@ -970,7 +970,7 @@ _04926B:
 _049310: ;a8 x8
     ;map screen
 
-    jsl _018049_804D
+    jsl queue_sound_F0
     jsl enable_forced_blanking
     jsl _0180B9
     jsl clear_ppu_vars
@@ -993,7 +993,7 @@ _049310: ;a8 x8
     bne .935C
 
     inc $0331
-    lda.b #!mus_map : jsl _018049_8053
+    lda.b #!mus_map : jsl queue_sound_id
     lda.w stage : pha
     lda #$0B : sta.w stage
     jsl _048A6B

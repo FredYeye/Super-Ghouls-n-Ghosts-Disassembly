@@ -9,7 +9,7 @@ create:
     ldy #$94 : ldx #$20
 .E661:
     jsl set_sprite
-    lda.b #!sfx_scythe : jsl _018049_8053
+    lda.b #!sfx_scythe : jsl queue_sound_id
     stz $3C
     lda $09 : ora #$C1 : sta $09
     ldy #$0B : jsl set_speed_xyg
@@ -75,7 +75,7 @@ upgraded_destroy:
 
     jmp _01E224_E240
 .E6D2:
-    lda #$38 : jsl _018049_8053
+    lda #$38 : jsl queue_sound_id
 .E6D8:
     lda #$08 : sta $37
     ldy #$96 : ldx #$20 : jsl set_sprite

@@ -68,7 +68,7 @@ create:
     bra .9C78
 
 .9C7C:
-    lda #!sfx_grow : jsl _018049_8053
+    lda #!sfx_grow : jsl queue_sound_id
     jsl _02F9DA_F9E0
     lda #$30 : cop #$00
 
@@ -129,7 +129,7 @@ destroy:
     bne .9CF8
 
     ldy #$0F : jsl update_score
-    lda #!sfx_shatter : jsl _018049_8053
+    lda #!sfx_shatter : jsl queue_sound_id
 .9CF0:
     dec $1AEF ;obj_type_count + id_icicle + 4 (?)
     lda $2F : jsr _028B52_local

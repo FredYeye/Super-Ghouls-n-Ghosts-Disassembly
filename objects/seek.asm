@@ -8,7 +8,7 @@ create:
 ;----- F5B3
 
     jsr _F65E
-    lda #!sfx_magic_seek : jsl _018049_8053
+    lda #!sfx_magic_seek : jsl queue_sound_id
     !X16
     ldx.w #!obj_objects.base
 .F5C1:

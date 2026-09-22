@@ -92,8 +92,8 @@ create:
     jmp .BFC8
 
 .C00A:
-    lda #$F1 : jsl _018049_8053
-    lda #!sfx_item_get : jsl _018049_8053
+    lda #$F1 : jsl queue_sound_id
+    lda #!sfx_item_get : jsl queue_sound_id
     brk #$00
 
 ;----- C018

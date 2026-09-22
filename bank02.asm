@@ -1451,7 +1451,7 @@ _028BB9: ;a8 x8
     cmp #$EE
     beq .8BDB
 
-    lda #$69 : jsl _018049_8053 ;collision sfx
+    lda #$69 : jsl queue_sound_id ;collision sfx
     ldy #$46 : ldx #$20 : jsl set_sprite
     lda #$09 : sta $2D
 .8BD1:
@@ -1487,7 +1487,7 @@ _028BEC: ;a8 x8
     ldx.b obj.type
     ldy.w _00BE76-$20,X : jsl update_score
 .8BF9:
-    lda #$3B : jsl _018049_8053 ;enemy death sfx
+    lda #$3B : jsl queue_sound_id ;enemy death sfx
     jsr _0281FF
     lda.b obj.direction : pha
     jsr _0280E9_80F2
@@ -1510,7 +1510,7 @@ _028BEC: ;a8 x8
 _028C22: ;a8 x8
     ldx.b obj.type
     ldy.w _00BE76-$20,X : jsl update_score
-    lda #$3B : jsl _018049_8053 ;enemy death sfx
+    lda #$3B : jsl queue_sound_id ;enemy death sfx
     jsr _0281FF
     lda.b obj.direction : pha
     jsr _0280E9_80F2

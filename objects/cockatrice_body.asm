@@ -561,7 +561,7 @@ thing:
 destroy:
     lda #$0C : sta $0F
     inc $3C
-    lda #!mus_defeat_boss : jsl _018049_8053
+    lda #!mus_defeat_boss : jsl queue_sound_id
     !X16
     ldx $1EB7
     lda $0008,X : ora #$10 : sta $0008,X

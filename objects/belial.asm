@@ -100,7 +100,7 @@ create:
 .B1FD:
     !A8
     lda #$01 : sta $33
-    lda #!sfx_impact : jsl _018049_8053
+    lda #!sfx_impact : jsl queue_sound_id
 .B209:
     brk #$00
 
@@ -207,7 +207,7 @@ create:
     !X16
     ldy $2D : jsr remove_child_object
     !X8
-    lda #$F1 : jsl _018049_8053 ;todo: stop sound...?
+    lda #$F1 : jsl queue_sound_id ;todo: stop sound...?
     jmp _0281A8_81B5
 
 ;-----

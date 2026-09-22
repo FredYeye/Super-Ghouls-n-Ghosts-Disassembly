@@ -73,7 +73,7 @@ create:
     !A8
     stz $31
     ldy #$BE : ldx #$21 : jsl set_sprite
-    lda #!sfx_ghost_spawn : jsl _018049_8053
+    lda #!sfx_ghost_spawn : jsl queue_sound_id
     stz $37
 .E7AF:
     brk #$00
@@ -251,7 +251,7 @@ destroy:
     ldy #$0F : jsl update_score
 .E8C6
     ldy #$CC : ldx #$21 : jsl set_sprite
-    lda #!sfx_ghost_destroy : jsl _018049_8053
+    lda #!sfx_ghost_destroy : jsl queue_sound_id
 .E8D4:
     brk #$00
 

@@ -20,7 +20,7 @@ flame_create:
     dec $37
     bne .D613
 
-    lda #$59 : jsl _018049_8053
+    lda #$59 : jsl queue_sound_id
     lda #$20 : sta $37
 .D626:
     brk #$00
@@ -130,7 +130,7 @@ laser_create:
 ;-----
 
 .D723:
-    lda.b #!sfx_astaroth_nebiroth_laser : jsl _018049_8053
+    lda.b #!sfx_astaroth_nebiroth_laser : jsl queue_sound_id
     ldx.b obj.direction
     lda.w astaroth_laser_data_D531,X : sta.b obj.facing
     txa : asl : tax

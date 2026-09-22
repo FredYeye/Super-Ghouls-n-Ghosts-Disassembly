@@ -54,13 +54,13 @@ create:
     sep #$20
 
 .F477:
-    lda #!sfx_mimic_shake : jsl _018049_8053
+    lda #!sfx_mimic_shake : jsl queue_sound_id
     ldy #$F6 : ldx #$21 : jsl set_sprite
     lda #$40 : cop #$00
 
 ;----- F489
 
-    lda #!sfx_mimic_jump : jsl _018049_8053
+    lda #!sfx_mimic_jump : jsl queue_sound_id
     ldy #$F8 : ldx #$21 : jsl set_sprite
     ldy #$13 : jsl set_speed_xyg
 .F49D:

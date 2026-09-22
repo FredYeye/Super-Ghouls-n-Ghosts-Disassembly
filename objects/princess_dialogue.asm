@@ -6,8 +6,8 @@ create:
 
 ;----- 9C0D
 
-    lda #$F1 : jsl _018049_8053
-    lda.b #!mus_talk_princess : jsl _018049_8053
+    lda #$F1 : jsl queue_sound_id
+    lda.b #!mus_talk_princess : jsl queue_sound_id
     lda.w ppu_vars.tm : and #$FB : sta.w ppu_vars.tm
     !AX16
     lda.w stage : pha
@@ -20,11 +20,11 @@ create:
 
 ;----- 9C3B
 
-    stz $032E
+    stz.w hud_visible
     stz.w ppu_vars.hdmaen
     !A16
-    lda #$1800 : sta $0318
-    lda #$0800 : sta $031A
+    lda #$1800 : sta.w layer_3_vram_offset
+    lda #$0800 : sta.w layer_3_size
     stz $1889
     stz $188D
     !X16
@@ -35,7 +35,7 @@ elseif !version == !US || !version == !EU
 endif
     !AX8
     jsl _018061_8064
-    inc.w layer3_needs_update
+    inc.w layer_3_needs_update
     brk #$00
 
 ;----- 9C65
@@ -151,8 +151,8 @@ _9CF6:
     lda $00DE
     bne .9D7F
 
-    lda #$F6 : jsl _018049_8053
-    lda #$A0 : jsl _018049_8053
+    lda #$F6 : jsl queue_sound_id
+    lda #$A0 : jsl queue_sound_id
     lda #$FF : cop #$00
 
 ;----- 9D96

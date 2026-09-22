@@ -2,7 +2,7 @@ namespace lance
 
 {
 create:
-    lda #!sfx_lance : jsl _018049_8053
+    lda #!sfx_lance : jsl queue_sound_id
     ldy #$3E : ldx #$20 : jsl set_sprite
     stz $2D
     jsr _01DD90 ;bug? incorrect setup to call the depth/layer function
@@ -19,7 +19,7 @@ create:
 
 {
 upgraded_create:
-    lda #!sfx_lance2 : jsl _018049_8053
+    lda #!sfx_lance2 : jsl queue_sound_id
     ldy #$40 : ldx #$20 : jsl set_sprite
     ldy #$99 : jsl set_speed_x
     lda #$34 : sta $1D

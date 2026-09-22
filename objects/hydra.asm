@@ -749,7 +749,7 @@ create2: ;cont'd from create
     bne .A59B
 
     lda #!id_small_explosion : jsl prepare_object
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     jmp _0281A8_81B5
 
 ;-----
@@ -1574,7 +1574,7 @@ create2: ;cont'd from create
     bne .AC7F
 
     stz $39
-    lda #$66 : jsl _018049_8053
+    lda #$66 : jsl queue_sound_id
     !A8
     stz $3B
     stz $1EC9
@@ -1720,7 +1720,7 @@ create2: ;cont'd from create
 .AD79:
     ldx #$2C : jsl _0196EF : sta $38
     inc $1EC9
-    lda.b #!sfx_hydra_transform : jsl _018049_8053
+    lda.b #!sfx_hydra_transform : jsl queue_sound_id
 .AD8A:
     lda.b obj.direction : eor #$FF : sta.b obj.direction
     ldx #$34 : jsl _0196EF : sta $36
@@ -1799,7 +1799,7 @@ create2: ;cont'd from create
 
 ;----- AE09
 
-    lda #$10 : jsl _018049_8053
+    lda #$10 : jsl queue_sound_id
     lda $08 : ora #$10 : sta $08
     lda.b #!id_boss_explosion_spawner : jsl prepare_object
     lda #$5F : sta $31
@@ -1871,7 +1871,7 @@ destroy:
 ;----- AEA9
 
     lda $1D : clc : adc #$02 : sta $1D
-    lda #$3B : jsl _018049_8053
+    lda #$3B : jsl queue_sound_id
     dec $31
     bne .AE9F
 
@@ -1885,7 +1885,7 @@ create:
     ldy #$B8 : ldx #$21 : jsl set_sprite
     lda $08 : ora $1ED6 : sta $08
     lda $09 : ora #$80 : sta $09
-    lda #!sfx_hydra_fireball : jsl _018049_8053
+    lda #!sfx_hydra_fireball : jsl queue_sound_id
     lda #$24 : sta $31
 .AEDC:
     brk #$00

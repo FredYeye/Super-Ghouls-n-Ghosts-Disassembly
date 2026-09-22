@@ -73,7 +73,7 @@ create:
 ;----- 9539
 
     ldy #$EC : ldx #$21 : jsl set_sprite
-    lda #$34 : jsl _018049_8053
+    lda #$34 : jsl queue_sound_id
 .9547:
     brk #$00
 
@@ -107,7 +107,7 @@ destroy:
 ;----- 9573
 
     ldy #$E6 : ldx #$21 : jsl set_sprite
-    lda #$34 : jsl _018049_8053
+    lda #$34 : jsl queue_sound_id
 .9581:
     brk #$00
 

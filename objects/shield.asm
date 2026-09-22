@@ -53,7 +53,7 @@ create:
 ;-----
 
 destroy:
-    lda #!sfx_armor_shatter : jsl _018049_8053
+    lda #!sfx_armor_shatter : jsl queue_sound_id
     stz.w shield_state_stored
     stz.b obj.init_param
     lda #$03 : sta $2D
