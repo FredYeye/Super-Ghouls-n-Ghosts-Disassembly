@@ -1077,9 +1077,7 @@ _00A317:
 
 { ;A34D - A49C
 ram_to_vram_offsets:
-    ;used by ram_to_vram
-    ;unknown length
-    ;source | vram dest | count
+    ;source | vram dst | word count to copy
 
     dl $1C8000 : dw $6000, $0800 ;00
     dl $03C000 : dw $7C00, $0400 ;07 unused

@@ -48,7 +48,7 @@
     difficulty        = $027C
     shot_buttons      = $027D;027E
     jump_buttons      = $027F;0280
-    ;unused?            $0281;0288
+    ;unused?            $0281;0288 ;$0284 gets written to but never read
     rng_state         = $0289;028A
     ;unused?            $028B;028C
     stage             = $028D;028E

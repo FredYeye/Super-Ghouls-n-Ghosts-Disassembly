@@ -15,7 +15,10 @@ endif
     gfx_stage_2_tiles_2: incbin "graphics/stage_2_tiles_2.bin"
     gfx_stage_3_tiles:   incbin "graphics/stage_3_tiles.bin"
 if !version == !JP
-    gfx_logo:            incbin "graphics/logo.bin" ;also has other stuff in it
+    gfx_logo:
+        incbin "graphics/logo_tiles.bin"
+        incbin "graphics/logo_tilemap.bin"
+        incbin "graphics/logo_empty.bin"
 elseif !version == !US || !version == !EU
     gfx_logo:            incbin "graphics/logo_us.bin"
 endif
