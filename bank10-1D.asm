@@ -45,12 +45,8 @@ endif
 
 if !version == !JP
 { ;BBE6 - BC47
-    incbin "fill_bytes/jp/bank18a.bin" ;leftover copies of above data?
-}
-
-{ ;BC48 - BFFF
-    ;compressed data? had problems decompressing it
-    incbin "fill_bytes/jp/bank18b.bin"
+    incbin "fill_bytes/jp/bank18a.bin" ;BBE6 - BC47 looks like leftover copies of above data
+    incbin "fill_bytes/jp/bank18b.bin" ;BC48 - BFFF unused, doesn't look like compressed data...
 }
 elseif !version == !US || !version == !EU
     incbin "fill_bytes/eng/bank18a.bin"
@@ -94,8 +90,7 @@ endif
 
 if !version == !JP
 { ;F642 - FFFF
-    ;not sure if this is compressed data, i wasn't able to decompress/recompress it properly
-    incbin "fill_bytes/jp/bank1Da.bin" ;unused data
+    incbin "fill_bytes/jp/bank1Da.bin" ;unused, doesn't look like compressed data...
 }
 elseif !version == !US || !version == !EU
     gfx_us_font_extra: incbin "graphics/us_font_extra.bin" ;question mark, apostrophe, opening and closing quotation marks

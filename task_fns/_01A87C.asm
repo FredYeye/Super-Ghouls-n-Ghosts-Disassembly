@@ -425,7 +425,7 @@ endif
     lda $02D7         : and #$0F : sta $02D7 : sta $02D7 ;^
     inc $0379
     jsr _01B26D_local
-    jsr _01B90E_B912
+    jsr _01B90E_local
     jsl set_max_brightness
     lda #$08
     ldx #$FF

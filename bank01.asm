@@ -3547,7 +3547,7 @@ _01B19D: ;a8 x8
 
     jsr _01C679_local
 .B1DB:
-    jsr _01B90E_B912
+    jsr _01B90E_local
     jsr _01B6CB
     jsr _01B86E
     jsr _01C062
@@ -4311,10 +4311,10 @@ _01B86E: ;a8 x8
 
 { ;B90E - B96D
 _01B90E: ;a8 x8
-    jsr .B912
+    jsr .local
     rtl
 
-.B912: ;a8 x8
+.local: ;a8 x8
     lda.w stage
     cmp.b #!stage_4b : beq +
 

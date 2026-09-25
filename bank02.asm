@@ -1170,7 +1170,7 @@ thunk_scythe_destroy:
     jml scythe_destroy
 }
 
-{ ;BA3A - 8A3D
+{ ;8A3A - 8A3D
 thunk_scythe2_destroy:
     jml scythe_upgraded_destroy
 }

@@ -139,7 +139,7 @@ nmi: ;a- x-
     lda #$01                   : sta   !MDMAEN
     jsr _008669
     jsr _00893C
-    jsr _0085A6_85AA
+    jsr _0085A6_local
 .825B:
     jsr _008807
     jsr _008735
@@ -454,10 +454,10 @@ _008577: ;a8 x-
 
 { ;85A6 - 8668
 _0085A6: ;a- x8
-    jsr .85AA
+    jsr .local
     rtl
 
-.85AA: ;a- x8
+.local: ;a- x8
     phd
     !A16
     lda.w #!tile_handling_offset[0].base : tcd : jsr .85C6
@@ -470,41 +470,43 @@ _0085A6: ;a- x8
 ;-----
 
 .85C6:
-    ldy $50
+    ldy.b tile_handling.tile_buffer_1_dma_count
     beq .8617
 
-    ldx #$00 : stx $50 : stx.w A1B0
-    lda $51    : sta !VMADDL
-    ldx #$81   : stx !VMAIN
-    lda #$1801 : sta !DMAP0
-    tdc : clc : adc #$0053 : sta !A1T0L
-    lda #$0040 : sta !DAS0L
-    ldx #$01   : stx !MDMAEN
+    ;transfer first half of tile_buffer_1
+    ldx.b #$00 : stx.b tile_handling.tile_buffer_1_dma_count : stx.w A1B0
+    lda.b tile_handling.tile_buffer_1_vram_offset : sta !VMADDL
+    ldx.b #$81   : stx !VMAIN
+    lda.w #$1801 : sta !DMAP0
+    tdc : clc : adc.w #$0053 : sta !A1T0L ;#$0053 is the offset to tile_buffer_1 from the struct base
+    lda.w #$40 : sta !DAS0L
+    ldx.b #$01 : stx !MDMAEN
     dey : beq .8617
 
-    lda $51 : eor #$0800 : sta !VMADDL
-    tdc : clc : adc #$0093 : sta !A1T0L
-    ldx #$00   : stx.w A1B0
-    lda #$0040 : sta !DAS0L
-    ldx #$01   : stx !MDMAEN
+    ;transfer second half of tile_buffer_1
+    lda.b tile_handling.tile_buffer_1_vram_offset : eor.w #$0800 : sta !VMADDL
+    tdc : clc : adc.w #$0093 : sta !A1T0L ;offset to second half of tile_buffer_1
+    ldx.b #$00 : stx.w A1B0
+    lda.w #$40 : sta !DAS0L
+    ldx.b #$01 : stx !MDMAEN
 .8617:
-    ldy $D3
+    ldy.b tile_handling.tile_buffer_2_dma_count
     beq .ret
 
-    ldx #$00 : stx $D3 : stx.w A1B0
-    lda $D4    : sta !VMADDL
-    ldx #$80   : stx !VMAIN
-    lda #$1801 : sta !DMAP0
-    tdc : clc : adc #$00D6 : sta !A1T0L
-    lda #$0040 : sta !DAS0L
-    ldx #$01   : stx !MDMAEN
+    ldx.b #$00 : stx.b tile_handling.tile_buffer_2_dma_count : stx.w A1B0
+    lda.b tile_handling.tile_buffer_2_vram_offset : sta !VMADDL
+    ldx.b #$80   : stx !VMAIN
+    lda.w #$1801 : sta !DMAP0
+    tdc : clc : adc.w #$00D6 : sta !A1T0L
+    lda.w #$40 : sta !DAS0L
+    ldx.b #$01 : stx !MDMAEN
     dey : beq .ret
 
-    lda $D4 : eor #$0400 : sta !VMADDL
-    tdc : clc : adc #$0116 : sta !A1T0L
-    ldx #$00   : stx.w A1B0
-    lda #$0040 : sta !DAS0L
-    ldx #$01   : stx !MDMAEN
+    lda.b tile_handling.tile_buffer_2_vram_offset : eor.w #$0400 : sta !VMADDL
+    tdc : clc : adc.w #$0116 : sta !A1T0L
+    ldx.b #$00 : stx.w A1B0
+    lda.w #$40 : sta !DAS0L
+    ldx.b #$01 : stx !MDMAEN
 .ret
     rts
 }
@@ -842,7 +844,6 @@ _0089F4: ;a8 x8
     lda $19C6 : sta !BG2HOFS
     lda $19C9 : sta !BG2VOFS
     lda $19CA : sta !BG2VOFS
-
     lda.w hud_visible
     bne +
 
@@ -924,7 +925,6 @@ _008AB3: ;a8 x8
 brk: ;a- x-
     !AX8
     lda #$01
-
 cop: ;a8 x-
     cli
     sta.b obj.timer
@@ -4495,7 +4495,7 @@ spawn_offset:
     dw $000A, $0008, $0000, $0000, $0000, $FFF4, $FFF0, $FFF0
 }
 
-{ ;EF1F - EC3E
+{ ;EC1F - EC3E
 weapon_damage:
     ;base damage, boost damage, upgrade damage, boosted upgrade damage
     db $06, $09, $09, $0A ;lance

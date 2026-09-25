@@ -288,35 +288,69 @@
     struct tile_handling 0 ;name? $156 bytes
         .base:     skip 0
 
-        .unk1:     skip $3A
+        ;four sub-structs (0x00-0x27)
+        .unk00: skip 2
+        .unk02: skip 2
+        .unk04: skip 2
+        .unk06: skip 2
+        .unk08: skip 2
 
-        ;0x02-0x03
-        ;0x04-0x05
-        ;0x06-0x07
-        ;0x08-0x09
+        .unk0A: skip 2
+        .unk0C: skip 2
+        .unk0E: skip 2
+        .unk10: skip 2
+        .unk12: skip 2
 
-        .camera_x:          skip 4 ;0x3A-0x3D name?
-        .camera_y:          skip 4 ;0x3E-0x41 name?
-        .unk2:              skip 2
+        .unk14: skip 2
+        .unk16: skip 2
+        .unk18: skip 2
+        .unk1A: skip 2
+        .unk1C: skip 2
+
+        .unk1E: skip 2
+        .unk20: skip 2
+        .unk22: skip 2
+        .unk24: skip 2
+        .unk26: skip 2
+
+        .unk28: skip 2
+        .unk2A: skip 2
+        .unk2C: skip 2
+        .unk2E: skip 2
+        .unk30: skip 2
+        .unk32: skip 2
+        .unk34: skip 2
+        .unk36: skip 2
+        .unk38: skip 1 ;x direction?
+        .unk39: skip 1 ;y direction?
+
+        .camera_x: skip 4 ;0x3A-0x3D rename to scroll_x & scroll_y?
+        .camera_y: skip 4 ;0x3E-0x41
+
+        .unk42: skip 2
+
         .ptr_screen_layout: skip 3 ;0x44-0x46
         .ptr_meta_tile:     skip 3 ;0x47-0x49
         .ptr_tile:          skip 3 ;0x4A-0x4C
 
-        ;0x50 bool?
-        ;0x51-0x52
-        ;0x53-0xD2 word array (fetched tiles?)
-        ;0xD3 bool
-        ;0xD4-0xD5
-        ;0xD6-0x155 word array? another set of fetched tiles?
+        .unk4D: skip 2
 
-        .unk3:     skip $109
+        .unk4F: skip 1
+
+        .tile_buffer_1_dma_count:   skip 1 ;send either half (1) or entire (>1) buffer
+        .tile_buffer_1_vram_offset: skip 2
+        .tile_buffer_1:             skip 128
+
+        .tile_buffer_2_dma_count:   skip 1
+        .tile_buffer_2_vram_offset: skip 2
+        .tile_buffer_2:             skip 128
 
         .len:      skip 0
     endstruct
 
     !tile_handling_offset = $15A2+tile_handling ;$15A2;19A3
 
-    camera_x = $15DC;15DF
+    camera_x = $15DC;15DF ;todo deprecate these two!
     camera_y = $15E0;15E3
 
     screen_boundary_left = $1A7D;1A7E
