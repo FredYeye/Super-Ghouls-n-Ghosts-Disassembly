@@ -1797,7 +1797,7 @@ compressed_data:
     dw $0000 : dl gfx_stage3_objects    : dw $3EA0 ;3F
     dw $0000 : dl gfx_items_enemy_hits  : dw $0E20 ;46
     dw $0000 : dl gfx_game_over         : dw $0C00 ;4D
-    dw $A000 : dl gfx_unk19             : dw $2600 ;54
+    dw $A000 : dl stage_3b_tiles        : dw $2600 ;54
     dw $0000 : dl gfx_stage5_objects    : dw $1D00 ;5B
     dw $0000 : dl gfx_stage_4c_tiles    : dw $1B00 ;62
     dw $0000 : dl gfx_eagler_tail       : dw $0100 ;69

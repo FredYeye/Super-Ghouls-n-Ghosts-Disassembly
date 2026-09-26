@@ -23,7 +23,9 @@ elseif !version == !US || !version == !EU
     gfx_logo:            incbin "graphics/logo_us.bin"
 endif
     gfx_map:             incbin "graphics/map.bin"
-    gfx_unk19:           incbin "graphics/unknown19.bin"
+    stage_3b_tiles:
+        incbin "graphics/stage_3b_layer_3_tiles.bin"
+        incbin "graphics/stage_3b_tower_tiles.bin"
     gfx_stage_4c_tiles:  incbin "graphics/stage_4c_tiles.bin"
     gfx_stage_4a_tiles:  incbin "graphics/stage_4a_tiles.bin"
     tilemap_map:         incbin "graphics/tilemaps/map.bin"
