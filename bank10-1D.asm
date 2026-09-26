@@ -18,7 +18,7 @@ if !version == !JP
     gfx_logo:
         incbin "graphics/logo_tiles.bin"
         incbin "graphics/logo_tilemap.bin"
-        incbin "graphics/logo_empty.bin"
+        fillbyte $00 : fill 512
 elseif !version == !US || !version == !EU
     gfx_logo:            incbin "graphics/logo_us.bin"
 endif
@@ -26,7 +26,7 @@ endif
     gfx_unk19:           incbin "graphics/unknown19.bin"
     gfx_stage_4c_tiles:  incbin "graphics/stage_4c_tiles.bin"
     gfx_stage_4a_tiles:  incbin "graphics/stage_4a_tiles.bin"
-    tilemap_map:         incbin "graphics/tilemap_map.bin"
+    tilemap_map:         incbin "graphics/tilemaps/map.bin"
                          incbin "graphics/unknown38.bin"
     gfx_unk27:           incbin "graphics/unknown27.bin"
     gfx_continue:        incbin "graphics/continue.bin"
@@ -34,7 +34,7 @@ endif
     gfx_stage_5_tiles:   incbin "graphics/stage_5_tiles.bin"
     gfx_stage_5_tiles_2: incbin "graphics/stage_5_tiles_2.bin" ;also contains a tilemap in the middle, consider splitting
     gfx_options:         incbin "graphics/options.bin"
-    tilemap_options:     incbin "graphics/tilemap_options.bin"
+    tilemap_options:     incbin "graphics/tilemaps/options.bin"
                          incbin "graphics/unknown39.bin" ;temp / debug gfx
     gfx_unk35:           incbin "graphics/unknown35.bin"
     gfx_unk34:           incbin "graphics/unknown34.bin"
@@ -44,7 +44,7 @@ endif
     gfx_unk24:           incbin "graphics/unknown24.bin" ;stage 4a tilemap?
     gfx_unk05:           incbin "graphics/unknown05.bin" ;graphics + tilemaps?
     gfx_intro_castle:    incbin "graphics/game_start_cutscene_castle.bin"
-    tilemap_game_start_broken_window: incbin "graphics/tilemap_game_start_broken_window.bin"
+    tilemap_game_start_broken_window: incbin "graphics/tilemaps/game_start_broken_window.bin"
 
 if !version == !JP
 { ;BBE6 - BC47
@@ -87,7 +87,10 @@ endif
     gfx_font_hud:          incbin "graphics/font_hud.bin" ;font etc?
     gfx_astaroth:          incbin "graphics/astaroth.bin"
     gfx_nebiroth:          incbin "graphics/nebiroth.bin"
-    gfx_unk13:             incbin "graphics/unknown13.bin" ;intro stuff, but also 2bpp graphics! sort out later
+    cutscene_objs_jp_chara_set:
+        incbin "graphics/cutscene_objects.bin"
+        incbin "graphics/jp_character_set.bin"
+
     gfx_veil_allocen:      incbin "graphics/veil_allocen.bin"
     gfx_rosebud:           incbin "graphics/rosebud.bin"
 

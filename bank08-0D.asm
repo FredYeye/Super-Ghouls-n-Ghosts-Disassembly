@@ -15,7 +15,12 @@ org $098000
 {
     incsrc "stage_layouts/meta_tiles.asm"      ;8000 - CEDF
     fillbyte $00 : fill 288                    ;CEE0 - CFFF
-    gfx_unk36: incbin "graphics/unknown36.bin" ;D000 - E197 two tilemaps? second one being "the end"
+
+    tilemap_ending:                            ;D000 - E197
+        incbin "graphics/tilemaps/ending_layer_1.bin"
+        incbin "graphics/tilemaps/ending_layer_2.bin"
+        incbin "graphics/tilemaps/the_end.bin"
+
     fillbyte $00 : fill 1640                   ;E198 - E7FF
     incsrc "data/palette_bg.asm"               ;E800 - FBFF
     fillbyte $00 : fill 256                    ;FC00 - FCFF

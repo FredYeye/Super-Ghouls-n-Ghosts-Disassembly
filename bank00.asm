@@ -1777,9 +1777,9 @@ compressed_stage_data:
 
 .stage8:
     db $03 : dw $0000
-    dl gfx_samael         : dw $2000
-    dl gfx_boss_explosion : dw $0720
-    dl gfx_unk13          : dw $3800
+    dl gfx_samael                 : dw $2000
+    dl gfx_boss_explosion         : dw $0720
+    dl cutscene_objs_jp_chara_set : dw $3800
 }
 
 { ;B106 - B239
@@ -1821,13 +1821,13 @@ compressed_data:
     dw $0000 : dl gfx_wolf              : dw $1260 ;E7
     dw $6000 : dl gfx_unk24             : dw $2000 ;EE
     dw $0000 : dl gfx_unk05             : dw $7F00 ;F5
-    dw $A000 : dl gfx_unk13             : dw $3800 ;FC
+    dw $A000 : dl cutscene_objs_jp_chara_set : dw $3800 ;FC
     dw $0000 : dl gfx_intro_castle      : dw $1700 ;103
     dw $0000 : dl tilemap_game_start_broken_window : dw $0800 ;10A
-    dw $A000 : dl gfx_unk13             : dw $3800 ;111
+    dw $A000 : dl cutscene_objs_jp_chara_set : dw $3800 ;111
     dw $0000 : dl gfx_the_end           : dw $2000 ;118
-    dw $2000 : dl gfx_unk36             : dw $1800 ;11F
-    dw $0000 : dl gfx_unk13             : dw $3800 ;126
+    dw $2000 : dl tilemap_ending        : dw $1800 ;11F
+    dw $0000 : dl cutscene_objs_jp_chara_set : dw $3800 ;126
     dw $9980 : dl gfx_font_hud          : dw $0500 ;12D
 if !version == !US || !version == !EU
     dw $9D00 : dl gfx_us_font_extra : dw $01A0
