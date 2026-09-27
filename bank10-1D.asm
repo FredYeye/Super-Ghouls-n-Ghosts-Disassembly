@@ -37,8 +37,9 @@ endif
     gfx_stage_5_tiles_2: incbin "graphics/stage_5_tiles_2.bin" ;also contains a tilemap in the middle, consider splitting
     gfx_options:         incbin "graphics/options.bin"
     tilemap_options:     incbin "graphics/tilemaps/options.bin"
-                         incbin "graphics/unknown39.bin" ;temp / debug gfx
-    gfx_unk35:           incbin "graphics/unknown35.bin"
+                         incbin "graphics/test_gfx.bin"
+                         fillbyte $00 : fill 3840
+    gfx_stage_6_7_tiles: incbin "graphics/stage_6_7_tiles.bin"
     gfx_unk34:           incbin "graphics/unknown34.bin"
     gfx_unk31:           incbin "graphics/unknown31.bin"
     gfx_death_crawler:   incbin "graphics/death_crawler.bin"

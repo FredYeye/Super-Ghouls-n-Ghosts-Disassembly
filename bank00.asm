@@ -1816,7 +1816,7 @@ compressed_data:
     dw $0000 : dl gfx_stage_5_tiles     : dw $7800 ;C4
     dw $0000 : dl gfx_skull_flower      : dw $0720 ;CB
     dw $A000 : dl gfx_stage_5_tiles_2   : dw $3280 ;D2
-    dw $0000 : dl gfx_unk35             : dw $7000 ;D9
+    dw $0000 : dl gfx_stage_6_7_tiles   : dw $7000 ;D9
     dw $9000 : dl gfx_unk34             : dw $0200 ;E0
     dw $0000 : dl gfx_wolf              : dw $1260 ;E7
     dw $6000 : dl gfx_unk24             : dw $2000 ;EE
