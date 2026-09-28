@@ -3308,9 +3308,9 @@ _01AF04: ;a8 x8
     ldy.b #$0A*7 : jsl decompress_precalc
     ldx.b #$06*7 : jsl copy_ram_to_vram_precalc
     lda.w stage : asl #2 : tax
-    ldy.w _00B576+2,X : phy
-    ldy.w _00B576+1,X : phy
-    ldy.w _00B576+0,X
+    ldy.w decompress_stage_offsets+2,X : phy
+    ldy.w decompress_stage_offsets+1,X : phy
+    ldy.w decompress_stage_offsets+0,X
     phy
     jsl decompress_precalc
     ply
@@ -6172,7 +6172,7 @@ magic_bar_handling: ;a x
     jsr .CBB6
     jmp .CB56
 
-.C8BD: dw .create_magic_bar, .C93F, .CA9F, .C8C5
+.C8BD: dw .create, .charge, .drain, .C8C5
 
 ;-----
 
@@ -6188,7 +6188,7 @@ magic_bar_handling: ;a x
 
 ;-----
 
-.create_magic_bar:
+.create:
     lda.w weapon_current
     and #$0E
     cmp #!weapon_bracelet
@@ -6217,7 +6217,7 @@ magic_bar_handling: ;a x
     lda #$2DC7 : jsr .CA86
     !A8
     lda #$02 : sta.w magic_bar_state
-    lda #$7F : sta $14B5 : sta $14B6
+    lda #$7F : sta.w magic_charge_base_timer : sta.w magic_charge_timer
     stz $14E1
     stz $14B4
     stz $14B7
@@ -6230,7 +6230,7 @@ magic_bar_handling: ;a x
 
 ;-----
 
-.C93F:
+.charge:
     !AX8
     lda $14E3
     ora.w is_frozen
@@ -6269,8 +6269,8 @@ magic_bar_handling: ;a x
 
     ldx #$12
 .C97F:
-    stx $0000
-    sec : lda $14B6 : sbc $0000 : sta $14B6
+    stx $0000 ;charge speed, 8/13/18 ticks per frame
+    sec : lda.w magic_charge_timer : sbc $0000 : sta.w magic_charge_timer
     bpl .C9FC
 
     lda $14E6
@@ -6287,7 +6287,7 @@ magic_bar_handling: ;a x
     inc $14E6
     lda #!sfx_magic_charge : jsl queue_sound_id
 .C9B5:
-    sec : lda $14B5 : sbc #$08 : sta $14B5 : sta $14B6
+    sec : lda.w magic_charge_base_timer : sbc #$08 : sta.w magic_charge_base_timer : sta.w magic_charge_timer ;speed up timer
     lda $14B4
     cmp #$06
     bne .C9FD
@@ -6373,7 +6373,7 @@ magic_bar_handling: ;a x
     lda $14B4
     beq .CA85
 
-    stz $14B5
+    stz.w magic_charge_base_timer
     lda #$05 : sta $14B4
     lda #$04 : sta.w magic_bar_state
 .CA85:
@@ -6395,11 +6395,11 @@ magic_bar_handling: ;a x
 
 ;-----
 
-.CA9F:
+.drain:
     lda $14E6
     beq .CAC3
 
-    dec $14B5
+    dec.w magic_charge_base_timer
     bpl .CA85
 
     stz.w !obj_upgrade2.active
@@ -6412,7 +6412,7 @@ magic_bar_handling: ;a x
     stz $14E6
     jsl queue_sound_F1
 .CAC3:
-    lda #$01 : sta $14B5
+    lda #$01 : sta.w magic_charge_base_timer
     lda $14B4 : asl : tax : sta $0000
     stz $0001
     lda #$0A : sec : sbc $0000 : sta $0000
@@ -6453,7 +6453,7 @@ magic_bar_handling: ;a x
 
 .CB45:
     stz $14B4
-    lda #$7F : sta $14B5 : sta $14B6
+    lda #$7F : sta.w magic_charge_base_timer : sta.w magic_charge_timer
     lda #$02 : sta.w magic_bar_state
 .CB55:
     rts
@@ -6486,8 +6486,8 @@ magic_bar_handling: ;a x
     inc.w layer_3_needs_update
     stz.w !obj_upgrade2.active
     stz.w !obj_upgrade2.flags1
-    stz $14B5
-    stz $14B6
+    stz.w magic_charge_base_timer
+    stz.w magic_charge_timer
     stz $14B4
     stz $14B7
 .CBB5:

@@ -1803,7 +1803,7 @@ compressed_data:
     dw $0000 : dl gfx_eagler_tail       : dw $0100 ;69
     dw $0000 : dl gfx_stage_4a_tiles    : dw $3800 ;70
     dw $A000 : dl gfx_unk31             : dw $0180 ;77
-    dw $0000 : dl gfx_unk27             : dw $2000 ;7E
+    dw $0000 : dl tilemap_stage_4b      : dw $2000 ;7E
     dw $0000 : dl tilemap_map           : dw $1000 ;85
     dw $0000 : dl gfx_stage5_objects    : dw $1D00 ;8C
     dw $0000 : dl gfx_continue          : dw $0800 ;93
@@ -1819,7 +1819,7 @@ compressed_data:
     dw $0000 : dl gfx_stage_6_7_tiles   : dw $7000 ;D9
     dw $9000 : dl gfx_unk34             : dw $0200 ;E0
     dw $0000 : dl gfx_wolf              : dw $1260 ;E7
-    dw $6000 : dl gfx_unk24             : dw $2000 ;EE
+    dw $6000 : dl tilemap_stage_4a      : dw $2000 ;EE
     dw $0000 : dl gfx_unk05             : dw $7F00 ;F5
     dw $A000 : dl cutscene_objs_jp_chara_set : dw $3800 ;FC
     dw $0000 : dl gfx_intro_castle      : dw $1700 ;103
@@ -1924,17 +1924,17 @@ _00B55C:
 }
 
 { ;B576 - B59D
-_00B576: ;indices into compressed_data, plus padding zero
-    db $0E, $15, $31, $00
-    db $1C, $23, $38, $00
-    db $2A, $54, $3F, $00
-    db $70, $EE, $5B, $00
-    db $7E, $EE, $A1, $00
-    db $62, $77, $69, $00
-    db $C4, $D2, $CB, $00
-    db $D9, $C4, $E7, $00
-    db $D9, $C4, $CB, $00
-    db $D9, $C4, $CB, $00
+decompress_stage_offsets: ;indices into compressed_data, plus padding zero
+    db $02*7, $03*7, $07*7, $00 ;stage 1
+    db $04*7, $05*7, $08*7, $00 ;stage 2
+    db $06*7, $0C*7, $09*7, $00 ;stage 3
+    db $10*7, $22*7, $0D*7, $00 ;stage 4a
+    db $12*7, $22*7, $17*7, $00 ;stage 4b
+    db $0E*7, $11*7, $0F*7, $00 ;stage 4c
+    db $1C*7, $1E*7, $1D*7, $00 ;stage 5
+    db $1F*7, $1C*7, $21*7, $00 ;stage 6
+    db $1F*7, $1C*7, $1D*7, $00 ;stage 7
+    db $1F*7, $1C*7, $1D*7, $00 ;stage 8
 }
 
 { ;B59E - B5BB

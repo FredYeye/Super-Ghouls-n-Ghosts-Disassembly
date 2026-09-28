@@ -30,7 +30,7 @@ endif
     gfx_stage_4a_tiles:  incbin "graphics/stage_4a_tiles.bin"
     tilemap_map:         incbin "graphics/tilemaps/map.bin"
                          incbin "graphics/unknown38.bin"
-    gfx_unk27:           incbin "graphics/unknown27.bin"
+    tilemap_stage_4b:    incbin "graphics/tilemaps/stage_4b.bin"
     gfx_continue:        incbin "graphics/continue.bin"
     gfx_continue2:       incbin "graphics/continue2.bin"
     gfx_stage_5_tiles:   incbin "graphics/stage_5_tiles.bin"
@@ -44,7 +44,7 @@ endif
     gfx_unk31:           incbin "graphics/unknown31.bin"
     gfx_death_crawler:   incbin "graphics/death_crawler.bin"
     gfx_unk21:           incbin "graphics/unknown21.bin" ;related to death crawler, tile map or really graphics?
-    gfx_unk24:           incbin "graphics/unknown24.bin" ;stage 4a tilemap?
+    tilemap_stage_4a:    incbin "graphics/tilemaps/stage_4a.bin"
     gfx_unk05:           incbin "graphics/unknown05.bin" ;graphics + tilemaps?
     gfx_intro_castle:    incbin "graphics/game_start_cutscene_castle.bin"
     tilemap_game_start_broken_window: incbin "graphics/tilemaps/game_start_broken_window.bin"

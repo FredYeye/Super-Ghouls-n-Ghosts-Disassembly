@@ -208,6 +208,8 @@
     is_shooting                  = $14B1
     can_charge_magic             = $14B2
     magic_bar_state              = $14B3
+    magic_charge_base_timer      = $14B5
+    magic_charge_timer           = $14B6
     ; = $14B9 arthur crouch related
     armor_state                  = $14BA ;armor/transform state
     jump_state                   = $14BC ;name? 1:double jump 2:double jump + shot
