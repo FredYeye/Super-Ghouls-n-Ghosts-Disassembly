@@ -56,24 +56,25 @@ create:
     !AX16
     lda.w stage
     cmp.w #!stage_7
-    beq .C73D
+    beq .stage_7_range_check
 
+    ;stage 6 range check
     lda.b obj.pos_x+1
     clc
     adc #$00F0
     sec
     sbc.w !obj_arthur.pos_x+1
-    bcc .C755
+    bcc .out_of_range
 
     bra .C75A
 
-.C73D:
+.stage_7_range_check:
     lda.b obj.pos_x+1
     clc
     adc #$0160
     sec
     sbc.w !obj_arthur.pos_x+1
-    bcc .C755
+    bcc .out_of_range
 
     lda.w !obj_arthur.pos_y+1
     clc
@@ -82,9 +83,9 @@ create:
     sbc.b obj.pos_y+1
     bcs .C75A
 
-.C755:
+.out_of_range:
     !AX8
-    jmp destroy_CB84
+    jmp destroy_out_of_range
 
 .C75A:
     !AX8
@@ -585,8 +586,8 @@ destroy:
     ldx $3A
     inc $0033,X
     !X8
-    inc $1FAD
-    lda $1FAD
+    inc.w cockatrice_heads_defeated
+    lda.w cockatrice_heads_defeated
     cmp #$05
     bne .CB65
 
@@ -611,12 +612,12 @@ destroy:
 
 ;-----
 
-.CB84:
+.out_of_range:
     !X16
     ldx $3A
     inc $0033,X
     !X8
-    inc $1FAD
+    inc.w cockatrice_heads_defeated
     jml _0281A8_81B5
 }
 

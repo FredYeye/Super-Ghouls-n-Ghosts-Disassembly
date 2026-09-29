@@ -422,7 +422,7 @@
         .point_statue_count: skip 1
     endstruct
 
-    ;$1FAD used by cockatrice_head2
+    cockatrice_heads_defeated = $1FAD
     ;$1FAE related to nmi hdmi
     ;$1FAF used by icicle spawner / other stage 5 things
 

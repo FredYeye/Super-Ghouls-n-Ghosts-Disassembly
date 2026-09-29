@@ -91,7 +91,7 @@ thing: ;unused
 ;-----
 
 destroy: ;unused
-    inc $1FAD
+    inc.w cockatrice_heads_defeated
     stz $33
     jml _0281A8_81B5
 

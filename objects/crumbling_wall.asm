@@ -32,7 +32,7 @@ if !version == !JP
 endif
 .C3CB:
     !AX8
-    lda #$39 : jsl queue_sound_id
+    lda.b #!sfx_impact : jsl queue_sound_id
     !AX16
 .C3D5:
     ldy $31
