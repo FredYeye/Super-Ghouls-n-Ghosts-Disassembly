@@ -170,7 +170,7 @@
     hud_flicker_timer        = $0373
     oam_offset               = $0374;0375
     oam_high_offset          = $0376;0377
-    ;$0378 loop counter, sprite prio related
+    sprite_queue_len         = $0378
     ;$0379 bool, if should upload new gfx data to vram?
 
     ;dma struct?
@@ -427,7 +427,7 @@
     ;$1FAF used by icicle spawner / other stage 5 things
 
     avalanche_ongoing = $1FB1
-    ;$1FB2 unused?
+    ;$1FB2 unused
     ;$1FB3
     ;$1FB4
     ;$1FB5

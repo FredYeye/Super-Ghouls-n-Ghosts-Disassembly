@@ -758,63 +758,63 @@ update_oam_table: ;a8 x-
     phb
     lda #$7E : pha : plb
     lda.w !sprite_prio_offset.count+0*2
-    beq +
+    beq .queue_0_empty
 
     ldy.w #sprite_prio.queue_0 : jsr sprite_queue_to_oam
-+:
+.queue_0_empty:
     lda.w !sprite_prio_offset.count+1*2
-    beq +
+    beq .queue_1_empty
 
     ldy.w #sprite_prio.queue_1 : jsr sprite_queue_to_oam
-+:
+.queue_1_empty:
     lda.w !obj_arthur.active
-    beq .85EF
+    beq .skip_draw_arthur
 
     lda.w current_cage
-    bne .85EF
+    bne .skip_draw_arthur ;lower arthur priority if inside cage
 
-    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
+    lda.b #!obj_arthur.base>>8 : xba : lda.b #!obj_arthur.base : tcd
     jsr meta_sprite_to_oam_entry
-.85EF:
+.skip_draw_arthur:
     lda.w !sprite_prio_offset.count+2*2
-    beq +
+    beq queue_2_empty
 
     ldy.w #sprite_prio.queue_2 : jsr sprite_queue_to_oam
-+:
+queue_2_empty:
     lda.w !sprite_prio_offset.count+3*2
-    beq +
+    beq queue_3_empty
 
     ldy.w #sprite_prio.queue_3 : jsr sprite_queue_to_oam
-+:
+queue_3_empty:
     lda.w !sprite_prio_offset.count+4*2
-    beq +
+    beq queue_4_empty
 
     ldy.w #sprite_prio.queue_4 : jsr sprite_queue_to_oam
-+:
+queue_4_empty:
     lda.w !sprite_prio_offset.count+5*2
-    beq +
+    beq queue_5_empty
 
     ldy.w #sprite_prio.queue_5 : jsr sprite_queue_to_oam
-+:
+queue_5_empty:
     lda.w !obj_arthur.active
-    beq .862E
+    beq .skip_draw_arthur2
 
     lda.w current_cage
-    beq .862E
+    beq .skip_draw_arthur2 ;draw arthur at this priority if inside cage
 
-    lda.b #obj_start>>8 : xba : lda.b #obj_start : tcd
+    lda.b #!obj_arthur.base>>8 : xba : lda.b #!obj_arthur.base : tcd
     jsr meta_sprite_to_oam_entry
-.862E:
+.skip_draw_arthur2:
     lda.w !sprite_prio_offset.count+6*2
-    beq +
+    beq queue_6_empty
 
     ldy.w #sprite_prio.queue_6 : jsr sprite_queue_to_oam
-+:
+queue_6_empty:
     lda.w !sprite_prio_offset.count+7*2
-    beq +
+    beq queue_7_empty
 
     ldy.w #sprite_prio.queue_7 : jsr sprite_queue_to_oam
-+:
+queue_7_empty:
     stx.w oam_offset
     pld
     !A16
@@ -847,14 +847,14 @@ update_oam_table: ;a8 x-
 
 { ;8673 - 868A
 sprite_queue_to_oam: ;a8 x16
-    sta $0378
+    sta.w sprite_queue_len
 .8676:
     lda.w !sprite_prio_offset.queues+1,Y : xba : lda.w !sprite_prio_offset.queues,Y : tcd
     phy
     jsr meta_sprite_to_oam_entry
     ply
     iny #2
-    dec $0378
+    dec.w sprite_queue_len
     bne .8676
 
     rts
