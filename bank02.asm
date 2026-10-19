@@ -1650,7 +1650,7 @@ _028D09: ;a8 x-
     jsr .local
     rtl
 
-.local: ;8D0D
+.local:
     lda $3A
     beq .ret
 

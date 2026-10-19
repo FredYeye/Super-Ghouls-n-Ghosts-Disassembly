@@ -12,4 +12,4 @@ Assemble `chou.asm` with asar. Produces an identical copy of the original rom.
 
 ## Contributors
 - [GoodLuckTrying](https://github.com/GoodLuckTrying)  
-- Funghi  
+- [Funghi](https://github.com/SpiritCursed)  

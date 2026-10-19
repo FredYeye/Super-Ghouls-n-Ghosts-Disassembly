@@ -1467,14 +1467,14 @@ _018CE2: ;a- x-
 
     !X16
     ldx #$0100
-.8CE7:
-    stz $1A99,X
-    dex : bne .8CE7
+.clear_obj_type_count:
+    stz.w obj_type_count-1,X
+    dex : bne .clear_obj_type_count
 
     ldx.w #obj[53].base-1
-.8CF0:
-    stz.w !obj_start,X ;zero out object array
-    dex : bpl .8CF0
+.clear_obj_array:
+    stz.w !obj_start,X
+    dex : bpl .clear_obj_array
 
     !A16
     !X8
