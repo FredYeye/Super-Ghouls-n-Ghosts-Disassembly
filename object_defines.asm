@@ -201,36 +201,36 @@
 
 {
 struct obj 0 ;65 bytes / obj
-    .base:       skip 0
+    .base:        skip 0
 
-    .active:     skip 1
-    .timer:      skip 1
-    .state:      skip 4
-    .type:       skip 1
-    .init_param: skip 1
-    .flags1:     skip 1 ;todo: names? flags_gfx and flags_...? or combine them
-    .flags2:     skip 1
-    ._0A_0D:     skip 4 ;0A-0B appears to be sprite related
-    .hp:         skip 1
-    ._0F:        skip 1 ;seems to often be used as a state index, but also other things. obj dependent?
-    ._10:        skip 1 ;index into array for determining if enemy is too far away from camera?
-    .direction:  skip 1
-    .facing:     skip 1
-    ._13:        skip 2 ;physics pointer?
-    ._15:        skip 1
-    .speed_x:    skip 3
-    .speed_y:    skip 3
-    .gravity:    skip 1
-    ._1D:        skip 1
-    .pos_x:      skip 3
-    .pos_y:      skip 3
-    .anim_timer: skip 1
-    ._25:        skip 1 ;gfx related
-    ._26:        skip 1 ;gfx related
-    ._27:        skip 2 ;gfx related
-    ._29:        skip 2 ;gfx related
-    ._2B:        skip 2 ;?
-    ;2D-40:      see obj.ext struct
+    .active:      skip 1
+    .timer:       skip 1
+    .state:       skip 4
+    .type:        skip 1
+    .init_param:  skip 1
+    .flags1:      skip 1 ;todo: names? flags_gfx and flags_...? or combine them
+    .flags2:      skip 1
+    ._0A_0D:      skip 4 ;0A-0B appears to be sprite related
+    .hp:          skip 1
+    ._0F:         skip 1 ;seems to often be used as a state index, but also other things. obj dependent?
+    ._10:         skip 1 ;index into array for determining if enemy is too far away from camera?
+    .direction:   skip 1
+    .facing:      skip 1
+    ._13:         skip 2 ;physics pointer?
+    ._15:         skip 1
+    .speed_x:     skip 3
+    .speed_y:     skip 3
+    .gravity:     skip 1
+    ._1D:         skip 1
+    .pos_x:       skip 3
+    .pos_y:       skip 3
+    .anim_timer:  skip 1
+    ._25:         skip 1 ;gfx related
+    ._26:         skip 1 ;gfx related
+    ._27:         skip 2 ;gfx related
+    .tile_offset: skip 2 ;meta sprite base tile offset (oam[2] and oam[3] first bit)
+    ._2B:         skip 2 ;?
+    ;2D-40:       see obj.ext struct
 endstruct
 
 struct ext extends obj

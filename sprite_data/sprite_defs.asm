@@ -2,9 +2,9 @@
 _08E400:
 	db $D0 ;count
 
-	dw offset(_05826F, .E5A1), .E5CD-$826F, .E5D6-$826F, .E5DF-$826F, .E5E8-$826F, .E5F1-$826F, .E601-$826F, .E611-$826F
+	dw offset(_05826F, .arthur_walk), offset(_05826F, .arthur_jump_neutral), offset(_05826F, .arthur_jump_forward), offset(_05826F, .arthur_idle), .E5E8-$826F, .E5F1-$826F, .E601-$826F, .E611-$826F
 	dw .E621-$826F, .E631-$826F, .E641-$826F, .E65F-$826F, .E67D-$826F, .E686-$826F, .E68F-$826F, .E698-$826F
-	dw .E6AF-$826F, .FC2B-$826F, .E6C8-$826F, .E6CF-$826F, .E6EA-$826F, .E6F3-$826F, .E6FC-$826F, .E705-$826F
+	dw .E6AF-$826F, .FC2B-$826F, .E6C8-$826F, .E6CF-$826F, .E6EA-$826F, .E6F3-$826F, .E6FC-$826F, offset(_05826F, .point_statue)
 	dw .E70E-$826F, .E71B-$826F, .E72A-$826F, .E746-$826F, .FC4B-$826F, .E762-$826F, .E76B-$826F, .E8BB-$826F
 	dw .E8C4-$826F, .E8F9-$826F, .EE57-$826F, .F00E-$826F, .F037-$826F, .F07F-$826F, .F0B8-$826F, .F0C1-$826F
 	dw .F0CA-$826F, .F0D3-$826F, .F0DC-$826F, .F0E5-$826F, .F0EE-$826F, .F125-$826F, .F13E-$826F, .E774-$826F
@@ -48,7 +48,9 @@ _08E400:
 
 	;animation timer (and sometimes index also)
 
-.E5A1: ;walk
+.arthur:
+
+..walk:
 	db $0D : dw meta(sprite_offsets_arthur_walk_1, 2), $0000, $0104
 	db $10 : dw meta(sprite_offsets_arthur_walk_2, 2), $0000, $0204
 	db $0E : dw meta(sprite_offsets_arthur_walk_3, 2), $0000, $0304
@@ -57,15 +59,15 @@ _08E400:
 	db $0F : dw meta(sprite_offsets_arthur_walk_6, 2), $0000, $0684
 	dw $0000
 
-.E5CD: ;neutral jump
+..jump_neutral:
 	db $0F : dw meta(sprite_offsets_arthur_neutral_jump, 2), $0000, $07FF
 	dw $0000
 
-.E5D6: ;jump
+..jump_forward:
 	db $0F : dw meta(sprite_offsets_arthur_forward_jump, 2), $0000, $08FF
 	dw $0000
 
-.E5DF: ;idle
+..idle:
 	db $0E : dw meta(sprite_offsets_arthur_idle, 2), $0000, $00FF
 	dw $0000
 
@@ -165,7 +167,7 @@ _08E400:
 	db $07 : dw meta(sprite_offsets_42E, 2), $0200, $02FF
 	dw $0000
 
-.E705: ;point statue
+.point_statue:
 	db $04 : dw $850A, $04E0, $00FF
 	dw $0000
 

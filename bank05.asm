@@ -50,7 +50,7 @@ _058000:
 { ;805F - 8109
 _05805F:
 
-.mode1:
+.mode0:
     jsr _05810A
     !A16
 -:
@@ -65,7 +65,7 @@ _05805F:
 
     bra .80D5
 
-.mode2:
+.mode1:
     jsr _05810A
     lda.w _05826F+0,Y : sta $00
     lda.w _05826F+1,Y : sta $01
@@ -86,7 +86,7 @@ _05805F:
 
     bra .80D5
 
-.mode3:
+.mode2:
     jsr _05810A
     !A16
     lda.w _05826F,Y
@@ -111,7 +111,7 @@ _05805F:
     tax
     pla
     and #$3FFF
-    jmp (+,X) : +: dw .mode1, .mode2, .mode3
+    jmp (+,X) : +: dw .mode0, .mode1, .mode2
 
 .80D5:
     iny #2
